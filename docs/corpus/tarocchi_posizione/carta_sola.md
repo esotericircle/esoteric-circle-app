@@ -240,7 +240,7 @@ capovolta.
 ### dritta
 
 - 1: Una sosta rovescia il tuo punto di vista e l'attesa che sembra vuota è proprio la parte che lavora. Il bisogno di agire scende, mentre quello che vedi arriva dal rovescio.
-- 2: Da testa in giù la scena mostra i pesi invertiti, sopra quello che stava sotto e minimo quello che sembrava enorme. La sosta accettata opera al posto delle tue mani.
+- 2: Guardata a testa in giù, la situazione cambia proporzioni: ciò che sembrava enorme diventa piccolo e viceversa. La pausa che hai accettato lavora al posto delle tue mani.
 - 3: Nessuna delle tue mosse aggiunge niente a questo stare: la sospensione stessa è l'operazione e la scena si rivela guardata dalla parte opposta.
 
 ### capovolta
@@ -275,7 +275,7 @@ capovolta.
 
 - 1: La dose è la cosa che si è guastata: ti muovi troppo o troppo poco e due parti di te hanno smesso di parlarsi. Il ritorno non sta in una decisione sola, sta in gesti piccoli ripetuti.
 - 2: Troppo e troppo poco si alternano senza centro mentre due pezzi di te finiscono in stanze separate: una cosa così si rimette per gradi minimi, perché la dose non obbedisce a una decisione in blocco.
-- 3: Lo strappo sta nella proporzione: da una parte troppo e dall'altra niente, mentre i tuoi due versanti hanno smesso di scambiarsi qualcosa. Si rimette per piccoli ritorni somiglianti, mai in un colpo.
+- 3: Lo squilibrio sta nella proporzione: troppo da una parte e niente dall'altra, mentre due lati di te hanno smesso di scambiarsi qualcosa. Si rimedia con piccoli ritorni ripetuti, mai in un colpo solo.
 
 ## Il Diavolo
 
@@ -283,7 +283,7 @@ capovolta.
 
 - 1: Un piacere vero fa da collante al vincolo che ti tiene: la catena regge perché restituisce qualcosa in cambio, puntuale, ogni volta che la stringi un po' di più.
 - 2: L'attaccamento lavora in pieno giorno e con il tuo consenso: nutre un gusto preciso, chiede indietro una libertà alla volta e il patto regge fino a quando il gusto vale il prezzo.
-- 3: Scende nel buio il nome dell'abitudine che ti tiene: una fame vecchia, un gesto che conosce esattamente la tua misura, un legame che hai alimentato tu.
+- 3: Ciò che ti tiene resta senza nome: una fame vecchia, un gesto che conosce bene le tue debolezze, un legame che hai nutrito tu. Finché non lo nomini, comanda.
 
 ### capovolta
 
@@ -351,14 +351,14 @@ capovolta.
 
 ### dritta
 
-- 1: Una tromba ti nomina e pretende una risposta. Il prezzo che mette sul tavolo è la persona che eri fino a quel suono e nessun oggetto tuo serve a pagarlo.
+- 1: Ti chiama per nome un richiamo che chiede una risposta. Il prezzo è lasciare andare la persona che eri fino a ieri: nessuna rinuncia esterna può sostituire questo cambiamento interiore.
 - 2: Un richiamo mette in chiaro quale vita sia davvero tua e lascia in ombra quello che ti occupava fino a ieri. Il suo modo è la scossa che apre gli occhi, mai il rimprovero.
 - 3: Dall'alto una chiamata ti solleva e insieme ti spoglia: ti rende una vita più tua e si prende la persona che eri, senza versione intermedia fra le due.
 
 ### capovolta
 
-- 1: In te stanno due uffici, chi accusa e chi ascolta. Il primo parla per primo, così il bilancio che senti necessario resta rimandato oppure esce già in forma di condanna.
-- 2: L'ordine delle operazioni ti si è invertito: la durezza verso di te parla prima dell'ascolto. Quella rinascita lavora nell'altro ordine, il perdono per primo e il peso dopo.
+- 1: Dentro di te convivono una parte che accusa e una che ascolta. Parla per prima quella che accusa, così il bilancio che senti necessario viene rimandato oppure arriva già come condanna.
+- 2: Stai facendo le cose nell'ordine sbagliato: la durezza verso di te arriva prima dell'ascolto. Una rinascita funziona al contrario, prima la comprensione e poi l'esame degli errori.
 - 3: La comprensione verso di te arriva per ultima, mentre è il primo appoggio di una rinascita: ascolto e perdono ne sono la sostanza, la durezza le resta estranea.
 
 ## Il Mondo
@@ -367,12 +367,12 @@ capovolta.
 
 - 1: Un giro largo si chiude senza lasciare pezzi fuori: quello che hai attraversato smette di essere strada e diventa misura tua, il compimento si sente addosso prima del prossimo inizio.
 - 2: La pienezza tiene insieme tutto il tuo percorso in una cosa sola: nessun pezzo chiede di essere recuperato, nessun tratto sta ancora fuori e il cerchio si chiude da dentro.
-- 3: Arriva al punto di saldatura un cammino lungo: il guadagno è la larghezza del passo e la capacità di stare in ogni angolo del disegno senza più sentirti fuori posto.
+- 3: Arriva al suo compimento un cammino lungo: quello che guadagni è un modo di muoverti più ampio e la capacità di stare in ogni parte della tua vita senza sentirti fuori posto.
 
 ### capovolta
 
 - 1: Quasi tutto il tuo quadro sta al suo posto e un pezzo solo resta scollato: quel dettaglio tiene il cerchio aperto e la pienezza aspetta lì, a distanza di un tratto corto.
-- 2: La completezza si misura sul residuo: un nodo minuscolo, una faccenda che hai lasciato a metà e finché quel punto resta fuori l'armonia del tutto non si compone.
+- 2: Ciò che manca decide tutto: un dettaglio minuscolo o una faccenda che hai lasciato a metà. Finché quel punto resta fuori, l'insieme non trova la sua armonia.
 - 3: Resta scoperto un angolo del cerchio quasi finito: il lavoro grosso che hai fatto sta in piedi, il poco che manca è preciso, piccolo e proprio nel punto da cui dipende la chiusura.
 
 ## Asso di Bastoni
@@ -387,7 +387,7 @@ capovolta.
 
 - 1: Il combustibile c'è tutto, l'aria no. Il fuoco esiste sotto un coperchio che lo soffoca e il tuo primo innesco non trova presa: slitta il momento in cui tutto parte.
 - 2: Una partenza resta in sospeso senza che manchi niente al motore. Il tuo desiderio sta sotto, coperto dal timore di sbagliare il primo colpo. Tutto il resto aspetta quel colpo.
-- 3: A essere fermo è il momento dell'innesco, una fiamma sola da far nascere, sempre quella, con il tuo stesso fiato sopra che la spegne appena cresce.
+- 3: Quello che si blocca è il momento di cominciare: il desiderio c'è, ma ogni volta che sta per nascere lo spegni tu, con dubbi e ripensamenti.
 
 ## Due di Bastoni
 
@@ -506,7 +506,7 @@ capovolta.
 ### dritta
 
 - 1: Le responsabilità sono vere tutte quante e stanno in un fascio unico che ti curva la schiena: quali di esse siano davvero tue da portare è una cernita che nessuno ha ancora fatto.
-- 2: Un carico fatto di cose dovute ti grava sulle spalle senza che una sia finta. La curvatura viene dal loro numero e il tuo si mescola all'altrui.
+- 2: Un carico fatto di cose tutte dovute ti curva le spalle: nessuna è inutile, ma messe insieme sono troppe e le tue si confondono con quelle degli altri.
 - 3: Hai addosso impegni accettati uno dopo l'altro e il corpo li sente tutti nello stesso punto. Il dovuto e il superfluo stanno nel medesimo fascio, senza un segno che li divida.
 
 ### capovolta
@@ -520,7 +520,7 @@ capovolta.
 ### dritta
 
 - 1: Giovane e senza pretese, una curiosità ti prende per il gusto di provarla: esplori e tenti, mentre la distanza fra quanto è piccola e quanto può diventare è tutta la sua ricchezza.
-- 2: Un'idea appena nata ti tira fuori a provarla senza sapere dove arriva: l'età di questo entusiasmo è il suo diritto, perché a quell'età si tenta e nessuno chiede un frutto.
+- 2: Un'idea appena nata ti spinge a provarla senza sapere dove porta: è l'età giusta per tentare, perché in questa fase nessuno pretende ancora un risultato.
 - 3: La tua capacità messa in esercizio è quella di esplorare: apri, provi, domandi senza sapere dove sbuchi. Quello che impari vale pure quando non serve a nulla.
 
 ### capovolta
@@ -549,7 +549,7 @@ capovolta.
 
 - 1: Il calore attrae e gli altri vengono verso il fuoco perché scalda senza bruciare. La stanza si riempie attorno al punto dove stai, senza che tu debba chiamare nessuno.
 - 2: Una fiamma ferma, come quella di un focolare, resta al suo posto e tutti le stanno intorno. La tua sicurezza che la tiene accesa è la stessa cosa che la rende attraente.
-- 3: Magnetismo per materia: calore, colore, un modo di stare che si vede da lontano. Scalda la stanza intorno a te e quello che dà agli altri non lo sottrae a sé.
+- 3: Questa forza è fatta di magnetismo: calore, colore, un modo di stare che si nota da lontano. Scalda chi ti è vicino e quello che dai agli altri non lo togli a te.
 
 ### capovolta
 
@@ -575,28 +575,28 @@ capovolta.
 
 ### dritta
 
-- 1: Una sorgente si apre dentro e dà più acqua di quanta ne serva: il sentire arriva al principio, senza un destinatario già scelto e senza nessuno che te lo porti.
-- 2: Il traboccare nasce alla fonte: l'emozione sta al suo primo stato, pura e abbondante, pronta a correre fuori per conto proprio senza bisogno di un tuo gesto.
+- 1: La risposta sta in un sentimento nuovo che nasce dentro di te più forte del previsto: arriva prima ancora di avere un nome o una persona a cui rivolgersi.
+- 2: Questa emozione è al suo inizio, pura e abbondante: non serve forzarla né guidarla, perché tende a uscire da sé verso ciò che ti circonda.
 - 3: Hai dentro un principio di sentimento ancora senza nome e senza direzione: l'acqua sale fino all'orlo e la dolcezza di questo stato sta nell'abbondanza che non hai prodotto.
 
 ### capovolta
 
-- 1: L'acqua resta ferma dentro un recipiente chiuso a mandata: il tuo sentire non arriva a nessuno perché non è ancora uscito, con il timore di soffrire che tiene girata la chiave.
-- 2: Tappata alla fonte, l'acqua fa ristagno sul posto e il sentimento invecchia nel punto dove è nato: la chiusura sta a monte di ogni incontro e riguarda te con quello che provi.
+- 1: Ciò che senti resta chiuso dentro di te, come acqua in un recipiente sigillato: non arriva a nessuno perché è la paura di soffrire a tenerlo fermo.
+- 2: Il sentimento trattenuto alla fonte ristagna e perde freschezza nel punto in cui è nato: la chiusura viene prima di ogni incontro e riguarda il tuo rapporto con ciò che provi.
 - 3: Resta chiuso a chiave un sentimento rimandato, oppure un'emozione tenuta a bada per paura del dolore. L'acqua ha pressione e nessuna uscita, con il ristagno tutto dalla tua parte.
 
 ## Due di Coppe
 
 ### dritta
 
-- 1: Lo stesso gesto muove da te e dall'altra parte insieme e si incontra a mezza distanza. Il riconoscimento va e torna e si chiude in un patto che nessuno ha dovuto chiedere.
+- 1: La risposta è un gesto che parte da te e dall'altra parte nello stesso momento: il riconoscimento è reciproco e si chiude in un patto che nessuno ha dovuto chiedere.
 - 2: Un patto fra pari si sigilla senza che uno guidi e l'altro segua: chi hai di fronte dà quanto prende e la forza che ne viene moltiplica quella delle parti separate.
-- 3: Alla pari e l'uno in faccia all'altro. Tu metti la tua misura esatta, l'altro mette la sua e quello che si sigilla tiene perché sta su appoggi uguali.
+- 3: Vi trovate alla pari, faccia a faccia: tu metti la tua parte e l'altra persona mette la sua, così l'accordo tiene perché poggia su basi uguali.
 
 ### capovolta
 
-- 1: Fra te e una persona che ti vuole bene si è aperta una distanza che nasce da parole lette male, con l'affetto fermo sotto e il solo accordo fra le parti spostato.
-- 2: Una coppia si allontana per un fraintendimento mentre il bene fra loro sta dov'era. Lo spazio che le frasi storte hanno aperto si richiude dall'ascolto vero, il tuo e quello dell'altra parte.
+- 1: Fra te e una persona che ti vuole bene si è aperta una distanza nata da parole capite male: l'affetto resta intatto, si è incrinato soltanto l'accordo fra voi.
+- 2: Due parti si allontanano per un fraintendimento, mentre il bene fra loro resta dov'era: la distanza aperta dalle frasi storte si richiude con un ascolto vero, il tuo e quello dell'altra parte.
 - 3: Parole prese per un senso che non avevano hanno messo uno scarto fra te e una persona a cui tieni. Il bene regge: ciò che si è spostato torna a posto ascoltandosi davvero.
 
 ## Tre di Coppe
@@ -605,20 +605,20 @@ capovolta.
 
 - 1: La gioia è la materia che raddoppia passando di mano: messa fra le mani di chi ti vuole bene cresce, mentre tenuta addosso resta grande quanto una persona sola.
 - 2: Un brindisi ti mette in cerchio con chi ti tiene caro e il tuo motivo di allegria diventa anche il loro: la cosa che la scatena esiste già e la compagnia la moltiplica.
-- 3: Allegro e corale, il modo di questa tua contentezza vuole più di una persona: si alza insieme, si racconta e torna indietro cresciuta da chi l'ha sentita.
+- 3: Questa tua contentezza ha bisogno di compagnia per essere piena: si festeggia insieme, si racconta agli altri e torna indietro più grande grazie a chi l'ha ascoltata.
 
 ### capovolta
 
-- 1: Lo spessore dei legami è la cosa in questione: i molti sottili ti prendono l'attenzione mentre i pochi che ti tengono su restano senza un turno. Forse è un eccesso, forse una cerchia curata male.
-- 2: Largo e tiepido, il giro si è allargato più di quanto tu riesca a nutrire: ti saluti con molti e ti racconti con pochissimi, mentre la cura si spalma fino a non arrivare.
-- 3: La stessa presenza distribuita su molte compagnie scalda poco e raccolta su poche scalda parecchio: il numero decide quanto ti nutre quello che dai e quello che ricevi.
+- 1: Qui conta lo spessore dei legami: molte relazioni superficiali ti prendono attenzione, mentre le poche persone che ti sostengono davvero restano senza il tempo che meritano.
+- 2: Il tuo giro di persone è cresciuto troppo per poterlo curare bene: saluti molti e ti confidi con pochissimi, così la tua attenzione non arriva davvero a nessuno.
+- 3: La stessa presenza divisa fra molte compagnie scalda poco, raccolta su poche persone scalda molto: è il numero a decidere quanto ti nutre ciò che dai e ricevi.
 
 ## Quattro di Coppe
 
 ### dritta
 
 - 1: Una sazietà piena ti spegne l'interesse: l'offerta tesa di fianco si vede bene senza riuscire a entrare, perché il gusto per il nuovo si è messo a riposo.
-- 2: La noia ha abbondanza alle spalle: hai già il necessario e una mano porge di lato, senza che lo sguardo si giri a guardarla.
+- 2: La noia nasce dall'abbondanza: hai già il necessario, così quando una mano ti porge qualcosa di lato lo sguardo non si gira nemmeno a guardarla.
 - 3: Accanto a te sta un dono buono mentre lo sguardo guarda altrove: il disinteresse non nasce da mancanza, nasce da una pienezza che ha smesso di sentire fame.
 
 ### capovolta
@@ -631,15 +631,15 @@ capovolta.
 
 ### dritta
 
-- 1: Il rimpianto ti tiene lo sguardo in una direzione sola, su quello che è andato. Alle spalle resta in piedi qualcosa che il conto non registra, fuori dal campo di chi guarda quel vuoto.
-- 2: La perdita è già avvenuta e la tua pena ha per metro il posto vuoto. Il resto della scena esiste e sta dietro, fermo, nella parte che lo sguardo fisso lascia in penombra.
-- 3: Un conto doppio ti sta davanti, il perso e il rimasto: il primo prende tutto lo sguardo, il secondo aspetta dietro le spalle, vero quanto la pena.
+- 1: Il rimpianto tiene il tuo sguardo fisso su ciò che è andato: intanto qualcosa di prezioso resta in piedi alle tue spalle, fuori dalla vista di chi guarda soltanto il vuoto.
+- 2: La perdita è già avvenuta e il tuo dolore si misura sul posto rimasto vuoto: il resto esiste ancora, ma sta nella parte che lo sguardo fisso lascia al buio.
+- 3: Davanti a te ci sono due conti, ciò che hai perso e ciò che ti resta: il primo prende l'attenzione, il secondo aspetta il tuo sguardo ed è vero quanto il dolore.
 
 ### capovolta
 
 - 1: La testa gira e trova ciò che era già in piedi: niente di nuovo entra in scena, cambia la direzione da cui guardi. Il lutto resta vero e smette di occupare il campo.
-- 2: L'accettazione ha la misura di un movimento del collo: la parte perduta esce dalla vista, quella rimasta ci entra. Il perdono vale verso chi ha mancato e verso il tuo rimpianto.
-- 3: Il peso passa da quello che ti manca a quello che c'è, senza che nessuno riporti indietro la cosa perduta. Il dolore attraversato lascia posto piano, alla velocità con cui la testa gira.
+- 2: L'accettazione comincia da un piccolo cambio di sguardo: ciò che hai perso esce dal centro, ciò che resta ci entra; il perdono vale verso chi ha mancato e verso il tuo rimpianto.
+- 3: Il peso si sposta da ciò che ti manca a ciò che c'è, senza che nulla di perduto torni indietro: il dolore attraversato lascia spazio piano, al ritmo con cui riesci a voltarti.
 
 ## Sei di Coppe
 
@@ -687,14 +687,14 @@ capovolta.
 
 ### dritta
 
-- 1: La facoltà sotto esame è il permettersi: un desiderio tuo è stato esaudito alla lettera e la contentezza ti sta davanti già servita, mentre il pudore ti trattiene dal prenderla.
+- 1: Ciò che conta adesso è concederti di godere: un tuo desiderio si è realizzato proprio come lo volevi e la contentezza è a portata di mano, mentre il pudore ti trattiene dal prenderla.
 - 2: Un desiderio ti è stato esaudito nella forma esatta in cui lo chiedevi. L'unica cosa che ti separa dal gustarlo è il pudore di ammettere che ti fa piacere.
 - 3: Si vede una fila di cose ottenute una per una come le avevi chieste; resta in penombra il senso di colpa che ti fa abbassare gli occhi mentre le guardi.
 
 ### capovolta
 
 - 1: Il piacere l'hai già avuto e il vuoto viene dopo: quello che hai preso era buono senza riempire, così il sospetto si sposta su quello che ne volevi.
-- 2: Sotto esame non c'è quello che hai ottenuto ma la tua facoltà di desiderare: il gusto si consuma e lascia la fame di prima, così la domanda cade su che cosa cercavi.
+- 2: La domanda vera non riguarda ciò che hai ottenuto ma ciò che desideri: il piacere passa presto e lascia la fame di prima, quindi conviene chiederti che cosa cercavi davvero.
 - 3: Una soddisfazione di facciata fa due cose insieme: ti copre il vuoto e lo tiene intatto. Il desiderio che l'ha chiesta cercava una distrazione più che una pienezza.
 
 ## Dieci di Coppe
@@ -707,8 +707,8 @@ capovolta.
 
 ### capovolta
 
-- 1: Sotto il tuo tetto le direzioni si moltiplicano: ciascuno dei vicini tira per conto proprio e la temperatura comune scende senza che nessuno abbia litigato davvero.
-- 2: La tua famiglia resta insieme e smette di andare insieme: lo stesso spazio tiene più intenzioni che persone e l'armonia del gruppo paga la somma delle distanze.
+- 1: Sotto il tuo tetto le direzioni si moltiplicano: ciascuna delle persone vicine tira per conto proprio e il clima comune si raffredda, senza che nessuno abbia litigato davvero.
+- 2: Le persone della tua cerchia restano insieme ma smettono di andare nella stessa direzione: ognuno segue progetti propri e l'armonia del gruppo paga quelle distanze.
 - 3: Fra le persone di casa tua si è aperto spazio vuoto: nessuna rottura precisa, piuttosto una serie di scarti piccoli che sommati raffreddano le stanze.
 
 ## Fante di Coppe
@@ -722,7 +722,7 @@ capovolta.
 ### capovolta
 
 - 1: Un sentire alle prime esperienze prende un colpo e si tappa, con la porta chiusa dall'interno e dentro tutto quello che per te non ha ancora trovato parole.
-- 2: Il tuo sentire giovane alza un mattone per volta, timido davanti a un'emozione che non sa ancora misurare. Scrive e non consegna, pensa la frase e la tiene in tasca.
+- 2: Il tuo sentire giovane si protegge un poco alla volta, timido davanti a un'emozione che non sa ancora misurare: scrivi e non consegni, pensi la frase e la tieni per te.
 - 3: Fragilità senza mestiere. Ogni cosa ti entra con la stessa forza e il riparo che trova è il muro. Quello che hai dentro continua a essere tenero, soltanto non lo mostra a nessuno.
 
 ## Cavaliere di Coppe

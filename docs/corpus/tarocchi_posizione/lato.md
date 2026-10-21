@@ -72,7 +72,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Hai annunciato una cosa e la mano non l'ha ancora consegnata: il dire è corso avanti, il fare è rimasto indietro. Gli strumenti stanno sul tavolo, il talento dentro il cassetto.
-- 2: La distanza tra quello che prometti e quello che le mani portano a termine. Il dono sta dove l'hai lasciato, in un cassetto, mentre la parola data annuncia una misura che il gesto non raggiunge.
+- 2: Senti la distanza tra quello che prometti e quello che le tue mani portano a termine: il dono sta ancora nel cassetto, mentre la parola data va più lontano del gesto.
 - 3: Mentre la tua parola dichiara, le dita restano ferme sugli attrezzi già pronti: il talento c'è per intero e il tratto che va dall'annuncio al gesto si è allargato.
 
 ## La Papessa
@@ -611,7 +611,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### dritta
 
-- 1: Due coppe versate ti tengono gli occhi incollati a terra. Il rimpianto occupa il primo piano e misura la tua domanda su ciò che hai perduto.
+- 1: Tre coppe versate ti tengono gli occhi a terra: il rimpianto occupa il primo piano e misura la tua domanda soltanto su ciò che hai perduto.
 - 2: Dietro le tue spalle due coppe stanno ancora in piedi. Lo sguardo tuo sta davanti al versato: il peso di ciò che manca copre tutto il resto.
 - 3: Una perdita vera pesa nella tua domanda. Il dolore ha ragione di esserci; il conteggio che ne fai lascia fuori ciò che è rimasto intatto.
 

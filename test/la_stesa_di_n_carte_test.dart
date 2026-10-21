@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta.dart';
-import 'package:esoteric_circle/core/tarot/la_domanda_letta.dart';
+import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta_scritta.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
@@ -211,14 +211,10 @@ void main() {
             // della domanda, che hanno le loro parole (*"scrivi tre fatti
             // concreti"* non e' il numero delle carte). Si guarda la cornice
             // che la voce mette intorno, ed e' lei che vale per ogni stesa.
-            for (final c in LaCartaNellaRisposta.tavola.values) {
-              for (final x in [c.dice, c.via, c.tema]) {
-                senzaNomi = senzaNomi.replaceAll(x, '');
-              }
-            }
             for (final x in [
-              ...LaDomandaLetta.di(null).azioni(topic),
-              ...LaDomandaLetta.di(null).nonFare(topic),
+              for (final c in LaCartaNellaRisposta.tavola.values) c.tema,
+              for (final t in testiDelleCarte.values) ...t.values,
+              for (final g in gestiDellaDomanda.values) ...g.values,
             ]) {
               senzaNomi = senzaNomi.replaceAll(x, '');
             }

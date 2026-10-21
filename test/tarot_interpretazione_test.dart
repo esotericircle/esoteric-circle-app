@@ -152,7 +152,11 @@ void main() {
       // poggiare sulle tre carte e nominarle, ed e' questo che si pretende
       // adesso. Che le nomini nel **primo** paragrafo lo presidia
       // `il_consiglio_dei_tarocchi_e_la_sua_anatomia_test`.
-      expect(r.consiglio, contains(s.presente.card.name));
+      // Maiuscola o minuscola: "L'Imperatore" a inizio frase, "l'Imperatore"
+      // dopo "nel presente," (ordine GA voce GA.06, i testi si leggono come
+      // frasi italiane).
+      expect(r.consiglio.toLowerCase(),
+          contains(s.presente.card.name.toLowerCase()));
       // La domanda si legge risolta: nel pool ci sono le marche del
       // genere, ordine DL voce 03.
       expect(TarotReading.domande.map(LaMarcaDelGenere.risolvi),

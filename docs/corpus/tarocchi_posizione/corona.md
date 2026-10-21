@@ -33,13 +33,13 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Il punto più alto di questa spinta è il passo mosso con le mani libere: sulla tua questione l'altezza sta nel partire senza bagaglio; si ferma dove comincia una strada disegnata dalla mano di altri.
+- 1: Il meglio che questa spinta può dare alla tua questione è la libertà di partire senza zavorre; perde forza quando sono altri a decidere la direzione al posto tuo.
 - 2: Al rendimento pieno questa libertà dà alla tua domanda un piede che si stacca da terra senza aver chiesto garanzie: il meglio che sa offrire è un avvio pulito, senza debiti con quello che è stato.
-- 3: Fra la prudenza in cui la tua questione sta adesso e lo slancio di chi parte senza sapere dove dorme la sera corre un margine larghissimo: quel margine misura il massimo di questa forza.
+- 3: Nella sua forma migliore questa forza ti porta dalla prudenza di adesso a uno slancio vero: il massimo che può darti è il coraggio di cominciare senza sapere tutto.
 
 ### capovolta
 
-- 1: Se nulla si sprecasse, questa esitazione darebbe alla tua questione un movente messo a nudo: la spinta guardata in faccia prima che il piede si stacchi, col nome giusto sopra.
+- 1: Al suo meglio questa esitazione ti porta a guardare in faccia il motivo vero della tua spinta, prima che il piede si stacchi da terra.
 - 2: Il massimo qui è fatto di due materie sole: l'orlo riconosciuto per quello che è, insieme alla domanda onesta su che cosa muove il tuo passo, coraggio oppure fretta di andarsene.
 - 3: Questa sospensione sul bordo, al suo meglio, dà alla tua questione il nome vero della spinta; non arriva a dare il piede posato dall'altra parte, perché riconoscere e muoversi sono due mestieri.
 
@@ -49,26 +49,26 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il punto più alto di questa forza sulla tua questione è l'idea che diventa gesto eseguito: oltre l'atto compiuto non sale, perché il suo mestiere è la messa in opera e non il premio che ne viene.
 - 2: Al suo pieno rendimento questa forza mette in opera ogni strumento che la tua questione ha a portata: niente resta chiuso in un cassetto per mancanza di una mano che lo prenda.
-- 3: Fra come sta adesso la tua domanda e quanto vale la dotazione che la tocca resta aperta una distanza grande quanto l'intero passaggio dal progetto all'atto eseguito.
+- 3: Nella sua forma migliore questa forza ti porta dall'idea all'atto compiuto: il massimo che può dare alla tua domanda è vedere realizzato davvero ciò che hai progettato.
 
 ### capovolta
 
-- 1: Se nulla si sprecasse, lo scarto fra quello che la tua questione promette e quello che le mani mantengono sarebbe misurato per intero, con il talento riconosciuto intatto e la distanza detta in chiaro.
-- 2: Il massimo che questa forza porta alla tua domanda è fatto di due pezzi: un dono che resta pieno e una parola più larga dell'opera che la segue. Tanto il dono quanto lo scarto si lasciano pesare.
+- 1: Al suo meglio questa forza ti fa vedere con chiarezza lo scarto fra ciò che prometti e ciò che mantieni, riconoscendo che il talento c'è ancora tutto.
+- 2: Il massimo che puoi ottenere qui è una presa di coscienza: il tuo dono è intatto ma le tue parole vanno oltre ciò che le mani realizzano.
 - 3: Nemmeno al suo meglio questa forza mette in opera il dono: arriva a nominare per intero la distanza fra la parola data e la mano che la mantiene nella tua questione; oltre quella misura non va.
 
 ## La Papessa
 
 ### dritta
 
-- 1: Il punto più alto che questa forza può dare alla tua domanda è un sapere che arriva prima delle parole ed è esatto senza prove: oltre non sale, perché dimostrandosi smetterebbe di esserlo.
+- 1: Il massimo che questa forza può dare alla tua domanda è un sapere che arriva prima delle parole ed è giusto anche senza prove da mostrare.
 - 2: Al suo pieno rendimento la tua questione avrebbe una custode interna che riconosce il vero prima di saperlo spiegare: nessun parere raccolto in fretta, una quiete che tiene fermo quello che ha visto.
 - 3: Questa forza porta alla tua domanda una comprensione che matura nel silenzio e vale una prova; non ti dà la parola pronta da mettere sul tavolo: quel sapere resta intero finché non si traduce.
 
 ### capovolta
 
 - 1: Il meglio che questa forza sa dare alla tua questione è il rumore che si riconosce come rumore: smette di spacciarsi per ragionamento e lascia emergere il sapere coperto.
-- 2: Di che cosa è fatto questo massimo, nel tuo caso: una sola ammissione, che la ragione messa davanti fa da copertura; nient'altro, nessuna rivelazione, nessun chiarimento prestato da fuori.
+- 2: Nel tuo caso il massimo è un'ammissione sola: i ragionamenti messi davanti servono a coprire ciò che senti, senza rivelazioni né chiarimenti che ti arrivino dall'esterno.
 - 3: Quello che al suo meglio questa forza lascia intero nella tua questione è il sapere coperto: soffocarlo non lo cancella, non lo consuma; resta intatto e disponibile nel momento in cui il frastuono cala.
 
 ## L'Imperatrice
@@ -82,7 +82,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Il meglio che questa forza sa dare alla tua questione è una cura che torna alla sorgente: la radice nutrita prima dei rami, così che quello che fiorisce fuori abbia da dove venire.
-- 2: Di questo massimo fanno parte la sorgente della tua questione riconosciuta come tale, la cura che le arriva prima che agli altri rami e il tempo lento in cui una radice si rifà.
+- 2: Nella sua forma migliore questa forza ti porta a riconoscere la sorgente della tua questione e a nutrirla prima del resto, con il tempo lento che serve per ricaricarla.
 - 3: Quello che questa forza al suo meglio tiene intero è la capacità generativa della tua questione, la fonte da cui qualcosa può ancora nascere anche quando fuori niente sta fiorendo.
 
 ## L'Imperatore
@@ -91,25 +91,25 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il punto in cui questa forza smette di salire è una forma che tiene anche quando nessuno la sorveglia: alla tua questione può dare durata, mai calore.
 - 2: Al suo pieno rendimento questa fermezza dà alla tua questione un impianto che si regge da sé, con la misura applicata prima di tutto a chi la impone: un ordine senza guardiani.
-- 3: Fra come la tua questione sta adesso e quanto potrebbe valere ferma su una regola scritta, la distanza ancora aperta è quella che separa un patto rinegoziato ogni volta da uno stabilito una volta sola.
+- 3: Nella sua forma migliore questa forza dà alla tua questione regole chiare stabilite una volta sola, al posto di accordi da rinegoziare ogni volta da capo.
 
 ### capovolta
 
-- 1: Se nulla la sprecasse, questa stretta diventerebbe misura: la parte della norma che porta carico starebbe in piedi, il resto cadrebbe. Al tuo impianto darebbe l'essenziale ridotto all'osso.
-- 2: Il meglio possibile qui è fatto di tre cose contate: quali muri della tua costruzione reggono il peso, quali sono decorazione, quale vincolo serviva soltanto a chi lo imponeva.
-- 3: Una norma allentata può restituire respiro al tuo progetto e nominare gli appoggi che mancavano sotto; fuori dal suo massimo resta la fiducia di chi quella stretta l'ha subita fin qui.
+- 1: Al suo meglio questa stretta diventa misura: restano in piedi solo le regole che servono davvero, mentre le altre cadono e la tua situazione si riduce all'essenziale.
+- 2: Il massimo possibile qui è capire quali regole reggono davvero la tua costruzione, quali sono solo apparenza e quali servivano soltanto a chi le imponeva.
+- 3: Una norma allentata può restituire respiro al tuo progetto e mostrare le basi che mancavano; non può però ridare subito fiducia a chi ha subito quella stretta.
 
 ## Il Papa
 
 ### dritta
 
-- 1: Il tetto di questa carta è un insegnamento che la tua domanda riceve per intero da chi l'ha attraversata prima: oltre la dottrina trasmessa questa spinta non sale: di suo non fabbrica nulla di nuovo.
+- 1: Il massimo che questa carta può dare alla tua domanda è un insegnamento ricevuto per intero da chi ci è già passato; di suo non inventa nulla di nuovo.
 - 2: Al suo pieno rendimento questa linea antica dà alla tua questione una guida in carne e ossa: un sapere provato da altri, consegnato come si consegna un mestiere, con la mano sopra la tua.
-- 3: Fra l'opinione che la tua questione si è fatta da sé e una dottrina che dura da secoli corre tutta la distanza che questa carta può coprire: il margine qui è l'autorità di chi insegna.
+- 3: Nella sua forma migliore questa forza porta la tua questione da un'opinione personale a un sapere collaudato da secoli, con tutta l'autorità di chi lo insegna.
 
 ### capovolta
 
-- 1: Se nulla la trattenesse, questa spinta restituirebbe al mittente un credo ricevuto in prestito e lascerebbe in piedi solo le regole di cui la tua questione sa rendere conto da sé.
+- 1: Al suo meglio questa spinta ti fa restituire le convinzioni prese in prestito, tenendo soltanto le regole che sai spiegare con le tue ragioni.
 - 2: Questo massimo è fatto di un congedo cortese: il maestro ringraziato, la formula imparata a memoria lasciata andare, la tua questione che cerca il proprio senso fuori dal sentiero tracciato.
 - 3: Un congedo questa spinta lo sa dare per intero, una regola nuova no: la tua domanda ne esce libera dalla formula vecchia, senza averne ancora una propria da mettere al suo posto.
 
@@ -119,195 +119,195 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Al suo meglio questa forza tiene in piedi l'accordo fra quello in cui credi e quello che ti muove: il massimo in gioco è una decisione che non lascia fuori nessuna delle due parti.
 - 2: Il bene più alto che questa forza porta alla tua questione è l'interezza: una scelta in cui la testa e il sentimento dicono la stessa cosa, senza che uno dei due taccia.
-- 3: Più in alto di così non arriva: il metro della decisione diventa quello che hai di più tuo, i valori che reggono la tua vita invece del gusto di un pomeriggio.
+- 3: Ciò che di meglio puoi ottenere è una decisione misurata su ciò che hai di più tuo, i valori che reggono la tua vita, invece che sul gusto di un momento.
 
 ### capovolta
 
-- 1: Portata al rendimento pieno, questa frattura dà alla tua questione i due termini riconosciuti come tuoi entrambi: nessuno dei due è arrivato da fuori, nessuno dei due parla per conto d'altri.
-- 2: Fra il silenzio in cui una delle tue due ragioni sta e la parola che le toccherebbe corre tutto il margine di questa forza: il massimo è la metà muta che torna a dire la sua.
+- 1: Il meglio che puoi raggiungere è riconoscere come tue entrambe le parti in conflitto: nessuna arriva da fuori, nessuna parla per conto di altri, così puoi finalmente ascoltarle.
+- 2: Nella forma migliore, la parte di te rimasta zitta torna a dire la sua: tutto il margine di miglioramento sta fra quel silenzio e la sua parola.
 - 3: Al suo meglio avrebbe la forma di due ragioni sedute allo stesso tavolo, con pari diritto di parola sulla tua questione: nessuna delle due messa a tacere per far prima.
 
 ## Il Carro
 
 ### dritta
 
-- 1: Al suo meglio questa forza lascia intere entrambe le spinte che tirano la tua questione: nessuna delle due viene sacrificata all'altra e tutte e due restano aggiogate allo stesso avanzamento.
-- 2: Il genere di bene che sta in cima è padronanza e non fortuna: il più che la tua domanda riceve è una mano ferma sulle redini, non un terreno che si fa più comodo.
-- 3: Più in alto del governo non si sale: questa forza arriva a tenere insieme contrari che tirano sulla tua questione e si ferma dove comincia il terreno, che nessuna presa governa.
+- 1: Il meglio che puoi ottenere è tenere insieme tutte le spinte della tua questione senza sacrificarne nessuna, facendole avanzare nella stessa direzione con una guida ferma e costante.
+- 2: Al suo meglio questa forza ti porta padronanza, non fortuna: alla tua domanda arriva una mano ferma che guida, non una situazione che diventa più comoda per conto suo.
+- 3: Più in alto del governo non si sale: puoi guidare le forze contrarie della tua questione, mentre ciò che non dipende da te resta fuori dalla tua presa.
 
 ### capovolta
 
-- 1: Al suo pieno rendimento questa forza mostra lo sbandamento per quello che è: una presa lasciata andare su spinte che restano attaccate alla tua questione, dentro un mezzo che non ha nulla di rotto.
-- 2: Fra come corre adesso la tua questione e quanto porterebbe la stessa energia tenuta in mano resta aperto un margine: la presa, che è l'unica cosa in gioco.
-- 3: Se nulla andasse sprecato, le forze che fanno sbandare il tuo caso tirerebbero tutte dallo stesso lato e lo sbando resterebbe un segno da leggere invece di un danno da contare.
+- 1: Il meglio che puoi ottenere è vedere lo sbandamento per quello che è, una presa che hai allentato: le forze ci sono ancora, va solo ripresa la guida.
+- 2: Tutto il margine di miglioramento della tua questione sta nel controllo: la stessa energia, guidata con mano ferma, porterebbe molto più lontano di quanto ti porta adesso.
+- 3: Nella forma migliore, le forze che ora ti fanno sbandare tirano dalla stessa parte, così lo sbandamento diventa un segnale da leggere invece di un danno.
 
 ## La Giustizia
 
 ### dritta
 
-- 1: Fra come la tua questione sta e quanto potrebbe valere c'è la distanza di un conto fatto fino in fondo: ogni effetto riportato alla sua causa, niente arrotondato per comodità, nessuna parte lasciata fuori dal peso.
-- 2: La misura piena di questa forza mette sulla bilancia della tua domanda tutto quello che le appartiene; quello che non arriva a darti è l'assoluzione, perché una bilancia pesa e non perdona.
-- 3: Il genere di bene che questa forza porta alla tua questione è esattezza e non clemenza: un peso che torna giusto, non un peso più leggero; un conto corretto, non un conto cancellato.
+- 1: Il meglio che puoi raggiungere è un conto fatto fino in fondo: ogni effetto ricondotto alla sua causa, niente arrotondato per comodità, nessuna parte lasciata fuori.
+- 2: Al massimo questa forza mette sulla bilancia tutto ciò che riguarda la tua domanda, ma non ti offre assoluzioni: misura ogni cosa con esattezza, senza perdonare né condannare.
+- 3: Esattezza, non clemenza: è questo il bene migliore che puoi ottenere, un conto corretto e giusto per te e per gli altri, non un conto cancellato o reso più leggero.
 
 ### capovolta
 
-- 1: Al suo pieno rendimento questa forza riporterebbe sotto il tuo nome la sola parte del conto che è davvero tua: non tutte le colpe del mondo, soltanto la riga che ti appartiene.
-- 2: Quello che questa forza, al suo meglio, salva nella tua questione è la possibilità di un pareggio: finché il conto resta attribuito al caso nessuno lo può leggere; riconosciuto, almeno torna sul tavolo come cifra.
-- 3: Il punto oltre il quale questa forza non sale, nella tua faccenda, è il nome esatto messo sopra una conseguenza: la riconduce a chi la produce e non la alleggerisce di un grammo.
+- 1: Il meglio che puoi ottenere è riprendere sotto il tuo nome soltanto la parte del conto che ti spetta davvero: non tutte le colpe del mondo, solo la tua.
+- 2: Al suo meglio questa forza ti offre la possibilità di rimettere le cose in pari: finché attribuisci tutto al caso nessuno può sistemare il conto, mentre riconoscerlo lo riporta sul tavolo.
+- 3: Più in alto di così non si arriva: puoi chiamare con il nome giusto una conseguenza tua, ricondurla a chi l'ha prodotta senza ingigantirla e senza alleggerirla.
 
 ## L'Eremita
 
 ### dritta
 
-- 1: Fra come la tua questione sta adesso e quanto potrebbe chiarirsi resta aperto un margine: è lo spazio che un silenzio cercato sa riempire, un passo illuminato per volta.
+- 1: Al suo meglio questa forza ti dà una chiarezza che cresce un tratto alla volta, grazie a un silenzio scelto con cura: è questo lo spazio di miglioramento della tua questione.
 - 2: Il genere di bene al suo massimo qui è lucidità, non conforto: una comprensione guadagnata nel tuo raccoglimento, di quelle che nessuno può consegnarti da fuori.
 - 3: La lanterna di questa forza, al suo meglio, può mostrare alla tua questione un passo chiaro per volta; quello che non arriva a dare è la mappa intera in una sola occhiata.
 
 ### capovolta
 
-- 1: Al suo pieno rendimento questa forza darebbe alla tua questione la differenza vista con chiarezza fra un raccoglimento che insegna e un ritiro che tiene lontano, con la lanterna puntata anche sul rientro.
+- 1: Il meglio che puoi ottenere è distinguere con chiarezza fra un raccoglimento che insegna e un ritiro che allontana, tenendo lo sguardo anche sulla via del ritorno.
 - 2: Quello che questa forza al suo meglio lascia intero nella tua questione è il filo con gli altri: assottigliato dalla distanza, mai reciso, percorribile ancora nei due sensi.
-- 3: Il punto oltre il quale questa forza non sale è il rientro: può illuminare la via di casa della tua questione, mai attraversarla al tuo posto né accorciare il buio che resta in mezzo.
+- 3: Più di così questa forza non può fare: ti mostra come tornare verso gli altri, ma non può farlo al tuo posto né accorciare la distanza che resta.
 
 ## La Ruota della Fortuna
 
 ### dritta
 
-- 1: Al suo meglio questo girare lascia intero il fatto che niente nella tua questione sia fissato per sempre: quello che salva è la mobilità, cioè la possibilità che un assetto duro si sciolga da sé.
-- 2: Di che genere è il bene più alto qui: movimento e non comodità. Il massimo della tua domanda è una rotazione che rimette in gioco quello che pareva assegnato, mai una sistemazione migliore in cui fermarsi.
-- 3: Il tetto di questa forza è il cambiamento stesso: può rovesciare un assetto della tua questione e non può scegliere dove arrestarlo. L'altezza qui è il moto, il suo limite è il non avere mano.
+- 1: Il meglio che puoi ottenere è la consapevolezza che nulla della tua questione è fissato per sempre: anche ciò che sembra bloccato può cambiare da sé.
+- 2: Movimento, non comodità: è il bene più alto che arriva alla tua domanda, un giro che rimette in gioco ciò che sembrava già assegnato una volta per tutte.
+- 3: Questa forza porta il cambiamento senza poterlo dirigere: può rovesciare la tua situazione in meglio o in peggio, ma non decide dove fermarsi: è questo il suo limite.
 
 ### capovolta
 
-- 1: Al suo pieno rendimento un giro che si ripete sa dare una cosa sola e intera: la forma esatta del cerchio che la tua questione ripercorre, misurata sul punto da cui riparte.
-- 2: Fra il punto dove la tua questione gira adesso e quanto varrebbe lo stesso moto con una presa sopra, la distanza ancora aperta misura quello che manca: un appiglio, non più spinta.
-- 3: Se nulla lo sprecasse, questo meccanismo scomposto mostrerebbe quale dei suoi denti salta: il tuo problema apparirebbe nella sua misura, un giro guasto in un punto preciso invece di una sorte contraria.
+- 1: Il meglio che puoi ottenere è vedere con esattezza lo schema che si ripete nella tua questione: il punto preciso da cui riparte ogni volta.
+- 2: Ciò che manca alla tua questione non è altra spinta ma un appiglio: lo stesso movimento, con una presa sopra, avrebbe un valore molto diverso.
+- 3: Nella forma migliore questa situazione ti mostra quale ingranaggio non funziona: il problema appare per quello che è, un guasto preciso e non una sorte contraria.
 
 ## La Forza
 
 ### dritta
 
 - 1: Al suo meglio questa mitezza salva l'istinto invece di spegnerlo: la belva che riguarda la tua questione resta viva, calda, intera, con una mano posata sul collo che non stringe mai.
-- 2: Di genere, il massimo qui è docilità e non vittoria: alla tua domanda spetta un ardore che obbedisce di buon grado; la differenza si sente tutta nella mano che lo tiene.
-- 3: Il punto oltre il quale questa dolcezza non sale è il consenso: alla tua questione può toccare un istinto che segue perché acconsente, non uno piegato con la stretta.
+- 2: Il massimo che puoi ottenere è un'energia che collabora con te invece di essere vinta: tutta la differenza sta nel modo gentile con cui la guidi.
+- 3: Più in alto di questa dolcezza c'è solo il consenso: alla tua questione arriva un istinto che ti segue perché è d'accordo, non perché è costretto.
 
 ### capovolta
 
-- 1: Il meglio che questa carta sa dare quando cede è una mano che si apre: la durezza puntata contro la tua stessa tenuta può allentarsi; il governo torna dove la stretta lo perdeva.
-- 2: Lo spazio fra una presa serrata sul proprio ardore e un palmo aperto è tutto quello che questa carta può recuperare alla tua questione; la misura è in mitezza invece che in disciplina.
-- 3: Se niente la sprecasse, questa pazienza in affanno mostrerebbe la tua tenuta intatta sotto la fatica di dimostrarla; la fermezza tornerebbe mite come era prima dello sforzo.
+- 1: Il meglio che puoi ottenere è una mano che si apre: la durezza che usi con te si allenta e il controllo torna dove la stretta lo faceva perdere.
+- 2: Ciò che puoi recuperare nella tua questione è il passaggio da una presa serrata a una mano aperta: la misura del miglioramento è la mitezza, non la disciplina.
+- 3: Nella forma migliore questa fatica ti mostra che la tua tenuta è intatta sotto lo sforzo di dimostrarla: la fermezza torna mite com'era prima.
 
 ## L'Appeso
 
 ### dritta
 
-- 1: Il massimo qui è fatto di una sola materia: lo sguardo girato sottosopra, che della tua questione mostra la faccia tenuta nascosta finché la guardavi dall'angolo comodo.
-- 2: Questa immobilità, al suo meglio, dà alla tua domanda una comprensione che l'agitazione non produce; non arriva a dare la mossa successiva, perché capire da rovescio è un mestiere a sé.
-- 3: Tenuta a pieno, questa pausa salva intatta la cosa che la fretta consuma per prima: il tempo in cui una comprensione matura da sé, senza che tu la tiri per le foglie.
+- 1: Il meglio che questa situazione può darti è uno sguardo nuovo: capovolgendo il punto di vista vedi la parte della questione che finora ti era rimasta nascosta.
+- 2: Al massimo questa pausa ti regala una comprensione profonda della tua domanda, ma non ti dice ancora quale mossa fare: capire e agire, qui, sono due momenti distinti.
+- 3: Vissuta fino in fondo, questa attesa ti dà il tempo di cui una decisione importante ha bisogno per maturare da sola, senza che tu debba forzarla.
 
 ### capovolta
 
-- 1: Il bene che questa forza dà alla tua questione è di specie amara: chiarezza sul conto invece di conforto. Il tetto qui è vedere che quella rinuncia non nutre nessuno, nemmeno chi la fa.
-- 2: Più su di questo non sale: l'altezza in gioco è il riconoscimento esatto di un'attesa che ha smesso di insegnare qualcosa alla tua questione.
-- 3: Al rendimento pieno questa sospensione vuota dà un conto onesto: quanto ti costa restare immobile, a fronte di quanto di quel costo arriva davvero a qualcuno.
+- 1: Il meglio che puoi ottenere qui è una chiarezza amara: vedere che quella rinuncia non fa bene a nessuno, nemmeno a te, per poi smettere di chiamarla pazienza.
+- 2: Al massimo questa situazione ti porta a riconoscere con esattezza che l'attesa ha smesso di insegnarti qualcosa: è un punto di arrivo onesto, anche se non ancora una soluzione.
+- 3: Vissuta con lucidità, questa fase ti dà un conto preciso: quanto ti costa restare immobile in questa faccenda e quanto di quel costo arriva davvero a qualcuno.
 
 ## La Morte
 
 ### dritta
 
-- 1: Il massimo per la tua questione è fatto di due cose: un taglio netto dove il tempo di una forma è esaurito e uno spazio vuoto e pulito dietro quel taglio.
-- 2: Al suo meglio questa forza libera il posto nel tuo caso e non lo arreda: arriva a chiudere senza residui quello che è esaurito, mentre quello che nasce dopo non è materia sua.
-- 3: Quello che resta intero, quando questa forza dà tutto, è ciò che nella tua domanda era vivo davvero: il taglio prende soltanto ciò che non ha più tempo.
+- 1: Il meglio che puoi ottenere qui è una chiusura pulita: un taglio netto dove una forma ha finito il suo tempo e uno spazio libero, pronto per altro.
+- 2: Al massimo questa trasformazione ti libera il posto, ma non lo riempie: chiude senza residui ciò che è esaurito, mentre quello che nasce dopo dipende da te.
+- 3: Accolta fino in fondo, questa fine lascia intatto ciò che nella tua domanda era vivo davvero: il taglio porta via soltanto quello che non aveva più tempo.
 
 ### capovolta
 
-- 1: Il genere di bene che questa forza porta al massimo è lucidità e non sollievo: la tua presa si lascia vedere come presa, invece di passare per fedeltà a quello che non ha più tempo.
-- 2: Più su di una presa riconosciuta questa forza non arriva: nel tuo caso il punto più alto è la mano che si sa chiusa, mentre l'apertura della mano resta un'altra materia.
-- 3: Al suo pieno rendimento il trattenere ti rende un servizio solo: dice con esattezza quanto costa; quel conto è tutto ciò che questa forza sa consegnare alla tua questione.
+- 1: Il meglio che puoi ottenere qui è lucidità, non sollievo: vedere la tua presa per quello che è, invece di scambiarla per fedeltà a qualcosa che non ha più tempo.
+- 2: Al massimo questa situazione ti porta a sapere con chiarezza che stai trattenendo: è il primo risultato possibile, mentre aprire davvero la mano resta un lavoro successivo.
+- 3: Vissuta con onestà, questa resistenza ti rende un solo servizio: ti mostra con esattezza quanto ti costa davvero tenere in piedi una cosa che è già finita.
 
 ## La Temperanza
 
 ### dritta
 
-- 1: Di che cosa è fatto il massimo che questa forza porta alla tua questione: una proporzione sola, trovata a mano, fra due materie che non sembrano stare nello stesso recipiente. Nient'altro, nessuna aggiunta.
-- 2: Il bene in gioco per la tua domanda è di specie lenta: non quantità di equilibrio ma qualità della mescola, la calma di due parti opposte che stanno insieme senza sopraffarsi.
-- 3: Portata al suo meglio, questa forza dà alla tua questione una sola dose giusta: non la somma delle due spinte, nemmeno la vittoria di una, piuttosto un terzo stato che regge perché le contiene entrambe.
+- 1: Il meglio che puoi ottenere qui è una proporzione trovata a mano fra due cose che sembravano incompatibili: un equilibrio vero, fatto di pazienza e di piccoli aggiustamenti.
+- 2: Al massimo questa situazione ti regala una convivenza serena fra esigenze opposte: nessuna delle due vince sull'altra, ma insieme trovano un modo di stare in pace.
+- 3: Coltivata fino in fondo, questa pazienza ti porta a una terza via: non la somma delle due spinte né la vittoria di una sola, ma un accordo che le contiene entrambe.
 
 ### capovolta
 
-- 1: Questa forza, nella tua questione, sa indicare con precisione quale dose sta fuori misura e di quanto; quello che non arriva a darti è la mescola rifatta, perché separare le due parti non significa comporle.
-- 2: Il punto più alto di questa forza, per la tua domanda, è l'eccesso guardato come eccesso e misurato: oltre quella misura non va, perché nominare uno squilibrio non è lo stesso che ridosarlo.
-- 3: Fra il ritmo rotto che la tua questione tiene adesso e la proporzione che potrebbe valerle c'è lo spazio di due parti che tornano a parlarsi come due, ciascuna con il proprio nome, senza fondersi per fretta.
+- 1: Il meglio che puoi ottenere qui è sapere con precisione dove esageri e di quanto: è un primo risultato utile, anche se riconoscere lo squilibrio non basta a rimediare.
+- 2: Al massimo questa fase ti fa ritrovare il ritmo di una giornata qualunque: non un equilibrio perfetto, ma due parti di te che tornano a parlarsi senza fretta.
+- 3: Vissuta con attenzione, questa crisi di misura ti insegna a riconoscere il segnale prima dell'eccesso, così la prossima volta puoi rallentare in tempo, prima di dare troppo da una parte sola.
 
 ## Il Diavolo
 
 ### dritta
 
-- 1: Di questo massimo fanno parte il nome esatto dell'attaccamento che lavora nella tua questione, il tornaconto che lo tiene in piedi e la mano che ha stretto il patto senza accorgersene.
-- 2: Il bene possibile qui è di specie aspra, lucidità e non sollievo: la verità sul legame che la tua questione alimenta, guardato nella sua convenienza prima che nella sua vergogna.
-- 3: Quanto questa forza sa dare alla tua questione, al pieno, è una presa riconosciuta per quello che è: un patto con un vantaggio dentro, che smette di comandare nel buio quando viene chiamato per nome.
+- 1: Il meglio che puoi ottenere qui è dare un nome esatto a ciò che ti lega: capire che vantaggio ti offre e riconoscere il momento in cui hai accettato quel patto.
+- 2: Al massimo questa situazione ti dà una verità scomoda: vedere con chiarezza quanto ti conviene davvero il legame che alimenti anche tu, prima ancora di provarne vergogna.
+- 3: Affrontata fino in fondo, questa prova ti lascia una presa riconosciuta per quello che è: un patto con un tornaconto, che smette di comandare quando lo chiami per nome.
 
 ### capovolta
 
-- 1: Il più alto che questa forza dà alla tua questione è un nodo slacciato dalle stesse mani che lo avevano stretto: oltre lo scioglimento non va, perché non cancella la stagione in cui il patto conveniva.
-- 2: Fra la presa di adesso sulla tua questione e la presa che resterebbe dopo lo scioglimento c'è tutta la distanza che questa forza può coprire, misurabile nel peso che si perde.
-- 3: Una catena vera si allenta quando chi l'ha chiusa ne riconosce il meccanismo: questo è il massimo in gioco sulla tua questione; quello che non dà, nemmeno al meglio, è l'innocenza di chi non l'ha mai indossata.
+- 1: Il meglio che puoi ottenere qui è allentare con le tue mani ciò che le stesse mani avevano stretto: non cancella il tempo in cui quel patto ti conveniva, ma ti libera.
+- 2: Al massimo questa situazione ti porta da una presa forte a una presa leggera: tutta la distanza che puoi coprire si misura nella fatica che smetti di portare.
+- 3: Portata a termine, questa liberazione ti dà la comprensione di come funzionava il vincolo: non ti restituisce l'innocenza di prima, ma ti impedisce di ricaderci senza accorgertene.
 
 ## La Torre
 
 ### dritta
 
-- 1: Il massimo qui è ciò che resta quando una facciata viene giù: i muri portanti, il nome vero delle cose dette male, il conto di quanto la tua costruzione poggiava sul falso.
-- 2: Un cedimento improvviso può togliere alla tua questione ogni appoggio finto e lasciare materia solida su cui ricominciare; fuori dalla sua portata, anche al meglio, sta un passaggio indolore.
-- 3: Al suo meglio questa scossa lascia intatto il vero: quello che viene giù è la parte della tua costruzione che reggeva per convenzione; il solido non lo tocca il colpo.
+- 1: Il meglio che puoi ottenere qui è ciò che resta dopo il crollo di una facciata: le parti solide, il nome vero delle cose e la misura di quanto poggiava sul falso.
+- 2: Al massimo questa scossa ti toglie ogni appoggio finto e ti lascia qualcosa di solido da cui ripartire, ma nemmeno nel caso migliore il cambiamento è indolore.
+- 3: Attraversata fino in fondo, questa crisi lascia intatto ciò che è vero: cade solo la parte della tua vita che stava in piedi per abitudine o per convenienza.
 
 ### capovolta
 
-- 1: Di che specie è il bene possibile qui: lucidità sul rimando e non quiete. Il più alto che questo rinvio sa dare alla tua questione è il nome dell'impalcatura che tiene su una cosa sfiatata.
-- 2: Il tetto di questa forza è il tempo guadagnato: può rimandare lo smontaggio della tua costruzione e non può rendere vero quello che il rimando mantiene in piedi.
-- 3: A pieno rendimento una scossa trattenuta sa dare una resa per gradi invece di un colpo unico: il peso del tuo impianto può venire levato un pezzo alla volta, con le travi numerate.
+- 1: Il meglio che puoi ottenere qui è vedere chiaro su ciò che rimandi: dare un nome a ciò che tieni in piedi a forza e capire quanto ti costa ogni giorno.
+- 2: Al massimo questa situazione ti fa guadagnare soltanto del tempo: puoi rimandare il cambiamento, ma non puoi rendere vero ciò che il rinvio tiene artificialmente in piedi.
+- 3: Gestita con pazienza, questa crisi trattenuta può scaricarsi per gradi invece che in un colpo solo: ciò che non regge puoi smontarlo un pezzo alla volta, con ordine.
 
 ## La Stella
 
 ### dritta
 
-- 1: Questo massimo è fatto di acqua versata senza fretta, di un cielo illuminato tutta la notte e di una fiducia che alla tua questione torna in silenzio, senza chiedere entusiasmo.
-- 2: Una quiete luminosa questa carta la sa dare per intero; il calore sulla pelle no, perché la sua luce rassicura da lontano e la tua domanda ne ricava respiro invece di ardore.
-- 3: Al suo meglio questa luce lascia intera la tua ispirazione dopo il maltempo: il danno resta visibile; insieme a lui resta aperta la sorgente a cui la tua questione attinge.
+- 1: Il meglio che puoi ottenere qui è una fiducia che torna in silenzio, senza chiederti entusiasmo: speranza ritrovata, calma e la sensazione che il peggio sia passato.
+- 2: Al massimo questa situazione ti dà una serenità piena, ma non un entusiasmo travolgente: ti rassicura da lontano e ti permette di respirare invece di correre.
+- 3: Accolta fino in fondo, questa fase lascia intatta la tua ispirazione dopo un periodo difficile: i segni della fatica restano, ma resta aperta anche la fonte da cui attingi.
 
 ### capovolta
 
-- 1: Fiducia al minimo e mai spenta: è questo il genere di bene che la speranza ormai stanca porta alla tua questione, una tenacia senza allegria che basta a reggere una notte lunga.
-- 2: Il tetto di questa luce in affanno è una nube che si dirada, non un cielo pulito: alla tua domanda può tornare la luce di prima, velata quel tanto che la stanchezza impone.
-- 3: Quello che questa carta sa dare quando è stanca è la prova che la sorgente regge anche senza che tu la senta: l'ispirazione della tua questione cala di intensità e non si interrompe.
+- 1: Il meglio che puoi ottenere qui è una fiducia ridotta al minimo ma mai spenta: una tenacia senza allegria che basta comunque a superare una notte lunga.
+- 2: Al massimo questa situazione ti offre una nube che si dirada, non un cielo pulito: la speranza può tornare, anche se velata da un po' di stanchezza.
+- 3: Vissuta con pazienza, questa fase ti dimostra che la fonte regge davvero anche quando non la senti: l'ispirazione cala di intensità, ma non si interrompe.
 
 ## La Luna
 
 ### dritta
 
-- 1: Fra quello che la tua questione sembra alla prima occhiata e quello che è davvero resta un margine di buio: il massimo di questa forza sta nel camminare dentro quel margine senza inciampare.
-- 2: Se nulla andasse sprecato, questo buio darebbe alla tua domanda un passo che tiene anche senza vedere: il piede che sente il terreno dove l'occhio non arriva più.
+- 1: Muoverti con prudenza anche senza vedere tutto è il meglio che puoi ottenere sulla tua questione: fra come appare e come è davvero resta un margine oscuro da attraversare senza fretta.
+- 2: Al suo meglio questa fase ti insegna a procedere anche senza vedere tutto: sulla tua domanda l'intuito e la cautela arrivano dove la vista e le prove non bastano.
 - 3: Il massimo è fatto d'intuito e di prudenza insieme, due cose che lavorano di notte: le certezze pretese in anticipo non reggono il peso della tua questione.
 
 ### capovolta
 
-- 1: Al suo meglio, questo schiarirsi restituisce alla tua questione la misura esatta di ciò che al buio pareva enorme; non la sistema, perché la proporzione è un dono a parte.
-- 2: Portato al rendimento pieno, questo dissolversi della nebbia lascia intero quello che la paura stava per far cedere nella tua questione: in alto resta quanto era soltanto ombra gonfiata.
-- 3: Il genere di bene qui è proporzione, non quiete: il tetto che questa forza tocca sulla tua domanda è la misura giusta delle cose, non il silenzio dei pensieri.
+- 1: Al suo meglio questo chiarimento restituisce alla tua questione la misura esatta di ciò che nella confusione pareva enorme; non la risolve da solo, ma ti permette di affrontarla.
+- 2: Nel migliore dei casi il diradarsi della confusione salva ciò che la paura stava per farti abbandonare nella tua questione: a perdere forza è soltanto il timore gonfiato.
+- 3: Il bene possibile qui è il senso della misura, non la calma assoluta: sulla tua domanda puoi arrivare a vedere le cose nella giusta proporzione, anche se qualche pensiero resta.
 
 ## Il Sole
 
 ### dritta
 
-- 1: Fra la luce che c'è sulla tua questione e quella che ci sarebbe senza un angolo in ombra resta un margine stretto: è la parte di campo che nessuno ha voluto illuminare.
+- 1: Sulla tua questione la chiarezza è quasi piena: al meglio manca soltanto un piccolo angolo che nessuno ha ancora voluto guardare, ma è proprio lì che puoi ancora guadagnare.
 - 2: Se nulla si sprecasse, la tua domanda starebbe sotto una luce piena, senza un lato tenuto al riparo: tutto quello che sta nel campo si lascerebbe vedere e scaldare nello stesso momento.
-- 3: Il massimo in gioco è fatto di due cose e non di tre: una chiarezza che non lascia penombra su quello che hai davanti e un calore che arriva sulla pelle. Riparo non ne offre.
+- 3: Il meglio possibile qui è fatto di due cose: una chiarezza che non lascia zone oscure su ciò che hai davanti e un calore che senti davvero. Nascondersi invece non è previsto.
 
 ### capovolta
 
-- 1: Al suo pieno rendimento questa forza dice che la pienezza sulla tua questione è intatta e che la nube sopra è sottile: a togliere quella nube non arriva; il limite sta lì.
-- 2: Quello che questa forza salva, al suo meglio, è il bene stesso della tua questione: la luce non si consuma dietro il velo e resta intera, mentre il sentirla sulla pelle è un'altra partita.
-- 3: Il genere di massimo che tocca al tuo caso è una certezza e non un conforto: il calore c'è per intero; quanto ne passa attraverso il velo questa forza non lo stabilisce.
+- 1: Al suo meglio questa carta ti conferma che sulla tua questione la gioia è intatta e il velo è sottile; però non lo toglie al posto tuo: quello resta un gesto da fare.
+- 2: Questa forza, al suo meglio, salva il valore della tua questione: ciò che hai di buono non si consuma dietro il velo e resta intero, anche se sentirlo davvero è un altro discorso.
+- 3: Il meglio che ti spetta qui è una certezza più che un conforto: sulla tua questione il calore c'è tutto, ma quanto ne senti dipende da quanto lasci cadere il velo.
 
 ## Il Giudizio
 
@@ -315,27 +315,27 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Quello che questa forza, al suo meglio, lascia intero nella tua questione è tutto: il richiamo convoca ogni parte della vita nello stesso momento e non scarta niente, perché un bilancio parziale non sarebbe un bilancio.
 - 2: Il meglio che questo richiamo sa dare alla tua domanda è un risveglio senza condanna: solleva ciò che dorme e non emette verdetti, perché la sua forza è chiamare in piedi, non accusare.
-- 3: Se nulla la sprecasse, la tua questione avrebbe la forma di un conto generale chiuso e di una vita ripresa su misura diversa: nessun pezzo lasciato fuori, nessuna parte vecchia trascinata dentro per abitudine.
+- 3: Al suo meglio la tua questione si chiude con un bilancio completo e una ripartenza su basi nuove: nessuna parte importante lasciata fuori, nessuna abitudine vecchia trascinata dentro per inerzia.
 
 ### capovolta
 
 - 1: Il bene possibile per la tua questione è mite: il giusto peso al posto della severità; la durezza con cui ti tratti si rivela un modo di non rispondere al richiamo.
-- 2: Fra il rinvio in cui resta la tua domanda e il suo meglio c'è la distanza fra un conto immaginato in grande e uno aperto sul tavolo: vale la misura vera.
-- 3: Composto di una cosa sola, questo massimo porta alla tua faccenda un'ammissione detta senza processo e il bilancio ridotto alla sua grandezza reale: nessun risarcimento, nessuna assoluzione in anticipo.
+- 2: Al meglio la tua domanda passa da un bilancio temuto e ingigantito nella mente a un bilancio fatto davvero, sul tavolo: quello che conta è la misura reale delle cose.
+- 3: Questo massimo ti chiede una cosa sola: ammettere ciò che è successo senza farti il processo e vedere il bilancio nella sua grandezza reale, senza punizioni né assoluzioni anticipate.
 
 ## Il Mondo
 
 ### dritta
 
-- 1: Quello che questa forza tiene intero, al suo meglio, è tutto l'attraversato della tua questione: nessun pezzo buttato, ognuno al posto che gli tocca dentro un giro che si chiude.
+- 1: Al suo meglio questa forza tiene insieme tutto ciò che hai attraversato nella tua questione: nessuna esperienza buttata, ognuna al suo posto dentro un ciclo che si chiude.
 - 2: Il meglio che questa forza sa dare alla tua domanda è un compimento che comprende anche le parti scomode del percorso, riconosciute come tue invece che tollerate.
 - 3: A pieno rendimento la tua questione prenderebbe la forma di un cerchio chiuso, con la fine che tocca l'inizio e niente lasciato fuori dal conto, nemmeno quello che è costato.
 
 ### capovolta
 
-- 1: Fra il disegno quasi completo della tua questione e il disegno intero resta il posto di un pezzo solo: quel margine è esattamente quanto questa forza può valere.
-- 2: Di questo massimo fanno parte il pezzo mancante chiamato per nome, la sua misura esatta e la tolleranza per un disegno della tua questione che resta scoperto in un punto.
-- 3: Il bene in gioco qui è di specie precisa, completezza e non sollievo: il valore che questa forza porta alla tua questione si misura sull'intero, mai sulla quiete di fermarsi vicino.
+- 1: Fra la tua questione quasi completa e la sua forma intera manca un solo pezzo: il meglio che questa carta può darti sta proprio nel trovare quel pezzo e metterlo al suo posto.
+- 2: Il meglio possibile qui è dare un nome al pezzo che manca e capirne la misura esatta, accettando intanto che la tua questione rimanga scoperta in un punto.
+- 3: Completezza, non sollievo: è questo il bene in gioco. Il valore che questa carta porta alla tua questione si misura sul lavoro finito, mai sulla tentazione di fermarti vicino alla fine.
 
 ## Asso di Bastoni
 
@@ -349,19 +349,19 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Una partenza rimandata può conservare intatto il desiderio che la muove e restituirlo pieno al tuo progetto; quello a cui non arriva, nemmeno al suo meglio, è il tempo trascorso sotto il coperchio.
 - 2: Al suo meglio questo soffocamento salva il combustibile: quello che si ferma è l'avvio e non la voglia; la tua questione conserva per intero la materia che accende.
-- 3: Di che genere di bene si tratta qui: integrità e non slancio. Il tetto di questa forza trattenuta per la tua domanda è un fuoco conservato interamente, mai un fuoco grande.
+- 3: Il bene possibile qui è conservare, non partire: per la tua domanda questa forza trattenuta può al massimo tenere intatto il desiderio, non renderlo più grande.
 
 ## Due di Bastoni
 
 ### dritta
 
-- 1: Fra il pezzo di mondo che la tua questione conosce a memoria e quello che si vede soltanto dalla cima corre la distanza che questa carta può aprire: il margine è l'ampiezza del piano.
+- 1: Il meglio che questa carta può aprire alla tua questione è la distanza fra ciò che già conosci bene e ciò che si vede soltanto guardando da più in alto: un piano più ampio.
 - 2: Se nulla la riducesse, questa carta disegnerebbe per la tua domanda un progetto a misura del globo che hai in mano: una rotta scelta dall'alto, col tempo di studiarla prima di muovere.
 - 3: Questo massimo è fatto di mappe aperte, di un'ambizione dichiarata senza pudore e di un confine guardato da dentro casa: la tua questione ha tutto quello che serve per scegliere dove puntare.
 
 ### capovolta
 
-- 1: Un disegno largo questa carta quando esita lo tiene in piedi; il coraggio di sceglierlo non lo fornisce: alla tua questione spetta il piano intero, col timore della sua ampiezza accanto.
+- 1: Anche quando esita, questa carta tiene in piedi un progetto ampio, ma non ti dà il coraggio di sceglierlo: alla tua questione resta il piano intero, insieme al timore della sua grandezza.
 - 2: Al suo meglio questa carta salva l'ambizione che il dubbio ha messo in dispensa: la misura grande della tua domanda resta intera, nelle proporzioni in cui è stata pensata.
 - 3: Chiarezza più che audacia: il bene che questa ambizione in dubbio porta alla tua questione è un piano leggibile fino in fondo, con ogni ramo nominato e ogni costo scritto in chiaro.
 
@@ -369,154 +369,154 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Più in alto questa forza non arriva: l'altezza in gioco è l'ampiezza che la tua questione prende lontano da te, nei posti dove il lavoro continua senza il tuo occhio sopra.
-- 2: Al rendimento pieno questa espansione dà alla tua domanda una portata più larga del punto da cui è partita: il meglio che sa offrire è distanza coperta da quello che hai messo in mare.
-- 3: Fra il confine da cui la tua questione si è mossa e il punto più lontano che quello che hai spedito arriva a toccare resta un margine aperto: quel margine è il massimo in gioco.
+- 1: Il meglio che questa situazione può darti è un'espansione reale: ciò che hai avviato può arrivare più lontano del punto da cui è partito e tornare con frutti più ampi.
+- 2: Al suo massimo, la tua questione si allarga oltre i confini abituali e ti apre contatti, luoghi e possibilità che senza quel primo slancio non avresti raggiunto.
+- 3: Ciò a cui puoi aspirare qui è vedere tornare moltiplicato quello che hai messo in movimento, a patto di lasciargli il tempo di compiere tutto il suo giro.
 
 ### capovolta
 
-- 1: Se niente si sprecasse, questo rientro darebbe alla tua questione un inventario onesto: quello che è tornato pesato per quello che è, fuori dal confronto con la figura che avevi in testa.
-- 2: Il massimo è fatto di due pezzi: il carico che rientra davvero, insieme alla rilettura delle attese che la tua domanda gli aveva messo addosso prima di vederlo.
-- 3: Questa differenza fra atteso e arrivato, al suo meglio, dà alla tua domanda il conto vero di quello che è rientrato; non arriva a dare la forma immaginata, perché nel carico non c'era.
+- 1: Il meglio che puoi ottenere qui è un bilancio onesto: valutare ciò che è tornato per quello che vale davvero, senza paragonarlo a ciò che avevi immaginato.
+- 2: Al suo massimo, questa situazione ti insegna a rivedere le attese: scopri che un risultato diverso dal previsto può avere un valore che all'inizio non vedevi.
+- 3: Ciò a cui puoi aspirare è usare bene quello che è arrivato: la forma immaginata non c'è, ma ciò che hai davvero in mano può servirti più del previsto.
 
 ## Quattro di Bastoni
 
 ### dritta
 
-- 1: Il punto più alto per la tua questione è una base provata e riconosciuta da chi ti sta attorno: oltre la tenuta festeggiata insieme questa forza non sale.
-- 2: Al suo pieno rendimento questa forza mette alla prova le fondamenta del tuo caso e le fa vedere a tutti nello stesso giorno: una stabilità che nessuno discute più.
-- 3: Fra l'opera che sta in piedi nella tua questione e il giorno in cui chi sta attorno la saluta resta aperta una distanza: quella distanza è la misura intera di questa forza.
+- 1: Il meglio che questa situazione può darti è una base riconosciuta da tutti: una stabilità che regge e che le persone vicine celebrano insieme a te.
+- 2: Al suo massimo, la tua questione arriva a un punto fermo e sereno, dove ciò che hai costruito non è più messo in discussione e si può finalmente festeggiare.
+- 3: Ciò a cui puoi aspirare è la gioia di condividere un risultato solido con chi ti vuole bene, sapendo che le fondamenta che hai posato tengono davvero.
 
 ### capovolta
 
-- 1: Se nulla si sprecasse, la casa pronta della tua questione avrebbe anche il suo ingresso: la tenuta starebbe in piedi e il riconoscimento le arriverebbe addosso nello stesso giorno.
-- 2: Il massimo in gioco è fatto di una cosa intera e di una mancante: fondamenta che tengono senza incrinature nel tuo caso e un rito d'ingresso che nessuno celebra.
-- 3: Al suo meglio questa forza tiene in piedi quello che regge la tua domanda e non procura la festa: la solidità resta sua, il saluto di chi guarda non è cosa che sappia dare.
+- 1: Il meglio che puoi ottenere qui è varcare finalmente la porta di ciò che hai costruito: riconoscere il risultato e dargli il suo momento, invece di rimandarlo ancora.
+- 2: Al suo massimo, la situazione ti lascia fondamenta solide e un'occasione di festa ancora da cogliere: la parte che manca dipende soltanto dalla tua decisione di celebrare.
+- 3: Ciò a cui puoi aspirare è una stabilità che regge anche senza festeggiamenti; la gioia condivisa resta possibile, ma arriva solo se smetti di aspettare condizioni perfette.
 
 ## Cinque di Bastoni
 
 ### dritta
 
-- 1: Il punto più alto di questa forza, nella tua questione, è la mischia che misura: tutti spingono allo scoperto e da quello spintonare si capisce quanto pesa ciascuno.
-- 2: A pieno rendimento la tua domanda avrebbe un attrito pulito: nessun nemico scelto, nessun premio da dividere, soltanto energie di pari grado che si urtano e si misurano a viso aperto.
-- 3: Questa forza porta alla tua questione il vantaggio del confronto acceso, dove le idee si provano l'una contro l'altra; non arriva a darti chi prevale, perché una mischia misura e non assegna.
+- 1: Il meglio che questa situazione può darti è un confronto leale che rivela quanto vale ciascuno: tutti si espongono e dallo scontro capisci quale idea regge davvero.
+- 2: Al suo massimo, la tua questione diventa una sfida pulita fra forze simili: nessun nemico, nessuna ferita, soltanto energie che si mettono alla prova a viso aperto.
+- 3: Ciò a cui puoi aspirare è crescere attraverso il confronto, uscendone più capace; non aspettarti però che qualcuno prevalga nettamente, perché questa sfida misura le forze più che assegnare premi.
 
 ### capovolta
 
-- 1: Il meglio che questa forza sa dare alla tua questione è un conteggio: quanto costa ogni attrito tenuto in vita per abitudine. La stanchezza, misurata, smette di sembrare inevitabile.
-- 2: Fatto di sottrazioni, il massimo in gioco nella tua domanda contiene soltanto questo: gli attriti che covano portati alla luce con il loro prezzo; nessuna riconciliazione entra nel conto.
-- 3: Al suo meglio questa forza salva, nella tua questione, l'energia non ancora bruciata: una contesa senza posta in gioco, riconosciuta, si spegne da sé; quello che non viene speso resta intero.
+- 1: Il meglio che puoi ottenere qui è un conto chiaro: capire quanto ti costa ogni attrito tenuto in vita per abitudine, così la stanchezza smette di sembrarti inevitabile.
+- 2: Al suo massimo, la situazione porta allo scoperto le tensioni che covano e il loro prezzo; non promette una riconciliazione, ma ti permette di scegliere dove investire le forze.
+- 3: Ciò a cui puoi aspirare è risparmiare energia: riconoscere una contesa inutile e lasciarla cadere, così quello che non sprechi resta tuo per ciò che conta.
 
 ## Sei di Bastoni
 
 ### dritta
 
-- 1: Il tetto di questa forza sulla tua questione è un merito riconosciuto in pubblico, con il tuo nome accanto: più in alto non sale, perché l'onore conferma il lavoro e non lo raddoppia.
-- 2: A pieno rendimento questa forza darebbe alla tua domanda un riconoscimento proporzionato a quello che è stato fatto, consegnato davanti a chi conta per te, senza sconti né gonfiature.
-- 3: Quanto questa forza può offrire alla tua questione è l'applauso che arriva al merito giusto; quello che non arriva a dare, nemmeno al meglio, è il valore interiore che nessun applauso assegna.
+- 1: Il meglio che questa situazione può darti è un merito riconosciuto in pubblico, col tuo nome accanto: un onore che conferma il lavoro fatto senza gonfiarlo.
+- 2: Al suo massimo, la tua questione ti porta una stima proporzionata a quanto hai fatto, espressa senza sconti né esagerazioni davanti alle persone che contano per te.
+- 3: Ciò a cui puoi aspirare è l'applauso giusto per un merito vero; quello che nessun riconoscimento può darti, nemmeno il migliore, è la stima che hai di te.
 
 ### capovolta
 
-- 1: Il meglio che questa forza sa dare alla tua questione è un valore che si regge senza testimoni: la stima che non dipende da chi la pronuncia, misurata sul fatto invece che sull'eco.
-- 2: Di questo massimo fanno parte il merito contato per quello che è, la pazienza dentro un'attesa che si allunga e un giudizio su di te che non passa per le mani degli altri.
-- 3: Quello che questa forza, al suo meglio, lascia in piedi nella tua questione è il merito stesso: intatto anche quando nessuno lo nomina, disponibile per il momento in cui qualcuno lo nomina.
+- 1: Il meglio che puoi ottenere qui è un valore che si regge senza testimoni: una stima di te basata sui fatti, non sull'eco degli applausi.
+- 2: Al suo massimo, la situazione ti insegna tre cose: contare il merito per quello che è, avere pazienza nell'attesa e giudicarti senza passare per gli altri.
+- 3: Ciò a cui puoi aspirare è un merito che rimane intero anche quando nessuno lo nomina, disponibile per il giorno in cui qualcuno finalmente lo riconosce.
 
 ## Sette di Bastoni
 
 ### dritta
 
-- 1: Il tetto di questa forza è il mantenimento: può conservare al tuo lavoro il vantaggio che ha in mano contro più fronti insieme, non allargarlo di un passo.
-- 2: A pieno rendimento una tenuta come questa sa dare la differenza fra molti che spingono e uno che non arretra: alla tua questione lascia il terreno intero, con le forze ancora fresche.
-- 3: Fra quanto il tuo punto regge adesso e quanto reggerebbe difeso da una sola mano senza cedere un metro, la distanza ancora aperta misura il numero dei fronti, non il coraggio.
+- 1: Il meglio che questa situazione può darti è mantenere il vantaggio che hai: non allargarlo, ma conservarlo intero contro chi te lo contende da più parti.
+- 2: Al suo massimo, la tua questione mostra la differenza fra molti che spingono e una persona che non arretra: alla fine il posto può restare tuo e le forze reggono.
+- 3: Ciò a cui puoi aspirare è una tenuta salda sotto pressione; il limite non è il tuo coraggio ma il numero dei fronti, che conviene tenere sotto controllo.
 
 ### capovolta
 
-- 1: Se nulla la sprecasse, questa guardia stanca diventerebbe un conto: i fronti che attaccano davvero da una parte, quelli rimasti aperti per abitudine dall'altra, il tuo sforzo distribuito su misura.
-- 2: Il meglio in gioco è fatto di una lista: quali difese del tuo progetto hanno ancora qualcuno davanti, quali stanno su da sole, quante mani servirebbero per tenerle tutte insieme.
-- 3: Una difesa portata al limite può dire quanto pesa ogni fronte della tua questione e quale di essi era vuoto; quello a cui non arriva, al suo meglio, è un avversario in meno.
+- 1: Il meglio che puoi ottenere qui è un conto onesto: distinguere i fronti che ti attaccano davvero da quelli che tieni aperti solo per abitudine.
+- 2: Al suo massimo, la situazione ti mostra quali difese hanno ancora senso e quali puoi lasciare andare senza perdere niente di davvero importante.
+- 3: Ciò a cui puoi aspirare è capire quanto conta ogni fronte e quale era ormai vuoto: nessun avversario sparisce, ma impari dove mettere le tue forze.
 
 ## Otto di Bastoni
 
 ### dritta
 
-- 1: Il tetto di questa carta è la simultaneità: molte cose che riguardano la tua domanda possono muoversi nello stesso istante; nessuna di esse cambia natura per il fatto di correre.
-- 2: A pieno rendimento questa spinta dà alla tua questione risposte che non fanno anticamera: le frecce partono insieme, il messaggio è in aria prima che tu abbia finito di formularlo.
-- 3: Fra una pratica che dorme e un fascio di notizie in volo corre tutto quello che questa carta può recuperare alla tua questione: il margine si misura in attese risparmiate.
+- 1: Il meglio che questa situazione può darti è un movimento rapido e simultaneo: molte cose che ti riguardano possono sbloccarsi nello stesso momento.
+- 2: Al suo massimo, la tua questione riceve risposte senza lunghe attese: ciò che chiedi può arrivare in fretta e le pratiche ferme riprendono a muoversi.
+- 3: Ciò a cui puoi aspirare è recuperare il tempo perso: quello che era fermo prende velocità e ti fa risparmiare lunghe attese.
 
 ### capovolta
 
-- 1: Se niente la sprecasse, questa forza rimetterebbe in fila le molte cose che la tua questione tiene in volo: un ordine di partenza, invece di un grappolo che si ostacola.
-- 2: Questo massimo è fatto di tempi ricuciti: ogni cosa che riguarda la tua domanda ritrova il proprio turno; la fretta che faceva inciampare diventa ritmo tenuto da una mano sola.
-- 3: Un ritmo si può rimettere in sesto, il tempo perduto no: alla tua questione questa forza offre l'ordine di quello che resta in volo, non ciò che è già caduto.
+- 1: Il meglio che puoi ottenere qui è rimettere in fila ciò che hai in sospeso: un ordine chiaro di priorità invece di tante cose che si intralciano.
+- 2: Al suo massimo, la situazione ritrova il suo ritmo: ogni cosa torna al proprio turno e la fretta che ti faceva inciampare diventa andatura regolare.
+- 3: Ciò a cui puoi aspirare è rimettere ordine in quello che è ancora aperto; il tempo già perso non torna, ma il resto puoi ancora organizzarlo bene.
 
 ## Nove di Bastoni
 
 ### dritta
 
 - 1: Al suo meglio questa tenacia tiene in piedi quello che le prove precedenti hanno lasciato intero: la tua questione regge sulle forze residue di chi porta i segni addosso.
-- 2: Il bene in gioco è resistenza, non freschezza: il più alto che questa forza dà alla tua domanda è la tenuta di chi ha speso quasi tutto e trova ancora un fondo.
-- 3: Più su di questa riserva non si va: l'altezza è l'ultimo tratto tenuto con le ferite addosso, dove la tua questione sta in piedi per pura testardaggine.
+- 2: Il massimo che questa forza può dare alla tua domanda è la tenuta: non energie fresche, ma la capacità di arrivare in fondo con le forze che restano.
+- 3: Nella sua forma migliore questa resistenza porta la tua questione fino alla conclusione: ci arrivi con qualche ferita addosso, ma ci arrivi per la tua ostinazione.
 
 ### capovolta
 
-- 1: Al rendimento pieno questa diffidenza dà alla tua questione la distinzione che le serve: chi bussa riconosciuto per quello che è, separato da chi ha fatto male prima.
-- 2: Fra la guardia alzata contro tutti e la guardia alzata contro i soli che l'hanno meritata corre il margine di questa forza: il massimo è quella cernita sulla tua domanda.
+- 1: Al suo meglio questa prudenza dà alla tua questione la capacità di distinguere: riconosci chi si avvicina in pace e lo separi da chi ti ha fatto male davvero.
+- 2: Il massimo che questa forza può offrire alla tua domanda è una difesa scelta con cura: alzata contro chi l'ha meritata, abbassata davanti a chi viene senza cattive intenzioni.
 - 3: Se nulla fosse sprecato, questa difesa avrebbe la forma di una porta che si apre a chi batte piano: sulla tua questione il massimo sarebbe un confine scelto uno per uno.
 
 ## Dieci di Bastoni
 
 ### dritta
 
-- 1: Quello che questa forza salva, dando tutto, è la consegna: il fascio che pesa sulla tua questione arriva intero dove deve; le braccia che lo tengono non lo lasciano cadere per strada.
-- 2: Il genere di bene al massimo è tenuta e non respiro: il tuo carico resta portato fino all'ultimo passo, mentre la vista corta che viene dalle braccia piene non si allarga.
-- 3: Più in alto del peso portato fino in fondo questa forza non arriva: nella tua questione il tetto è la fatica che tiene, non la scelta di quali fasci posare.
+- 1: Al suo meglio questa forza permette la consegna: quello che porti arriva intero dove deve, perché non lasci cadere niente, anche a costo di grande fatica.
+- 2: Il massimo che puoi ottenere qui è reggere fino in fondo: la tua questione resta in piedi, ma senza il respiro che verrebbe dal posare qualcosa.
+- 3: Nella sua forma migliore questa carta porta la tua questione a compimento con la sola forza della resistenza: non arriva però a scegliere che cosa posare.
 
 ### capovolta
 
 - 1: Al suo pieno rendimento questa forza separa con esattezza il peso che nella tua questione è tuo da portare da quello che resta addosso per abitudine o per un dovere preso in prestito.
-- 2: Fra il carico che grava sul tuo caso e quello che ne resterebbe tolta ogni parte non tua corre un margine largo: questa forza sa misurarlo tutto.
+- 2: Il massimo che questa forza può dare alla tua questione è una misura esatta: quanto del tuo carico ti appartiene davvero e quanto potresti restituire.
 - 3: Se nulla andasse sprecato, ogni filo del fascio che pesa sulla tua domanda avrebbe un nome e un proprietario; i fili senza nome resterebbero a terra.
 
 ## Fante di Bastoni
 
 ### dritta
 
-- 1: Fra l'idea appena affacciata nella tua questione e quanto potrebbe valere resta aperto tutto lo spazio della prova: un annuncio giovane, portato in giro e sperimentato, senza un impegno preso che lo chiuda.
+- 1: Al suo meglio questa curiosità lascia alla tua questione tutto lo spazio per sperimentare: un'idea appena nata da provare liberamente, senza impegni che la chiudano troppo presto.
 - 2: La corsa di questa forza porta alla tua domanda la notizia fresca e la voglia di provarla; non ti dà il mestiere, perché un annuncio indica la strada senza percorrerla.
-- 3: Il genere di bene che questa forza porta alla tua questione è freschezza e non competenza: conta l'età dell'idea, non la sua riuscita; la prima curiosità, non l'apprendistato che verrebbe dopo.
+- 3: Il massimo che questa forza porta alla tua questione è la freschezza, non l'esperienza: conta la prima curiosità più della riuscita, che chiederebbe un lungo apprendistato.
 
 ### capovolta
 
-- 1: Senza sprechi, la tua questione avrebbe la serie delle accensioni messa in fila e leggibile: non un inizio solo, molti, ciascuno con il punto esatto in cui l'interesse passa altrove.
-- 2: Quello che questa forza, al suo meglio, lascia intero nella tua domanda è il ripetersi: tante partenze diverse mostrano una figura sola; quella figura è l'unica cosa che le molte scintille consegnano.
+- 1: Al suo meglio questa forza ti mostra in fila tutti i tuoi inizi: per ciascuno si vede il punto esatto in cui l'interesse si è spostato altrove.
+- 2: Nella sua forma migliore questa forza ti fa riconoscere uno schema che si ripete: tante partenze diverse, sempre con la stessa interruzione nello stesso momento.
 - 3: Il tetto di questa forza, per la tua questione, è riconoscere il proprio ritmo: quante volte si accende, quanto dura ogni fiamma. Nominare la cadenza è il suo limite, non il rimedio.
 
 ## Cavaliere di Bastoni
 
 ### dritta
 
-- 1: Fra la tua questione ferma e la tua questione messa in sella c'è tutto il margine che questo ardore può coprire, misurato in audacia spesa di persona.
-- 2: Il genere di bene al massimo per la tua questione è slancio, non prudenza: un'avventura affrontata col corpo e col fegato, che vale per come viene corsa più che per il conto che lascia.
+- 1: Al suo meglio questo ardore porta la tua questione da ferma a messa in moto: tutto il cambiamento che può dare si misura nel coraggio che ci metti di persona.
+- 2: Il massimo per la tua questione è lo slancio, non la prudenza: un'avventura affrontata con coraggio, che vale per come la vivi più che per il risultato che lascia.
 - 3: Un'audacia di questo genere può dare alla tua questione la partenza presa in prima persona, col rischio accettato; quello che non dà, nemmeno al meglio, è la misura di chi resta a calcolare.
 
 ### capovolta
 
 - 1: A pieno rendimento questa foga darebbe alla tua questione un solo fronte su cui bruciare per intero, con la stessa quantità di fuoco che oggi si divide fra troppe partenze.
-- 2: Quello che questa forza al suo meglio tiene in piedi nella tua questione è la quantità di ardore: niente spento, niente raffreddato, tutto intero e sparso su più fronti.
-- 3: Il punto oltre il quale questa corsa non sale è la potenza stessa: alla tua questione può darne in abbondanza, mai il capo a cui quella potenza torna.
+- 2: Il massimo che questa forza conserva nella tua questione è la quantità di energia: niente si spegne, ma tutto resta disperso su troppi fronti.
+- 3: Nella sua forma migliore questa corsa ti dà potenza in abbondanza, ma non la guida che sappia dirigerla: quella deve venire da una scelta tua.
 
 ## Regina di Bastoni
 
 ### dritta
 
 - 1: Al suo meglio questo calore lascia intero lo spazio degli altri: la tua presenza attira senza chiedere obbedienza; quello che si salva è l'autonomia di chi si avvicina.
-- 2: Calore e non comando è la specie di questo massimo: alla tua questione la fiamma sa dare una presenza che scalda chi le sta accanto, mai una strada imposta.
-- 3: Il punto in cui questa forza smette di crescere è l'attrazione: può rendere la tua presenza magnetica fin dentro una stanza chiusa; autorità su nessuno.
+- 2: Il massimo che questa forza può dare alla tua questione è una presenza che scalda chi le sta accanto: calore e non comando, attrazione e mai imposizione.
+- 3: Nella sua forma migliore questa forza rende la tua presenza magnetica anche in un ambiente chiuso, ma si ferma lì: attira le persone senza darti autorità su nessuno.
 
 ### capovolta
 
-- 1: A pieno rendimento un dubbio su di sé sa dare una misura presa dentro: alla tua questione restituisce il metro del proprio calore, sottratto al confronto con la luce di un'altra persona.
-- 2: Fra quanto la tua fiamma vale agli occhi di chi la porta e quanto vale di fatto, la distanza ancora aperta sta tutta nel paragone: il calore è intero, il riconoscimento no.
+- 1: Al suo meglio questo dubbio ti insegna a misurarti con un metro tuo: alla tua questione restituisce il valore del tuo calore, senza paragonarlo a quello di un'altra persona.
+- 2: Il massimo che questa forza può offrire è ridurre la distanza fra quanto pensi di valere e quanto vali davvero: il tuo calore è intero, manca solo il riconoscimento.
 - 3: Se niente lo consumasse, questo offuscamento diventerebbe riconoscimento: la tua luce apparirebbe per quanto è, senza la gelosia che le mette davanti il vetro di qualcun altro.
 
 ## Re di Bastoni
@@ -524,182 +524,182 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Al suo meglio questo comando lascia in piedi l'ardore di chi lo segue: la tua questione può avere una guida che apre strade con l'esempio e non consuma nessuno dei suoi.
-- 2: Il bene qui è di specie regale: alla tua domanda spetta un'autorità matura che accende il lavoro degli altri; la visione di uno diventa impresa di molti.
+- 2: Il massimo per la tua domanda è un'autorità matura che stimola il lavoro degli altri: la visione di una persona diventa un'impresa condivisa da molti.
 - 3: Oltre l'esempio questa spinta non sale: alla tua questione può toccare una fiamma che indica, con mani che la seguono per convinzione invece che per obbligo.
 
 ### capovolta
 
-- 1: Quello che questa carta sa dare quando frena è l'ascolto che rientra in un comando: il passo di chi segue la tua questione torna a contare quanto l'impazienza di chi la guida.
-- 2: Fra un ordine lanciato di corsa e lo stesso ordine dato dopo aver sentito la squadra c'è lo spazio che questa forza può recuperare alla tua domanda: si misura in persone che restano.
+- 1: Al suo meglio questa forza riporta l'ascolto dentro il comando: nella tua questione il ritmo di chi segue torna a contare quanto l'impazienza di chi guida.
+- 2: Il massimo che questa forza può recuperare alla tua domanda è la differenza fra un ordine dato di corsa e lo stesso ordine dato dopo aver ascoltato: si misura nelle persone che restano.
 - 3: Se nulla lo sprecasse, questo fuoco ora chino scalderebbe senza bruciare: la tua questione avrebbe un capo che accende gli altri alla misura del loro respiro, con l'autorità intatta.
 
 ## Asso di Coppe
 
 ### dritta
 
-- 1: Il massimo è fatto d'acqua che sale da sé: sulla tua questione questa forza mette un sentire nuovo che eccede il recipiente, con la grazia di quello che nessuno ha dovuto chiedere.
-- 2: Questa sorgente, al suo meglio, dà alla tua domanda la piena del sentire alla prima ora; non arriva a dare la durata, perché una fonte riempie e il reggere nel tempo è un altro lavoro.
-- 3: Al suo meglio questa apertura tiene intero il primo zampillo: la tua questione conserva la facoltà di essere toccata, quella che l'abitudine consuma per prima.
+- 1: Il meglio che puoi ottenere è un sentimento nuovo e sincero che nasce senza sforzo: la tua questione si riempie di qualcosa che nessuno ha dovuto chiedere.
+- 2: Al suo meglio questa forza dà alla tua domanda la pienezza di un'emozione appena nata; non garantisce la durata, perché farla durare è un lavoro diverso.
+- 3: Più in alto di così non si sale: la tua questione conserva intatta la capacità di emozionarti davvero, quella che l'abitudine di solito consuma per prima.
 
 ### capovolta
 
-- 1: Il bene qui è di specie onesta: riconoscere la mano che ha girato la chiave. Sulla tua questione il tetto è sapere che l'acqua c'è, ferma perché il timore l'ha fermata.
-- 2: Più in alto di questo non sale: il punto massimo è la piena riconosciuta dentro, col tappo visto per quello che è sulla tua domanda, messo lì da te e non dalla sorte.
-- 3: Al rendimento pieno questo trattenersi dà alla tua questione la misura di quanto sentire sta dietro la chiusura: il meglio che sa offrire è il peso dell'acqua ferma, contato.
+- 1: Il meglio che puoi ottenere è riconoscere che a tenere chiuso ciò che senti è la tua paura: l'affetto c'è tutto, fermo soltanto perché il timore lo trattiene.
+- 2: Al suo meglio questa forza ti mostra quanto sentimento c'è dietro la chiusura: non lo libera da sola, ma ti dice con chiarezza quanto vale ciò che stai trattenendo.
+- 3: Più in alto di così non si sale: vedere che il blocco sulla tua questione l'hai messo tu, non la sorte, è il primo modo per poterlo togliere.
 
 ## Due di Coppe
 
 ### dritta
 
-- 1: Il massimo in gioco è fatto di due metà uguali: quello che dai e quello che ti viene dato nella stessa misura, con un patto che porta due firme invece di una.
-- 2: Al suo meglio questa forza sigilla il legame a due che riguarda la tua domanda e non si allarga oltre: più di quei due che si riconoscono non tiene; il limite è questo.
-- 3: Quello che resta intero, quando questa forza rende tutto, è la parità: nessuno dei due nella tua questione dà più di quanto riceve; nessuno meno.
+- 1: Il meglio che puoi ottenere è uno scambio in parti uguali: ciò che dai e ciò che ricevi hanno la stessa misura, come un patto che porta due firme.
+- 2: Al suo meglio questa forza sigilla l'intesa fra le due parti della tua questione e non va oltre: unisce chi si riconosce, non allarga il cerchio ad altri.
+- 3: Più in alto di così non si sale: nella tua questione nessuna delle due parti dà più di quanto riceve, perché la parità è ciò che resta intero.
 
 ### capovolta
 
-- 1: Il genere di massimo che tocca alla tua questione è intesa e non pace: due persone che si vogliono bene mettono in chiaro lo stesso malinteso, ciascuna dalla propria parte.
-- 2: Più in alto di un fraintendimento detto da entrambe le parti questa forza non sale: l'affetto sotto la tua domanda resta intatto, mentre la ricucitura è opera di due e non di una sola.
-- 3: Al suo pieno rendimento questa forza misura la distanza esatta che si apre fra due persone nel tuo caso: una distanza di parole, dentro un bene che non si è incrinato.
+- 1: Il meglio che puoi ottenere è un chiarimento più che una pace perfetta: le due parti riconoscono lo stesso malinteso, ciascuna dal proprio lato.
+- 2: Al suo meglio questa forza porta a un equivoco detto apertamente da entrambe le parti: l'affetto della tua questione resta intatto, ma ricucire richiede l'impegno di tutte e due.
+- 3: Più in alto di così non si sale: puoi misurare con precisione la distanza che si è aperta, una distanza di parole dentro un legame che non si è rotto.
 
 ## Tre di Coppe
 
 ### dritta
 
-- 1: Questo massimo, nella tua questione, è fatto di un cerchio piccolo di pari, scelti e non ricevuti in dote, riuniti per il piacere del raduno: niente altro, nessun traguardo da inaugurare.
-- 2: Il bene in gioco per la tua domanda è di specie condivisa: non più allegria, piuttosto allegria in più persone; conta con chi si brinda, non quanto si brinda.
-- 3: Portata al suo meglio, questa forza dà alla tua questione una moltiplicazione: la stessa cosa buona, passata fra più mani, torna più grande di quanto una sola persona possa tenerne.
+- 1: Il meglio che puoi ottenere è un piccolo cerchio di persone scelte, riunite per il piacere di stare insieme: nella tua questione non serve un traguardo da festeggiare.
+- 2: Al suo meglio questa forza rende la tua gioia condivisa: non ne aumenta la quantità, la distribuisce fra più persone, perché conta con chi brindi più di quanto brindi.
+- 3: Più in alto di così non si sale: una cosa buona della tua questione, passata fra più mani, torna più grande di quanto una persona sola potrebbe portarla.
 
 ### capovolta
 
-- 1: Questa forza, nella tua questione, sa distinguere nel cerchio allargato chi nutre da chi occupa un posto; quello che non arriva a darti è il legame nuovo, perché una selezione taglia e non presenta nessuno.
-- 2: L'altezza massima di questa forza, per la tua domanda, è un elenco onesto delle presenze: pochi nomi veri separati dai molti di facciata. Oltre quella lista non sale, perché contare non è rifondare una compagnia.
-- 3: Fra il cerchio gonfio che la tua questione porta adesso e quanto potrebbe valerle c'è la differenza di una sottrazione: meno presenze nella stanza, la stessa quantità di affetto concentrata su chi la ricambia.
+- 1: Il meglio che puoi ottenere è distinguere, nel tuo giro di persone, chi ti nutre da chi occupa soltanto un posto; nuove amicizie non nascono da qui, perché scegliere toglie e non aggiunge.
+- 2: Al suo meglio questa forza ti dà un elenco onesto delle presenze: pochi nomi veri separati dai molti di facciata, senza però costruire da sola una compagnia nuova.
+- 3: Più in alto di così non si sale: meno persone intorno alla tua questione, ma lo stesso affetto sincero concentrato su chi lo ricambia davvero.
 
 ## Quattro di Coppe
 
 ### dritta
 
-- 1: Di questo massimo fa parte una cosa precisa: la sazietà della tua questione chiamata per quello che è, con la coppa tesa di lato contata fra i dati invece che fra i fastidi.
-- 2: Il bene possibile qui è di specie sobria, consapevolezza e non appetito: l'indifferenza che avvolge la tua questione misurata senza scuse, con quello che hai davanti ancora in campo.
-- 3: Quanto questa forza sa dare, al pieno, è una sazietà onesta: la tua questione che ammette di avere abbastanza, con l'offerta accanto lasciata dove sta senza biasimarla.
+- 1: Il meglio che puoi ottenere è chiamare la tua sazietà con il suo nome: la proposta che hai accanto diventa un'informazione utile, non più un fastidio da scansare.
+- 2: Al suo meglio questa forza ti porta consapevolezza più che desiderio: riconosci la noia che avvolge la tua questione, mentre l'occasione resta ancora disponibile.
+- 3: Più in alto di così non si sale: ammettere con onestà di avere abbastanza, lasciando l'offerta dove sta senza disprezzarla e senza sentirti in colpa.
 
 ### capovolta
 
-- 1: Il più alto che questa forza può dare alla tua questione è l'appetito che torna: oltre il ridestarsi non va, perché restituisce la fame e non il pasto.
-- 2: Fra il torpore in cui la tua questione sta e la curiosità di cui è capace c'è un margine stretto, che si copre nel momento in cui qualcosa riesce a interessarti.
-- 3: Una curiosità che si riaccende da sola è il massimo in gioco sulla tua questione; quello che non dà, nemmeno al suo meglio, è il nome della cosa che la riaccende.
+- 1: Il meglio che puoi ottenere è il ritorno dell'appetito: questa forza non ti dà ancora ciò che desideri, ti restituisce la voglia di desiderare.
+- 2: Al suo meglio questa forza colma la distanza fra il torpore e la curiosità: basta che una cosa riesca di nuovo a interessarti perché la tua questione si rimetta in moto.
+- 3: Più in alto di così non si sale: una curiosità che si riaccende da sé sulla tua questione, anche se non ti dice ancora quale sia l'oggetto del tuo interesse.
 
 ## Cinque di Coppe
 
 ### dritta
 
-- 1: Il massimo qui è fatto di un conto esatto: quanto la tua questione ha perso davvero, quanto resta in piedi alle spalle di chi guarda, quale parte del vuoto lo fa sembrare intero.
-- 2: Una perdita guardata fino in fondo può dare alla tua domanda la sua misura vera e il numero di quello che non è andato; fuori dal suo massimo resta qualunque restituzione.
-- 3: Al suo meglio questo rimpianto lascia intere le coppe rimaste: il dolore prende la sua parte e non la parte di tutto, cosicché il residuo della tua questione resta disponibile.
+- 1: Il meglio che puoi ottenere è un conto esatto: quanto hai perso davvero, quanto resta ancora in piedi, quale parte del vuoto ti fa sembrare tutto perduto.
+- 2: Al suo meglio questa forza dà alla tua perdita la sua misura vera, guardata fino in fondo; non restituisce ciò che è andato, ti mostra ciò che non lo è.
+- 3: Più in alto di così non si sale: il dolore prende la sua parte e non tutto, così ciò che ti rimane della questione resta disponibile per ripartire.
 
 ### capovolta
 
-- 1: Di che genere di bene si tratta qui: attenzione spostata e non riparazione. Il tetto di questa forza per la tua questione è uno sguardo che si gira; il versato resta versato.
-- 2: Il punto oltre il quale questa ripresa non sale è il girarsi: può restituire alla tua questione quello che è rimasto in piedi, mai quello che è caduto a terra.
-- 3: A pieno rendimento un'accettazione come questa sa dare l'inventario del residuo: alla tua domanda consegna le cose vive che il lutto teneva fuori campo, nella quantità in cui stanno.
+- 1: Il meglio che puoi ottenere è spostare l'attenzione, non riparare: lo sguardo si gira verso ciò che resta, mentre ciò che si è perso rimane perso.
+- 2: Al suo meglio questa ripresa ti restituisce ciò che è rimasto in piedi nella tua questione, mai quello che è caduto: il suo limite sta nel voltarsi.
+- 3: Più in alto di così non si sale: l'accettazione ti consegna l'elenco delle cose vive che il dolore teneva nascoste, nella misura esatta in cui ci sono.
 
 ## Sei di Coppe
 
 ### dritta
 
-- 1: Questo meglio è un dono semplice, come un fiore offerto da un bambino: un affetto di molti anni fa torna intatto alla tua questione, con l'innocenza che aveva allora.
-- 2: Una tenerezza antica questa carta la sa restituire per intero, il tempo in cui nacque no: alla tua domanda tocca il calore di quel dono, portato dentro la vita che hai adesso.
-- 3: Al suo meglio questa carta salva la bontà delle origini della tua questione: quel bene resta a disposizione come un oggetto di casa, col ricordo che lo tiene lucido.
+- 1: Il meglio che puoi ottenere è un dono semplice, come un fiore offerto da un bambino: un affetto di tanti anni fa torna intatto, con l'innocenza che aveva allora.
+- 2: Al suo meglio questa forza ti restituisce una tenerezza antica per intero, ma non il tempo in cui nacque: ne porti il calore dentro la vita che hai adesso.
+- 3: Più in alto di così non si sale: la bontà delle origini della tua questione resta a disposizione, come un oggetto di casa che il ricordo tiene lucido.
 
 ### capovolta
 
-- 1: Gratitudine più che nostalgia: il bene che questa memoria ormai lontana porta alla tua questione è un ricordo onorato una volta per tutte, che smette di chiedere la giornata intera.
-- 2: Il tetto di questa nostalgia quando cala è un congedo affettuoso: la tua domanda può mettere il tempo buono dove sta bene, senza che quel tempo perda un grammo del suo valore.
-- 3: Quello che questa spinta sa dare quando cede è una dolcezza che smette di pretendere: le origini della tua questione restano buone, col presente che riprende il suo posto.
+- 1: Il meglio che puoi ottenere è la gratitudine al posto della nostalgia: un ricordo onorato una volta per tutte, che smette di chiederti l'intera giornata.
+- 2: Al suo meglio questa forza ti porta a un congedo affettuoso: metti il tempo buono al suo posto, alle spalle, senza che perda niente del suo valore.
+- 3: Più in alto di così non si sale: le origini della tua questione restano buone, ma la dolcezza di allora smette di pretendere e il presente riprende il suo posto.
 
 ## Sette di Coppe
 
 ### dritta
 
-- 1: Fra le molte figure che ti si affollano davanti e le poche che contengono quello che mostrano corre il margine di questa forza: il massimo sulla tua questione è quella distanza vista.
-- 2: Se niente andasse sprecato, questa abbondanza di immagini darebbe alla tua domanda un banco in chiaro: ogni offerta col proprio contenuto accanto, nessuna creduta sulla parola.
-- 3: Il massimo è fatto d'immaginazione larga e di mano che tasta: due cose che sulla tua questione lavorano insieme, la prima per vedere tanto, la seconda per pesare quel tanto.
+- 1: Il meglio che puoi ottenere è imparare a distinguere le possibilità vere da quelle solo attraenti: vedere quella differenza con chiarezza è già il risultato più utile.
+- 2: Nella forma migliore, la tua immaginazione ti mostra tutte le opzioni e ognuna viene verificata prima di crederci: nessuna offerta accettata sulla parola.
+- 3: Al suo meglio questa situazione ti dà due capacità insieme: immaginare in grande per vedere molte possibilità e controllare con i fatti quali hanno davvero sostanza.
 
 ### capovolta
 
-- 1: Questa messa a fuoco, al suo meglio, dà alla tua questione una cosa sola riconosciuta fra le molte; non arriva a tenerti aperte anche le altre, perché la cernita si paga con quelle.
-- 2: Al suo meglio questa scelta salva intera la libertà che nasce dal lasciare: sulla tua domanda resta in piedi quello su cui hai messo la mano, alleggerito di tutto il resto.
-- 3: Il bene in gioco è nitidezza, non ricchezza: il tetto di questa forza sulla tua questione è una cosa messa a fuoco, con le altre lasciate cadere senza rimpianti.
+- 1: Il meglio che puoi ottenere è riconoscere una cosa sola fra le molte e dedicarti a quella: non puoi tenere aperte anche le altre, perché scegliere costa questo.
+- 2: Nella forma migliore, questa scelta ti dà la libertà che nasce dal lasciare andare: resta salda la cosa su cui hai deciso di puntare, alleggerita da tutto il resto.
+- 3: Al suo meglio questa situazione ti porta chiarezza più che abbondanza: una meta riconosciuta con precisione, mentre le altre possibilità vengono lasciate senza rimpianti.
 
 ## Otto di Coppe
 
 ### dritta
 
-- 1: Fra il posto che la tua questione occupa adesso e quello che un congedo pulito renderebbe libero resta un margine: la distanza di una partenza fatta senza rumore e senza accuse.
-- 2: Se nulla si sprecasse, quello che la tua questione lascia dietro resterebbe intero: nessuna porta sbattuta, nessuna spiegazione dovuta a chi rimane dentro, nessun rancore portato in viaggio.
-- 3: Il massimo è fatto di due pezzi: un addio silenzioso che non rompe nulla dietro di te e una fame di senso che regge il passo lontano da quello che non nutre più.
+- 1: Il meglio che puoi ottenere è un distacco pulito: lasciare ciò che non ti nutre più senza rumore e senza accuse, così da avere spazio per ciò che cerchi.
+- 2: Nella forma migliore, ciò che lasci resta integro: nessuna porta sbattuta, nessuna spiegazione dovuta, nessun rancore che ti porti dietro mentre cerchi qualcosa di più vero.
+- 3: Al suo meglio questa situazione unisce due cose: un addio sereno che non rompe nulla e una fame di senso che ti sostiene mentre ti allontani da ciò che si è svuotato.
 
 ### capovolta
 
-- 1: Al suo meglio questa forza tiene l'uscio aperto su entrambi i lati della tua questione e non lo attraversa: a dire quale lato pesi di più arriva, a fare il passo no.
-- 2: Quello che resta salvo, quando questa forza dà tutto, è il tempo della tua domanda: nulla si rompe mentre un piede sta dentro e uno fuori; lo stipite regge l'attesa.
-- 3: Il genere di bene al massimo è onestà e non quiete: i due lati del tuo caso si lasciano pesare per quello che sono, con l'inquietudine di stare in mezzo che non si placa.
+- 1: Il meglio che puoi ottenere è capire con onestà quale delle due possibilità conta di più per te: questa chiarezza è alla tua portata, anche se decidere resta da fare.
+- 2: Nella forma migliore, l'attesa non rompe nulla: mentre ci pensi, ciò che hai resta in piedi e ti lascia il tempo di ascoltarti senza fretta.
+- 3: Al suo meglio questa situazione ti porta onestà più che quiete: puoi pesare con sincerità i due lati della questione, anche se l'inquietudine di stare in mezzo resta.
 
 ## Nove di Coppe
 
 ### dritta
 
-- 1: Al suo meglio questa forza tiene in piedi, nella tua questione, il contentamento senza scuse: un appagamento preciso, goduto da una persona sola, che non chiede permesso a nessuno per essere pieno.
-- 2: Il meglio che questa forza sa dare alla tua domanda è una soddisfazione nominata: non un benessere vago, una cosa precisa che risulta piena e si lascia godere senza pedaggio di colpa.
-- 3: Se nulla lo sprecasse, il massimo della tua questione avrebbe la forma di una sedia, una tavola apparecchiata per uno e nessuna fretta: la pienezza che non ha bisogno di testimoni per contare.
+- 1: Il meglio che puoi ottenere è una soddisfazione senza scuse: un risultato preciso, goduto pienamente, che non ha bisogno del permesso di nessuno per essere tuo.
+- 2: Nella forma migliore, la tua questione porta una soddisfazione concreta: una cosa precisa che si realizza e si lascia godere senza sensi di colpa.
+- 3: Al suo meglio questa situazione ti somiglia a una tavola apparecchiata senza fretta: un benessere pieno che non ha bisogno di testimoni per avere valore.
 
 ### capovolta
 
-- 1: Il bene che questa forza può portare alla tua questione è di specie amara: non una gioia più grande, la misura esatta di un piacere consumato che lascia la fame al suo posto.
-- 2: Tra la facciata che la tua domanda tiene e quanto potrebbe valerle c'è un assaggio portato a termine: il vuoto che si sente dopo non è un errore di misura, è la misura.
-- 3: Fatto di un solo ingrediente, questo massimo dà alla tua questione il nome giusto del piacere che non colma; nessun risarcimento lo accompagna, nessuna gioia sostitutiva messa accanto per consolare.
+- 1: Il meglio che puoi ottenere qui ha un sapore amaro: capire con precisione che un piacere consumato non basta a colmare il desiderio che hai dentro.
+- 2: Nella forma migliore, ti accorgi della distanza fra la soddisfazione che mostri e quella che senti: il vuoto che arriva dopo è l'indicazione più utile che puoi ricevere.
+- 3: Al suo meglio questa situazione ti dà un nome preciso per il piacere che non colma: nessuna consolazione al suo posto, solo la chiarezza per cercare qualcosa di più vero.
 
 ## Dieci di Coppe
 
 ### dritta
 
-- 1: Il meglio che questa forza sa dare alla tua questione è un'armonia fra le persone che ti riguardano, sentita da tutte nello stesso momento e non soltanto da te.
-- 2: A pieno rendimento la tua questione avrebbe la forma di una pace fra affetti: nessuno dei vicini fuori posto, la contentezza di uno non pagata dalla rinuncia di un altro.
-- 3: Quello che questa forza al suo meglio tiene intero è il legame fra i tuoi: la ricchezza che la tua questione può contare si misura in persone presenti e in gratitudine reciproca.
+- 1: Il meglio che puoi ottenere è un'armonia vera fra le persone coinvolte nella questione, sentita da tutte nello stesso momento e non soltanto da te.
+- 2: Nella forma migliore, la tua questione porta pace fra gli affetti: nessuno resta escluso e la contentezza di una persona non costa la rinuncia di un'altra.
+- 3: Al suo meglio questa situazione tiene uniti i legami che contano per te: la ricchezza che puoi raggiungere si misura in persone presenti e gratitudine reciproca.
 
 ### capovolta
 
-- 1: Fra la casa divisa della tua questione e una casa in cui ognuno sta al suo posto resta un margine fatto di conversazioni mai avute: è lo spazio che questa forza può valere.
-- 2: Di questo massimo fanno parte i nomi di chi tira dalla sua parte, il motivo di ciascuno preso per buono e un tetto comune che regge la tua questione pur senza accordo.
-- 3: Il bene possibile qui è di specie modesta, chiarezza e non concordia: la tua questione può sapere con precisione chi sta dove dentro la famiglia, con le distanze contate una per una.
+- 1: Il meglio che puoi ottenere è aprire le conversazioni che finora sono mancate: fra la divisione di adesso e un equilibrio in cui ognuno trova il suo posto c'è proprio quello spazio.
+- 2: Nella forma migliore, ogni persona coinvolta viene ascoltata e le sue ragioni prese sul serio: anche senza un accordo pieno, ciò che ti lega agli altri continua a reggere.
+- 3: Al suo meglio questa situazione ti porta chiarezza più che concordia: puoi capire con precisione chi sta dove e quanta distanza c'è fra le persone coinvolte.
 
 ## Fante di Coppe
 
 ### dritta
 
-- 1: Fra quanto il tuo sentire esprime adesso e quanto esprimerebbe con tutta la sua freschezza, la distanza ancora aperta è quella del mestiere: la materia è viva, la mano che la porta è nuova.
-- 2: Se nulla la intimidisse, questa tenerezza appena nata darebbe alla tua questione la sua prima parola intera: goffa nella forma, esatta nel contenuto, offerta senza calcolo di ritorno.
-- 3: Il massimo possibile è fatto di materia giovane: un'emozione che non ha ancora un nome, il coraggio di dirla male, la disponibilità a sbagliarla davanti a chi ti riguarda.
+- 1: Il meglio che puoi ottenere è esprimere ciò che senti con tutta la sua freschezza: la materia è viva, ti manca solo un po' di pratica nel portarla fuori.
+- 2: Nella forma migliore, questa tenerezza appena nata trova la sua prima parola intera: goffa nella forma, esatta nel contenuto, offerta senza calcolare che cosa ti torna indietro.
+- 3: Al suo meglio questa situazione ti porta un'emozione ancora senza nome e il coraggio di dirla anche male, accettando di sbagliare davanti a chi ti riguarda.
 
 ### capovolta
 
-- 1: Una chiusura messa su per proteggersi può conservare al tuo sentire la parte più tenera, fuori dai colpi; quello a cui non arriva, nemmeno al suo meglio, è lo scambio con qualcuno.
-- 2: Al suo meglio questa fragilità salva la facoltà di sentire: il muro è sottile e provvisorio; quello che resta intero sotto la tua corazza è esattamente la cosa che la corazza ripara.
-- 3: Di che specie è il bene qui: custodia e non apertura. Il massimo che questa chiusura sa dare alla tua domanda è un sentire conservato intero dentro, non condiviso fuori.
+- 1: Il meglio che puoi ottenere qui è proteggere la parte più tenera di ciò che senti, al riparo dai colpi: lo scambio con gli altri, però, resta fuori portata.
+- 2: Nella forma migliore, la difesa è leggera e provvisoria: protegge la tua capacità di sentire e la conserva intatta, finché non sei in grado di aprirti di nuovo.
+- 3: Al suo meglio questa situazione ti porta custodia più che apertura: un sentire conservato intero dentro di te, anche se per ora non condiviso con nessuno.
 
 ## Cavaliere di Coppe
 
 ### dritta
 
-- 1: Fra un sentimento tenuto per sé e lo stesso sentimento offerto con grazia corre tutto quello che questa carta può aggiungere alla tua questione: il margine è il gesto, non l'emozione.
-- 2: Se niente la raffreddasse, questa carta porterebbe alla tua domanda un'offerta fatta bene: la proposta recapitata a mano, con la cortesia di chi si muove per primo e accetta qualunque risposta.
-- 3: Questo massimo è fatto di un invito consegnato: una cortesia che non chiede garanzie, un cuore messo in mano a un altro, più il coraggio del primo passo per la tua questione.
+- 1: Il meglio che puoi ottenere è trasformare un sentimento tenuto per te in un gesto offerto con grazia: la differenza la fa il gesto, non l'emozione.
+- 2: Nella forma migliore, la tua questione porta un'offerta fatta bene: una proposta presentata di persona, con la cortesia di chi si muove per primo e accetta qualunque risposta.
+- 3: Al suo meglio questa situazione ti porta un invito sincero, fatto senza chiedere garanzie, insieme al coraggio di fare la prima mossa verso ciò che desideri.
 
 ### capovolta
 
-- 1: Una parola affettuosa si lascia riportare ai fatti, la sua leggerezza no: alla tua questione questa forza dà la misura esatta fra quello che viene detto e quello che viene fatto.
-- 2: Al suo meglio questa carta salva il sentimento dentro una promessa vaga: l'affetto che riguarda la tua domanda resta vero anche quando i gesti che lo seguono arrivano scuciti.
-- 3: Onestà più che trasporto: il bene che questa promessa in bilico porta alla tua questione è la corrispondenza fra il detto e il fatto, pesata sulla mano di chi la porta.
+- 1: Il meglio che puoi ottenere è misurare con precisione la distanza fra ciò che viene detto e ciò che viene fatto: le parole affettuose si possono verificare.
+- 2: Nella forma migliore, l'affetto dietro una promessa vaga resta sincero, anche se i gesti che dovrebbero seguirlo ti arrivano incompleti o in ritardo.
+- 3: Al suo meglio questa situazione ti porta onestà più che trasporto: la corrispondenza fra parole e fatti, controllata con calma prima di fidarti.
 
 ## Regina di Coppe
 

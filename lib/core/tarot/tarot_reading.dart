@@ -1,4 +1,5 @@
 import 'domanda_della_persona.dart';
+import 'la_domanda_letta.dart';
 import 'la_lettura_dal_modello.dart';
 import 'le_carte_nella_posizione.dart';
 import 'tarot_card.dart';
@@ -183,7 +184,7 @@ class TarotReading {
         PosizioneLetta.of(spread.cards[i], topic, spread,
             uscita: uscite != null && i < uscite.length ? uscite[i] : 0),
     ];
-    final chiave = chiaveDi(spread);
+    final chiave = chiaveDi(spread, domandaScritta: sua);
     return TarotReading(
       spread: spread,
       topic: lente,
@@ -302,7 +303,7 @@ class TarotReading {
       t = VoceDellaStesa.titoloDellaLettura(spread, topic,
           domandaScritta: domandaScritta,
           fattoDelCielo: fattoDelCielo,
-          chiave: chiaveDi(spread).drawn);
+          chiave: chiaveDi(spread, domandaScritta: domandaScritta).drawn);
     }
     return _senzaPunto(t);
   }
@@ -390,7 +391,20 @@ class TarotReading {
   ///
   /// Se il Presente e' un Minore e fra le tre c'e' almeno un Maggiore, il cuore
   /// passa al Maggiore piu' significativo, quello col numero piu' alto.
-  static CartaChiave chiaveDi(TarotSpread spread) {
+  ///
+  /// **CON LA DOMANDA, LA CARTA CHIAVE E' LA CARTA CHE RISPONDE.** Ordine GA
+  /// voce GA.06, 21 ottobre 2026. A una domanda che chiede come va a finire
+  /// (si' o no, quando, una scelta, un distacco, un timore, una domanda
+  /// vaga) risponde la carta dell'esito; a una che chiede il modo o che cosa
+  /// c'e', il cuore. Il lettore cieco indipendente ha trovato un si' tratto
+  /// dal Presente con un Due di Coppe rovesciato nel Futuro (tarocchi-12), e
+  /// L'Eremita, Maggiore piu' alto ma nel Passato, letto al presente come
+  /// carta chiave (tarocchi-2): **il Maggiore piu' alto conta solo se sta in
+  /// un posto che dice l'adesso o l'esito**, mai alle spalle o di traverso.
+  /// La schermata marca la stessa carta da cui viene la risposta. PADRE:
+  /// ordine GA voce GA.06, commit 9b2d2d29 (la chiave senza la domanda), e
+  /// ordine FK aggiunta 2 voce A8 (il Maggiore in qualunque posizione).
+  static CartaChiave chiaveDi(TarotSpread spread, {String? domandaScritta}) {
     // **IL CUORE DELLA STESA, ordine FK aggiunta 2 voce A8**: il presente
     // nella stesa a tre carte, e nelle altre la carta che regge la lettura
     // (`TarotSpread.cuore`). Le ragioni della stesa a tre carte restano le
@@ -403,6 +417,31 @@ class TarotReading {
       );
     }
     final aTre = spread.eATreCarte;
+    final d = LaDomandaLetta.di(domandaScritta);
+    final approdo = spread.approdo;
+    final chiedeLEsito = d.vaga ||
+        d.distacco ||
+        d.timore ||
+        d.sensibile != null ||
+        switch (d.forma) {
+          FormaDellaDomanda.siNo ||
+          FormaDellaDomanda.quando ||
+          FormaDellaDomanda.scelta =>
+            true,
+          _ => false,
+        };
+    if (approdo != null &&
+        d.forma != FormaDellaDomanda.nessuna &&
+        chiedeLEsito) {
+      return CartaChiave(
+        drawn: approdo,
+        perche: aTre
+            ? 'È la carta del Futuro: la tua domanda chiede dove va la '
+                'questione, e risponde lei.'
+            : 'È la carta dell\'esito: la tua domanda chiede dove va la '
+                'questione, e risponde lei.',
+      );
+    }
     if (presente.card.arcana == TarotArcana.maggiore) {
       return CartaChiave(
         drawn: presente,
@@ -414,7 +453,12 @@ class TarotReading {
       );
     }
     final maggiori = spread.cards
-        .where((c) => c.card.arcana == TarotArcana.maggiore)
+        .where((c) =>
+            c.card.arcana == TarotArcana.maggiore &&
+            switch (VoceDellaStesa.ruoloDi(c.position)) {
+              RuoloDellaPosizione.ora || RuoloDellaPosizione.esito => true,
+              _ => false,
+            })
         .toList();
     if (maggiori.isEmpty) {
       return CartaChiave(

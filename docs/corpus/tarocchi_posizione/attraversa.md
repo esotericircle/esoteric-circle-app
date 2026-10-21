@@ -34,69 +34,69 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Un principio a mani vuote si apre nell'ora degli impegni dichiarati. La fiducia nel primo passo precede le garanzie che il lavoro avviato ti chiedeva di dare.
-- 2: La mano libera porta bene a quello che nasce da zero. Il legame che hai già stretto vive di continuità; quello slancio senza preparativi cerca terreno vergine.
+- 1: Ti mette alla prova la voglia di ricominciare da capo proprio quando la situazione ti chiede di mantenere impegni già presi: la fiducia corre più veloce delle garanzie.
+- 2: Questa leggerezza aiuta ciò che nasce da zero, ma qui ti intralcia: quello che hai già avviato chiede continuità, mentre tu senti la spinta a ricominciare altrove.
 - 3: Verso il momento iniziale tira questa fiducia senza bagagli e qui ti intralcia: la decisione che hai davanti voleva lo sguardo sull'arco intero, mentre la tua attenzione resta tutta sul partire.
 
 ### capovolta
 
-- 1: Questa spinta parte prima di avere un nome. Una ragione dicibile serviva al passo che hai davanti; l'orlo è già sotto il tuo piede e la provenienza resta impronunciata.
+- 1: Ti intralcia una spinta che parte prima di avere un motivo chiaro: la decisione che hai davanti chiedeva una ragione da poter dire, mentre il piede è già sul bordo.
 - 2: Sull'orlo punta questo slancio e ti fa da ostacolo: l'origine che ti serviva nominare resta dietro, mentre il vuoto davanti prende tutta l'attenzione che toccava al motivo.
-- 3: Il bordo non ferma questo impulso. Una sosta bastava a dire da dove nasce la partenza e la meta che il tuo partire chiede resta da fissare.
+- 3: Questo impulso non si ferma nemmeno sul bordo: ti bastava una breve sosta per capire da dove nasce la voglia di partire, ma la meta resta ancora da scegliere.
 
 ## Il Mago
 
 ### dritta
 
-- 1: Tutti i mezzi stanno già a portata e quello che pensi diventa cosa fatta nello stesso istante. Il tuo tentativo in corso chiedeva di restare qualcosa che si poteva ancora disfare.
-- 2: La tua facoltà di fare porta frutto al lavoro delle mani: una decisione lasciata aperta chiedeva invece un criterio per scegliere, non una mano pronta a chiuderla.
-- 3: Quel potere prosegue oltre il punto in cui un abbozzo bastava: l'opera esce finita e intera, là dove il tuo patto appena avviato voleva una bozza da correggere in due.
+- 1: Tutti i mezzi sono a portata e quello che pensi diventa subito fatto: qui ti intralcia, perché la cosa che stai provando aveva bisogno di restare ancora modificabile.
+- 2: La tua capacità di fare aiuta il lavoro pratico, ma ora ti mette alla prova: la decisione aperta chiede prima un criterio per scegliere, non mani pronte a chiuderla.
+- 3: Questo talento va oltre il punto in cui bastava una bozza: ti spinge a consegnare un lavoro finito proprio dove serviva qualcosa di ancora correggibile insieme ad altri.
 
 ### capovolta
 
-- 1: L'annuncio tiene pieno il posto del fatto: il talento è tuo per intero e riposa chiuso. L'impegno che avevi preso voleva in quel posto una cosa consegnata.
-- 2: Lo scarto fra quello che dici e quello che le tue mani portano a termine viene allo scoperto proprio dove un accordo teneva coperta la parte non ancora eseguita.
+- 1: Ti intralcia l'abitudine di annunciare al posto di fare: il talento è tutto tuo ma resta chiuso, mentre l'impegno che avevi preso chiedeva una cosa consegnata davvero.
+- 2: Viene allo scoperto lo scarto fra quello che dici e quello che fai, proprio nel punto in cui un accordo nascondeva la parte di lavoro non ancora svolta.
 - 3: Una promessa in più da mantenere si somma a quelle che reggi già, perché la parola data cresce al posto del dono, che resta piegato dove lo hai posato.
 
 ## La Papessa
 
 ### dritta
 
-- 1: Il velo che custodisce questo sapere lo tiene intero al coperto, mentre il riserbo che lo conserva chiude fuori la persona che attendeva da te una frase chiara.
-- 2: Quella conoscenza muta lavora bene dove nessuno parla, nella comprensione che matura al buio: il punto che hai aperto chiedeva invece una formula pronunciata davanti a qualcuno.
+- 1: Il riserbo che custodisce questo sapere lo protegge, ma qui ti intralcia: la situazione chiedeva una parola chiara mentre tu tieni per te quello che senti.
+- 2: Questa conoscenza silenziosa funziona bene dove si può aspettare, ma ti mette alla prova adesso che la questione chiede di dire apertamente come la pensi.
 - 3: Resta pieno di silenzio il posto in cui doveva stare una dichiarazione: la quiete che fa maturare le risposte occupa il momento in cui alla cosa che hai davanti serviva una parola detta.
 
 ### capovolta
 
-- 1: Il ragionamento che spiega tutto tiene pieno lo spazio dell'ascolto: quello che già sai senza parole resta sotto, mentre sopra lavora una spiegazione più rumorosa della tua scelta.
+- 1: Ti intralcia il bisogno di spiegare tutto con la testa: occupa lo spazio dell'ascolto, così quello che già sai senza parole resta sotto una spiegazione più rumorosa.
 - 2: Le spiegazioni continuano oltre il punto in cui una pausa breve avrebbe fatto sentire quello che dentro è chiaro, intanto che il rumore cresce sopra quello che hai da capire.
-- 3: Sotto il frastuono dei tuoi ragionamenti quella certezza interna sta al sicuro dal timore di ascoltarla: lo schermo che la ripara chiude anche la stanza dove volevi riconoscerla.
+- 3: Il rumore dei ragionamenti ti protegge dal timore di ascoltare quella certezza interna, ma nello stesso tempo ti impedisce di riconoscerla proprio quando ti serve davvero.
 
 ## L'Imperatrice
 
 ### dritta
 
-- 1: Una crescita viva si prende il tempo pieno della terra buona davanti alla risposta corta che la tua intesa aspettava: quello che hai avviato matura con una misura di giorni che non si lascia accorciare.
-- 2: Il nutrimento continua a salire nella pianta già partita anche quando la tua attesa chiedeva una forma ferma: quello che è vivo seguita a cambiare mentre lo guardi.
-- 3: Fiorisce con abbondanza quello che respira già da sé: la dolcezza dei modi e il calore vanno alla pianta avviata, mentre la scelta che il tuo tempo chiede sta ferma su un altro tavolo.
+- 1: Una crescita viva si prende tutto il tempo che le serve e qui ti mette alla prova: la situazione chiedeva una risposta rapida, mentre ciò che hai avviato matura coi suoi giorni.
+- 2: Ciò che hai avviato continua a crescere e a cambiare anche quando avresti bisogno di una forma ferma: ti intralcia proprio perché è vivo e non si lascia fissare.
+- 3: Fiorisce con abbondanza ciò che già respira da sé, ma la tua cura va tutta lì: intanto la scelta che il momento ti chiede resta ferma in attesa.
 
 ### capovolta
 
-- 1: La cura esce puntuale verso le cose che stanno già fuori e tira da quella parte, mentre la radice del tuo lavoro nuovo resta asciutta: dove nasce il vivo arriva l'ultima parte del nutrimento.
-- 2: Altre creature da nutrire entrano nell'elenco e le mani tornano piene, mentre la sorgente da cui prende forma il tuo progetto chiede acqua propria e aspetta il suo turno.
-- 3: Si ferma la fioritura proprio dove il tuo legame aveva bisogno di una cosa viva da mostrare: la fertilità resta ritirata dentro, al coperto, con la linfa che non esce dal fusto.
+- 1: La cura esce puntuale verso ciò che sta già fuori e ti intralcia: la parte nuova di quello che chiedi resta senza nutrimento, perché le arriva soltanto l'avanzo.
+- 2: Altri impegni da accudire si aggiungono e ti riempiono le mani, mentre la fonte da cui nasce quello che vuoi creare chiede attenzione e aspetta il suo turno.
+- 3: Si ferma la fioritura proprio dove la situazione aveva bisogno di mostrare qualcosa di vivo: la tua fertilità resta chiusa dentro e non arriva a farsi vedere.
 
 ## L'Imperatore
 
 ### dritta
 
-- 1: La regola che hai posato sostiene quello che costruisci e nello stesso gesto sigilla la parte dell'intesa che aveva bisogno di restare rivedibile. Protegge la forma; chiude il margine di ritorno.
-- 2: Una forma data regge il tuo progetto in piedi mentre serra il punto in cui serviva una decisione morbida: quello che fissa dura, compreso il dettaglio che chiedeva di poter essere riaperto.
-- 3: Fermezza e responsabilità tengono su l'impianto del tuo lavoro mentre la stessa fermezza chiude a chiave il patto che sperava di poter essere ridiscusso. Il sostegno è reale ed è inchiodato.
+- 1: La regola che hai posto sostiene ciò che costruisci ma qui ti intralcia: fissa anche la parte di accordo che aveva bisogno di restare aperta a modifiche.
+- 2: Una forma stabile tiene in piedi il tuo progetto ma blocca il punto in cui serviva una decisione flessibile: ciò che fissi dura, anche il dettaglio da poter cambiare.
+- 3: Fermezza e responsabilità reggono ciò che stai costruendo, ma la stessa fermezza chiude un accordo che avrebbe avuto bisogno di essere ridiscusso: il sostegno c'è ma non concede margini.
 
 ### capovolta
 
-- 1: Il comando che hai dato stringe oltre il punto in cui serviva gioco, oppure manca la base e l'impianto oscilla: la forma non si ferma dove finisce ciò che tiene.
+- 1: Ti intralcia un comando che stringe più del necessario, oppure una base che manca e lascia oscillare tutto: la regola non si ferma dove smette di servire.
 - 2: Troppo serrata, la norma prosegue dove serviva allentarla; oppure sotto la tua costruzione il piano d'appoggio non c'è e ogni scelta che prendi oscilla sul vuoto. Il respiro resta la parte che si restringe.
 - 3: Stringe oltre il necessario l'autorità che eserciti: il margine in cui una tua decisione poteva muoversi si assottiglia a ogni giro. Oppure le fondamenta mancano mentre l'impianto prova a reggersi da sé.
 
@@ -104,245 +104,245 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Un magistero più antico di te si pronuncia con l'autorità che gli viene dalla trasmissione: quel pronunciamento giova al corpo che lo custodisce; la questione che hai portato resta tua.
+- 1: Un insegnamento antico ti dà una risposta autorevole, ma qui ti intralcia: protegge la tradizione da cui viene più della tua questione, che resta da risolvere a modo tuo.
 - 2: L'antica scuola a cui ti appoggi ti tiene su e, nello stesso movimento, ti serra il margine in cui stavi cercando una soluzione inedita, pensata da te.
 - 3: Arriva una sapienza che ha già risposto a mille casi prima del tuo: la sua parola è pronta, mentre la faccenda che hai in mano chiederebbe un giudizio nato dentro di lei.
 
 ### capovolta
 
-- 1: Il congedo da una regola ricevuta tira il tuo interesse verso il senso che vuoi darti; l'intesa che hai in corso aspetta una risposta su un punto stretto.
-- 2: Viene allo scoperto una convenzione che hai smesso di sentire tua, nel punto in cui tenevi il tuo assenso al coperto dalle domande di casa.
-- 3: La tua ricerca di un criterio proprio occupa lo spazio in cui la trattativa chiedeva una regola valida per tutte le parti: quel posto resta pieno di un dubbio che non hai sciolto.
+- 1: Il distacco da una regola ricevuta ti porta a cercare un senso tuo, ma qui ti intralcia: un accordo già in corso aspetta da te una risposta precisa.
+- 2: Viene allo scoperto una convenzione che non senti più tua, proprio dove finora avevi evitato con cura le domande di chi ti sta vicino.
+- 3: La ricerca di un criterio tuo occupa lo spazio in cui la situazione chiedeva una regola valida per tutti: resta così un dubbio ancora da chiarire.
 
 ## Gli Amanti
 
 ### dritta
 
-- 1: La prova dei tuoi valori cade sulla decisione nel momento della risposta pratica. Quello in cui credi entra nella scelta accanto a quello che desideri.
-- 2: Il bene di questa scelta va a quello che sei nel profondo. La tua fretta di concludere vuole altro e quel vaglio lavora sul fondo delle cose.
-- 3: Sulle tue mani, già occupate da una decisione da chiudere, si aggiunge un vaglio da sostenere. Sentimento e giudizio chiedono insieme lo stesso atto.
+- 1: La sfida è pratica: nel momento di rispondere davvero, ciò in cui credi entra nella scelta accanto a ciò che desideri e ti costringe a tenerne conto.
+- 2: Ti mette alla prova la fretta di chiudere: la scelta giusta guarda a ciò che sei nel profondo, mentre l'impazienza vorrebbe decidere subito su ciò che ti attira.
+- 3: Proprio mentre hai già una decisione da chiudere, arriva un esame dei tuoi valori: sentimento e giudizio ti chiedono di rispondere insieme, il che rende il momento più impegnativo.
 
 ### capovolta
 
-- 1: Una disputa interna occupa il posto che l'intesa da stringere voleva libero. Il credere e il volere si dividono la scelta e portano tutti e due la tua firma.
-- 2: Dentro di te lavora questo disaccordo. La risposta da dare all'altra persona aspetta; il tuo credere e il tuo volere litigano sulla parola e uno dei due resta muto.
-- 3: Questo dissidio fa emergere un valore che tenevi nascosto, proprio quando il desiderio sembrava bastare a decidere: i due termini della contesa sono tuoi, tutti e due.
+- 1: Ti mette alla prova una contesa interna che occupa il posto dell'intesa che vorresti trovare: credere e volere si dividono la scelta e portano entrambi la tua firma.
+- 2: L'ostacolo è dentro di te: la risposta da dare resta sospesa perché ciò in cui credi e ciò che desideri litigano mentre uno dei due non riesce a parlare.
+- 3: La sfida fa emergere un valore che tenevi nascosto, proprio quando ti sembrava che il desiderio bastasse da solo a decidere: entrambi i termini della contesa sono tuoi.
 
 ## Il Carro
 
 ### dritta
 
-- 1: La tua padronanza tira verso la meta che si è data e unisce in quel tiro le spinte contrarie. Il legame che avevi in gioco guardava una cosa di fianco, fuori da quella meta.
-- 2: Tenere unite le spinte opposte le ripara dallo strapparsi e con il medesimo comando serra l'obiezione che una delle due portava, quella che il tuo accordo aspettava di sentire.
-- 3: Il governo delle redini continua oltre il punto in cui una sosta avrebbe fatto il suo lavoro: l'andare resta saldo e la tua verifica in sospeso voleva un fermo per essere fatta.
+- 1: Ti mette alla prova la tua stessa determinazione: punta dritta alla meta, ma rischia di lasciare indietro qualcosa a cui tenevi davvero e che guardava in un'altra direzione.
+- 2: Il rischio è tenere tutto unito a forza: così eviti lo strappo, ma metti a tacere anche l'obiezione che una delle due parti portava e che meritava ascolto.
+- 3: La sfida è sapersi fermare: continui a tenere le redini oltre il punto in cui una pausa ti avrebbe permesso di verificare se la direzione è ancora quella giusta.
 
 ### capovolta
 
-- 1: Due tiri opposti occupano insieme lo stesso giogo e nessuno dei due lo lascia. La cosa che hai in mano chiedeva un attacco solo e una presa sola per muoversi.
-- 2: La corsa prosegue oltre il punto in cui la mano doveva riprendere le redini: lo slancio resta intero e un accordo tuo quasi fermo voleva proprio quel momento di presa.
-- 3: Un secondo tiro da reggere si aggiunge a quello che tenevi già, con le due spinte attaccate al medesimo giogo e le tue mani che avevano posto per una sola.
+- 1: Ti mette alla prova il voler tenere due direzioni opposte insieme, senza lasciarne nessuna: la situazione chiede invece una scelta sola e una presa sola per muoversi.
+- 2: La sfida è che continui a correre oltre il momento in cui avresti dovuto riprendere il controllo: lo slancio resta intero, ma una decisione tua attende proprio quella presa.
+- 3: Si aggiunge un nuovo impegno a quello che reggevi già e le due spinte ti contendono le energie: ne puoi governare bene una sola alla volta.
 
 ## La Giustizia
 
 ### dritta
 
-- 1: La pesata va avanti fino all'ultima parte dovuta, oltre il punto in cui la cosa che hai davanti chiedeva un margine: ogni atto torna sul piatto tale quale è stato posato.
-- 2: Il piatto mostra la porzione del dovuto che restava fuori dal conteggio: la causa torna accanto al suo effetto, cosicché quello che tenevi da parte compare nel computo della tua decisione.
-- 3: Questa equità fa bene al merito di ciascuno: risponde a chi ha messo che cosa, mentre la cosa che hai chiesto riguardava un'apertura di credito da concedere senza contare.
+- 1: Ti mette alla prova un rigore che pesa tutto fino all'ultimo, proprio dove la tua situazione avrebbe bisogno di un po' di margine e di comprensione.
+- 2: La sfida è che riemerge una parte del conto che avevi lasciato fuori: ciò che tenevi da parte, sperando di non doverlo affrontare, torna a pesare sulla tua decisione.
+- 3: Il rischio è misurare ogni contributo con esattezza, tuo e degli altri, proprio quando la tua questione chiederebbe di dare fiducia e di concedere qualcosa senza tenere il conto.
 
 ### capovolta
 
-- 1: Il caso occupa la casella dove andava il tuo nome: la registrazione resta dalla tua parte mentre l'attribuzione che le dai sta su un altro, cosicché la partita che volevi chiudere sta aperta.
-- 2: Una pendenza in più resta da reggere: quella conseguenza porta il tuo nome in calce anche quando l'attribuisci alla sfortuna, cosicché le mani già piene tengono pure questa.
-- 3: Proprio mentre la faccenda che hai davanti chiedeva di sapere a chi appartiene quella conseguenza, l'attribuzione si posa su un altro nome, intanto che la registrazione vera resta tua.
+- 1: Ti mette alla prova l'abitudine di dare la colpa al caso: la responsabilità resta comunque dalla tua parte, quindi la questione che vorresti chiudere rimane ancora aperta.
+- 2: Si aggiunge un carico in più da portare: una conseguenza che porta la tua firma anche quando la attribuisci alla sfortuna, sopra a tutto ciò che reggi già.
+- 3: Proprio quando la tua questione chiede di capire davvero a chi appartiene una conseguenza, tu la attribuisci a qualcun altro, mentre la responsabilità vera resta soltanto tua.
 
 ## L'Eremita
 
 ### dritta
 
-- 1: Il silenzio cercato tiene la ricerca al coperto e tiene chiusa la porta allo scambio che il tuo lavoro a due chiedeva aperto: la lampada schiarisce un tratto breve, il resto sta scuro.
-- 2: Un raggio corto di luce tiene occupata l'attenzione intera su un passo solo, mentre il tuo scambio con gli altri chiedeva lo sguardo largo di chi vede la stanza per intero.
-- 3: Cresce in profondità il sapere raccolto in lunga strada: quel guadagno va alla ricerca che hai aperto per conto tuo, mentre la parola chiara che il tuo compagno di lavoro aspettava resta dentro il silenzio.
+- 1: Ti mette alla prova un silenzio che protegge la tua ricerca ma chiude lo scambio con gli altri, proprio quando la situazione chiedeva confronto e apertura.
+- 2: La sfida è che concentri tutta l'attenzione su un dettaglio solo, mentre il rapporto con gli altri ti chiede di alzare lo sguardo e di vedere l'insieme della situazione.
+- 3: Il rischio è approfondire così tanto per conto tuo da non condividere ciò che capisci: le parole chiare che qualcuno aspettava da te restano chiuse nel silenzio.
 
 ### capovolta
 
-- 1: La solitudine seguita oltre il punto in cui aveva finito di insegnare: la lampada scende sempre dentro, mentre il rientro verso le persone del tuo giro resta senza un tratto schiarito.
-- 2: Dentro tira tutta la luce raccolta, verso la stanza chiusa dove il sapere si deposita, mentre la tua promessa a chi aspetta fuori guardava alla strada del ritorno.
-- 3: Il raccoglimento custodisce quello che hai capito e lo trattiene là dentro: la cosa detta che il tuo legame chiedeva resta chiusa nel silenzio di casa.
+- 1: Ti mette alla prova una solitudine che prosegue oltre il tempo in cui ti insegnava qualcosa: guardi sempre dentro, mentre il ritorno verso le persone vicine resta trascurato.
+- 2: La sfida è che trattieni dentro tutto ciò che hai capito, mentre l'impegno preso con chi aspetta fuori chiedeva di tornare verso gli altri a condividerlo.
+- 3: Il rischio è che il raccoglimento custodisca ciò che hai capito fino a trattenerlo: le parole che la situazione ti chiedeva restano chiuse nel silenzio di casa.
 
 ## La Ruota della Fortuna
 
 ### dritta
 
-- 1: Il giro cambia verso da sé, senza mano che lo spinga, proprio dove il tuo accordo aveva bisogno di restare fermo per prendere forma. Quello che si muove non chiede il permesso a nessuno.
-- 2: Qualcosa si capovolge per rotazione e non per scelta, mentre tocca il punto del tuo lavoro che reggeva solo da fermo. La svolta è reale: cade nell'ora in cui servivano condizioni stabili.
-- 3: Senza preavviso l'alto e il basso si scambiano di posto, mentre una cosa tua che stava maturando chiedeva tempo uguale a se stesso. La rotazione tocca pure quello che era appena sistemato.
+- 1: Ti mette alla prova un cambiamento che arriva da sé, proprio dove un accordo tuo aveva bisogno di stabilità per prendere forma: ciò che si muove non chiede permesso.
+- 2: La sfida è una svolta che capovolge le cose nel punto della tua situazione che reggeva solo da fermo: il cambiamento è reale, ma arriva quando servivano condizioni stabili.
+- 3: Senza preavviso alto e basso si scambiano di posto, mentre qualcosa di tuo stava maturando e chiedeva tempo: il cambiamento tocca anche ciò che avevi appena sistemato.
 
 ### capovolta
 
-- 1: La rotazione va avanti storta e tira verso il ripetersi dello stesso giro, mentre quello che hai avviato guardava in avanti. Nessuna mano la governa: la presa non è dalla tua parte.
-- 2: Gira per conto suo il meccanismo e porta la tua faccenda a ripassare dal punto di partenza, proprio dove serviva un passo nuovo. Chi sta sopra non ha appigli su cui fare leva.
-- 3: Un ciclo tuo continua a muoversi senza che tu lo guidi e lo fa in cerchio, verso il medesimo punto di prima, mentre il tuo progetto chiedeva una direzione diversa dal ritorno.
+- 1: Ti mette alla prova un ciclo storto che riporta la situazione indietro, mentre ciò che hai avviato guardava avanti: in questo momento la presa non è nelle tue mani.
+- 2: La sfida è un meccanismo che va per conto suo e ti fa ripassare dal punto di partenza, proprio dove serviva qualcosa di nuovo.
+- 3: Il rischio è un ciclo che continua a girare in tondo senza la tua guida, mentre la tua questione chiedeva una direzione diversa dal solito ritorno.
 
 ## La Forza
 
 ### dritta
 
-- 1: Il coraggio dolce con cui tieni l'istinto cade nel punto in cui la faccenda chiedeva uno scatto: la mano resta ferma; la trattativa davanti a te premeva per un movimento secco.
-- 2: La dolcezza del tuo dominio prosegue oltre il segno in cui la faccenda avrebbe chiuso: la belva si acquieta, poi la stessa mitezza insiste sul punto che chiedeva un rifiuto netto da parte tua.
-- 3: Una mano paziente sull'istinto custodisce il tuo equilibrio e con lo stesso gesto chiude la spinta che la decisione in sospeso avrebbe usato per partire.
+- 1: Ti mette alla prova la tua stessa pazienza: la usi proprio dove la situazione chiedeva una reazione rapida, mentre chi hai davanti si aspettava una risposta netta.
+- 2: La sfida è una mitezza che va oltre il necessario: calmi la tensione, ma poi continui con la stessa dolcezza anche dove serviva un rifiuto chiaro.
+- 3: Il rischio è che la mano paziente con cui tieni a bada l'istinto trattenga anche la spinta di cui una decisione in sospeso aveva bisogno per partire.
 
 ### capovolta
 
-- 1: Il dubbio sulla tua tenuta esce alla luce nel punto in cui la decisione da prendere aveva bisogno che la saldezza restasse fuori discussione.
-- 2: Un dominio che credi perduto ti chiede una prova in più su di te, che si aggiunge alle pratiche già pesanti che reggi da settimane.
-- 3: La durezza con cui ti tratti sta là dove la mitezza stava prima: la pratica aperta aspettava una mano mite e incontra la tua stretta.
+- 1: Ti mette alla prova il dubbio sulla tua tenuta, che emerge proprio quando la decisione da prendere aveva bisogno di tutta la tua fermezza.
+- 2: La sfida è sentire di aver perso il controllo: ti chiedi una prova in più di resistenza, che si aggiunge a impegni già faticosi.
+- 3: Il rischio è che la durezza con cui ti tratti prenda il posto della mitezza: la situazione aspettava una mano gentile e trova invece la tua stretta.
 
 ## L'Appeso
 
 ### dritta
 
-- 1: Questa sospensione ferma il tempo nell'ora del gesto atteso. Lo sguardo invertito arriva quando al lavoro che hai aperto occorreva una mano.
-- 2: Alla comprensione giova questo capovolgimento. La consegna che hai promesso aspetta; la vista nuova matura in un tempo che non si conta a gesti.
-- 3: L'attesa riempie il tempo che occorreva all'azione. Quello che vedi nasce dal verso contrario e il tuo lavoro fermo resta allo stesso punto.
+- 1: Ti ostacola un'attesa che arriva proprio quando vorresti agire: le cose restano sospese e la comprensione che porta matura più lentamente di quanto la situazione sembri chiedere.
+- 2: Di traverso c'è una pausa che non hai scelto: ti costringe a guardare la questione da un'altra parte mentre tu cercavi una risposta rapida e una mossa da fare.
+- 3: Ciò che ti mette alla prova è il tempo fermo: quello che hai avviato non avanza e la tentazione è riempire l'attesa di gesti inutili invece di usarla per capire.
 
 ### capovolta
 
-- 1: Una rinuncia priva di destinatario occupa il posto del gesto che serviva: il sacrificio prosegue e quello che avevi da fare resta fermo dove era.
-- 2: Questa offerta mostra il timore che stava sotto un nome alto, proprio quando una decisione bastava. Quello che hai chiamato dono non trova chi lo riceva.
-- 3: Hai le braccia piene della tua faccenda da chiudere e questo sacrificio mette dentro una privazione in più da reggere. L'attesa ha smesso di insegnare.
+- 1: Ti ostacola una rinuncia che nessuno ti ha chiesto: occupa il posto della decisione che servirebbe e intanto quello che avevi da fare resta fermo dov'era.
+- 2: Di traverso c'è la paura travestita da virtù: proprio quando basterebbe una scelta semplice, ti trattieni e chiami dono un sacrificio che nessuno vuole ricevere.
+- 3: Ciò che ti mette alla prova è un'attesa che ha smesso di insegnare: aggiunge una privazione in più proprio mentre hai già abbastanza da portare avanti.
 
 ## La Morte
 
 ### dritta
 
-- 1: Una chiusura in corso porta a termine da sé una cosa che la tua attesa aveva bisogno di trovare ancora in piedi, perché il congedo non chiede il permesso di nessuno per compiersi.
-- 2: Lo spazio che questo congedo apre serve un terreno diverso dal tuo: il lavoro che vuoi avviare voleva un posto già sgombro, non uno che si sta sgombrando.
-- 3: Quello che la cosa finita teneva coperto viene allo scoperto appena il congedo si compie: il tuo riserbo su quel punto reggeva soltanto finché reggeva la copertura.
+- 1: Ti ostacola una fine che si compie da sola: qualcosa su cui contavi si chiude prima del previsto e il cambiamento non aspetta che tu sia d'accordo.
+- 2: Di traverso c'è un congedo ancora in corso: vorresti partire con qualcosa di nuovo, ma lo spazio che ti serve si sta liberando adesso e non è ancora pronto.
+- 3: Ciò che ti mette alla prova è quello che una fase finita lascia allo scoperto: appena si chiude, emerge anche ciò che quella situazione teneva nascosto.
 
 ### capovolta
 
-- 1: La tua mano che non si apre riempie da sola lo spazio dove stava una cosa conclusa. Quello che vorresti far entrare ha bisogno di quello stesso spazio sgombro.
-- 2: Trattenere custodisce la forma di quello che è finito e nel medesimo gesto serra la mano su di essa, là dove il tuo legame nuovo chiedeva una mano aperta per essere stretto.
-- 3: Una cosa già conclusa resta fra le tue mani come materia da tenere ferma, sommata a quello che reggi di vivo, dove le dita bastavano appena per il secondo.
+- 1: Ti ostacola la tua stessa presa: tenendo stretto ciò che è concluso occupi adesso lo spazio che servirebbe a quello che vorresti far entrare nella tua vita.
+- 2: Di traverso c'è l'abitudine di custodire ciò che è finito: proprio mentre una possibilità nuova chiede mani libere, tu le tieni ancora chiuse su una forma vecchia.
+- 3: Ciò che ti mette alla prova è il doppio carico: porti insieme ciò che è vivo e ciò che è già concluso, mentre le forze bastano appena per il primo.
 
 ## La Temperanza
 
 ### dritta
 
-- 1: Il dosaggio lento comincia a unire le due parti proprio dove la cosa che hai davanti chiedeva un atto in un colpo solo: la fusione vuole tutto il suo tempo per diventare una terza cosa.
-- 2: Questa arte di mescolare fa bene alla convivenza delle due parti, mentre la faccenda che hai chiesto riguardava una preferenza dichiarata: la calma versa l'una nell'altra fino a confonderle.
-- 3: Continua la correzione della dose oltre il punto in cui il tuo preparato era pronto da servire: ogni goccia aggiunta chiede un'altra prova prima di fermarsi.
+- 1: Ti ostacola una lentezza che arriva proprio quando ti serviva una decisione rapida: l'accordo fra le parti richiede il suo tempo e non si lascia affrettare.
+- 2: Di traverso c'è il desiderio di mettere tutti d'accordo: mentre la questione chiede di scegliere da che parte stare, tu continui a cercare una media che accontenti ognuno.
+- 3: Ciò che ti mette alla prova è l'eccesso di correzioni: continui a ritoccare la dose anche quando il risultato era già pronto, rimandando il momento di fermarti.
 
 ### capovolta
 
-- 1: La parte in eccesso continua a versarsi oltre il punto in cui il recipiente era colmo, mentre l'altra sta a digiuno: le tue due metà hanno smesso di passarsi qualcosa.
-- 2: Arriva altra dose da reggere là dove la tua mano era già piena: una delle due metà pretende tutto il rifornimento, cosicché quello che stavi tenendo in equilibrio ha una porzione in più da sostenere.
-- 3: Tutto scivola verso la parte che già abbonda, intanto che quello che hai davanti aveva bisogno di uno scambio fra le due metà: il travaso corre da un lato soltanto.
+- 1: Ti ostacola una parte di te che continua a dare oltre il limite, mentre l'altra resta a secco: le due metà hanno smesso di scambiarsi qualcosa e di parlarsi.
+- 2: Di traverso c'è un carico in più che arriva quando sei già al limite: una sola esigenza pretende tutte le tue energie e l'equilibrio che tenevi diventa più fragile.
+- 3: Ciò che ti mette alla prova è il travaso da un lato soltanto: tutto scivola verso ciò che già abbonda, mentre la questione avrebbe bisogno di uno scambio fra le due parti.
 
 ## Il Diavolo
 
 ### dritta
 
-- 1: Un piacere reale protegge il legame che hai accettato e lo stringe nello stesso giro: la catena dà indietro qualcosa di buono ogni volta, davanti alla libertà di manovra che il tuo progetto chiedeva.
-- 2: Dentro lo spazio che il tuo rapporto teneva libero per una scelta sta già seduto il vincolo: l'attaccamento chiede indietro una libertà per volta e restituisce un gusto preciso, in pieno giorno.
-- 3: Oltre il punto in cui quel gusto bastava, il patto continua a chiedere: la catena seguita a stringere sopra la misura che il tuo legame con gli altri aveva fissato in principio.
+- 1: Ti ostacola un piacere vero che tiene in piedi un legame: ogni volta ti restituisce qualcosa di buono e intanto ti toglie la libertà di cambiare direzione.
+- 2: Di traverso c'è un vincolo che occupa lo spazio di una scelta libera: in cambio di un gusto preciso ti chiede indietro un pezzo di libertà alla volta.
+- 3: Ciò che ti mette alla prova è un accordo che continua a chiedere oltre il necessario: il piacere di un tempo non basta più, eppure il legame stringe ancora.
 
 ### capovolta
 
-- 1: Lo scioglimento arriva dove il tuo patto aveva bisogno che la presa tenesse: il nodo si allenta a mano, un giro per volta, mentre il gusto che lo nutriva se ne va con lui.
-- 2: Una rinuncia nuova entra fra le cose da portare, perché il legame riconosciuto si allenta al prezzo di un piacere gradito, mentre la tua intesa aveva già la sua parte da lasciare.
-- 3: Si vede in chiaro il giro di catena che il tuo legame di famiglia teneva sotto il tavolo: la presa era vera e il nome che riceve la porta in mezzo al discorso di tutti.
+- 1: Ti ostacola il momento della liberazione stessa: il legame si allenta un giro alla volta e insieme se ne va anche il piacere che lo teneva in vita.
+- 2: Di traverso c'è una rinuncia nuova da portare: per liberarti da quel legame devi lasciare andare anche un piacere che ti era caro e questo costa davvero fatica.
+- 3: Ciò che ti mette alla prova è una verità che viene allo scoperto: il vincolo che restava nascosto adesso ha un nome ed entra nei discorsi di chi ti sta intorno.
 
 ## La Torre
 
 ### dritta
 
-- 1: Il cedimento improvviso porta alla luce la parte della tua costruzione che stava su per finzione, quella che una convenienza teneva coperta. Resta in piedi il vero, scoperchiato insieme al resto.
-- 2: Quello che regge solo in apparenza viene giù di colpo e mostra l'intelaiatura che il tuo progetto non voleva far vedere. La rivelazione passa dal crollo di un pezzo, non dal racconto.
-- 3: Cade senza preavviso la facciata di un impianto tuo ed esce allo scoperto quello che un accordo comodo manteneva al riparo dagli occhi. Il vero regge: è in vista.
+- 1: Ti ostacola un cedimento improvviso che porta alla luce la parte della tua costruzione che reggeva su una finzione: resta in piedi il vero, ma tutto è ormai allo scoperto.
+- 2: Di traverso c'è una caduta che non avevi previsto: quello che reggeva solo in apparenza viene giù e mostra agli altri ciò che avresti preferito tenere nascosto.
+- 3: Ciò che ti mette alla prova è una facciata che crolla senza preavviso: esce allo scoperto ciò che un accordo comodo teneva al riparo e adesso è sotto gli occhi di tutti.
 
 ### capovolta
 
-- 1: La scossa rimandata lascia in piedi un'impalcatura che tiene pieno il posto dove al tuo lavoro sarebbe servito spazio libero per rifare. Quello che non è caduto occupa il terreno della cosa nuova.
-- 2: Un rinvio mantiene su la costruzione che avrebbe dovuto venire giù, mentre il posto che serviva vuoto resta ingombro di travi vecchie. La tua faccenda gira attorno a quell'ingombro.
-- 3: Regge per rinvio una struttura tua già sfiatata ed è la sua stessa presenza a tenere occupato il terreno su cui la ripresa avrebbe potuto appoggiarsi. L'impalcatura sta dove serviva sgombro.
+- 1: Ti ostacola una struttura che doveva cadere e invece resta in piedi: occupa lo spazio dove servirebbe ricominciare e impedisce a qualcosa di nuovo di prendere forma.
+- 2: Di traverso c'è un rinvio che tiene su ciò che andava lasciato andare: il posto che serviva libero resta ingombro di vecchie abitudini e la tua faccenda ci gira intorno.
+- 3: Ciò che ti mette alla prova è la fatica di sostenere ciò che vacilla: ogni giorno aggiungi un rinforzo e quelle energie mancano a ciò che potrebbe ripartire.
 
 ## La Stella
 
 ### dritta
 
-- 1: Una quiete luminosa giova alla parte di te che ha attraversato la tempesta; il punto che hai messo sul tavolo aspettava un criterio per decidere.
-- 2: La rassicurazione scende su di te nel punto in cui la pratica aperta avrebbe avuto bisogno di una scossa: la fiducia torna, intanto il fascicolo resta là dove l'hai lasciato.
-- 3: Il conforto di questa luce ti difende dalla stanchezza e insieme smorza l'inquietudine da cui la tua questione traeva la spinta per muoversi e decidere.
+- 1: Ti ostacola una quiete che consola ma non decide: dopo la tempesta ti senti meglio, eppure la questione che hai davanti aspetta ancora un criterio per scegliere.
+- 2: Di traverso c'è una rassicurazione che arriva proprio quando servirebbe una scossa: la fiducia torna, ma ciò che hai lasciato in sospeso resta dove l'hai lasciato.
+- 3: Ciò che ti mette alla prova è il conforto stesso: ti protegge dalla stanchezza, ma spegne anche l'inquietudine che ti spingeva a muoverti e a decidere.
 
 ### capovolta
 
-- 1: La fatica di credere dura più a lungo del segno in cui il tuo caso chiedeva una scommessa: l'ispirazione resta lontana e il velo copre la scelta che devi fare.
-- 2: Una speranza affaticata tiene occupato il punto in cui il tuo progetto chiedeva slancio intatto: il velo è passeggero, intanto il tuo slancio non ritrova quel posto libero.
-- 3: Il dubbio sul domani aggiunge un peso da portare proprio là dove le tue mani erano già piene della pratica che hai aperto da tempo.
+- 1: Ti ostacola una fatica di credere che dura proprio quando servirebbe il coraggio di provarci: l'ispirazione resta lontana e il dubbio copre la scelta che devi fare.
+- 2: Di traverso c'è una speranza affaticata che occupa il posto dello slancio: il velo è passeggero, ma intanto ciò che hai cominciato procede senza entusiasmo.
+- 3: Ciò che ti mette alla prova è il dubbio sul domani: quando non credi che serva provarci, ogni tentativo ti costa il doppio della fatica.
 
 ## La Luna
 
 ### dritta
 
-- 1: Il buio arriva nell'ora del contorno netto. Quello che vedi non coincide con quello che è e il tuo passo da compiere si fa al tatto.
+- 1: Di traverso si mette la confusione: proprio quando ti servirebbe vedere netto, quello che vedi non coincide con quello che è e ogni mossa va fatta con cautela, verificando.
 - 2: Questa foschia sposta la tua attenzione su quello che senti, proprio quando il dato da verificare aspettava il tuo esame: così la prova concreta resta in secondo piano.
-- 3: Le forme notturne di una scena che tu guardavi alla luce del giorno si alzano con questa penombra. Quello che sale dal sonno sta davanti alla superficie leggibile.
+- 3: Paure e impressioni notturne si mettono davanti a una situazione che di giorno ti sembrava chiara: ciò che temi copre ciò che si può leggere nei fatti.
 
 ### capovolta
 
-- 1: Questo schiarirsi dà il suo frutto al timore che diventa piccolo. Il fondo che ti serviva guardare resta coperto e la luce cade sulle figure della notte.
-- 2: Questa luce mostra quanto è piccola una paura che tenevi enorme. Quella paura reggeva la tua attenzione e il contorno rientra nei suoi bordi.
-- 3: Il diradarsi non si arresta al timore. La prudenza che ti conveniva tenere intera si apre insieme alla nebbia, anche nel punto in cui un passo cauto serviva.
+- 1: Il chiarimento ti mostra quanto era piccola la paura, ma si ferma lì: il punto più profondo che ti serviva guardare resta coperto mentre ti godi il sollievo.
+- 2: Scopri che una paura era più piccola di come la vedevi, ma quella paura teneva alta la tua attenzione: ora che si sgonfia rischi di distrarti troppo presto.
+- 3: Insieme alla confusione se ne va anche la prudenza: abbassi la guardia su tutto, compreso il punto in cui un po' di cautela ti serviva ancora.
 
 ## Il Sole
 
 ### dritta
 
-- 1: Il pieno giorno manda a compimento ogni cosa in una volta. Il lavoro che hai avviato cresceva meglio prima di avere un nome e quel tempo senza nome gli serviva.
-- 2: Questo calore va a tutto il cerchio di chi ti sta attorno e scalda ognuno, là dove il patto che stai cercando voleva una stanza con due sedie e nient'altro.
+- 1: Tutto viene esposto e portato a termine insieme, ma ciò che hai avviato cresceva meglio lontano dagli sguardi: un po' di riservatezza gli serviva ancora.
+- 2: Il tuo calore si spande su tutte le persone intorno, mentre la questione che stai cercando di chiarire chiedeva un confronto a due, raccolto e lontano dal pubblico.
 - 3: Una gioia da sostenere e da mostrare si aggiunge alle cose che tieni in piedi, perché il tempo luminoso porta con sé le sue occasioni da reggere e le tue mani erano piene.
 
 ### capovolta
 
-- 1: Il calore resta a un dito dalla pelle: la luce è intera e il contatto manca, mentre quello che hai in gioco chiedeva un segno sentito e non soltanto visibile.
-- 2: Un velo riempie lo spazio fra te e quel chiarore. Il legame su cui chiedi voleva quello spazio libero, per far passare il tepore fino in fondo.
-- 3: La nube che smorza il chiarore mette al riparo dal pieno della luce e nello stesso gesto chiude fuori il tepore, che era quanto il tuo legame aspettava.
+- 1: Le cose buone ci sono ma non le senti davvero: tutto è visibile e niente ti tocca, mentre quello che hai in gioco chiedeva un segno vissuto e non soltanto mostrato.
+- 2: Un velo si mette fra te e la gioia che pure c'è: la questione su cui chiedi aveva bisogno di quello spazio libero, perché il calore arrivasse fino in fondo.
+- 3: La prudenza che smorza l'entusiasmo ti protegge dalle delusioni, ma nello stesso gesto tiene fuori anche il calore, che era proprio ciò che la tua questione aspettava.
 
 ## Il Giudizio
 
 ### dritta
 
-- 1: La chiamata mette in piena luce tutto il percorso che avevi archiviato: nomina per intero quello che ora sei, mentre la faccenda che hai davanti teneva quelle pagine chiuse.
-- 2: Il richiamo continua a pretendere una risposta intera, oltre il punto in cui alla tua decisione bastava una risposta parziale: chiede di presentarsi col nome nuovo.
+- 1: Il richiamo riporta alla luce un passato che avevi archiviato, mentre la faccenda che hai davanti aveva bisogno di lasciare chiuse quelle pagine almeno per ora.
+- 2: Senti forte il bisogno di cambiare tutto, mentre alla tua decisione bastava un aggiustamento parziale: rischi di rivoluzionare ogni cosa dove serviva soltanto un piccolo ritocco.
 - 3: Convoca il bilancio di una vita intera proprio dove quello che hai cominciato chiedeva una sola decisione piccola: la chiamata sale al nome che porti e vuole la persona per intero.
 
 ### capovolta
 
-- 1: La condanna già emessa occupa il posto in cui andava il riepilogo: la pronuncia precede i fatti, cosicché la faccenda che hai davanti resta senza il conteggio che chiedeva.
-- 2: Tira tutto verso la colpa, mentre la faccenda che hai davanti guardava a quello che c'è da riconoscere: la severità prende la scena che era della rassegna dei fatti.
+- 1: La condanna arriva prima del bilancio: decidi che hai sbagliato prima di guardare i fatti, così la faccenda che hai davanti resta senza l'esame onesto che chiedeva.
+- 2: Tutto viene letto come colpa, mentre la faccenda che hai davanti chiedeva di riconoscere anche ciò che è andato bene: la severità prende il posto di un esame equilibrato.
 - 3: Il rinvio tiene il bilancio lontano dagli occhi e intanto lo esclude dalla decisione che stai prendendo: rimandare la resa dei conti ti impedisce di scegliere davvero.
 
 ## Il Mondo
 
 ### dritta
 
-- 1: La chiusura intera del cerchio cade sul punto in cui il tuo progetto teneva una porta aperta per quello che viene dopo: il giro si compie, si salda, raccoglie tutto il percorso dentro di te.
-- 2: Il compimento si chiude sopra il ciclo lungo che hai finito di percorrere: l'armonia tocca quel giro, mentre il seguito che il tuo patto nuovo chiedeva sta davanti a un cerchio già saldato.
-- 3: Pienezza e integrazione stanno addosso al tempo che la tua scelta seguente teneva da parte: un ciclo chiuso in armonia tiene dentro quello che hai percorso, intero, senza pezzi che sporgono.
+- 1: Il ciclo si chiude del tutto proprio dove il tuo progetto aveva bisogno di lasciare una porta aperta per ciò che viene dopo: la conclusione rischia di arrivare troppo presto.
+- 2: La soddisfazione per il ciclo appena concluso occupa tutta la scena, mentre l'impegno nuovo che stai prendendo chiedeva attenzione e trova davanti a sé una porta già chiusa.
+- 3: Fermarti a godere ciò che è compiuto e integrato si prende il tempo che volevi tenere per la scelta successiva: la pausa ti trattiene più del necessario.
 
 ### capovolta
 
-- 1: Un pezzo da integrare resta in mano come cosa da tenere, proprio dove la tua attesa chiedeva una faccenda chiusa: l'intero manca di quel dettaglio e lo chiede al tavolo.
-- 2: Il cerchio seguita a chiedere il suo ultimo tratto quando la tua attesa si era già fermata a guardare: quello che è compiuto per il resto tiene aperta una fessura sola.
-- 3: Tutta la pienezza raccolta si stringe attorno al dettaglio non sciolto, mentre il passaggio nuovo che il tuo legame aspettava guardava dalla parte opposta del giro.
+- 1: Proprio quando speravi di chiudere la faccenda resta un dettaglio da sistemare: tutto il resto è compiuto, ma quel pezzo mancante chiede ancora la tua attenzione.
+- 2: La cosa chiede ancora un ultimo tratto quando tu avevi già smesso di spingere: quasi tutto è compiuto, ma resta aperta una piccola fessura da chiudere.
+- 3: Tutta la tua attenzione si concentra sul dettaglio che non torna, mentre la novità che la tua questione aspettava resta dall'altra parte, ignorata finché quel punto non si chiude.
 
 ## Asso di Bastoni
 
 ### dritta
 
-- 1: L'accensione nuova mette fra le tue mani un altro principio da reggere, mentre quelle mani stringono già una cosa cominciata e lasciata a metà. Il fuoco è vivo ed è un carico in più.
+- 1: Un entusiasmo nuovo ti mette in mano un altro inizio da portare avanti, mentre hai già una cosa cominciata e lasciata a metà: l'energia è viva, ma è un carico in più.
 - 2: Una fiamma che nasce chiede di partire subito e porta con sé un secondo inizio da nutrire, là dove il tuo lavoro ne aveva già uno aperto che chiedeva fiato. L'ardore si presenta con il suo peso.
 - 3: Parte da sola la spinta a cominciare e il suo slancio si posa sopra un impegno tuo in corso, che reclamava mani libere. Due accensioni vive insieme vogliono entrambe le braccia.
 
@@ -356,155 +356,155 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Un progetto di largo respiro porta il tuo sguardo oltre il confine del conosciuto; il caso che hai portato sta sul terreno su cui hai i piedi.
-- 2: La scelta della rotta si offre nel punto in cui la tua pratica chiedeva una mossa già partita: hai il mondo in mano, intanto la partenza resta da fare.
+- 1: Un progetto ambizioso porta il tuo sguardo lontano, mentre la questione che hai portato riguarda il presente e ciò che hai qui, a portata di mano.
+- 2: Ti trovi ancora a scegliere la direzione proprio quando la tua faccenda chiedeva di essere già avviata: hai tutto in mano, ma la partenza resta da fare.
 - 3: Il piano che prende corpo rende visibile a tutti l'ampiezza delle tue intenzioni, proprio là dove ti conveniva tenere riservata la parte più ambiziosa della trattativa.
 
 ### capovolta
 
-- 1: Una direzione confusa sta ferma sul posto che la tua decisione serbava per un bersaglio nitido: la soglia è presa da una domanda a cui non hai risposto.
-- 2: Il timore di osare mette una verifica davanti a ogni mossa, dentro un fascicolo che tenevi già pieno delle tue pratiche da chiudere.
+- 1: Dove la tua decisione aveva bisogno di un obiettivo chiaro c'è ancora confusione: a bloccarti è una domanda a cui non hai ancora risposto, quella su che cosa vuoi davvero.
+- 2: Il timore di osare ti fa ricontrollare ogni mossa, proprio quando hai già molte cose aperte da portare a termine: i dubbi si sommano agli impegni.
 - 3: Stare sulla soglia ti mette al coperto dalle conseguenze di una scelta e insieme sigilla l'apertura da cui la tua questione poteva prendere aria e movimento.
 
 ## Tre di Bastoni
 
 ### dritta
 
-- 1: Gli occhi di questa attesa vanno oltre l'orizzonte proprio nell'ora in cui serviva una presa vicina. Il carico che hai mandato fuori naviga ancora e la tua mano resta vuota.
-- 2: Questa attesa del ritorno satura di orizzonte lo sguardo che il lavoro vicino ti chiedeva per sé. La decisione da prendere qui, adesso, resta senza i tuoi occhi.
-- 3: Al largo chiama questa fiducia nel ritorno. Il lavoro che hai sotto le dita voleva la tua presenza e gli occhi stanno sulle vele non rientrate.
+- 1: Ti mette alla prova l'attesa stessa: con lo sguardo rivolto lontano rischi di trascurare ciò che chiede la tua presenza qui, nelle decisioni piccole di ogni giorno.
+- 2: Il difficile è che i risultati sono ancora in viaggio proprio quando ti servirebbero subito: la distanza fra ciò che hai avviato e ciò che hai in mano ti chiede pazienza.
+- 3: Fidarti di ciò che hai lanciato è giusto, ma qui diventa un limite se ti fa smettere di controllare: ciò che è lontano va seguito, non soltanto aspettato.
 
 ### capovolta
 
-- 1: Quello che torna rientra con un profilo diverso dal tuo. Il momento voleva la forma prevista; il carico approda e la sagoma non combacia.
-- 2: Questo rientro mostra la distanza fra la forma attesa e quella che approda, proprio nel punto in cui la tua previsione valeva come un dato fermo.
-- 3: Insieme a quello che reggevi approda un carico da riconoscere. La forma nuova chiede una rilettura delle tue attese e le braccia erano pronte per un'altra sagoma.
+- 1: Ti mette alla prova una risposta che arriva in una forma diversa da quella prevista, proprio quando contavi che tutto andasse secondo il piano.
+- 2: Il difficile è accettare ciò che rientra senza confrontarlo di continuo con le tue aspettative: finché guardi solo ciò che manca, non riesci a usare ciò che hai.
+- 3: Una sorpresa sgradita si mette di mezzo: le tue previsioni valevano come certezze e adesso vanno rilette su ciò che è arrivato, con calma e senza rimpianto.
 
 ## Quattro di Bastoni
 
 ### dritta
 
-- 1: La celebrazione sigilla come compiuta una cosa che aveva ancora un tratto da fare. Il tuo lavoro contava su quel tratto per arrivare intero fino in fondo.
-- 2: Il varco resta pieno di chi celebra e non si libera. La cosa che hai in attesa chiedeva un ingresso sgombro, per passare senza domandare permesso a nessuno.
-- 3: Questa festa porta l'opera finita sotto gli occhi di tutti, là dove la tua intesa riservata contava sul non essere ancora nominata davanti a nessuno.
+- 1: Ti mette alla prova la tentazione di considerare tutto concluso: festeggiare è giusto, ma qui rischia di farti fermare prima dell'ultimo tratto che manca.
+- 2: Il difficile è che la comodità della stabilità raggiunta toglie spinta proprio dove ti servirebbe ancora un impegno per portare la cosa fino in fondo.
+- 3: Una celebrazione arrivata troppo presto si mette di mezzo: rendere pubblico un risultato prima del tempo può esporre ciò che per te andava ancora protetto.
 
 ### capovolta
 
-- 1: Il compiuto resta senza il gesto che lo dichiara. Quello che hai davanti da cominciare aveva bisogno di un punto fermo da cui contare e quel punto non è stato posato.
-- 2: L'attesa del momento giusto per celebrare tira tutto verso quel momento, là dove la tua faccenda guardava una stanza già abitata e un uso di tutti i giorni.
-- 3: Una casa pronta e mai inaugurata entra fra le tue cose tenute in sospeso, aggiunta a quelle che porti già, col suo ingresso sempre da fissare.
+- 1: Ti mette alla prova un risultato raggiunto che non hai mai dichiarato tale: senza un punto fermo da cui ripartire, ciò che vuoi cominciare adesso fatica a prendere forma.
+- 2: Il difficile è che aspetti il momento perfetto per festeggiare e intanto la vita di tutti i giorni scorre, lasciando sospeso ciò che potresti già goderti.
+- 3: Una gioia rinviata si aggiunge alle cose che tieni in sospeso: ogni festa spostata a domani diventa un altro impegno aperto che ti toglie leggerezza.
 
 ## Cinque di Bastoni
 
 ### dritta
 
-- 1: Le spinte che si premono tutte insieme tengono pieno il tavolo che serviva libero per una decisione sola: nessuno comanda questa mischia, cosicché quello che hai da concordare resta nel frastuono.
-- 2: Si aggiungono fronti da reggere dove le tue mani erano già piene: ogni parte preme con la stessa forza delle altre, cosicché quello che stai portando avanti ha un contendente in più sul fianco.
-- 3: Il calore del misurarsi tira tutti verso la gara, mentre la faccenda che hai davanti guardava all'opera da compiere: l'energia ribolle fra pari, cosicché il tavolo diventa palestra.
+- 1: Ti mette alla prova un confronto in cui tutti parlano insieme: le opinioni si accavallano e la decisione che dovresti prendere resta sommersa dal rumore.
+- 2: Il difficile è che ogni parte preme con la stessa forza: a ciò che porti avanti si aggiunge un concorrente in più, proprio quando avevi già le mani occupate.
+- 3: Quel gusto della sfida si mette di mezzo: misurarti con gli altri ti accende, ma rischia di distrarti dal lavoro concreto che la tua questione richiede.
 
 ### capovolta
 
-- 1: La frizione va avanti a bassa fiamma anche dopo aver perso il suo motivo: nessuno apre la contesa, nessuno la chiude e quello che hai da tenere insieme convive col brontolio.
-- 2: Il coperchio tiene l'attrito al sicuro dallo scoppio e nello stesso gesto chiude la discussione che la tua faccenda aveva bisogno di sentire per intero.
-- 3: Molte piccole contese restano da tenere in piedi, una per fronte, dove le tue mani erano già occupate: ognuna chiede la sua dose di attenzione, cosicché la faccenda che conta divide la provvista.
+- 1: Ti mette alla prova un attrito che va avanti da tempo senza più un motivo: nessuno lo affronta né lo chiude e ciò che cerchi di tenere insieme ne risente.
+- 2: Il difficile è che, per evitare uno scontro aperto, eviti anche la discussione sincera di cui la tua questione avrebbe bisogno per andare avanti.
+- 3: Troppe piccole contese si sommano a quello che già porti: ognuna chiede un po' di attenzione e alla fine per ciò che conta davvero ti resta poca energia.
 
 ## Sei di Bastoni
 
 ### dritta
 
-- 1: L'acclamazione porta in piazza il merito che il tuo accordo teneva fra poche persone: il riconoscimento si fa pubblico, con gli occhi di tutti sopra quello che hai fatto.
-- 2: Arriva l'onore sulla cosa che il tuo passaggio delicato aveva bisogno di tenere in sordina: il corteo si forma, le teste si girano, il nome detto resta in mezzo alla sala.
-- 3: Il riconoscimento prende tutte le ore che la tua prova seguente teneva libere per lavorare: la stima detta in pubblico chiama risposte, saluti, parole da restituire a ciascuno.
+- 1: Ti mette alla prova un riconoscimento che arriva nel momento sbagliato: un accordo che volevi tenere riservato finisce sotto gli occhi di tutti, prima del tempo.
+- 2: Il difficile è che l'attenzione degli altri ti toglie tempo e calma: complimenti, richieste e risposte da dare occupano le ore che ti servivano per lavorare.
+- 3: Una gloria troppo visibile si mette di mezzo: il successo è reale, ma rischia di farti perdere misura o di attirare invidie proprio dove serviva la tua discrezione.
 
 ### capovolta
 
-- 1: Verso lo sguardo che non si posa tira l'attenzione, mentre il lavoro fatto per il tuo progetto chiedeva mani sul pezzo: il merito sta intero e senza nessuno che lo chiami per nome.
-- 2: Il valore si tiene per sé come cosa di casa, al riparo da chi lo misurerebbe: la conferma detta che il tuo patto con il gruppo chiedeva resta fuori dalla porta.
-- 3: Tarda la parola di stima nel tempo in cui il tuo impegno contava su un merito dichiarato: il lavoro sta tutto lì, fatto, con il posto dell'applauso vuoto.
+- 1: Ti mette alla prova l'attesa di uno sguardo che non arriva: mentre aspetti che qualcuno noti il tuo impegno, il lavoro concreto rischia di restare fermo.
+- 2: Il difficile è che tieni il tuo valore per te, al riparo dal giudizio: così manca proprio la conferma esplicita di cui il tuo progetto avrebbe bisogno.
+- 3: Una parola di stima che tarda si mette di mezzo: il lavoro è fatto e completo, ma il posto del riconoscimento resta vuoto proprio quando ti servirebbe.
 
 ## Sette di Bastoni
 
 ### dritta
 
-- 1: La difesa del terreno che hai già preso lo protegge e nello stesso gesto lo chiude, perché la posizione tenuta in alto trattiene fuori anche l'intesa che stava salendo. Il vantaggio è reale.
-- 2: Tieni il punto da una posizione in vantaggio e quella stessa altura serra il varco da cui una proposta utile avrebbe potuto raggiungere la tua faccenda. Il presidio copre il campo insieme al passaggio.
-- 3: Dall'alto la guardia su quello che è tuo tiene fuori tutto quanto, compresa la parte che il tuo lavoro stava aspettando di far entrare. La fermezza protegge il luogo e sigilla la porta.
+- 1: Ti mette alla prova la tua stessa fermezza: difendendo ciò che hai conquistato rischi di chiudere la porta anche a un accordo utile che stava arrivando.
+- 2: Il difficile è che, tenendo il punto, respingi insieme alle critiche anche una proposta sincera che avrebbe potuto davvero aiutare la tua questione a crescere.
+- 3: Una difesa troppo rigida si mette di mezzo: protegge ciò che è tuo, ma lascia fuori anche ciò che il tuo progetto aspettava di accogliere.
 
 ### capovolta
 
-- 1: La guardia continua oltre i lati che la tua faccenda aveva davvero da tenere e si distende su quelli già quieti. Difendere tutto insieme distribuisce la tenuta su un perimetro che nessuno preme.
-- 2: Resistere non si arresta dove il campo si era fatto tranquillo: la difesa copre ogni lato, anche quello da cui la tua richiesta attendeva risposta. Il perimetro cresce, le braccia no.
-- 3: Troppi fronti restano presidiati e la tenuta prosegue dove la pressione era già finita: la parte della tua faccenda che chiedeva una mano aperta ne incontra una chiusa.
+- 1: Ti mette alla prova una guardia che non si abbassa mai: continui a difenderti anche dove la pressione è finita e sprechi forze su fronti ormai tranquilli.
+- 2: Il difficile è che difendi ogni lato, compreso quello da cui sarebbe potuta arrivare una risposta utile: il perimetro cresce, ma le tue braccia restano due.
+- 3: Troppi fronti ancora presidiati si mettono di mezzo: la parte della tua questione che chiedeva apertura incontra da parte tua soltanto chiusura e diffidenza.
 
 ## Otto di Bastoni
 
 ### dritta
 
-- 1: La corsa dei fatti non si arresta al segno in cui il tuo caso avrebbe avuto bisogno di una sosta: le risposte si accavallano mentre tu stai leggendo la prima.
-- 2: Il movimento che viene da fuori entra nel punto in cui la tua pratica chiedeva tempo fermo: la fretta è nell'aria, intanto il tuo documento resta da rileggere.
-- 3: Molte notizie insieme portano materia nuova da tenere a mente e si posano sopra la decisione che hai in preparazione da tempo, togliendole calma.
+- 1: Ti mette alla prova una corsa di eventi che non si ferma proprio quando avresti bisogno di una pausa: le risposte si accavallano mentre stai ancora leggendo la prima.
+- 2: Il difficile è che la fretta che arriva da fuori ti toglie il tempo per rileggere e verificare ciò che stai preparando.
+- 3: Troppe notizie insieme si mettono di mezzo: portano cose nuove da tenere a mente e tolgono calma a una decisione che preparavi da tempo.
 
 ### capovolta
 
-- 1: I ritardi cadono nel punto in cui la tua pratica aveva bisogno che tutto capitasse nella stessa ora: il tempo si allunga; la trattativa che hai in corso chiedeva coincidenze.
-- 2: La fretta finita nel posto sbagliato sposta la tua attenzione sulle mosse da recuperare; il punto che avevi messo in cima riguardava la bontà del risultato.
-- 3: Un inciampo nella sequenza porta alla luce il disordine che tenevi nascosto, dentro la parte della tua pratica in cui volevi apparire in ordine.
+- 1: Ti mette alla prova un ritardo che arriva proprio quando avevi bisogno che tutto coincidesse: i tempi si allungano e ciò che porti avanti ne soffre.
+- 2: Il difficile è che la fretta ti spinge a recuperare in corsa, mentre la cosa più importante era la qualità del risultato.
+- 3: Un inciampo nella sequenza si mette di mezzo: fa emergere il disordine che tenevi nascosto, proprio dove volevi mostrare precisione.
 
 ## Nove di Bastoni
 
 ### dritta
 
-- 1: Questa guardia da reduce tiene occupato con la vigilanza il posto che l'accoglienza voleva libero. I segni dei colpi già presi stanno sul lavoro che hai davanti.
+- 1: Ti mette alla prova una guardia che non sa più abbassarsi: dopo tanti colpi tratti ogni novità come un pericolo, anche quella che potrebbe aiutarti.
 - 2: Lo scudo alzato difende quello che è quasi concluso e nello stesso gesto lo chiude a quello che potrebbe aggiungersi. La tua tenacia serra il perimetro.
 - 3: La resistenza prosegue dopo il momento di posare lo scudo. La fermezza che ti regge da tanto tempo non conosce una pausa nemmeno adesso.
 
 ### capovolta
 
-- 1: Le ferite già prese leggono come assalto il gesto di chi bussa. Questa diffidenza mette sentinelle nel varco che serviva aperto al tuo visitatore.
-- 2: Sui colpi già ricevuti prende la mira questa guardia. Chi arriva senza armi aspettava il tuo credito e l'attenzione resta sulle offese di prima.
+- 1: Ti mette alla prova il riflesso di leggere come un attacco anche il gesto di chi si avvicina in pace: la diffidenza chiude proprio la porta che serviva aperta.
+- 2: Questa guardia resta puntata sui colpi ricevuti in passato: chi arriva oggi da te senza cattive intenzioni aspettava un po' di fiducia e trova invece sospetto.
 - 3: Una corazza indurita difende quello che ti resta e nello stesso gesto serra la porta a chi si avvicina in pace. La memoria dei colpi decide chi passa.
 
 ## Dieci di Bastoni
 
 ### dritta
 
-- 1: Il fascio che porti tiene occupate entrambe le tue braccia fino all'ultima presa. La cosa di cui chiedi voleva una mano sgombra per essere raccolta.
-- 2: Questo portare prosegue oltre il tratto che era tuo da coprire, perché il fascio non si posa prima dell'arrivo. Una verifica a mezza via voleva proprio una sosta per essere fatta.
-- 3: Nuove responsabilità vere si sommano a quelle che reggi già, perché ogni cosa in arrivo trova spalle che la prendono. Il legame che aspettava le tue ore vuole quelle stesse ore.
+- 1: Ti mette alla prova un carico che tiene occupate tutte le tue energie: quello che chiedi avrebbe bisogno di mani libere e di tempo, che oggi non hai.
+- 2: Continui a portare tutto senza mai fermarti, anche oltre il tratto che spettava a te: proprio una pausa servirebbe per capire che cosa posare.
+- 3: Nuove responsabilità si sommano a quelle che reggi già, perché trovano sempre le tue spalle disponibili: intanto ciò che conta davvero per te aspetta il tuo tempo.
 
 ### capovolta
 
-- 1: Il fardello tira le tue forze verso cose che portano il nome di altri, tenute per abitudine, là dove quello di cui chiedi guardava una faccenda tua rimasta indietro.
-- 2: Portare quello che spetta ad altri tiene al riparo la pace con loro e con lo stesso gesto chiude il discorso su chi deve cosa. Il chiarimento che hai in sospeso stava là.
+- 1: Ti mette alla prova un fardello che assorbe le tue forze per cose che appartengono ad altri, mentre una faccenda tua, quella di cui chiedi, resta indietro.
+- 2: Portare ciò che spetta ad altri ti evita un confronto con loro, ma rimanda anche il chiarimento che aspetti: chi deve fare che cosa resta senza risposta.
 - 3: Cose intestate ad altri si sommano alle tue sulle medesime spalle, perché il senso del dovere le accoglie tutte. La faccenda che aspetta le tue mani vuole quelle mani libere.
 
 ## Fante di Bastoni
 
 ### dritta
 
-- 1: Un annuncio fresco bussa alla porta proprio dove il tuo lavoro avviato chiedeva di essere portato a termine: la novità vuole essere seguita subito, appena recapitata.
-- 2: Verso l'esplorazione tira questa curiosità giovane, mentre la faccenda che hai davanti guardava al compimento: il messaggero porta terre da vedere invece della firma che aspettavi.
+- 1: Ti mette alla prova una novità che arriva proprio quando ciò che hai avviato chiedeva di essere concluso: l'idea fresca vuole attenzione subito e distoglie da quello che manca.
+- 2: Questa curiosità giovane spinge verso l'esplorazione, mentre la tua faccenda aveva bisogno di essere portata a termine: ti arrivano nuove cose da vedere invece del risultato che aspettavi.
 - 3: Il messaggio arriva e svela ciò che tenevi per te: chi lo porta racconta subito quello che ha visto, senza badare a ciò che era riservato.
 
 ### capovolta
 
 - 1: Le partenze nuove tengono pieni i posti dove doveva stare una sola cosa da finire: ogni accensione scalza quella di prima, cosicché quello che hai cominciato resta senza il suo turno.
-- 2: Il ricambio va avanti oltre il punto in cui una scelta sola bastava: appena una fiamma prende, un'altra la spegne, mentre la cosa che hai in mano aspetta un seguito che duri.
-- 3: Si accumulano aperture da tenere accese dove le tue mani erano già piene: ciascuna pretende lo slancio della prima volta, cosicché la faccenda cominciata divide il fiato con le altre.
+- 2: Il cambio continuo va avanti anche dove sarebbe bastato scegliere una cosa sola: appena un interesse prende forma, un altro lo sostituisce e ciò che hai in mano aspetta un seguito.
+- 3: Ti mette alla prova l'abitudine di aprire cose nuove quando hai già le mani piene: ognuna chiede l'energia della prima volta e quella già cominciata resta senza forze.
 
 ## Cavaliere di Bastoni
 
 ### dritta
 
-- 1: La corsa non si ferma al punto in cui il tuo accordo chiedeva una sosta per contarsi: l'ardore seguita, sella e mantello, verso la cosa desiderata e lontana.
-- 2: L'avventura appena vista si porta dietro tutto il calore del corpo, mentre il legame che il tuo patto tiene in piedi aspettava una presenza ferma alla porta di casa.
-- 3: Il moto sta sopra il tempo che la tua prova lenta chiedeva fermo: la passione parte di persona, col gusto della strada aperta e la meta tenuta d'occhio da lontano.
+- 1: Ti mette alla prova una corsa che non si ferma nemmeno dove sarebbe servita una pausa per fare il punto: l'entusiasmo tira dritto verso ciò che desideri.
+- 2: La voglia di partire porta con sé tutte le tue energie, mentre la situazione aveva bisogno di una presenza ferma e costante, di qualcuno che restasse.
+- 3: Questa passione ti spinge a muoverti proprio quando ciò che stai facendo chiedeva tempi lenti: il gusto dell'avventura prende il posto della pazienza che serviva.
 
 ### capovolta
 
-- 1: Un'altra partenza entra fra le cose aperte dove le mani del tuo lavoro ne reggevano già tre: la foga aggiunge slanci da tenere vivi tutti insieme.
-- 2: La fretta si distende su tutte le ore che il tuo patto teneva libere per una cosa sola: l'impazienza manda avanti il corpo prima del gesto e le partenze si moltiplicano.
-- 3: Scatta lo slancio nell'ora in cui la tua pausa di respiro era appena cominciata: l'ardore si accende intero, caldo, con la sella messa prima che la cosa sia pronta.
+- 1: Ti mette alla prova un'altra partenza che si aggiunge alle cose già aperte, quando le tue mani ne reggevano abbastanza: la foga moltiplica gli impegni da tenere vivi insieme.
+- 2: La fretta occupa anche il tempo che avevi riservato a una cosa sola: l'impazienza ti fa muovere prima di decidere e le partenze si moltiplicano.
+- 3: Questo slancio scatta proprio quando ti stavi concedendo una pausa: l'ardore si riaccende tutto intero e ti fa ripartire prima che la situazione sia pronta.
 
 ## Regina di Bastoni
 
@@ -512,195 +512,195 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il calore della tua presenza tira su di te l'attenzione di tutti, mentre ciò che hai messo in piedi chiedeva occhi sul lavoro. L'attrazione è vera e sposta il centro.
 - 2: Magnetica, la tua figura porta su di sé il centro della scena e la faccenda scivola di lato, mentre chiedeva di stare in mezzo. Scaldi gli altri; il fuoco resta tuo.
-- 3: Sicurezza e calore attirano le persone verso di te ed è lì che finisce lo sguardo che la tua proposta aveva bisogno di ricevere. Il richiamo funziona: tira da una parte sola.
+- 3: Sicurezza e calore attirano su di te l'attenzione delle persone, mentre la tua proposta aveva bisogno di quello sguardo: il richiamo funziona, ma porta tutto dalla tua parte.
 
 ### capovolta
 
 - 1: Il paragone con un'altra fiamma porta allo scoperto il dubbio su di te che il tuo lavoro teneva ben coperto. Quello che si vede di te cambia prima della cosa in gioco.
-- 2: Una gelosia accesa fa uscire in piena vista l'incertezza sulla tua stessa presenza, quella che la faccenda in corso manteneva dietro una tenuta sicura. Il confronto rivela il punto scoperto.
+- 2: Una gelosia accesa mette in piena vista l'insicurezza che la tua faccenda teneva nascosta dietro un'aria sicura: il confronto rivela proprio il punto in cui sei più fragile.
 - 3: Sotto il confronto con chi brilla accanto a te si scopre quanto poco ti riconosci, mentre il tuo progetto contava su una sicurezza mostrata senza crepe. La materia esposta è la fiducia in te.
 
 ## Re di Bastoni
 
 ### dritta
 
-- 1: Una guida generosa che accende gli altri porta frutto a chi ti segue; il punto su cui hai chiesto riguarda la parte che spetta soltanto a te.
+- 1: Ti mette alla prova una guida generosa che porta frutto soprattutto agli altri: la parte della questione che spetta soltanto a te rischia di restare indietro.
 - 2: L'esempio che vuoi dare orienta la tua volontà verso il pubblico che ti osserva; la pratica che hai aperto aspettava una decisione presa in silenzio.
-- 3: Il tuo slancio va avanti oltre il confine in cui la trattativa si era fermata: indichi una meta nuova e il punto precedente aspetta ancora la tua firma.
+- 3: Il tuo slancio va oltre il punto in cui le cose si erano fermate: indichi già una meta nuova, mentre la decisione precedente aspetta ancora la tua firma.
 
 ### capovolta
 
 - 1: La spinta senza ascolto tira dritto oltre la soglia in cui il tuo caso chiedeva una pausa per sentire: l'autorità insiste e la parte davanti a te si irrigidisce.
-- 2: Un comando impaziente siede nel posto che l'ascolto teneva libero: la trattativa che hai aperto aveva messo lì una domanda che aspetta ancora la sua risposta.
-- 3: Si vede allo scoperto il punto in cui non cedi, perché la rigidità con cui tieni il campo lo espone, là dove la tua pratica guadagnava dal margine coperto.
+- 2: Un comando impaziente occupa lo spazio che spettava all'ascolto: la discussione che hai aperto aveva lasciato lì una domanda che aspetta ancora la sua risposta.
+- 3: Ti mette alla prova la rigidità con cui difendi le tue posizioni: mostra a tutti il punto su cui non cedi, proprio dove un po' di flessibilità ti avrebbe aiutato.
 
 ## Asso di Coppe
 
 ### dritta
 
-- 1: Buona per il cuore che si apre, questa piena si rivolge a un destinatario diverso. Il contegno che la faccenda ti chiedeva resta in piedi e l'acqua nuova sgorga.
-- 2: La coppa versa oltre il proprio orlo: dove ti bastava un riserbo, il sentimento nuovo arriva lo stesso e bagna anche ciò che volevi tenere asciutto.
-- 3: Questa piena aggiunge un sentire da portare sopra un impegno già colmo. La sorgente dà acqua nuova e la faccenda che tratti voleva le tue mani libere.
+- 1: Ti mette alla prova un'emozione forte che arriva nel momento sbagliato: la questione ti chiedeva lucidità e riserbo, mentre il cuore si apre e vuole dire tutto.
+- 2: La sfida è un sentimento che trabocca: dove bastava un po' di misura, l'entusiasmo si allarga anche a ciò che volevi tenere separato e confonde le scelte.
+- 3: Proprio mentre hai già le mani piene, arriva un'emozione nuova da accogliere: è un bene, ma aggiunge un impegno affettivo a una situazione che chiedeva leggerezza.
 
 ### capovolta
 
-- 1: Un'acqua trattenuta colma il recipiente che occorreva vuoto per ricevere. Il sentimento esiste e resta chiuso a chiave; la parola da dire aspetta il tuo turno.
-- 2: Il coperchio difende il tuo sentire dal rischio di soffrire e nello stesso gesto serra quello che chiedeva di uscire. La sorgente sta sotto e non dà acqua.
-- 3: Dove le tue mani erano già occupate entra un sentimento non detto da custodire. Il recipiente resta sigillato e l'acqua dentro sale, senza trovare la sua uscita.
+- 1: Ti mette alla prova un sentimento che non lasci uscire: occupa lo spazio che serviva per ricevere, così la parola che andava detta resta ferma dentro di te.
+- 2: La sfida è la tua difesa contro il rischio di soffrire: protegge ciò che senti, ma nello stesso gesto blocca proprio quello che chiedeva di uscire.
+- 3: Proprio quando avevi già molto da gestire, si aggiunge un sentimento taciuto da custodire: resta chiuso dentro, cresce e non trova il modo di farsi sentire.
 
 ## Due di Coppe
 
 ### dritta
 
-- 1: Il bene di questo patto cade sul legame che lo stringe e su nessun'altra cosa. La tua faccenda si decide da una parte sola e non ammette un secondo firmatario.
-- 2: L'intesa a due mette al riparo le parole scambiate e col medesimo sigillo chiude il cerchio sulle due parti, là dove quello che hai in gioco voleva un terzo tavolo e altre mani.
-- 3: Un pegno scambiato vale oltre la prova che bastava, perché il sigillo non conosce il termine breve. Quello che hai aperto voleva restare valido per un tempo contato.
+- 1: Ti mette alla prova un'intesa così stretta da chiudersi su sé stessa: il patto fra due parti funziona, ma la tua questione chiedeva anche il parere di altri.
+- 2: La sfida è un impegno reciproco che lega più del previsto: uno scambio nato per una prova breve diventa un vincolo, mentre tu volevi conservare la libertà di scegliere.
+- 3: Proprio mentre la decisione spettava a te soltanto, si presenta un accordo a due che va firmato insieme: ti tocca tenere conto anche dell'altra parte.
 
 ### capovolta
 
-- 1: Il senso sbagliato di una frase sta al posto di quello giusto e non lo cede. Il tuo chiarimento aveva bisogno di quel posto per entrare con le parole vere.
-- 2: Una frase detta bene tira verso un significato che non era il suo e porta là l'attenzione di entrambi. La cosa che hai in gioco stava dove nessuno dei due guardava più.
-- 3: Quello che ciascuno dei due pensava senza dirlo viene allo scoperto per via del malinteso: il riserbo che tratteneva quelle parole era quanto il tuo legame aveva in gioco.
+- 1: Ti mette alla prova una frase capita nel senso sbagliato: quel significato occupa il posto di quello vero e rende difficile il chiarimento di cui avresti bisogno.
+- 2: La sfida è un equivoco che sposta l'attenzione delle parti su ciò che non conta: intanto la cosa importante per te resta dove nessuno guarda più.
+- 3: Il malinteso porta allo scoperto ciò che ciascuno pensava senza dirlo: è proprio quel riserbo, adesso incrinato, la cosa che la tua questione aveva in gioco.
 
 ## Tre di Coppe
 
 ### dritta
 
-- 1: Questa allegria divisa fra amici fa bene ai legami intorno al tavolo, mentre la cosa che hai chiesto riguardava un lavoro da sbrigare in disparte: il brindisi chiama compagnia.
-- 2: La compagnia riempie le ore che servivano vuote: bicchieri alzati, una casa aperta, nomi cari che arrivano uno dopo l'altro, mentre il tuo lavoro voleva una stanza silenziosa.
-- 3: Il brindisi porta nel cerchio una cosa che stava fra te e qualcuno: la gioia chiede di essere raccontata a tutti, cosicché quello che era riservato gira di mano in mano.
+- 1: Ti mette alla prova un'allegria condivisa che arriva quando serviva concentrazione: la festa fa bene ai legami, ma la tua questione chiedeva tempo e silenzio.
+- 2: La sfida è la compagnia che riempie le ore libere: inviti, incontri e persone care arrivano una dopo l'altra, mentre tu avevi bisogno di una stanza tranquilla.
+- 3: Proprio quando volevi tenere una notizia per te, la voglia di festeggiare spinge a raccontarla a tutti: ciò che riguardava poche persone rischia di girare di bocca in bocca.
 
 ### capovolta
 
-- 1: Si aggiungono legami da mantenere dove le tue mani erano già piene: ogni presenza di cortesia chiede il suo turno di cura, cosicché la cosa che conta per te divide l'attenzione con molte.
-- 2: Le presenze di facciata tengono occupati i posti dei pochi nomi fidati: il cerchio resta largo mentre il tuo legame più vero chiedeva una conversazione a due.
-- 3: Verso il numero degli invitati tira questa cerchia allargata, mentre quello che hai davanti guardava alla qualità di un legame: il giro si estende, la confidenza si assottiglia.
+- 1: Ti mette alla prova una rete di rapporti di cortesia da mantenere: ogni presenza chiede il suo tempo, così ciò che conta davvero per te divide l'attenzione con troppe cose.
+- 2: La sfida sono le presenze di facciata che occupano il posto delle persone fidate: il giro resta largo, mentre il legame più vero chiedeva una conversazione a tu per tu.
+- 3: Proprio quando la tua questione guardava alla qualità di un rapporto, il gruppo si allarga e si riempie di invitati: crescono i contatti, mentre la confidenza si assottiglia.
 
 ## Quattro di Coppe
 
 ### dritta
 
-- 1: La sazietà fa da riparo contro il desiderio e abbassa le palpebre: la proposta che il tuo legame aveva messo accanto resta tesa, intatta, senza uno sguardo che la soppesi.
-- 2: Verso quello che hai già in mano gira l'attenzione intera, mentre l'apertura che il tuo giro di persone aveva preparato sta al lato e aspetta di essere guardata.
-- 3: Il torpore si siede dove il tuo patto nuovo chiedeva appetito: la noia tiene la mano ferma e quello che arriva accanto non riesce a interessare.
+- 1: Ti mette alla prova una sazietà che spegne il desiderio: la proposta che la situazione ti offre resta lì, intatta, senza che tu la guardi davvero.
+- 2: La sfida è un'attenzione tutta rivolta a ciò che hai già: intanto un'apertura che arriva da chi ti sta intorno resta di lato e aspetta un tuo sguardo.
+- 3: Proprio dove serviva slancio si siede il torpore: la noia tiene ferme le tue mani e quello che arriva di nuovo non riesce a suscitare interesse.
 
 ### capovolta
 
-- 1: Torna il gusto proprio mentre il tuo riserbo teneva quieta una cosa messa da parte: l'appetito si riapre sopra di lei e la mano si muove verso quel lato.
-- 2: L'interesse risvegliato porta in luce la proposta che il tuo silenzio teneva fuori dal tavolo: quello che stava accanto riceve uno sguardo e diventa materia di discorso.
-- 3: Un desiderio nuovo si aggiunge alle cose vive della tua giornata, che di roba da seguire ne aveva già quanto bastava: il cuore ridestato chiede posto per una curiosità.
+- 1: Ti mette alla prova un interesse che torna proprio mentre tenevi una cosa da parte: la curiosità si riaccende su di lei e ti spinge a riaprire ciò che avevi archiviato.
+- 2: La sfida è una curiosità nuova che porta allo scoperto una proposta tenuta fuori dal discorso: ciò che stava di lato ora chiede attenzione e una tua risposta.
+- 3: Proprio quando le tue giornate erano già piene, si aggiunge un desiderio nuovo da seguire: il risveglio fa bene, ma chiede tempo che oggi non è facile trovare.
 
 ## Cinque di Coppe
 
 ### dritta
 
-- 1: Il rimpianto tira il tuo sguardo verso quello che si è versato ed è là che resta, mentre la parte in piedi ti sta dietro le spalle e attende di essere contata.
-- 2: Quanto è andato perduto chiama gli occhi a sé con una forza vera, lasciando alle spalle la parte intera su cui la tua scelta dovrebbe appoggiarsi. Lo sguardo è girato dalla parte del vuoto.
-- 3: Davanti a te sta il versato e la tua attenzione lo segue tutta intera, mentre il resto che regge in piedi aspetta dietro, fuori dal campo visivo di chi deve decidere.
+- 1: Ti mette alla prova il rimpianto, che tiene lo sguardo su ciò che si è perso: la parte ancora intera resta fuori dalla vista, proprio quando dovrebbe sostenere le tue scelte.
+- 2: La sfida è un dolore vero che attira tutta l'attenzione: mentre conti ciò che manca, le risorse su cui potresti appoggiarti restano in disparte, trascurate.
+- 3: Proprio quando devi decidere, la perdita richiama a sé lo sguardo: guardi il vuoto lasciato da ciò che è andato e non vedi quello che regge ancora.
 
 ### capovolta
 
-- 1: L'accettazione che ti rialza chiude il conto con ciò che è andato e insieme chiude la richiesta che il tuo lavoro doveva tenere aperta: il perdono archivia il fascicolo intero.
-- 2: Volgendoti verso quello che resta, metti pace dove c'era il lutto e insieme metti un coperchio sulla pretesa che non era stata detta. La ripresa protegge te; sigilla anche il punto.
-- 3: Il dolore lascia posto alla speranza ed è un bene vero, mentre lo stesso movimento serra una partita della tua faccenda che reggeva solo da aperta. Ti rialzi: la porta si chiude dietro.
+- 1: Ti mette alla prova l'accettazione stessa: chiudere i conti con ciò che è andato ti fa bene, ma rischia di chiudere anche una richiesta che andava ancora fatta.
+- 2: La sfida è la fretta di voltare pagina: rialzarti è giusto, ma perdonare troppo presto può coprire una questione che non hai ancora affrontato apertamente.
+- 3: Il dolore lascia posto alla speranza ed è un bene, ma lo stesso movimento rischia di archiviare una parte della tua questione che funzionava solo se restava aperta.
 
 ## Sei di Coppe
 
 ### dritta
 
-- 1: Una tenerezza che viene dal passato nutre il bambino che eri; il rapporto fra adulti su cui hai chiesto porta pretese di oggi.
-- 2: Il calore dei ricordi cari ti avvolge e con lo stesso movimento chiude la porta da cui l'affetto nuovo doveva entrare nella tua giornata.
-- 3: Torna dal passato un affetto sincero che attira il tuo interesse verso il tempo da cui viene; il legame che vivi adesso aspettava di essere guardato per sé.
+- 1: Ti mette alla prova una tenerezza che viene dal passato: scalda il ricordo di com'eri, mentre la tua questione riguarda un rapporto di oggi, con esigenze di oggi.
+- 2: La sfida è il calore dei ricordi cari: ti avvolge e consola, ma nello stesso tempo chiude lo spazio da cui qualcosa di nuovo poteva entrare.
+- 3: Proprio mentre il presente chiedeva attenzione, torna un affetto sincero dal passato: è un dono, ma sposta il tuo interesse verso il tempo da cui proviene.
 
 ### capovolta
 
-- 1: La memoria di un tempo buono tiene pieno il vuoto che la tua giornata serbava per una presenza nuova venuta da fuori: il posto c'era, il ricordo lo occupa.
-- 2: Un tempo che non c'è più domanda una cura continua da tenere in piedi, accanto ai tuoi legami vivi che reggi ogni giorno nel presente.
-- 3: Il ritorno di una dolcezza antica capita nel punto in cui la tua giornata chiedeva presente pieno: il ricordo scalda, intanto il tavolo di oggi aspetta la tua mano.
+- 1: Ti mette alla prova il ricordo di un tempo buono che occupa il posto riservato a una presenza nuova: lo spazio per accoglierla c'era, ma la nostalgia lo riempie.
+- 2: La sfida è un passato che pretende cure continue: tenerlo vivo ti costa energia, la stessa che servirebbe ai legami e agli impegni che vivi ogni giorno.
+- 3: Proprio dove la tua giornata chiedeva presenza piena, ritorna una dolcezza antica: il ricordo scalda, ma intanto le cose di oggi aspettano una tua decisione.
 
 ## Sette di Coppe
 
 ### dritta
 
-- 1: Queste immagini ingombrano il posto che una scelta sola voleva libero. Ogni coppa promette un contenuto e il tuo sguardo non ha visto i fondi.
-- 2: Sul contenuto promesso trascina l'occhio questa fantasia. La prova dei fatti aspettava il tuo esame e le figure schierate restano in primo piano.
-- 3: Ogni possibilità in più da reggere entra dove una decisione sola era già abbastanza. Le coppe si moltiplicano davanti a te e ciascuna porta la sua offerta.
+- 1: Ti mette alla prova l'abbondanza: troppe idee occupano lo spazio che servirebbe a una scelta sola, mentre di nessuna hai ancora verificato il contenuto.
+- 2: La sfida è non lasciarti incantare: la fantasia ti porta a guardare ciò che le offerte promettono, mentre la prova dei fatti aspetta ancora il tuo esame.
+- 3: Proprio quando una decisione sola basterebbe, si aggiungono nuove possibilità da valutare: ognuna porta la sua promessa e ti distoglie da quella che conta.
 
 ### capovolta
 
-- 1: Il frutto di questa messa a fuoco cade sul desiderio che hai riconosciuto. Le porte che ti conveniva tenere aperte restano da un'altra parte.
-- 2: Questa decisione custodisce il desiderio verificato e nello stesso gesto chiude le offerte che stavano accanto. Quello che ti resta in mano è uno.
-- 3: La cernita prosegue dopo il desiderio messo a fuoco. Le possibilità che ti servivano da parte cadono con le altre e lo scarto non si ferma.
+- 1: Ti mette alla prova la stessa decisione che ti dà chiarezza: concentrarti sul desiderio riconosciuto ti fa chiudere anche porte che sarebbe stato utile lasciare aperte.
+- 2: La sfida è che scegliere protegge ciò che vuoi davvero ma chiude nello stesso momento le alternative vicine: alla fine ti resta in mano una cosa sola.
+- 3: Dopo aver messo a fuoco ciò che desideri, la voglia di fare ordine continua: rischi di scartare anche possibilità che ti sarebbero servite in riserva.
 
 ## Otto di Coppe
 
 ### dritta
 
-- 1: La partenza si compie su una cosa ancora intera, perché il congedo non attende nessun guasto per muoversi. Il tuo legame contava su una presenza che restasse.
-- 2: Quel cercare un senso più alto nutre una fame tua che non ha ancora nome, là dove la faccenda in gioco voleva un custode fermo al suo posto fino alla fine.
-- 3: Il congedo senza parole tira verso un senso che non ha ancora un nome. L'accordo rimasto in sospeso voleva presidiata proprio la cosa che ti lasci dietro.
+- 1: Ti mette alla prova il fatto che lasci una cosa ancora intera: la partenza non aspetta che qualcosa si rompa, mentre la situazione contava ancora sulla tua presenza.
+- 2: La sfida è che la ricerca di un senso più alto nutre un bisogno tuo ancora senza nome, mentre la questione aperta chiedeva qualcuno che restasse al suo posto fino alla fine.
+- 3: Proprio mentre senti il richiamo di qualcosa di nuovo, ciò che stai lasciando chiede ancora attenzione: un accordo rimasto in sospeso vuole che tu non te ne vada a metà.
 
 ### capovolta
 
-- 1: La sosta sulla porta dura mentre quello che hai in gioco chiedeva una presenza intera in uno dei due luoghi, perché la partenza è cominciata dentro e il corpo è rimasto fermo.
-- 2: Questo stare fra il restare e l'andare prosegue oltre il punto in cui una delle due case voleva la tua risposta, perché entrambe restano guardate e nessuna viene chiusa.
-- 3: Un secondo luogo da tenere si aggiunge a quello che hai già, perché la soglia non consegna nessuno dei due. Le tue mani reggevano appena il primo.
+- 1: Ti mette alla prova il restare a metà: la questione chiedeva una presenza piena da una parte o dall'altra, mentre dentro sei già in partenza e fuori non ti muovi.
+- 2: La sfida è un'indecisione che dura oltre il momento in cui serviva una risposta: tieni d'occhio entrambe le possibilità e non ne chiudi nessuna.
+- 3: Proprio quando avresti bisogno di energie per una cosa sola, ne tieni aperte due: restare e andare ti chiedono attenzione insieme e le forze non bastano per entrambe.
 
 ## Nove di Coppe
 
 ### dritta
 
-- 1: Questo appagamento fa bene a quello che hai già ottenuto, mentre la cosa che hai chiesto riguardava una faccenda non ancora avviata: la contentezza siede davanti alla tavola imbandita.
-- 2: La pienezza mette al sicuro quello che hai raccolto e nello stesso gesto chiude la porta alla domanda successiva: davanti alla tavola servita la fame tace.
-- 3: Arriva il contento dell'augurio esaudito proprio dove la faccenda che hai davanti chiedeva fame: il desiderio appagato posa le mani in grembo e smette di cercare ciò che ancora mancava.
+- 1: Ti mette alla prova la soddisfazione stessa: ciò che hai già ottenuto ti appaga, mentre la questione che poni riguarda qualcosa che deve ancora cominciare.
+- 2: La sfida è che la contentezza protegge ciò che hai raccolto ma spegne la voglia di chiedere altro: a tavola già servita la fame tace e la ricerca si ferma.
+- 3: Proprio dove servirebbe ancora desiderio arriva l'appagamento: la soddisfazione per ciò che è andato bene ti fa smettere di cercare quello che ancora manca.
 
 ### capovolta
 
-- 1: Verso il godimento a portata di mano tira questa sazietà di facciata, mentre quello che hai davanti guardava a un desiderio vero: il piacere consumato riempie l'ora, poi lascia il suo posto vuoto.
-- 2: La soddisfazione messa in mostra porta in piazza una tua faccenda privata: la facciata chiede spettatori, cosicché quello che stavi valutando in silenzio diventa materia da far vedere.
-- 3: Continua il consumo oltre il punto in cui la fame era passata: un piacere chiama il successivo, mentre quello che hai davanti aspettava che un desiderio venisse nominato.
+- 1: Ti mette alla prova la ricerca di un piacere a portata di mano: riempie il momento e poi lascia il vuoto, mentre la questione chiedeva di capire che cosa desideri.
+- 2: La sfida è il bisogno di mostrare la soddisfazione agli altri: una questione che potevi valutare in privato diventa qualcosa da esibire e perde sincerità.
+- 3: Proprio quando servirebbe fermarti a nominare ciò che vuoi, un piacere chiama il successivo: continui a consumare anche quando il bisogno è già passato.
 
 ## Dieci di Coppe
 
 ### dritta
 
-- 1: L'armonia fra le persone di casa compie il cerchio degli affetti: la gioia tocca i tuoi, mentre la decisione che il tuo lavoro chiede a te soltanto sta fuori dal tetto.
-- 2: La pienezza condivisa occupa le ore che la tua scelta solitaria chiedeva vuote: l'amore attorno si fa ricchezza e tiene il tavolo apparecchiato per tutti.
-- 3: Sotto gli occhi di parenti e vicini la casa in festa porta quello che il tuo riserbo teneva fra due persone: il legame felice diventa cosa di tutti.
+- 1: Ti mette alla prova l'armonia stessa degli affetti: tutto ciò che è condiviso ti coinvolge, mentre la decisione che la questione chiede a te soltanto resta in disparte.
+- 2: La sfida è che la vita condivisa occupa il tempo che una scelta personale chiederebbe libero: gli affetti ti riempiono le giornate e lo spazio per riflettere si riduce.
+- 3: Proprio quando volevi riservatezza, la gioia comune rende pubblico ciò che tenevi per pochi: una cosa che riguardava due persone diventa affare di tutti quelli che ti sono vicini.
 
 ### capovolta
 
-- 1: Ognuno dei tuoi tira verso la propria parte, mentre il patto di casa chiedeva una parte sola: la distanza fra le persone sotto un tetto apre più fronti a tavola.
-- 2: Nuove tensioni fra parenti si aggiungono a quello che la tua casa teneva già in piedi: la discordia porta altri fronti da presidiare sotto un tetto solo.
-- 3: Viene a galla la crepa fra le persone di casa che le pareti di famiglia tenevano dentro: la distanza si fa visibile a chi entra e siede al tuo tavolo.
+- 1: Ti mette alla prova il fatto che ognuno tira dalla propria parte, mentre la situazione chiedeva un accordo: la distanza fra le persone vicine apre più fronti insieme.
+- 2: La sfida è che nuove tensioni fra persone vicine si aggiungono a ciò che già faticavi a tenere in equilibrio: la discordia ti porta altri fronti da gestire.
+- 3: Proprio ora viene alla luce una frattura che finora restava nascosta fra le persone di casa: la distanza diventa visibile anche a chi ti guarda da fuori.
 
 ## Fante di Coppe
 
 ### dritta
 
-- 1: La tenerezza appena nata fa bene alla tua vita interiore e porta poesia dentro di te, mentre quello che hai sul tavolo chiedeva una presa ferma. Il germoglio nutre il sentire, non la pratica.
-- 2: Un'emozione fragile affiora e trova il suo posto nel tuo mondo intimo, dove è giusta e preziosa, mentre la faccenda aperta aveva bisogno di mani esperte. Il dono è reale e sta altrove.
-- 3: Fiorisce in te una sensibilità che è un bene autentico per chi la prova la prima volta, mentre la cosa concreta che attende risposta non si nutre di quel fiore.
+- 1: Ti mette alla prova una tenerezza appena nata: fa bene alla tua vita interiore, mentre la questione concreta che hai davanti chiedeva una presa ferma e pratica.
+- 2: La sfida è che un'emozione fragile trova posto nel tuo mondo intimo, dove è preziosa, mentre la faccenda aperta aveva bisogno di esperienza e decisione.
+- 3: Proprio quando serviva concretezza, fiorisce in te una sensibilità nuova: è un dono autentico, ma la cosa pratica che attende risposta non si risolve con quella.
 
 ### capovolta
 
-- 1: Il muro alzato intorno a una sensibilità giovane tiene pieno il varco da cui la tua faccenda attendeva una risposta sentita. Dentro c'è un cuore intatto; sopra c'è una parete nuova.
-- 2: Dopo il primo colpo la chiusura occupa tutto lo spazio in cui al tuo legame serviva un'apertura piccola. Il riserbo è pieno quanto un mobile messo davanti alla porta.
-- 3: Una protezione messa su in fretta riempie il passaggio che il tuo legame aveva bisogno di trovare libero, mentre il sentire resta vivo dietro di essa. La parete sta dove serviva il vuoto.
+- 1: Ti mette alla prova la difesa che hai alzato attorno alla tua sensibilità: blocca proprio il punto da cui la questione aspettava una risposta sentita.
+- 2: La sfida è che, dopo una ferita, la chiusura occupa tutto lo spazio: dove ti sarebbe bastata una piccola apertura, il riserbo blocca ogni scambio.
+- 3: Proprio dove serviva uno spazio libero si è alzata una protezione costruita in fretta: dietro, ciò che senti resta vivo ma nessuno riesce a raggiungerlo.
 
 ## Cavaliere di Coppe
 
 ### dritta
 
-- 1: La proposta che arriva con grazia svela un sentimento che tenevi riservato, nel rapporto in cui la tua scelta era di restare sul generico.
-- 2: Un corteggiamento garbato fa bene al gusto dell'incontro e alla leggerezza del momento; la questione che hai posto, però, riguarda un impegno già preso con qualcuno.
-- 3: Il richiamo della bellezza porta il tuo sentimento verso chi lo invita, mentre la trattativa affettiva che avevi aperto chiedeva una parola sul domani.
+- 1: Ti mette alla prova una proposta gentile che porta allo scoperto un sentimento che preferivi tenere riservato, proprio mentre volevi restare ancora sul vago.
+- 2: La sfida è che un invito garbato rende piacevole il momento, mentre la questione che hai posto chiede impegni chiari e non soltanto belle maniere.
+- 3: Proprio quando ti serviva una parola sul futuro, il richiamo della bellezza porta il tuo sentimento verso ciò che ti affascina adesso e rimanda le decisioni.
 
 ### capovolta
 
-- 1: Le promesse vaghe aggiungono parole da verificare a una faccenda che chiedeva fatti, proprio mentre stavi contando uno per uno i gesti delle settimane passate.
-- 2: Un'illusione senza appoggio si posa nel punto in cui il legame chiedeva prove durevoli: il discorso è bello, intanto la verifica che hai chiesto resta da fare.
-- 3: Il detto sta nel posto che il fatto teneva libero: il rapporto che hai in corso aspettava un gesto compiuto e si trova davanti una frase.
+- 1: Ti mette alla prova una serie di promesse vaghe: aggiungono parole da verificare a una questione che chiedeva fatti, proprio mentre contavi i gesti concreti.
+- 2: La sfida è un'illusione senza appoggio: arriva dove la tua questione chiedeva prove durature e il discorso è bello, ma la verifica resta da fare.
+- 3: Proprio dove aspettavi un gesto compiuto ti trovi davanti soltanto una frase: le parole occupano il posto che spettava ai fatti e la questione resta ferma.
 
 ## Regina di Coppe
 
@@ -736,7 +736,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Si aggiunge una cosa solida da coltivare dove le tue mani erano già piene: il seme offerto chiede terra, acqua, un angolo di tempo, mentre quello che porti avanti ne occupa altrettanto.
 - 2: Questa solidità fa bene a quello che si pesa e si tiene in mano, mentre la faccenda che hai chiesto riguardava un chiarimento fra persone: il seme risponde al terreno che lo riceve.
-- 3: Un principio concreto si apre proprio dove quello che hai già messo a terra chiedeva di essere chiuso: la materia nuova arriva intera, pronta per una semina che comincia da capo.
+- 3: Un inizio concreto si presenta proprio dove ciò che avevi avviato chiedeva di chiudersi: arriva un'occasione nuova e intera, pronta a essere coltivata da capo.
 
 ### capovolta
 
@@ -908,7 +908,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Si aggiungono bisogni altrui da coprire dove le tue mani erano già piene: ogni nome dell'elenco chiede la sua porzione, cosicché la cosa che riguarda te divide la provvista con tutti.
+- 1: Si aggiungono richieste altrui da soddisfare dove le tue energie erano già impegnate: ognuna pretende la sua parte, così la tua questione deve dividere le risorse con tutti.
 - 2: Verso i bisogni di tutti tira questa cura concreta, mentre la faccenda su cui decidi guardava alla parte che spetta a te: l'elenco si allunga, la riga col tuo nome resta da scrivere.
 - 3: L'amministrazione tiene la famiglia al coperto e nello stesso gesto chiude fuori la tua razione: chi passa il pane a tutti tiene il piatto proprio vuoto.
 

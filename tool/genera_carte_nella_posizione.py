@@ -315,6 +315,50 @@ def difetti_di_lingua(t):
     return colpe
 
 
+# **L'ELENCO DI PAROLE CHIAVE E LE PRESUPPOSIZIONI**, ordine GA voce GA.06,
+# 21 ottobre 2026. Il lettore cieco dei Tarocchi ha trovato 139 carte singole
+# su 170 chiuse da un elenco di parole chiave staccato dalla domanda ("Il
+# fidanzamento, le nozze, la casa nuova insieme") e carte che presupponevano
+# un partner a chi parla di un ex o un lavoro con una squadra a chi va a un
+# colloquio ("Affida oggi a qualcuno un compito di responsabilita'"). Il
+# registro e il "cosa fare" si scrivono come frasi, e non danno per scontato
+# chi c'e' nella vita di chi legge.
+# **L'ARTICOLO CON L'APOSTROFO NON HA LO SPAZIO DOPO**, e la prima stesura
+# della guardia lo pretendeva (`l' `): "L'occasione affettiva trascurata, l'
+# interesse materiale che inquina il legame, l'amore misurato sulla
+# convenienza" (Asso di Denari capovolto) passava, e con lei tutti i registri
+# che cominciano per L'. PADRE: ordine GA voce GA.06, la prima stesura di
+# questa guardia (commit 9b2d2d29 e successivi dello stesso giorno), trovato
+# dalla prova della Regola A sulla fonte intera.
+ARTICOLO = r"(?:(?:il|lo|la|i|gli|le|un|una|uno) |l')"
+ELENCO = re.compile(
+    r"(?:^|(?<=[.:;] ))" + ARTICOLO + r"[^.:;]{2,}?, " + ARTICOLO +
+    r"[^.:;]{2,}?, ", re.I)
+# **LE PERSONE DATE PER SCONTATE NEL "COSA FARE"** (lettore cieco
+# indipendente, 21 ottobre 2026): oltre ai ruoli, le forme che presuppongono
+# qualcuno di preciso nella vita di chi legge, "la persona che ami", "chi ti
+# interessa", "l'altro" detto del legame, e il lavoro con le sue riunioni.
+PRESUPPOSTI = re.compile(
+    r"(?<![%s])(partner|marit[oi]|mogli[e]?|fidanzat[oaie]|compagn[oaie]|"
+    r"colleg[ah]i?|collega|tuo capo|uffici[o]?|squadra|dipendent[ei]|"
+    r"stipendi[o]?|figli[oa]?|nipoti|nonni|suocer[oaie]|ex|chi ami|"
+    r"persona che ami|persona a cui pensi|chi ti interessa|"
+    r"all'altro|dell'altro|riunion[ei]|clienti)(?![%s])"
+    % (LETTERE, LETTERE), re.I)
+
+
+def difetti_di_presupposto(t, elenco=True):
+    """L'elenco di parole chiave e le persone date per scontate."""
+    colpe = []
+    if elenco and ELENCO.search(t):
+        colpe.append('un elenco di parole chiave (%s)' %
+                     ELENCO.search(t).group(0).strip())
+    for m in PRESUPPOSTI.finditer(t):
+        colpe.append('una persona o un ruolo dato per scontato (%s)' %
+                     m.group(1))
+    return colpe
+
+
 # Le frasi del corpus in cui la forma presa dal criterio non e' di chi legge,
 # dichiarate una per una in `test/il_genere_non_si_indovina_test.dart`
 # (`frasiDelCorpus`): qui solo quelle dei tarocchi.
@@ -613,6 +657,8 @@ def controlla(scheletri, registri, carte, titoli=None, cosa_fare=None,
                 if forma_nuova:
                     colpe += ['%s: %s' % (dove, c)
                               for c in difetti_di_lingua(t)]
+                    colpe += ['%s: %s' % (dove, c)
+                              for c in difetti_di_presupposto(t)]
             doppione(dove, carta, t)
     # I titoli: nessun doppione fra i titoli, in nessuna carta e in nessuna
     # posizione. Un titolo che starebbe sotto due carte non e' la risposta di
@@ -632,6 +678,11 @@ def controlla(scheletri, registri, carte, titoli=None, cosa_fare=None,
             dove = 'cosa fare %s, %s, %s %d' % (carta, verso, g, i)
             if tocca(carta):
                 colpe += controlla_cosa_fare(dove, t, carta)
+                # Nel "cosa fare" un elenco di esempi concreti dentro la
+                # frase e' legittimo (*"una telefonata, una pagina, una
+                # prova"*): si guardano solo le persone date per scontate.
+                colpe += ['%s: %s' % (dove, c)
+                          for c in difetti_di_presupposto(t, elenco=False)]
             doppione(dove, carta, t)
         prime = [t.split()[0].lower().strip(",.'") for t in varianti]
         if tocca(carta) and len(varianti) == 3 and len(set(prime)) < 3:

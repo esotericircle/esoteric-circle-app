@@ -5,6 +5,7 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta.dart';
+import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta_scritta.dart';
 import 'package:esoteric_circle/core/tarot/la_domanda_letta.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
@@ -106,8 +107,10 @@ void main() {
         .split(RegExp(r'(?<=[.!?])\s+'))
         .where((x) => x.trim().isNotEmpty)
         .toList();
-    final i = f.first.startsWith('Le domande sono due') && f.length > 1 ? 1 : 0;
-    if (!s.cards.any((c) => f[i].contains(c.card.name)) && i + 1 < f.length) {
+    final i = f.first.startsWith('Le carte rispondono alla prima') && f.length > 1 ? 1 : 0;
+    if (!s.cards.any(
+            (c) => f[i].toLowerCase().contains(c.card.name.toLowerCase())) &&
+        i + 1 < f.length) {
       return '${f[i]} ${f[i + 1]}';
     }
     return f[i];
@@ -131,9 +134,10 @@ void main() {
     for (final domanda in [null, 'Il colloquio di giovedì andrà bene?']) {
       for (final (t, stesa, r) in leLetture(domanda: domanda)) {
         quante++;
-        final chiave = TarotReading.chiaveDi(stesa).drawn;
+        final chiave =
+            TarotReading.chiaveDi(stesa, domandaScritta: domanda).drawn;
         final prima = verdetto(r.risposta, stesa);
-        if (!prima.contains(chiave.displayName)) {
+        if (!prima.toLowerCase().contains(chiave.displayName.toLowerCase())) {
           senza.add('${t.name}: la prima frase non nomina la chiave '
               '${chiave.displayName}: "$prima"');
         }
@@ -223,14 +227,10 @@ void main() {
   /// situazione, lente e tema sensibile, le frasi di servizio. LAPIDE: le
   /// tavole di forme a segnaposto (`verdettiDelCuore` e le altre sei).
   List<String> testiDellaVoce() => [
-        for (final c in LaCartaNellaRisposta.tavola.values) ...[
-          c.tema,
-          c.dice,
-          c.via,
-        ],
-        for (final sit in Situazione.values) ...[...sit.azioni, ...sit.nonFare],
+        for (final c in LaCartaNellaRisposta.tavola.values) c.tema,
+        for (final testi in testiDelleCarte.values) ...testi.values,
+        for (final gesti in gestiDellaDomanda.values) ...gesti.values,
         for (final domanda in [
-          null,
           'L\'operazione andrà bene?',
           'Vincerò la causa?',
           'Conviene investire in borsa?',
@@ -253,7 +253,7 @@ void main() {
     // **IL FUTURO DATO PER CERTO** si cerca come grandezza della lingua: le
     // desinenze del futuro semplice. Le parole che finiscono cosi' senza
     // essere un futuro stanno nell'elenco delle eccezioni, scritte per nome.
-    const nonFuturi = {'però', 'perciò', 'già', 'concrete'};
+    const nonFuturi = {'però', 'perciò', 'già', 'concrete', 'discrete'};
     // Non `\b`: in Dart non vede le lettere accentate, e "sarà" sfuggirebbe.
     final futuro = RegExp(
         r'(?<![A-Za-zÀ-ÿ])[A-Za-zÀ-ÿ]+(rò|rà|rai|remo|rete|ranno)(?![A-Za-zÀ-ÿ])',
@@ -364,8 +364,9 @@ void main() {
     // **LA GRANDEZZA MISURATA E CAMBIATA, e la legge no.** La legge
     // dell'anatomia: **prima cosa la lettura vede, poi cosa puoi fare**. Il
     // primo paragrafo non apre con un gesto; il secondo porta un gesto
-    // concreto (quello di una carta, `LaCartaNellaRisposta.via`, o quello
-    // della domanda, `LaDomandaLetta.azioni`) e dice che cosa **non** fare.
+    // concreto (scritto per la domanda, `gestiDellaDomanda`, o il gesto
+    // scritto della carta, `VoceDellaStesa.gestoDellaCarta`; sui temi
+    // sensibili `LaDomandaLetta.azioni`) e dice che cosa **non** fare.
     // LAPIDE: l'elenco dei ventiquattro imperativi delle forme di
     // `gestoPerNatura`.
     final guasti = <String>[];
@@ -374,7 +375,8 @@ void main() {
       for (final (t, stesa, r) in leLetture(quanti: 2, domanda: domanda)) {
         quante++;
         final gesti = [
-          for (final c in stesa.cards) LaCartaNellaRisposta.di(c).via,
+          for (final c in stesa.cards) VoceDellaStesa.gestoDellaCarta(c),
+          for (final g in gestiDellaDomanda.values) ...g.values,
           ...LaDomandaLetta.di(domanda).azioni(t),
         ];
         if (!gesti.any((g) => r.cosaFare.contains(g))) {

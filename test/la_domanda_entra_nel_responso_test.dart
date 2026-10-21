@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/tarot/domanda_della_persona.dart';
+import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta.dart';
+import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta_scritta.dart';
 import 'package:esoteric_circle/core/tarot/la_domanda_letta.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
@@ -80,10 +82,15 @@ void main() {
       ('Tornera da me il mio ex fidanzato?', Situazione.ritorno),
       ('Il mio compagno mi sta nascondendo qualcosa?', Situazione.fiducia),
     ];
-    // Non `\b`: in Dart non vede le lettere accentate, e "sì" sfuggirebbe.
+    // Le aperture del verdetto, ordine GA voce GA.06 (i testi scritti): un
+    // si', un no, un non ancora, o sul timore e sul distacco la risposta che
+    // gli spetta. Non `\b`: in Dart non vede le lettere accentate.
     final risponde = RegExp(
-        r'(^|: |, )(sì|no|per ora no|non ancora|non decidere)(?![A-Za-zÀ-ÿ])',
-        caseSensitive: false);
+        r'^(Le carte inclinano (al sì|al no|a farlo|a non chiudere)|Sì|No,|'
+        r'Per ora no|Non ancora|Non subito|Può andare|Così com.è adesso, no|'
+        r'Meglio non decidere|Le carte consigliano di non decidere|'
+        r'Non è detto|Le carte non lo confermano|Le carte non danno certezze|'
+        r'Non come certezza|Il timore non trova conferma)(?![A-Za-zÀ-ÿ])');
     final guasti = <String>[];
     var guardate = 0;
     for (final (domanda, situazione) in casi) {
@@ -99,7 +106,11 @@ void main() {
         guasti.add('"$domanda": la prima frase non risponde si\' o no: '
             '"$prima"');
       }
-      if (!situazione.azioni.any(lettura.principale.cosaFare.contains)) {
+      final gesti = [
+        for (final tono in TonoDellaCarta.values)
+          ...gestiDellaDomanda['${situazione.name}|${tono.name}']!.values,
+      ];
+      if (!gesti.any(lettura.principale.cosaFare.contains)) {
         guasti.add('"$domanda": il cosa fare non porta il gesto della '
             'situazione ${situazione.name}: "${lettura.principale.cosaFare}"');
       }

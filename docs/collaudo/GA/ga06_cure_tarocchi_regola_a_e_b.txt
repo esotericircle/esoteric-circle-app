@@ -117,3 +117,48 @@ REGOLA A, LE GUARDIE NUOVE VISTE ROSSE
    ("- 3: INNESTO REGOLA B5 GA06 troppo breve."), grep riga 1049; rossa
    il_corpus_delle_posizioni, "FI.39: il Dart e' quello della fonte".
    Ripristino: git checkout, grep "INNESTO" 0.
+
+SECONDO GIRO, 21 ottobre 2026 (testi scritti al posto dei frammenti cuciti)
+
+5. Regola B prima di toccare il compositore dei gesti e delle aperture: le
+   prove della zona viste rosse sul codice del giro precedente (rosse
+   vere, non innesti): la_risposta_viene_dalla_carta_test 1 (una carta di
+   dolore in un verdetto "non favorevole": l'apertura "Il quadro non e'
+   favorevole" conteneva la parola cercata) e 6 (la formula "lo conferma"
+   dentro un gesto scritto bene), tarot_interpretazione_test (il nome della
+   carta con la maiuscola), la_stesa_si_capisce_test P.09 (idem),
+   le_lunghezze_dei_responsi_test (la tabella non diceva piu' il vero),
+   cento_letture_uguali_test MISURA C al 45,7 per cento e MISURA D con un
+   paragrafo ripetuto 5 volte. Curate cambiando il TESTO o la grandezza
+   misurata, mai la soglia: aperture a sei forme per tono, forma lunga o
+   breve della carta chiave scelta dal filo (la lunga una volta su quattro),
+   gesti della carta e delle altre carte come riserve in ordine mescolato,
+   seconda carta sempre nominata, nome in minuscolo dopo "nel futuro,"
+   accettato dalle due prove sul nome.
+
+6. Regola A sulle forme nuove del compositore (innesti verificati col grep,
+   copie salvate, sha1 prima 649527d0e5e986c73ab5f3786a7e3c89918336f3 per
+   voce_della_stesa.dart e cb877eec2627f5cd73640b1451af51c67010c2f5 per
+   carte_04.md):
+   - K: voce_della_stesa.dart:965, "final altre = <DrawnCard>[]; // INNESTO
+     K GA06" (nessuna seconda carta nella risposta): rossa
+     la_stesa_si_capisce P.09, "col seme 0 su amoreQuadro il consiglio
+     nomina 1 carte";
+   - L: voce_della_stesa.dart:925, "true /* INNESTO L GA06 */" al posto della
+     scelta del filo fra forma lunga e breve della carta chiave: rossa
+     cento_letture_uguali MISURA C, 40,6 per cento (soglia 40), da sola e
+     insieme a K (45,7);
+   - M: docs/corpus/tarocchi_risposta/carte_04.md:19, il gesto della Luna
+     dritta diventa "Non aspettare. INNESTO M GA06": rosso
+     tool/genera_la_carta_nella_risposta.py, "5 parole, fuori da 10-16", "non
+     finisce col punto", "il gesto e' una cosa da fare, non da non fare", 4
+     difetti e il Dart non si scrive.
+   Ripristino: copie, sha1 uguali agli iniziali, grep "INNESTO" 0 nei due
+   file; il Dart generato e' stato riscritto dal generatore dopo il
+   ripristino.
+
+7. Misure del secondo giro, lette dai file di prova: composizioni guardate
+   22464 fra 40 e 50 parole, fuori misura 0 (quanto_e_lungo_il_consiglio);
+   cento consultazioni con la stessa domanda, MISURA C 39,0 per cento sul
+   testo a video (soglia 40) e 34,8 sulle quattro letture del fondatore,
+   MISURA D entro 2 volte.
