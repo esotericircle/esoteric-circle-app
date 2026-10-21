@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import '../maestro/maestro.dart';
 import 'chat_message.dart';
+import 'chi_di_dovere.dart';
 import 'il_filo_del_consulto.dart';
 
 /// La porta verso il modello che giudica la coerenza: un'istruzione e un
@@ -101,6 +102,27 @@ abstract final class LaReteDellaCoerenza {
     final s = IlFiloDelConsulto.scheda;
     if (s == null) return false;
     return s.daMaestro != chi || s.pareri.any((p) => p.maestro != chi);
+  }
+
+  /// **DUE TEMI NON SI CONTRADDICONO.** Ordine GA voce 09, simulazione sul
+  /// Realme: dopo una domanda sulle medicine, la domanda sui risparmi in
+  /// criptovalute riceveva "Come ti ha detto Aura, non è il tempo di
+  /// lasciare tutto ciò che hai", una citazione falsa nata da un verdetto
+  /// sbagliato del giudice (Flash-Lite vedeva una contraddizione fra due
+  /// frasi simili su temi diversi). La correzione costringe la voce a
+  /// citare l'altro Maestro: quando la domanda di adesso e quella con cui
+  /// il consulto e' cominciato toccano due temi diversi, la rete non parte.
+  /// Vale quando la domanda di adesso tocca un tema di chi ha il dovere
+  /// (medico, avvocato, consulente) e il consulto e' cominciato su un altro
+  /// tema, anche non riconosciuto (un archetipo, una carta). Se la domanda
+  /// di adesso non ne tocca nessuno ("Allora cosa devo fare?") la rete
+  /// controlla come prima: puo' essere il seguito dello stesso tema.
+  static bool temaDiversoDalConsulto(String? domanda) {
+    final scheda = IlFiloDelConsulto.scheda;
+    if (domanda == null || scheda == null) return false;
+    final ora = ChiDiDovere.temaDi(domanda)?.chi;
+    final prima = ChiDiDovere.temaDi(scheda.tema)?.chi;
+    return ora != null && ora != prima;
   }
 
   /// I punti fermi per [chi]: la scheda del consulto, le risposte di prima
@@ -223,8 +245,10 @@ abstract final class LaReteDellaCoerenza {
     required List<ChatMessage> storia,
     required String risposta,
     required ChiamataDellaCoerenza chiamata,
+    String? domanda,
   }) async {
     if (!serve(chi)) return null;
+    if (temaDiversoDalConsulto(domanda)) return null;
     final punti = puntiFermi(chi, storia);
     if (punti == null || risposta.trim().isEmpty) return null;
     final verdetto = leggi(await chiamata(

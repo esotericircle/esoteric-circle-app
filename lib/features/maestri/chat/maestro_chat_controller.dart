@@ -857,6 +857,7 @@ class MaestroChatController extends ChangeNotifier {
           chi: chi,
           storia: [..._filoDiPrima, ...storia],
           risposta: risposta,
+          domanda: domanda,
           chiamata: porta.giudicaLaCoerenza);
     } catch (errore, traccia) {
       annotaGuastoInnocuo(
