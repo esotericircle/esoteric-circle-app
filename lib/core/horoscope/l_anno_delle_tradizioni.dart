@@ -199,20 +199,29 @@ abstract final class LAnnoDelleTradizioni {
     final sadeSati = caseDellaSadeSati.contains(saturno);
     final s = caseBuoneDiSaturno.contains(saturno) ? 1 : (sadeSati ? -1 : 0);
     int tra(int x) => x.clamp(2, 5);
-    String segno(CorpoCeleste c) => ISegniDelleTradizioni
-        .rashi[IlSegnoDelCielo.dellaLongitudine(siderale(c, istante)).index];
-    const ordinali = LaLetturaVedica.ordinali;
-    final diGiove = 'Al tuo compleanno ${_con('del', da)} Giove era in '
-        '${segno(CorpoCeleste.giove)}, nella tua ${ordinali[giove - 1]} casa '
-        'dalla Luna di nascita: ${g == 1 ? 'una casa favorevole' : 'non una delle sue case favorevoli'}.';
+    // **QUARTO GIRO GA.06**: i segni vedici in italiano ("nei Gemelli", non
+    // "Mithuna"), la posizione detta in parole ("il quinto segno a partire
+    // da quello della tua Luna di nascita") e i pianeti con la loro
+    // funzione (lettore cieco, oroscopo-29: "Giove era in Mithuna, nella tua
+    // quinta casa" non diceva niente).
+    String nelSegno(CorpoCeleste c) => LaLetturaVedica.nelSegno(
+        IlSegnoDelCielo.dellaLongitudine(siderale(c, istante)).index);
+    final diGiove = 'Al tuo compleanno ${_con('del', da)} Giove, il pianeta '
+        'della crescita, era ${nelSegno(CorpoCeleste.giove)}, '
+        '${LaLetturaVedica.ilOrdinaleM(giove)} segno dalla tua Luna di '
+        'nascita: ${g == 1 ? 'una posizione favorevole' : 'una posizione non fra le sue favorevoli'}.';
     // **ORDINE GA VOCE GA.06**: "è la Sade Sati." da sola era un nome senza
     // spiegazione (lettore cieco, oroscopo-29 e 31); la riga adesso dice che
     // cos'e', con le parole della nota del metodo (V-M-011).
     final arco = 'Il tuo anno va ${_con('dal', da)} '
         '${_con('al', DateTime(a.year, a.month, a.day - 1))}.';
-    final diSaturno = 'Saturno era in ${segno(CorpoCeleste.saturno)}, nella '
-        'tua ${ordinali[saturno - 1]} casa dalla Luna di nascita: '
-        '${s == 1 ? 'una casa favorevole' : sadeSati ? 'è la Sade Sati, i sette anni e mezzo in cui Saturno passa nella dodicesima, nella prima e nella seconda casa dalla tua Luna di nascita, che la tradizione indiana legge come un tempo di prove e di pazienza' : 'non una delle sue case favorevoli'}.';
+    // La Sade Sati si collega al responso: che cosa vuol dire per te (lettore
+    // cieco, oroscopo-29: "buttata li' senza dire cosa fare").
+    final diSaturno = 'Saturno, il pianeta dei limiti e della pazienza, era '
+        '${nelSegno(CorpoCeleste.saturno)}, '
+        '${LaLetturaVedica.ilOrdinaleM(saturno)} segno dalla tua Luna di '
+        'nascita: '
+        '${s == 1 ? 'una posizione favorevole' : sadeSati ? 'è la Sade Sati, i sette anni e mezzo in cui Saturno attraversa il segno prima del tuo, il tuo e quello dopo: per la tradizione indiana è un tempo di prove, che per te vuol dire andare più piano e costruire con calma' : 'una posizione non fra le sue favorevoli'}.';
     return AnnoDellaTradizione(
       da: da,
       a: a,

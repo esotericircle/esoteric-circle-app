@@ -88,23 +88,23 @@ abstract final class OroscopoVedicoData {
   static const List<List<String>> taraBala = [
     [
       'È una giornata per il corpo, non per le sfide. Riguardati: vai piano, mangia a orari regolari e lascia a un altro giorno le prove di forza. || Oggi la Luna è nella tua stella di nascita, {nakshatra_nascita}: la tradizione indiana chiama questo giorno Janma, "la nascita".',
-      'È un giorno per seminare e per imparare, meno per mettersi in viaggio o in una contesa. Pianta qualcosa, apri un libro nuovo e rimanda la partenza che può aspettare. || La Luna torna sulla tua stella, {nakshatra_nascita}: è la tara Janma, che Raman dà buona per seminare e cominciare a studiare, non per il resto.',
-      'Conviene tenere la giornata per te e per la testa. Comincia uno studio, anche solo con la prima pagina di un corso. Se qualcuno vuole aprire una discussione, lasciala cadere. || È il tuo giorno di Janma, la Luna sulla stella della tua nascita: nella Tara Bala è la prima delle nove, buona per cominciare a studiare.',
+      'È un giorno per seminare e per imparare, meno per mettersi in viaggio o in una contesa. Pianta qualcosa, apri un libro nuovo e rimanda la partenza che può aspettare. || La Luna torna sulla tua stella, {nakshatra_nascita}: è la tara Janma, «la nascita», che Raman dà buona per seminare e cominciare a studiare, non per il resto.',
+      'Conviene tenere la giornata per te e per la testa. Comincia uno studio, anche solo con la prima pagina di un corso. Se qualcuno vuole aprire una discussione, lasciala cadere. || È il tuo giorno di Janma, «la nascita»: la Luna sulla stella della tua nascita: nella Tara Bala è la prima delle nove, buona per cominciare a studiare.',
     ],
     [
       'È un buon giorno per occuparti dei tuoi beni e delle tue entrate. Metti in ordine i conti del mese o manda la richiesta di un pagamento che ti spetta. || La stella di oggi, {nakshatra_oggi}, è per te Sampat, "la ricchezza": è la seconda contata dalla tua, che il Drik Panchang dà molto buona.',
-      'Col denaro puoi fare i tuoi passi, purché con giudizio. Sistema una spesa che avevi già deciso con calma e tieni nota di quanto esce. || Oggi la stella della Luna ti è amica: è Sampat, la seconda dalla tua stella di nascita, che la tradizione indiana dà propizia.',
+      'Col denaro puoi fare i tuoi passi, purché con giudizio. Sistema una spesa che avevi già deciso con calma e tieni nota di quanto esce. || Oggi la stella della Luna ti è amica: è Sampat, «la ricchezza», la seconda dalla tua stella di nascita, che la tradizione indiana dà propizia.',
       'Conviene fare i passi che fanno crescere quello che hai. Presenta un\'offerta, apri una trattativa o dedica un\'ora piena a un progetto che può rendere. || Sampat è la stella della prosperità: nella Tara Bala di Raman e del Drik Panchang è uno dei giorni più propizi dei nove.',
     ],
     [
       'Non c\'è da spaventarsi, basta un po\' di attenzione in più. Guarda dove metti i piedi, in strada come sulle scale; tieni vicino a te gli oggetti di valore. || La stella di oggi, {nakshatra_oggi}, è per te Vipat, "il pericolo": la terza contata dalla tua, che la tradizione indiana chiede di attraversare con attenzione.',
       'Conviene controllare due volte le cose che si perdono o si sbagliano in fretta. Prima di uscire guarda chiavi e documenti; prima di pagare rileggi la cifra e il destinatario. || Oggi la tradizione indiana ti dà Vipat, la stella delle perdite: nella Tara Bala è la terza delle nove.',
-      'Meglio muoversi piano e senza fretta. Rimanda il viaggio lungo e l\'impegno rischioso che puoi spostare, tenendo per oggi solo i tragitti di sempre. || Con Vipat, la terza tara, Raman consiglia di evitare le cose importanti; il Drik Panchang la segna fra i giorni sfavorevoli.',
+      'Meglio muoversi piano e senza fretta. Rimanda il viaggio lungo e l\'impegno rischioso che puoi spostare, tenendo per oggi solo i tragitti di sempre. || Con Vipat, «il pericolo», la terza tara, Raman consiglia di evitare le cose importanti; il Drik Panchang la segna fra i giorni sfavorevoli.',
     ],
     [
       'È una giornata che sostiene. Usala per ciò che ti fa stare bene: una passeggiata, un pranzo fatto con calma, un\'ora per la cosa che ti piace di più. || La stella di oggi, {nakshatra_oggi}, è per te Kshema, "il benessere": la quarta contata dalla tua, che la tradizione indiana dà buona.',
       'Buon giorno per partire, per sistemare e per stare bene con gli altri. Mettiti in viaggio se devi, ripara quello che aspetta da tempo o passa a salutare qualcuno. || Oggi hai Kshema, la stella della prosperità tranquilla: nella Tara Bala è la quarta delle nove, fra quelle favorevoli.',
-      'Non serve strafare: basta fare bene quello che hai davanti. Prendi il primo compito della lista e finiscilo con cura prima di passare al secondo. || Con Kshema, la quarta tara, la tradizione indiana vede un giorno sereno; Raman la lega alla prosperità.',
+      'Non serve strafare: basta fare bene quello che hai davanti. Prendi il primo compito della lista e finiscilo con cura prima di passare al secondo. || Con Kshema, «il benessere», la quarta tara, la tradizione indiana vede un giorno sereno; Raman la lega alla prosperità.',
     ],
     [
       'Metti in conto qualche intoppo e lascia margine nei tuoi orari. Parti un quarto d\'ora prima e non fissare due appuntamenti uno attaccato all\'altro. || La stella di oggi, {nakshatra_oggi}, è per te Pratyak, "l\'ostacolo": la quinta contata dalla tua, che la tradizione indiana non dà favorevole.',
@@ -128,8 +128,8 @@ abstract final class OroscopoVedicoData {
     ],
     [
       'È una giornata che ti dà una mano in quasi tutto. Non sprecarla in faccende minori: sbriga per prima la cosa più difficile che hai in lista. || La stella di oggi, {nakshatra_oggi}, è per te Parama Mitra, "il grande amico": per Raman è la più favorevole delle nove.',
-      'Buon giorno per le cose a cui tieni davvero. Scegline una, quella che rimandi per paura di rovinarla: dedicale il pomeriggio senza farti interrompere. || Oggi hai Parama Mitra, la nona contata dalla tua stella di nascita: nella Tara Bala il cielo ti è amico fino in fondo.',
-      'Conviene osare un poco. Fai la richiesta che rimandi, a voce e senza giri di parole: un sì da chiedere, un incontro da proporre, un permesso da ottenere. || Con Parama Mitra, la nona e ultima tara, la tradizione indiana dà la giornata per propizia: Raman la dice molto favorevole.',
+      'Buon giorno per le cose a cui tieni davvero. Scegline una, quella che rimandi per paura di rovinarla: dedicale il pomeriggio senza farti interrompere. || Oggi hai Parama Mitra, «il grande amico», la nona contata dalla tua stella di nascita: nella Tara Bala il cielo ti è amico fino in fondo.',
+      'Conviene osare un poco. Fai la richiesta che rimandi, a voce e senza giri di parole: un sì da chiedere, un incontro da proporre, un permesso da ottenere. || Con Parama Mitra, «il grande amico», la nona e ultima tara, la tradizione indiana dà la giornata per propizia: Raman la dice molto favorevole.',
     ],
   ];
 
@@ -415,9 +415,9 @@ abstract final class OroscopoVedicoData {
 
   /// Rahu Kalam: manca la città.
   static const List<String> rahuSenzaCitta = [
-    'Ogni giorno c\'è un\'ora e mezza in cui conviene non cominciare niente di importante. Dimmi la tua città e ti dico quando cade oggi. || Il Rahu Kalam, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, dipende dall\'alba e dal tramonto del luogo: per conoscerne l\'ora esatta di oggi serve la città in cui ti trovi.',
-    'Per dirti in quali ore oggi è meglio non dare inizio alle cose importanti mi serve sapere dove sei: in Italia fra Milano e Palermo cambia di un quarto d\'ora. Scegli la tua città. || Il Rahu Kalam, il tratto del giorno in cui la tradizione indiana evita di cominciare cose nuove, è un ottavo del tempo fra l\'alba e il tramonto: per questo cambia da un luogo all\'altro: l\'ora di oggi si calcola sulla città in cui ti trovi.',
-    'C\'è un tratto della giornata, un\'ora e mezza circa, da tenere libero da inizi e firme: cambia ogni giorno e in ogni città. Aggiungi la tua e te lo indico. || È il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu e in cui evita di cominciare cose nuove: cade in un\'ora diversa in ogni città: per calcolare quella di oggi serve la tua.',
+    'Ogni giorno c\'è un\'ora e mezza in cui conviene non cominciare niente di importante. Dimmi la tua città e ti dico quando cade oggi. || Il Rahu Kalam è l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove: cambia da un luogo all\'altro. Con la tua posizione l\'app lo calcola.',
+    'Per dirti in quali ore oggi è meglio non dare inizio alle cose importanti mi serve sapere dove sei: in Italia fra Milano e Palermo cambia di un quarto d\'ora. Scegli la tua città. || Il Rahu Kalam, il tratto del giorno in cui la tradizione indiana evita di cominciare cose nuove, è un ottavo del tempo fra l\'alba e il tramonto. Cambia da un luogo all\'altro: con la tua posizione l\'app lo calcola.',
+    'C\'è un tratto della giornata, un\'ora e mezza circa, da tenere libero da inizi e firme: cambia ogni giorno e in ogni città. Aggiungi la tua e te lo indico. || È il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu e in cui evita di cominciare cose nuove. Cade in un\'ora diversa in ogni città: con la tua posizione l\'app la calcola.',
   ];
 
   /// Il glossario della nota del metodo: termine e spiegazione.

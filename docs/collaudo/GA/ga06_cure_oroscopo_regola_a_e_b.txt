@@ -308,3 +308,91 @@ coincidenze piccole (una fila che parla, il cassetto in fondo, un invito all'ult
 gioco e scommesse non ci sono per la regola delle schede (nessun consiglio su denaro). Alcune
 voci passano da una persona (presentare due persone): la fortuna resta "occasioni", ma e' un
 taglio dell'Architetto, da confermare.
+
+IL QUINTO GIRO, DAL GERGO NEL "DA DOVE VIENE" (21 ottobre 2026, sopra a599828c e 3781137e)
+
+Parole del fondatore: "Le risposte vanno curate, sono la parte piu' importante e criticata
+dell'app." La lettura cieca indipendente sul campione del quarto giro: D1 12 su 12, D2 12 su 12,
+D3 solo 6 su 12, tre si' 6 su 12. Tutti i sei no (oroscopo-1, 9, 13, 21, 29, 37) erano gergo non
+spiegato nel "Da dove viene": "in quadratura al tuo segno", "nella tua quarta casa solare",
+"la Luna forma un trigono al tuo Sole", "L'Ascendente della tua Rivoluzione Solare, casa cadente",
+"nella tua decima casa dalla Luna di nascita", "Giove era in Mithuna, Saturno era in Mina, Sade
+Sati", "dal dio che quel giorno porta al tuo elemento di nascita". Riserva su oroscopo-17: un
+muro di circa 270 parole, il Rahu Kalam in un vicolo cieco.
+
+Padri (Regola C): la riga del cielo scritta con le parole dei metodi, ordine ES voci 02 e 03
+(occidentale giorno e periodi, il_livello_del_cielo.dart e la_settimana_del_cielo.dart), voce 04
+(anno occidentale, l_annuale.dart e il suo corpus), voce 08 (cinese, la_lettura_cinese.dart e il
+corpus), voce 09 (vedica, la_lettura_vedica.dart e il corpus); ordine ES voce 28 (anno delle
+tradizioni, l_anno_delle_tradizioni.dart). Rimasta uguale dopo le tre cure GA.06 precedenti,
+che avevano curato altre cose. Il muro di oroscopo-17: GA.06 stessa, seconda e terza cura, che
+avevano aggiunto frasi senza toglierne.
+
+Regola: ogni termine tecnico compare solo con la sua spiegazione nella stessa riga, oppure non
+compare; la sostanza viene prima del termine; il "Da dove viene" non e' un muro (circa novanta
+parole la Breve, circa centotrenta la Lunga).
+
+Cure, per tradizione:
+- Occidentale giorno: "Oggi la Luna e' in Ariete, in tensione con il tuo segno (una quadratura):
+  porta l'attenzione sull'area delle radici e della casa" (il_lessico_del_cielo.dart, nuovo:
+  rapporti, aree della vita, Ascendente e Medio Cielo spiegati la prima volta). Con la carta:
+  "il Sole e' in tensione con il tuo Ascendente (il segno che sorgeva all'orizzonte alla tua
+  nascita)".
+- Occidentale settimana e mese: "la Luna e' in accordo con la tua Venere di nascita, il tuo modo
+  di amare"; la fase della Luna "porta l'attenzione sull'area di ..." al posto di "nella tua decima
+  casa solare".
+- Occidentale anno: l'arco dell'anno "si legge dal cielo del tuo compleanno", "Quel cielo e'
+  diviso in dodici case, cioe' dodici aree della vita", Ascendente e Medio Cielo spiegati nelle
+  217 frasi del corpus, "Rivoluzione Solare" e "casa cadente" detti in parole; la Lunga tiene
+  l'Ascendente, il livello e (per il lavoro) Saturno.
+- Vedica giorno: una frase che spiega le case ("La tradizione indiana conta i segni a partire da
+  quello della tua Luna di nascita e li chiama case"), la forza che porta il livello per prima,
+  il livello in una riga; il Rahu Kalam solo nella Lunga e solo con la citta' (senza, si omette:
+  niente vicolo cieco); le tare con il loro significato accanto al nome.
+- Vedica settimana, mese: "ogni giorno si legge dalla posizione della Luna di quel giorno
+  rispetto alla tua Luna di nascita"; "nel decimo segno a partire da quello della tua Luna di
+  nascita" al posto di "nella tua decima casa dalla Luna di nascita".
+- Vedica anno: "Giove, il pianeta della crescita, era nei Gemelli, il quinto segno dalla tua Luna
+  di nascita" al posto di "Mithuna"; la Sade Sati collegata al responso ("per te vuol dire andare
+  piu' piano e costruire con calma").
+- Cinese giorno: "Nel BaZi, la lettura cinese del tuo carattere di nascita, oggi pesa il Rivale:
+  una forza che contende cio' che hai" al posto di "ha il tuo stesso elemento con polarita'
+  opposta"; la forza dell'Ufficiale e della Ricchezza dette per quello che sono; "ramo" e
+  "terna" diventano "animale" e "gruppo di tre animali" nel corpus.
+- Cinese settimana e mese: "ogni giorno si legge dal rapporto fra il suo animale e il tuo e dalla
+  forza che porta al tuo carattere di nascita (il BaZi)".
+- Cinese anno: il rapporto fra i due animali in una frase intera.
+- Il rito dichiara il suo reggente e le fonti si accorciano (Inno orfico, mantra, Tong Shu).
+
+Regola A, guardia nuova test/i_termini_del_cielo_hanno_la_loro_spiegazione_test.dart (duemila
+duecentosettantadue "Da dove viene" veri letti: 12 persone, 3 tradizioni, 4 periodi, 4 domini,
+Breve e Lunga; 17 termini tecnici incontrati con la loro spiegazione, cardinale minimo 14 termini
+e 1200 righe). Innesti a mano, verificati col grep («INNESTO GA06G5») e tolti:
+ C1 la quadratura senza spiegazione: ROSSA;
+ C2 le case vediche senza la frase che le spiega: ROSSA;
+ C3 le dodici case dell'anno occidentale tolte: ROSSA;
+ C4 il dio del giorno col gergo del corpus: ROSSA;
+ C5 "Mithuna" al posto dei Gemelli: ROSSA;
+ C6 l'Ascendente senza il segno che sorgeva (27 occorrenze): ROSSA;
+ C7 una frase in piu' che fa il muro: ROSSA.
+Senza innesti VERDE. Regola B: le prove vecchie della zona sono cadute sul codice nuovo (8 rossi
+al primo giro: l_anno_dal_compleanno, la_lettura_cinese, due di la_lettura_vedica, due di
+la_settimana_viene_dal_cielo, language_rule, ga06_il_responso_dice_da_dove_viene), cioe' erano vive,
+e sono state riscritte con la LAPIDE accanto; non si e' abbassata nessuna soglia.
+
+Verificate e cambiate le prove vecchie (LAPIDI nei commenti): l_anno_dal_compleanno (Sole e Luna
+non stanno piu' nel "Da dove viene"), la_lettura_cinese (la frase del dio del corpus),
+la_lettura_vedica (il Rahu Kalam senza citta' non c'e' piu'), la_settimana_viene_dal_cielo (le
+righe cominciano "Quel giorno la Luna"), la parola "propiziatorio" della coda del rito.
+Anche le prove vicine hanno ricevuto la LAPIDE: il_livello_viene_dal_cielo ("Oggi la Luna"),
+i_livelli_dei_giorni ("la Luna e' in accordo con il tuo Sole di nascita"),
+la_profondita_sta_su_ogni_scheda ("nella casa N:"), e i_testi_nuovi_dell_architetto_sono_nel_codice:
+UN ADATTAMENTO DICHIARATO, C-G-069 ("Il ramo di oggi e' il tuo" diventa "L'animale di oggi e' il
+tuo"), da riportare all'Architetto; la prova pretende che sia l'unico.
+Numeri: 189 prove della zona verdi (37 file), 64 delle prove vicine (17 file), flutter analyze
+lib test pulito per i miei file; un avviso resta in test/la_risposta_viene_dalla_carta_test.dart
+riga 511 (variabile 's' non usata), della cura dei Tarocchi (ordine GA voce GA.06, commit
+9f5165f9), non mia.
+Lunghezze del "Da dove viene" sul campione di 48: Breve da 22 a 101 parole (la piu' lunga: vedica
+anno con la Sade Sati), Lunga da 56 a 134 (la piu' lunga: vedica giorno con tara e Rahu Kalam); la
+guardia tiene 105 e 140. Prima: fino a 209 parole.

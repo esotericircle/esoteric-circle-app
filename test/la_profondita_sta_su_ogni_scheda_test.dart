@@ -198,8 +198,7 @@ void main() {
       ]) {
         final segno = segni[
             IlSegnoDelCielo.dellaLongitudine(tema.longitudini[corpo]!).index];
-        final attesa = '$nome era in $segno, nella casa ${tema.casaDi(corpo)} '
-            'del tuo anno';
+        final attesa = '$nome era in $segno, nella casa ${tema.casaDi(corpo)}:';
         final lunga = lunghe.firstWhere((s) => s.domain == dominio);
         final breve = brevi.firstWhere((s) => s.domain == dominio);
         if (!lunga.rigaDelLivello!.contains(attesa) ||

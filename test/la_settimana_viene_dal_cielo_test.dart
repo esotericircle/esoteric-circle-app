@@ -121,7 +121,8 @@ void main() {
         }
         for (final g in d.giorni) {
           righe++;
-          if (!g.motivo.startsWith('Dal')) {
+          if (!RegExp(r'^(Dal|Quel giorno la Luna|Oggi la Luna)')
+              .hasMatch(g.motivo)) {
             senzaFatto.add('${d.dominio.name} ${g.giorno}: "${g.motivo}"');
           }
           // L'istante della scheda del Giorno (le 12 UTC del giorno civile),
@@ -185,7 +186,10 @@ void main() {
           '${d.momentoChiave}');
       for (final g in d.giorni) {
         righe++;
-        if (!g.motivo.startsWith('Dal')) senzaFatto.add('${g.giorno}');
+        if (!RegExp(r'^(Dal|Quel giorno la Luna|Oggi la Luna)')
+            .hasMatch(g.motivo)) {
+          senzaFatto.add('${g.giorno}');
+        }
       }
     }
     cardinaleMinimo(righe, 30 * 4, cosa: 'righe del mese');

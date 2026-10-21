@@ -324,16 +324,29 @@ void main() {
     final s = LaLetturaVedica.schede(
         adesso: DateTime(2026, 10, 5, 9), nascita: senzaOra)!;
     // Lo dice il "da dove viene", non la lettura (ordine ES, 30 settembre).
-    expect(s[0].rigaDelLivello,
-        contains('Con l\'ora di nascita leggo anche la tua stella'));
-    // LAPIDE, EU Aggiunta: il Rahu Kalam non sta piu' nella lettura, sta
-    // nel suo "da dove viene".
     expect(
-        OroscopoVedicoData.rahuSenzaCitta.any((f) => s[0]
-            .rigaDelLivello!
-            .contains(LePartiDelResponso.di(f).$2.substring(0, 20))),
-        isTrue,
-        reason: s[0].rigaDelLivello);
+        s[0].rigaDelLivello,
+        contains(
+            'Con l\'ora di nascita leggo anche la stella della tua nascita'));
+    // LAPIDE, ordine GA voce GA.06, quarto giro (21 ottobre 2026): qui si
+    // pretendeva la riga del Rahu Kalam senza la citta' anche nella Breve, e
+    // il lettore cieco l'ha trovata un vicolo cieco ("serve la citta' in cui
+    // ti trovi") dentro un "Da dove viene" gia' lungo. Adesso il Rahu Kalam
+    // sta solo nella Lunga, e solo quando si sa dove sei: senza la citta' non
+    // c'e', con la citta' dice l'ora.
+    final tutte = {for (final d in HoroscopeDomain.values) d: true};
+    final lungaSenzaCitta = LaLetturaVedica.schede(
+        adesso: DateTime(2026, 10, 5, 9),
+        nascita: senzaOra,
+        approfondite: tutte)!;
+    expect(lungaSenzaCitta[0].rigaDelLivello, isNot(contains('Rahu Kalam')));
+    expect(s[0].rigaDelLivello, isNot(contains('Rahu Kalam')));
+    final lungaConCitta = LaLetturaVedica.schede(
+        adesso: DateTime(2026, 10, 5, 9),
+        nascita: senzaOra,
+        luogo: citta['Roma'],
+        approfondite: tutte)!;
+    expect(lungaConCitta[0].rigaDelLivello, contains('Rahu Kalam'));
     // Breve e Approfondita diverse su tutte e quattro le schede.
     final prof = LaLetturaVedica.schede(
         adesso: DateTime(2026, 10, 5, 9),
@@ -352,7 +365,10 @@ void main() {
     // EU Aggiunta: l'orario stava nel testo della lettura di prima; adesso
     // resta nel "da dove viene" quando la sua variante lo nomina (due su tre
     // del Rahu in corso), e il rapporto lo segnala all'Architetto.
-    expect(breve[0].rigaDelLivello, contains('Rahu Kalam'));
+    // LAPIDE, ordine GA voce GA.06, quarto giro: il Rahu Kalam sta solo nella
+    // Lunga (la Breve era un muro), e con la citta' dice l'ora.
+    expect(prof[0].rigaDelLivello, contains('Rahu Kalam'));
+    expect(breve[0].rigaDelLivello, isNot(contains('Rahu Kalam')));
   });
 
   test('le frasi del codice sono quelle del corpus', () {

@@ -65,9 +65,13 @@ void main() {
           (
             'generale',
             [
+              // LAPIDE, ordine GA voce GA.06, quarto giro (21 ottobre 2026):
+              // qui si pretendeva anche le frasi del Sole e della Luna nella
+              // riga del "Da dove viene". La riga e' tornata breve (tre frasi:
+              // l'arco dell'anno con la spiegazione delle case, l'Ascendente,
+              // il livello): il Sole sta nella riga del livello, la Luna nella
+              // voce.
               OroscopoAnnualeData.ascendente[t.segnoDellAscendente],
-              OroscopoAnnualeData.sole[casa[CorpoCeleste.sole]! - 1],
-              OroscopoAnnualeData.luna[casa[CorpoCeleste.luna]! - 1],
             ],
             2 + forza(casa[CorpoCeleste.sole]!),
           ),

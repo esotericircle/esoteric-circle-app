@@ -72,12 +72,12 @@ abstract final class LAnnuale {
   /// gergo che chi legge non sa leggere (secondo lettore cieco, ordine GA
   /// voce GA.06, oroscopo-13, 14, 15 e 16).
   static String _tipo(int casa) => switch (forza(casa)) {
-        3 => 'una casa angolare, quelle in cui la tradizione vede i pianeti '
-            'più forti',
-        2 => 'una casa succedente, quelle in cui la tradizione vede i '
-            'pianeti con una buona forza, subito dopo le angolari',
-        _ => 'una casa cadente, quelle in cui la tradizione vede i pianeti '
-            'più deboli',
+        3 => 'una casa angolare, cioè in primo piano: lì i pianeti pesano '
+            'di più',
+        2 => 'una casa succedente, cioè di buon sostegno: lì i pianeti '
+            'pesano abbastanza',
+        _ => 'una casa cadente, cioè di secondo piano: lì i pianeti pesano '
+            'di meno',
       };
 
   static const List<String> _mesi = [
@@ -108,8 +108,18 @@ abstract final class LAnnuale {
   static String arco(DateTime primoGiorno) {
     final dopo =
         DateTime(primoGiorno.year + 1, primoGiorno.month, primoGiorno.day - 1);
-    return 'Il tuo anno va ${_dal(primoGiorno)} ${_al(dopo)}.';
+    return 'Il tuo anno va ${_dal(primoGiorno)} ${_al(dopo)} e si legge dal '
+        'cielo del tuo compleanno.';
   }
+
+  static const String ascSpiegato =
+      'il segno che sorgeva all\'orizzonte al tuo compleanno';
+  static const String mcSpiegato =
+      'il punto più alto del cielo al tuo compleanno';
+
+  /// Che cosa sono le case, detto una volta nel "Da dove viene" dell'anno.
+  static const String casePerChiLeggeI =
+      'Quel cielo è diviso in dodici case, cioè dodici aree della vita.';
 
   /// **DOVE STA IL PIANETA, E QUANTO CONTA**: la riga che la Lunga aggiunge
   /// al "da dove viene" dell'Amore e della Fortuna. Il segno e la casa sono
@@ -121,15 +131,11 @@ abstract final class LAnnuale {
     final segno = _segni[
         IlSegnoDelCielo.dellaLongitudine(tema.longitudini[corpo]!).index];
     final peso = switch (forza(casa)) {
-      3 => 'una casa angolare, dove per la tradizione il pianeta è fra i '
-          'protagonisti dell\'anno',
-      2 => 'una casa succedente, dove per la tradizione il pianeta ha una '
-          'buona forza, subito dopo le angolari',
-      _ => 'una casa cadente, dove per la tradizione il pianeta resta sullo '
-          'sfondo',
+      3 => 'una casa angolare, cioè in primo piano',
+      2 => 'una casa succedente, cioè di buon sostegno',
+      _ => 'una casa cadente, cioè di secondo piano',
     };
-    return 'Al tuo compleanno $pianeta era in $segno, nella casa $casa del '
-        'tuo anno: $peso.';
+    return 'Al tuo compleanno $pianeta era in $segno, nella casa $casa: $peso.';
   }
 
   /// **IL COMPLEANNO DELL'ANNO CHE COMINCIA COL RITORNO [ritorno]**: il
@@ -195,14 +201,11 @@ abstract final class LAnnuale {
     final asc = tema.segnoDellAscendente;
     final mc = tema.segnoDelMedioCielo;
     final casaSole = tema.casaDi(CorpoCeleste.sole);
-    final casaLuna = tema.casaDi(CorpoCeleste.luna);
     final casaVenere = tema.casaDi(CorpoCeleste.venere);
     final casaGiove = tema.casaDi(CorpoCeleste.giove);
     final casaSaturno = tema.casaDi(CorpoCeleste.saturno);
 
     final (_, ascDaDove) = frase(OroscopoAnnualeData.ascendente[asc]);
-    final (_, soleDaDove) = frase(OroscopoAnnualeData.sole[casaSole - 1]);
-    final (_, lunaDaDove) = frase(OroscopoAnnualeData.luna[casaLuna - 1]);
     final (_, venereDaDove) = frase(OroscopoAnnualeData.venere[casaVenere - 1]);
     final (_, mcDaDove) = frase(OroscopoAnnualeData.medioCielo[mc]);
     final (_, gioveDaDove) = frase(OroscopoAnnualeData.giove[casaGiove - 1]);
@@ -224,11 +227,18 @@ abstract final class LAnnuale {
       final voce = voceDi(d, livello);
       // L'arco dell'anno in testa; nella Lunga, dove la riga del pianeta ha
       // gia' spiegato che casa e', il livello si dice senza ripeterla.
-      final cielo = LePartiDelResponso.insieme([
-        arco(primoGiorno),
+      final resto = [
         daDove,
         if (lunga(d)) ...daDoveInPiu,
         lunga(d) ? (delLivelloNellaLunga ?? delLivello) : delLivello,
+      ];
+      // **LA CASA SI SPIEGA UNA VOLTA** (ordine GA voce GA.06, quarto giro):
+      // "casa 6" da sola non dice niente a chi non sa di astrologia.
+      final conCase = resto.any((r) => RegExp(r'\bcasa\b').hasMatch(r));
+      final cielo = LePartiDelResponso.insieme([
+        arco(primoGiorno),
+        if (conCase) casePerChiLeggeI,
+        ...resto,
       ]);
       final responso = IlResponsoDellOroscopo.componi(
         voce: voce,
@@ -255,17 +265,19 @@ abstract final class LAnnuale {
     return [
       scheda(HoroscopeDomain.generale,
           daDove: ascDaDove.isEmpty
-              ? 'L\'Ascendente del tuo anno è in ${_segni[asc]}.'
+              ? 'L\'Ascendente del tuo anno, $ascSpiegato, è in ${_segni[asc]}.'
               : ascDaDove,
-          daDoveInPiu: [soleDaDove, lunaDaDove],
-          delLivello: 'Il livello viene dal Sole della tua Rivoluzione Solare '
-              'in casa $casaSole, ${_tipo(casaSole)}.',
+          // La Luna dell'anno resta nella voce: nel "Da dove viene" non c'e'
+          // piu', per tenerlo breve (quarto giro GA.06).
+          daDoveInPiu: const [],
+          delLivello: 'Il livello viene dal Sole nel tuo anno, in casa '
+              '$casaSole, ${_tipo(casaSole)}.',
           livello: 2 + forza(casaSole),
           metodo: '${OroscopoAnnualeData.notaGenerale} '
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.amore,
           daDove: venereDaDove.isEmpty
-              ? 'Venere nella tua Rivoluzione Solare cade nella casa '
+              ? 'Venere nel tuo anno cade nella casa '
                   '$casaVenere.'
               : venereDaDove,
           daDoveInPiu: [doveSta('Venere', CorpoCeleste.venere, tema)],
@@ -277,7 +289,7 @@ abstract final class LAnnuale {
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.carriera,
           daDove: mcDaDove.isEmpty
-              ? 'Il Medio Cielo del tuo anno è in ${_segni[mc]}.'
+              ? 'Il Medio Cielo del tuo anno, $mcSpiegato, è in ${_segni[mc]}.'
               : mcDaDove,
           // Terzo lettore cieco (ordine GA voce GA.06, oroscopo-15): la riga
           // della casa di Saturno parlava di legami e lealta' dentro una
@@ -287,9 +299,9 @@ abstract final class LAnnuale {
           // Terzo lettore cieco indipendente: "più è in vista, più il lavoro
           // chiede" non diceva che cosa vuol dire "in vista" ne' perche'
           // Saturno pesa sul lavoro.
-          delLivelloNellaLunga: 'Per il lavoro conta proprio questo, perché '
-              'Saturno è il pianeta dei doveri: più forte è la sua casa, più '
-              'l\'anno di lavoro chiede impegno.',
+          delLivelloNellaLunga: 'Per il lavoro conta questo: Saturno è il '
+              'pianeta dei doveri: più è in primo piano, più l\'anno di '
+              'lavoro chiede impegno.',
           // Fonte, ordine EV voce EV.08, verifica dell'Architetto (O-A-003):
           // le case angolari, succedenti e cadenti e la forza delle angolari
           // sono di William Lilly, Christian Astrology (1647), libro I, le
@@ -297,14 +309,14 @@ abstract final class LAnnuale {
           // dell'app, e la nota dell'anno lo dice.
           delLivello: 'Il livello viene da Saturno nella casa $casaSaturno, '
               '${_tipo(casaSaturno)}. Saturno è il pianeta dei doveri: più '
-              'forte è la sua casa, più l\'anno di lavoro chiede impegno.',
+              'pesa, più l\'anno di lavoro chiede impegno.',
           // Saturno angolare: l'anno chiede fatica.
           livello: 6 - forza(casaSaturno),
           metodo: '${OroscopoAnnualeData.notaDomini} '
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.fortuna,
           daDove: gioveDaDove.isEmpty
-              ? 'Giove nella tua Rivoluzione Solare cade nella casa '
+              ? 'Giove nel tuo anno cade nella casa '
                   '$casaGiove.'
               : gioveDaDove,
           daDoveInPiu: [doveSta('Giove', CorpoCeleste.giove, tema)],

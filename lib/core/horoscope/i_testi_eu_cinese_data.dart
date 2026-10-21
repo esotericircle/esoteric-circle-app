@@ -2865,8 +2865,8 @@ abstract final class ITestiEuCineseData {
             'Fra persone che si incrociano ogni giorno l\'armonia vale più di chi ha ragione. Un accordo piccolo e rispettato apre la strada a una convivenza più leggera. Dopo qualche settimana saluta con un sorriso e chiedi come va: il seguito conta quanto il primo passo.',
           ),
           VoceEu(
-            'Lo strumento nell\'angolo',
-            'Il mese è equilibrato e invita a ridare spazio a una passione, senza togliere nulla al resto. Lo strumento impolverato, i colori secchi, la bicicletta ferma, oppure qualcosa che non hai mai provato: tornare a un gesto che nutre adesso è possibile, purché trovi due momenti fissi.',
+            'Una passione da riprendere',
+            'Il mese è equilibrato e invita a ridare spazio a una passione, senza togliere nulla al resto. Uno strumento musicale, dei colori, una bicicletta, oppure qualcosa che non hai mai provato: tornare a un gesto che nutre adesso è possibile, purché trovi due momenti fissi.',
             'Ritaglia due ore fisse a settimana solo per quella passione e annotale in agenda come un impegno di lavoro. Se manca lo slancio, cerca un gruppo del quartiere o una persona con lo stesso interesse. Se nessuna passione ti chiama, prova un\'attività nuova per tre volte.',
             'L\'equilibrio di un periodo come questo si costruisce dando posto a ciò che nutre, non solo a ciò che urge. Tornare a un gesto amato restituisce un\'energia che si sente anche altrove. Lascia fuori il perfezionismo: le prime ore servono a riprendere la mano, non a fare bella figura.',
           ),

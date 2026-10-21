@@ -5,6 +5,7 @@ import 'cielo_di_oggi.dart';
 import 'corrente_del_cielo.dart';
 import 'horoscope.dart';
 import 'il_cielo_del_segno.dart';
+import 'il_lessico_del_cielo.dart';
 import '../astro/il_segno_del_cielo.dart';
 
 /// **IL LIVELLO DI OGNI SCHEDA DAL CIELO VERO, ordine ES voce 28.**
@@ -157,16 +158,8 @@ abstract final class IlLivelloDelCielo {
   /// opposizione) sono quelli di Tolomeo, *Tetrabiblos*, libro I, cap. 13.
   /// Le case solari (O-G-004) sono la pratica moderna per chi non ha l'ora
   /// di nascita: lo dichiara la nota del metodo O-M-004.
-  static const Map<int, String> _aspettoDellaCasa = {
-    1: 'nel tuo segno',
-    3: 'in sestile al tuo segno',
-    11: 'in sestile al tuo segno',
-    5: 'in trigono al tuo segno',
-    9: 'in trigono al tuo segno',
-    4: 'in quadratura al tuo segno',
-    10: 'in quadratura al tuo segno',
-    7: 'in opposizione al tuo segno',
-  };
+  // I rapporti col segno, detti in parole di tutti i giorni, stanno in
+  // [IlLessicoDelCielo.rapportoDelSegno].
 
   /// **IL GIORNO NEUTRO VALE TRE**, vista sul Realme il 29 settembre: col
   /// centro a 3,5 un giorno senza niente usciva 4 su 5, cioe' sembrava buono.
@@ -220,11 +213,17 @@ abstract final class IlLivelloDelCielo {
       final somma =
           delClima.clamp(-tettoDelClima, tettoDelClima).toDouble() + delGiorno;
       pesate.sort((a, b) => b.$1.compareTo(a.$1));
+      // **LA SOSTANZA PRIMA DEL TERMINE** (ordine GA voce GA.06, quarto
+      // giro): "il Sole in quadratura al tuo Ascendente" non diceva niente
+      // a chi non sa che cosa sia una quadratura o un Ascendente. Adesso
+      // "il Sole è in tensione con il tuo Ascendente (il segno che sorgeva
+      // all'orizzonte alla tua nascita)", e la spiegazione c'e' una volta.
+      final spiegati = <String>{};
       final nomi = [
         for (final (_, v) in pesate.take(2))
-          '${CorrenteDelCielo.colSuoArticolo(v.transito, maiuscola: false)} in '
-              '${v.aspetto.italianName.toLowerCase()} '
-              '${CorrenteDelCielo.alBersaglio(v)}',
+          '${CorrenteDelCielo.colSuoArticolo(v.transito, maiuscola: false)} è '
+              '${IlLessicoDelCielo.rapportoDi(v.aspetto)} '
+              '${IlLessicoDelCielo.conIlBersaglio(v, spiega: spiegati.add(v.idBersaglio))}',
       ];
       final elenco = nomi.join('; ');
       final riga = nomi.isEmpty
@@ -249,14 +248,17 @@ abstract final class IlLivelloDelCielo {
     final casaSua = IlCieloDelSegno.casaSolare(segno, suo);
     somma += 0.5 * pesoDellaCasaSolare(casaSua);
     if (caseDelDominio.contains(casaSua)) somma += 0.5;
-    final aspetto = _aspettoDellaCasa[casa];
-    final riga = 'Dalla Luna ${oggi ? 'di oggi' : 'del giorno'} in '
-        '${luna.italianName}, nella tua '
-        '${CorrenteDelCielo.ordinaliDelleCase[casa - 1]} casa solare'
-        '${aspetto == null ? '' : ', $aspetto'}; '
+    // **LA RIGA IN PAROLE DI TUTTI I GIORNI** (ordine GA voce GA.06, quarto
+    // giro, padre: ordine ES voci 02 e 03): "nella tua quarta casa solare, in
+    // quadratura al tuo segno" diventa l'area della vita e il rapporto col
+    // segno, col nome tecnico fra parentesi dopo la sostanza.
+    final aspetto = IlLessicoDelCielo.rapportoDelSegno[casa];
+    final riga = '${oggi ? 'Oggi la Luna' : 'Quel giorno la Luna'} è in '
+        '${luna.italianName}${aspetto == null ? ' e' : ', $aspetto:'} porta '
+        'l\'attenzione sull\'${IlLessicoDelCielo.areaDellaVita(casa)}; '
         '${CorrenteDelCielo.colSuoArticolo(corpo, maiuscola: false)} è in '
-        '${suo.italianName}, nella tua '
-        '${CorrenteDelCielo.ordinaliDelleCase[casaSua - 1]}.';
+        '${suo.italianName}, nell\'area '
+        '${CorrenteDelCielo.materiaDelleCase[casaSua - 1]}.';
     return (_scala(somma), riga);
   }
 }

@@ -41,18 +41,18 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 
 ## Da dove viene
 
-- Jian: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Jian, il giorno che stabilisce.
-- Chu: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Chu, il giorno che toglie.
-- Man: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Man, il giorno del pieno.
-- Ping: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Ping, il giorno che livella.
-- Ding: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Ding, il giorno che fissa.
-- Zhi: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Zhi, il giorno che tiene.
-- Po: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Po, il giorno che rompe.
-- Wei: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Wei, il giorno della vigilanza.
-- Cheng: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie.
-- Shou: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Shou, il giorno che raccoglie.
-- Kai: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Kai, il giorno che apre.
-- Bi: Il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Bi, il giorno che chiude.
+- Jian: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Jian, il giorno che stabilisce.
+- Chu: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Chu, il giorno che toglie.
+- Man: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Man, il giorno del pieno.
+- Ping: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Ping, il giorno che livella.
+- Ding: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Ding, il giorno che fissa.
+- Zhi: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Zhi, il giorno che tiene.
+- Po: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Po, il giorno che rompe.
+- Wei: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Wei, il giorno della vigilanza.
+- Cheng: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Cheng, il giorno che compie.
+- Shou: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Shou, il giorno che raccoglie.
+- Kai: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Kai, il giorno che apre.
+- Bi: Il gesto viene dal Tong Shu, l'almanacco cinese che lega ogni giorno a un ufficiale: questo è Bi, il giorno che chiude.
 
 ## I riti
 
