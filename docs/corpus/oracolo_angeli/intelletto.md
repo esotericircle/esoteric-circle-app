@@ -260,10 +260,10 @@
 
 ## 33 Yehuiah
 - messaggio 1: Il ruolo e la persona che lo occupa sono due cose da tenere separate. Iehuiah ti insegna a rispettare il primo senza idolatrare la seconda. Allo stesso modo, il tuo ruolo dentro una struttura non coincide con te: puoi servirlo bene senza esaurirti in lui.
-- messaggio 2: In ogni organizzazione c'è chi comanda sulla carta e chi comanda davvero. Nella mia lettura di questo angelo, vedere questa differenza è la prima forma di lucidità: ti permette di stare dentro la struttura senza perderti, perché sai dove passano le decisioni reali.
+- messaggio 2: Dove ci sono più persone insieme, in un ufficio, in un'associazione o in una famiglia, chi decide sulla carta e chi decide davvero possono non coincidere. Vedere questa differenza è una forma di lucidità: ti permette di stare dentro un gruppo senza perderti, perché sai dove passano le decisioni reali.
 - messaggio 3: Obbedienza cieca e ribellione automatica sono la stessa dipendenza guardata da due lati. Entrambe lasciano alla gerarchia il compito di decidere per te: una seguendola sempre, l'altra opponendosi sempre. Iehuiah mostra la terza possibilità, quella di valutare ogni ordine per ciò che chiede.
 - consiglio 1: Distingui oggi, davanti a chi sta sopra di te, il rispetto per il ruolo dall'ammirazione per la persona. Dai il primo senza obbligarti alla seconda. Poi stacca dal tuo ruolo a fine giornata: fai una cosa che non c'entra col lavoro e ricordati chi sei fuori.
-- consiglio 2: Disegna su un foglio come passano davvero le decisioni nel posto in cui lavori, accanto all'organigramma ufficiale. Individua dove le due mappe non coincidono. Non fermarti a chi ha soltanto il titolo; porta le tue proposte dove le scelte si fanno, con rispetto per tutti.
+- consiglio 2: Disegna su un foglio come passano le decisioni nel gruppo di cui fai parte, accanto a ciò che dicono i ruoli ufficiali. Segna dove le due mappe non coincidono. Non fermarti a chi ha soltanto il titolo: porta le tue proposte dove le scelte si fanno, con rispetto per tutti.
 - consiglio 3: Valuta la prossima richiesta che ricevi dall'alto per ciò che chiede, non per chi la manda. Se è sensata, eseguila bene anche se ti costa; se non lo è, dillo con motivazioni precise. Evita sia il sì automatico sia il no di principio.
 
 ## 34 Lehahiah

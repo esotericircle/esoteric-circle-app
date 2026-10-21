@@ -145,7 +145,10 @@ void main() {
       var misurati = 0;
       var caratteri = 0.0;
       for (final e in corpusDellOracolo.entries) {
-        if (e.key.endsWith('|rito')) continue;
+        // Il dono e la via (ordine GA voce GA.06) sono pezzi di frase del
+        // responso composto, non paragrafi: la loro misura la tiene lo
+        // strumento, e quella del responso l_oracolo_risponde_dai_doni_test.
+        if (e.key.endsWith('|rito') || e.key.startsWith('doni|')) continue;
         for (final (i, t) in e.value.indexed) {
           misurati++;
           final n = LaFormaDelResponso.parole(t);
@@ -198,29 +201,35 @@ void main() {
 
   group('il responso principale', () {
     test(
-        'del corpus (assaggio e ripiego): la carta del Custode, breve, '
-        'senza difetti', () {
+        'del corpus (assaggio e ripiego): composto dai doni, breve, senza '
+        'difetti, mai la carta del Custode copiata', () {
+      // LAPIDE, ordine GA voce GA.06: qui si pretendeva che il responso del
+      // corpus FOSSE la carta del Custode (GA.05). Il lettore cieco l'ha
+      // trovata copiata 40 volte su 40 (D1): adesso si pretende il contrario,
+      // e le guardie della cura stanno in l_oracolo_risponde_dai_doni_test.
       final colpe = <String>[];
       var visti = 0;
       for (var n = 1; n <= 72; n++) {
         final carte = _carteColCustode(n);
-        for (var v = 0; v < 3; v++) {
+        for (final solo in const [false, true]) {
           final r = LaLetturaDellOracolo.delCorpus(
               domanda: 'Devo cambiare lavoro?',
               carte: carte,
               corpus: corpusDellOracolo,
-              variante: v);
+              variante: n % 3,
+              soloIlCustode: solo);
           visti++;
           expect(r.dalModello, isFalse);
           expect(r.responso.lungo, isFalse);
           expect(
               r.responso.risposta,
-              corpusDellOracolo[LOraDegliAngeli.chiave(
-                  RuoloDellAngelo.custode, AngelCatalog.byNumber(n))]![v]);
+              isNot(corpusDellOracolo[LOraDegliAngeli.chiave(
+                  RuoloDellAngelo.custode, AngelCatalog.byNumber(n))]![n % 3]));
+          expect(r.responso.risposta, contains(AngelCatalog.byNumber(n).name));
           colpe.addAll(r.responso.difetti());
         }
       }
-      cardinaleMinimo(visti, 216, cosa: 'responsi del corpus guardati');
+      cardinaleMinimo(visti, 144, cosa: 'responsi del corpus guardati');
       expect(colpe, isEmpty, reason: '$colpe');
     });
 
@@ -310,12 +319,17 @@ void main() {
             profonda: true,
             chiamata: (i, rr, c) async => json);
         expect(r.dalModello, isFalse, reason: '$nome: non e\' stata scartata');
-        // Al posto del testo del modello, intero o tagliato, parla la carta
-        // del Custode dal corpus.
+        // Al posto del testo del modello, intero o tagliato, parla il corpus:
+        // dall'ordine GA voce GA.06 il responso composto dai doni.
         expect(
             r.responso.risposta,
-            LaLetturaDellOracolo.messaggioDellaCarta(
-                corpusDellOracolo, carte.first, 0),
+            LaLetturaDellOracolo.delCorpus(
+                    domanda: 'Come ritrovo la calma in questi giorni?',
+                    carte: carte,
+                    corpus: corpusDellOracolo,
+                    variante: 0)
+                .responso
+                .risposta,
             reason: '$nome: un testo del modello e\' passato, forse tagliato');
         expect(r.responso.difetti(), isEmpty);
       }
@@ -435,8 +449,11 @@ void main() {
     });
 
     testWidgets(
-        'l\'assaggio del Viandante: la Breve della carta del Custode, e la '
-        'sua bolla non la ripete', (tester) async {
+        'l\'assaggio del Viandante: la Breve composta dai doni, e la bolla '
+        'del Custode porta il suo messaggio', (tester) async {
+      // LAPIDE, ordine GA voce GA.06: qui la bolla del Custode taceva, perche'
+      // il principale era la sua carta copiata. Adesso il principale si
+      // compone dai doni e la bolla porta il messaggio della carta.
       await _monta(tester, Tier.free);
       await consultaLOracolo(tester, 'Devo cambiare lavoro?');
       final principale = find.byKey(const Key('oracolo_responso_principale'));
@@ -445,8 +462,8 @@ void main() {
               of: principale, matching: find.text('Cosa fare adesso')),
           findsOneWidget);
       expect(find.text('Il salmo propiziatorio'), findsNothing);
-      expect(find.byKey(const Key('oracolo_messaggio_custode')), findsNothing,
-          reason: 'la bolla del Custode ripete il responso principale');
+      expect(find.byKey(const Key('oracolo_messaggio_custode')), findsWidgets,
+          reason: 'la bolla del Custode deve portare il suo messaggio');
       expect(find.text('Da dove viene').evaluate().length, 1);
     });
   });

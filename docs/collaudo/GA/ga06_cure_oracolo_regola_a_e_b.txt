@@ -1,0 +1,121 @@
+ORDINE GA, VOCE GA.06, LE CURE DELL'ORACOLO DEGLI ANGELI
+Prove di Regola A e di Regola B (protocollo delle guardie di CLAUDE.md).
+Base: commit 1804c7d7. Data: 20 ottobre 2026.
+
+======================================================================
+REGOLA B: le guardie della zona viste rosse PRIMA di metterci mano
+======================================================================
+
+Zona: il compositore dell'Oracolo (lib/core/oracolo_angeli/la_lettura_dell_oracolo.dart)
+e il suo corpus (docs/corpus/oracolo_angeli/, lib/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart).
+
+Verde di partenza, prima di ogni innesto:
+  flutter test test/il_corpus_dell_oracolo_test.dart test/l_oracolo_degli_angeli_test.dart test/l_oracolo_ha_la_forma_nuova_test.dart
+  -> 00:32 +28: All tests passed!
+
+Innesto 1, nel Dart generato del corpus: la variante 2 di cuore|01|messaggio
+resa uguale alla variante 1 (righe 733 e 734 identiche).
+  Verifica col grep: grep -n -A3 "'cuore|01|messaggio'" lib/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart
+  -> 733 e 734 cominciano entrambe con "C\'è un fremito che sale quando pensi alla cosa nuova da aprire"
+Innesto 2, nel compositore: il responso del corpus prende il messaggio
+dell'ultima carta invece di quella del Custode.
+  Verifica col grep: grep -n "INNESTO REGOLA B" lib/core/oracolo_angeli/la_lettura_dell_oracolo.dart
+  -> 274:    final messaggio = messaggioDellaCarta(corpus, carte.last, variante); // INNESTO REGOLA B
+
+Esito con gli innesti: 00:14 +23 -5: Some tests failed.
+  il_corpus_dell_oracolo_test.dart: il Dart generato coincide con la fonte [E]
+  il_corpus_dell_oracolo_test.dart: nessun testo e' uguale a un altro [E]
+  l_oracolo_degli_angeli_test.dart: la lettura col modello senza modello, o con una risposta che non regge, parla il corpus [E]
+  l_oracolo_ha_la_forma_nuova_test.dart: il responso principale del corpus (assaggio e ripiego): la carta del Custode, breve, senza difetti [E]
+  l_oracolo_ha_la_forma_nuova_test.dart: il responso principale una risposta del modello fuori misura non si tronca: si scarta e parla il corpus [E]
+
+Ripristino: git checkout -- dei due file; grep -c "INNESTO" -> 0; git status pulito.
+Le tre guardie sono vive: coprono la zona.
+
+======================================================================
+REGOLA A: le guardie nuove viste rosse, una per una
+======================================================================
+
+Metodo: copia dei tre file di lib in una cartella fuori dal repo, innesto di
+UNA riga marcata INNESTO, verifica col grep che l'innesto c'e', esito della
+sola prova interessata, ripristino dalla copia, grep -c INNESTO = 0 e md5 dei
+file uguale alla copia.
+
+Prova nuova: test/l_oracolo_risponde_dai_doni_test.dart
+
+A1, guardia "D1: il principale non e' mai la carta singola del Custode, e la
+prima frase nomina l'angelo del Custode".
+  Innesto in la_lettura_dell_oracolo.dart: il principale torna la carta del
+  Custode copiata.
+  grep: 295: risposta: messaggioDellaCarta(corpus, cartaDelCustode(carte), variante), // INNESTO A1
+  Esito: [E] 'Vehuiah 0: copia la carta del Custode', ...
+
+A2, guardia "D1: con tre carte scoperte entrano il Cuore e l'Intelletto;
+nell'assaggio no".
+  Innesto in la_risposta_dai_doni.dart: la frase dei ruoli presa sempre come
+  nell'assaggio.
+  grep: 793: if (soloIlCustode || cuore.isEmpty || domanda.isNotEmpty) { // INNESTO A2
+  Esito: [E] '1 "Cosa prova davvero Marco per me?": il Cuore (Ieiaiel) o
+  l'Intelletto (Mikael) non entrano: ...'
+
+A3, guardia "D6: salute, legge e denaro dicono il limite e a chi rivolgersi
+nella prima frase; le vaghe e le doppie si riconoscono".
+  Innesto: il riconoscimento del limite spento.
+  grep: 445: if (d.isNotEmpty) return null; // INNESTO A3
+  Primo esito: rossa, ma solo per il cardinale ("HA GUARDATO 0 domande su
+  salute, legge e denaro"). La grandezza misurata e' cambiata, mai la
+  soglia: la guardia adesso confronta il limite ATTESO di ogni domanda del
+  campione e fuori campione con la prima frase.
+  Secondo esito: [E] "L'operazione al ginocchio del mese prossimo andrà
+  bene?: domanda su salute non riconosciuta, la prima frase non nomina chi
+  e' competente (medico)" e le analoghe su borsa e causa.
+
+A4, guardia "D2: sulle stesse tre carte, le domande diverse del campione
+danno risposte diverse".
+  Innesto: ogni domanda letta come generica (il responso non legge la
+  domanda, il difetto D2).
+  grep: 637: forma = FormaDellaDomanda.generica; // INNESTO A4
+  Esito: [E] 'carte [36, 54, 34]: "Lui tornerà da me dopo quello che è
+  successo?" e "Cosa prova davvero Marco per me?" hanno la stessa risposta'
+
+A7, la stessa guardia D2, allargata al "Cosa fare" dopo la rilettura (nel
+campione 6 e 15, 12 e 39 avevano lo stesso riquadro).
+  Innesto: il gesto della decisione senza l'azione pesata.
+  grep: 1337: final se = q.clausola == null ? '' : ''; // INNESTO A7
+  Esito: [E] '... "Ha senso riprovarci con la mia ex?" e "Devo accettare
+  l'offerta della nuova azienda?" hanno lo stesso "Cosa fare"'
+
+A8, la stessa guardia D2, allargata al titolo: vista rossa SUL CODICE VERO,
+senza innesto: 'carte [21, 52, 56]: "Come gestisco il conflitto con il mio
+capo?" e "Come posso fare pace con mia sorella?" hanno lo stesso titolo
+«La via di Nelchael: ...»'. Curato nel compositore (il titolo del "come"
+nomina che cosa la persona vuole fare), poi verde.
+
+A5, guardia "la forma e il confine: ogni responso composto sta fra 40 e 50
+parole per paragrafo, col titolo entro 80 caratteri, senza rotture".
+  Prima della cura vista rossa sul codice vero: 815 difetti su 48.720
+  (paragrafi di 37, 39 e 51 parole), curati con alternative di frasi intere.
+  Innesto: una virgola prima di "e" nella frase del no della decisione.
+  grep: 1002: 'Altrimenti, e per adesso, no.', // INNESTO A5
+  Esito: MISURA difetti 2367; SPECIE "Devo dirle che sono innamorato di
+  lei?" ... risposta: virgola prima di "e"
+
+A6, guardia "i doni del corpus: uno e una via per ognuno dei 72 angeli".
+  Innesto nel Dart generato: la cella del dono di Mahasiah rinominata.
+  grep: 2486: 'doni|05|innesto': [ // INNESTO A6
+  Esito: [E] 5: manca il dono
+
+Prova estesa: test/il_corpus_dell_oracolo_test.dart, guardia nuova "nessuna
+carta finge di conoscere la domanda, e la formula dove pesa / dove scalda
+non si ripete".
+  Prima della cura lo strumento, con lo stesso criterio, la vedeva rossa sul
+  corpus vero: 5 legami finti e la formula in 41 testi del cuore.
+  Innesto 1 nel Dart generato: "Nella tua domanda INNESTO" in cuore|03 e
+  "Dove pesa INNESTO" in cuore|05 e cuore|06 (grep: righe 755, 775, 785).
+  Esito: legami finti 1, [E]; rossa anche "il Dart generato coincide con la
+  fonte".
+  Innesto 2, solo la formula, in quattro messaggi del cuore (grep -c: 4).
+  Esito: formula per file {cuore: 11}, [E] la formula "dove pesa / dove
+  scalda" oltre otto testi: {cuore: 11}
+
+Ripristino dopo ogni innesto: copia rimessa, grep -c INNESTO = 0, md5 uguale.

@@ -361,7 +361,10 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             domanda: domanda,
             carte: carte,
             corpus: _corpus,
-            variante: variante))
+            variante: variante,
+            // Ordine GA voce GA.06: nell'assaggio il Cuore e l'Intelletto
+            // restano col lucchetto, e il responso non li nomina.
+            soloIlCustode: true))
         : LaLetturaDellOracolo.leggi(
             domanda: domanda,
             carte: carte,
@@ -1332,12 +1335,23 @@ class _IlResponso extends StatelessWidget {
       'sulle tre carte e ti dà il salmo propiziatorio.';
 
   /// **LA BOLLA CHE NON RIPETE** (GA.05, "senza ripetere un secondo blocco
-  /// per la stessa carta"): nell'assaggio e nel ripiego senza modello il
-  /// responso principale e' gia' la carta del Custode, e la sua bolla non ne
-  /// ripete il messaggio e il consiglio.
+  /// per la stessa carta"): se il responso di una carta dice le stesse
+  /// parole del responso principale, la bolla non le ripete.
+  ///
+  /// **LAPIDE, ordine GA voce GA.06, 20 ottobre 2026.** Qui la regola era
+  /// "senza modello la bolla del Custode tace", perche' il responso
+  /// principale era la carta del Custode copiata. Adesso il principale si
+  /// compone dai doni dei tre angeli (`LaRispostaDaiDoni`) e la bolla del
+  /// Custode porta il suo messaggio come le altre: la regola guarda le
+  /// parole, non il ruolo.
   static bool ripeteIlPrincipale(
-          RispostaDellOracolo r, CartaDellOracolo carta) =>
-      !r.dalModello && carta.ruolo == RuoloDellAngelo.custode;
+          RispostaDellOracolo r, ResponsoInterpretato? carta) =>
+      carta != null && carta.risposta == r.responso.risposta;
+
+  ResponsoInterpretato? _responsoDellaBolla(CartaDellOracolo carta) {
+    final r = LaLetturaDellOracolo.responsoDellaCarta(corpus, carta, variante);
+    return ripeteIlPrincipale(risposta, r) ? null : r;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1398,8 +1412,8 @@ class _IlResponso extends StatelessWidget {
         ] else if (!risposta.dalModello) ...[
           const SizedBox(height: SpacingTokens.sm),
           Text(
-            'Medora oggi risponde con la carta del tuo Angelo Custode: la '
-            'risposta alla tua domanda sulle tre carte arriva quando la rete '
+            'Medora oggi risponde dai doni dei tre angeli usciti: la '
+            'risposta scritta per te sulle tre carte arriva quando la rete '
             'torna.',
             key: const Key('oracolo_solo_corpus'),
             style: TypographyTokens.didascalia().copyWith(
@@ -1423,10 +1437,7 @@ class _IlResponso extends StatelessWidget {
               carta: carte[i],
               messaggio: LaLetturaDellOracolo.messaggioDellaCarta(
                   corpus, carte[i], variante),
-              responso: ripeteIlPrincipale(risposta, carte[i])
-                  ? null
-                  : LaLetturaDellOracolo.responsoDellaCarta(
-                      corpus, carte[i], variante),
+              responso: _responsoDellaBolla(carte[i]),
               rito: corpus[LOraDegliAngeli.chiaveDelRito(carte[i].angelo)],
               variante: variante,
             ),
@@ -1621,8 +1632,8 @@ class _IlDonoDellaCarta extends StatelessWidget {
 /// messaggio e sotto il riquadro "Cosa fare adesso" col consiglio della
 /// carta. Il titolo e' il nome dell'angelo, gia' nella testata della bolla
 /// (`mostraIlTitolo: false`); niente "Da dove viene", che chiude la
-/// consultazione una volta sola. Quando il responso principale e' gia' questa
-/// carta (assaggio e ripiego) la bolla non lo ripete ([responso] nullo).
+/// consultazione una volta sola. Quando il responso principale dice le
+/// stesse parole di questa carta la bolla non le ripete ([responso] nullo).
 class _LaBollaDellaCarta extends StatelessWidget {
   const _LaBollaDellaCarta({
     required this.palette,
