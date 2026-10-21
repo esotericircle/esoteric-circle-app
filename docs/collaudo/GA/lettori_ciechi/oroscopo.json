@@ -13,6 +13,7 @@
       "senzaDomanda": {
         "segno": "Capricorno",
         "nascita": "2002-12-26",
+        "oraDiNascita": null,
         "tradizione": "occidentale",
         "periodo": "giorno",
         "dominio": "Generale",
@@ -28,9 +29,9 @@
       },
       "profondita": "Breve",
       "responso": {
-        "titolo": "Strade che rallentano",
-        "risposta": "Oggi la giornata è in salita e la fatica si sente soprattutto nei tempi: mezzi in ritardo, code lunghe e piccoli contrattempi allungano ogni passaggio più di quanto hai messo in conto. Il nervosismo arriva facile, ma la fretta oggi non ti fa guadagnare nulla.",
-        "cosaFare": "Esci con venti minuti di anticipo e controlla il percorso prima di partire, tenendo pronta un'alternativa. Se capisci che non arrivi in orario, avvisa con un messaggio breve invece di correre. Metti nella borsa un libro sottile o un quaderno per le soste forzate.",
+        "titolo": "Ogni cosa chiede più tempo",
+        "risposta": "Oggi la giornata è in salita e la fatica si sente soprattutto nei tempi: ogni cosa chiede più minuti del previsto e i piccoli contrattempi si sommano uno all'altro. Il nervosismo arriva facile, ma la fretta oggi non ti fa guadagnare nulla: conviene lasciare un margine a ogni passaggio.",
+        "cosaFare": "Prima di ogni cosa che fai oggi, stima quanto tempo ti serve e aggiungine la metà: è la misura vera della giornata. Se devi spostarti, parti con anticipo e tieni pronta un'alternativa; se ti accorgi di tardare a un appuntamento, avvisa subito con un messaggio breve invece di correre.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -45,6 +46,7 @@
       "senzaDomanda": {
         "segno": "Bilancia",
         "nascita": "1994-10-22",
+        "oraDiNascita": null,
         "tradizione": "occidentale",
         "periodo": "giorno",
         "dominio": "Amore",
@@ -61,10 +63,10 @@
       "profondita": "Lunga",
       "responso": {
         "titolo": "Dirlo a voce",
-        "risposta": "Oggi in amore le parole dette a voce sono calorose e arrivano più dirette di quelle scritte. Se vivi una relazione, di' a chi ami che cosa provi, guardando negli occhi; se sei senza legame, di' a voce a chi ti piace che la sua compagnia ti fa piacere.",
-        "cosaFare": "Alla prima occasione di vedere o sentire la persona che ti sta a cuore, pronuncia una frase semplice e sincera, senza discorso preparato. Se ti aiuta, comincia con «Volevo dirti una cosa». Poi lascia una pausa. Vale per chi ami da anni e per chi conosci da poco.",
-        "approfondimento": "Le parole scritte si rileggono, quelle dette restano nell'aria e nella memoria. Pronunciarle costa un piccolo imbarazzo che oggi passa in fretta e lascia una vicinanza nuova. Il segno che il gesto è arrivato è uno sguardo che si ferma più a lungo, o una risposta data sorridendo.",
-        "rito": "Marte, che accende il desiderio, governa questa giornata degli affetti. Pensa a chi ami o a chi desideri incontrare. Sussurra due volte le parole dell'inno, «Volgiti al desiderio di Cipride e alle feste di Lieo», poi concediti un piccolo piacere da condividere: un frutto, una musica, un brindisi.",
+        "risposta": "Oggi in amore la giornata è favorevole e calorosa, soprattutto per ciò che si dice a voce: le parole arrivano più dirette di quelle scritte. Se vivi una relazione, di' a chi ami che cosa provi, guardando negli occhi; se sei senza legame e qualcuno ti piace, diglielo a voce.",
+        "cosaFare": "Alla prima occasione di vedere o sentire chi ti sta a cuore, pronuncia una frase semplice e sincera: se ti aiuta, comincia con «Volevo dirti una cosa», poi lascia una pausa. Se nessuno occupa ancora i tuoi pensieri, rivolgi un apprezzamento a voce a una persona che ti incuriosisce.",
+        "approfondimento": "Le parole scritte si rileggono, quelle dette restano nell'aria e nella memoria. Pronunciarle costa un piccolo imbarazzo, ma in una giornata così aperta pesa meno e può lasciare una vicinanza nuova. Te ne accorgi da uno sguardo che si ferma più a lungo o da una risposta data sorridendo.",
+        "rito": "Marte, che accende il desiderio, governa questa giornata degli affetti. Versa nel bicchiere qualcosa che ti piace e alzalo in un brindisi silenzioso a chi ami o a chi desideri incontrare. Poi sussurra due volte le parole dell'inno, «Volgiti al desiderio di Cipride e alle feste di Lieo».",
         "titoloDelRito": "L'inno propiziatorio",
         "daDoveViene": "Dalla Luna di oggi in Acquario, nella tua quinta casa solare, in trigono al tuo segno; Venere è in Scorpione, nella tua seconda. Il rito propiziatorio segue il giorno: il verso viene dall'Inno orfico a Marte, numero sessantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
       },
@@ -77,6 +79,7 @@
       "senzaDomanda": {
         "segno": "Ariete",
         "nascita": "1970-04-10",
+        "oraDiNascita": null,
         "tradizione": "occidentale",
         "periodo": "giorno",
         "dominio": "Carriera",
@@ -109,6 +112,7 @@
       "senzaDomanda": {
         "segno": "Vergine",
         "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
         "tradizione": "occidentale",
         "periodo": "giorno",
         "dominio": "Fortuna",
@@ -127,8 +131,8 @@
         "titolo": "Simpatia che nasce dalle parole",
         "risposta": "Oggi la fortuna è serena e circola nelle parole gentili: un apprezzamento sincero detto a chi incontri, il barista, un vicino, chi ti serve allo sportello, crea un piccolo credito di simpatia. Niente di eclatante, ma da gesti così nascono spesso favori e segnalazioni.",
         "cosaFare": "Scegli due persone che incroci oggi e di' a ciascuna una cosa precisa che apprezzi: la cura di un lavoro, la pazienza, un dettaglio. Niente frasi di circostanza. Annota stasera come hanno reagito e che cosa è cambiato nel modo di trattarti.",
-        "approfondimento": "Un complimento preciso dice all'altra persona che l'hai vista davvero e questo resta. In una giornata tranquilla la gentilezza ha tempo di posarsi senza sembrare interessata. Il pericolo è l'adulazione: se non lo pensi, taci, perché il complimento falso si riconosce subito.",
-        "rito": "Sotto Marte, oggi, le occasioni chiedono un gesto pronto. Cammina con passo deciso fino a un giardino o a un'aiuola del quartiere. Lì, a voce bassa, pronuncia le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra». Poi tocca la terra con la mano, come chi semina.",
+        "approfondimento": "Un complimento preciso dice all'altra persona che l'hai vista davvero e questo resta. In una giornata tranquilla la gentilezza ha tempo di posarsi senza sembrare interessata. Stai alla larga dall'adulazione: se non lo pensi, taci, perché il complimento falso si riconosce subito.",
+        "rito": "Sotto Marte, oggi, le occasioni chiedono un gesto pronto. Cammina con passo deciso fino a un giardino o a un'aiuola del quartiere. Lì rivolgi ad Ares le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi tocca la terra con la mano, come chi semina.",
         "titoloDelRito": "L'inno propiziatorio",
         "daDoveViene": "Dal cielo di oggi: il Sole in quadratura al tuo Ascendente; Urano in sestile al tuo Giove di nascita. Il rito propiziatorio segue il giorno: il verso viene dall'Inno orfico a Marte, numero sessantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
       },
@@ -141,6 +145,7 @@
       "senzaDomanda": {
         "segno": "Leone",
         "nascita": "1986-08-18",
+        "oraDiNascita": null,
         "tradizione": "occidentale",
         "periodo": "settimana",
         "dominio": "Generale",
@@ -157,10 +162,10 @@
       "profondita": "Lunga",
       "responso": {
         "titolo": "Due sere tutte tue",
-        "risposta": "Settimana piena ma gestibile: impegni regolari, qualche richiesta in più, nessuna corsa. Tutto dipende da come distribuisci il tempo libero fra un dovere e l'altro, perché se non lo difendi finisce per riempirsi delle cose degli altri prima che tu te ne accorga.",
+        "risposta": "Settimana equilibrata e gestibile, che non spinge e non frena: l'unica cosa da sorvegliare è il tempo libero. Se gli impegni si fanno fitti, quel tempo tende a riempirsi delle cose degli altri prima che tu te ne accorga; tutto dipende da come lo distribuisci fra un dovere e l'altro.",
         "cosaFare": "Apri oggi l'agenda e cerchia due sere di questi sette giorni da lasciare senza appuntamenti; scrivici sopra il tuo nome. Se arriva un invito per quelle sere, proponi con gentilezza un altro giorno, senza scusarti e senza dare troppe spiegazioni a nessuno.",
         "approfondimento": "Il tempo libero lasciato come avanzo non resiste a nessuna richiesta. Dargli una data lo rende reale e ti permette di dire con naturalezza che quella sera hai già da fare. Usalo per qualcosa che ricarica e non produce nulla: un bagno lungo, un film scelto con cura.",
-        "rito": "La settimana si apre oggi, domenica, nel giorno del Sole: da qui prende il suo primo respiro. Accendi una candela o cerca un raggio di luce, poi ripeti tre volte a mezza voce «Occhio della giustizia, luce della vita». Resta un momento in quella luce prima di muoverti.",
+        "rito": "Comincia oggi, domenica, una settimana che porta il calore del Sole. Accendi una candela gialla e guarda la fiamma finché il respiro rallenta. Ripeti a mezza voce «Occhio della giustizia, luce della vita» tre volte, poi spegnila con un soffio e scegli una cosa da tenere limpida per sette giorni.",
         "titoloDelRito": "L'inno propiziatorio",
         "daDoveViene": "Il momento chiave è lunedì 26 ottobre alle 05:11: Luna piena in Toro, nella tua decima casa solare, quella di ciò che costruisci in pubblico. Il rito propiziatorio segue il primo giorno della settimana, domenica 25 ottobre: il verso viene dall'Inno orfico al Sole, numero otto, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
       },
@@ -173,6 +178,7 @@
       "senzaDomanda": {
         "segno": "Pesci",
         "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
         "tradizione": "occidentale",
         "periodo": "settimana",
         "dominio": "Amore",
@@ -205,6 +211,7 @@
       "senzaDomanda": {
         "segno": "Vergine",
         "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
         "tradizione": "occidentale",
         "periodo": "settimana",
         "dominio": "Carriera",
@@ -224,7 +231,7 @@
         "risposta": "Settimana lucida nel lavoro e nello studio per i problemi che resistono: ragioni con chiarezza e vedi collegamenti che di solito sfuggono. È il momento di affrontare la questione più ostica che hai davanti, invece di girarle intorno rifugiandoti nei compiti più comodi e già noti.",
         "cosaFare": "In una mattina di questi giorni, prima di aprire la posta, prenditi un'ora per disegnare il problema a mano, con frecce e riquadri. Poi spiegalo ad alta voce in dieci minuti a qualcuno, anche a chi non conosce la materia: spesso il punto debole salta fuori lì.",
         "approfondimento": "Un ostacolo resiste spesso perché lo si guarda sempre dallo stesso lato. Una domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ha ragionato con te: il merito diviso pesa di più.",
-        "rito": "Comincia oggi, martedì, una settimana di Marte: il lavoro chiede coraggio più che fretta. Scrivi su un foglio il compito che ti pesa di più, poi piegalo in quattro. Recita tre volte le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi tienilo con te.",
+        "rito": "Comincia oggi, martedì, una settimana di Marte: il lavoro chiede coraggio più che fretta. Scrivi su un foglio il compito più pesante e piegalo in quattro. Leggi tre volte il verso dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi tienilo in tasca per sette giorni.",
         "titoloDelRito": "L'inno propiziatorio",
         "daDoveViene": "Il momento chiave è sabato 24 ottobre alle 13:08: la Luna forma un sestile al tuo Marte di nascita. Il rito propiziatorio segue il primo giorno della settimana, martedì 20 ottobre: il verso viene dall'Inno orfico a Marte, numero sessantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
       },
@@ -237,6 +244,7 @@
       "senzaDomanda": {
         "segno": "Cancro",
         "nascita": "1982-07-16",
+        "oraDiNascita": "11:20",
         "tradizione": "occidentale",
         "periodo": "settimana",
         "dominio": "Fortuna",
@@ -269,6 +277,7 @@
       "senzaDomanda": {
         "segno": "Pesci",
         "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
         "tradizione": "occidentale",
         "periodo": "mese",
         "dominio": "Generale",
@@ -301,6 +310,7 @@
       "senzaDomanda": {
         "segno": "Pesci",
         "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
         "tradizione": "occidentale",
         "periodo": "mese",
         "dominio": "Amore",
@@ -318,9 +328,9 @@
       "responso": {
         "titolo": "Insieme facendo qualcosa",
         "risposta": "Mese propizio all'amore che nasce o si rinnova facendo qualcosa insieme. Una passione condivisa crea confidenza più in fretta di cento chiacchiere davanti a uno schermo: se sei senza legame è lì che le simpatie nascono con naturalezza, se vivi una relazione è lì che l'intesa si riaccende.",
-        "cosaFare": "Entro dieci giorni scegli un'attività che si ripete con regolarità, come un coro, una squadra di camminate o un laboratorio di ceramica. Se hai un legame, iscrivetevi insieme e restate fino alla fine; se non hai un legame, dopo tre incontri proponi un caffè a chi ti sta simpatico.",
+        "cosaFare": "Entro dieci giorni scegli un'attività che si ripete con regolarità, come un coro, una squadra di camminate o un laboratorio di ceramica. Se hai un legame, iscrivetevi insieme e non saltate nessun incontro; se non hai un legame, dopo tre incontri proponi un caffè a chi ti sta simpatico.",
         "approfondimento": "Quando le mani sono occupate la timidezza si scioglie e ci si mostra per come si è davvero. Chi ti incontra lì ti conosce mentre ridi di un errore, non mentre cerchi di fare bella figura. Un invito piccolo dentro un'abitudine comune toglie imbarazzo a entrambe le persone.",
-        "rito": "Sotto Marte nasce oggi un mese per gli affetti, caldo di desiderio. Prepara una tavola con un frutto e una bevanda da condividere con chi ami o, se sei senza legame, con gli amici cari. Pronuncia allora le parole dell'inno, «Volgiti al desiderio di Cipride e alle feste di Lieo».",
+        "rito": "Sotto Marte nasce oggi un mese per gli affetti, pieno di calore. Proponi una serata di festa a chi ami o, se sei senza legame, agli amici cari: una cena semplice o un ballo. Apri la festa con l'inno, «Volgiti al desiderio di Cipride e alle feste di Lieo».",
         "titoloDelRito": "L'inno propiziatorio",
         "daDoveViene": "Il momento chiave è mercoledì 28 ottobre alle 10:47: la Luna forma un trigono alla tua Venere di nascita. Il rito propiziatorio segue il primo giorno del mese, martedì 20 ottobre: il verso viene dall'Inno orfico a Marte, numero sessantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
       },
@@ -333,6 +343,7 @@
       "senzaDomanda": {
         "segno": "Bilancia",
         "nascita": "1994-10-22",
+        "oraDiNascita": null,
         "tradizione": "occidentale",
         "periodo": "mese",
         "dominio": "Carriera",
@@ -365,6 +376,7 @@
       "senzaDomanda": {
         "segno": "Bilancia",
         "nascita": "1994-10-22",
+        "oraDiNascita": null,
         "tradizione": "occidentale",
         "periodo": "mese",
         "dominio": "Fortuna",
@@ -383,8 +395,8 @@
         "titolo": "Occasioni sotto casa",
         "risposta": "Per la buona sorte il mese è propizio vicino a casa: le occasioni utili possono stare più vicine di quanto pensi, come un corso aperto a tutti, un mercatino di scambio, un servizio del quartiere poco conosciuto. Guarda con attenzione le bacheche e i gruppi della zona.",
         "cosaFare": "Entro dieci giorni passa in biblioteca, in un centro civico o in una bottega della zona e fotografa la bacheca degli annunci. A casa scegli due iniziative che ti interessano davvero e segna le date in agenda. Alla prima partecipazione chiedi il recapito di chi organizza.",
-        "approfondimento": "Chi abita la tua zona spesso possiede ciò che ti manca: un attrezzo, un'ora di tempo, un'informazione pratica. Il periodo favorisce i legami vicini, quelli che si stringono a due isolati da casa. Il segno buono è un nome nuovo in rubrica, legato a un posto che vedi ogni giorno.",
-        "rito": "Oggi, martedì di Marte, prende avvio un mese in cui le occasioni chiedono mano ferma. Riempi un vaso di terra e interra tre semi. Pronuncia le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi annaffiali e guardali crescere in questi trenta giorni.",
+        "approfondimento": "Chi abita la tua zona spesso possiede ciò che ti manca: un attrezzo, un'ora di tempo, un'informazione pratica. Il periodo favorisce i legami vicini, quelli che si stringono a due isolati da casa. Un nome nuovo in rubrica, legato a un posto che vedi ogni giorno, allarga la rete.",
+        "rito": "Oggi, martedì di Marte, prende avvio un mese in cui la buona sorte si coltiva. Riempi un vaso di terra e interra tre semi. Prega piano con le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra», poi annaffiali e guardali crescere in questi trenta giorni.",
         "titoloDelRito": "L'inno propiziatorio",
         "daDoveViene": "Il momento chiave è domenica 1 novembre alle 21:28: Ultimo quarto in Leone, nella tua undicesima casa solare, quella degli amici e dei desideri. Il rito propiziatorio segue il primo giorno del mese, martedì 20 ottobre: il verso viene dall'Inno orfico a Marte, numero sessantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
       },
@@ -395,30 +407,31 @@
       "arte": "Oroscopo occidentale",
       "domanda": null,
       "senzaDomanda": {
-        "segno": "Leone",
-        "nascita": "1986-08-18",
+        "segno": "Pesci",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
         "tradizione": "occidentale",
         "periodo": "anno",
         "dominio": "Generale",
         "oggi": "2026-10-25",
-        "livello": 5,
-        "fascia": "favorevole"
+        "livello": 3,
+        "fascia": "equilibrio"
       },
       "simboli": {
-        "livello": 5,
-        "fascia": "favorevole",
-        "reggenteDelRito": "Marte",
-        "primoGiornoDelPeriodo": "2026-08-18"
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-03-08"
       },
       "profondita": "Lunga",
       "responso": {
-        "titolo": "La casa aperta",
-        "risposta": "Nella vita di ogni giorno l'anno è favorevole all'ospitalità e ai rapporti vicini. Le persone che inviti tendono a rispondere con calore e da un incontro semplice possono nascere abitudini piacevoli. È il momento di aprire la porta più spesso, senza aspettare l'occasione perfetta.",
-        "cosaFare": "Entro tre settimane invita due persone a casa tua o in un locale vicino, per una cena semplice o un caffè lungo. Da lì in avanti tieni un invito ogni quindici giorni, alternando volti di sempre e persone conosciute da poco. Conta la frequenza più della perfezione.",
-        "approfondimento": "La convivialità regolare crea fiducia e rende naturale chiedere o offrire un aiuto quando serve. Il rischio è trasformare ogni invito in una prova da superare, con menu elaborati e pulizie infinite: così si smette presto. Il segno che funziona è quando qualcuno ricambia senza che tu lo chieda.",
-        "rito": "Marte ha dato al tuo anno, dal compleanno, una forza che cerca pace. Adesso siediti, appoggia i piedi a terra e lascia scendere le spalle. Recita tre volte «Ferma la contesa furiosa, allenta il travaglio che addolora l'animo», poi scegli una contesa da lasciar cadere, anche piccola.",
+        "titolo": "Doveri e desideri",
+        "risposta": "L'anno è in equilibrio fra doveri e desideri, ma quell'equilibrio va difeso con poche regole semplici. Se non lo proteggi, gli impegni degli altri tendono a occupare ogni spazio libero; se lo curi, resta posto per ciò che ti fa stare bene senza trascurare il resto.",
+        "cosaFare": "Scegli adesso un pomeriggio o una sera a settimana che appartiene a te e scrivilo subito in agenda, settimana per settimana, prima che arrivino altre richieste. Usalo per qualcosa che desideri, non per recuperare faccende. Se salta, spostalo entro tre giorni invece di cancellarlo.",
+        "approfondimento": "Un anno equilibrato non è immobile: ci sono settimane piene e settimane lente ed è giusto così. La misura sta nel non lasciare che una delle due mangi l'altra troppo a lungo. Se il tempo tuo salta tre volte di fila, è ora di togliere un impegno ricorrente.",
+        "rito": "Il tuo anno, dal compleanno, è nato nel giorno del Sole, che dà misura e vigore. Adesso metti in un bicchiere un fiore giallo, anche di campo, dove il giorno entra più chiaro. Pronuncia tre volte «Occhio della giustizia, luce della vita» e nomina una cosa che vuoi vedere meglio.",
         "titoloDelRito": "L'inno propiziatorio",
-        "daDoveViene": "L'Ascendente della tua Rivoluzione Solare è in Cancro: la tradizione lo lega alla famiglia, alla casa, alle radici. Il Sole dell'anno è in casa 1: la tradizione legge questa posizione come un anno di rinascita personale. La Luna dell'anno è in casa 4: la tradizione lega questa posizione ai cambi di casa o a un ritorno alle radici. Il livello viene dal Sole della tua Rivoluzione Solare in casa 1, angolare. Il rito propiziatorio segue il primo giorno del tuo anno, il compleanno, martedì 18 agosto 2026: il verso viene dall'Inno orfico a Marte, numero sessantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
+        "daDoveViene": "Il tuo anno va dall'8 marzo 2026 al 7 marzo 2027. L'Ascendente della tua Rivoluzione Solare è in Bilancia: la tradizione lo lega alle relazioni e alla bellezza, con il rischio dell'indecisione. Il Sole dell'anno è in casa 6: la tradizione lega questa casa al servizio e ai collaboratori. La Luna dell'anno è in casa 1: per gli autori porta un'emotività accentuata, fatta di umori che cambiano. Il livello viene dal Sole della tua Rivoluzione Solare in casa 6, una casa cadente, quelle in cui la tradizione vede i pianeti più deboli. Il rito propiziatorio segue il primo giorno del tuo anno, il compleanno, domenica 8 marzo 2026: il verso viene dall'Inno orfico al Sole, numero otto, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
       },
       "singole": []
     },
@@ -427,30 +440,31 @@
       "arte": "Oroscopo occidentale",
       "domanda": null,
       "senzaDomanda": {
-        "segno": "Cancro",
-        "nascita": "1982-07-16",
+        "segno": "Capricorno",
+        "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
         "tradizione": "occidentale",
         "periodo": "anno",
         "dominio": "Amore",
         "oggi": "2026-10-23",
-        "livello": 5,
-        "fascia": "favorevole"
+        "livello": 3,
+        "fascia": "equilibrio"
       },
       "simboli": {
-        "livello": 5,
-        "fascia": "favorevole",
-        "reggenteDelRito": "Giove",
-        "primoGiornoDelPeriodo": "2026-07-16"
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-01-04"
       },
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il coraggio di dirlo",
-        "risposta": "In amore l'anno è favorevole a dire ciò che desideri, con parole semplici e senza aspettare il momento perfetto. Se vivi una relazione, un desiderio detto apertamente può riaccendere l'intesa; se sei senza legame, è il tempo giusto per fare tu il primo passo verso chi ti interessa.",
-        "cosaFare": "Entro tre settimane trova le parole per una cosa che desideri e non hai ancora detto. Se vivi una relazione, dilla a voce in un momento tranquillo, partendo da te e non da ciò che manca; se sei senza legame, proponi un caffè alla prossima persona che ti incuriosisce.",
+        "titolo": "Aspettative dette",
+        "risposta": "L'anno è stabile nella vita sentimentale e chiede chiarezza su ciò che cerchi e su ciò che non accetti. Un periodo tranquillo è il momento adatto per dare un nome alle aspettative, prima che restino implicite e si trasformino in piccole delusioni ripetute.",
+        "cosaFare": "Scrivi tre cose che per te contano in amore e una che non accetti più. Se vivi una relazione, proponi entro tre settimane una sera per confrontare le vostre liste con calma; se sei senza legame, rileggi le tue righe prima di ogni nuovo appuntamento e restaci fedele.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Venere è nella casa 4 della tua Rivoluzione Solare: la tradizione la lega all'armonia domestica, all'intimità e alla vita in famiglia. Il livello viene da Venere nella casa 4, angolare."
+        "daDoveViene": "Il tuo anno va dal 4 gennaio 2026 al 3 gennaio 2027. Venere è nella casa 6 della tua Rivoluzione Solare: la tradizione la lega a un lavoro più gradevole e agli incontri che nascono lì. Il livello viene da Venere nella casa 6, una casa cadente, quelle in cui la tradizione vede i pianeti più deboli."
       },
       "singole": []
     },
@@ -459,8 +473,9 @@
       "arte": "Oroscopo occidentale",
       "domanda": null,
       "senzaDomanda": {
-        "segno": "Toro",
-        "nascita": "1974-05-12",
+        "segno": "Vergine",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
         "tradizione": "occidentale",
         "periodo": "anno",
         "dominio": "Carriera",
@@ -471,18 +486,18 @@
       "simboli": {
         "livello": 3,
         "fascia": "equilibrio",
-        "reggenteDelRito": "Marte",
-        "primoGiornoDelPeriodo": "2026-05-12"
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-09-20"
       },
       "profondita": "Lunga",
       "responso": {
-        "titolo": "Orari che reggono",
-        "risposta": "L'anno è in equilibrio sul lavoro ma chiede ordine: impegni, studio e vita privata tendono a contendersi le stesse ore. Serve una struttura semplice, capace di reggere anche nelle settimane piene, perché la buona volontà da sola non basta a tenere tutto insieme senza logorarti.",
-        "cosaFare": "Entro due settimane stabilisci un orario oltre il quale smetti di lavorare o di studiare: rispettalo almeno quattro sere su cinque. Dillo a chi ti cerca di solito, così smette di aspettarsi risposte tarde. Ogni tre settimane togli dall'agenda un impegno che non porta più niente.",
-        "approfondimento": "L'equilibrio non è dividere il tempo in parti uguali ma dare a ogni cosa il suo momento. Chi rispetta i propri limiti lavora meglio, con un'attenzione che gli altri finiscono per notare. Non riempire subito lo spazio liberato: tienilo come margine per gli imprevisti.",
-        "rito": "Nel martedì di Marte è nato il tuo anno, dal compleanno: una forza da portare nel lavoro e nello studio. Adesso scegli un attrito che ti toglie energia e trasformalo in un compito da svolgere. Recita a mente le parole dell'inno, «mutando la forza delle armi nelle opere di Demetra».",
+        "titolo": "Il mestiere affinato",
+        "risposta": "Nel lavoro l'anno è stabile, senza svolte improvvise: il terreno regge e permette di affinare ciò che già sai fare invece di inseguire il nuovo a ogni costo. Vale per chi lavora e per chi studia: una capacità portata da buona a ottima vale più di molte competenze appena accennate.",
+        "cosaFare": "Scegli adesso una capacità che usi spesso e fai bene ma non benissimo: scrivere, spiegare, organizzare, calcolare. Dedicale due ore ogni quindici giorni con un manuale, un video serio o una persona esperta da osservare. Segna subito le prime quattro sessioni, in orari tranquilli.",
+        "approfondimento": "La stabilità ha un rischio sottile: scivolare nell'abitudine fino a non vedere più che cosa si potrebbe migliorare. Un anno tranquillo, usato bene, prepara il terreno alle occasioni future. Te ne accorgi da un compito che prima ti costava e adesso esce più rapido e pulito.",
+        "rito": "Dal compleanno il tuo anno porta il segno del Sole, che dà nitidezza al lavoro e allo studio. Adesso accendi la lampada della scrivania anche se c'è luce. Recita sottovoce «Occhio della giustizia, luce della vita» tre volte, poi svolgi una parte del compito che merita più attenzione.",
         "titoloDelRito": "L'inno propiziatorio",
-        "daDoveViene": "Con il Medio Cielo della Rivoluzione Solare in Bilancia l'anno è adatto all'arte, al diritto e alle relazioni pubbliche, con contratti equi. Con Saturno nella casa 4 della Rivoluzione Solare si rinforzano le fondamenta, anche materiali: la tradizione lega questa posizione a doveri verso i genitori. Il livello viene da Saturno nella casa 4, angolare: più è in vista, più il lavoro chiede. Il rito propiziatorio segue il primo giorno del tuo anno, il compleanno, martedì 12 maggio 2026: il verso viene dall'Inno orfico a Marte, numero sessantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
+        "daDoveViene": "Il tuo anno va dal 20 settembre 2026 al 19 settembre 2027. Con il Medio Cielo della Rivoluzione Solare in Gemelli l'anno è adatto a portare avanti più attività insieme; il rischio di questo segno è la dispersione. Con Saturno nella casa 7 della Rivoluzione Solare i legami si fanno seri o si rivedono: la tradizione chiede lealtà e chiarezza. Il livello viene da Saturno nella casa 7, una casa angolare, quelle in cui la tradizione vede i pianeti più forti: più è in vista, più il lavoro chiede. Il rito propiziatorio segue il primo giorno del tuo anno, il compleanno, domenica 20 settembre 2026: il verso viene dall'Inno orfico al Sole, numero otto, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco."
       },
       "singole": []
     },
@@ -491,30 +506,31 @@
       "arte": "Oroscopo occidentale",
       "domanda": null,
       "senzaDomanda": {
-        "segno": "Sagittario",
-        "nascita": "1998-11-24",
+        "segno": "Vergine",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
         "tradizione": "occidentale",
         "periodo": "anno",
         "dominio": "Fortuna",
         "oggi": "2026-10-20",
-        "livello": 3,
-        "fascia": "equilibrio"
+        "livello": 4,
+        "fascia": "favorevole"
       },
       "simboli": {
-        "livello": 3,
-        "fascia": "equilibrio",
-        "reggenteDelRito": "Luna",
-        "primoGiornoDelPeriodo": "2025-11-24"
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-09-20"
       },
       "profondita": "Breve",
       "responso": {
-        "titolo": "Risorse da rimettere in circolo",
-        "risposta": "L'anno è equilibrato per la buona sorte e premia chi conosce bene le proprie risorse: oggetti, tempo libero, persone su cui contare, capacità messe da parte. Qui la sorte sta meno nelle novità e più in ciò che hai già e puoi rimettere in circolo.",
-        "cosaFare": "Ogni settimana rimetti in uso una cosa dimenticata: un oggetto chiuso in un armadio, un contatto che non senti da tempo, un'abilità che non pratichi. Prestala, scambiala, regalala o usala tu. Comincia entro sette giorni e tieni il conto delle cose tornate in circolo.",
+        "titolo": "Volti che ritornano",
+        "risposta": "Per la buona sorte l'anno è favorevole alla presenza costante: farti vedere spesso negli stessi luoghi crea fiducia e dalla fiducia possono nascere inviti, segnalazioni e piccoli aiuti che non avresti chiesto. Conviene mettere radici in un ambiente vicino a casa e lasciarle crescere con calma.",
+        "cosaFare": "Scegli entro tre settimane un luogo da frequentare con regolarità: un'associazione, un coro, un gruppo di cammino, una biblioteca con incontri serali. Vacci sempre nello stesso giorno della settimana e tieni quell'orario come un appuntamento fisso. Quando il gruppo ti riconosce, offri una mano a chi organizza.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Giove nella tua Rivoluzione Solare cade nella casa 9, quella dei viaggi, degli studi e dei paesi stranieri. Il livello viene da Giove nella casa 9, cadente."
+        "daDoveViene": "Il tuo anno va dal 20 settembre 2026 al 19 settembre 2027. Giove è nella casa 11 della tua Rivoluzione Solare, che la tradizione chiama il Buon Demone: è la sua gioia. Il livello viene da Giove nella casa 11, una casa succedente, quelle in cui la tradizione vede i pianeti lavorare in secondo piano."
       },
       "singole": []
     },
@@ -525,6 +541,7 @@
       "senzaDomanda": {
         "segno": "Makara (Capricorno)",
         "nascita": "1998-11-24",
+        "oraDiNascita": "15:20",
         "tradizione": "vedica",
         "periodo": "giorno",
         "dominio": "Generale",
@@ -544,9 +561,9 @@
         "risposta": "Oggi la giornata è stancante e stasera la casa può sembrarti più disordinata, la testa più piena del solito. È facile portarsi dietro tutto fino al cuscino. Serve un gesto semplice che segni la fine del fare e l'inizio del riposo, senza pretendere di sistemare ogni cosa.",
         "cosaFare": "Verso l'ora di cena accendi una lampada calda in un angolo e spegni le luci forti. Riordina una sola superficie (il tavolo d'ingresso o il piano della cucina) e lascia il resto dove sta. Prima di dormire scrivi su un foglio ciò che ti preoccupa e appoggialo lontano dal letto.",
         "approfondimento": "La lampada accesa all'imbrunire è un'immagine antica: segna il passaggio fra il tempo del fare e quello del riposo. Una luce sola, scelta con cura, basta per dire alla casa che la giornata si chiude. Il foglio lasciato fuori dalla camera tiene quel pensiero lontano dal sonno.",
-        "rito": "Oggi è il giorno di Surya, il Sole che rischiara ogni cosa. Versa un filo d'acqua da un bicchiere guardando la luce, come nell'offerta tradizionale. Recita a voce bassa nove volte «Om Suryaya namah», poi unisci le mani davanti al petto e porta quella luce nel resto della giornata.",
+        "rito": "Oggi è il giorno di Surya, il Sole che rischiara ogni cosa. Versa un filo d'acqua da un bicchiere guardando la luce: è l'arghya, l'offerta d'acqua al sole della tradizione. Recita a voce bassa nove volte «Om Suryaya namah» e porta quella luce nel resto della giornata.",
         "titoloDelRito": "Il mantra propiziatorio",
-        "daDoveViene": "Con la Luna nella terza casa i testi antichi parlano di successo e di vesti, affetti e beni in abbondanza. Oggi hai Naidhana, \"la fine\". Non è un presagio: nella Tara Bala è il giorno che la tradizione indiana lascia alle chiusure, non agli inizi. Il Rahu Kalam, l'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, dipende dall'alba e dal tramonto del luogo in cui sei: senza la tua città non si può dire quando cade oggi. Oggi è Ravivara, il giorno del Sole. Il suo colore è il rosso, il suo numero l'uno. Il livello viene dalla Luna di oggi nei Pesci, nella tua terza casa dalla Luna di nascita (favorevole); e dalla tua tara di oggi, Naidhana (sfavorevole). Il rito propiziatorio segue il giorno: il mantra saluta Surya, il Sole, che governa la domenica nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
+        "daDoveViene": "Con la Luna nella terza casa i testi antichi parlano di successo e di vesti, affetti e beni in abbondanza. Oggi hai Naidhana, \"la fine\". Non è un presagio: nella Tara Bala è il giorno che la tradizione indiana lascia alle chiusure, non agli inizi. Il Rahu Kalam, l'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, dipende dall'alba e dal tramonto del luogo in cui sei: indica la tua città e qui compare l'ora esatta di oggi. Oggi è Ravivara, il giorno del Sole. Il suo colore è il rosso, il suo numero l'uno. Il livello viene dalla Luna di oggi nei Pesci, nella tua terza casa dalla Luna di nascita (favorevole); e dalla tua tara di oggi, Naidhana (sfavorevole). Il rito propiziatorio segue il giorno: il mantra saluta Surya, il Sole, che governa la domenica nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
       },
       "singole": []
     },
@@ -557,6 +574,7 @@
       "senzaDomanda": {
         "segno": "Vrishabha (Toro)",
         "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
         "tradizione": "vedica",
         "periodo": "giorno",
         "dominio": "Amore",
@@ -572,9 +590,9 @@
       },
       "profondita": "Breve",
       "responso": {
-        "titolo": "Lo spazio per il nuovo",
-        "risposta": "Oggi in amore la giornata è adatta a fare spazio, dentro e fuori. Se conservi tracce di una storia passata, foto, chat od oggetti, hai la calma per rimetterle al loro posto senza rimpianti. Se vivi una relazione, lo spazio da liberare è quello di un rancore, se c'è.",
-        "cosaFare": "Scegli un'ora del pomeriggio per un riordino sentimentale: archivia le chat che non ti fanno bene, sposta in una cartella a parte le foto che riaprono ferite. Se vivi una relazione, scegli una piccola recriminazione che ripeti spesso e decidi di lasciarla cadere, senza annunciarlo.",
+        "titolo": "Un piacere mai provato",
+        "risposta": "Oggi in amore la giornata è luminosa e aperta alla gioia: favorisce chi fa spazio a un piacere nuovo invece di ripetere il solito. Se vivi una relazione, una prima volta condivisa può riaccendere la curiosità reciproca; se sei senza legame, un luogo nuovo può metterti davanti a volti diversi.",
+        "cosaFare": "Scegli per stasera una cosa che non hai mai fatto e che ti dà piacere. Se vivi una relazione, proponila all'altra persona: un piatto mai cucinato, una strada mai percorsa, un ballo in cucina. Se sei senza legame, portala dove c'è gente: una lezione aperta, una degustazione, un concerto.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -589,6 +607,7 @@
       "senzaDomanda": {
         "segno": "Kumbha (Acquario)",
         "nascita": "1962-02-06",
+        "oraDiNascita": null,
         "tradizione": "vedica",
         "periodo": "giorno",
         "dominio": "Carriera",
@@ -604,11 +623,11 @@
       },
       "profondita": "Lunga",
       "responso": {
-        "titolo": "Il lavoro comune fermo",
-        "risposta": "Giornata faticosa nel lavoro condiviso: quando altre persone non rispondono, la parte comune resta indietro e cresce la voglia di fare tutto per conto tuo. Oggi caricarti il peso degli altri costa più di quanto rende e non rimette in moto nessuno.",
-        "cosaFare": "Se lavori o studi con altri, scrivi in privato, non nel gruppo, a ciascuna delle persone che tacciono: chiedi se serve una mano e quando può consegnare la sua parte. Se lavori in proprio, usa lo stesso tono con un fornitore o un cliente che non risponde.",
-        "approfondimento": "Chi tace spesso è in difficoltà più che indifferente: una richiesta ordinata aiuta anche chi non sapeva da dove cominciare. Mantenere la tua parte con puntualità dà il tono a tutto il gruppo. Se la situazione non si sblocca, informa chi coordina con un messaggio sobrio, solo fatti.",
-        "rito": "Mangala, signore del martedì, sostiene l'iniziativa e il lavoro che chiede energia. Prima di cominciare, alzati in piedi e stringi i pugni, poi apri le mani. Pronuncia sottovoce undici volte «Om Mangalaya namah» e metti la tua energia nel compito che rimandi da tempo.",
+        "titolo": "La tua parte prima",
+        "risposta": "Giornata faticosa nel lavoro e nello studio, soprattutto dove dipendi dalle risposte di altre persone: i tempi comuni si allungano e cresce la voglia di fare tutto per conto tuo. Oggi caricarti il peso degli altri costa più di quanto rende e non rimette in moto nessuno.",
+        "cosaFare": "Oggi metti al sicuro la tua parte: finisci la cosa che dipende solo da te prima di tutto il resto. Se qualcuno tace su un lavoro comune, scrivigli in privato, non nel gruppo: chiedi se serve una mano e quando può consegnare la sua parte.",
+        "approfondimento": "Chi tace spesso è in difficoltà più che indifferente: una richiesta ordinata aiuta anche chi non sapeva da dove cominciare. Consegnare puntuale la tua parte dà il tono agli altri. Se una cosa comune resta ferma e c'è chi la coordina, avvisalo con un messaggio sobrio, solo fatti.",
+        "rito": "Mangala, signore del martedì, sostiene l'iniziativa e il lavoro che chiede energia. Prima di cominciare, togli dalla scrivania ogni cosa che non serve e lascia solo il compito che rimandi da tempo. Pronuncia sottovoce undici volte «Om Mangalaya namah» e affrontalo senza esitare.",
         "titoloDelRito": "Il mantra propiziatorio",
         "daDoveViene": "Il cielo di oggi disperde: la Luna sta nella casa delle uscite, la dodicesima dalla tua Luna di nascita. Oggi la Luna passa nel Capricorno, nella tua dodicesima casa contata dalla Luna di nascita; per il lavoro conta la decima casa, del lavoro e del nome. Il livello viene dalla Luna di oggi nella tua dodicesima casa dalla Luna di nascita: Luna sfavorevole. Il rito propiziatorio segue il giorno: il mantra saluta Mangala, Marte, che governa il martedì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
       },
@@ -621,6 +640,7 @@
       "senzaDomanda": {
         "segno": "Vrishabha (Toro)",
         "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
         "tradizione": "vedica",
         "periodo": "giorno",
         "dominio": "Fortuna",
@@ -653,6 +673,7 @@
       "senzaDomanda": {
         "segno": "Vrishabha (Toro)",
         "nascita": "1970-04-10",
+        "oraDiNascita": null,
         "tradizione": "vedica",
         "periodo": "settimana",
         "dominio": "Generale",
@@ -668,9 +689,9 @@
       },
       "profondita": "Breve",
       "responso": {
-        "titolo": "La riparazione rimandata",
-        "risposta": "Settimana favorevole e concreta, con la mano buona per le cose pratiche di casa. Se c'è una piccola cosa rotta che ogni giorno scegli di non vedere, una mensola storta, un'anta che non chiude, una lampadina bruciata, adesso si sistema con poco tempo e senza fatica.",
-        "cosaFare": "Domani procurati quello che serve: le viti, la colla, la lampadina della misura esatta. Entro tre giorni dedica mezz'ora alla riparazione, con gli attrezzi stesi su un panno e senza fretta. Finito il lavoro, annota su un foglietto le altre piccole cose da aggiustare in casa.",
+        "titolo": "La mano buona in casa",
+        "risposta": "Settimana favorevole e concreta, con la mano buona per le cose pratiche di casa. Se c'è una piccola cosa rotta che ogni giorno scegli di non vedere, una mensola storta, un'anta che non chiude, adesso puoi sistemarla in poco tempo; se tutto funziona, è il momento di una piccola manutenzione.",
+        "cosaFare": "Entro tre giorni dedica mezz'ora a un lavoro manuale in casa, con gli attrezzi stesi su un panno e senza fretta. Se hai una cosa da aggiustare, procurati viti, colla o ricambi; se non c'è niente di rotto, stringi le viti di una sedia, ungi una cerniera, pulisci un filtro.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -685,6 +706,7 @@
       "senzaDomanda": {
         "segno": "Makara (Capricorno)",
         "nascita": "1986-08-18",
+        "oraDiNascita": null,
         "tradizione": "vedica",
         "periodo": "settimana",
         "dominio": "Amore",
@@ -700,13 +722,13 @@
       },
       "profondita": "Lunga",
       "responso": {
-        "titolo": "Il passo grande in prova",
-        "risposta": "È una settimana equilibrata in amore per pesare una scelta lunga. Se vivi una relazione e parlate di un passo importante, vivere insieme, un animale, un viaggio lungo, questi giorni invitano a provare prima di decidere; se sei senza legame, vale per un modo nuovo di incontrare persone.",
-        "cosaFare": "Scegli una prova breve e concreta da fare entro il fine settimana. Se hai un legame, passate due giorni come se la scelta fosse già fatta, dividendo per iscritto compiti e orari. Se sei senza legame, prova un modo nuovo di conoscere persone per tre volte prima di giudicarlo.",
-        "approfondimento": "Gli impegni lunghi si preparano con lentezza: sapere prima che cosa cambia nelle giornate vale più dell'entusiasmo. Una prova mostra i dettagli che i discorsi non vedono, gli orari, le rinunce, i piccoli fastidi. Se dopo la prova la voglia resta, la scelta poggia su qualcosa di vero.",
+        "titolo": "La prova prima della scelta",
+        "risposta": "È una settimana equilibrata in amore, adatta a provare le cose prima di deciderle. Se vivi una relazione e state valutando un passo importante, come vivere insieme o un viaggio lungo, questi giorni invitano a una prova; se sei senza legame, la prova riguarda un modo nuovo di incontrare persone.",
+        "cosaFare": "Scegli entro il fine settimana una prova breve. Se c'è un passo in discussione, passate due giorni come se fosse già fatto; se non c'è niente da decidere, provate per tre sere un'abitudine nuova insieme. Se sei senza legame, prova tre volte un modo nuovo di conoscere persone.",
+        "approfondimento": "Una prova mostra ciò che i discorsi non vedono, gli orari, le rinunce: se poi la voglia resta, la scelta poggia su qualcosa di vero. Dove non c'è niente da decidere, un'abitudine nuova rinfresca lo sguardo. Per chi è senza legame, tre tentativi dicono più di una prima impressione.",
         "rito": "Nella settimana che nasce oggi, martedì di Mangala, il desiderio è vivo e impaziente. Offri un fiore rosso in un bicchiere d'acqua sul davanzale. A mente, ripeti sette volte «Om Mangalaya namah» pensando a chi ami o a chi desideri incontrare; poi cambia l'acqua finché il fiore resta fresco.",
         "titoloDelRito": "Il mantra propiziatorio",
-        "daDoveViene": "Il livello del periodo è la media dei livelli dei suoi giorni, ciascuno letto col metodo del Giorno; il più alto è martedì 20 ottobre. Il rito propiziatorio segue il primo giorno della settimana, martedì 20 ottobre: il mantra saluta Mangala, Marte, che governa il martedì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
+        "daDoveViene": "Il livello di questo periodo è la media dei livelli dei suoi sette giorni; il giorno migliore è martedì 20 ottobre. Il rito propiziatorio segue il primo giorno della settimana, martedì 20 ottobre: il mantra saluta Mangala, Marte, che governa il martedì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
       },
       "singole": []
     },
@@ -717,6 +739,7 @@
       "senzaDomanda": {
         "segno": "Mesha (Ariete)",
         "nascita": "1982-07-16",
+        "oraDiNascita": "11:20",
         "tradizione": "vedica",
         "periodo": "settimana",
         "dominio": "Carriera",
@@ -749,6 +772,7 @@
       "senzaDomanda": {
         "segno": "Kumbha (Acquario)",
         "nascita": "1962-02-06",
+        "oraDiNascita": null,
         "tradizione": "vedica",
         "periodo": "settimana",
         "dominio": "Fortuna",
@@ -768,9 +792,9 @@
         "risposta": "Settimana tranquilla per la fortuna, che passa dalla tavola più che dalle grandi occasioni. Un pasto condiviso, a casa, al lavoro o all'aperto, apre conversazioni che davanti a uno schermo non nascerebbero. Le piccole confidenze nate a tavola portano spesso informazioni e inviti utili.",
         "cosaFare": "In due giorni di questa settimana mangia lontano dallo schermo e in compagnia. Invita qualcuno che conosci poco: un vicino, un collega, un compagno di studi, un conoscente. Se prepari qualcosa con le tue mani, portane un po' in più da offrire a tavola.",
         "approfondimento": "La buona sorte di questa settimana sta nelle conversazioni a tavola, dove si parla con meno fretta e più sincerità. Un pasto condiviso crea una piccola confidenza che altrove nasce di rado. A fine settimana conta le conversazioni nuove: ti dicono se l'abitudine merita di restare.",
-        "rito": "Armonia per sette giorni: è il segno di Shukra su questo venerdì. Metti un petalo bianco in una busta e conservala in un cassetto. Sussurra undici volte «Om Shukraya namah» mentre la chiudi, poi lascia spazio alle occasioni che arrivano con grazia.",
+        "rito": "Armonia per sette giorni: è il segno di Shukra su questo venerdì. Lucida un piccolo gioiello o un oggetto che brilla e portalo con te. Sussurra undici volte «Om Shukraya namah» mentre lo strofini, poi lascia spazio alle occasioni che arrivano con grazia.",
         "titoloDelRito": "Il mantra propiziatorio",
-        "daDoveViene": "Il livello del periodo è la media dei livelli dei suoi giorni, ciascuno letto col metodo del Giorno; il più alto è venerdì 23 ottobre. Il rito propiziatorio segue il primo giorno della settimana, venerdì 23 ottobre: il mantra saluta Shukra, Venere, che governa il venerdì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
+        "daDoveViene": "Il livello di questo periodo è la media dei livelli dei suoi sette giorni; il giorno migliore è venerdì 23 ottobre. Il rito propiziatorio segue il primo giorno della settimana, venerdì 23 ottobre: il mantra saluta Shukra, Venere, che governa il venerdì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
       },
       "singole": []
     },
@@ -781,6 +805,7 @@
       "senzaDomanda": {
         "segno": "Kanya (Vergine)",
         "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
         "tradizione": "vedica",
         "periodo": "mese",
         "dominio": "Generale",
@@ -799,10 +824,10 @@
         "titolo": "Mattine da costruire",
         "risposta": "È un buon mese per cambiare un'abitudine: la prima da rinnovare è il risveglio. Se le tue mattine corrono in fretta fra telefono e commissioni, in queste settimane hai l'energia per dare all'inizio della giornata una forma nuova, più lenta e più tua. Basta un gesto ripetuto.",
         "cosaFare": "Da domani punta la sveglia venti minuti prima e usali per una cosa sola: una camminata, una pagina scritta, una colazione con calma. Prepara la sera prima ciò che ti serve. Segna ogni mattina mantenuta e, se ne salti una, riprendi il giorno dopo senza recuperi.",
-        "approfondimento": "Un'abitudine nuova ha bisogno di ripetizione più che di slancio: trenta mattine uguali scavano un solco che regge anche nei periodi pieni. Attenzione ai rimproveri dopo una mattina saltata, perché pesano più dello sbaglio. La costanza si misura sul mese intero, non sul singolo giorno.",
-        "rito": "Trenta giorni di bellezza da coltivare: oggi è venerdì, giorno di Shukra. Scegli un angolo della casa e rendilo più bello con un oggetto, un colore o un fiore. Recita nove volte «Om Shukraya namah» e tieni curato quell'angolo per tutto il mese.",
+        "approfondimento": "Un'abitudine nuova ha bisogno di ripetizione più che di slancio: trenta mattine uguali scavano un solco che regge anche nei periodi pieni. Una mattina saltata non merita rimproveri: il rimprovero pesa più dello sbaglio. La costanza si misura sul mese intero, non sul singolo giorno.",
+        "rito": "Trenta giorni di bellezza da coltivare: oggi è venerdì, giorno di Shukra. Scegli un angolo della casa e rendilo più bello con un oggetto o un colore. Recita nove volte «Om Shukraya namah» e tieni curato quell'angolo per tutto il mese, come un piccolo altare della bellezza.",
         "titoloDelRito": "Il mantra propiziatorio",
-        "daDoveViene": "Il livello del periodo è la media dei livelli dei suoi giorni, ciascuno letto col metodo del Giorno; il più alto è venerdì 23 ottobre. Il rito propiziatorio segue il primo giorno del mese, venerdì 23 ottobre: il mantra saluta Shukra, Venere, che governa il venerdì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
+        "daDoveViene": "Il livello di questo periodo è la media dei livelli dei suoi trenta giorni; il giorno migliore è venerdì 23 ottobre. Il rito propiziatorio segue il primo giorno del mese, venerdì 23 ottobre: il mantra saluta Shukra, Venere, che governa il venerdì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
       },
       "singole": []
     },
@@ -813,6 +838,7 @@
       "senzaDomanda": {
         "segno": "Makara (Capricorno)",
         "nascita": "1998-11-24",
+        "oraDiNascita": "15:20",
         "tradizione": "vedica",
         "periodo": "mese",
         "dominio": "Amore",
@@ -845,6 +871,7 @@
       "senzaDomanda": {
         "segno": "Vrishabha (Toro)",
         "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
         "tradizione": "vedica",
         "periodo": "mese",
         "dominio": "Carriera",
@@ -863,10 +890,10 @@
         "titolo": "Farsi avanti con garbo",
         "risposta": "Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Se c'è un incarico, un ruolo o un progetto che ti interessa, adesso conta proporsi senza giri di parole. Vale per chi lavora, per chi studia e per chi cerca: una richiesta precisa ottiene più ascolto.",
         "cosaFare": "Scrivi in mezza pagina che cosa vuoi fare e perché sei la persona adatta, con due esempi concreti. Entro dieci giorni chiedi un colloquio a chi decide, oppure invia la tua candidatura se stai cercando. Porta il foglio con te e lascia una proposta precisa.",
-        "approfondimento": "Il tempo di cominciare è diverso da quello di portare avanti: queste settimane appartengono al primo. Un incarico chiesto adesso parte col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa subito tre traguardi entro la fine del mese e condividili con chi ti ha dato fiducia.",
-        "rito": "Oggi, martedì di Mangala, il mese di lavoro nasce sotto il segno della decisione. Scrivi su un foglio tre azioni concrete, con un inchiostro rosso se puoi. Pronuncia undici volte «Om Mangalaya namah» e compi oggi la prima, lasciando le altre ai giorni che seguono.",
+        "approfondimento": "Il tempo di cominciare è diverso da quello di portare avanti: queste settimane appartengono al primo. Un incarico chiesto adesso parte col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa subito tre traguardi da raggiungere nelle prossime tre settimane e condividili con chi ti ha dato fiducia.",
+        "rito": "Oggi, martedì di Mangala, il mese di lavoro nasce sotto il segno della prontezza. Tempera una matita fino a farle una punta netta, come si affila un attrezzo prima dell'opera. Pronuncia undici volte «Om Mangalaya namah» e usala per segnare la prima azione da compiere oggi.",
         "titoloDelRito": "Il mantra propiziatorio",
-        "daDoveViene": "Il livello del periodo è la media dei livelli dei suoi giorni, ciascuno letto col metodo del Giorno; il più alto è mercoledì 21 ottobre. Il rito propiziatorio segue il primo giorno del mese, martedì 20 ottobre: il mantra saluta Mangala, Marte, che governa il martedì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
+        "daDoveViene": "Il livello di questo periodo è la media dei livelli dei suoi trenta giorni; il giorno migliore è mercoledì 21 ottobre. Il rito propiziatorio segue il primo giorno del mese, martedì 20 ottobre: il mantra saluta Mangala, Marte, che governa il martedì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
       },
       "singole": []
     },
@@ -877,6 +904,7 @@
       "senzaDomanda": {
         "segno": "Vrishabha (Toro)",
         "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
         "tradizione": "vedica",
         "periodo": "mese",
         "dominio": "Fortuna",
@@ -893,12 +921,12 @@
       "profondita": "Breve",
       "responso": {
         "titolo": "Inviti alla luce",
-        "risposta": "Il mese porta buona sorte alle occasioni che hai già a portata di mano. Inviti lasciati senza risposta, proposte messe da parte, messaggi letti di fretta: fra queste cose dimenticate può nascondersi qualcosa di buono. Adesso hai la lucidità e la calma per riconoscerlo.",
-        "cosaFare": "Dedica una sera di questa settimana a rileggere inviti, proposte e messaggi rimasti in sospeso. Segna in una lista breve quelli che ti incuriosiscono ancora e rispondi ai due più promettenti entro pochi giorni, con una domanda concreta su tempi e modi.",
+        "risposta": "Il mese porta buona sorte alle occasioni che hai già a portata di mano. Se fra i tuoi messaggi restano inviti senza risposta o proposte messe da parte, lì può nascondersi qualcosa di buono; altrimenti cercala fra le persone e i luoghi di sempre.",
+        "cosaFare": "Dedica una sera di questa settimana a rileggere inviti, proposte e messaggi rimasti in sospeso: rispondi ai due che ti incuriosiscono di più con una domanda concreta su tempi e modi. Se non trovi nulla, chiedi a due persone di fiducia se hanno in vista qualcosa che fa per te.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Il giorno migliore, sabato 24 ottobre: il livello viene dalla Luna di quel giorno nella tua undicesima casa dalla Luna di nascita: la Luna attraversa la undicesima."
+        "daDoveViene": "Il giorno migliore, sabato 24 ottobre: il livello viene dalla Luna di quel giorno nella tua undicesima casa dalla Luna di nascita: la Luna attraversa l'undicesima."
       },
       "singole": []
     },
@@ -909,6 +937,7 @@
       "senzaDomanda": {
         "segno": "Kumbha (Acquario)",
         "nascita": "1962-02-06",
+        "oraDiNascita": null,
         "tradizione": "vedica",
         "periodo": "anno",
         "dominio": "Generale",
@@ -930,7 +959,7 @@
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Al tuo compleanno del 6 febbraio 2026 Giove era in Mithuna, nella tua quinta casa dalla Luna di nascita: una casa favorevole. Saturno era in Mina, nella tua seconda casa dalla Luna di nascita: è la Sade Sati, i sette anni e mezzo in cui Saturno passa nella dodicesima, nella prima e nella seconda casa dalla tua Luna di nascita, che la tradizione indiana legge come un tempo di prove e di pazienza."
+        "daDoveViene": "Il tuo anno va dal 6 febbraio 2026 al 5 febbraio 2027. Al tuo compleanno del 6 febbraio 2026 Giove era in Mithuna, nella tua quinta casa dalla Luna di nascita: una casa favorevole. Saturno era in Mina, nella tua seconda casa dalla Luna di nascita: è la Sade Sati, i sette anni e mezzo in cui Saturno passa nella dodicesima, nella prima e nella seconda casa dalla tua Luna di nascita, che la tradizione indiana legge come un tempo di prove e di pazienza."
       },
       "singole": []
     },
@@ -941,6 +970,7 @@
       "senzaDomanda": {
         "segno": "Kanya (Vergine)",
         "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
         "tradizione": "vedica",
         "periodo": "anno",
         "dominio": "Amore",
@@ -958,11 +988,11 @@
       "responso": {
         "titolo": "Il fascino curato",
         "risposta": "In amore l'anno è favorevole alla seduzione e al piacere di piacere. Il fascino nasce dalla cura di te, dalla voce, dallo sguardo e dall'ascolto: chi ha un legame può ritrovare il gioco degli inizi, chi è senza legame può attirare attenzioni nuove senza forzare nulla.",
-        "cosaFare": "Entro tre settimane regalati un dettaglio che ti fa sentire bene con te: un profumo, un capo che ami, un taglio nuovo, un colore diverso. Se vivi una relazione, prepara una sera di corteggiamento come agli inizi; se sei senza legame, portalo in un luogo dove incontri persone nuove.",
-        "approfondimento": "Nella tradizione indiana la bellezza curata è un'offerta, non una vanità: si orna ciò che si rispetta. Chi si piace si muove con più libertà e quella libertà attira. Il pericolo è recitare una parte per conquistare: il fascino che regge è quello che ti somiglia davvero.",
-        "rito": "Surya governa il giorno da cui è nato il tuo anno, quello del compleanno. Porta alla mente chi ami o chi desideri incontrare: lascia che la luce ti scaldi le mani aperte. Sussurra sette volte «Om Suryaya namah» per gli affetti che l'anno custodisce.",
+        "cosaFare": "Entro tre settimane cura il tuo fascino senza spendere: indossa senza motivo il capo che tieni per le occasioni, cammina con calma, guarda negli occhi chi ti parla. Se vivi una relazione, prepara una sera di corteggiamento come agli inizi; se sei senza legame, porta questa cura fra persone nuove.",
+        "approfondimento": "Nella tradizione indiana la bellezza curata è un'offerta, non una vanità: si orna ciò che si rispetta. Chi si piace si muove con più libertà e quella libertà attira. Recitare una parte per conquistare stanca presto: il fascino che regge è quello che ti somiglia davvero.",
+        "rito": "Il compleanno ha dato al tuo anno il calore di Surya, che scalda chiunque gli stia accanto. Indossa adesso qualcosa di rosso o color oro e porta alla mente chi ami o chi desideri incontrare. Sussurra sette volte «Om Suryaya namah» per gli affetti che l'anno custodisce.",
         "titoloDelRito": "Il mantra propiziatorio",
-        "daDoveViene": "Al tuo compleanno del 20 settembre 2026 Giove era in Karka, nella tua undicesima casa dalla Luna di nascita: una casa favorevole. Il rito propiziatorio segue il primo giorno del tuo anno, il compleanno, domenica 20 settembre 2026: il mantra saluta Surya, il Sole, che governa la domenica nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
+        "daDoveViene": "Il tuo anno va dal 20 settembre 2026 al 19 settembre 2027. Al tuo compleanno del 20 settembre 2026 Giove era in Karka, nella tua undicesima casa dalla Luna di nascita: una casa favorevole. Il rito propiziatorio segue il primo giorno del tuo anno, il compleanno, domenica 20 settembre 2026: il mantra saluta Surya, il Sole, che governa la domenica nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
       },
       "singole": []
     },
@@ -973,6 +1003,7 @@
       "senzaDomanda": {
         "segno": "Kumbha (Acquario)",
         "nascita": "1962-02-06",
+        "oraDiNascita": null,
         "tradizione": "vedica",
         "periodo": "anno",
         "dominio": "Carriera",
@@ -994,7 +1025,7 @@
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Saturno era in Mina, nella tua seconda casa dalla Luna di nascita: è la Sade Sati, i sette anni e mezzo in cui Saturno passa nella dodicesima, nella prima e nella seconda casa dalla tua Luna di nascita, che la tradizione indiana legge come un tempo di prove e di pazienza."
+        "daDoveViene": "Il tuo anno va dal 6 febbraio 2026 al 5 febbraio 2027. Al tuo compleanno del 6 febbraio 2026 Saturno era in Mina, nella tua seconda casa dalla Luna di nascita: è la Sade Sati, i sette anni e mezzo in cui Saturno passa nella dodicesima, nella prima e nella seconda casa dalla tua Luna di nascita, che la tradizione indiana legge come un tempo di prove e di pazienza."
       },
       "singole": []
     },
@@ -1005,6 +1036,7 @@
       "senzaDomanda": {
         "segno": "Kanya (Vergine)",
         "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
         "tradizione": "vedica",
         "periodo": "anno",
         "dominio": "Fortuna",
@@ -1020,13 +1052,13 @@
       },
       "profondita": "Lunga",
       "responso": {
-        "titolo": "Botteghe di fiducia",
-        "risposta": "Quest'anno la sorte è quieta e nasce dalla fiducia delle persone vicine: il fornaio, il ciabattino, la ferramenta, il mercato del quartiere. Chi ti vede tornare con regolarità ti riserva attenzioni, consigli e piccoli aiuti che uno sconosciuto non riceve. Sono legami semplici che possono portare occasioni.",
-        "cosaFare": "Scegli entro una settimana due o tre botteghe vicine a casa e diventa una presenza abituale. Presentati per nome, chiedi un consiglio e torna a raccontare come è andata. Quando ricevi un buon servizio dillo a voce e consiglialo ai tuoi conoscenti.",
-        "approfondimento": "Un rapporto con chi lavora vicino a te si costruisce lentamente, con la cortesia e la parola mantenuta. In un anno senza grandi spinte questi legami semplici diventano una piccola rete di aiuti e segnalazioni. Alla persona puntuale e gentile si pensa per prima quando arriva qualcosa di buono.",
-        "rito": "Il compleanno da cui è nato il tuo anno cadeva di domenica, nel giorno di Surya. Versa un filo d'acqua in un vaso di fiori rivolto al sole. Ripeti a mente nove volte «Om Suryaya namah» e tieni gli occhi aperti alle occasioni che la luce rende visibili.",
+        "titolo": "Il consiglio di chi sa",
+        "risposta": "Quest'anno la sorte è quieta e passa dai consigli di chi ha più esperienza di te: una persona che ha già fatto la strada che ti interessa può indicarti la porta giusta o farti evitare un giro inutile. È una fortuna sobria, che premia chi chiede con umiltà.",
+        "cosaFare": "Entro tre settimane individua una persona che ha già percorso una strada che ti incuriosisce, un mestiere, un viaggio, una scelta di vita: chiedile mezz'ora. Porta una domanda, precisa e concreta. Da qui al tuo prossimo compleanno ripeti il gesto ogni volta che stai per decidere qualcosa di nuovo.",
+        "approfondimento": "La tradizione indiana chiama satsang la compagnia di chi sa: stare vicino a chi ha esperienza è già una forma di buona sorte. In un anno senza grandi spinte, un consiglio giusto vale più di molte occasioni nuove. Ricambia raccontando com'è andata: chi aiuta ama conoscere il seguito.",
+        "rito": "Il compleanno da cui è nato il tuo anno cadeva di domenica, giorno di Surya, la luce che svela. Pulisci adesso un vetro o uno specchio finché riflette bene il giorno. Ripeti a mente nove volte «Om Suryaya namah» e tieni gli occhi aperti alle occasioni che la luce scopre.",
         "titoloDelRito": "Il mantra propiziatorio",
-        "daDoveViene": "Al tuo compleanno del 8 marzo 2026 Giove era in Mithuna, nella tua decima casa dalla Luna di nascita: non una delle sue case favorevoli. Il rito propiziatorio segue il primo giorno del tuo anno, il compleanno, domenica 8 marzo 2026: il mantra saluta Surya, il Sole, che governa la domenica nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
+        "daDoveViene": "Il tuo anno va dall'8 marzo 2026 al 7 marzo 2027. Al tuo compleanno dell'8 marzo 2026 Giove era in Mithuna, nella tua decima casa dalla Luna di nascita: non una delle sue case favorevoli. Il rito propiziatorio segue il primo giorno del tuo anno, il compleanno, domenica 8 marzo 2026: il mantra saluta Surya, il Sole, che governa la domenica nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio."
       },
       "singole": []
     },
@@ -1037,6 +1069,7 @@
       "senzaDomanda": {
         "segno": "Cane",
         "nascita": "1994-10-22",
+        "oraDiNascita": null,
         "tradizione": "cinese",
         "periodo": "giorno",
         "dominio": "Generale",
@@ -1069,6 +1102,7 @@
       "senzaDomanda": {
         "segno": "Cavallo",
         "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
         "tradizione": "cinese",
         "periodo": "giorno",
         "dominio": "Amore",
@@ -1087,10 +1121,10 @@
         "titolo": "Una poesia d'amore",
         "risposta": "Oggi la vita sentimentale è calma e lascia spazio alle parole belle degli altri: una poesia d'amore letta con attenzione può dire ciò che senti meglio di te. In coppia, leggila ad alta voce all'altra persona; senza legame, tienila con te come un augurio.",
         "cosaFare": "Cerca oggi una poesia d'amore breve di un autore che ami e copiala a mano su un cartoncino. Se hai un legame, leggila stasera a voce bassa, senza spiegarla né commentarla. Se sei single, mettila dove cade lo sguardo quando rientri a casa.",
-        "approfondimento": "I poeti hanno dato forma a sentimenti che tutti provano e pochi sanno dire. Prendere in prestito le loro parole non è un trucco: è un modo di riconoscersi. Il rischio è scegliere versi troppo solenni per il momento. Funziona se una riga ti resta in mente fino a sera.",
-        "rito": "Oggi governa Kai, il giorno che apre, che l'almanacco antico dedica alle unioni e ai conviti. Negli affetti apri il cuore con una frase sincera, di quelle che di solito tieni per te: dilla a chi ami o a chi desideri conoscere, guardando negli occhi oppure scrivendo a mano.",
+        "approfondimento": "I poeti hanno dato forma a sentimenti che tutti provano e pochi sanno dire. Prendere in prestito le loro parole non è un trucco: è un modo di riconoscersi. Versi troppo solenni stonano col momento. Basta una riga che ti resti in mente fino a sera.",
+        "rito": "Oggi governa Kai, il giorno che schiude, buono anche per le unioni secondo l'almanacco antico. Negli affetti pronuncia una frase sincera che di solito tieni per te: dilla a chi ami o a chi desideri conoscere, guardando la persona negli occhi.",
         "titoloDelRito": "Il gesto propiziatorio",
-        "daDoveViene": "Nel BaZi il giorno di oggi ti porta le Sette Uccisioni: governano il tuo elemento con la stessa polarità, sono pressione e sfida. La scheda dell'amore le legge come la figura dell'altro. Per l'amore il BaZi guarda due stelle del legame, l'Ufficiale e la Ricchezza: la prima oggi è di scena nella sua forma dura, pressione e sfida; la seconda oggi se ne va in obblighi e pressioni. Il rito propiziatorio segue il giorno: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Kai, il giorno che apre."
+        "daDoveViene": "Nel BaZi il giorno di oggi ti porta le Sette Uccisioni: governano il tuo elemento con la stessa polarità, sono pressione e sfida. In amore le si legge come la figura dell'altro. Per l'amore il BaZi guarda l'Ufficiale e la Ricchezza, le due figure dell'altro nel legame: oggi la prima è neutra, né favorita né contrastata, la seconda contrastata; il livello della giornata è la loro media. Il rito propiziatorio segue il giorno: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Kai, il giorno che apre."
       },
       "singole": []
     },
@@ -1101,6 +1135,7 @@
       "senzaDomanda": {
         "segno": "Cavallo",
         "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
         "tradizione": "cinese",
         "periodo": "giorno",
         "dominio": "Carriera",
@@ -1122,7 +1157,7 @@
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "È la giornata del Nutrimento: nella lettura dei Dieci Dei è la vena che produce, quella che il tuo elemento genera da sé. Per il lavoro il BaZi guarda l'Ufficiale, la stella del ruolo e delle responsabilità: oggi è tenuta a bada dal tuo talento, con più libertà e meno riconoscimenti."
+        "daDoveViene": "È la giornata del Nutrimento: nella lettura dei Dieci Dei è la vena che produce, quella che il tuo elemento genera da sé. Per il lavoro il BaZi guarda l'Ufficiale, la stella del ruolo e delle responsabilità: oggi è neutra, né favorita né contrastata, perché conta più il talento del ruolo."
       },
       "singole": []
     },
@@ -1133,6 +1168,7 @@
       "senzaDomanda": {
         "segno": "Cavallo",
         "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
         "tradizione": "cinese",
         "periodo": "giorno",
         "dominio": "Fortuna",
@@ -1149,12 +1185,12 @@
       "profondita": "Lunga",
       "responso": {
         "titolo": "Le cose al loro posto",
-        "risposta": "Giornata faticosa per la fortuna con gli oggetti: chiavi, occhiali, documenti e caricatori cambiano posto con facilità e si perdono proprio quando servono. Un attimo di disattenzione all'uscita può costarti tempo e nervosismo. Conviene rallentare nei passaggi da un luogo all'altro.",
+        "risposta": "Oggi la fortuna è in salita nelle piccole cose pratiche: chiavi, occhiali, documenti e caricatori possono cambiare posto con facilità e un oggetto smarrito può costarti tempo e nervosismo. Conviene rallentare nei passaggi da un luogo all'altro, quando la distrazione trova più spazio.",
         "cosaFare": "Ogni volta che esci da un luogo oggi, fermati sulla porta e tocca con la mano le tre cose essenziali: chiavi, telefono, documenti. Non appoggiare nulla su sedie o banconi. Stasera rimetti tutto nello stesso posto prima di fare qualunque altra cosa.",
-        "approfondimento": "Nelle giornate storte le cose si perdono nei momenti di passaggio: alzarsi da un tavolo o scendere da un mezzo. Il controllo con la mano funziona perché non dipende dalla memoria. Il pericolo è la fretta: chi corre lascia indietro qualcosa. Funziona se rientri con tutto.",
-        "rito": "Oggi è Zhi, il giorno che trattiene e conserva. Per le occasioni non lasciar cadere un contatto prezioso: rispondi a quel messaggio rimasto aperto, ringrazia chi ti ha dato un'indicazione utile. Le occasioni restano vicine a chi sa tenerle con garbo.",
+        "approfondimento": "Nelle giornate storte le cose si perdono nei momenti di passaggio: alzarsi da un tavolo o scendere da un mezzo. Il controllo con la mano funziona perché non dipende dalla memoria. La fretta è la prima nemica: chi corre lascia indietro qualcosa. Rientrare con tutto in tasca è la conferma.",
+        "rito": "Oggi è Zhi, il giorno della presa salda. Per le occasioni non lasciar cadere un contatto prezioso: rispondi adesso a un messaggio rimasto aperto oppure ringrazia chi ti ha dato una mano. Le occasioni restano volentieri vicine a chi sa tenerle.",
         "titoloDelRito": "Il gesto propiziatorio",
-        "daDoveViene": "È la giornata del Rivale, che nel BaZi contende ciò che hai: il suo nome cinese vuol dire alla lettera \"rapina della ricchezza\". Il Dio della Ricchezza, dicono gli almanacchi cinesi, oggi sta a sud-ovest. Per la fortuna il BaZi guarda la Ricchezza, la stella delle occasioni: oggi è contesa, le occasioni tendono a uscire più che a entrare. Il rito propiziatorio segue il giorno: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Zhi, il giorno che tiene."
+        "daDoveViene": "È la giornata del Rivale, che nel BaZi contende ciò che hai: il suo nome cinese vuol dire alla lettera \"rapina della ricchezza\". Il Dio della Ricchezza, dicono gli almanacchi cinesi, oggi sta a sud-ovest: è il lato verso cui la tradizione consiglia di muovere il primo passo della giornata. Per la fortuna il BaZi guarda la Ricchezza, la stella delle occasioni: oggi è contrastata, perché le occasioni tendono a uscire più che a entrare. Il rito propiziatorio segue il giorno: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Zhi, il giorno che tiene."
       },
       "singole": []
     },
@@ -1165,6 +1201,7 @@
       "senzaDomanda": {
         "segno": "Tigre",
         "nascita": "1962-02-06",
+        "oraDiNascita": null,
         "tradizione": "cinese",
         "periodo": "settimana",
         "dominio": "Generale",
@@ -1184,9 +1221,9 @@
         "risposta": "La settimana è equilibrata se i pesi si dividono: nei compiti che tornano ogni giorno conviene vedere chi porta che cosa. Se con altre persone condividi una cura, una casa o un impegno ricorrente, questi giorni aiutano a trasformare il malcontento silenzioso in un accordo chiaro e scritto.",
         "cosaFare": "Entro tre giorni scrivi l'elenco dei compiti che porti tu ogni settimana. Se ne condividi qualcuno, proponi un turno semplice con un nome accanto a ogni giorno e chiedi conferma a ognuno. Se li porti tutti tu, scegline uno da semplificare o da affidare.",
         "approfondimento": "Quando il peso è diviso, ciascuno arriva al proprio turno con più calore. Anche chi finora si è tirato indietro spesso aspetta soltanto un compito preciso per sentirsi parte. Se qualcosa non funziona, cambia un solo dettaglio dell'accordo: rifarlo da capo scoraggia tutti.",
-        "rito": "Cheng, che porta le cose a compimento, regge oggi il primo dei sette giorni. Chiudi adesso una faccenda in sospeso da troppo tempo. Poi scegli l'impresa che vuoi vedere compiuta prima che la settimana si chiuda e scrivila su un foglio.",
+        "rito": "Cheng, che fa giungere al termine, regge oggi il primo dei sette giorni. Riprendi un lavoro manuale rimasto a metà, un maglione, un disegno, un mobile da verniciare: completalo entro il settimo giorno, un poco ogni sera. Comincia adesso con il primo tratto.",
         "titoloDelRito": "Il gesto propiziatorio",
-        "daDoveViene": "Il livello del periodo è la media dei livelli dei suoi giorni, ciascuno letto col metodo del Giorno; il più alto è mercoledì 28 ottobre. Il rito propiziatorio segue il primo giorno della settimana, venerdì 23 ottobre: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie."
+        "daDoveViene": "Il livello di questo periodo è la media dei livelli dei suoi sette giorni; il giorno migliore è mercoledì 28 ottobre. Il rito propiziatorio segue il primo giorno della settimana, venerdì 23 ottobre: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie."
       },
       "singole": []
     },
@@ -1197,6 +1234,7 @@
       "senzaDomanda": {
         "segno": "Cavallo",
         "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
         "tradizione": "cinese",
         "periodo": "settimana",
         "dominio": "Amore",
@@ -1218,7 +1256,7 @@
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Il giorno migliore, sabato 24 ottobre: il dio di quel giorno nel BaZi è la Ricchezza diretta. Per l'amore il BaZi guarda due stelle del legame, l'Ufficiale e la Ricchezza: la prima quel giorno è nutrita dall'impegno concreto; la seconda quel giorno è di scena nella sua forma regolare, ciò che arriva dal lavoro fatto."
+        "daDoveViene": "Il giorno migliore, sabato 24 ottobre: il dio di quel giorno nel BaZi è la Ricchezza diretta. Per l'amore il BaZi guarda l'Ufficiale e la Ricchezza, le due figure dell'altro nel legame: quel giorno la prima è favorita, la seconda molto favorita; il livello della giornata è la loro media."
       },
       "singole": []
     },
@@ -1229,6 +1267,7 @@
       "senzaDomanda": {
         "segno": "Tigre",
         "nascita": "1974-05-12",
+        "oraDiNascita": "09:20",
         "tradizione": "cinese",
         "periodo": "settimana",
         "dominio": "Carriera",
@@ -1248,9 +1287,9 @@
         "risposta": "Settimana tranquilla nel lavoro e nello studio, adatta a programmare il riposo con anticipo. Fissare adesso i giorni in cui staccare, prima che il calendario si riempia di impegni altrui, permette di scegliere invece di accontentarsi: chi decide per tempo arriva al riposo con le cose in ordine.",
         "cosaFare": "Scegli le date di un riposo vero, anche breve, con una data di riserva. Se dipendono da altri, chi ti coordina, i clienti, il calendario degli esami, comunicale entro tre giorni con una proposta già pensata. Prima di staccare prepara una nota con le cose aperte e le scadenze.",
         "approfondimento": "Un riposo deciso all'ultimo momento spesso salta o arriva con il pensiero ancora al lavoro. La misura sta nel cedere sulle date secondarie per tenere ferma quella che conta. La nota lasciata prima di partire ti fa rientrare senza affanno e senza sorprese sulla scrivania.",
-        "rito": "Sotto Cheng, che compie, la settimana di lavoro chiede traguardi più che partenze. Scegli il progetto più maturo e fissa adesso il passo che lo chiude entro i sette giorni. Coinvolgi chi deve approvarlo così il compimento non resta in sospeso.",
+        "rito": "Sotto Cheng, che perfeziona, la settimana di lavoro chiede arrivi più che partenze. Scegli il progetto più maturo e coinvolgi adesso chi deve approvarlo: fissa con quella persona un incontro entro i sette giorni per l'ultimo via libera. Così il compimento non resta in sospeso.",
         "titoloDelRito": "Il gesto propiziatorio",
-        "daDoveViene": "Il livello del periodo è la media dei livelli dei suoi giorni, ciascuno letto col metodo del Giorno; il più alto è venerdì 23 ottobre. Il rito propiziatorio segue il primo giorno della settimana, venerdì 23 ottobre: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie."
+        "daDoveViene": "Il livello di questo periodo è la media dei livelli dei suoi sette giorni; il giorno migliore è venerdì 23 ottobre. Il rito propiziatorio segue il primo giorno della settimana, venerdì 23 ottobre: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie."
       },
       "singole": []
     },
@@ -1261,6 +1300,7 @@
       "senzaDomanda": {
         "segno": "Cavallo",
         "nascita": "1978-06-14",
+        "oraDiNascita": null,
         "tradizione": "cinese",
         "periodo": "settimana",
         "dominio": "Fortuna",
@@ -1276,13 +1316,13 @@
       },
       "profondita": "Breve",
       "responso": {
-        "titolo": "Uno spazio lasciato vuoto",
-        "risposta": "Settimana tranquilla per la fortuna, che passa più facilmente dove trova un po' di spazio libero. Le proposte si possono affollare e la tentazione è dire sì a tutto, ma un'agenda piena fino all'orlo non lascia posto alla telefonata inattesa o all'invito che vale più degli altri.",
-        "cosaFare": "Guarda l'agenda dei prossimi sette giorni e togli un impegno accettato soltanto per dovere, avvisando con garbo entro due giorni. Lascia una mattina o un pomeriggio senza programmi. Se in quello spazio arriva un invito, valutalo con calma prima di riempirlo con la prima cosa che capita.",
+        "titolo": "Chiedere se si può",
+        "risposta": "In questa settimana la buona sorte è stabile e risponde a chi chiede con garbo: un orario che si può spostare, un posto migliore, un'attesa più breve spesso arrivano solo dopo una domanda gentile. Niente colpi di fortuna, molte piccole cortesie a portata di voce.",
+        "cosaFare": "Una volta al giorno, per sette giorni, chiedi con gentilezza una piccola cosa che di solito non chiedi: un tavolo vicino alla finestra, un appuntamento anticipato, un'informazione in più allo sportello. Accetta il no con un sorriso. Prima che la settimana finisca conta i sì ricevuti.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Il giorno migliore, venerdì 23 ottobre: il dio di oggi nel BaZi è la Ricchezza diretta. Per la fortuna il BaZi guarda la Ricchezza, la stella delle occasioni: oggi è di scena nella sua forma regolare, ciò che arriva dal lavoro fatto."
+        "daDoveViene": "Il giorno migliore, venerdì 23 ottobre: il dio di oggi nel BaZi è la Ricchezza diretta. Per la fortuna il BaZi guarda la Ricchezza, la stella delle occasioni: oggi è molto favorita, perché arriva ciò che hai seminato."
       },
       "singole": []
     },
@@ -1293,6 +1333,7 @@
       "senzaDomanda": {
         "segno": "Tigre",
         "nascita": "1962-02-06",
+        "oraDiNascita": null,
         "tradizione": "cinese",
         "periodo": "mese",
         "dominio": "Generale",
@@ -1325,6 +1366,7 @@
       "senzaDomanda": {
         "segno": "Tigre",
         "nascita": "1998-11-24",
+        "oraDiNascita": "15:20",
         "tradizione": "cinese",
         "periodo": "mese",
         "dominio": "Amore",
@@ -1340,13 +1382,13 @@
       },
       "profondita": "Lunga",
       "responso": {
-        "titolo": "Lo specchio amico",
-        "risposta": "Il mese è luminoso per il fascino: in amore ti piaci di più e questa sicurezza si vede. È il momento adatto a curare il modo in cui ti presenti, non per piacere a tutti ma per sentirti a tuo agio nel tuo corpo e nei tuoi gesti.",
-        "cosaFare": "Dedica una sera a qualcosa che ti fa sentire bene nella tua pelle: un abito che rimandi di indossare, un profumo, un taglio nuovo, un'ora di ballo. Poi esci così come ti piaci: se vivi una relazione, a una cena a due; se sei senza legame, fra gente nuova.",
-        "approfondimento": "La seduzione comincia dal rapporto con la propria immagine: chi si sente a posto con sé guarda gli altri con più curiosità e meno timore. L'errore tipico è inseguire un modello che non ti appartiene. Il segno giusto è ridere più facilmente, non ricevere più complimenti.",
-        "rito": "Sotto Kai, che l'almanacco antico dedica alle unioni e ai conviti, cominciano oggi trenta giorni aperti agli incontri. Ogni settimana fai un invito: una cena con chi ami, un'uscita con amici dove conoscere persone nuove se sei senza legame. Manda adesso il primo.",
+        "titolo": "La bellezza dei luoghi",
+        "risposta": "In amore il mese è luminoso e favorevole ai luoghi belli: un giardino, una sala da concerto rendono più facile aprirsi. Se vivi una relazione, la bellezza intorno rinnova lo sguardo sull'altra persona; se sei senza legame, nei posti che ami è più facile incontrare chi ha gusti simili.",
+        "cosaFare": "Entro dieci giorni scegli un luogo che trovi bello e non frequenti da tempo, un parco, un belvedere, una strada alberata. Se vivi una relazione, portaci l'altra persona senza annunciare la meta; se sei senza legame, vacci in un'ora animata e lascia aperta la conversazione con chi incontri.",
+        "approfondimento": "Nella letteratura cinese l'amore nasce spesso in un giardino: nel Padiglione delle peonie tutto comincia da una passeggiata fra i fiori. La bellezza rallenta il passo e abbassa le difese: chi si sente bene in un posto si mostra con più naturalezza. Conta la calma, non la fama.",
+        "rito": "Sotto Kai, l'ufficiale dei varchi, cominciano oggi trenta giorni aperti agli incontri del cuore. Ogni settimana rivolgi una domanda nuova a chi ami oppure, se sei senza legame, a chi frequenti: un sogno, un ricordo, una paura. Ascolta la risposta. Ponila adesso per la prima volta.",
         "titoloDelRito": "Il gesto propiziatorio",
-        "daDoveViene": "Il livello del periodo è la media dei livelli dei suoi giorni, ciascuno letto col metodo del Giorno; il più alto è sabato 31 ottobre. Il rito propiziatorio segue il primo giorno del mese, domenica 25 ottobre: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Kai, il giorno che apre."
+        "daDoveViene": "Il livello di questo periodo è la media dei livelli dei suoi trenta giorni; il giorno migliore è sabato 31 ottobre. Il rito propiziatorio segue il primo giorno del mese, domenica 25 ottobre: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Kai, il giorno che apre."
       },
       "singole": []
     },
@@ -1357,6 +1399,7 @@
       "senzaDomanda": {
         "segno": "Cavallo",
         "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
         "tradizione": "cinese",
         "periodo": "mese",
         "dominio": "Carriera",
@@ -1378,7 +1421,7 @@
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Il giorno migliore, mercoledì 28 ottobre: il dio di quel giorno nel BaZi è l'Ufficiale diretto. Per il lavoro il BaZi guarda l'Ufficiale, la stella del ruolo e delle responsabilità: quel giorno è di scena nella sua forma piena, regole e riconoscimento."
+        "daDoveViene": "Il giorno migliore, mercoledì 28 ottobre: il dio di quel giorno nel BaZi è l'Ufficiale diretto. Per il lavoro il BaZi guarda l'Ufficiale, la stella del ruolo e delle responsabilità: quel giorno è molto favorita, perché regole e riconoscimento sono dalla tua parte."
       },
       "singole": []
     },
@@ -1389,6 +1432,7 @@
       "senzaDomanda": {
         "segno": "Cavallo",
         "nascita": "2002-12-26",
+        "oraDiNascita": null,
         "tradizione": "cinese",
         "periodo": "mese",
         "dominio": "Fortuna",
@@ -1407,10 +1451,10 @@
         "titolo": "L'ora giusta",
         "risposta": "Per la fortuna il mese è regolare: le piccole cose girano meglio quando scegli tu il momento invece di subirlo. Code più corte, uffici meno affollati, persone più disponibili: la buona sorte minuta di queste settimane premia chi esce nelle ore tranquille e chiede con garbo.",
         "cosaFare": "Raggruppa le commissioni delle prossime settimane e falle nelle ore meno affollate, a metà mattina o nel primo pomeriggio. Prepara prima ciò che serve. Allo sportello o in negozio chiedi sempre se esiste un'alternativa più comoda: spesso c'è ma nessuno la propone.",
-        "approfondimento": "La fortuna quotidiana è fatta di tempi azzeccati più che di colpi di scena. Chi si muove quando gli altri non lo fanno trova persone meno affannate e più disposte ad aiutare. Il segno che funziona è tornare a casa con qualcosa in più di ciò che cercavi.",
-        "rito": "Mettiti in strada: il mese che comincia oggi è di Cheng, che l'almanacco dedica a partire e a trasferirsi. Per le occasioni scegli un luogo dove finora hai solo scritto o telefonato e vacci di persona nei trenta giorni. Fissa adesso la data.",
+        "approfondimento": "La fortuna quotidiana è fatta di tempi azzeccati più che di colpi di scena. Chi si muove quando gli altri non lo fanno trova persone meno affannate e più disposte ad aiutare. Ti accorgi che è l'ora giusta quando torni a casa con qualcosa in più di ciò che cercavi.",
+        "rito": "Il mese che parte oggi segue Cheng, che dà compimento e accompagna, secondo la tradizione, anche chi parte. Per le occasioni organizza nei trenta giorni una gita di un giorno verso un luogo che ti chiama da tempo: scegli adesso la meta e il mezzo.",
         "titoloDelRito": "Il gesto propiziatorio",
-        "daDoveViene": "Il livello del periodo è la media dei livelli dei suoi giorni, ciascuno letto col metodo del Giorno; il più alto è lunedì 26 ottobre. Il rito propiziatorio segue il primo giorno del mese, venerdì 23 ottobre: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie."
+        "daDoveViene": "Il livello di questo periodo è la media dei livelli dei suoi trenta giorni; il giorno migliore è lunedì 26 ottobre. Il rito propiziatorio segue il primo giorno del mese, venerdì 23 ottobre: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie."
       },
       "singole": []
     },
@@ -1421,6 +1465,7 @@
       "senzaDomanda": {
         "segno": "Tigre",
         "nascita": "1986-08-18",
+        "oraDiNascita": null,
         "tradizione": "cinese",
         "periodo": "anno",
         "dominio": "Generale",
@@ -1436,11 +1481,11 @@
       },
       "profondita": "Lunga",
       "responso": {
-        "titolo": "Il quartiere vicino",
-        "risposta": "Nella vita di ogni giorno l'anno è favorevole ai legami vicini e all'armonia con chi abita intorno a te. Le persone giuste possono arrivare da luoghi semplici, un mercato, una biblioteca, un cortile condiviso: basta frequentarli con regolarità perché diventino una piccola rete su cui contare.",
-        "cosaFare": "Scegli entro tre settimane un luogo del quartiere aperto a tutti e passaci almeno una volta a settimana, sempre alla stessa ora. Saluta per nome chi incontri spesso. Quando ti è possibile offri un piccolo aiuto pratico: un pacco ritirato, un'informazione, un attrezzo prestato.",
-        "approfondimento": "Nella tradizione cinese il buon vicinato è una forma di armonia che protegge la casa: chi è conosciuto e stimato intorno a sé vive più leggero. Il rischio è aspettare che siano gli altri a fare il primo passo. Il segno buono è un saluto ricambiato con un sorriso.",
-        "rito": "Il segno che Cheng ha posto a Capodanno sul tuo anno cinese è il compimento. Il gesto vale in qualunque giorno dell'anno: scegli adesso una cosa lasciata a metà e portala a termine, anche se è piccola, poi cancellala dall'elenco delle cose sospese.",
+        "titolo": "La casa rinnovata",
+        "risposta": "Anno luminoso per la casa e per l'umore di ogni giorno: è un tempo favorevole a rinnovare gli spazi in cui vivi, a cominciare dall'ingresso e dalla luce delle stanze. Piccoli cambiamenti, un angolo liberato, una lampada nuova, una pianta vicino alla porta, possono rendere più leggere le giornate.",
+        "cosaFare": "Entro tre settimane libera l'ingresso di casa da ciò che ingombra il passaggio e porta più luce nella stanza in cui passi più tempo, spostando una tenda o una lampada. Poi, ogni settimana, cambia una piccola cosa in un angolo diverso, finché la casa ti somiglia di più.",
+        "approfondimento": "Nella tradizione cinese l'ingresso è la bocca della casa, da cui entra l'energia che i maestri chiamano qi: tenerlo sgombro e luminoso è il primo gesto del feng shui. Una casa che accoglie bene restituisce calma a chi la abita. Te ne accorgi quando rientrare la sera diventa un piacere.",
+        "rito": "Il segno che Cheng ha posto a Capodanno sul tuo anno cinese è quello delle cose finite. Il gesto vale in qualunque punto dell'anno: riprendi adesso una lettera scritta a metà e mai spedita, poi finiscila, firmala e spediscila, anche se è passato del tempo.",
         "titoloDelRito": "Il gesto propiziatorio",
         "daDoveViene": "L'anno del Cavallo va dal 17 febbraio 2026 al 6 febbraio 2027. Con la Tigre, il tuo animale: tripla armonia. Tai Sui, il signore dell'anno: non lo offendi. Il rito propiziatorio segue il primo giorno dell'anno cinese, il Capodanno lunare, martedì 17 febbraio 2026: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie."
       },
@@ -1453,6 +1498,7 @@
       "senzaDomanda": {
         "segno": "Cane",
         "nascita": "1970-04-10",
+        "oraDiNascita": null,
         "tradizione": "cinese",
         "periodo": "anno",
         "dominio": "Amore",
@@ -1485,6 +1531,7 @@
       "senzaDomanda": {
         "segno": "Cane",
         "nascita": "1982-07-16",
+        "oraDiNascita": "11:20",
         "tradizione": "cinese",
         "periodo": "anno",
         "dominio": "Carriera",
@@ -1504,7 +1551,7 @@
         "risposta": "Sul lavoro quest'anno è favorevole ai passi importanti: una candidatura, una richiesta di più responsabilità, un cambio di settore, un esame decisivo. Le porte si aprono più facilmente per chi bussa con preparazione, non per chi aspetta che qualcuno noti il suo impegno.",
         "cosaFare": "Scrivi adesso in poche righe dove vuoi arrivare da qui al prossimo Capodanno lunare e quali due competenze ti mancano. Per ognuna scegli un modo concreto di acquisirla e comincia entro tre settimane. Aggiorna il curriculum o il profilo professionale a ogni traguardo.",
         "approfondimento": "Un anno favorevole non porta tutto subito: offre un terreno buono, su cui le cose seminate con ordine crescono meglio del solito. Le persone che incontri sul lavoro o nello studio possono diventare alleate. Ogni tre settimane chiedi un consiglio preciso a qualcuno più avanti di te.",
-        "rito": "Il lavoro dell'anno cinese che stai vivendo porta il segno di Cheng, sotto cui è nato a Capodanno. Il suo gesto è portare a termine: scegli adesso il compito che resta aperto da più tempo e consegnalo, anche imperfetto, con una nota su ciò che manca.",
+        "rito": "Nel lavoro e nello studio conta il segno di Cheng, l'ufficiale delle opere finite: sotto di lui, a Capodanno, ha preso vita il tuo anno cinese. Riprendi adesso un corso o un percorso di studio lasciato a metà e completa la lezione successiva.",
         "titoloDelRito": "Il gesto propiziatorio",
         "daDoveViene": "L'anno del Cavallo va dal 17 febbraio 2026 al 6 febbraio 2027. Con il Cane, il tuo animale: tripla armonia. Tai Sui, il signore dell'anno: non lo offendi. Il rito propiziatorio segue il primo giorno dell'anno cinese, il Capodanno lunare, martedì 17 febbraio 2026: il gesto viene dall'almanacco tradizionale cinese, il Tong Shu, che lega a ogni giorno uno dei dodici ufficiali: questo è Cheng, il giorno che compie."
       },
@@ -1517,6 +1564,7 @@
       "senzaDomanda": {
         "segno": "Tigre",
         "nascita": "1998-11-24",
+        "oraDiNascita": "15:20",
         "tradizione": "cinese",
         "periodo": "anno",
         "dominio": "Fortuna",

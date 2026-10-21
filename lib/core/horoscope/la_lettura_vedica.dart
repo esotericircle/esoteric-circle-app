@@ -682,18 +682,26 @@ abstract final class LaLetturaVedica {
       return ('Chandrashtama', 2, 'la Luna in ottava, il giorno più delicato');
     }
     if (sueCase.contains(h)) {
+      // "l'undicesima", "nell'ottava": l'articolo si elide davanti alla
+      // vocale (secondo lettore cieco, ordine GA voce GA.06, oroscopo-28:
+      // "la Luna attraversa la undicesima").
+      final vocale = 'aeiou'.contains(ordinali[h - 1][0]);
+      final la = vocale ? 'l\'' : 'la ';
+      final nella = vocale ? 'nell\'' : 'nella ';
       return (
-        'La Luna nella ${ordinali[h - 1]} casa',
+        'La Luna $nella${ordinali[h - 1]} casa',
         esito == EsitoVedico.favorevole ? 5 : 4,
-        'la Luna attraversa la ${ordinali[h - 1]}',
+        'la Luna attraversa $la${ordinali[h - 1]}',
       );
     }
     final guardata = (h + 5) % 12 + 1;
     if (sueCase.contains(guardata)) {
+      final vocale = 'aeiou'.contains(ordinali[guardata - 1][0]);
+      final la = vocale ? 'l\'' : 'la ';
       return (
-        'La Luna guarda la ${ordinali[guardata - 1]} casa',
+        'La Luna guarda $la${ordinali[guardata - 1]} casa',
         esito == EsitoVedico.favorevole ? 4 : 3,
-        'la Luna guarda la ${ordinali[guardata - 1]} dalla settima da sé',
+        'la Luna guarda $la${ordinali[guardata - 1]} dalla settima da sé',
       );
     }
     return switch (esito) {

@@ -415,9 +415,9 @@ abstract final class OroscopoVedicoData {
 
   /// Rahu Kalam: manca la città.
   static const List<String> rahuSenzaCitta = [
-    'Ogni giorno c\'è un\'ora e mezza in cui conviene non cominciare niente di importante. Dimmi la tua città e ti dico quando cade oggi. || Il Rahu Kalam, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, dipende dall\'alba e dal tramonto del luogo in cui sei: senza la tua città non si può dire quando cade oggi.',
-    'Per dirti in quali ore oggi è meglio non dare inizio alle cose importanti mi serve sapere dove sei: in Italia fra Milano e Palermo cambia di un quarto d\'ora. Scegli la tua città. || Il Rahu Kalam, il tratto del giorno in cui la tradizione indiana evita di cominciare cose nuove, è un ottavo del tempo fra l\'alba e il tramonto: per questo cambia da un luogo all\'altro e serve la tua città.',
-    'C\'è un tratto della giornata, un\'ora e mezza circa, da tenere libero da inizi e firme: cambia ogni giorno e in ogni città. Aggiungi la tua e te lo indico. || È il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu e in cui evita di cominciare cose nuove: cade in un\'ora diversa in ogni città: senza la tua non si può calcolare.',
+    'Ogni giorno c\'è un\'ora e mezza in cui conviene non cominciare niente di importante. Dimmi la tua città e ti dico quando cade oggi. || Il Rahu Kalam, l\'ora e mezza del giorno in cui la tradizione indiana evita di cominciare cose nuove, dipende dall\'alba e dal tramonto del luogo in cui sei: indica la tua città e qui compare l\'ora esatta di oggi.',
+    'Per dirti in quali ore oggi è meglio non dare inizio alle cose importanti mi serve sapere dove sei: in Italia fra Milano e Palermo cambia di un quarto d\'ora. Scegli la tua città. || Il Rahu Kalam, il tratto del giorno in cui la tradizione indiana evita di cominciare cose nuove, è un ottavo del tempo fra l\'alba e il tramonto: per questo cambia da un luogo all\'altro: con la tua città qui compare l\'ora esatta.',
+    'C\'è un tratto della giornata, un\'ora e mezza circa, da tenere libero da inizi e firme: cambia ogni giorno e in ogni città. Aggiungi la tua e te lo indico. || È il Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu e in cui evita di cominciare cose nuove: cade in un\'ora diversa in ogni città: aggiungi la tua e qui compare quella di oggi.',
   ];
 
   /// Il glossario della nota del metodo: termine e spiegazione.

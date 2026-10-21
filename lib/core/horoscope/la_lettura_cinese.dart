@@ -455,63 +455,81 @@ abstract final class LaLetturaCinese {
   static const List<int> _versoLaRicchezza = [3, 2, 4, 4, 4, 5, 2, 3, 3, 3];
   static const List<int> _versoLUfficiale = [3, 2, 3, 2, 4, 4, 3, 5, 4, 4];
 
-  // **CHE COSA FA IL DIO DI OGGI ALLA STELLA DEL DOMINIO, IN PAROLE DI TUTTI.**
-  // Ordine GA voce GA.06: il lettore cieco ha trovato nel "Da dove viene"
-  // righe come "Per il lavoro: doma l'Ufficiale." e "Per il legame: l'Ufficiale
-  // è di turno, come pressione e la Ricchezza va verso obblighi e pressioni.",
-  // che dicono il simbolo senza spiegarlo (oroscopo-34, 35, 36, 38, 40). La
-  // regola e' la stessa (specifiche, paragrafo 4); la riga adesso dice quale
-  // stella la tradizione guarda per il dominio, che cos'e', e che cosa le
-  // succede oggi. Il soggetto delle frasi e' la stella.
-  static const List<String> _allaRicchezza = [
-    'oggi si divide con chi ti è pari, senza strappi',
-    'oggi è contesa, le occasioni tendono a uscire più che a entrare',
-    'oggi la genera il tuo talento, con calma',
-    'oggi la genera il tuo talento, con impeto',
-    'oggi è di scena nella sua forma imprevista, le occasioni che arrivano '
-        'di lato',
-    'oggi è di scena nella sua forma regolare, ciò che arriva dal lavoro fatto',
-    'oggi se ne va in obblighi e pressioni',
-    'oggi va verso doveri e posizione',
-    'oggi resta in disparte, il giorno porta sostegno più che occasioni',
-    'oggi resta in disparte, il giorno porta protezione più che occasioni',
+  // **CHE COSA FA IL DIO DI OGGI ALLA STELLA DEL DOMINIO, DETTO COL LIVELLO.**
+  // Ordine GA voce GA.06. Il primo lettore cieco ha trovato righe come "Per il
+  // lavoro: doma l'Ufficiale." (oroscopo-35); il secondo, sulla riscrittura,
+  // "oggi è tenuta a bada dal tuo talento" (35), "nutrita dall'impegno
+  // concreto ... ciò che arriva dal lavoro fatto" detto dell'amore (38) e una
+  // giornata d'amore calma con sotto due volte "pressione e sfida" (34). La
+  // riga adesso dice il giudizio che il livello gia' contiene (le tabelle
+  // [_versoLaRicchezza] e [_versoLUfficiale], specifiche paragrafo 4): cosi'
+  // non puo' dire il contrario della risposta. Nel lavoro e nella fortuna
+  // aggiunge il perche' in parole di tutti; nell'amore no, perche' le due
+  // stelle si leggono come la figura dell'altro e il perche' del lavoro o del
+  // denaro non c'entra.
+  static String _giudizio(int livello, {bool plurale = false}) =>
+      switch (livello) {
+        >= 5 => plurale ? 'molto favorite' : 'molto favorita',
+        4 => plurale ? 'favorite' : 'favorita',
+        3 => plurale
+            ? 'neutre, né favorite né contrastate'
+            : 'neutra, né favorita né contrastata',
+        _ => plurale ? 'contrastate' : 'contrastata',
+      };
+
+  static const List<String> _percheDellUfficiale = [
+    'conta il lavoro alla pari con gli altri',
+    'c\'è concorrenza fra pari',
+    'conta più il talento del ruolo',
+    'è facile l\'attrito con chi ha autorità',
+    'le occasioni sostengono il ruolo',
+    'l\'impegno concreto sostiene il ruolo',
+    'il ruolo chiede di reggere una pressione',
+    'regole e riconoscimento sono dalla tua parte',
+    'studio e formazione sostengono il ruolo',
+    'chi ti protegge sostiene il ruolo',
   ];
-  static const List<String> _allUfficiale = [
-    'oggi resta fuori scena, conta la rete dei pari',
-    'oggi resta fuori scena, conta la gara fra pari',
-    'oggi è tenuta a bada dal tuo talento, con più libertà e meno '
-        'riconoscimenti',
-    'oggi è ferita, con possibili attriti con chi ha autorità',
-    'oggi è nutrita dalle occasioni',
-    'oggi è nutrita dall\'impegno concreto',
-    'oggi è di scena nella sua forma dura, pressione e sfida',
-    'oggi è di scena nella sua forma piena, regole e riconoscimento',
-    'oggi diventa sostegno, attraverso lo studio',
-    'oggi diventa sostegno, attraverso chi ti protegge',
+  static const List<String> _percheDellaRicchezza = [
+    'le occasioni si dividono con altri',
+    'le occasioni tendono a uscire più che a entrare',
+    'il tuo talento crea occasioni',
+    'le idee fuori dagli schemi creano occasioni',
+    'le occasioni arrivano di lato, impreviste',
+    'arriva ciò che hai seminato',
+    'le occasioni si consumano in obblighi',
+    'le occasioni passano da doveri e regole',
+    'conta più il sostegno dell\'occasione',
+    'conta più la protezione dell\'occasione',
   ];
 
   /// **LA RIGA DEL TEMA** nel "Da dove viene" delle schede del dio: quale
-  /// stella del BaZi la tradizione guarda per il dominio [d], che cos'e', e
-  /// che cosa le fa il dio di oggi. Nell'Amore la stella dipende dal genere
-  /// dichiarato, e passa dalla porta del genere; chi non l'ha dichiarato legge
-  /// le due stelle.
+  /// stella del BaZi la tradizione guarda per il dominio [d] e il giudizio
+  /// che il dio di oggi le da', lo stesso del livello della scheda.
+  /// Nell'Amore la stella dipende dal genere dichiarato e passa dalla porta
+  /// del genere; chi non l'ha dichiarato legge le due stelle, e il livello e'
+  /// la loro media.
   static String rigaDelTema(HoroscopeDomain d, DioDelGiorno dio,
       {CourtesyForm forma = CourtesyForm.unknown}) {
-    final r = _allaRicchezza[dio.index];
-    final u = _allUfficiale[dio.index];
+    final r = _giudizio(_versoLaRicchezza[dio.index]);
+    final u = _giudizio(_versoLUfficiale[dio.index]);
     return switch (d) {
       HoroscopeDomain.carriera => 'Per il lavoro il BaZi guarda l\'Ufficiale, '
-          'la stella del ruolo e delle responsabilità: $u.',
+          'la stella del ruolo e delle responsabilità: oggi è $u, perché '
+          '${_percheDellUfficiale[dio.index]}.',
       HoroscopeDomain.amore => LaMarcaDelGenere.scegli(
-          maschile: 'Per l\'amore di un uomo il BaZi guarda la Ricchezza, la '
-              'stella del legame: $r.',
-          femminile: 'Per l\'amore di una donna il BaZi guarda l\'Ufficiale, '
-              'la stella del legame: $u.',
-          neutro: 'Per l\'amore il BaZi guarda due stelle del legame, '
-              'l\'Ufficiale e la Ricchezza: la prima $u; la seconda $r.',
+          maschile: 'Per l\'amore i testi classici, negli oroscopi maschili, '
+              'guardano la Ricchezza, la figura dell\'altro nel legame: oggi '
+              'è $r.',
+          femminile: 'Per l\'amore i testi classici, negli oroscopi '
+              'femminili, guardano l\'Ufficiale, la figura dell\'altro nel '
+              'legame: oggi è $u.',
+          neutro: 'Per l\'amore il BaZi guarda l\'Ufficiale e la Ricchezza, '
+              'le due figure dell\'altro nel legame: '
+              '${u == r ? 'oggi sono tutte e due ${_giudizio(_versoLUfficiale[dio.index], plurale: true)}' : 'oggi la prima è $u, la seconda $r'}'
+              '; il livello della giornata è la loro media.',
           forma: forma),
       _ => 'Per la fortuna il BaZi guarda la Ricchezza, la stella delle '
-          'occasioni: $r.',
+          'occasioni: oggi è $r, perché ${_percheDellaRicchezza[dio.index]}.',
     };
   }
 }

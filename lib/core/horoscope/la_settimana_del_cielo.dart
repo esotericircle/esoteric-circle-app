@@ -160,8 +160,17 @@ class DominioDelPeriodo {
         // dice da che cosa viene il livello e qual e' il giorno migliore,
         // senza ripetere la sua ragione, che sta gia' nella riga dei tre
         // giorni migliori (la guardia il_da_dove_non_si_ripete_nel_periodo).
-        return 'Il livello del periodo è la media dei livelli dei suoi '
-            'giorni, ciascuno letto col metodo del Giorno; il più alto è '
+        // Secondo lettore cieco (ordine GA voce GA.06): "ciascuno letto col
+        // metodo del Giorno" era gergo di prodotto, un rimando a un metodo
+        // che chi legge non vede. La riga dice la cosa: il voto e' la media
+        // dei giorni, e qual e' il giorno migliore.
+        final quanti = giorni.length == 7
+            ? 'sette giorni'
+            : giorni.length == 30
+                ? 'trenta giorni'
+                : 'giorni';
+        return 'Il livello di questo periodo è la media dei livelli dei suoi '
+            '$quanti; il giorno migliore è '
             '${LaSettimanaDelCielo.data(migliore.giorno)}.';
       }
       return _maiuscola(momentoChiave);

@@ -283,7 +283,18 @@ List<Map<String, Object?>> campioniDellOroscopo() {
   for (final (t, periodo, d) in combinazioni) {
     // Due domini in Breve e due in Lunga per ogni tradizione e periodo.
     final lunga = (t.index + periodo.index + d.index).isOdd;
-    final persone = dodiciPersone.where((p) => p.legge(t)).toList();
+    // **L'ANNO OCCIDENTALE VUOLE L'ORA DI NASCITA**, come nell'app
+    // (`OroscopoScreen._lAnno` invita a darla e non compone le schede): il
+    // campione lo legge solo chi ha l'ora (ordine GA voce GA.06, secondo
+    // lettore cieco: "L'Ascendente della tua Rivoluzione Solare" in
+    // oroscopo-13, per una persona senza l'ora).
+    final persone = dodiciPersone
+        .where((p) =>
+            p.legge(t) &&
+            (t != TradizioneEu.occidentale ||
+                periodo != PeriodoEu.anno ||
+                p.conCarta))
+        .toList();
     final p = persone[caso.nextInt(persone.length)];
     final oggi = _giorni[caso.nextInt(_giorni.length)];
     late final ResponsoInterpretato r;
@@ -318,6 +329,13 @@ List<Map<String, Object?>> campioniDellOroscopo() {
       'senzaDomanda': {
         'segno': _segno(p, t),
         'nascita': _data(p.nascita),
+        // L'ora di nascita, se la persona l'ha data: senza, chi legge alla
+        // cieca non sa da dove venga un Ascendente (secondo lettore cieco,
+        // oroscopo-4).
+        'oraDiNascita': p.conCarta
+            ? '${p.nascita.hour.toString().padLeft(2, '0')}:'
+                '${p.nascita.minute.toString().padLeft(2, '0')}'
+            : null,
         'tradizione': t.name,
         'periodo': periodo.name,
         'dominio': d.label,

@@ -113,6 +113,52 @@ void main() {
     expect(doppi, isEmpty, reason: doppi.take(8).join('\n'));
   });
 
+  test('i sedici riti di un reggente non si ripetono a pezzi', () {
+    // **IL SECONDO LETTORE CIECO** (21 ottobre 2026): in 48 responsi lo stesso
+    // reggente torna in periodi e domini diversi, e la stessa glossa ("Kai,
+    // che l'almanacco antico dedica alle unioni e ai conviti") o lo stesso
+    // gesto si leggevano due e quattro volte. Fra i sedici riti dello stesso
+    // reggente nessuna sequenza di sei parole in comune, fuori dalla formula
+    // fra virgolette basse e dalle formule dei due rami dell'Amore, che la
+    // regola chiede.
+    const esenti = [
+      'a chi ami o a chi desideri incontrare',
+      'chi ami o a chi desideri incontrare',
+      'chi ami o chi desideri incontrare',
+      'se hai un legame',
+      'se sei senza legame',
+    ];
+    final perReggente = <String, Set<String>>{};
+    for (final e in riti.entries) {
+      final parti = e.key.split('|');
+      final reggente = '${parti[0]}|${parti[1]}';
+      var testo = e.value.toLowerCase().replaceAll(citazione, ' | ');
+      for (final x in esenti) {
+        testo = testo.replaceAll(x, ' | ');
+      }
+      final parole = testo
+          .replaceAll(RegExp(r"[^a-zàèéìòù'| ]"), ' ')
+          .split(RegExp(r'\s+'))
+          .where((p) => p.isNotEmpty)
+          .toList();
+      for (var i = 0; i + 6 <= parole.length; i++) {
+        final g = parole.sublist(i, i + 6);
+        if (g.contains('|')) continue;
+        (perReggente['$reggente|${g.join(' ')}'] ??= {}).add(e.key);
+      }
+    }
+    final doppie = [
+      for (final e in perReggente.entries)
+        if (e.value.length > 1) '${e.key}: ${e.value.join(', ')}'
+    ];
+    cardinaleMinimo(perReggente.length, 5000,
+        cosa: 'sequenze di sei parole dei riti',
+        perche: 'quattrocentosedici riti di quaranta parole o piu\'');
+    print('ORDINE GA VOCE GA.06: sequenze di sei parole ${perReggente.length}, '
+        'in due riti dello stesso reggente ${doppie.length}');
+    expect(doppie, isEmpty, reason: doppie.take(8).join('\n'));
+  });
+
   test('il rito dell\'Anno vale in qualunque punto dell\'anno', () {
     final fuori = RegExp(
         r"\b(inizi\w*|inaugur\w*|primo mattino|comincia\w*|si apre|apre|"

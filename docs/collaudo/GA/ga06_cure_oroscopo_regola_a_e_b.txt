@@ -171,3 +171,53 @@ Dopo: verdi le quattro guardie, il_genere_non_si_indovina, accenti_veri, testo_a
 nessuna_promessa_di_memoria_integrale, le due guardie nuove e le prove dell'Oroscopo (222 su
 222, dopo la tabella delle lunghezze rigenerata). Il campione delle rune, riscritto da
 GA06_SCRIVI per un lavoro altrui, e' stato rimesso com'era (git checkout).
+
+LA SECONDA CURA, DAL SECONDO LETTORE CIECO (21 ottobre 2026, sopra 0dfd834b)
+
+Regola B, prima di toccare:
+- test/le_voci_dell_oroscopo_rispondono_nel_periodo_test.dart e
+  test/i_riti_dell_oroscopo_seguono_il_periodo_test.dart: sono guardie di questa stessa voce,
+  viste rosse il 21 ottobre (A2, A3, A4 qui sopra); prima della seconda cura erano verdi, e il
+  secondo lettore ha trovato difetti che non misuravano: le guardie si sono estese (A5, A6, A7).
+- test/la_lettura_vedica_test.dart, la_lettura_cinese_test.dart, il_da_dove_non_si_ripete_nel_periodo:
+  viste rosse il 21 ottobre (B2, B3, B4, B5).
+
+A5. le_voci_dell_oroscopo_rispondono_nel_periodo, prova nuova "le frasi non aprono a stampo":
+    in ogni corpus al massimo il tre per cento delle voci (almeno due) con una frase che apre
+    con "Il segno", "Il pericolo è", "Il rischio è", "La trappola è", "L'errore tipico è" e
+    simili; soglia scritta prima della cura. Misura prima: 740 frasi nei dodici corpora (cinese
+    giorno 218, vedica giorno 136, occidentale giorno 123, ...). ROSSA sul difetto vero mentre
+    gli scrittori lavoravano: "occidentale giorno: 123 frasi a stampo su 276 voci (al massimo
+    8)".
+    Dopo la cura delle cinque riscritture (tre tradizioni): 0 frasi a stampo in tutti e
+    dodici i corpora.
+
+A6. le_voci_dell_oroscopo_rispondono_nel_periodo, prova "a video, il "Da dove viene" non rimanda
+    e non ripete", estesa: il gergo non spiegato ("angolare", "succedente", "cadente" senza "una
+    casa", "metodo del Giorno", "la scheda dell'amore", Saturno senza il quando, "del 8",
+    "la undicesima", la direzione del dio senza uso) e l'Ascendente per chi non ha dato l'ora.
+    Al primo giro la prova ha trovato due difetti veri non ancora curati: "la Luna guarda la
+    undicesima" in la_lettura_vedica.dart (curata) e un falso allarme sul "Saturno era in" che
+    segue la frase di Giove: la grandezza si e' ristretta a Saturno in testa alla riga o subito
+    dopo l'arco dell'anno, prima di leggere l'esito.
+    Innesti, verificati col grep («// INNESTO A6») e tolti:
+    1. in l_annuale.dart il tipo di casa tornato "angolare" senza spiegazione: ROSSA, 6 righe
+       («angolare» nell'anno occidentale);
+    2. in la_settimana_del_cielo.dart una riga "Il momento chiave tocca il tuo Ascendente." nella
+       Lunga: ROSSA, 48 righe per le persone senza l'ora («l'Ascendente senza l'ora di nascita»).
+    Innesti tolti: VERDE, 0 su 1040.
+
+A7. i_riti_dell_oroscopo_seguono_il_periodo, prova nuova "i sedici riti di un reggente non si
+    ripetono a pezzi" (nessuna sequenza di sei parole in comune fra i riti dello stesso
+    reggente, formula e formule dei due rami dell'Amore escluse), e lo stesso controllo in
+    tool/genera_i_riti.py. Sul difetto vero, prima della seconda passata sui riti: la prova
+    ROSSA, "in due riti dello stesso reggente 119" (dati della prima cura); lo strumento ROSSO,
+    "DIFETTI: 75, non scrivo niente" (la raccolta cinese ancora da curare, per esempio
+    «gesti_tong_shu|Wei: «dedica un momento di raccoglimento a»»).
+    Rileggendo il campione rigenerato sono comparsi due difetti nuovi dei compositori, nati da
+    questa stessa cura: "dal'8 marzo" (l'elisione scritta male in l_anno_delle_tradizioni.dart)
+    e "Conla Tigre" (uno spazio perso nella riga dell'anno cinese). Curati, e la prova li
+    misura: innesto della vecchia elisione («// INNESTO A6», grep 1) ROSSA, 32 righe; tolto,
+    VERDE.
+    Dopo la seconda passata sui riti (tre raccolte): lo strumento genera senza difetti, la prova
+    "a pezzi" VERDE, "in due riti dello stesso reggente 0" su 14029 sequenze.
