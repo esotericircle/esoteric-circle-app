@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// LE VOCI BLOCCATE DELLA STESA INVITANO, MAI UN VICOLO CIETO. Ordine GA voce
+/// LE VOCI BLOCCATE DELLA STESA INVITANO, MAI UN VICOLO CIECO. Ordine GA voce
 /// 09, verifica indipendente sul Realme del 21 ottobre 2026.
 ///
 /// **Il fatto riportato dal collaudatore**: tre selettori della Stesa di
@@ -19,10 +19,19 @@ import 'package:provider/provider.dart';
 /// lucchetto, chiudono la tendina senza mostrare nessun invito: ne' foglio,
 /// ne' snackbar. Riprodotto qui, col tocco vero su `PopupMenuButton` e la
 /// stessa `_showComingSoon` che gira sul telefono, **l'invito compare**: la
-/// via del codice e' sana. L'ipotesi piu' probabile e' il tempismo della
-/// cattura sul device (il foglio ha una sua animazione d'entrata, e una
-/// cattura presa nello stesso istante del tocco la perde): resta una prova
-/// qui, cosi' una vera regressione del codice non torni inosservata.
+/// via del codice e' sana.
+///
+/// **CHIUSO, 22 ottobre 2026: era un falso difetto.** La riverifica sul
+/// Realme, anche con un'attesa vera, continuava a non vedere l'invito; un
+/// log Android (nessuna eccezione) e le coordinate incrociate con
+/// `uiautomator dump` hanno trovato la causa: il tocco usava le coordinate
+/// della cattura scalata (900x2000) senza moltiplicarle per 1,2, il fattore
+/// che ogni cattura dichiara per tornare al pixel vero del device (1080x
+/// 2400), cadendo fuori dalla voce bloccata. Col tocco giusto l'invito
+/// compare sempre, sui tre selettori (`docs/collaudo/GA/verifica_finale/
+/// rapporto_verifica_finale.md`, sezione "Correzione del 21 ottobre 2026").
+/// La prova resta qui come copertura permanente vera, non come prova di un
+/// difetto: se il codice regredisse davvero, questa l'accorgerebbe.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 

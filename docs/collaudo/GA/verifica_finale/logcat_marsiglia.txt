@@ -1,0 +1,302 @@
+--------- beginning of main
+10-21 23:56:13.941  7871 11316 D WM-GreedyScheduler: Starting work for 90433007-96cb-4c69-a70b-fc4bae94300e
+10-21 23:56:13.942  7871 11316 D WM-Processor: Processor: processing WorkGenerationalId(workSpecId=90433007-96cb-4c69-a70b-fc4bae94300e, generation=0)
+10-21 23:56:13.942 16563 16563 I adbd    : adbd service requested 'sync:'
+10-21 23:56:13.943  7871 11316 D WM-Processor: Work WorkGenerationalId(workSpecId=90433007-96cb-4c69-a70b-fc4bae94300e, generation=0) is already enqueued for processing
+10-21 23:56:13.945  7871  7871 D WM-WorkerWrapper: Starting work for com.android.providers.media.MediaServiceV2
+10-21 23:56:13.946  7871  1956 I MediaServiceV2: Work initiated for action [ android.intent.action.MEDIA_SCANNER_SCAN_FILE ]
+10-21 23:56:13.965  7871  1956 D GainmapUtils: PNG: Reached IEND chunk. No Gainmap found.
+10-21 23:56:13.966  7871  1956 W PermissionInjector: applyBatch in invalid type: 2
+10-21 23:56:13.982  7871  1956 I MediaServiceV2: Work ended for action [ android.intent.action.MEDIA_SCANNER_SCAN_FILE ]
+10-21 23:56:13.986  7871  9407 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=90433007-96cb-4c69-a70b-fc4bae94300e, class=com.android.providers.media.MediaServiceV2, tags={ com.android.providers.media.MediaServiceV2 } ]
+10-21 23:56:13.997  7871  7871 D WM-Processor: Processor 90433007-96cb-4c69-a70b-fc4bae94300e executed; reschedule = false
+10-21 23:56:14.000  7871  7871 D WM-SystemJobService: 90433007-96cb-4c69-a70b-fc4bae94300e executed on JobScheduler
+10-21 23:56:14.025  7871 11314 D WM-SystemJobScheduler: Scheduling work ID 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb (com.android.providers.media.photopicker.sync.ProactiveSyncWorker), Job ID 16790
+10-21 23:56:14.030  7871 11314 D WM-GreedyScheduler: Ignoring {WorkSpec: c9c2e085-7fd5-4f09-8fb1-ac2760bac826}. Requires device idle.
+10-21 23:56:14.033  7871 11314 D WM-GreedyScheduler: Cancelling work ID 90433007-96cb-4c69-a70b-fc4bae94300e
+10-21 23:56:14.040  7871 11314 D WM-GreedyScheduler: Ignoring {WorkSpec: c9c2e085-7fd5-4f09-8fb1-ac2760bac826}. Requires device idle.
+10-21 23:56:14.080 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:14.081  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:14.161  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:14.211 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:14.229 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:14.586  8403  1660 I NetworkScheduler.Stats: (REDACTED) Task %s/%s started execution. cause:%s exec_start_elapsed_seconds: %s
+10-21 23:56:14.592  8403  1660 I NetworkScheduler.Stats: (REDACTED) Task %s/%s finished executing. cause:%s result: %s elapsed_millis: %s uptime_millis: %s exec_start_elapsed_seconds: %s
+10-21 23:56:14.709  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:14.711  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:14.954  1934 12417 D CCodecBufferChannel: [c2.android.mp3.decoder#377] DEBUG: elapsed: mInputMetEos 4, hasPendingOutputsInClient 0, n=1 [in=0 pipeline=0 out=0]
+10-21 23:56:14.954  1934 12417 D PipelineWatcher: [0xe321d5c0] elapsed: mFramesInPipeline 0, n 4
+10-21 23:56:15.085 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:15.085  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:15.120  1463  9296 E sensors-hal: ssc_conn_event_cb:661, event[0] msg_id=1025, ts=6464796222887 sensor_type = pedometer_minute  Wakeup
+10-21 23:56:15.120  1463  9296 E sensors-hal: handle_sns_client_event:83, pedometer_minute: report_ts=5608,counter=0.000000 move_status =[SNS_CMC_STATIONARY] time_gap = 0 run_counter=0.000000 walk_counter=0.000000
+--------- beginning of system
+10-21 23:56:15.127  1768  3065 E AppOps  : attributionTag  not declared in manifest of com.oplus.exsystemservice
+10-21 23:56:15.128  3516  3516 V SystemSensorManagerExtImpl: Pedometer minute step counter dispatchSensorEvent step 0.0 to + l.a$a@d5554b0
+10-21 23:56:15.131  1768  3065 E AppOps  : attributionTag  not declared in manifest of com.oplus.exsystemservice
+10-21 23:56:15.131  3516  3516 V SystemSensorManagerExtImpl: Pedometer minute step counter dispatchSensorEvent step 0.0 to + k.b$b@70f9ff3
+10-21 23:56:15.132  3516  3516 I StepApp_StepDataPreHandler: (main)onSensorChanged raw data: step=0.0 state=3.0 minuteDelta=0.0 timestamp=336704916963981 steprun=0.0 stepwalk=0.0 formatted data: step=0 state=3 timestamp=336704916963981 time=1792619775121 steprun=0 stepwalk=0
+10-21 23:56:15.132  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)getNewFixedOffsetStep type is STEP
+10-21 23:56:15.133  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)isRebootCountStep:false	 lastRealTimeStamp = 1792619700000	 bootTimestamp = 1792283070204	 mLastModifiedMinuteTime = 2026-10-21-23-55
+10-21 23:56:15.133  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)calOffSet:sensorStep = 0	 lastModifiedStep = 0	 offSet = 0
+10-21 23:56:15.133  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)getNewFixedOffsetStep type is RUN
+10-21 23:56:15.133  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)isRebootCountStep:false	 lastRealTimeStamp = 1792619700000	 bootTimestamp = 1792283070203	 mLastModifiedMinuteTime = 2026-10-21-23-55
+10-21 23:56:15.133  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)calOffSet:sensorStep = 0	 lastModifiedStep = 0	 offSet = 0
+10-21 23:56:15.133  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)getNewFixedOffsetStep type is WALK
+10-21 23:56:15.133  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)isRebootCountStep:false	 lastRealTimeStamp = 1792619700000	 bootTimestamp = 1792283070203	 mLastModifiedMinuteTime = 2026-10-21-23-55
+10-21 23:56:15.133  3516  9282 I StepApp_StepDataSaver: (StepDataDispatcher)calOffSet:sensorStep = 0	 lastModifiedStep = 0	 offSet = 0
+10-21 23:56:15.211 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:15.230 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:15.286  4181  4181 D OplusTelephonyController: onSignalStrengthChanged: SignalStrength=SignalStrength:{mCdma=CellSignalStrengthCdma: cdmaDbm=2147483647 cdmaEcio=2147483647 evdoDbm=2147483647 evdoEcio=2147483647 evdoSnr=2147483647 level=0,mGsm=CellSignalStrengthGsm: rssi=2147483647 ber=2147483647 mTa=2147483647 mLevel=0,mWcdma=CellSignalStrengthWcdma: ss=2147483647 ber=2147483647 rscp=2147483647 ecno=2147483647 level=0,mTdscdma=CellSignalStrengthTdscdma: rssi=2147483647 ber=2147483647 rscp=2147483647 level=0,mLte=CellSignalStrengthLte: rssi=2147483647 rsrp=-112 rsrq=2147483647 rssnr=2147483647 cqiTableIndex=2147483647 cqi=2147483647 ta=2147483647 level=1 parametersUseForLevel=0,mNr=CellSignalStrengthNr:{ csiRsrp = 2147483647 csiRsrq = 2147483647 csiCqiTableIndex = 2147483647 csiCqiReport = [] ssRsrp = 2147483647 ssRsrq = 2147483647 ssSinr = 2147483647 level = 0 parametersUseForLevel = 0 },primary=CellSignalStrengthLte}
+10-21 23:56:15.286  4181  4181 D OplusTelephonyController: onSignalStrengthChanged: SignalStrength=SignalStrength:{mCdma=CellSignalStrengthCdma: cdmaDbm=2147483647 cdmaEcio=2147483647 evdoDbm=2147483647 evdoEcio=2147483647 evdoSnr=2147483647 level=0,mGsm=CellSignalStrengthGsm: rssi=2147483647 ber=2147483647 mTa=2147483647 mLevel=0,mWcdma=CellSignalStrengthWcdma: ss=2147483647 ber=2147483647 rscp=2147483647 ecno=2147483647 level=0,mTdscdma=CellSignalStrengthTdscdma: rssi=2147483647 ber=2147483647 rscp=2147483647 level=0,mLte=CellSignalStrengthLte: rssi=-83 rsrp=-112 rsrq=-12 rssnr=9 cqiTableIndex=2147483647 cqi=2147483647 ta=2147483647 level=2 parametersUseForLevel=0,mNr=CellSignalStrengthNr:{ csiRsrp = 2147483647 csiRsrq = 2147483647 csiCqiTableIndex = 2147483647 csiCqiReport = [] ssRsrp = 2147483647 ssRsrq = 2147483647 ssSinr = 2147483647 level = 0 parametersUseForLevel = 0 },primary=CellSignalStrengthLte}
+10-21 23:56:15.493  7871  7871 D WM-DelayedWorkTracker: Scheduling work 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb
+10-21 23:56:15.493  7871  7871 D WM-GreedyScheduler: Starting tracking for 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb
+10-21 23:56:15.497  7871 11316 D WM-ConstraintTracker: BatteryNotLowTracker: initial state = true
+10-21 23:56:15.498  7871 11316 D WM-BrdcstRcvrCnstrntTrc: BatteryNotLowTracker: registering receiver
+10-21 23:56:15.499  7871 11316 D WM-GreedyScheduler: Constraints met: Scheduling work ID WorkGenerationalId(workSpecId=4bbbff1b-c5ac-4c90-b12e-4e663ca004eb, generation=0)
+10-21 23:56:15.501  7871 11316 D WM-Processor: Processor: processing WorkGenerationalId(workSpecId=4bbbff1b-c5ac-4c90-b12e-4e663ca004eb, generation=0)
+10-21 23:56:15.503  7871  7871 D WM-WorkerWrapper: Starting work for com.android.providers.media.photopicker.sync.ProactiveSyncWorker
+10-21 23:56:15.506  7871  1957 I PSyncWorker: Starting proactive picker sync from sync source: 1
+10-21 23:56:15.506  7871  1957 I PickerSyncTracker: Created new sync future java.util.concurrent.CompletableFuture@48a0e05[Not completed, 1 dependents]. Future map: {4bbbff1b-c5ac-4c90-b12e-4e663ca004eb=java.util.concurrent.CompletableFuture@48a0e05[Not completed, 1 dependents]}
+10-21 23:56:15.507  7871  1957 D PickerSyncController: syncAllMediaFromProvider() LOCAL, auth=com.android.providers.media.photopicker, retry=true
+10-21 23:56:15.507  7871  1957 D PickerSyncController: getSyncRequestParams() LOCAL, auth=com.android.providers.media.photopicker
+10-21 23:56:15.526  1768  2557 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+10-21 23:56:15.599  7871  1957 D PickerSyncController:    Latest ID/Gen=9521b4fb6c836d10:external_primary/319061
+10-21 23:56:15.600  7871  1957 D PickerSyncController:    Last Synced ID/Gen=9521b4fb6c836d10:external_primary/319055
+10-21 23:56:15.600  7871  1957 D PickerSyncController:    RESULT=SyncRequestParams{type=MEDIA_INCREMENTAL, gen=319055, latest=Bundle[{last_media_sync_generation=319061, media_collection_id=9521b4fb6c836d10:external_primary}], pageSize=1000}
+10-21 23:56:15.600  7871  1957 I PickerSyncController: Executing SyncRemove. isLocal: true. authority: com.android.providers.media.photopicker
+10-21 23:56:15.600  7871  1957 D PickerSyncLockManager: Trying to acquire lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = [] with timeout.
+10-21 23:56:15.600  7871  1957 D CloseableReentrantLock: Successfully acquired lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Locked by thread pool-4-thread-1954]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.600  7871  1957 D CloseableReentrantLock: Successfully released lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.601  7871  1957 D PickerSyncLockManager: Trying to acquire lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = [] with timeout.
+10-21 23:56:15.601  7871  1957 D CloseableReentrantLock: Successfully acquired lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Locked by thread pool-4-thread-1954]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.601  7871  1957 D PickerSyncController: Clearing next page token for key: local_provider:media_remove:resume
+10-21 23:56:15.601  7871  1957 D CloseableReentrantLock: Successfully released lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.601  7871  1957 D PickerNotificationSender: Sending a notification for media update
+10-21 23:56:15.602  7871  1957 D PickerNotificationSender: Sending a notification for merged album media update Videos
+10-21 23:56:15.602  7871  1957 D PickerNotificationSender: Sending a notification for album media update Videos
+10-21 23:56:15.602  7871  1957 D PickerNotificationSender: Sending a notification for merged album media update Favorites
+10-21 23:56:15.602  7871  1957 D PickerNotificationSender: Sending a notification for album media update Favorites
+10-21 23:56:15.603  7871  1957 I PickerSyncController: Paged sync successful. QueryArgs: Bundle[{android.provider.extra.SYNC_GENERATION=319055, android.provider.extra.PAGE_SIZE=1000}] Total Rows: 0
+10-21 23:56:15.603  7871  1957 I PickerSyncController: Executing SyncAdd. isLocal: true. authority: com.android.providers.media.photopicker
+10-21 23:56:15.603  7871  1957 D PickerSyncLockManager: Trying to acquire lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = [] with timeout.
+10-21 23:56:15.603  7871  1957 D CloseableReentrantLock: Successfully acquired lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Locked by thread pool-4-thread-1954]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.603  7871  1957 D CloseableReentrantLock: Successfully released lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.603  7871  1957 D ExternalDbFacade: Token received for queryMedia = null
+10-21 23:56:15.660  7871  1957 D PickerSyncTracker: Sync future has already been completed or is not currently tracked for work id: 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb. Future map: {}
+10-21 23:56:15.660  7871  1957 D PickerSyncLockManager: Trying to acquire lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = [] with timeout.
+10-21 23:56:15.660  7871  1957 D CloseableReentrantLock: Successfully acquired lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Locked by thread pool-4-thread-1954]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.660  7871  1957 D PickerSyncController: Saving next page token: 1792619773000|1000124123 for key: local_provider:media_add:resume
+10-21 23:56:15.660  7871  1957 D CloseableReentrantLock: Successfully released lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.661  7871  1957 D PickerNotificationSender: Sending a notification for media update
+10-21 23:56:15.662  7871  1957 D PickerNotificationSender: Sending a notification for merged album media update Videos
+10-21 23:56:15.662  7871  1957 D PickerNotificationSender: Sending a notification for album media update Videos
+10-21 23:56:15.664  7871  1957 D PickerNotificationSender: Sending a notification for merged album media update Favorites
+10-21 23:56:15.664  7871  1957 D PickerNotificationSender: Sending a notification for album media update Favorites
+10-21 23:56:15.665  7871  1957 D ExternalDbFacade: Token received for queryMedia = 1792619773000|1000124123
+10-21 23:56:15.721  7871  1957 D PickerSyncLockManager: Trying to acquire lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = [] with timeout.
+10-21 23:56:15.721  7871  1957 D CloseableReentrantLock: Successfully acquired lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Locked by thread pool-4-thread-1954]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.721  7871  1957 D PickerSyncController: Clearing next page token for key: local_provider:media_add:resume
+10-21 23:56:15.721  7871  1957 D CloseableReentrantLock: Successfully released lock com.android.providers.media.photopicker.sync.CloseableReentrantLock@43aec42[Unlocked]. Lock Name = CLOUD_PROVIDER_LOCK. Threads that may be waiting to acquire this lock = []
+10-21 23:56:15.721  7871  1957 D PickerNotificationSender: Sending a notification for media update
+10-21 23:56:15.722  7871  1957 D PickerNotificationSender: Sending a notification for merged album media update Videos
+10-21 23:56:15.722  7871  1957 D PickerNotificationSender: Sending a notification for album media update Videos
+10-21 23:56:15.723  7871  1957 D PickerNotificationSender: Sending a notification for merged album media update Favorites
+10-21 23:56:15.723  7871  1957 D PickerNotificationSender: Sending a notification for album media update Favorites
+10-21 23:56:15.724  7871  1957 I PickerSyncController: Paged sync successful. QueryArgs: Bundle[{android.provider.extra.PAGE_TOKEN=1792619773000|1000124123, android.provider.extra.SYNC_GENERATION=319055, android.provider.extra.PAGE_SIZE=1000}] Total Rows: 1
+10-21 23:56:15.724  7871  1957 D PickerSyncTracker: Sync future has already been completed or is not currently tracked for work id: 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb. Future map: {}
+10-21 23:56:15.724  7871  1957 I PickerSyncTracker: Marked sync future complete for work id: 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb. Future map: {}
+10-21 23:56:15.724  7871  1957 I PSyncWorker: Completed picker proactive sync complete from local provider.
+10-21 23:56:15.726  7871 11315 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=4bbbff1b-c5ac-4c90-b12e-4e663ca004eb, class=com.android.providers.media.photopicker.sync.ProactiveSyncWorker, tags={ com.android.providers.media.photopicker.sync.ProactiveSyncWorker } ]
+10-21 23:56:15.728  7871  7871 D WM-Processor: Processor 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb executed; reschedule = false
+10-21 23:56:15.729  7871  7871 D WM-GreedyScheduler: Stopping tracking for WorkGenerationalId(workSpecId=4bbbff1b-c5ac-4c90-b12e-4e663ca004eb, generation=0)
+10-21 23:56:15.732  7871 11315 D WM-SystemJobScheduler: Cancelling work ID 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb, Job ID 16790
+10-21 23:56:15.739  7871 11315 D WM-GreedyScheduler: Cancelling work ID 4bbbff1b-c5ac-4c90-b12e-4e663ca004eb
+10-21 23:56:15.745  7871 11315 D WM-GreedyScheduler: Ignoring {WorkSpec: c9c2e085-7fd5-4f09-8fb1-ac2760bac826}. Requires device idle.
+10-21 23:56:15.745  7871 11315 D WM-BrdcstRcvrCnstrntTrc: BatteryNotLowTracker: unregistering receiver
+10-21 23:56:15.768  1768  3159 D WifiClientModeImpl[wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-43 TxLinkspeed=433 freq=5180 RxLinkSpeed=433
+10-21 23:56:15.769  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[0] = -42
+10-21 23:56:15.769  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[1] = -43
+10-21 23:56:15.769  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[2] = -44
+10-21 23:56:15.769  1768  3159 D OplusRssiMonitor[wlan0]: update rssi:-43
+10-21 23:56:15.769  1768  3159 D WifiDataStall: tx tput in kbps: 408136
+10-21 23:56:15.769  1768  3159 D WifiDataStall: rx tput in kbps: 429617
+10-21 23:56:15.769  1768  3159 V WifiConfigManager: Updating scan detail cache freq=5500 BSSID=9a:9b:cb:98:49:79 RSSI=-42 for "FRITZ!Box Accesso ospite"WPA_PSK
+10-21 23:56:15.769  1768  3159 D WifiChannelUtilization:  freq: 5180 onTime: 20571942 busyTime: 302824 onTimeDiff: 812 busyTimeDiff: 7 utilization: 2 utilization t0: 3
+10-21 23:56:15.769  1768  3159 D WifiDataStall:  ccaLevel = 2
+10-21 23:56:15.769  1768  3159 D WifiDataStall: L2 txTputKbps: 408136, rxTputKbps: 429617, L3 txTputKbps: 0, rxTputKbps: 0, TxTrafficHigh: false, RxTrafficHigh: false, Throughput Sufficient: true
+10-21 23:56:15.771  1768  3159 D WN_S    : updateOplusScore:87 dataStallSuspected:false statusDataStall:0 icmp unreachable count:0 time:1792619775771 dns refused count:0 time:1792619775771 mNetworkScore:100 mScreenOn:true MotionState:303
+10-21 23:56:15.772  1768  3159 D WN_S    : wifi network is sufficient, ignore scan
+10-21 23:56:15.772  1768  3159 D WN_S2   : shouldIgnoreDataSwitchForDualSta getCurrent Sencondary wifi score: 60
+10-21 23:56:15.772  1768  3159 D WN_S_OplusWifiAssistantUtils: pps=[tx=1, rx=1, retry=0, lost=0]
+10-21 23:56:15.773  1768  3159 D WN_S    : isCellQualityGood = false, curscore = 87, no need to switch lte
+10-21 23:56:15.773  1768  3159 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1513798723 SSID: "FRITZ!Box Accesso ospite", BSSID: 9a:9b:cb:98:49:79, MAC: de:cf:e3:4e:ed:59, IP: /192.168.179.14, Security type: 2, Supplicant state: COMPLETED, Wi-Fi standard: 5, RSSI: -43, Link speed: 433Mbps, Tx Link speed: 433Mbps, Max Supported Tx Link speed: 433Mbps, Rx Link speed: 433Mbps, Max Supported Rx Link speed: 433Mbps, Frequency: 5180MHz, Net ID: 0, Metered hint: false, score: 51, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"FRITZ!Box Accesso ospite"wpa2-pskMLO Information: , AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>
+10-21 23:56:15.773  1768  3159 D WifiScoreCard: txRate: 2 txSpeed: 433
+10-21 23:56:15.773  1768  3159 D WifiScoreCard: network update SIGNAL_POLL "FRITZ!Box Accesso ospite" ID: 1445952375 RSSI -43 txSpeed -1
+10-21 23:56:15.775  1768  3159 D OplusWifiClientModeImpl: rssi changes to: -43 level: 4
+10-21 23:56:15.775  1768  1768 D OplusWifiSwitchStats: RSSI_CHANGED_ACTION wifiState=3
+10-21 23:56:15.777  4114  4114 I QImsService: OplusWifiApmStateMgr : onReceive,wifiSignal: -43
+10-21 23:56:15.779  1768  1768 D OplusWifiCoexManager: mRssiAverage1=-43 wifi1Rssi=-43
+10-21 23:56:15.779  1768  3159 D WifiClientModeImpl[wlan0]:  L2ConnectedState screen=on 1 0 "FRITZ!Box Accesso ospite" 9a:9b:cb:98:49:79 rssi=-43 f=5180 sc=51 link=433 tx=1.2, 0.0, 0.0 rx=1.2 bcn=2785259 [on:242 tx:2 rx:211 period:3023] from screen [on:10306 period:157977] score=51
+10-21 23:56:15.780 21913 21939 D QCNEJ/WlanStaInfoRelay: Received action: android.net.wifi.RSSI_CHANGED
+10-21 23:56:15.897  1545  2530 D VRR [OTI]: handleIdle from 0 to 1
+10-21 23:56:15.897  1545  2530 D VRR [OTI-HW]: isStateReady 0
+10-21 23:56:15.897  1545  2530 D VRR [OTI-HW]: rate range: min {id=0, hwcId=0, resolution=1080x2400, refreshRate=61.00 Hz, dpi=409.43x409.13, group=0} cur {id=0, hwcId=0, resolution=1080x2400, refreshRate=61.00 Hz, dpi=409.43x409.13, group=0} max {id=0, hwcId=0, resolution=1080x2400, refreshRate=61.00 Hz, dpi=409.43x409.13, group=0}
+10-21 23:56:15.897  1545  2530 D VRR [OTI-HW]: keep rate.
+10-21 23:56:16.087 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:16.088  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:16.212 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:16.230 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:16.925  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:16.987 31659 31659 W CrashSDKBkgdHan: type=1400 audit(0.0:126101): avc: denied { read } for name="loadavg" dev="proc" ino=4026532141 scontext=u:r:untrusted_app:s0:c247,c256,c512,c768 tcontext=u:object_r:proc_loadavg:s0 tclass=file permissive=0 app=com.alibaba.aliexpresshd
+10-21 23:56:17.089 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:17.091  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:17.213 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:17.231 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:17.514  1768  3159 D WifiNetworkSelector: Current connected network: 0
+10-21 23:56:17.514  1768  3159 V WifiConnectivityManager: No partial scan because firmware roaming is supported.
+10-21 23:56:17.514  1768  3159 V WifiConnectivityManager: schedulePeriodicScanTimer intervalMs 20000
+10-21 23:56:17.578  1768  2557 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+10-21 23:56:17.676  9498  9498 E VendorNfcService: changeNfcState: WIRELESS_CHARGING is disable; mIsWirelessCharging: false; mIsReverseChargingSwitchOpen: false
+10-21 23:56:18.060  1768  6655 W UriGrantsManagerService: No permission grants found for com.google.android.apps.photos
+10-21 23:56:18.061  1768  6655 W UriGrantsManagerService: No permission grants found for com.google.android.apps.photos
+10-21 23:56:18.093 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:18.094  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:18.213 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:18.220  4181  4181 D OplusTelephonyController: onSignalStrengthChanged: SignalStrength=SignalStrength:{mCdma=CellSignalStrengthCdma: cdmaDbm=2147483647 cdmaEcio=2147483647 evdoDbm=2147483647 evdoEcio=2147483647 evdoSnr=2147483647 level=0,mGsm=CellSignalStrengthGsm: rssi=2147483647 ber=2147483647 mTa=2147483647 mLevel=0,mWcdma=CellSignalStrengthWcdma: ss=2147483647 ber=2147483647 rscp=2147483647 ecno=2147483647 level=0,mTdscdma=CellSignalStrengthTdscdma: rssi=2147483647 ber=2147483647 rscp=2147483647 level=0,mLte=CellSignalStrengthLte: rssi=-79 rsrp=-110 rsrq=-12 rssnr=3 cqiTableIndex=2147483647 cqi=2147483647 ta=2147483647 level=2 parametersUseForLevel=0,mNr=CellSignalStrengthNr:{ csiRsrp = 2147483647 csiRsrq = 2147483647 csiCqiTableIndex = 2147483647 csiCqiReport = [] ssRsrp = 2147483647 ssRsrq = 2147483647 ssSinr = 2147483647 level = 0 parametersUseForLevel = 0 },primary=CellSignalStrengthLte}
+10-21 23:56:18.231 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:18.283  1934 12417 D CCodecBufferChannel: [c2.android.mp3.decoder#377] DEBUG: elapsed: mInputMetEos 4, hasPendingOutputsInClient 0, n=1 [in=0 pipeline=0 out=0]
+10-21 23:56:18.284  1934 12417 D PipelineWatcher: [0xe321d5c0] elapsed: mFramesInPipeline 0, n 4
+10-21 23:56:18.573  2040  1215 D BufferPoolAccessor2.0: bufferpool2 0xb400006f9f1aa228 : 4(18432 size) total buffers - 1(4608 size) used buffers - 5021/5027 (recycle/alloc) - 35/5026 (fetch/transfer)
+10-21 23:56:18.788  1768  3159 D WifiClientModeImpl[wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-43 TxLinkspeed=433 freq=5180 RxLinkSpeed=433
+10-21 23:56:18.788  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[0] = -42
+10-21 23:56:18.788  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[1] = -43
+10-21 23:56:18.788  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[2] = -43
+10-21 23:56:18.788  1768  3159 D OplusRssiMonitor[wlan0]: update rssi:-43
+10-21 23:56:18.789  1768  3159 D WifiDataStall: tx tput in kbps: 408136
+10-21 23:56:18.789  1768  3159 D WifiDataStall: rx tput in kbps: 429617
+10-21 23:56:18.789  1768  3159 V WifiConfigManager: Updating scan detail cache freq=5500 BSSID=9a:9b:cb:98:49:79 RSSI=-42 for "FRITZ!Box Accesso ospite"WPA_PSK
+10-21 23:56:18.789  1768  3159 D WifiChannelUtilization:  freq: 5180 onTime: 20572086 busyTime: 302826 onTimeDiff: 956 busyTimeDiff: 9 utilization: 2 utilization t0: 3
+10-21 23:56:18.789  1768  3159 D WifiDataStall:  ccaLevel = 2
+10-21 23:56:18.789  1768  3159 D WifiDataStall: L2 txTputKbps: 408136, rxTputKbps: 429617, L3 txTputKbps: 0, rxTputKbps: 0, TxTrafficHigh: false, RxTrafficHigh: false, Throughput Sufficient: true
+10-21 23:56:18.789  1768  3159 D WN_S    : updateOplusScore:87 dataStallSuspected:false statusDataStall:0 icmp unreachable count:0 time:1792619778789 dns refused count:0 time:1792619778789 mNetworkScore:100 mScreenOn:true MotionState:303
+10-21 23:56:18.790  1768  3159 D WN_S    : wifi network is sufficient, ignore scan
+10-21 23:56:18.790  1768  3159 D WN_S2   : shouldIgnoreDataSwitchForDualSta getCurrent Sencondary wifi score: 60
+10-21 23:56:18.791  1768  3159 D WN_S_OplusWifiAssistantUtils: pps=[tx=0, rx=0, retry=0, lost=0]
+10-21 23:56:18.791  1768  3159 D WN_S    : isCellQualityGood = false, curscore = 87, no need to switch lte
+10-21 23:56:18.791  1768  3159 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1513798723 SSID: "FRITZ!Box Accesso ospite", BSSID: 9a:9b:cb:98:49:79, MAC: de:cf:e3:4e:ed:59, IP: /192.168.179.14, Security type: 2, Supplicant state: COMPLETED, Wi-Fi standard: 5, RSSI: -42, Link speed: 433Mbps, Tx Link speed: 433Mbps, Max Supported Tx Link speed: 433Mbps, Rx Link speed: 433Mbps, Max Supported Rx Link speed: 433Mbps, Frequency: 5180MHz, Net ID: 0, Metered hint: false, score: 51, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"FRITZ!Box Accesso ospite"wpa2-pskMLO Information: , AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>
+10-21 23:56:18.791  1768  3159 D WifiScoreCard: txRate: 1 txSpeed: 433
+10-21 23:56:18.791  1768  3159 D WifiScoreCard: network update SIGNAL_POLL "FRITZ!Box Accesso ospite" ID: 1445952375 RSSI -42 txSpeed -1
+10-21 23:56:18.793  1768  3159 D OplusWifiClientModeImpl: rssi changes to: -42 level: 4
+10-21 23:56:18.793  1768  1768 D OplusWifiSwitchStats: RSSI_CHANGED_ACTION wifiState=3
+10-21 23:56:18.793  1768  1768 D OplusWifiCoexManager: mRssiAverage1=-43 wifi1Rssi=-42
+10-21 23:56:18.796  4114  4114 I QImsService: OplusWifiApmStateMgr : onReceive,wifiSignal: -42
+10-21 23:56:18.799 21913 21939 D QCNEJ/WlanStaInfoRelay: Received action: android.net.wifi.RSSI_CHANGED
+10-21 23:56:18.802  1768  3159 D WifiClientModeImpl[wlan0]:  L2ConnectedState screen=on 1 0 "FRITZ!Box Accesso ospite" 9a:9b:cb:98:49:79 rssi=-42 f=5180 sc=51 link=433 tx=0.8, 0.0, 0.0 rx=0.8 bcn=2785289 [on:144 tx:0 rx:140 period:3022] from screen [on:10450 period:161000] score=51
+10-21 23:56:18.838  1768  2546 D ProcessCpuTrackerExtImpl: mContext is already set, return now! 
+10-21 23:56:18.852  1934  1214 D BufferPoolAccessor2.0: bufferpool2 0xeb189958 : 8(65536 size) total buffers - 5(40960 size) used buffers - 5031/5039 (recycle/alloc) - 16/10074 (fetch/transfer)
+10-21 23:56:19.096 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:19.097  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:19.195  9498  9498 E VendorNfcService: changeNfcState: WIRELESS_CHARGING is disable; mIsWirelessCharging: false; mIsReverseChargingSwitchOpen: false
+10-21 23:56:19.215 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:19.232 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:19.429  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:19.631  1768  2557 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+10-21 23:56:19.702  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:20.099 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:20.100  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:20.216 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:20.233 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:20.244  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:20.457  4181  4181 D OplusTelephonyController: onSignalStrengthChanged: SignalStrength=SignalStrength:{mCdma=CellSignalStrengthCdma: cdmaDbm=2147483647 cdmaEcio=2147483647 evdoDbm=2147483647 evdoEcio=2147483647 evdoSnr=2147483647 level=0,mGsm=CellSignalStrengthGsm: rssi=2147483647 ber=2147483647 mTa=2147483647 mLevel=0,mWcdma=CellSignalStrengthWcdma: ss=2147483647 ber=2147483647 rscp=2147483647 ecno=2147483647 level=0,mTdscdma=CellSignalStrengthTdscdma: rssi=2147483647 ber=2147483647 rscp=2147483647 level=0,mLte=CellSignalStrengthLte: rssi=-79 rsrp=-109 rsrq=-10 rssnr=5 cqiTableIndex=2147483647 cqi=2147483647 ta=2147483647 level=2 parametersUseForLevel=0,mNr=CellSignalStrengthNr:{ csiRsrp = 2147483647 csiRsrq = 2147483647 csiCqiTableIndex = 2147483647 csiCqiReport = [] ssRsrp = 2147483647 ssRsrq = 2147483647 ssSinr = 2147483647 level = 0 parametersUseForLevel = 0 },primary=CellSignalStrengthLte}
+10-21 23:56:21.066  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:21.066  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:21.067  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:21.067  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:21.069  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:21.101 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:21.101  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:21.218 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:21.233 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:21.596  1934 12417 D CCodecBufferChannel: [c2.android.mp3.decoder#377] DEBUG: elapsed: mInputMetEos 4, hasPendingOutputsInClient 0, n=1 [in=0 pipeline=0 out=0]
+10-21 23:56:21.596  1934 12417 D PipelineWatcher: [0xe321d5c0] elapsed: mFramesInPipeline 0, n 4
+10-21 23:56:21.684  1768  2557 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+10-21 23:56:21.808  1768  3159 D WifiClientModeImpl[wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-43 TxLinkspeed=433 freq=5180 RxLinkSpeed=433
+10-21 23:56:21.808  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[0] = -43
+10-21 23:56:21.808  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[1] = -43
+10-21 23:56:21.808  1768  3159 D WifiClientModeImpl[wlan0]: mRssiArray[2] = -43
+10-21 23:56:21.809  1768  3159 D OplusRssiMonitor[wlan0]: update rssi:-43
+10-21 23:56:21.809  1768  3159 D WifiDataStall: tx tput in kbps: 408136
+10-21 23:56:21.809  1768  3159 D WifiDataStall: rx tput in kbps: 429617
+10-21 23:56:21.809  1768  3159 V WifiConfigManager: Updating scan detail cache freq=5500 BSSID=9a:9b:cb:98:49:79 RSSI=-42 for "FRITZ!Box Accesso ospite"WPA_PSK
+10-21 23:56:21.809  1768  3159 D WifiChannelUtilization:  freq: 5180 onTime: 20572217 busyTime: 302827 onTimeDiff: 1087 busyTimeDiff: 10 utilization: 2 utilization t0: 3
+10-21 23:56:21.809  1768  3159 D WifiDataStall:  ccaLevel = 2
+10-21 23:56:21.809  1768  3159 D WifiDataStall: L2 txTputKbps: 408136, rxTputKbps: 429617, L3 txTputKbps: 0, rxTputKbps: 0, TxTrafficHigh: false, RxTrafficHigh: false, Throughput Sufficient: true
+10-21 23:56:21.810  1768  3159 D WN_S    : updateOplusScore:87 dataStallSuspected:false statusDataStall:0 icmp unreachable count:0 time:1792619781810 dns refused count:0 time:1792619781810 mNetworkScore:100 mScreenOn:true MotionState:303
+10-21 23:56:21.810  1768  3159 D WN_S    : wifi network is sufficient, ignore scan
+10-21 23:56:21.810  1768  3159 D WN_S2   : shouldIgnoreDataSwitchForDualSta getCurrent Sencondary wifi score: 60
+10-21 23:56:21.811  1768  3159 D WN_S_OplusWifiAssistantUtils: pps=[tx=0, rx=0, retry=0, lost=0]
+10-21 23:56:21.812  1768  3159 D WN_S    : isCellQualityGood = false, curscore = 87, no need to switch lte
+10-21 23:56:21.812  1768  3159 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1513798723 SSID: "FRITZ!Box Accesso ospite", BSSID: 9a:9b:cb:98:49:79, MAC: de:cf:e3:4e:ed:59, IP: /192.168.179.14, Security type: 2, Supplicant state: COMPLETED, Wi-Fi standard: 5, RSSI: -43, Link speed: 433Mbps, Tx Link speed: 433Mbps, Max Supported Tx Link speed: 433Mbps, Rx Link speed: 433Mbps, Max Supported Rx Link speed: 433Mbps, Frequency: 5180MHz, Net ID: 0, Metered hint: false, score: 51, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"FRITZ!Box Accesso ospite"wpa2-pskMLO Information: , AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>
+10-21 23:56:21.812  1768  3159 D WifiScoreCard: txRate: 1 txSpeed: 433
+10-21 23:56:21.812  1768  3159 D WifiScoreCard: network update SIGNAL_POLL "FRITZ!Box Accesso ospite" ID: 1445952375 RSSI -43 txSpeed -1
+10-21 23:56:21.813  1768  3159 D OplusWifiClientModeImpl: rssi changes to: -43 level: 4
+10-21 23:56:21.813  1768  1768 D OplusWifiSwitchStats: RSSI_CHANGED_ACTION wifiState=3
+10-21 23:56:21.813  1768  1768 D OplusWifiCoexManager: mRssiAverage1=-43 wifi1Rssi=-43
+10-21 23:56:21.815  4114  4114 I QImsService: OplusWifiApmStateMgr : onReceive,wifiSignal: -43
+10-21 23:56:21.817 21913 21939 D QCNEJ/WlanStaInfoRelay: Received action: android.net.wifi.RSSI_CHANGED
+10-21 23:56:21.823  1768  3159 D WifiClientModeImpl[wlan0]:  L2ConnectedState screen=on 1 0 "FRITZ!Box Accesso ospite" 9a:9b:cb:98:49:79 rssi=-43 f=5180 sc=51 link=433 tx=0.7, 0.0, 0.0 rx=0.5 bcn=2785318 [on:131 tx:1 rx:70 period:3017] from screen [on:10581 period:164017] score=51
+10-21 23:56:21.892  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:21.892  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:22.103 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:22.104  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:22.218 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:22.234 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:22.272  1768  4166 I OplusHansManager : uid=10247, pkg=com.alibaba.aliexpresshd can transition from M to F
+10-21 23:56:22.273  1768  4166 I OplusHansManager : uid=10247, pkg=com.alibaba.aliexpresshd F enter(), M stay=10
+10-21 23:56:22.277  1768  4166 I OplusHansManager : freeze uid: 10247 com.alibaba.aliexpresshd pids: [32438, 32281, 31659, 32247, 32431, 16208, 32319] scene: LcdOn
+10-21 23:56:22.278  7569  7569 D IHansComunication: HansComunication::addUid-- 10247, persistent--0
+10-21 23:56:22.278  7569  7569 D IHansComunication: HANS sendMessageToKernel: threadId = 512852069552, netLinkSetup = 1, type = PKG, targetUid = 10247, pkgCmd = ADD_ONE_UID
+10-21 23:56:22.442  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:23.105 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:23.106  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:23.219 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:23.234 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:23.279  7569  7569 D IHansComunication: HANS sendMessageToKernel: threadId = 512852069552, netLinkSetup = 1, type = FROZEN_TRANS, targetUid = 10247, pkgCmd = PKG_CMD_MAX
+10-21 23:56:23.499 16563 16563 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color,raw:input tap 326 1709'
+10-21 23:56:23.543  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:23.563  1545  2530 D VRR [OTI]: handleIdle from 1 to 0
+10-21 23:56:23.563  1545  2530 D VRR [OTI-HW]: isStateReady 0
+10-21 23:56:23.563  1545  2530 D VRR [OTI-HW]: rate range: min {id=0, hwcId=0, resolution=1080x2400, refreshRate=61.00 Hz, dpi=409.43x409.13, group=0} cur {id=0, hwcId=0, resolution=1080x2400, refreshRate=61.00 Hz, dpi=409.43x409.13, group=0} max {id=0, hwcId=0, resolution=1080x2400, refreshRate=61.00 Hz, dpi=409.43x409.13, group=0}
+10-21 23:56:23.563  1545  2530 D VRR [OTI-HW]: keep rate.
+10-21 23:56:23.564  1507  1507 D ORMS_HAL: OrmsHalService write file /proc/sys/kernel/input_boost_enabled - 1.
+10-21 23:56:23.564 22569 22569 V AutofillManager: requestHideFillUi(null): anchor = null
+10-21 23:56:23.564  1768  3110 D PowerManagerService: userActivityNoUpdateLocked: groupId=0, eventTime=336713358, event=2, flags=0x0, uid=1000
+10-21 23:56:23.565  1768  3271 D OGG_Detector: D:done mCurrStatus: 0
+10-21 23:56:23.566  1768  2155 D TheiaRestorer: reportPointerEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=326.0, y[0]=1709.0, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=336713358, downTime=336713358, deviceId=-1, source=0x1002, displayId=0, eventId=-318846798 }
+10-21 23:56:23.566  1475  1626 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/io_percent not supported
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 2]
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,cpubw/bw_hwmon/sample_ms not supported
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 8]
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-OPTSHANDLER: Perflock resource SPECIAL_NODE - cpubw_hwmon_hyst_opt not supported
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 3]
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,cpubw/min_freq not supported
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 0]
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-OPTSHANDLER: Perflock resource /sys/class/devfreq/soc:qcom,cpubw/max_freq not supported
+10-21 23:56:23.567  1475  1626 E ANDR-PERF-RESOURCEQS: Failed to apply optimization [6, 6]
+10-21 23:56:23.736  1768  2557 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+10-21 23:56:24.062  2040  1215 D BufferPoolAccessor2.0: bufferpool2 0xb400006f9f1aa228 : 4(18432 size) total buffers - 1(4608 size) used buffers - 5228/5234 (recycle/alloc) - 37/5233 (fetch/transfer)
+10-21 23:56:24.108 26935 27747 D AudioManagerExtImpl: getStreamVolume too fast, volume index=12, package=com.facebook.katana
+10-21 23:56:24.109  4897 30782 D OplusAtlasService: getAttributeByAppName module:oplus-getStreamMaxVolume packageName:com.facebook.katana
+10-21 23:56:24.113  1768  5497 W JobScheduler: Job didn't exist in JobStore: #com.google.android.apps.photos/1034
+10-21 23:56:24.219 22569  1187 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:24.235 22569  1580 W libc    : Access denied finding property "vendor.oplus.media.vpp.stutter"
+10-21 23:56:24.299  1768  2333 I OplusHansManager : unfreeze uid: 10247 com.alibaba.aliexpresshd pids: [32438, 32281, 31659, 32247, 32431, 16208, 32319] reason: Broadcast scene: LcdOn
+10-21 23:56:24.300  1768  4166 I OplusHansManager : uid=10247, pkg=com.alibaba.aliexpresshd, transition from Frozen to Middle, reason=Broadcast
+10-21 23:56:24.300  1768  4166 I OplusHansManager : uid=10247, pkg=com.alibaba.aliexpresshd F exit(), F stay=2, reason=Broadcast
+10-21 23:56:24.308  9498  9498 E VendorNfcService: changeNfcState: WIRELESS_CHARGING is disable; mIsWirelessCharging: false; mIsReverseChargingSwitchOpen: false
+10-21 23:56:24.339  1934  1214 D BufferPoolAccessor2.0: bufferpool2 0xeb189958 : 8(65536 size) total buffers - 5(40960 size) used buffers - 5241/5249 (recycle/alloc) - 16/10494 (fetch/transfer)
+10-21 23:56:24.373  1768  2546 D ProcessCpuTrackerExtImpl: mContext is already set, return now! 
+10-21 23:56:24.629  8403  1968 I GmscoreIpa: Starting mediastore instant index [CONTEXT service_id=255 ]
+10-21 23:56:24.632  1934  1214 D PipelineWatcher: [0xe321d5c0] pipelineFull: too many frames in pipeline (4)
+10-21 23:56:24.692 16563 16563 I adbd    : adbd service requested 'shell,v2,TERM=xterm-256color:export ANDROID_LOG_TAGS=''; exec logcat '-d' '-t' '300''

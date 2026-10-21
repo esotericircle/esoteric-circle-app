@@ -188,7 +188,7 @@ Il rapporto dell'ordine porta i difetti aperti coi numeri.
 DOMANDA: "Code nei panni dell'utente deve provare tutte le opzioni di ogni
 funzionalità"
 PROVA: `docs/collaudo/GA/le_opzioni.md`
-MISURA: funzionalita' simulate, da 0 a 33 su 33; opzioni provate, da 0 a 286 su 449 (63 per cento)
+MISURA: funzionalita' simulate, da 0 a 33 su 33; opzioni provate, da 0 a 286 su 449 (64 per cento)
 
 ASPETTA: le opzioni a un piano diverso dal Viandante (cambiare piano scrive sul server di produzione: lo fa il fondatore o un account di collaudo per piano) e una nuova passata sul codice finale delle cure di GA.06 e GA.10.
 
