@@ -354,7 +354,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è chi guarda lontano e ti mostra l'orizzonte: un amico che ha viaggiato, un socio che progetta oltre il confine. Il tuo ambiente ti mette in mano un globo da studiare.
+- 1: Intorno a te c'è chi guarda lontano e ti mostra l'orizzonte: chi ha già viaggiato molto e chi progetta qualcosa oltre il confine. Il tuo ambiente ti mette in mano un globo da studiare.
 - 2: Nella tua cerchia si fanno piani ambiziosi: persone che pensano in grande, una casa affacciata su paesi nuovi. Dagli spalti del tuo castello vedi il mare e le terre che gli altri ti indicano.
 - 3: Chi ti circonda ti allarga lo sguardo: persone con contatti all'estero, parenti che parlano di trasferirsi. Il luogo in cui vivi è una terrazza da cui si sceglie una direzione.
 
@@ -747,7 +747,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Intorno a te tutto si muove a onde: impegni che si accavallano, persone che si destreggiano fra lavoro e famiglia, navi che salgono e scendono sul mare. Il tuo ambiente vive di equilibri mobili.
-- 2: Nella tua cerchia c'è chi fa il giocoliere con leggerezza: un collega che tiene mille cose insieme, un parente che danza fra gli orari. La loro flessibilità ti insegna a tenere il ritmo.
+- 2: Nella tua cerchia c'è chi tiene più cose in aria con leggerezza: persone che reggono mille impegni insieme e danzano fra tutti gli orari. La loro flessibilità ti insegna a tenere il ritmo.
 - 3: Chi ti circonda cambia piani spesso e lo fa con allegria: turni nuovi, spostamenti, scambi di favori. Il luogo in cui vivi è un nastro infinito che lega due monete in movimento.
 
 ### capovolta
@@ -858,7 +858,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Intorno a te c'è una famiglia allargata con radici profonde: nonni seduti sotto l'arco, nipoti che giocano coi cani, una casa che passa di generazione in generazione. Il tuo ambiente è solido.
+- 1: Intorno a te c'è un clima stabile con radici profonde: persone di età diverse sotto lo stesso tetto, una casa antica che passa di generazione in generazione. Il tuo ambiente è solido.
 - 2: Nella tua cerchia le cose durano: un'azienda di famiglia, tradizioni tramandate, legami che resistono ai decenni. Le persone vicine ti offrono la stabilità di chi ha costruito per chi viene dopo.
 - 3: Chi ti circonda appartiene a una storia lunga e ti ci fa entrare: un clan, una comunità di paese, una dinastia di mestiere, stemmi alle pareti e porte aperte ai parenti.
 

@@ -355,7 +355,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Guardi oltre le mura col globo in mano: davanti alla faccenda non ti accontenti di ciò che conosci, studi l'orizzonte e decidi una rotta ambiziosa.
-- 2: Il tuo modo di stare qui è da stratega: pianifichi, misuri le distanze, tieni un bastone saldo accanto e immagini già dove portare l'altro oltre le mura.
+- 2: Il tuo modo di stare qui è da stratega: pianifichi, misuri le distanze, tieni un bastone saldo accanto e immagini già dove portare tutto oltre le mura.
 - 3: Scegli la direzione invece di aspettarla: ti affacci dal parapetto, pesi con calma le strade possibili, poi indichi con decisione quella che vuoi percorrere per prima.
 
 ### capovolta
@@ -725,7 +725,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Ti lasci condurre dagli umori: in questa faccenda il mare intorno al tuo trono decide per te, un giorno calmo, il giorno dopo in tempesta.
-- 2: Il tuo atteggiamento usa le emozioni come leva: fai pesare il tuo malumore, concedi o ritiri la calma per ottenere ciò che vuoi.
+- 2: Il tuo atteggiamento rischia di usare le emozioni come leva: il malumore pesa sugli altri e la calma si concede o si ritira.
 - 3: Perdi il governo del cuore proprio quando gli altri si aspettano che tu lo tenga: sbalzi, silenzi, scatti prendono il posto della guida che sapresti dare.
 
 ## Asso di Denari
@@ -767,7 +767,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Lavori senza chiarire i ruoli: in questa faccenda scolpisci la tua parte senza guardare i disegni comuni e senza chiedere agli altri dove arrivano, così l'opera non ingrana.
-- 2: Il tuo atteggiamento nel gruppo è stonato: fai di testa tua, non chiedi, non spieghi, ti lamenti poi che gli altri non capiscono il lavoro.
+- 2: Nel gruppo il tuo atteggiamento rischia di stonare: si fa di testa propria senza chiedere né spiegare e poi gli altri non capiscono il lavoro.
 - 3: Eviti di parlare dei compiti: lasci che ognuno scalpelli dove vuole, tu per conto tuo, mentre la volontà c'è e manca solo la parola giusta fra voi.
 
 ## Quattro di Denari
@@ -920,7 +920,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Tieni fermo ciò che possiedi: in questa faccenda le tue mani stringono le ricchezze invece di farle muovere, così ciò che hai smette di dare frutto.
+- 1: Tieni fermo ciò che possiedi: in questa faccenda il rischio è stringere le ricchezze invece di farle muovere, così ciò che hai smette di dare frutto.
 - 2: Il tuo atteggiamento si irrigidisce sul possesso: misuri tutto in valore, decidi per non perdere invece che per crescere, ti lasci governare dai tuoi beni.
 - 3: Ti chiudi nel castello che hai costruito: difendi il patrimonio da ogni rischio, rinunci alla generosità di un tempo, confondi la sicurezza con l'immobilità.
 

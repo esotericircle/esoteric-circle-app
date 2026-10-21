@@ -86,11 +86,28 @@ void main() {
     // si', un no, un non ancora, o sul timore e sul distacco la risposta che
     // gli spetta. Non `\b`: in Dart non vede le lettere accentate.
     final risponde = RegExp(
-        r'^(Le carte inclinano (al sì|al no|a farlo|a non chiudere)|Sì|No,|'
+        r'^(Le carte inclinano (al sì|al no|a farlo|a non chiudere|a non farlo)|Sì|No,|'
         r'Per ora no|Non ancora|Non subito|Può andare|Così com.è adesso, no|'
         r'Meglio non decidere|Le carte consigliano di non decidere|'
         r'Non è detto|Le carte non lo confermano|Le carte non danno certezze|'
-        r'Non come certezza|Il timore non trova conferma)(?![A-Za-zÀ-ÿ])');
+        r'Non come certezza|Il timore non trova conferma|'
+        // Il terzo giro (GA.06): senza una carta che dica l'esito la
+        // risposta dice che un si' o un no non c'e', e cosa le carte
+        // mostrano. Il verdetto vero lo danno solo le carte che lo dicono.
+        r'Le carte (propendono per|vanno verso) il (sì|no)|'
+        r'Il (sì|no) è la direzione|Tutto fa pensare al sì|'
+        r'Un sì o un no netto|Su questo le carte non danno un sì o un no|'
+        r'La risposta non è un sì o un no|'
+        r'Le carte non decidono al posto tuo|'
+        r'Una risposta secca le carte non la danno|'
+        r'Un verdetto le carte non lo pronunciano|'
+        r'Le carte non confermano e non smentiscono questo timore|'
+        r'Su questo timore le carte non danno|'
+        r'Il timore resta aperto|Le carte non dicono se il timore|'
+        // Con una situazione riconosciuta l'apertura la nomina.
+        r'Un ritorno le carte non lo promettono|Se ci sia un ritorno|'
+        r'Se puoi fidarti le carte non lo dicono|Sulla fiducia le carte non)'
+        r'(?![A-Za-zÀ-ÿ])');
     final guasti = <String>[];
     var guardate = 0;
     for (final (domanda, situazione) in casi) {

@@ -46,10 +46,10 @@ percio' le lunghezze nuove.
 | Rune, singola runa: riga breve di significato | 24 | 61 | 67 |
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
-| Tarocchi, bolla di posizione | 576 | 261 | 309 |
-| Tarocchi, cosa fare di una carta | 576 | 262 | 305 |
+| Tarocchi, bolla di posizione | 576 | 263 | 311 |
+| Tarocchi, cosa fare di una carta | 576 | 262 | 304 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
-| Tarocchi, paragrafo del responso principale | 384 | 274 | 341 |
+| Tarocchi, paragrafo del responso principale | 384 | 271 | 337 |
 | Tarocchi, sintesi | 192 | 22 | 28 |
 
 ## Il piu' lungo di ogni tipo, in testa
@@ -75,8 +75,8 @@ percio' le lunghezze nuove.
 - **Rune, singola runa: riga breve di significato** (67 caratteri): La grandine, la scossa che passa: dopo la tempesta, terreno pulito.
 - **Rune, singola runa: verso d'ombra** (52 caratteri): Rallenta: ritrovata la cadenza, la strada si spiana.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.
-- **Tarocchi, bolla di posizione** (309 caratteri): Hai lasciato andare un'occasione importante, forse per non averne compreso il valore o per...
-- **Tarocchi, cosa fare di una carta** (305 caratteri): Dai oggi una direzione concreta alla tua vita affettiva: scegli un desiderio preciso, un i...
+- **Tarocchi, bolla di posizione** (311 caratteri): Hai lasciato andare un'occasione importante, forse per non averne compreso il valore o per...
+- **Tarocchi, cosa fare di una carta** (304 caratteri): Scegli adesso un'abilità che vuoi coltivare, come cucinare, scrivere o riparare: praticala...
 - **Tarocchi, domanda di chiusura** (73 caratteri): Se il cielo inclina e non obbliga, qual è il primo passo che spetta a te?
-- **Tarocchi, paragrafo del responso principale** (341 caratteri): Sull'incontro che cerchi, le carte vedono una fase difficile: nel presente, l'Imperatore r...
+- **Tarocchi, paragrafo del responso principale** (337 caratteri): Sulla tua crescita, le carte vedono una fase difficile: nel presente, l'Imperatore rovesci...
 - **Tarocchi, sintesi** (28 caratteri): L'arcobaleno della famiglia.

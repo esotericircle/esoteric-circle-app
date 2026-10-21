@@ -240,9 +240,9 @@ scrive l'Architetto.
 
 ### capovolta
 
-- 1: Questa assenza di equilibrio rischia di persistere, con atteggiamenti impulsivi o una disarmonia continua che ti toglie serenità, finché non scegli di rallentare e di ridosare ogni cosa.
+- 1: Questa assenza di equilibrio rischia di persistere, con atteggiamenti impulsivi o una disarmonia continua che ti toglie serenità, finché non scegli di rallentare e di dosare ogni cosa.
 - 2: Se gli eccessi o la fretta continuano a guidarti, le parti di te che non si parlano tendono ad allontanarsi ancora di più, rendendo il passo sempre più scomposto.
-- 3: Nei prossimi tempi l'equilibrio può tornare soltanto come pratica quotidiana: rallentare per ridosare, un gesto alla volta e senza fretta, è ciò che tende a ricucire il tuo ritmo.
+- 3: Nei prossimi tempi l'equilibrio può tornare soltanto come pratica quotidiana: rallentare per dosare, un gesto alla volta e senza fretta, è ciò che tende a ricucire il tuo ritmo.
 
 ## Il Diavolo
 
@@ -326,7 +326,7 @@ scrive l'Architetto.
 
 - 1: Rischia di non arrivare una fase di rinascita se non impari a perdonare gli errori passati. È importante accogliere le tue vicende con equità, senza conclusioni affrettate.
 - 2: Se continui a giudicarti con durezza, la rinascita tende a restare ferma: l'ascolto e il perdono sono ciò che può aprire il passaggio.
-- 3: Nei prossimi tempi il bilancio che rimandi rischia di farsi più pesante: affrontarlo con comprensione anziché con condanna tende a liberarti da un peso antico.
+- 3: Nei prossimi tempi un bilancio rimandato rischia di farsi più pesante: affrontarlo con comprensione anziché con condanna tende a liberarti da un peso antico.
 
 ## Il Mondo
 

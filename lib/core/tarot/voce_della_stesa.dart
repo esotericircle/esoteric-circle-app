@@ -213,9 +213,9 @@ abstract final class VoceDellaStesa {
   /// non decidono e chi decide (ordine S voce 17).
   static const Map<TemaSensibile, String> avvisiSensibili = {
     TemaSensibile.salute: 'Le carte non dicono come va un intervento o una '
-        'cura: decide il tuo medico.',
+        'cura: decide un medico.',
     TemaSensibile.legge:
-        'Le carte non dicono come finisce una causa: decide il tuo avvocato.',
+        'Le carte non dicono come finisce una causa: decide un avvocato.',
     TemaSensibile.denaro: 'Le carte non dicono se una spesa o un investimento '
         'conviene: chiedi a un consulente abilitato.',
   };
@@ -360,11 +360,72 @@ abstract final class VoceDellaStesa {
 
   static String _tema(DrawnCard c) => LaCartaNellaRisposta.di(c).tema;
 
+  /// **LE APERTURE DI UNA RISPOSTA SENZA VERDETTO.** Terzo giro dell'ordine GA
+  /// voce GA.06: a *"Lui mi ama ancora?"* o a *"Arrivera' presto la
+  /// risposta?"* *"La risposta non e' un si' o un no"* risponde, ma non dice di
+  /// che cosa le carte non parlano. Quando la domanda ha una situazione
+  /// riconosciuta, l'apertura la nomina; altrimenti restano le generiche.
+  static List<String> _apertureSenzaVerdetto(LaDomandaLetta d) {
+    final specifiche = switch (d.situazione) {
+      Situazione.sentimenti => [
+          'Cosa prova l\'altra persona le carte non lo dicono',
+          'I sentimenti altrui le carte non li pronunciano',
+        ],
+      Situazione.ritorno => [
+          'Un ritorno le carte non lo promettono',
+          'Se ci sia un ritorno le carte non lo dicono',
+        ],
+      Situazione.fiducia => [
+          'Se puoi fidarti le carte non lo dicono',
+          'Sulla fiducia le carte non danno un verdetto',
+        ],
+      Situazione.incontro => [
+          'Un incontro le carte non lo annunciano',
+          'Su un incontro le carte non si pronunciano',
+        ],
+      Situazione.attesa => [
+          'I tempi della risposta le carte non li indicano',
+          'Sui tempi della risposta le carte non si pronunciano',
+        ],
+      Situazione.esame => [
+          'L\'esito dell\'esame le carte non lo dicono',
+          'Sull\'esame le carte non danno un verdetto',
+        ],
+      Situazione.colloquio => [
+          'L\'esito del colloquio le carte non lo dicono',
+          'Sul colloquio le carte non danno un verdetto',
+        ],
+      Situazione.promozione => [
+          'Sulla promozione le carte non danno un verdetto',
+          'Un sì alla promozione le carte non lo pronunciano',
+        ],
+      Situazione.offerta => [
+          'Se accettare le carte non lo decidono',
+          'Sull\'offerta le carte non danno un verdetto',
+        ],
+      Situazione.progetto => [
+          'L\'approvazione del progetto le carte non la decidono',
+          'Sul progetto le carte non danno un verdetto',
+        ],
+      _ => const <String>[],
+    };
+    if (specifiche.isNotEmpty) return specifiche;
+    return const [
+      'Un sì o un no netto le carte non lo danno',
+      'Su questo le carte non danno un sì o un no',
+      'La risposta non è un sì o un no',
+      'Le carte non decidono al posto tuo',
+      'Una risposta secca le carte non la danno',
+      'Un verdetto le carte non lo pronunciano',
+    ];
+  }
+
   /// **IL VERDETTO** per la forma della domanda [d] e il tono della carta
   /// della risposta [carta]. [azioni] sono i gesti scritti della domanda per
   /// quel tono: a una domanda sul modo risponde il primo.
   static _Verdetto _verdetto(LaDomandaLetta d, DrawnCard carta,
-      TarotTopic argomento, List<String> azioni) {
+      TarotTopic argomento, List<String> azioni,
+      {required bool diretto}) {
     final k = LaCartaNellaRisposta.di(carta);
     final tono = k.tono;
     final tema = k.tema;
@@ -432,7 +493,7 @@ abstract final class VoceDellaStesa {
         TonoDellaCarta.favorevole => _Verdetto(
             aperture: [
               'Per ora no, il legame ha ancora valore',
-              'Le carte inclinano a non chiudere, per ora',
+              'Le carte inclinano a non farlo, per ora',
             ],
             titolo: 'Ora no, conta $tema',
           ),
@@ -465,6 +526,19 @@ abstract final class VoceDellaStesa {
           ],
           titolo: 'Le carte vedono $tema',
         );
+      case FormaDellaDomanda.siNo when d.timore && !diretto:
+        return _Verdetto(
+          aperture: [
+            'Le carte non confermano e non smentiscono questo timore',
+            'Su questo timore le carte non danno né conferma né smentita',
+            'Il timore resta aperto: le carte non lo decidono',
+            'Le carte non dicono se il timore è fondato',
+          ],
+          titolo: switch (tono) {
+            TonoDellaCarta.favorevole => 'Nessuna conferma, conta $tema',
+            _ => 'Nessuna conferma, pesa $tema',
+          },
+        );
       case FormaDellaDomanda.siNo when d.timore:
         // A una domanda di timore il si' e' la cosa temuta: una carta che
         // apre risponde no, e una che chiude non trasforma il timore in un
@@ -492,16 +566,26 @@ abstract final class VoceDellaStesa {
               titolo: 'Da chiarire, pesa $tema',
             ),
         };
+      case FormaDellaDomanda.siNo when !diretto:
+        // **NIENTE SI' E NIENTE NO DA UNA CARTA CHE NON LO DICE.** Si dice che
+        // cosa le carte mostrano.
+        return _Verdetto(
+          aperture: _apertureSenzaVerdetto(d),
+          titolo: switch (tono) {
+            TonoDellaCarta.favorevole => 'Senza verdetto, conta $tema',
+            _ => 'Senza verdetto, pesa $tema',
+          },
+        );
       case FormaDellaDomanda.siNo:
         return switch (tono) {
           TonoDellaCarta.favorevole => _Verdetto(
               aperture: [
                 'Le carte inclinano al sì',
                 'Sì, le carte sono favorevoli',
-                'Per ora la risposta è sì',
-                'Il quadro è favorevole',
-                'Il segnale è positivo',
-                'Le carte dicono di sì',
+                'Le carte propendono per il sì',
+                'Il sì è la direzione delle carte',
+                'Le carte vanno verso il sì',
+                'Tutto fa pensare al sì',
               ],
               titolo: 'Sì, conta $tema',
             ),
@@ -519,10 +603,10 @@ abstract final class VoceDellaStesa {
           TonoDellaCarta.sfavorevole => _Verdetto(
               aperture: [
                 'Le carte inclinano al no',
-                'Per ora la risposta è no',
-                'Il quadro è difficile',
+                'Le carte propendono per il no',
+                'Il no è la direzione delle carte',
+                'Le carte vanno verso il no',
                 'Per ora non è il momento',
-                'Le carte consigliano di no',
                 'Così com\'è adesso, no',
               ],
               titolo: 'Ora no, pesa $tema',
@@ -531,7 +615,12 @@ abstract final class VoceDellaStesa {
       case FormaDellaDomanda.come:
         // A una domanda sul modo risponde un gesto scritto per quella
         // domanda e per il tono della carta; la carta lo motiva subito dopo.
-        final azione = azioni.first;
+        // Il gesto che apre la risposta non e' condizionale (*"Prima serve
+        // questo: se serve, informati..."* era una frase che non diceva
+        // niente).
+        final azione = azioni.firstWhere(
+            (a) => !a.startsWith('Se ') && !a.toLowerCase().contains(' se '),
+            orElse: () => azioni.first);
         final minuscola = azione[0].toLowerCase() + azione.substring(1);
         return _Verdetto(
           frasi: [
@@ -552,10 +641,23 @@ abstract final class VoceDellaStesa {
           ],
           titolo: switch (tono) {
             TonoDellaCarta.favorevole => 'Punta su $tema',
-            TonoDellaCarta.condizionato => 'Prima cura $tema',
+            TonoDellaCarta.condizionato => 'Tieni conto di $tema',
             TonoDellaCarta.sfavorevole => 'Prima affronta $tema',
           },
           azioneUsata: azione,
+        );
+      case FormaDellaDomanda.quando when !diretto:
+        return _Verdetto(
+          aperture: [
+            'Sui tempi le carte non si pronunciano',
+            'Un momento preciso le carte non lo danno',
+            'Le carte non dicono quando',
+            'Quanto manchi le carte non lo dicono',
+          ],
+          titolo: switch (tono) {
+            TonoDellaCarta.favorevole => 'Nessun tempo, conta $tema',
+            _ => 'Nessun tempo, pesa $tema',
+          },
         );
       case FormaDellaDomanda.quando:
         return switch (tono) {
@@ -572,6 +674,23 @@ abstract final class VoceDellaStesa {
               titolo: 'Non presto, pesa $tema',
             ),
         };
+      case FormaDellaDomanda.cosa
+          when !diretto &&
+              (d.situazione == Situazione.sentimenti ||
+                  (d.situazione == null && d.lente == TarotTopic.cosaProva)):
+        // **I SENTIMENTI DI UN'ALTRA PERSONA NON SI LEGGONO DA UNA CARTA CHE
+        // NON LI DICE**: *"Le carte vedono un sentimento vero, ma ancora
+        // trattenuto"* a chi chiedeva cosa prova Marco (terzo giro).
+        return _Verdetto(
+          aperture: [
+            'Cosa prova l\'altra persona le carte non lo dicono',
+            'I sentimenti altrui le carte non li pronunciano',
+          ],
+          titolo: switch (tono) {
+            TonoDellaCarta.favorevole => 'Senza verdetto, conta $tema',
+            _ => 'Senza verdetto, pesa $tema',
+          },
+        );
       case FormaDellaDomanda.cosa:
         final sentimenti = d.situazione == Situazione.sentimenti ||
             (d.situazione == null && d.lente == TarotTopic.cosaProva);
@@ -701,6 +820,32 @@ abstract final class VoceDellaStesa {
     return scelte;
   }
 
+  /// Se [b] ripete una parola portante (sei lettere o piu') di [a].
+  static bool _ripete(String a, String b) {
+    const comuni = {
+      'questione',
+      'domanda',
+      'momento',
+      'quindi',
+      'perché',
+      'anche',
+      'invece',
+      'ancora',
+      'insieme',
+      'sempre',
+      'dentro',
+      'verso',
+      'ciascuno'
+    };
+    Set<String> parole(String t) => {
+          for (final m
+              in RegExp(r'[a-zàèéìòù]{6,}').allMatches(t.toLowerCase()))
+            if (!comuni.contains(m[0])) m[0]!
+        };
+    final pa = parole(a);
+    return parole(b).any(pa.contains);
+  }
+
   /// **LE ALTRE CARTE, in ordine di peso**: prima quelle di tono contrario
   /// al verdetto (non si tacciono), poi il cuore o l'esito, poi le altre
   /// nell'ordine di lettura.
@@ -819,8 +964,15 @@ abstract final class VoceDellaStesa {
             'di qualunque carta.',
       };
     }
-    return '${_maiuscola(dove)}, $nome parla di ${_tema(carta)}: riguarda il '
-        'modo di affrontare la questione, non l\'esito.';
+    // Tre forme dello stesso limite, scelte dalla carta: *"riguarda il modo
+    // di affrontare la questione, non l'esito"* era la formula stampata
+    // sotto ogni causa e ogni investimento (lettore cieco, terzo giro).
+    final coda = [
+      'È un modo di vivere la questione, non un\'indicazione sul suo esito.',
+      'Parla di come affronti la questione, non del suo esito.',
+      'È uno spunto sul tuo stato d\'animo, non sul risultato.',
+    ][carta.card.name.codeUnits.fold<int>(0, (a, b) => a + b) % 3];
+    return '${_maiuscola(dove)}, $nome mostra ${_tema(carta)}. $coda';
   }
 
   static ({
@@ -877,9 +1029,22 @@ abstract final class VoceDellaStesa {
       scritti['azione_1']!,
       scritti['azione_2']!,
       scritti['azione_3']!,
+      scritti['azione_4']!,
     ]);
-    final nonScritti = inOrdine([scritti['non_1']!, scritti['non_2']!]);
-    final v = _verdetto(d, carta, topic, azioniScritte);
+    final nonScritti =
+        inOrdine([scritti['non_1']!, scritti['non_2']!, scritti['non_3']!]);
+    // **UN VERDETTO SOLO DA UNA CARTA CHE LO DICE**, e solo se il resto della
+    // stesa non lo contraddice con due carte di tono opposto.
+    final opposte = spread.cards.where((c) {
+      if (identical(c, carta)) return false;
+      final t = LaCartaNellaRisposta.di(c).tono;
+      return (tono == TonoDellaCarta.favorevole &&
+              t == TonoDellaCarta.sfavorevole) ||
+          (tono == TonoDellaCarta.sfavorevole &&
+              t == TonoDellaCarta.favorevole);
+    }).length;
+    final diretto = LaCartaNellaRisposta.daVerdetto(carta) && opposte < 2;
+    final v = _verdetto(d, carta, topic, azioniScritte, diretto: diretto);
 
     // --- LA RISPOSTA ---
     final sensibile = d.sensibile;
@@ -944,18 +1109,44 @@ abstract final class VoceDellaStesa {
           // andare, col suo testo dell'esito.
           // Il nome si ripete: *"la stessa carta indicano"* (Gli Amanti) era un
           // errore di accordo, e la frase breve non ha altro da dire.
-          postiRisposta.add(_Posto([
-            'Guardando avanti, $nome ${_testi(carta)['nota_esito']}.',
-          ]));
-          postiRisposta.add(_Posto([
-            'Intorno a te, $nome ${_testi(carta)['nota_ambiente']}.',
-          ]));
-          postiRisposta.add(_Posto([
-            'Da tenere d\'occhio: $nome ${_testi(carta)['nota_ostacolo']}.',
-          ]));
-          postiRisposta.add(_Posto([
-            'Sullo sfondo, $nome ${_testi(carta)['nota_influenza']}.',
-          ]));
+          // La carta e' una sola: non si ripete il suo nome, si dice "la
+          // carta", e il filo sceglie quale delle sue letture entra.
+          final letture = [
+            for (final (ruolo, apertura) in mescola([
+              (
+                'esito',
+                mescola(
+                    ['Guardando avanti, ', 'Più avanti, ', 'In prospettiva, '])
+              ),
+              (
+                'ambiente',
+                mescola(['Intorno a te, ', 'Nel contesto, ', 'Attorno a te, '])
+              ),
+              (
+                'ostacolo',
+                mescola([
+                  'Da tenere d\'occhio: ',
+                  'Un punto delicato: ',
+                  'Con un limite: '
+                ])
+              ),
+              (
+                'influenza',
+                mescola(['Sullo sfondo, ', 'In generale, ', 'Nel complesso, '])
+              ),
+            ]))
+              '${apertura.first}la carta ${_testi(carta)['nota_$ruolo']}.',
+          ];
+          // **NON SI DICE DUE VOLTE LA STESSA COSA**: una lettura che ripete
+          // una parola portante della prima frase (*"tensioni"*, *"tenuta"*)
+          // sta fuori (lettore cieco, terzo giro: *"tiene a bada le tensioni"*
+          // e *"regge anche le tensioni"* a una frase di distanza).
+          var gia = '$predicato $breve';
+          for (final l in letture) {
+            if (_ripete(gia, l)) continue;
+            gia = '$gia $l';
+            postiRisposta.add(_Posto([l]));
+          }
           postiRisposta.add(const _Posto([
             'Una carta sola va letta insieme alla tua domanda.',
             'Una carta sola va letta insieme alla domanda che hai posto e al '
@@ -963,9 +1154,9 @@ abstract final class VoceDellaStesa {
           ], diRiserva: true));
         }
         final altre = _altre(spread, carta);
-        final connettori = inOrdine(tono == TonoDellaCarta.sfavorevole
-            ? ['In compenso', 'Però']
-            : ['Però', 'Eppure']);
+        final connettori = mescola(tono == TonoDellaCarta.sfavorevole
+            ? ['In compenso', 'Però', 'D\'altra parte', 'Eppure']
+            : ['Però', 'Eppure', 'D\'altro canto', 'Allo stesso tempo']);
         var contrarie = 0;
         var obbligataGia = false;
         for (final c in altre) {
@@ -975,10 +1166,20 @@ abstract final class VoceDellaStesa {
               (tono == TonoDellaCarta.sfavorevole &&
                   t == TonoDellaCarta.favorevole);
           final doveC = _doveDi(spread, c);
+          // "D'altro canto, da un lato, il Nove di Spade": due modi di dire
+          // l'altra parte in una frase sola. Il lato non si dice dopo un
+          // connettore.
+          final delLato =
+              doveC.startsWith('da un lato') || doveC.startsWith('dall\'altro');
           final frase = contraria
-              ? '${connettori[contrarie++ % connettori.length]}, $doveC, '
-                  '${nomeNellaFrase(c)} ${_nota(c)}.'
-              : '${_maiuscola(doveC)}, ${nomeNellaFrase(c)} ${_nota(c)}.';
+              ? (delLato
+                  ? '${connettori[contrarie++ % connettori.length]}, '
+                      '${nomeNellaFrase(c)} ${_nota(c)}.'
+                  : '${connettori[contrarie++ % connettori.length]}, $doveC, '
+                      '${nomeNellaFrase(c)} ${_nota(c)}.')
+              : (delLato
+                  ? 'Di fianco, ${nomeNellaFrase(c)} ${_nota(c)}.'
+                  : '${_maiuscola(doveC)}, ${nomeNellaFrase(c)} ${_nota(c)}.');
           // **LA CARTA CHE DICE IL CONTRARIO, AL CENTRO O ALL'ESITO, NON SI
           // TACE** (lettore cieco indipendente: *"la carta della rottura e'
           // taciuta"*, tarocchi-12): la prima si nomina sempre.
@@ -1033,35 +1234,23 @@ abstract final class VoceDellaStesa {
       ];
       nonFare = nonScritti;
     }
-    final letture = mescola([30, 40, 50, 60, 70]);
-    // **I GESTI DELLE ALTRE CARTE USCITE**, quelli che non contraddicono il
-    // tono del verdetto: due stese con la stessa carta chiave non hanno le
-    // stesse carte attorno, e quindi non finiscono con gli stessi gesti.
-    final gestiAltre = inOrdine({
-      for (final c in spread.cards)
-        if (!identical(c, carta) &&
-            (LaCartaNellaRisposta.di(c).tono == tono ||
-                LaCartaNellaRisposta.di(c).tono ==
-                    TonoDellaCarta.condizionato) &&
-            sensibile == null)
-          gestoDellaCarta(c),
-    }.toList());
+    final letture = mescola([30, 40, 50, 60, 70, 80, 85]);
     final postiFare = <_Posto?>[
       if (d.doppia) const _Posto([gestoDoppia], obbligatorio: true),
       if (d.vaga) const _Posto([gestoVaga], obbligatorio: true),
       if (azioni.isNotEmpty)
         _Posto([azioni.first], obbligatorio: true, lettura: 20),
-      // **IL GESTO SCRITTO DELLA CARTA DELLA RISPOSTA**, senza formule che
-      // lo presentino: vale per qualunque domanda ed e' coerente col
-      // verdetto. Sui temi sensibili non entra: nessun gesto di una carta
-      // accanto a una cura, una causa o un investimento.
       // **L'ORDINE DEI GESTI LO DA' IL FILO**: il primo e' sempre l'azione
       // della domanda, gli altri si dispongono secondo la stesa. Due stese
       // che pescano gli stessi gesti non li leggono nello stesso ordine.
       _Posto([nonFare.first], obbligatorio: true, lettura: letture[0]),
       // **LE RISERVE ENTRANO SOLO SE IL PARAGRAFO NON ARRIVA A QUARANTA
-      // PAROLE**, e l'ordine in cui si provano lo sceglie il filo: due stese
-      // con la stessa carta chiave non finiscono con gli stessi gesti.
+      // PAROLE**, e l'ordine in cui si provano lo sceglie il filo. **Nessun
+      // gesto di una carta**: il terzo giro del lettore cieco ha trovato in
+      // coda al "Cosa fare" frasi estranee alla domanda (*"Offri la tua calma
+      // a chi oggi ne ha bisogno"* a chi chiedeva di un incontro, *"Rivolgi
+      // oggi un incoraggiamento preciso a una persona"* a chi chiedeva di un
+      // esame). I gesti sono tutti scritti per la situazione della domanda.
       for (final k in mescola(['0', '1', '2', '3', '4']))
         switch (k) {
           '0' when azioni.length > 1 => _Posto([azioni[1]],
@@ -1070,14 +1259,10 @@ abstract final class VoceDellaStesa {
             _Posto([nonFare[1]], lettura: letture[2], diRiserva: true),
           '2' when azioni.length > 2 =>
             _Posto([azioni[2]], lettura: letture[3], diRiserva: true),
-          // **IL GESTO SCRITTO DELLA CARTA DELLA RISPOSTA**, senza formule
-          // che lo presentino: vale per qualunque domanda ed e' coerente col
-          // verdetto. Sui temi sensibili non entra: nessun gesto di una carta
-          // accanto a una cura, una causa o un investimento.
-          '3' when sensibile == null => _Posto([gestoDellaCarta(carta)],
-              lettura: letture[4], diRiserva: true),
-          '4' when gestiAltre.isNotEmpty => _Posto([gestiAltre.first],
-              lettura: letture[0] + 5, diRiserva: true),
+          '3' when azioni.length > 3 =>
+            _Posto([azioni[3]], lettura: letture[4], diRiserva: true),
+          '4' when nonFare.length > 2 =>
+            _Posto([nonFare[2]], lettura: letture[5], diRiserva: true),
           _ => null,
         }
     ].whereType<_Posto>().toList();

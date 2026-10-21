@@ -2817,19 +2817,26 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Informati sull\'azienda e prepara due domande da fare tu alla fine del colloquio.',
     'azione_3':
         'Arriva con dieci minuti di anticipo e porta con te il curriculum aggiornato.',
+    'azione_4':
+        'Fai una prova del colloquio con una persona di fiducia e chiedile un parere sincero.',
     'non_1':
-        'Non presentarti senza aver riletto l\'annuncio e il tuo curriculum.',
+        'Non presentarti senza aver riletto la descrizione del ruolo e il tuo curriculum.',
     'non_2': 'Non sminuire ciò che sai fare quando ti chiedono di raccontarlo.',
+    'non_3':
+        'Non arrivare di fretta: calcola il tragitto e i tempi con un margine.',
   },
   'colloquio|condizionato': {
     'azione_1':
-        'Rileggi l\'annuncio e segna i requisiti che non sai ancora dimostrare con un esempio.',
+        'Rileggi la descrizione del ruolo e segna i requisiti che non sai ancora dimostrare con un esempio.',
     'azione_2':
         'Prepara una risposta onesta alla domanda che temi di più e provala davanti a qualcuno.',
     'azione_3':
         'Chiedi all\'azienda quali compiti e quali orari prevede il ruolo prima di decidere.',
+    'azione_4':
+        'Scrivi due motivi per cui questo ruolo ti interessa davvero, in parole tue.',
     'non_1': 'Non inventare competenze che non hai soltanto per fare colpo.',
     'non_2': 'Non arrivare senza aver capito che cosa fa davvero l\'azienda.',
+    'non_3': 'Non dare risposte vaghe: porta sempre un esempio concreto.',
   },
   'colloquio|sfavorevole': {
     'azione_1':
@@ -2838,8 +2845,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Informati su cosa dicono dell\'azienda chi ci lavora e verifica con calma le condizioni.',
     'azione_3':
         'Tieni aperte altre candidature così questo colloquio non diventa l\'unica possibilità.',
+    'azione_4':
+        'Scrivi quale condizione ti farebbe rispondere di no senza esitazioni, prima di andare.',
     'non_1': 'Non puntare tutto su questo colloquio e non accettare in fretta.',
     'non_2': 'Non nascondere i tuoi dubbi su compiti, orari e condizioni.',
+    'non_3':
+        'Non giudicare il lavoro soltanto da come ti senti durante il colloquio.',
   },
   'esame|favorevole': {
     'azione_1':
@@ -2848,8 +2859,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Fai una simulazione completa della prova, con il tempo misurato, entro questa settimana.',
     'azione_3':
         'Dormi bene la notte prima e prepara in anticipo tutto ciò che serve per la prova.',
+    'azione_4':
+        'Ripeti gli argomenti principali a modo tuo, come se li spiegassi a un\'altra persona.',
     'non_1': 'Non studiare tutta la notte prima della prova.',
     'non_2': 'Non rimandare a fine mese la parte che ti spaventa di più.',
+    'non_3': 'Non cambiare metodo di studio negli ultimi giorni.',
   },
   'esame|condizionato': {
     'azione_1':
@@ -2858,9 +2872,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Dedica le prossime sessioni di studio alle parti più deboli non a quelle che preferisci.',
     'azione_3':
         'Chiedi a chi ha già sostenuto la prova che cosa viene chiesto più spesso.',
+    'azione_4':
+        'Fai una prova su un argomento debole e correggi gli errori con calma.',
     'non_1': 'Non ripassare soltanto ciò che già sai bene.',
     'non_2':
         'Non confrontarti con gli altri candidati nei giorni prima della prova.',
+    'non_3': 'Non accumulare altre ore se senti di non assimilare più nulla.',
   },
   'esame|sfavorevole': {
     'azione_1':
@@ -2869,9 +2886,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Informati sulla prossima data disponibile e organizza lo studio senza ansia sul tempo.',
     'azione_3':
         'Chiedi aiuto a chi conosce la materia e fatti spiegare i punti più difficili.',
+    'azione_4':
+        'Scrivi quali parti potresti recuperare e in quanto tempo, con onestà.',
     'non_1':
         'Non presentarti per forza alla prima data se senti di non esserci.',
     'non_2': 'Non giudicare il tuo valore da una sola prova.',
+    'non_3':
+        'Non rinunciare in anticipo: valuta prima che cosa ti serve davvero.',
   },
   'promozione|favorevole': {
     'azione_1':
@@ -2880,9 +2901,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi su una pagina che cosa hai ottenuto quest\'anno e consegnala a chi decide.',
     'azione_3':
         'Prepara una proposta chiara sul ruolo che vorresti e sui compiti che potresti assumere.',
+    'azione_4':
+        'Preparati a spiegare in due minuti perché sei la persona giusta per quel ruolo.',
     'non_1':
         'Non aspettare che qualcuno si accorga del tuo lavoro senza dirlo.',
     'non_2': 'Non chiedere la promozione in una giornata storta.',
+    'non_3':
+        'Non esagerare i risultati: porta numeri e fatti che si possano verificare.',
   },
   'promozione|condizionato': {
     'azione_1':
@@ -2891,9 +2916,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scegli una competenza che ti manca per quel ruolo e comincia a costruirla.',
     'azione_3':
         'Raccogli esempi concreti del tuo contributo e verifica che siano visibili a chi decide.',
+    'azione_4':
+        'Scrivi tre obiettivi da raggiungere nei prossimi mesi e condividili con chi decide.',
     'non_1':
         'Non chiedere un avanzamento senza aver chiarito che cosa richiede il ruolo.',
-    'non_2': 'Non confrontarti con chi ha già ottenuto un avanzamento.',
+    'non_2': 'Non confrontarti con i percorsi degli altri.',
+    'non_3': 'Non rimandare il confronto in attesa del momento perfetto.',
   },
   'promozione|sfavorevole': {
     'azione_1':
@@ -2902,8 +2930,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Annota i tuoi risultati degli ultimi mesi e valuta se esistono altre possibilità di crescita.',
     'azione_3':
         'Parla con una persona di fiducia fuori dal lavoro e chiedi un parere sincero.',
+    'azione_4':
+        'Valuta un percorso diverso da quello che desideri e confrontalo con l\'attuale.',
     'non_1': 'Non forzare adesso una richiesta che rischia di essere respinta.',
-    'non_2': 'Non lasciare che un rifiuto metta in dubbio il tuo valore.',
+    'non_2': 'Non misurare il tuo valore su una sola risposta.',
+    'non_3':
+        'Non prendere decisioni sul tuo futuro professionale in un giorno di scoraggiamento.',
   },
   'offerta|favorevole': {
     'azione_1':
@@ -2912,9 +2944,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi un colloquio in più per chiarire compiti, orari e prospettive prima di rispondere.',
     'azione_3':
         'Scegli una data entro cui rispondere e comunicala all\'azienda con cortesia.',
+    'azione_4':
+        'Chiediti che cosa vorresti ottenere da questa offerta fra un anno e scrivilo.',
     'non_1':
         'Non firmare niente prima di aver letto con calma ogni condizione.',
     'non_2': 'Non decidere soltanto sull\'entusiasmo del primo giorno.',
+    'non_3': 'Non accettare senza aver chiarito compiti, orari e retribuzione.',
   },
   'offerta|condizionato': {
     'azione_1':
@@ -2922,10 +2957,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
     'azione_2':
         'Individua la condizione senza cui non accetteresti e proponila con chiarezza all\'azienda.',
     'azione_3': 'Chiedi un parere a una persona che conosce bene il settore.',
+    'azione_4':
+        'Segna le tre domande che vuoi fare all\'azienda prima di rispondere.',
     'non_1':
         'Non accettare a scatola chiusa sull\'onda di una promessa a parole.',
     'non_2':
-        'Non lasciare il lavoro attuale prima di avere il contratto firmato.',
+        'Non lasciare un impegno attuale prima di avere il contratto firmato.',
+    'non_3': 'Non rispondere subito se hai ancora punti poco chiari.',
   },
   'offerta|sfavorevole': {
     'azione_1':
@@ -2934,8 +2972,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prenditi il tempo che serve e comunica con cortesia che hai bisogno di riflettere.',
     'azione_3':
         'Metti in fila i motivi per cui esiti e valuta se si possono chiarire.',
+    'azione_4':
+        'Confronta l\'offerta con la tua situazione attuale su tre aspetti concreti.',
     'non_1': 'Non accettare per paura di restare senza altre possibilità.',
-    'non_2': 'Non ignorare i dubbi che ripeti da giorni.',
+    'non_2': 'Non ignorare i dubbi che senti, anche se sembrano piccoli.',
+    'non_3':
+        'Non rifiutare per paura del cambiamento senza averne valutato i vantaggi.',
   },
   'lasciareIlLavoro|favorevole': {
     'azione_1':
@@ -2944,8 +2986,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Metti per iscritto un piano di sei mesi con spese, orari e obiettivi.',
     'azione_3':
         'Stabilisci una data per decidere e rispettala, senza rimandare ancora.',
+    'azione_4':
+        'Elenca le competenze che porteresti con te e che cosa ti serve ancora.',
     'non_1': 'Non lasciare il posto attuale prima di avere il piano scritto.',
     'non_2': 'Non decidere in una giornata di stanchezza.',
+    'non_3': 'Non annunciare la decisione prima di averla meditata a lungo.',
   },
   'lasciareIlLavoro|condizionato': {
     'azione_1':
@@ -2954,19 +2999,27 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prepara prima ciò che rende possibile il cambiamento, come una formazione o una nuova occupazione.',
     'azione_3':
         'Chiedi un parere a una persona esperta del campo in cui vuoi andare.',
+    'azione_4':
+        'Informati su come funzionano preavviso e tempi del tuo contratto.',
     'non_1': 'Non dare le dimissioni in un momento di rabbia.',
     'non_2':
         'Non lasciare senza aver verificato come cambierebbero le tue spese.',
+    'non_3': 'Non contare su entrate che non sono ancora sicure.',
   },
   'lasciareIlLavoro|sfavorevole': {
     'azione_1':
-        'Annota che cosa ti pesa davvero del lavoro attuale e che cosa si potrebbe cambiare.',
+        'Scrivi che cosa ti tiene nel lavoro attuale e che cosa vorresti cambiare.',
     'azione_2':
-        'Prova prima a cambiare qualcosa nel lavoro attuale e osserva se il disagio cala.',
+        'Valuta se esiste una via intermedia, come orari ridotti o un periodo di aspettativa.',
     'azione_3':
         'Rimanda la decisione di qualche settimana e raccogli informazioni su ciò che ti attira.',
-    'non_1': 'Non lasciare il lavoro per sfuggire a una difficoltà passeggera.',
+    'azione_4':
+        'Parla con una persona di fiducia e ascolta come vede la tua situazione.',
+    'non_1':
+        'Non lasciare il lavoro prima di aver verificato come coprire le spese.',
     'non_2': 'Non decidere sotto la spinta di un solo episodio.',
+    'non_3':
+        'Non prendere decisioni definitive per reazione a una giornata difficile.',
   },
   'attivita|favorevole': {
     'azione_1':
@@ -2975,8 +3028,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prova l\'idea in piccolo per un mese con pochi acquirenti veri prima di impegnare tutto.',
     'azione_3':
         'Cerca tre attività simili alla tua e annota che cosa fanno meglio di te.',
+    'azione_4':
+        'Fissa una data per la prima prova concreta e comunicala a una persona fidata.',
     'non_1': 'Non fare spese grandi prima di aver provato l\'idea in piccolo.',
     'non_2': 'Non ascoltare soltanto chi ti dice ciò che vuoi sentire.',
+    'non_3':
+        'Non rinunciare alle tue entrate prima di avere i primi riscontri.',
   },
   'attivita|condizionato': {
     'azione_1':
@@ -2985,9 +3042,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Individua il punto più incerto del progetto e cerca un modo per metterlo alla prova.',
     'azione_3':
         'Parla con una persona che ha già avviato un\'attività simile e chiedi cosa ha imparato.',
+    'azione_4':
+        'Scrivi quanto tempo e quanto denaro puoi dedicare all\'idea senza rischiare troppo.',
     'non_1':
         'Non cominciare prima di aver chiarito come sostenere i primi mesi.',
     'non_2': 'Non impegnare tutte le tue risorse in un unico tentativo.',
+    'non_3':
+        'Non fidarti soltanto di previsioni ottimistiche sui primi guadagni.',
   },
   'attivita|sfavorevole': {
     'azione_1':
@@ -2996,10 +3057,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Cerca che cosa rende fragile l\'idea e scrivi come ridurre ciascun rischio.',
     'azione_3':
         'Mantieni la tua situazione attuale mentre verifichi se l\'idea trova davvero richiesta.',
+    'azione_4':
+        'Calcola quanto puoi permetterti di perdere e fissa un limite che non superi.',
     'non_1':
         'Non aprire sull\'entusiasmo di chi ti incoraggia senza conoscere i numeri.',
     'non_2':
         'Non indebitarti per partire in fretta o per non perdere un\'occasione.',
+    'non_3': 'Non cominciare senza un piano scritto dei costi dei primi mesi.',
   },
   'progetto|favorevole': {
     'azione_1':
@@ -3008,8 +3072,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi a chi decide quando arriva la valutazione e che cosa serve ancora.',
     'azione_3':
         'Intanto raccogli esempi e dati che sostengono il progetto e tienili pronti da mostrare.',
+    'azione_4':
+        'Aggiorna la scheda del progetto con date e responsabilità chiare.',
     'non_1': 'Non riscrivere il progetto da capo mentre aspetti la risposta.',
     'non_2': 'Non dare la cosa per persa prima della decisione.',
+    'non_3':
+        'Non aggiungere nuove richieste senza che qualcuno le abbia chiesto.',
   },
   'progetto|condizionato': {
     'azione_1':
@@ -3018,9 +3086,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Individua il punto più debole del progetto e rafforzalo con un esempio concreto.',
     'azione_3':
         'Verifica se mancano documenti o requisiti e completali prima della scadenza.',
+    'azione_4':
+        'Chiedi a chi decide quali criteri vengono usati per valutare il lavoro.',
     'non_1':
         'Non cambiare le condizioni del progetto senza averne parlato con chi decide.',
     'non_2': 'Non lasciare senza risposta le richieste di chiarimento.',
+    'non_3': 'Non rinviare le risposte oltre i tempi richiesti.',
   },
   'progetto|sfavorevole': {
     'azione_1':
@@ -3029,40 +3100,54 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi un riscontro onesto su ciò che non convince e annota i motivi.',
     'azione_3':
         'Conserva il lavoro fatto e valuta dove altro presentarlo con qualche modifica.',
+    'azione_4':
+        'Scrivi che cosa hai imparato dal progetto e come usarlo in altre occasioni.',
     'non_1': 'Non prendere un eventuale rifiuto come un giudizio su di te.',
     'non_2': 'Non insistere con la stessa proposta senza averla rivista.',
+    'non_3': 'Non buttare via il lavoro fatto solo per una risposta incerta.',
   },
   'capo|favorevole': {
     'azione_1':
         'Chiedi un incontro a quattr\'occhi e porta un solo argomento detto con calma.',
     'azione_2':
-        'Scrivi i fatti del conflitto in tre righe, senza aggettivi, prima di parlarne.',
+        'Scrivi tre fatti concreti sul vostro modo di lavorare insieme, senza aggettivi, prima di parlarne.',
     'azione_3':
-        'Proponi una soluzione concreta e chiedi alla persona coinvolta cosa ne pensa.',
+        'Proponi un modo concreto di collaborare meglio e chiedi alla persona cosa ne pensa.',
+    'azione_4':
+        'Riconosci per iscritto un aspetto che funziona bene, prima di proporre cambiamenti.',
     'non_1': 'Non affrontare la questione davanti ad altre persone.',
-    'non_2': 'Non rispondere a caldo a un messaggio che ti ha ferito.',
+    'non_2':
+        'Non rispondere a un messaggio importante prima di averlo riletto con calma.',
+    'non_3':
+        'Non dare per scontato che ti abbiano capito: riassumi ciò che hai detto.',
   },
   'capo|condizionato': {
     'azione_1':
         'Chiarisci prima che cosa vuoi ottenere dal confronto e scrivilo in una frase.',
     'azione_2':
-        'Informati su cosa prevedono le regole del lavoro in questo tipo di conflitto.',
+        'Informati su cosa prevedono le regole del lavoro in casi come questo.',
     'azione_3':
         'Chiedi un confronto in un momento calmo e proponi di mettere a verbale le decisioni.',
+    'azione_4':
+        'Rileggi le regole o il contratto che riguardano la tua posizione.',
     'non_1': 'Non parlarne finché la rabbia è ancora forte.',
     'non_2':
         'Non coinvolgere altre persone prima di aver tentato un confronto diretto.',
+    'non_3':
+        'Non scrivere messaggi lunghi quando serve un confronto di persona.',
   },
   'capo|sfavorevole': {
     'azione_1':
-        'Annota date e fatti di ogni episodio così hai una traccia precisa se serve.',
+        'Annota date e fatti di ciò che accade sul lavoro così hai una traccia precisa se serve.',
     'azione_2':
         'Mantieni un tono professionale e riduci i contatti non necessari finché la tensione cala.',
     'azione_3':
-        'Chiedi un parere a una persona esterna al conflitto prima di muoverti.',
-    'non_1':
-        'Non reagire alle provocazioni né rispondere con la stessa durezza.',
-    'non_2': 'Non dare per scontato che il conflitto sia solo personale.',
+        'Chiedi un parere a una persona esterna alla situazione prima di muoverti.',
+    'azione_4':
+        'Informati su chi, nel tuo ambiente di lavoro, può ascoltarti in modo imparziale.',
+    'non_1': 'Non rispondere con durezza se un confronto si fa teso.',
+    'non_2': 'Non dare per scontato che la questione sia solo personale.',
+    'non_3': 'Non lasciare che la tensione cambi il modo in cui lavori.',
   },
   'ritorno|favorevole': {
     'azione_1':
@@ -3071,8 +3156,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Aspetta tre giorni prima di scrivere e rileggi il messaggio a mente fredda.',
     'azione_3':
         'Proponi un incontro semplice in un luogo neutro e ascolta prima di parlare.',
+    'azione_4':
+        'Chiediti che cosa vuoi davvero ritrovare e scrivilo in una frase sola.',
     'non_1': 'Non scrivere di notte o dopo una giornata storta.',
     'non_2': 'Non fingere che ciò che è successo non conti.',
+    'non_3': 'Non aspettarti che l\'altra persona cambi senza che lo dica.',
   },
   'ritorno|condizionato': {
     'azione_1':
@@ -3081,8 +3169,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi i motivi per cui la relazione è finita e verifica se sono cambiati.',
     'azione_3':
         'Lascia passare un periodo di silenzio poi valuta se hai ancora voglia di scrivere.',
+    'azione_4':
+        'Racconta a una persona fidata che cosa speri e ascolta il suo parere.',
     'non_1': 'Non cercare la persona solo perché ti manca la compagnia.',
     'non_2': 'Non promettere cambiamenti che non riesci a mantenere.',
+    'non_3':
+        'Non dare per certo che l\'altra persona provi le tue stesse cose.',
   },
   'ritorno|sfavorevole': {
     'azione_1':
@@ -3091,8 +3183,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi cosa hai imparato da questa relazione e cosa non vuoi ripetere.',
     'azione_3':
         'Cerca conforto in persone vicine e riempi il tempo con attività che ti fanno stare bene.',
+    'azione_4':
+        'Scegli un\'attività nuova da cominciare questa settimana, solo per te.',
     'non_1': 'Non inseguire una risposta che l\'altra persona non vuole dare.',
     'non_2': 'Non controllare i social per cercare segnali di un ritorno.',
+    'non_3':
+        'Non riscrivere la storia della relazione in modo più bello di com\'era.',
   },
   'fiducia|favorevole': {
     'azione_1':
@@ -3101,8 +3197,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi in una colonna i fatti che ti fanno dubitare e in un\'altra le supposizioni.',
     'azione_3':
         'Dì quello che senti usando frasi che cominciano con io, non con tu.',
+    'azione_4':
+        'Scegli un momento calmo per parlare di fiducia e prepara due frasi semplici.',
     'non_1': 'Non controllare di nascosto il telefono dell\'altra persona.',
     'non_2': 'Non accusare prima di aver chiesto e ascoltato una spiegazione.',
+    'non_3':
+        'Non interpretare un silenzio come una prova contro l\'altra persona.',
   },
   'fiducia|condizionato': {
     'azione_1':
@@ -3111,8 +3211,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Osserva nelle prossime settimane se parole e comportamenti coincidono, senza interpretare ogni dettaglio.',
     'azione_3':
         'Chiarisci con calma che cosa ti serve per avere fiducia e dillo apertamente.',
+    'azione_4':
+        'Annota in una settimana quante volte parole e fatti coincidono.',
     'non_1': 'Non trarre conclusioni da un solo episodio o da un sospetto.',
     'non_2': 'Non chiedere prove continue che logorano la relazione.',
+    'non_3':
+        'Non confrontare l\'altra persona con chi ti ha deluso in passato.',
   },
   'fiducia|sfavorevole': {
     'azione_1':
@@ -3121,8 +3225,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi un chiarimento diretto in un momento calmo e osserva se la risposta è coerente.',
     'azione_3':
         'Parla con una persona di fiducia fuori dalla relazione per avere uno sguardo esterno.',
+    'azione_4':
+        'Scrivi che cosa ti serve per sentirti al sicuro e chiedilo con chiarezza.',
     'non_1': 'Non ignorare il disagio sperando che si risolva da sé.',
     'non_2': 'Non decidere nulla della relazione nel mezzo di una discussione.',
+    'non_3': 'Non restare in un dubbio continuo senza dirlo a nessuno.',
   },
   'sentimenti|favorevole': {
     'azione_1':
@@ -3131,8 +3238,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Guarda i gesti degli ultimi giorni più delle parole e scrivi tre fatti concreti.',
     'azione_3':
         'Proponi un momento insieme senza pretese e osserva come l\'altra persona risponde.',
+    'azione_4':
+        'Racconta con una frase semplice che cosa provi tu, prima di chiedere all\'altra persona.',
     'non_1': 'Non cercare la risposta nei messaggi o nei social.',
     'non_2': 'Non chiedere conferme a chi non c\'entra.',
+    'non_3': 'Non leggere in ogni gesto una conferma o una smentita.',
   },
   'sentimenti|condizionato': {
     'azione_1':
@@ -3140,8 +3250,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
     'azione_2':
         'Chiedi con delicatezza che cosa l\'altra persona desidera e ascolta senza anticipare la risposta.',
     'azione_3': 'Chiarisci per iscritto che cosa vuoi tu da questa situazione.',
+    'azione_4':
+        'Dai tempo alla conoscenza e nota come ti senti dopo ogni incontro.',
     'non_1': 'Non dare significato a ogni silenzio o ritardo nelle risposte.',
     'non_2': 'Non anticipare i sentimenti altrui prima di averne parlato.',
+    'non_3': 'Non forzare una risposta con domande insistenti.',
   },
   'sentimenti|sfavorevole': {
     'azione_1':
@@ -3150,8 +3263,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi con chiarezza che cosa l\'altra persona prova accettando la risposta anche se pesa.',
     'azione_3':
         'Parla con una persona di fiducia di come ti senti senza cercare conferme.',
+    'azione_4':
+        'Dedica questa settimana a un\'attività tua e osserva come cambia il tuo umore.',
     'non_1': 'Non inseguire attenzioni che arrivano a intermittenza.',
     'non_2': 'Non costruire aspettative su pochi segnali ambigui.',
+    'non_3': 'Non rimandare la tua vita in attesa di un segnale.',
   },
   'dichiararsi|favorevole': {
     'azione_1':
@@ -3160,9 +3276,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Proponi un caffè a due e di\' quello che senti in poche parole.',
     'azione_3':
         'Usa parole tue e parla di ciò che provi non di ciò che pretendi.',
+    'azione_4':
+        'Scegli due frasi semplici e sincere, poi dille senza preparare un discorso lungo.',
     'non_1': 'Non dichiararti per messaggio o davanti ad altre persone.',
     'non_2':
         'Non pretendere una risposta immediata: dai all\'altra persona il tempo che le serve.',
+    'non_3': 'Non scusarti di ciò che provi: è un sentimento, non una colpa.',
   },
   'dichiararsi|condizionato': {
     'azione_1':
@@ -3171,9 +3290,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Crea prima l\'occasione di conoscervi meglio con una conversazione senza pressioni.',
     'azione_3':
         'Osserva se l\'altra persona cerca la tua compagnia e rende spontanee le conversazioni.',
+    'azione_4':
+        'Osserva con calma come l\'altra persona reagisce quando parli di te.',
     'non_1':
         'Non dichiararti nel mezzo di un momento difficile per l\'altra persona.',
     'non_2': 'Non rimandare all\'infinito per paura di rovinare ciò che c\'è.',
+    'non_3': 'Non trasformare l\'attesa in una prova di forza.',
   },
   'dichiararsi|sfavorevole': {
     'azione_1':
@@ -3182,9 +3304,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Coltiva la relazione che c\'è, amicale o di conoscenza, senza forzarla verso altro.',
     'azione_3':
         'Occupa il tempo con attività e persone che ti fanno stare bene adesso.',
+    'azione_4':
+        'Pensa a che cosa faresti se la risposta fosse diversa da quella che speri.',
     'non_1':
         'Non dichiararti sull\'onda dell\'emozione senza segnali di ricambio.',
     'non_2': 'Non fare gesti eclatanti per forzare una risposta.',
+    'non_3': 'Non investire tutte le tue speranze su un\'unica risposta.',
   },
   'coppia|favorevole': {
     'azione_1':
@@ -3193,8 +3318,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Parlate di una cosa sola che vorreste cambiare, a turno e senza interrompervi.',
     'azione_3':
         'Dite a turno una cosa dell\'altra persona che apprezzate e che non dite da tempo.',
+    'azione_4':
+        'Scegliete un progetto piccolo da fare insieme questo mese e fissate il giorno.',
     'non_1': 'Non tenere il conto di chi ha dato di più.',
     'non_2': 'Non lasciare che i silenzi parlino al posto vostro.',
+    'non_3':
+        'Non dare per scontato che l\'altra persona sappia già cosa pensi.',
   },
   'coppia|condizionato': {
     'azione_1':
@@ -3203,18 +3332,25 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Decidete una regola semplice per le discussioni, come fermarsi quando i toni salgono.',
     'azione_3':
         'Dedicate un\'ora a settimana a parlare di voi senza parlare di impegni e problemi pratici.',
+    'azione_4':
+        'Scrivi che cosa ti serve dalla relazione e leggilo con calma all\'altra persona.',
     'non_1': 'Non rimandare il chiarimento in attesa che si risolva da sé.',
     'non_2': 'Non affrontare i problemi nei momenti di maggiore tensione.',
+    'non_3': 'Non usare il passato come un\'arma durante i chiarimenti.',
   },
   'coppia|sfavorevole': {
     'azione_1':
         'Fermatevi a dire con sincerità che cosa non funziona e che cosa vi manca.',
     'azione_2':
-        'Prendete una pausa dalle discussioni di qualche giorno e riparlatene con la mente più calma.',
+        'Prendetevi qualche giorno di calma e poi riparlatene con la mente più serena.',
     'azione_3':
         'Valutate se serve un aiuto esterno, come un mediatore o un consulente di coppia.',
+    'azione_4':
+        'Prenditi del tempo per te, in silenzio, per capire cosa desideri davvero.',
     'non_1': 'Non decidere il futuro della relazione nel pieno di una lite.',
-    'non_2': 'Non accumulare in silenzio ciò che ti ferisce fino a esplodere.',
+    'non_2': 'Non accumulare in silenzio ciò che non va fino a esplodere.',
+    'non_3':
+        'Non cercare un alleato fra amici e parenti contro l\'altra persona.',
   },
   'distanza|favorevole': {
     'azione_1':
@@ -3223,8 +3359,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scegliete una sera alla settimana per una videochiamata senza fretta, riservata a voi due.',
     'azione_3':
         'Condividete a turno un momento concreto della giornata, con foto e dettagli veri.',
+    'azione_4':
+        'Programmate un\'attività da fare ciascuno per conto proprio e raccontatevela poi.',
     'non_1': 'Non misurare il legame sul numero dei messaggi.',
     'non_2': 'Non rimandare la domanda su quando vivere più vicini.',
+    'non_3':
+        'Non dare per scontato che l\'altra persona senta ciò che non dici.',
   },
   'distanza|condizionato': {
     'azione_1':
@@ -3233,8 +3373,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivete una condizione concreta, come una data o una decisione, da verificare insieme.',
     'azione_3':
         'Verificate che entrambi investiate tempo ed energie in modo simile.',
+    'azione_4':
+        'Confrontate con sincerità le aspettative di ciascuno sui prossimi mesi.',
     'non_1': 'Non basare la relazione solo sulle promesse di un futuro vicino.',
     'non_2': 'Non lasciare che i dubbi crescano senza dirli.',
+    'non_3': 'Non tacere i dubbi per evitare una discussione a distanza.',
   },
   'distanza|sfavorevole': {
     'azione_1':
@@ -3243,8 +3386,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Valutate insieme se esiste un modo concreto di avvicinarvi e in quanto tempo.',
     'azione_3':
         'Curate nel frattempo la vostra vita quotidiana così la relazione non resta l\'unico pensiero.',
+    'azione_4':
+        'Ascolta con calma come sta vivendo la distanza l\'altra persona.',
     'non_1': 'Non sopportare in silenzio una distanza che non ha scadenza.',
-    'non_2': 'Non riempire il vuoto con incontri che non ti somigliano.',
+    'non_2': 'Non riempire il tempo con impegni che non ti somigliano.',
+    'non_3':
+        'Non prendere decisioni definitive durante una videochiamata stanca.',
   },
   'incontro|favorevole': {
     'azione_1':
@@ -3253,8 +3400,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scegli un ambiente che ti piace davvero e frequentalo con regolarità.',
     'azione_3':
         'Racconta ad amici e conoscenti che hai voglia di conoscere persone nuove.',
+    'azione_4':
+        'Quando conosci qualcuno proponi un\'attività semplice e breve, in un luogo pubblico.',
     'non_1': 'Non chiuderti in casa aspettando che succeda qualcosa.',
     'non_2': 'Non giudicare una persona dal primo minuto di conversazione.',
+    'non_3':
+        'Non rimandare ogni contatto finché non ti senti in ordine in tutto.',
   },
   'incontro|condizionato': {
     'azione_1':
@@ -3263,29 +3414,38 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Frequenta luoghi e attività coerenti con i tuoi interessi, anche se all\'inizio costa fatica.',
     'azione_3':
         'Lavora su ciò che ti rende difficile aprirti agli altri, un piccolo gesto alla volta.',
+    'azione_4':
+        'Racconta a una persona fidata che tipo di legame cerchi e ascolta cosa pensa.',
     'non_1': 'Non rincorrere l\'idea di una persona perfetta che non esiste.',
     'non_2':
         'Non forzare l\'intimità prima di conoscere davvero l\'altra persona.',
+    'non_3': 'Non scegliere soltanto in base all\'aspetto o al primo effetto.',
   },
   'incontro|sfavorevole': {
     'azione_1':
-        'Fermati a capire se stai cercando una persona o fuggendo da qualcos\'altro.',
+        'Chiediti che cosa cerchi davvero in un incontro e scrivilo in una frase sola.',
     'azione_2':
         'Ricostruisci prima le tue amicizie e i tuoi interessi poi cerca nuovi incontri.',
     'azione_3':
         'Incontra le persone in luoghi pubblici e informa qualcuno di fiducia dei tuoi programmi.',
+    'azione_4':
+        'Dedica il tempo di questa settimana a una passione che ti appartiene.',
     'non_1': 'Non affidarti a chi ti pressa per fare tutto in fretta.',
     'non_2': 'Non ignorare i segnali di disagio quando conosci qualcuno.',
+    'non_3': 'Non affrettare un incontro per colmare un momento di solitudine.',
   },
   'pace|favorevole': {
     'azione_1':
-        'Manda un messaggio breve che riconosca la tua parte, senza chiedere niente in cambio.',
+        'Manda un messaggio breve e sincero che dica che ti importa del rapporto.',
     'azione_2':
         'Proponi un incontro in un posto neutro, per un caffè e non per un processo.',
     'azione_3':
         'Comincia dicendo che cosa ti è mancato della relazione prima di parlare della lite.',
+    'azione_4':
+        'Ricorda un episodio felice che avete vissuto e usalo come punto d\'incontro.',
     'non_1': 'Non riaprire la lite su chi aveva ragione.',
     'non_2': 'Non coinvolgere altri parenti nella vostra questione.',
+    'non_3': 'Non pretendere che la conversazione risolva tutto in una volta.',
   },
   'pace|condizionato': {
     'azione_1':
@@ -3294,8 +3454,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi che cosa vuoi davvero ottenere dal chiarimento: la pace o dimostrare di avere ragione.',
     'azione_3':
         'Chiedi se l\'altra persona è disponibile a parlare e scegli insieme il momento.',
+    'azione_4':
+        'Scrivi quali parole useresti perché il tuo messaggio sia accolto con calma.',
     'non_1': 'Non presentarti a sorpresa per forzare un chiarimento.',
     'non_2': 'Non pretendere scuse prima di offrire un gesto di apertura.',
+    'non_3': 'Non usare altre persone come messaggeri fra voi due.',
   },
   'pace|sfavorevole': {
     'azione_1':
@@ -3304,29 +3467,39 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Parla con una persona neutrale e fatti aiutare a vedere anche il punto di vista altrui.',
     'azione_3':
         'Proteggi la tua serenità limitando i contatti finché il clima non si calma.',
+    'azione_4':
+        'Dedica del tempo a ciò che ti calma prima di decidere se riprendere i contatti.',
     'non_1': 'Non cercare un chiarimento nel mezzo della rabbia.',
     'non_2': 'Non parlare male dell\'altra persona con gli amici comuni.',
+    'non_3':
+        'Non rispondere a un messaggio di tensione prima di averlo riletto.',
   },
   'figli|favorevole': {
     'azione_1':
         'Trova un momento a due e ascolta più di quanto parli, senza fare domande dirette.',
     'azione_2':
-        'Proponi un\'attività da fare insieme questa settimana, scelta da chi ha bisogno di aiuto.',
+        'Proponi un\'attività da fare insieme questa settimana e sceglietela insieme.',
     'azione_3':
-        'Di\' alla persona che vuoi aiutare che ci sei, senza chiedere spiegazioni subito.',
+        'Fai capire con un gesto semplice che ci sei, senza chiedere spiegazioni subito.',
+    'azione_4':
+        'Racconta un ricordo bello condiviso e lascia che sia l\'altra persona a continuare.',
     'non_1': 'Non riempire il silenzio di consigli che nessuno ti ha chiesto.',
     'non_2': 'Non fare paragoni con altre persone della stessa età.',
+    'non_3': 'Non trasformare ogni conversazione in un interrogatorio.',
   },
   'figli|condizionato': {
     'azione_1':
-        'Osserva per qualche giorno quando la persona sta meglio o peggio e annota cosa cambia.',
+        'Osserva per qualche giorno quando la conversazione scorre meglio e annota cosa cambia.',
     'azione_2':
         'Chiedi come puoi essere utile e rispetta la risposta, anche se è un no.',
     'azione_3':
-        'Informati su chi può aiutare in modo competente e proponi questa possibilità con delicatezza.',
+        'Se serve, informati su chi può aiutare in modo competente e proponilo con delicatezza.',
+    'azione_4':
+        'Scrivi due cose che apprezzi nel vostro rapporto e dillo alla prima occasione.',
     'non_1':
         'Non imporre una soluzione prima di aver capito cosa serve davvero.',
-    'non_2': 'Non minimizzare la difficoltà con frasi di circostanza.',
+    'non_2': 'Non chiudere il discorso con frasi di circostanza.',
+    'non_3': 'Non confrontare la tua infanzia con quella di oggi.',
   },
   'figli|sfavorevole': {
     'azione_1':
@@ -3335,8 +3508,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Cerca un aiuto competente, come un medico o uno psicologo, se la situazione si aggrava.',
     'azione_3':
         'Prenditi cura anche di te e confrontati con una persona di fiducia su come stai.',
+    'azione_4':
+        'Concediti una pausa dalle preoccupazioni con un\'attività che ti rilassa.',
     'non_1': 'Non portare tutto il carico senza chiedere aiuto a qualcuno.',
-    'non_2': 'Non cercare un colpevole per ciò che sta accadendo.',
+    'non_2': 'Non cercare un colpevole per ogni tensione.',
+    'non_3': 'Non rimandare un confronto sereno per paura della reazione.',
   },
   'genitori|favorevole': {
     'azione_1':
@@ -3345,8 +3521,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Parlane con calma a cena, dicendo che cosa cambia e che cosa resta come prima.',
     'azione_3':
         'Fissa una data per le prime ricerche e visita almeno tre soluzioni possibili.',
+    'azione_4':
+        'Parla con chi ha già fatto questa scelta e chiedi cosa ha capito dopo i primi mesi.',
     'non_1': 'Non annunciarlo nel mezzo di una discussione.',
     'non_2': 'Non rimandare la scelta solo per paura di deludere.',
+    'non_3': 'Non scegliere una casa soltanto perché costa poco.',
   },
   'genitori|condizionato': {
     'azione_1':
@@ -3355,8 +3534,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Spiega le tue ragioni con calma e ascolta le preoccupazioni di chi vive con te.',
     'azione_3':
         'Prepara un piano graduale con tappe e tempi prima di fissare la data del trasloco.',
+    'azione_4':
+        'Verifica quanto tempo e quanto denaro richiedono i primi mesi di autonomia.',
     'non_1': 'Non partire senza aver verificato di poter reggere le spese.',
     'non_2': 'Non presentare la scelta come un rifiuto di chi ti ha cresciuto.',
+    'non_3': 'Non sottovalutare le spese nascoste di una nuova abitazione.',
   },
   'genitori|sfavorevole': {
     'azione_1':
@@ -3365,8 +3547,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Cerca di capire cosa ti spinge ad andare via e se si può migliorare.',
     'azione_3':
         'Parla della situazione con una persona di fiducia esterna alla famiglia.',
+    'azione_4':
+        'Scrivi che cosa ti manca per sentire di poter partire con serenità.',
     'non_1': 'Non andartene in un momento di rabbia o di tensione.',
     'non_2': 'Non lasciare che i litigi decidano al posto tuo.',
+    'non_3': 'Non cercare l\'indipendenza come una fuga da una discussione.',
   },
   'famigliaDiLui|favorevole': {
     'azione_1':
@@ -3375,9 +3560,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Porta un piccolo dono e fai una domanda sincera a chi ti accoglie.',
     'azione_3':
         'Chiedi in anticipo a chi ti ha invitato cosa aspettarti dall\'incontro e come comportarti.',
+    'azione_4':
+        'Scegli un abito comodo in cui ti riconosci e che ti faccia sentire a tuo agio.',
     'non_1':
         'Non entrare in discussioni su politica o vecchie questioni di famiglia.',
-    'non_2': 'Non bere un bicchiere in più per allentare la tensione.',
+    'non_2': 'Non rimandare la risposta all\'invito fino all\'ultimo momento.',
+    'non_3':
+        'Non aspettarti che tutti ti conoscano già: presentati con semplicità.',
   },
   'famigliaDiLui|condizionato': {
     'azione_1':
@@ -3385,21 +3574,27 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
     'azione_2':
         'Individua un\'occasione breve per cominciare, come un caffè, invece di un pranzo lungo.',
     'azione_3':
-        'Stabilisci con chi ti accompagna come uscire dalla situazione se ti senti a disagio.',
+        'Stabilisci in anticipo come andartene con garbo se ti senti a disagio.',
+    'azione_4':
+        'Ascolta più di quanto parli nel primo incontro e fai domande sulla loro storia.',
     'non_1':
         'Non andare senza aver chiarito quale sia il tuo ruolo nell\'incontro.',
     'non_2':
         'Non cercare di piacere a tutti i costi mostrando un\'immagine falsa.',
+    'non_3': 'Non prendere posizione in discussioni che non ti riguardano.',
   },
   'famigliaDiLui|sfavorevole': {
     'azione_1':
-        'Parla prima con la persona che ti invita delle tue preoccupazioni sull\'incontro.',
+        'Parla prima con chi ti invita di come vorresti che andasse l\'incontro.',
     'azione_2':
         'Valuta se rimandare e proponi un incontro più semplice in un clima meno teso.',
     'azione_3':
         'Prepara una scusa cortese per allontanarti se la tensione cresce troppo.',
+    'azione_4':
+        'Valuta di vedervi prima in un contesto più piccolo e informale.',
     'non_1': 'Non affrontare vecchi conflitti durante un pranzo o una cena.',
     'non_2': 'Non forzare un incontro quando non senti di essere a tuo agio.',
+    'non_3': 'Non farti carico delle aspettative di tutti i presenti.',
   },
   'trasferimento|favorevole': {
     'azione_1':
@@ -3408,9 +3603,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi tre cose che ti trattengono e tre che ti attirano poi confronta le liste.',
     'azione_3':
         'Fissa una data entro cui decidere e organizza gli impegni pratici da sbrigare.',
+    'azione_4':
+        'Informati su costi, trasporti e servizi del luogo che ti attira.',
     'non_1':
         'Non decidere senza aver visto il posto in una giornata qualunque.',
     'non_2': 'Non partire soltanto per scappare da qualcosa.',
+    'non_3': 'Non farti guidare soltanto da un periodo di vacanza vissuto là.',
   },
   'trasferimento|condizionato': {
     'azione_1':
@@ -3419,8 +3617,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prova una soluzione temporanea prima di spostarti in modo definitivo.',
     'azione_3':
         'Parla con chi vive già dove pensi di andare e chiedi quali sono le difficoltà reali.',
+    'azione_4': 'Scrivi le tre cose da cui dipende per te la decisione.',
     'non_1': 'Non lasciare ciò che hai prima di avere una base sicura altrove.',
     'non_2': 'Non idealizzare il posto nuovo e svalutare quello in cui vivi.',
+    'non_3':
+        'Non firmare impegni lunghi prima di aver provato la soluzione temporanea.',
   },
   'trasferimento|sfavorevole': {
     'azione_1':
@@ -3429,9 +3630,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Cerca di migliorare qualcosa nel posto in cui vivi prima di decidere di lasciarlo.',
     'azione_3':
         'Parla con una persona di fiducia dei motivi veri che ti fanno pensare di partire.',
+    'azione_4':
+        'Annota che cosa ti trattiene dove sei e che cosa potresti migliorare.',
     'non_1': 'Non partire per rabbia o per delusione.',
     'non_2':
         'Non prendere decisioni definitive sull\'onda di un periodo difficile.',
+    'non_3':
+        'Non rinunciare ai legami che hai senza averne valutato il valore.',
   },
   'casa|favorevole': {
     'azione_1':
@@ -3440,8 +3645,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi un parere a un professionista sullo stato dell\'immobile e sui documenti.',
     'azione_3':
         'Visita la zona in orari diversi della giornata per capire come si vive davvero.',
+    'azione_4':
+        'Fai un elenco di ciò che non può mancare e di ciò che puoi sacrificare.',
     'non_1': 'Non firmare una proposta nello stesso giorno della visita.',
     'non_2': 'Non decidere sotto la pressione di chi vende.',
+    'non_3':
+        'Non trascurare spese di gestione, tasse e manutenzione nel conto finale.',
   },
   'casa|condizionato': {
     'azione_1':
@@ -3450,9 +3659,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi quali caratteristiche sono indispensabili e quali solo desiderabili poi confronta le case.',
     'azione_3':
         'Verifica con calma documenti e condizioni di contratto, facendoti aiutare da chi è competente.',
+    'azione_4':
+        'Confronta almeno due preventivi o offerte prima di prendere un impegno.',
     'non_1':
         'Non impegnarti prima di aver letto ogni documento con un professionista.',
     'non_2': 'Non scegliere solo per l\'entusiasmo della prima visita.',
+    'non_3': 'Non fidarti di promesse che non compaiono nei documenti.',
   },
   'casa|sfavorevole': {
     'azione_1':
@@ -3461,20 +3673,26 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi a un professionista abilitato una valutazione prudente prima di muovere qualsiasi decisione.',
     'azione_3':
         'Considera con calma un\'alternativa temporanea, come un affitto breve, mentre ti informi.',
+    'azione_4':
+        'Valuta con calma se la scadenza che senti è reale o solo una pressione.',
     'non_1':
         'Non firmare niente sotto pressione di scadenze o di offerte concorrenti.',
     'non_2': 'Non lasciare che l\'urgenza decida al posto tuo.',
+    'non_3': 'Non impegnare risparmi che ti servono per le emergenze.',
   },
   'amicizia|favorevole': {
     'azione_1':
-        'Di\' a quella persona, a quattr\'occhi, che cosa ti ha ferito e osserva come risponde.',
+        'Di\' a quella persona, a quattr\'occhi, che cosa pensi di questa amicizia e osserva come risponde.',
     'azione_2':
         'Proponi un incontro semplice e ascolta con attenzione anche la sua versione.',
     'azione_3':
         'Ricorda un momento bello vissuto insieme e raccontalo prima di parlare dei problemi.',
+    'azione_4':
+        'Invita quella persona a fare qualcosa che vi piaceva fare insieme.',
     'non_1':
         'Non sparire senza una parola: anche una chiusura merita rispetto.',
     'non_2': 'Non parlarne male con gli amici comuni.',
+    'non_3': 'Non aspettare l\'occasione perfetta per farti sentire.',
   },
   'amicizia|condizionato': {
     'azione_1':
@@ -3483,19 +3701,24 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi che cosa è cambiato nel rapporto e se puoi ancora riconoscerti.',
     'azione_3':
         'Chiarisci la tua posizione con una frase semplice e chiedi quella dell\'altra persona.',
+    'azione_4':
+        'Ricorda tre momenti in cui questa persona ti è stata vicina e tre in cui no.',
     'non_1': 'Non chiudere il rapporto nel mezzo di un litigio.',
     'non_2': 'Non aspettare che sia l\'altra persona a fare tutto.',
+    'non_3': 'Non decidere in base a una sola conversazione.',
   },
   'amicizia|sfavorevole': {
     'azione_1':
         'Prendi le distanze con calma e senza recriminazioni, proteggendo il tuo equilibrio.',
     'azione_2':
-        'Riconosci cosa ti fa stare male nel rapporto e decidi quale limite porre.',
+        'Chiediti che cosa ti fa stare bene e che cosa no in questo rapporto e fissa un limite.',
     'azione_3':
         'Dedica più tempo alle persone che ti fanno sentire a tuo agio.',
-    'non_1':
-        'Non restare in un rapporto che ti toglie energie per senso di colpa.',
-    'non_2': 'Non cercare vendetta né rispondere alle provocazioni.',
+    'azione_4':
+        'Prenditi del tempo prima di rispondere a qualsiasi richiesta di questa persona.',
+    'non_1': 'Non restare in un rapporto soltanto per senso di colpa.',
+    'non_2': 'Non parlare male di questa persona con gli amici comuni.',
+    'non_3': 'Non decidere la fine dell\'amicizia in un momento di rabbia.',
   },
   'studi|favorevole': {
     'azione_1':
@@ -3504,8 +3727,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Parla con uno studente di ciascun corso e chiedi com\'è una settimana normale.',
     'azione_3':
         'Guarda i programmi degli esami e le possibilità di lavoro che ciascun percorso apre.',
+    'azione_4':
+        'Scrivi dove ti vedi fra tre anni nei due percorsi e confronta le risposte.',
     'non_1': 'Non scegliere solo in base a ciò che fanno gli amici.',
     'non_2': 'Non decidere guardando soltanto il prestigio del nome.',
+    'non_3': 'Non sottovalutare l\'impegno di tempo che richiede lo studio.',
   },
   'studi|condizionato': {
     'azione_1':
@@ -3514,9 +3740,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Assisti a una lezione aperta o a una presentazione del percorso che ti attira.',
     'azione_3':
         'Chiediti quale materia studieresti volentieri anche senza esami e annota la risposta.',
+    'azione_4':
+        'Informati sui costi complessivi del percorso e su eventuali agevolazioni.',
     'non_1':
         'Non iscriverti prima di aver capito quanto tempo richiede davvero lo studio.',
     'non_2': 'Non scegliere un percorso solo per far contenti gli altri.',
+    'non_3': 'Non decidere prima di aver visto i programmi con calma.',
   },
   'studi|sfavorevole': {
     'azione_1':
@@ -3525,20 +3754,27 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Valuta un percorso più breve o più flessibile da cui poter cambiare direzione.',
     'azione_3':
         'Parla con un orientatore o con un docente per chiarire dubbi e alternative.',
+    'azione_4':
+        'Prova per una settimana lo studio di una materia del percorso prima di iscriverti.',
     'non_1':
         'Non iscriverti per paura di restare indietro rispetto agli altri.',
     'non_2': 'Non ignorare i segnali che il percorso non fa per te.',
+    'non_3':
+        'Non scegliere il percorso per evitare un\'altra scelta più difficile.',
   },
   'attesa|favorevole': {
     'azione_1':
-        'Scrivi sul calendario la data oltre la quale chiedi tu notizie, con un messaggio breve e cortese.',
+        'Scegli una data oltre la quale sei tu a chiedere notizie e scrivila sul calendario.',
     'azione_2': 'Occupa l\'attesa con una cosa utile che dipende solo da te.',
     'azione_3':
         'Prepara fin d\'ora ciò che serve quando la risposta arriva così sei in ordine.',
+    'azione_4':
+        'Concediti una piccola gratificazione ogni giorno mentre aspetti, senza legarla alla risposta.',
     'non_1':
         'Non controllare il telefono ogni ora: l\'attesa diventa solo più lunga.',
     'non_2':
         'Non leggere il silenzio come un rifiuto prima di averne le prove.',
+    'non_3': 'Non passare il tempo a immaginare scenari sulla risposta.',
   },
   'attesa|condizionato': {
     'azione_1':
@@ -3546,10 +3782,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
     'azione_2':
         'Verifica di aver fornito tutto ciò che serviva e manda ciò che manca.',
     'azione_3':
-        'Prepara un piano alternativo da usare se la risposta tarda oltre la data prevista.',
+        'Prepara un piano alternativo da usare se la risposta tarda troppo.',
+    'azione_4':
+        'Rileggi cosa hai inviato e controlla che sia chiaro e completo.',
     'non_1':
-        'Non sollecitare più volte nello stesso giorno chi deve risponderti.',
+        'Non mandare più messaggi di sollecito senza aver aspettato un tempo ragionevole.',
     'non_2': 'Non fermare la tua vita in attesa di quella notizia.',
+    'non_3': 'Non interpretare ogni ritardo come un segnale negativo.',
   },
   'attesa|sfavorevole': {
     'azione_1':
@@ -3558,10 +3797,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prendi nota di come ti senti nell\'attesa e parlane con una persona di fiducia.',
     'azione_3':
         'Mantieni le tue abitudini e dedica tempo a ciò che ti fa stare meglio.',
+    'azione_4':
+        'Dedica la prossima ora a una cosa pratica che dipende solo da te.',
     'non_1':
         'Non costruire aspettative alte su una risposta che non dipende da te.',
     'non_2':
         'Non scrivere messaggi insistenti per ottenere subito una risposta.',
+    'non_3': 'Non rimandare altre decisioni finché la risposta non arriva.',
   },
   'stallo|favorevole': {
     'azione_1':
@@ -3570,9 +3812,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scegli una cosa ferma da tempo e dedicale mezz\'ora ogni mattina.',
     'azione_3':
         'Scrivi quale cambiamento piccolo e concreto potrebbe rimettere in movimento la situazione.',
+    'azione_4':
+        'Chiedi a una persona fidata cosa farebbe al tuo posto e annota le idee.',
     'non_1': 'Non aspettare che il cambiamento arrivi da fuori.',
     'non_2':
         'Non ripetere ogni giorno le stesse mosse sperando in un esito diverso.',
+    'non_3': 'Non pretendere un cambiamento enorme: parti da un gesto piccolo.',
   },
   'stallo|condizionato': {
     'azione_1':
@@ -3581,8 +3826,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Verifica se manca un\'informazione, una decisione o un consenso e procuratela.',
     'azione_3':
         'Concediti una pausa breve per riprendere lucidità poi scegli da dove ripartire.',
+    'azione_4':
+        'Dividi la situazione in tre parti piccole e scegli da quale cominciare.',
     'non_1': 'Non forzare una soluzione prima di aver capito cosa blocca.',
     'non_2': 'Non scambiare la pausa per un fallimento.',
+    'non_3': 'Non confondere un momento di calma con l\'immobilità.',
   },
   'stallo|sfavorevole': {
     'azione_1':
@@ -3591,9 +3839,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Dedicati a ciò che puoi controllare, come riposo, abitudini e relazioni vicine.',
     'azione_3':
         'Chiedi un parere esterno a una persona di fiducia su cosa potrebbe sfuggirti.',
+    'azione_4': 'Riposa, mangia bene e cura le abitudini di ogni giorno.',
     'non_1': 'Non insistere con le stesse azioni che non hanno prodotto nulla.',
     'non_2':
         'Non prendere decisioni drastiche per uscire dal disagio dell\'attesa.',
+    'non_3': 'Non cercare un colpevole per la situazione di stallo.',
   },
   'cambiamento|favorevole': {
     'azione_1':
@@ -3602,8 +3852,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prepara una cosa concreta per accogliere il cambiamento, come un\'agenda, un posto o un orario.',
     'azione_3':
         'Parla del cambiamento con una persona di fiducia e ascolta come lo vede.',
+    'azione_4':
+        'Segna sul calendario le prime tre scadenze legate al cambiamento.',
     'non_1': 'Non resistere per abitudine a ciò che sta già cambiando.',
     'non_2': 'Non giudicare il cambiamento dal primo giorno.',
+    'non_3': 'Non vivere il cambiamento come una prova di forza.',
   },
   'cambiamento|condizionato': {
     'azione_1':
@@ -3612,8 +3865,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Osserva i segnali concreti del cambiamento e distingui i fatti dalle tue paure.',
     'azione_3':
         'Prepara un piano flessibile con una scelta alternativa se le cose vanno diversamente.',
+    'azione_4':
+        'Confronta due scenari possibili e scrivi cosa faresti in ciascuno.',
     'non_1': 'Non anticipare il cambiamento con decisioni affrettate.',
     'non_2': 'Non ignorare i segnali per evitare il disagio di decidere.',
+    'non_3': 'Non decidere sotto l\'effetto di una singola notizia.',
   },
   'cambiamento|sfavorevole': {
     'azione_1':
@@ -3622,9 +3878,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Rimanda le scelte irreversibili finché il quadro non è più chiaro.',
     'azione_3':
         'Chiedi sostegno a persone di fiducia prima che il cambiamento prenda piena forma.',
+    'azione_4':
+        'Riposa a sufficienza e mantieni le abitudini che ti fanno stare bene.',
     'non_1': 'Non affrontare tutto il cambiamento senza chiedere sostegno.',
     'non_2':
         'Non prendere decisioni importanti nel momento di maggiore agitazione.',
+    'non_3':
+        'Non cancellare tutto ciò che c\'era prima per ricominciare da zero.',
   },
   'amoreQuadro|favorevole': {
     'azione_1':
@@ -3633,9 +3893,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Dedica questa settimana una sera intera a ciò che conta nella tua vita affettiva.',
     'azione_3':
         'Cura le relazioni che già hai: scrivi o chiama una persona a cui tieni.',
+    'azione_4':
+        'Racconta a una persona vicina cosa desideri e ascolta cosa pensa.',
     'non_1':
         'Non accontentarti di attenzioni a metà per paura di restare senza.',
     'non_2': 'Non cercare conferme del tuo valore soltanto negli altri.',
+    'non_3': 'Non confrontare la tua storia con quella degli altri.',
   },
   'amoreQuadro|condizionato': {
     'azione_1':
@@ -3644,9 +3907,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Osserva quali relazioni ti nutrono e quali ti svuotano, senza giudicare nessuno.',
     'azione_3':
         'Esprimi con chiarezza un tuo bisogno affettivo a una persona vicina.',
+    'azione_4': 'Scrivi tre qualità che cerchi in un legame e tre che offri.',
     'non_1':
         'Non rincorrere un\'idea d\'amore che non corrisponde alla tua realtà.',
     'non_2': 'Non confondere l\'abitudine con un sentimento vero.',
+    'non_3': 'Non cercare risposte nelle relazioni degli altri.',
   },
   'amoreQuadro|sfavorevole': {
     'azione_1':
@@ -3655,9 +3920,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Dedica tempo ad amicizie e interessi che ti fanno stare bene adesso.',
     'azione_3':
         'Parla di ciò che senti con una persona di fiducia, senza cercare soluzioni subito.',
+    'azione_4':
+        'Concediti una settimana di cura per te prima di fare scelte affettive.',
     'non_1': 'Non decidere del tuo cuore per paura di restare senza.',
-    'non_2':
-        'Non accettare ciò che ti fa stare male per evitare la solitudine.',
+    'non_2': 'Non scegliere un legame soltanto per evitare la solitudine.',
+    'non_3': 'Non giudicarti per ciò che senti in questo momento.',
   },
   'scegliereTraDue|favorevole': {
     'azione_1':
@@ -3666,8 +3933,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Immagina di aver già scelto e osserva quale delle due ti dà sollievo.',
     'azione_3':
         'Passa del tempo con ciascuna delle due separatamente poi nota come ti senti dopo.',
+    'azione_4':
+        'Chiediti quale delle due scelte ti sembrerebbe più giusta fra un anno.',
     'non_1': 'Non tenere aperte due porte per paura di scegliere.',
     'non_2': 'Non lasciare che decida il senso di colpa.',
+    'non_3': 'Non lasciare che la comodità decida al posto del desiderio.',
   },
   'scegliereTraDue|condizionato': {
     'azione_1':
@@ -3676,8 +3946,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prenditi un tempo preciso per decidere e rispettalo, senza cercare altri pareri.',
     'azione_3':
         'Chiediti con onestà quale delle due relazioni ti permette di mostrarti per come sei.',
+    'azione_4':
+        'Scrivi che cosa cambieresti volentieri in ciascuna delle due scelte.',
     'non_1': 'Non confrontare le due persone su dettagli superficiali.',
     'non_2': 'Non chiedere a tutti un parere: alla fine scegli comunque tu.',
+    'non_3': 'Non confrontare le due persone con un ideale.',
   },
   'scegliereTraDue|sfavorevole': {
     'azione_1':
@@ -3686,8 +3959,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi i motivi per cui esiti e verifica quali sono paure e quali sono fatti.',
     'azione_3':
         'Parla con una persona di fiducia e chiedi che cosa vede da fuori.',
+    'azione_4':
+        'Prenditi un periodo di silenzio e osserva quale mancanza si fa sentire.',
     'non_1': 'Non scegliere per evitare di far soffrire qualcuno.',
     'non_2': 'Non decidere sull\'onda dell\'attrazione o della gelosia.',
+    'non_3': 'Non lasciare che sia la paura di perdere a decidere.',
   },
   'lavoroTrovare|favorevole': {
     'azione_1':
@@ -3696,9 +3972,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Aggiorna il curriculum con i risultati concreti degli ultimi due anni, uno per riga.',
     'azione_3':
         'Scrivi a due persone del tuo settore per chiedere informazioni sulle opportunità.',
+    'azione_4':
+        'Prepara una presentazione di te in tre frasi semplici e concrete.',
     'non_1': 'Non mandare lo stesso messaggio a tutte le aziende.',
     'non_2':
         'Non aspettare il momento perfetto per candidarti, perché non arriva mai.',
+    'non_3':
+        'Non aspettare risposte senza aver ricontattato chi non ha risposto.',
   },
   'lavoroTrovare|condizionato': {
     'azione_1':
@@ -3707,9 +3987,13 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi un parere sul tuo curriculum a una persona che conosce il settore.',
     'azione_3':
         'Definisci che tipo di lavoro cerchi davvero e scrivi tre condizioni irrinunciabili.',
+    'azione_4':
+        'Scegli due settori che ti interessano e informati su cosa richiedono.',
     'non_1':
         'Non accettare la prima proposta senza averla confrontata con le tue condizioni.',
     'non_2': 'Non limitarti a cercare dove cercano tutti.',
+    'non_3':
+        'Non sottovalutare i piccoli incarichi che possono aprire altre porte.',
   },
   'lavoroTrovare|sfavorevole': {
     'azione_1':
@@ -3718,8 +4002,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Valuta una formazione breve che renda il tuo profilo più richiesto.',
     'azione_3':
         'Mantieni una routine di ricerca con orari precisi, senza farne l\'unico pensiero.',
+    'azione_4':
+        'Chiedi a una persona del settore di leggere il tuo curriculum.',
     'non_1': 'Non vivere ogni rifiuto come un giudizio sul tuo valore.',
     'non_2': 'Non accettare condizioni che ti danneggiano solo per fretta.',
+    'non_3': 'Non paragonare i tuoi tempi a quelli degli altri.',
   },
   'denaro|favorevole': {
     'azione_1':
@@ -3728,8 +4015,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Scrivi che cosa vuoi davvero ottenere con il denaro e perché ti importa.',
     'azione_3':
         'Fai l\'elenco delle spese fisse del mese e segna quella che ti sembra meno utile.',
+    'azione_4':
+        'Imposta un limite mensile per le spese non necessarie e rispettalo.',
     'non_1': 'Non prendere decisioni economiche importanti in base alle carte.',
-    'non_2': 'Non fare acquisti grandi per consolarti da una delusione.',
+    'non_2': 'Non fare acquisti grandi sull\'onda di un impulso improvviso.',
+    'non_3':
+        'Non rimandare un pagamento in scadenza sperando in una soluzione.',
   },
   'denaro|condizionato': {
     'azione_1':
@@ -3738,8 +4029,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prima di una spesa importante aspetta qualche giorno e chiediti se serve davvero.',
     'azione_3':
         'Per scelte economiche grandi chiedi un parere a un consulente abilitato e indipendente.',
-    'non_1': 'Non prestare denaro per senso di colpa o per non dire di no.',
+    'azione_4': 'Metti da parte una piccola cifra fissa ogni mese e annotala.',
+    'non_1':
+        'Non prestare denaro senza un accordo chiaro sui tempi di restituzione.',
     'non_2': 'Non decidere sul denaro nei momenti di agitazione.',
+    'non_3': 'Non basare un acquisto grande sull\'impulso di un momento.',
   },
   'denaro|sfavorevole': {
     'azione_1':
@@ -3748,9 +4042,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Metti per iscritto tutto ciò che devi pagare e le scadenze, in ordine di urgenza.',
     'azione_3':
         'Se hai difficoltà parla con un consulente o con un servizio competente prima che peggiori.',
+    'azione_4':
+        'Rivedi gli abbonamenti e le spese ricorrenti e disdici quelli inutili.',
     'non_1':
         'Non assumere nuovi impegni economici per risolvere un problema economico.',
     'non_2': 'Non affidarti a promesse di guadagni facili o rapidi.',
+    'non_3': 'Non evitare di guardare i conti per paura di ciò che trovi.',
   },
   'affare|favorevole': {
     'azione_1':
@@ -3758,10 +4055,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
     'azione_2': 'Chiedi un giorno in più prima di dare la risposta definitiva.',
     'azione_3':
         'Scrivi i vantaggi e i rischi dell\'accordo in due colonne e confrontali.',
-    'non_1':
-        'Non firmare niente sotto pressione, neppure se ti dicono che l\'offerta scade.',
+    'azione_4': 'Chiedi per iscritto una copia del testo prima di decidere.',
+    'non_1': 'Non firmare niente sotto pressione di una scadenza.',
     'non_2':
         'Non decidere prima di aver letto tutto, comprese le righe in piccolo.',
+    'non_3': 'Non dare per scontato che le condizioni siano uguali per tutti.',
   },
   'affare|condizionato': {
     'azione_1':
@@ -3770,8 +4068,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi per iscritto le modifiche che ti servono e aspetta una risposta altrettanto scritta.',
     'azione_3':
         'Informati su chi propone l\'accordo e verifica la sua reputazione.',
+    'azione_4':
+        'Fai un elenco delle domande aperte e chiedi risposta prima di firmare.',
     'non_1': 'Non accettare condizioni a parole che non compaiono nel testo.',
     'non_2': 'Non lasciare punti incerti da chiarire dopo la firma.',
+    'non_3': 'Non rinunciare a una verifica per non sembrare diffidente.',
   },
   'affare|sfavorevole': {
     'azione_1':
@@ -3780,17 +4081,23 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Chiedi un parere indipendente a un professionista prima di qualsiasi decisione.',
     'azione_3':
         'Valuta con calma le alternative all\'accordo e che cosa comporterebbe rinunciare.',
+    'azione_4':
+        'Chiedi un tempo definito per riflettere e rispetta la tua scadenza.',
     'non_1': 'Non firmare per paura di perdere l\'occasione.',
     'non_2': 'Non fidarti di chi ti mette fretta senza spiegare perché.',
+    'non_3': 'Non accettare chiarimenti che non siano messi per iscritto.',
   },
   'momentoCheVivo|favorevole': {
     'azione_1':
         'Scegli una cosa sola su cui concentrarti questa settimana e scrivila dove la vedi ogni mattina.',
     'azione_2': 'Prenditi un\'ora per mettere in ordine le priorità del mese.',
     'azione_3':
-        'Fai oggi una cosa che rimandi da tempo, anche piccola, poi annota come ti senti.',
+        'Fai oggi una piccola cosa che ti sta a cuore e annota come ti senti.',
+    'azione_4':
+        'Concediti mezz\'ora senza schermi per fare una cosa che ti piace.',
     'non_1': 'Non disperdere le energie in dieci direzioni.',
-    'non_2': 'Non rimandare ancora la cosa che sai di dover fare.',
+    'non_2': 'Non rimandare ancora una cosa che ti sta a cuore.',
+    'non_3': 'Non misurare la giornata solo su ciò che hai concluso.',
   },
   'momentoCheVivo|condizionato': {
     'azione_1':
@@ -3799,8 +4106,10 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Individua una priorità e dedicale tempo prima di aprire nuovi impegni.',
     'azione_3':
         'Riposa e osserva senza forzare: in certi periodi capire viene prima di agire.',
+    'azione_4': 'Scrivi tre cose che in questo periodo ti danno energia.',
     'non_1': 'Non prendere decisioni grandi finché il quadro non è chiaro.',
     'non_2': 'Non confrontare il tuo periodo con quello degli altri.',
+    'non_3': 'Non pretendere di avere subito tutte le risposte.',
   },
   'momentoCheVivo|sfavorevole': {
     'azione_1':
@@ -3809,8 +4118,10 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Dedica ogni giorno un momento a ciò che ti ricarica, anche breve.',
     'azione_3':
         'Parla con una persona di fiducia di come ti senti, senza cercare soluzioni subito.',
-    'non_1': 'Non sovraccaricarti di impegni per non pensare.',
+    'azione_4': 'Fai una passeggiata breve oggi e nota come ti senti dopo.',
+    'non_1': 'Non riempirti di impegni per non fermarti a sentire.',
     'non_2': 'Non giudicare l\'intero periodo da una sola giornata difficile.',
+    'non_3': 'Non isolarti più del necessario in questo periodo.',
   },
   'bivio|favorevole': {
     'azione_1': 'Scrivi per ogni opzione che cosa guadagni e che cosa perdi.',
@@ -3818,8 +4129,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Immagina di aver già scelto e osserva quale delle due ti dà sollievo.',
     'azione_3':
         'Fissa una data entro cui decidere e rispettala, senza chiedere altri pareri.',
+    'azione_4':
+        'Chiediti quale scelta faresti anche se nessuno lo venisse a sapere.',
     'non_1': 'Non lasciare che a decidere sia la paura di sbagliare.',
     'non_2': 'Non chiedere il parere di tutti: alla fine scegli comunque tu.',
+    'non_3': 'Non rimandare la scelta finché non sembra perfetta.',
   },
   'bivio|condizionato': {
     'azione_1':
@@ -3828,9 +4142,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Prova per qualche giorno a vivere come se avessi scelto la prima, poi la seconda.',
     'azione_3':
         'Scrivi la condizione che renderebbe una delle due scelte sicura e verificala.',
+    'azione_4':
+        'Scrivi un\'ipotesi per ciascuna scelta e cerca un dato che la confermi.',
     'non_1': 'Non decidere finché non hai chiarito cosa conta davvero per te.',
     'non_2':
         'Non scegliere l\'opzione che sembra più facile solo per evitare il disagio.',
+    'non_3': 'Non scegliere sull\'onda di un solo consiglio.',
   },
   'bivio|sfavorevole': {
     'azione_1':
@@ -3839,8 +4156,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Cerca una terza possibilità che non avevi considerato e scrivila accanto alle due.',
     'azione_3':
         'Parla con una persona di fiducia e chiedi che cosa teme per te in ciascun caso.',
+    'azione_4':
+        'Annota che cosa temi di perdere in ciascuna delle due direzioni.',
     'non_1': 'Non scegliere sotto pressione o per un\'urgenza che non è tua.',
     'non_2': 'Non ignorare il disagio che senti davanti a una delle due.',
+    'non_3': 'Non forzare la decisione solo per chiudere il pensiero.',
   },
   'famiglia|favorevole': {
     'azione_1':
@@ -3849,20 +4169,25 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Telefona a un familiare che senti poco e chiedi come sta davvero.',
     'azione_3':
         'Dedica mezz\'ora a sistemare un angolo della casa che ti dà fastidio.',
+    'azione_4':
+        'Prepara un pasto semplice da condividere con una persona di famiglia.',
     'non_1':
-        'Non riaprire a tavola vecchie liti che nessuno ha voglia di affrontare.',
+        'Non aprire a tavola questioni che nessuno ha voglia di affrontare.',
     'non_2': 'Non dare per scontato chi ti sta vicino ogni giorno.',
+    'non_3': 'Non dare per scontato che gli altri sappiano cosa provi.',
   },
   'famiglia|condizionato': {
     'azione_1':
-        'Individua una questione di famiglia rimasta in sospeso e scegli come affrontarla con calma.',
+        'Pensa a una questione di famiglia da chiarire, se ce n\'è una: scegli come affrontarla con calma.',
     'azione_2':
         'Parla con le persone di casa di una regola da condividere, come orari o compiti.',
     'azione_3':
         'Chiedi a un familiare di cosa ha bisogno e ascolta senza proporre subito soluzioni.',
+    'azione_4': 'Scegli un orario fisso per parlare di ciò che serve a tutti.',
     'non_1': 'Non pretendere che tutti cambino nello stesso momento.',
     'non_2':
         'Non affrontare questioni delicate nel mezzo di una giornata pesante.',
+    'non_3': 'Non portare in famiglia lo stress di altre giornate.',
   },
   'famiglia|sfavorevole': {
     'azione_1':
@@ -3871,8 +4196,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Metti per iscritto i punti di tensione e valuta con chi puoi parlarne.',
     'azione_3':
         'Cerca il sostegno di una persona esterna alla famiglia, come un\'amicizia o un mediatore.',
+    'azione_4':
+        'Passa del tempo fuori casa con una persona che ti fa stare bene.',
     'non_1': 'Non cercare un colpevole per ogni tensione in casa.',
-    'non_2': 'Non rispondere a caldo alle provocazioni di famiglia.',
+    'non_2': 'Non rispondere a caldo se un discorso si accende.',
+    'non_3': 'Non prendere decisioni sulla famiglia nel mezzo di un litigio.',
   },
   'amiciziaLente|favorevole': {
     'azione_1':
@@ -3881,29 +4209,39 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Racconta a un\'amicizia importante quanto tieni a lei, con un gesto concreto.',
     'azione_3':
         'Organizza un incontro semplice con due o tre amici che non vedi da tempo.',
+    'azione_4':
+        'Ricorda una persona amica con cui hai perso i contatti e salutala.',
     'non_1': 'Non misurare le amicizie sul numero dei messaggi.',
-    'non_2': 'Non tenere un rancore senza dirlo a chi riguarda.',
+    'non_2':
+        'Non rimandare un chiarimento solo per timore di dire la cosa sbagliata.',
+    'non_3': 'Non rimandare un invito per paura di un rifiuto.',
   },
   'amiciziaLente|condizionato': {
     'azione_1':
         'Osserva quali amicizie ti fanno stare bene e quali ti tolgono energie.',
     'azione_2':
-        'Chiarisci con una persona amica un malinteso rimasto in sospeso.',
+        'Se c\'è un malinteso in sospeso con una persona amica, chiariscilo con una frase semplice.',
     'azione_3':
         'Dedica più tempo alle amicizie reciproche, dove si dà e si riceve.',
+    'azione_4':
+        'Scrivi che cosa cerchi oggi in un\'amicizia e confrontalo con ciò che hai.',
     'non_1': 'Non dare per scontato che un\'amicizia resti viva senza cura.',
     'non_2': 'Non giudicare chi si è allontanato senza aver chiesto il motivo.',
+    'non_3':
+        'Non confondere la frequenza degli incontri con la profondità del legame.',
   },
   'amiciziaLente|sfavorevole': {
     'azione_1':
         'Proteggi il tuo equilibrio e riduci i contatti che ti lasciano amarezza.',
     'azione_2':
-        'Dì con calma a un\'amicizia che qualcosa ti ha ferito, senza attaccare.',
+        'Dì con calma a una persona amica come ti senti nel vostro rapporto.',
     'azione_3':
         'Coltiva persone con cui ti senti a tuo agio, anche se sono poche.',
+    'azione_4': 'Prenditi un periodo di pausa dalle richieste che ti stancano.',
     'non_1':
         'Non restare in un\'amicizia solo per abitudine o senso del dovere.',
     'non_2': 'Non parlare male di nessuno con altre persone.',
+    'non_3': 'Non decidere per tutti: parla soltanto per ciò che senti tu.',
   },
   'progettoLente|favorevole': {
     'azione_1':
@@ -3912,8 +4250,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Mostra il progetto a una persona competente e chiedi un parere sincero.',
     'azione_3':
         'Dedica ogni giorno un quarto d\'ora al progetto e segna ciò che hai fatto.',
+    'azione_4':
+        'Racconta il progetto in due minuti a una persona fidata e nota dove si perde.',
     'non_1': 'Non aspettare che tutto sia perfetto per cominciare.',
     'non_2': 'Non disperdere l\'idea in troppe direzioni nello stesso momento.',
+    'non_3': 'Non confrontare il tuo progetto con quelli già affermati.',
   },
   'progettoLente|condizionato': {
     'azione_1':
@@ -3922,9 +4263,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Elenca le risorse che servono, come tempo e competenze, poi segna quelle che mancano.',
     'azione_3':
         'Cerca una persona che ha realizzato qualcosa di simile e chiedi cosa ha imparato.',
+    'azione_4':
+        'Segna le tre decisioni da cui dipende l\'avvio e scegli la prima.',
     'non_1': 'Non investire tutte le risorse prima di aver provato l\'idea.',
     'non_2':
         'Non confondere l\'entusiasmo iniziale con la preparazione necessaria.',
+    'non_3': 'Non rimandare le verifiche difficili per paura dell\'esito.',
   },
   'progettoLente|sfavorevole': {
     'azione_1':
@@ -3933,8 +4277,11 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Riduci l\'idea alla versione più piccola possibile e prova solo quella.',
     'azione_3':
         'Chiedi a una persona di fiducia un parere franco sui punti deboli.',
+    'azione_4':
+        'Scrivi che cosa salveresti del progetto se dovessi ridurlo della metà.',
     'non_1': 'Non insistere per orgoglio su un\'idea che non regge.',
     'non_2': 'Non abbandonare il sogno: cambia il modo di perseguirlo.',
+    'non_3': 'Non legare il tuo valore all\'esito del progetto.',
   },
   'vaga|favorevole': {
     'azione_1':
@@ -3942,9 +4289,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
     'azione_2':
         'Scrivi tre cose che vorresti vedere cambiare nel prossimo mese.',
     'azione_3':
-        'Fai oggi una piccola azione che rimandi da tempo e annota come ti senti.',
+        'Fai oggi una piccola azione che hai in mente da un po\' e annota come ti senti.',
+    'azione_4':
+        'Fai un elenco di tre cose che ti stanno a cuore e scegli la prima.',
     'non_1': 'Non cercare risposte generali: scegli una domanda più precisa.',
-    'non_2': 'Non rimandare ancora ciò che sai di dover fare.',
+    'non_2': 'Non rimandare una cosa piccola che ti sta a cuore.',
+    'non_3': 'Non aspettare un segno per cominciare qualcosa.',
   },
   'vaga|condizionato': {
     'azione_1':
@@ -3953,9 +4303,12 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Osserva per qualche giorno che cosa ti toglie energie e che cosa te ne dà.',
     'azione_3':
         'Metti in ordine un piccolo spazio intorno a te e osserva come cambia il tuo umore.',
+    'azione_4':
+        'Scegli un argomento della tua vita e formula una domanda più precisa.',
     'non_1':
         'Non prendere decisioni importanti basandoti su una sola indicazione.',
     'non_2': 'Non aspettare che qualcosa si chiarisca da sé.',
+    'non_3': 'Non leggere in una sola indicazione una promessa o una minaccia.',
   },
   'vaga|sfavorevole': {
     'azione_1':
@@ -3964,7 +4317,9 @@ const Map<String, Map<String, String>> gestiDellaDomanda = {
         'Dedica tempo a ciò che ti calma, come camminare, respirare o riposare.',
     'azione_3':
         'Parla con una persona di fiducia di ciò che ti preoccupa, senza cercare soluzioni.',
+    'azione_4': 'Riposa e fai una cosa semplice che ti fa sentire bene.',
     'non_1': 'Non trarre conclusioni definitive da un periodo difficile.',
     'non_2': 'Non affrontare tutto insieme: scegli una cosa per volta.',
+    'non_3': 'Non cercare altre carte per avere una risposta diversa.',
   },
 };

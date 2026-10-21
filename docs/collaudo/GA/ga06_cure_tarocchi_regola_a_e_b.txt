@@ -162,3 +162,61 @@ SECONDO GIRO, 21 ottobre 2026 (testi scritti al posto dei frammenti cuciti)
    cento consultazioni con la stessa domanda, MISURA C 39,0 per cento sul
    testo a video (soglia 40) e 34,8 sulle quattro letture del fondatore,
    MISURA D entro 2 volte.
+
+TERZO GIRO, 21 ottobre 2026 (lettore cieco finale: D1 11/12, D2 10/12, D3
+6/12, tre si' 4/12; esito in docs/collaudo/GA/lettori_ciechi/esiti/
+giro3_esito_tarocchi_12.md)
+
+8. Regola B, rosse viste PRIMA di toccare ogni zona, sul codice del secondo
+   giro e dopo i primi ritocchi (rosse vere, non innesti):
+   - il_formato_del_responso_dei_tarocchi_test, "il titolo di casa e' breve"
+     (9 e 10 parole nei titoli "Ne' si' ne' no, conta ..."): rifatto in
+     "Senza verdetto, conta/pesa ...";
+   - la_carta_nella_risposta_test, la tavola dei toni: un tema di 6 parole
+     ("un fardello da restituire" diventato "un carico che non e' tuo"):
+     rifatto in "un carico da posare";
+   - la_risposta_viene_dalla_carta_test 11: una singola su un tema sensibile
+     di 51 parole e una di 39 e 38 (le nuove variazioni del Cosa fare
+     sensibile): accorciate e allungate;
+   - le_lunghezze_dei_responsi_test: la tabella rigenerata (solo le righe dei
+     Tarocchi);
+   - cento_letture_uguali_test MISURA D a 4 volte quando il gesto della carta
+     usciva dal paragrafo, e MISURA C a 40,3-44,9 prima dei ritocchi: curate
+     con i testi (sette gesti per tono al posto di cinque) e mai con la
+     soglia; ora C 37,5 e D 2.
+
+9. Regola A sulle guardie nate in questo giro (innesti verificati col grep,
+   copie salvate in scratchpad/mie, sha1 prima e dopo uguali):
+   - N: la_carta_nella_risposta.dart:121, "daVerdetto(...) => true; //
+     INNESTO N GA06": rossa la_risposta_viene_dalla_carta 10 (3 guasti; le
+     cinque carte citate dal lettore non possono dare un si' o un no);
+   - O: le_singole_sulla_domanda.dart:44, "sensibile == null || sensibile !=
+     null": rossa la_risposta_viene_dalla_carta 11, 1530 guasti;
+   - P: la_domanda_letta.dart:498, "if (s != null) return argomento.group;":
+     rossa la_risposta_viene_dalla_carta 11, 510 guasti (la promozione letta
+     col gruppo dell'argomento scelto);
+   - R: voce_della_stesa.dart:824, "return false && ... // INNESTO R GA06"
+     (la carta sola ripete una parola portante): rossa la_risposta_viene_
+     dalla_carta 12, 11 su 100;
+   - U: voce_della_stesa.dart:1229, le riserve del Cosa fare senza l'ordine
+     del filo: rossa cento_letture_uguali MISURA D, 4 volte su 100;
+   - Q: gesti_c.md, la riga "azione_4" della vaga tolta: rosso
+     tool/genera_la_carta_nella_risposta.py, "gesti vaga, sfavorevole,
+     azione_4: manca", il Dart non si scrive;
+   - V: registri.md e cosa_fare.md riportati alla versione di HEAD (le
+     aperture tutte uguali), Dart rigenerato: rosse tutte e due le prove di
+     le_formule_ripetute_delle_singole_test (apertura piu' ripetuta 76, 97 e
+     85 per cento; formula "la carta parla" 27,3; "oggi" 63,4).
+   Ripristino: copie, sha1 uguali agli iniziali (registri 3f19e5e6, cosa_fare
+   e9f4af0e, dati 163389d8, voce_della_stesa cec1bae4, la_carta_nella_risposta
+   9be7bc85, le_singole 91f77af7, la_domanda_letta fac79915, gesti_c ecd8336c),
+   grep "INNESTO" 0.
+
+10. Misure del terzo giro: singole su temi sensibili guardate 1530 e sulla
+    promozione 510, guasti 0; si' o no guardati 108, senza verdetto 86 (circa
+    l'80 per cento delle domande si' o no la risposta dice che cosa le carte
+    mostrano e non un si' o un no), guasti 0; carte sole con due letture 99,
+    con una parola ripetuta 0; registri 468 con l'apertura piu' ripetuta al
+    30 per cento (prima 97), Cosa fare con la formula della carta 16,5 per
+    cento (prima 27,3) e con "oggi" 37,1 (prima 63,4); composizioni 22464 tutte
+    fra 40 e 50 parole.

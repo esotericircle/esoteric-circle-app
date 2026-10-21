@@ -500,7 +500,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: L'idea giovane che ti bussa in testa non ha ancora prove a suo favore, eppure ti tira per la manica e ti fa venire voglia di provarla.
-- 2: Qualcosa di nuovo ti incuriosisce e hai le gambe per andarci a vedere, con una fretta allegra che non pretende di conoscere la meta.
+- 2: Qualcosa di nuovo ti incuriosisce e hai tutta l'energia per andare a vedere, con una fretta allegra che non pretende di conoscere la meta.
 - 3: Ti brucia una curiosità fresca e le mani ti partono prima della testa, come all'inizio di un'avventura che non sai ancora quanto lontano porta.
 
 ### capovolta
@@ -869,7 +869,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: L'agio conquistato col tuo lavoro chiede adesso di essere mostrato e lo mostri spendendo oltre la misura che lo aveva costruito. La mano è aperta troppo, non chiusa.
+- 1: L'agio conquistato col tuo lavoro chiede di essere mostrato con il rischio di spendere oltre la misura che lo aveva costruito. La mano rischia di restare troppo aperta.
 - 2: Una libertà che non devi a nessuno si assottiglia dal lato delle spese: quello che possiedi lo paghi perché si veda, mentre il piacere quieto di goderlo senza testimoni si consuma.
 - 3: Il benessere costruito a mano tua regge e scricchiola insieme: eccedi nello spendere e nel far sapere, così l'indipendenza che ti dava respiro costa più di quanto renda.
 
@@ -927,7 +927,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Accanto a te lavora una cura tutta pratica: la casa in ordine, i conti pagati in tempo, i bisogni di ciascuno sbrigati prima che li chiedano. In quell'elenco il tuo nome non è scritto.
 - 2: Le mani le tieni dentro le cose concrete, dispensa, scadenze, turni, stanze. Quello che serve a te non entra nel giro: lo sposti a domani ogni volta che qualcun altro ha bisogno di qualcosa adesso.
-- 3: Una generosità materiale ti circonda la strada: paghi, cucini, ricordi le date degli altri, tieni il conto di tutto. Il tuo appuntamento rimandato è l'unico che nessuno segna.
+- 3: Una generosità materiale ti circonda la strada: si occupa di tutto, dai conti alle scadenze alle date degli altri. Il tuo appuntamento rimandato è l'unico che nessuno segna.
 
 ## Re di Denari
 
