@@ -18,7 +18,7 @@ abstract final class ITestiEuOccidentaleData {
       '[Nome], oggi i tuoi desideri trovano una sedia libera ad aspettarli.',
       '[Nome], oggi conviene dire di sì a ciò che ti viene incontro.',
       '[Nome], questo giorno ha il sapore di un primo capitolo.',
-      '[Nome], oggi il calendario sembra scritto con la tua calligrafia.',
+      '[Nome], oggi il calendario gioca a tuo favore.',
       '[Nome], qualcosa oggi si scioglie e lascia passare la tua voce.',
       '[Nome], la tavola di oggi è apparecchiata con generosità.',
       '[Nome], oggi una parola tua può arrivare più lontano del previsto.',
@@ -1871,7 +1871,7 @@ abstract final class ITestiEuOccidentaleData {
         [
           VoceEu(
             'Due sere tutte tue',
-            'Settimana equilibrata e gestibile, che non spinge e non frena: l\'unica cosa da sorvegliare è il tempo libero. Se gli impegni si fanno fitti, quel tempo tende a riempirsi delle cose degli altri prima che tu te ne accorga; tutto dipende da come lo distribuisci fra un dovere e l\'altro.',
+            'Settimana equilibrata e gestibile, che non spinge e non frena: l\'unica cosa da sorvegliare è il tempo libero. Se gli impegni si fanno fitti, quel tempo tende a riempirsi delle cose degli altri prima che tu te ne accorga; conta quanto ne riservi a te.',
             'Apri oggi l\'agenda e cerchia due sere di questi sette giorni da lasciare senza appuntamenti; scrivici sopra il tuo nome. Se arriva un invito per quelle sere, proponi con gentilezza un altro giorno, senza scusarti e senza dare troppe spiegazioni a nessuno.',
             'Il tempo libero lasciato come avanzo non resiste a nessuna richiesta. Dargli una data lo rende reale e ti permette di dire con naturalezza che quella sera hai già da fare. Usalo per qualcosa che ricarica e non produce nulla: un bagno lungo, un film scelto con cura.',
           ),

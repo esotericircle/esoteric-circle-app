@@ -140,6 +140,16 @@ enum HoroscopePeriod {
         HoroscopePeriod.anno => 'dell\'anno',
       };
 
+  /// Il periodo con il suo articolo, dentro una frase: "Leggi anche il mese".
+  /// Il Mese e' maschile: "della mese" a video era un errore di genere
+  /// (Realme, gruppo B, difetto D7; padre: PROVENIENZA IGNOTA).
+  String get conArticolo => switch (this) {
+        HoroscopePeriod.giorno => 'il giorno',
+        HoroscopePeriod.settimana => 'la settimana',
+        HoroscopePeriod.mese => 'il mese',
+        HoroscopePeriod.anno => 'l\'anno',
+      };
+
   /// Come si dice nel pulsante della condivisione: "Condividi la settimana".
   String get daCondividere => switch (this) {
         HoroscopePeriod.giorno => 'Condividi',
@@ -2619,9 +2629,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final piano = PlanCatalog.forTier(Tier.values[period.livelloMinimo]).name;
     showUpgradeInvite(
       context,
-      title: 'L\'oroscopo della ${period.label.toLowerCase()} si apre '
+      title: 'L\'oroscopo ${period.etichetta} si apre '
           '${conPiano(piano)}',
-      message: 'Leggi anche la ${period.label.toLowerCase()}, oltre il '
+      message: 'Leggi anche ${period.conArticolo}, oltre il '
           'giorno: i fatti del cielo, il giorno migliore e il momento chiave '
           'di ogni campo.',
     );
@@ -4006,7 +4016,7 @@ class _PeriodTab extends StatelessWidget {
     if (!locked) return tab;
     return Tooltip(
       message:
-          'L\'oroscopo della ${period.label.toLowerCase()} è del Cerchio Premium. Abbonati per aprirlo.',
+          'L\'oroscopo ${period.etichetta} è del Cerchio Premium. Abbonati per aprirlo.',
       child: tab,
     );
   }

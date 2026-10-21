@@ -105,7 +105,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: La settimana è equilibrata e adatta a vedere come si dividono i pesi nei compiti che tornano ogni giorno. Se con altre persone condividi una cura, una casa o un impegno ricorrente, questi giorni aiutano a trasformare un eventuale malcontento silenzioso in un accordo chiaro e scritto.
 - Che cosa fare: Entro tre giorni scrivi l'elenco dei compiti che porti tu ogni settimana. Se ne condividi qualcuno, proponi un turno semplice con un nome accanto a ogni giorno e chiedi conferma a ognuno. Se li porti tutti tu, scegline uno da semplificare o da affidare.
-- Risposta, Lunga: Quando il peso è diviso, ciascuno arriva al proprio turno con più calore. Anche chi finora si è tirato indietro spesso aspetta soltanto un compito preciso per sentirsi parte. Se qualcosa non funziona, cambia un solo dettaglio dell'accordo: rifarlo da capo scoraggia tutti.
+- Risposta, Lunga: Quando il peso è diviso, ciascuno arriva al proprio turno con più calore. Chi non si offre di solito aspetta soltanto un compito preciso per sentirsi parte. Se qualcosa non funziona, cambia un solo dettaglio dell'accordo: rifarlo da capo scoraggia tutti.
 
 #### Generale, equilibrio, voce 3: Niente avanzi sprecati
 

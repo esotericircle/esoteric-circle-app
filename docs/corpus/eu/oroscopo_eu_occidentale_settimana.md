@@ -97,7 +97,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Generale, equilibrio, voce 1: Due sere tutte tue
 
-- Risposta: Settimana equilibrata e gestibile, che non spinge e non frena: l'unica cosa da sorvegliare è il tempo libero. Se gli impegni si fanno fitti, quel tempo tende a riempirsi delle cose degli altri prima che tu te ne accorga; tutto dipende da come lo distribuisci fra un dovere e l'altro.
+- Risposta: Settimana equilibrata e gestibile, che non spinge e non frena: l'unica cosa da sorvegliare è il tempo libero. Se gli impegni si fanno fitti, quel tempo tende a riempirsi delle cose degli altri prima che tu te ne accorga; conta quanto ne riservi a te.
 - Che cosa fare: Apri oggi l'agenda e cerchia due sere di questi sette giorni da lasciare senza appuntamenti; scrivici sopra il tuo nome. Se arriva un invito per quelle sere, proponi con gentilezza un altro giorno, senza scusarti e senza dare troppe spiegazioni a nessuno.
 - Risposta, Lunga: Il tempo libero lasciato come avanzo non resiste a nessuna richiesta. Dargli una data lo rende reale e ti permette di dire con naturalezza che quella sera hai già da fare. Usalo per qualcosa che ricarica e non produce nulla: un bagno lungo, un film scelto con cura.
 

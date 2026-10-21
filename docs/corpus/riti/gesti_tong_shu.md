@@ -450,7 +450,7 @@ Per ogni ufficiale si è preso un 宜 della tradizione che una persona può comp
 - Rito: Sotto Cheng, che conclude, si apre oggi il tuo mese. Ogni settimana dei trenta giorni chiudi una piccola pratica di casa rimasta in sospeso: un documento da rinnovare, una lampadina da cambiare, un orlo da cucire. Comincia adesso dalla più semplice, prima di sera.
 
 ### Cheng, Generale, anno
-- Rito: Il segno che Cheng ha posto a Capodanno sul tuo anno cinese è quello delle cose finite. Il gesto vale in qualunque punto dell'anno: scrivi adesso una lettera a mano a una persona cara, oppure finisci quella rimasta a metà se ne hai una, poi firmala e spediscila.
+- Rito: Cheng, l'ufficiale che porta a compimento, ha dato a Capodanno il suo segno al tuo anno cinese. Il gesto vale in qualunque punto dell'anno: scrivi adesso una lettera a mano a una persona cara, oppure finisci quella rimasta a metà se ne hai una, poi firmala e spediscila.
 
 ### Cheng, Amore, giorno
 - Rito: Oggi governa Cheng, il giorno del traguardo, che la tradizione lega anche alle unioni. Negli affetti realizza adesso la sorpresa progettata e mai fatta, piccola o grande, per chi ami o per chi desideri avvicinare. Non aspettare un'occasione speciale: l'occasione è oggi.

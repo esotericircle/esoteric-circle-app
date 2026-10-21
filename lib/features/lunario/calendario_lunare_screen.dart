@@ -1263,11 +1263,12 @@ class _IlPannello extends StatelessWidget {
     if (a == null) return 'Scegli che cosa vuoi fare.';
     final oro = esiti.values.where((e) => e.grado == GradoDelGiorno.oro);
     if (oro.isEmpty) {
-      return 'Questo mese la Luna non accende giorni d\'oro per '
-          '${a.nome.toLowerCase()}. Scorri al mese dopo.';
+      return 'Questo mese la Luna non accende giorni d\'oro per ciò che hai '
+          'scelto. Scorri al mese dopo.';
     }
-    return 'I giorni d\'oro per ${a.nome.toLowerCase()} sono accesi: toccane '
-        'uno per sapere perché.';
+    // Il nome dell\'attivita' sta gia' nel pulsante scelto: ripeterlo dava
+    // "per taglio per farli crescere" (Realme, gruppo B, difetto D10).
+    return 'I giorni d\'oro sono accesi: toccane uno per sapere perché.';
   }
 
   @override

@@ -476,12 +476,34 @@ abstract final class LaLetturaVedica {
         // porta da sola la giornata al livello piu' delicato: si dice.
         '${t == 7 || esitoLuna == EsitoVedico.ottava ? ', che da sola porta la giornata al livello più delicato, qualunque cosa faccia il resto del cielo' : ''}.';
     final voceGenerale = voceDi(HoroscopeDomain.generale, livelloGenerale);
+    // **PRIMA CIO' CHE FA IL LIVELLO**, ordine GA voce GA.06, quarto lettore
+    // cieco (oroscopo-17): con la Luna in terza casa (favorevole) e la tara
+    // Naidhana, il "Da dove viene" apriva con "successo e vesti, affetti e
+    // beni in abbondanza" sotto una risposta che dice "giornata stancante", e
+    // la ragione vera arrivava tre frasi dopo. Adesso viene per prima la forza
+    // peggiore delle due, quella che porta il livello.
+    final stellaPrima = esitoStella != null &&
+        (t == 7 ||
+            (esitoLuna != EsitoVedico.ottava &&
+                esitoStella.index > esitoLuna.index));
+    // Con la stella peggiore della Luna, la frase della Luna dice di essere
+    // quella che il livello non segue: "successo e vesti" sotto una giornata
+    // in salita non si legge piu' come una contraddizione.
+    final lunaLetta = stellaPrima && esitoLuna == EsitoVedico.favorevole
+        ? 'Da sola la Luna direbbe altro: '
+            '${lunaDaDove.isEmpty ? '' : '${lunaDaDove[0].toLowerCase()}${lunaDaDove.substring(1)}'}'
+        : lunaDaDove;
     final cieloGenerale = LePartiDelResponso.insieme([
-      lunaDaDove,
-      stellaDaDove,
+      if (stellaPrima) stellaDaDove,
+      lunaLetta,
+      // Quando le due forze non vanno d\'accordo la riga del livello sta
+      // subito accanto a loro: dice perche' una giornata con la Luna
+      // favorevole e' comunque in salita.
+      if (stellaPrima) rigaDelLivelloGenerale,
+      if (!stellaPrima) stellaDaDove,
       rahuDaDove,
       if (lungaGenerale) pianetaDaDove,
-      rigaDelLivelloGenerale,
+      if (!stellaPrima) rigaDelLivelloGenerale,
     ]);
     // **LA FORMA NUOVA, ordine GA voci GA.03 e GA.04**: il rito della Lunga
     // e' il mantra del graha che governa questo giorno della settimana.

@@ -131,7 +131,7 @@ Traduzioni dal greco fatte per l'ordine GA, fedeli alla lettera.
 - Rito: Trenta giorni prendono luce da questa domenica, sotto il Sole che porta allo scoperto ciò che stava in ombra. Pulisci un vetro di casa, finché la luce passa senza macchie. Recita due volte «Occhio della giustizia, luce della vita» guardando attraverso quel vetro: lascia che lo sguardo si schiarisca.
 
 ### Sole, Generale, anno
-- Rito: Il tuo anno, dal compleanno, è nato nel giorno del Sole, che dà misura e vigore. Adesso metti un fiore giallo, anche di campo, in un bicchiere vicino alla finestra più luminosa. Pronuncia tre volte «Occhio della giustizia, luce della vita» e nomina una cosa che vuoi vedere meglio.
+- Rito: Il compleanno da cui parte il tuo anno cadeva di domenica, giorno del Sole, che dà misura e vigore. Adesso metti un fiore giallo, anche di campo, in un bicchiere vicino alla finestra. Pronuncia tre volte «Occhio della giustizia, luce della vita» e nomina una cosa che vuoi vedere meglio.
 
 ### Sole, Amore, giorno
 - Rito: Il Sole, che scalda senza chiedere niente in cambio, governa questa giornata. Porta una mano sul petto e pensa a chi ami o a chi desideri incontrare. Sussurra una volta «Occhio della giustizia, luce della vita» e lascia che quel pensiero si riscaldi in silenzio.

@@ -82,13 +82,13 @@ Om si legge come si scrive, namah con la acca appena soffiata.
 
 ## Da dove viene
 
-- Surya: Il mantra saluta Surya, il Sole, che governa la domenica nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio.
-- Chandra: Il mantra saluta Chandra, la Luna, che governa il lunedì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio.
-- Mangala: Il mantra saluta Mangala, Marte, che governa il martedì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio.
-- Budha: Il mantra saluta Budha, Mercurio, che governa il mercoledì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio.
-- Guru: Il mantra saluta Guru, Giove, che governa il giovedì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio.
-- Shukra: Il mantra saluta Shukra, Venere, che governa il venerdì nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio.
-- Shani: Il mantra saluta Shani, Saturno, che governa il sabato nella tradizione vedica dei nove graha; è la forma breve del suo nome con l'omaggio.
+- Surya: Il mantra saluta Surya, il Sole, che governa la domenica nella tradizione vedica dei nove graha; «Om Suryaya namah» vuol dire «Om, mi inchino a Surya».
+- Chandra: Il mantra saluta Chandra, la Luna, che governa il lunedì nella tradizione vedica dei nove graha; «Om Chandraya namah» vuol dire «Om, mi inchino a Chandra».
+- Mangala: Il mantra saluta Mangala, Marte, che governa il martedì nella tradizione vedica dei nove graha; «Om Mangalaya namah» vuol dire «Om, mi inchino a Mangala».
+- Budha: Il mantra saluta Budha, Mercurio, che governa il mercoledì nella tradizione vedica dei nove graha; «Om Budhaya namah» vuol dire «Om, mi inchino a Budha».
+- Guru: Il mantra saluta Guru, Giove, che governa il giovedì nella tradizione vedica dei nove graha; «Om Gurave namah» vuol dire «Om, mi inchino a Guru».
+- Shukra: Il mantra saluta Shukra, Venere, che governa il venerdì nella tradizione vedica dei nove graha; «Om Shukraya namah» vuol dire «Om, mi inchino a Shukra».
+- Shani: Il mantra saluta Shani, Saturno, che governa il sabato nella tradizione vedica dei nove graha; «Om Shanaishcharaya namah» vuol dire «Om, mi inchino a Shani».
 
 ## I riti
 

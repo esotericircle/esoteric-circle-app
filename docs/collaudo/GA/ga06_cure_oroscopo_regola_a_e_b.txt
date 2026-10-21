@@ -258,3 +258,53 @@ i_nomi_del_menu_e_del_diario, la_carta_natale_sopravvive, language_rule), il_gen
 indovina, accenti_veri e le prove dell'Oroscopo (31 file, 150 prove), dopo la tabella delle
 lunghezze e i campioni rigenerati. flutter analyze lib test: No issues found. Il campione delle
 rune, riscritto da GA06_SCRIVI, e' stato rimesso com'era (git checkout).
+
+IL QUARTO GIRO, DALL'ULTIMA LETTURA CIECA DI 12 RESPONSI (21 ottobre 2026, sopra a599828c)
+
+Parole del fondatore: "Le risposte vanno curate, sono la parte piu' importante e criticata
+dell'app." Lettore indipendente su 12 responsi: D1 12 su 12, D2 12 su 12, D3 10 su 12, tre si'
+10 su 12. I due no e i loro padri (Regola C):
+- oroscopo-17 (vedica, giorno): il "Da dove viene" apriva con la Luna in terza casa, "successo
+  e vesti, affetti e beni in abbondanza", sotto una risposta che dice "giornata stancante"; la
+  tara Naidhana, che porta il livello, arrivava tre frasi dopo. Padre: ordine ES voce 09
+  (ordine fisso Luna poi stella in la_lettura_vedica.dart), rimasto dopo la prima e la seconda
+  cura GA.06.
+- oroscopo-45 (cinese, anno): il rito di Cheng ("cose finite") sotto la lettura "casa
+  rinnovata", e nel "Da dove viene" «il tuo animale: tripla armonia» telegrafico e i due punti
+  due volte. Padre dei due punti: GA.06 terza cura, che aveva tolto la virgola prima di "e"
+  mettendo un due punti; padre del telegrafico: ordine ES voce 28.
+Dal Realme (gruppo B): D7 "L'oroscopo della mese" (padre: PROVENIENZA IGNOTA), D8b l'apertura
+"il calendario sembra scritto con la tua calligrafia" (padre: ordine EU, aperture
+dell'Architetto), D10 "per taglio per farli crescere" (padre: ordine FV voce 06, calendario
+lunare).
+
+Cure: la forza che porta il livello viene prima nel "Da dove viene" della Generale vedica, con
+la riga del livello subito accanto e un ponte ("Da sola la Luna direbbe altro") sulla Luna
+favorevole; la coda del rito dice di essere "quello del giorno / del primo giorno del periodo,
+scelto dal suo reggente" invece di fingere un nesso col tema; il mantra dice che cosa vuol dire
+(«Om Suryaya namah» vuol dire «Om, mi inchino a Surya») al posto di "la forma breve del suo nome
+con l'omaggio"; l'anno cinese dice il rapporto fra i due animali in una frase intera e Tai Sui
+per intero, senza due punti doppi; il Mese si dice "del mese" (HoroscopePeriod.conArticolo);
+nel calendario lunare il nome dell'attivita' non si ripete nella riga dei giorni d'oro;
+l'apertura "gioca a tuo favore"; ritocchi: la chiusa vuota "tutto dipende da come lo
+distribuisci" (oroscopo-5), "chi finora si e' tirato indietro" (37), "in silenzio" (33), il
+rito d'anno del Sole (13), Cheng generale d'anno (45).
+
+Regola A, prova nuova test/ga06_il_responso_dice_da_dove_viene_test.dart (4 prove). Innesti a
+mano, verificati col grep («// INNESTO GA06G4», 1 per file) e tolti (0 dopo), letto l'esito:
+ B1 stellaPrima sempre falso (oroscopo-17): ROSSA, 3 verdi e 1 rossa;
+ B2 la coda del rito torna a "segue il giorno": ROSSA;
+ B3 Tai Sui coi due punti di prima (oroscopo-45): ROSSA;
+ B4 «della ${period.label» nello schermo (D7): ROSSA;
+ B5 il mantra torna a «la forma breve del suo nome»: ROSSA.
+Senza innesti: VERDE, 180 giorni vedici letti, 67 con la stella che porta il livello (19 di
+Naidhana), 0 fuori posto; 12 code del rito; 12 anni cinesi; 7 mantra.
+Regola B: le guardie della zona erano verdi e viste rosse nei giri precedenti
+(le_voci_dell_oroscopo_rispondono_nel_periodo, i_riti_dell_oroscopo_seguono_il_periodo,
+language_rule, la_lettura_vedica_test: sezioni di questo stesso file).
+
+Verificato e NON cambiato: la Fortuna. Le voci di tutti i periodi parlano di caso, occasioni e
+coincidenze piccole (una fila che parla, il cassetto in fondo, un invito all'ultimo); denaro,
+gioco e scommesse non ci sono per la regola delle schede (nessun consiglio su denaro). Alcune
+voci passano da una persona (presentare due persone): la fortuna resta "occasioni", ma e' un
+taglio dell'Architetto, da confermare.

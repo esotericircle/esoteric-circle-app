@@ -128,16 +128,18 @@ abstract final class IlResponsoDellOroscopo {
     }
     final quale = switch (periodo) {
       PeriodoEu.giorno => '',
-      PeriodoEu.settimana => 'il primo giorno della settimana',
-      PeriodoEu.mese => 'il primo giorno del mese',
+      PeriodoEu.settimana => 'del primo giorno della settimana',
+      PeriodoEu.mese => 'del primo giorno del mese',
       PeriodoEu.anno => tradizione == TradizioneEu.cinese
-          ? 'il primo giorno dell\'anno cinese, il Capodanno lunare'
-          : 'il primo giorno del tuo anno, il compleanno',
+          ? 'del primo giorno dell\'anno cinese, il Capodanno lunare'
+          : 'del primo giorno del tuo anno, il compleanno',
     };
     final legame = periodo == PeriodoEu.giorno
-        ? 'Il rito propiziatorio segue il giorno: '
-        : 'Il rito propiziatorio segue $quale, '
-            '${_data(primoGiorno, conLAnno: periodo == PeriodoEu.anno)}: ';
+        ? 'Il rito propiziatorio è quello del giorno, scelto dal suo '
+            'reggente: '
+        : 'Il rito propiziatorio è quello $quale, '
+            '${_data(primoGiorno, conLAnno: periodo == PeriodoEu.anno)}, '
+            'scelto dal suo reggente: ';
     final coda = '$legame${_minuscola(fonteDelRito.trim())}';
     return riga.isEmpty ? coda : '$riga $coda';
   }

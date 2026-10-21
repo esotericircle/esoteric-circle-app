@@ -214,7 +214,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, favorevole, voce 21: Due passi dopo cena
 
 - Risposta: Oggi la giornata è favorevole alle conversazioni tranquille, soprattutto verso sera. Le parole che in casa non trovano spazio vengono meglio camminando, fianco a fianco, senza un tavolo in mezzo e senza fretta di arrivare: è il momento giusto per uscire a fare due passi in compagnia.
-- Che cosa fare: Dopo cena proponi a una persona cara, o a chi vive con te, un giro dell'isolato senza una direzione precisa. Tenete il telefono in tasca in silenzio. Se nessuno è disponibile, cammina per conto tuo per venti minuti e lascia che i pensieri si mettano in fila.
+- Che cosa fare: Dopo cena proponi a una persona cara, o a chi vive con te, un giro dell'isolato senza una direzione precisa. Tenete il telefono in tasca e camminate piano. Se nessuno è disponibile, cammina per conto tuo per venti minuti e lascia che i pensieri si mettano in fila.
 - Risposta, Lunga: Camminando senza guardarsi in faccia, le cose si dicono più facilmente. I passi danno il ritmo alle parole e i silenzi non pesano come intorno a un tavolo. Le abitudini più belle cominciano proprio così, con una seconda volta decisa subito dopo la prima, quando il piacere è ancora fresco.
 
 #### Generale, favorevole, voce 22: Grazie a chi insegna

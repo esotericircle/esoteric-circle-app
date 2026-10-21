@@ -107,11 +107,12 @@ abstract final class LAnnoDelleTradizioni {
           'Il tuo animale, $tuo, è lo stesso dell\'anno.',
         RapportoFraAnimali.nessuno => 'Fra $dellAnno dell\'anno e il tuo '
             'animale, $tuo, le tabelle non segnano nessun rapporto.',
-        RapportoFraAnimali.triplaArmonia => 'Con $dellAnno dell\'anno il '
-            'tuo animale, $tuo, è in tripla armonia: stanno nello stesso '
+        RapportoFraAnimali.triplaArmonia => 'Il tuo animale, $tuo, è in '
+            'tripla armonia con $dellAnno dell\'anno: stanno nello stesso '
             'gruppo di tre animali che si sostengono.',
-        _ => 'Con $dellAnno dell\'anno il tuo animale, $tuo, è in '
-            'rapporto di ${LaLetturaCinese.rapportoDetto(r, stesso)}.',
+        _ => 'Il tuo animale, $tuo, è in rapporto di '
+            '${LaLetturaCinese.rapportoDetto(r, stesso)} con $dellAnno '
+            'dell\'anno.',
       };
 
   /// L'anno cinese che contiene [oggi], per chi e' nato nell'anno
@@ -140,9 +141,9 @@ abstract final class LAnnoDelleTradizioni {
         '${_con('dal', da)} '
         '${_con('al', DateTime(a.year, a.month, a.day - 1))}. '
         '${_rapportoDellAnno(rapporto, animale == ramo, LaLetturaCinese.conArticolo(animale), '$articolo $nome')} '
-        'Tai Sui, il signore dell\'anno, è la divinità che la tradizione '
-        'invita a non contrariare: '
-        '${offeso == null ? 'il tuo animale non lo offende: l\'anno non ti chiede cautele particolari' : 'quest\'anno lo offendi, perché $offeso: la tradizione consiglia prudenza nelle scelte grandi'}.';
+        'Tai Sui è il signore dell\'anno, la divinità che la tradizione '
+        'invita a non contrariare. '
+        '${offeso == null ? 'Il tuo animale non lo offende, quindi per te l\'anno non chiede cautele particolari' : 'Quest\'anno lo offendi, perché $offeso, quindi la tradizione consiglia prudenza nelle scelte grandi'}.';
     return AnnoDellaTradizione(
       da: da,
       a: a,

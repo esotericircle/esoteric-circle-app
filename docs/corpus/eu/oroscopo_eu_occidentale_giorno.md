@@ -19,7 +19,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 6. [Nome], oggi i tuoi desideri trovano una sedia libera ad aspettarli.
 7. [Nome], oggi conviene dire di sì a ciò che ti viene incontro.
 8. [Nome], questo giorno ha il sapore di un primo capitolo.
-9. [Nome], oggi il calendario sembra scritto con la tua calligrafia.
+9. [Nome], oggi il calendario gioca a tuo favore.
 10. [Nome], qualcosa oggi si scioglie e lascia passare la tua voce.
 11. [Nome], la tavola di oggi è apparecchiata con generosità.
 12. [Nome], oggi una parola tua può arrivare più lontano del previsto.

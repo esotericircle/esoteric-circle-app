@@ -215,7 +215,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Due passi dopo cena',
             'Oggi la giornata è favorevole alle conversazioni tranquille, soprattutto verso sera. Le parole che in casa non trovano spazio vengono meglio camminando, fianco a fianco, senza un tavolo in mezzo e senza fretta di arrivare: è il momento giusto per uscire a fare due passi in compagnia.',
-            'Dopo cena proponi a una persona cara, o a chi vive con te, un giro dell\'isolato senza una direzione precisa. Tenete il telefono in tasca in silenzio. Se nessuno è disponibile, cammina per conto tuo per venti minuti e lascia che i pensieri si mettano in fila.',
+            'Dopo cena proponi a una persona cara, o a chi vive con te, un giro dell\'isolato senza una direzione precisa. Tenete il telefono in tasca e camminate piano. Se nessuno è disponibile, cammina per conto tuo per venti minuti e lascia che i pensieri si mettano in fila.',
             'Camminando senza guardarsi in faccia, le cose si dicono più facilmente. I passi danno il ritmo alle parole e i silenzi non pesano come intorno a un tavolo. Le abitudini più belle cominciano proprio così, con una seconda volta decisa subito dopo la prima, quando il piacere è ancora fresco.',
           ),
           VoceEu(
@@ -1879,7 +1879,7 @@ abstract final class ITestiEuCineseData {
             'I pesi divisi',
             'La settimana è equilibrata e adatta a vedere come si dividono i pesi nei compiti che tornano ogni giorno. Se con altre persone condividi una cura, una casa o un impegno ricorrente, questi giorni aiutano a trasformare un eventuale malcontento silenzioso in un accordo chiaro e scritto.',
             'Entro tre giorni scrivi l\'elenco dei compiti che porti tu ogni settimana. Se ne condividi qualcuno, proponi un turno semplice con un nome accanto a ogni giorno e chiedi conferma a ognuno. Se li porti tutti tu, scegline uno da semplificare o da affidare.',
-            'Quando il peso è diviso, ciascuno arriva al proprio turno con più calore. Anche chi finora si è tirato indietro spesso aspetta soltanto un compito preciso per sentirsi parte. Se qualcosa non funziona, cambia un solo dettaglio dell\'accordo: rifarlo da capo scoraggia tutti.',
+            'Quando il peso è diviso, ciascuno arriva al proprio turno con più calore. Chi non si offre di solito aspetta soltanto un compito preciso per sentirsi parte. Se qualcosa non funziona, cambia un solo dettaglio dell\'accordo: rifarlo da capo scoraggia tutti.',
           ),
           VoceEu(
             'Niente avanzi sprecati',
