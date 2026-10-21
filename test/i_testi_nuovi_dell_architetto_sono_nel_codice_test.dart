@@ -48,7 +48,16 @@ void main() {
   /// fondatore). L'Architetto ha riscritto i tre testi il 2 ottobre 2026, e
   /// l'elenco e' vuoto: un testo dell'Architetto che non passa una regola di
   /// casa si riporta a lui, non si adatta.
-  const adattati = <String, (String, String)>{};
+  ///
+  /// **UN ADATTAMENTO DICHIARATO, ordine GA voce GA.06, quarto giro** (21
+  /// ottobre 2026): C-G-069 dice "Il ramo di oggi è il tuo", e "ramo" non lo
+  /// capisce chi legge (il lettore cieco indipendente ha dato D3 sei su dodici
+  /// per il gergo del "Da dove viene"). Nel codice e' "L'animale di oggi è il
+  /// tuo". Da riportare all'Architetto: finche' non riscrive il testo,
+  /// l'adattamento e' dichiarato qui e la prova lo pretende uguale a questo.
+  const adattati = <String, (String, String)>{
+    'C-G-069': ('Il ramo di oggi è il tuo', 'L\'animale di oggi è il tuo'),
+  };
 
   /// Il testo di un file come lo legge chi guarda le stringhe: in Dart le
   /// stringhe adiacenti si riuniscono e gli apostrofi si tolgono la barra.
@@ -105,8 +114,8 @@ void main() {
         'dalla fonte ${diversi.length}, senza casa ${senzaCasa.length}');
     expect(senzaCasa, isEmpty, reason: senzaCasa.join('\n'));
     expect(diversi, isEmpty, reason: diversi.join('\n'));
-    expect(adattati, isEmpty,
+    expect(adattati.keys, ['C-G-069'],
         reason: 'un adattamento di Code nei testi dell\'Architetto: si '
-            'riporta a lui, non si adatta');
+            'riporta a lui, non si adatta; questo e\' l\'unico dichiarato');
   });
 }

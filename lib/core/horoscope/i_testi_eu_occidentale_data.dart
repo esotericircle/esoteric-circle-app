@@ -464,7 +464,7 @@ abstract final class ITestiEuOccidentaleData {
           ),
           VoceEu(
             'Ogni cosa chiede più tempo',
-            'Oggi la giornata è in salita e la fatica si sente soprattutto nei tempi: ogni cosa chiede più minuti del previsto e i piccoli contrattempi si sommano uno all\'altro. Il nervosismo arriva facile, ma la fretta oggi non ti fa guadagnare nulla: conviene lasciare un margine a ogni passaggio.',
+            'Oggi la giornata è in salita e la fatica si sente soprattutto nei tempi: ogni cosa chiede più minuti del previsto e i piccoli contrattempi possono sommarsi. Il nervosismo può arrivare facile, ma la fretta oggi non ti fa guadagnare nulla: conviene lasciare un margine a ogni passaggio.',
             'Prima di ogni cosa che fai oggi, stima quanto tempo ti serve e aggiungine la metà: è la misura vera della giornata. Se devi spostarti, parti con anticipo e tieni pronta un\'alternativa; se ti accorgi di tardare a un appuntamento, avvisa subito con un messaggio breve invece di correre.',
             'I contrattempi di oggi non dipendono da te, ma il modo di attraversarli sì. Un margine di tempo trasforma un\'attesa in una pausa invece che in una rincorsa e cambia il colore della giornata. Stasera ripensa al passaggio più lento: ti dice dove lasciare più spazio la volta che ricapita.',
           ),

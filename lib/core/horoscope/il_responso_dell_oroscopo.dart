@@ -131,13 +131,13 @@ abstract final class IlResponsoDellOroscopo {
       PeriodoEu.settimana => 'del primo giorno della settimana',
       PeriodoEu.mese => 'del primo giorno del mese',
       PeriodoEu.anno => tradizione == TradizioneEu.cinese
-          ? 'del primo giorno dell\'anno cinese, il Capodanno lunare'
-          : 'del primo giorno del tuo anno, il compleanno',
+          ? 'del Capodanno lunare'
+          : 'del tuo compleanno',
     };
     final legame = periodo == PeriodoEu.giorno
-        ? 'Il rito propiziatorio è quello del giorno, scelto dal suo '
+        ? 'Il rito è quello del giorno, scelto dal suo '
             'reggente: '
-        : 'Il rito propiziatorio è quello $quale, '
+        : 'Il rito è quello $quale, '
             '${_data(primoGiorno, conLAnno: periodo == PeriodoEu.anno)}, '
             'scelto dal suo reggente: ';
     final coda = '$legame${_minuscola(fonteDelRito.trim())}';

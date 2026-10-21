@@ -12,7 +12,6 @@ import 'package:esoteric_circle/core/horoscope/astro_tradition.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/l_almanacco_cinese.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_cinese.dart';
-import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
 import 'package:esoteric_circle/core/horoscope/oroscopo_cinese_data.dart';
 import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
@@ -124,26 +123,18 @@ void main() {
           if (s[0].indicator != LaLetturaCinese.livelloDelRapporto(r)) {
             fuori.add('livello generale $a $g');
           }
-          final serie = {
-            HoroscopeDomain.amore: switch (f) {
-              CourtesyForm.feminine => 'amoreDonna',
-              CourtesyForm.masculine => 'amoreUomo',
-              _ => 'amoreNeutro',
-            },
-            HoroscopeDomain.carriera: 'lavoro',
-            HoroscopeDomain.fortuna: 'fortuna',
-          };
           for (final c in s.skip(1)) {
             schede++;
-            final atteso = OroscopoCineseData.dei[serie[c.domain]]![dio.name]!
-                .map((x) =>
-                    LePartiDelResponso.di(LaMarcaDelGenere.risolvi(x, forma: f))
-                        .$2
-                        .split('{')
-                        .first)
-                .toList();
-            if (!nellaFascia(c) ||
-                !atteso.any((x) => c.rigaDelLivello!.contains(x))) {
+            // LAPIDE, ordine GA voce GA.06, quarto giro (21 ottobre 2026): qui si
+            // cercava la frase del dio del corpus ("ha il tuo stesso elemento
+            // con polarita' opposta"), gergo che il lettore cieco non capiva.
+            // Adesso la riga apre con la forza del giorno detta in parole:
+            // "Nel BaZi, la lettura cinese del tuo carattere di nascita, oggi
+            // pesa il Rivale: ...". Il corpus resta ai dati dell'Architetto.
+            final apertura = 'Nel BaZi, la lettura cinese del tuo carattere di '
+                'nascita, oggi ${dio == DioDelGiorno.setteUccisioni ? 'pesano' : 'pesa'} '
+                '${dio.nome}: ';
+            if (!nellaFascia(c) || !c.rigaDelLivello!.contains(apertura)) {
               fuori.add('${c.domain.name} $a $f $g: ${c.text}');
             }
             if (c.indicator !=

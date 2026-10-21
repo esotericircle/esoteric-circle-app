@@ -111,13 +111,13 @@ Traduzioni dal greco fatte per l'ordine GA, fedeli alla lettera.
 
 ## Da dove viene
 
-- Sole: Il verso viene dall'Inno orfico al Sole, numero otto, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco.
-- Luna: Il verso viene dall'Inno orfico alla Luna, numero nove, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco.
-- Marte: Il verso viene dall'Inno orfico a Marte, numero sessantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco.
-- Mercurio: Il verso viene dall'Inno orfico a Mercurio, numero ventotto, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco.
-- Giove: Il verso viene dall'Inno orfico a Giove, numero quindici, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco.
-- Venere: Il verso viene dall'Inno orfico a Venere, numero cinquantacinque, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco.
-- Saturno: Il verso viene dall'Inno orfico a Saturno, numero tredici, uno degli inni che Marsilio Ficino cantava alla lira; traduzione dal greco.
+- Sole: Il verso viene dall'Inno orfico al Sole, uno degli inni che Marsilio Ficino cantava alla lira.
+- Luna: Il verso viene dall'Inno orfico alla Luna, uno degli inni che Marsilio Ficino cantava alla lira.
+- Marte: Il verso viene dall'Inno orfico a Marte, uno degli inni che Marsilio Ficino cantava alla lira.
+- Mercurio: Il verso viene dall'Inno orfico a Mercurio, uno degli inni che Marsilio Ficino cantava alla lira.
+- Giove: Il verso viene dall'Inno orfico a Giove, uno degli inni che Marsilio Ficino cantava alla lira.
+- Venere: Il verso viene dall'Inno orfico a Venere, uno degli inni che Marsilio Ficino cantava alla lira.
+- Saturno: Il verso viene dall'Inno orfico a Saturno, uno degli inni che Marsilio Ficino cantava alla lira.
 
 ## I riti
 

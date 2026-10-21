@@ -44,7 +44,9 @@ void main() {
                   IlSegnoDelCielo.delCorpo(
                       IlCieloDelSegno.corpoDi[dominio]!, quando));
           perCasa.putIfAbsent(casa, () => {}).add(carta.indicator);
-          expect(carta.rigaDelLivello, contains('Luna di oggi'));
+          // LAPIDE, ordine GA voce GA.06, quarto giro: la riga non comincia piu'
+          // "Dalla Luna di oggi in..." ma "Oggi la Luna e' in...".
+          expect(carta.rigaDelLivello, contains('Oggi la Luna'));
           // E il corpo del dominio, visto sul Realme: con la sola Luna le
           // quattro schede avevano lo stesso livello e la stessa riga.
           final corpo = IlCieloDelSegno.corpoDi[dominio]!;

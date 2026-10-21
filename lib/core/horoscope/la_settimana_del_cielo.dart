@@ -12,6 +12,7 @@ import 'horoscope.dart';
 import 'i_testi_eu.dart';
 import 'i_tre_cieli.dart';
 import 'il_cielo_del_segno.dart';
+import 'il_lessico_del_cielo.dart';
 import 'il_livello_del_cielo.dart';
 import 'il_responso_dell_oroscopo.dart';
 import 'l_ora_d_oro.dart';
@@ -172,13 +173,16 @@ class DominioDelPeriodo {
         // Il terzo lettore cieco: la riga senza nessun simbolo non diceva da
         // che cosa vengono i livelli dei giorni. Adesso lo dice, per
         // tradizione, senza ripetere la ragione del giorno migliore.
+        // Quarto giro GA.06: "ognuno letto dalla Luna di quel giorno, contata
+        // dalla tua Luna di nascita" e "dal dio che quel giorno porta al tuo
+        // elemento di nascita" erano gergo. Adesso: la sostanza, in frasi corte.
         final simbolo = tradizione == TradizioneEu.vedica
-            ? 'ognuno letto dalla Luna di quel giorno, contata dalla tua Luna '
-                'di nascita'
-            : 'ognuno letto dal rapporto fra il suo animale e il tuo e dal dio '
-                'che quel giorno porta al tuo elemento di nascita';
+            ? 'ogni giorno si legge dalla posizione della Luna di quel giorno '
+                'rispetto alla tua Luna di nascita'
+            : 'ogni giorno si legge dal rapporto fra il suo animale e il tuo e '
+                'dalla forza che porta al tuo carattere di nascita (il BaZi)';
         return 'Il livello di questo periodo è la media dei livelli dei suoi '
-            '$quanti, $simbolo; il giorno migliore è '
+            '$quanti: $simbolo. Il giorno migliore è '
             '${LaSettimanaDelCielo.data(migliore.giorno)}.';
       }
       return _maiuscola(momentoChiave);
@@ -312,11 +316,14 @@ abstract final class LaSettimanaDelCielo {
     HoroscopeDomain.fortuna: 'jupiter',
   };
 
-  static const Map<String, String> _alCorpo = {
-    'sun': 'al tuo Sole',
-    'venus': 'alla tua Venere',
-    'mars': 'al tuo Marte',
-    'jupiter': 'al tuo Giove',
+  /// Lo stesso, per dire "in accordo CON la tua Venere" (quarto giro
+  /// GA.06: "la Luna forma un trigono alla tua Venere" non diceva niente a
+  /// chi non sa che cosa sia un trigono).
+  static const Map<String, String> _conCorpo = {
+    'sun': 'il tuo Sole',
+    'venus': 'la tua Venere',
+    'mars': 'il tuo Marte',
+    'jupiter': 'il tuo Giove',
   };
 
   static const List<CorpoCeleste> _chiEntra = [
@@ -700,9 +707,9 @@ abstract final class LaSettimanaDelCielo {
       }
       if (natale != null) {
         for (final (nome, angoli) in const [
-          ('un trigono', [120.0, 240.0]),
-          ('un sestile', [60.0, 300.0]),
-          ('una congiunzione', [0.0]),
+          (AspectType.trine, [120.0, 240.0]),
+          (AspectType.sextile, [60.0, 300.0]),
+          (AspectType.conjunction, [0.0]),
         ]) {
           final istanti = <DateTime>[
             for (final ang in angoli)
@@ -710,8 +717,11 @@ abstract final class LaSettimanaDelCielo {
           ]..sort();
           if (istanti.isNotEmpty) {
             final t = istanti.first;
-            return '${data(t)} alle ${ora(t)}: la Luna forma $nome '
-                '${_alCorpo[id]} di nascita.';
+            // La sostanza prima del termine: "la Luna è in accordo con la tua
+            // Venere di nascita, il tuo modo di amare".
+            return '${data(t)} alle ${ora(t)}: la Luna è '
+                '${IlLessicoDelCielo.rapportoDi(nome)} ${_conCorpo[id]} di '
+                'nascita, ${IlLessicoDelCielo.chePorta[id]}.';
           }
         }
       }
@@ -740,9 +750,7 @@ abstract final class LaSettimanaDelCielo {
     final (casa, natale) = _casa(l, segno, carta);
     final dove = IlSegnoDelCielo.dellaLongitudine(l);
     return '${data(t)} alle ${ora(t)}: ${_nomiDelleFasi[k]} in '
-        '${dove.italianName}, nella tua '
-        '${CorrenteDelCielo.ordinaliDelleCase[casa - 1]} casa'
-        '${natale ? '' : ' solare'}, quella '
-        '${CorrenteDelCielo.materiaDelleCase[casa - 1]}.';
+        '${dove.italianName}, che per te porta l\'attenzione sull\''
+        '${IlLessicoDelCielo.areaDellaVita(casa)}.';
   }
 }

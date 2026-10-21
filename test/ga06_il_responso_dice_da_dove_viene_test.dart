@@ -126,9 +126,9 @@ void main() {
             primoGiorno: DateTime(2026, 10, 25),
             tradizione: tr)!;
         righe++;
-        if (!riga.contains('Il rito propiziatorio è quello ') ||
+        if (!riga.contains('Il rito è quello ') ||
             !riga.contains('scelto dal suo reggente: ') ||
-            riga.contains('propiziatorio segue')) {
+            riga.contains('propiziatorio')) {
           fuori.add('${tr.name} ${per.name}: $riga');
         }
         if (RegExp(r'quello (il|la) ').hasMatch(riga)) {

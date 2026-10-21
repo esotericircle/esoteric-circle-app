@@ -178,10 +178,9 @@ abstract final class LaLetturaCinese {
         forma: f);
     HoroscopeCard delDio(HoroscopeDomain d, String serie) {
       final gruppo = OroscopoCineseData.dei[serie]![dio.name]!;
-      final (_, baseDaDove) =
-          LePartiDelResponso.di(frase(gruppo, ritorno.tronco));
-      // Le Sette Uccisioni sono un plurale.
-      final e = dio == DioDelGiorno.setteUccisioni ? 'sono' : 'è';
+      // Il gruppo del corpus resta nei dati dell\'Architetto; a video va la
+      // frase in parole di tutti i giorni ([ilGiornoNelBaZi]).
+      LePartiDelResponso.di(frase(gruppo, ritorno.tronco));
       // **UNA RIGA DIVERSA PER SCHEDA.** La spiegazione del dio e' la
       // stessa sulle tre schede; la riga dice anche che cosa fa quel dio al
       // tema della scheda, cosi' tre Lunghe non ripetono la stessa frase
@@ -202,8 +201,11 @@ abstract final class LaLetturaCinese {
           OroscopoCineseData.direzioneRicchezza, ritorno.coppiaDiTronchi));
       final livello = livelloDelDio(d, dio, forma: f);
       final voce = voceDi(d, livello);
+      // **LA SOSTANZA PRIMA DEL TERMINE** (quarto giro GA.06): la frase del
+      // corpus ("ha il tuo stesso elemento con polarita' opposta") lascia il
+      // posto a quella che dice che cosa porta la forza del giorno.
       final cielo = LePartiDelResponso.insieme([
-        baseDaDove,
+        ilGiornoNelBaZi(dio, diOggi: diOggi),
         if (lunga && fortuna) ricchezzaDaDove,
         rigaDelTema(d, dio, forma: f),
       ]);
@@ -224,7 +226,7 @@ abstract final class LaLetturaCinese {
         responso: responso,
         indicator: livello,
         rigaDelLivello: cielo,
-        rigaSoloDelLivello: 'Il dio $quando nel BaZi $e ${dio.nome}. '
+        rigaSoloDelLivello: '${ilGiornoNelBaZi(dio, diOggi: diOggi)} '
             '${rigaDelTema(d, dio, forma: f)}',
         metodo: fortuna
             ? '${OroscopoCineseData.notaDei} ${OroscopoCineseData.notaColore}'
@@ -480,6 +482,34 @@ abstract final class LaLetturaCinese {
         _ => plurale ? 'contrastate' : 'contrastata',
       };
 
+  /// **LE DIECI FORZE DEL GIORNO IN PAROLE DI TUTTI I GIORNI** (ordine GA
+  /// voce GA.06, quarto giro). Il BaZi chiama "dei" le dieci forze che il
+  /// giorno porta al carattere di chi nasce; la spiegazione del corpus
+  /// ("governa il tuo elemento con polarita' opposta") non diceva niente a
+  /// chi non sa che cosa sia un elemento o una polarita'. Nell'ordine di
+  /// [DioDelGiorno].
+  static const List<String> _laForzaDelGiorno = [
+    'una forza alla pari con te, che porta le persone che ti somigliano',
+    'una forza che contende ciò che hai e porta concorrenza',
+    'la forza di ciò che produci con calma, con le tue mani e le tue idee',
+    'la forza dell\'espressione che rompe le regole: idee brillanti e poca '
+        'pazienza',
+    'una forza che porta guadagni e occasioni di lato, impreviste',
+    'la forza del guadagno regolare, di ciò che hai seminato',
+    'una forza di pressione e di sfida',
+    'la forza della regola, della responsabilità e del riconoscimento',
+    'una forza di sostegno insolito e di intuizione',
+    'la forza della protezione, dello studio e della cura',
+  ];
+
+  /// **IL GIORNO NEL BAZI**, la prima frase del "Da dove viene" delle tre
+  /// schede del dio: la sostanza prima del nome, e il nome una volta.
+  static String ilGiornoNelBaZi(DioDelGiorno dio, {bool diOggi = true}) =>
+      'Nel BaZi, la lettura cinese del tuo carattere di nascita, '
+      '${diOggi ? 'oggi' : 'quel giorno'} '
+      '${dio == DioDelGiorno.setteUccisioni ? 'pesano' : 'pesa'} '
+      '${dio.nome}: ${_laForzaDelGiorno[dio.index]}.';
+
   static const List<String> _percheDellUfficiale = [
     'conta il lavoro alla pari con gli altri',
     'c\'è concorrenza fra pari',
@@ -509,26 +539,26 @@ abstract final class LaLetturaCinese {
   /// [DioDelGiorno]; il giudizio va d'accordo con [_versoLUfficiale] e
   /// [_versoLaRicchezza].
   static const List<String> _amoreNeutro = [
-    'oggi il dio non tocca né l\'una né l\'altra: in amore pesano più le '
-        'persone che hai intorno',
-    'oggi il dio contende la Ricchezza e lascia in ombra l\'Ufficiale: in '
-        'amore entrano confronti e gelosie',
-    'oggi il dio nutre la Ricchezza e lascia l\'Ufficiale com\'è: in amore '
-        'conta la dolcezza dei gesti',
-    'oggi il dio nutre la Ricchezza ma urta l\'Ufficiale: in amore il '
-        'fascino c\'è, la pazienza meno',
-    'oggi la Ricchezza è di scena nella sua forma imprevista e nutre '
-        'l\'Ufficiale: in amore sono favoriti gli incontri',
-    'oggi la Ricchezza è di scena nella sua forma stabile e nutre '
-        'l\'Ufficiale: in amore è favorito ciò che si costruisce',
-    'oggi l\'Ufficiale è di scena nella sua forma dura e consuma la '
+    'oggi la forza del giorno non tocca né l\'una né l\'altra: in amore '
+        'pesano più le persone che hai intorno',
+    'oggi la forza del giorno contende la Ricchezza e lascia in ombra '
+        'l\'Ufficiale: in amore entrano confronti e gelosie',
+    'oggi la forza del giorno nutre la Ricchezza e lascia l\'Ufficiale '
+        'com\'è: in amore conta la dolcezza dei gesti',
+    'oggi la forza del giorno nutre la Ricchezza ma urta l\'Ufficiale: in '
+        'amore il fascino c\'è, la pazienza meno',
+    'oggi pesa la Ricchezza che arriva di lato e nutre l\'Ufficiale: in '
+        'amore sono favoriti gli incontri',
+    'oggi pesa la Ricchezza regolare e nutre l\'Ufficiale: in amore è '
+        'favorito ciò che si costruisce',
+    'oggi pesa l\'Ufficiale nella sua forma più dura e consuma la '
         'Ricchezza: in amore c\'è intensità, fra attrazione e attrito',
-    'oggi l\'Ufficiale è di scena nella sua forma piena: in amore sono '
+    'oggi pesa l\'Ufficiale nella sua forma regolare: in amore sono '
         'favoriti l\'impegno e la parola data',
-    'oggi i Sigilli sostengono l\'Ufficiale e lasciano in disparte la '
-        'Ricchezza: in amore serve spazio per pensare',
-    'oggi i Sigilli proteggono l\'Ufficiale e lasciano in disparte la '
-        'Ricchezza: in amore conta la cura',
+    'oggi pesa la protezione, che sostiene l\'Ufficiale e lascia in '
+        'disparte la Ricchezza: in amore serve spazio per pensare',
+    'oggi pesa la protezione, che custodisce l\'Ufficiale e lascia in '
+        'disparte la Ricchezza: in amore conta la cura',
   ];
 
   /// **LA RIGA DEL TEMA** nel "Da dove viene" delle schede del dio: quale
@@ -543,29 +573,26 @@ abstract final class LaLetturaCinese {
     final u = _giudizio(_versoLUfficiale[dio.index]);
     return switch (d) {
       HoroscopeDomain.carriera => 'Per il lavoro la tradizione cinese guarda '
-          'l\'Ufficiale, '
-          'la stella del ruolo e delle responsabilità: oggi è $u, perché '
-          '${_percheDellUfficiale[dio.index]}.',
+          'la forza dell\'Ufficiale, quella del ruolo e delle responsabilità: '
+          'oggi è $u, perché ${_percheDellUfficiale[dio.index]}.',
       HoroscopeDomain.amore => LaMarcaDelGenere.scegli(
           maschile: 'Per l\'amore i testi classici, negli oroscopi maschili, '
-              'guardano la Ricchezza, la figura dell\'altro nel legame: oggi '
-              'è $r.',
+              'guardano la forza della Ricchezza, che rappresenta l\'altra '
+              'persona nel legame: oggi è $r.',
           femminile: 'Per l\'amore i testi classici, negli oroscopi '
-              'femminili, guardano l\'Ufficiale, la figura dell\'altro nel '
-              'legame: oggi è $u.',
-          // Terzo lettore cieco (oroscopo-34): con le Sette Uccisioni, che
-          // sono l'Ufficiale stesso nella sua forma dura, "l'Ufficiale è
-          // neutro" suonava falso. Per l'amore senza genere dichiarato la
-          // riga dice in parole che cosa il dio di oggi fa alle due figure
-          // dell'altro, e da li' il livello di mezzo, alto o basso.
-          neutro: 'Per l\'amore la tradizione cinese guarda l\'Ufficiale e '
-              'la Ricchezza, le due figure dell\'altro nel legame; il livello '
-              'della giornata è la media delle due. '
+              'femminili, guardano la forza dell\'Ufficiale, che rappresenta '
+              'l\'altra persona nel legame: oggi è $u.',
+          // Quarto giro GA.06: "le due figure dell'altro" e "il dio" erano
+          // gergo del BaZi. Adesso: due forze che rappresentano l'altra
+          // persona, e che cosa fa quella di oggi.
+          neutro: 'Per l\'amore la tradizione cinese guarda due forze, '
+              'l\'Ufficiale e la Ricchezza, che rappresentano l\'altra persona '
+              'nel legame; il livello della giornata è la media delle due. '
               '${_maiuscola(_amoreNeutro[dio.index])}.',
           forma: forma),
-      _ => 'Per la fortuna la tradizione cinese guarda la Ricchezza, la '
-          'stella delle '
-          'occasioni: oggi è $r, perché ${_percheDellaRicchezza[dio.index]}.',
+      _ => 'Per la fortuna la tradizione cinese guarda la forza della '
+          'Ricchezza, quella delle occasioni: oggi è $r, perché '
+          '${_percheDellaRicchezza[dio.index]}.',
     };
   }
 }
