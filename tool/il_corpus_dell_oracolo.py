@@ -122,12 +122,12 @@ FILE = {
     'letture': [(f, 1) for f in (
         'aperta', 'futuro', 'esito', 'altrui', 'decisione', 'scelta', 'come',
         'limite',
-        'cuore_orienta', 'cuore_attesa', 'cuore_legami', 'cuore_scelta',
-        'cuore_limite',
+        'cuore_orienta', 'cuore_attesa', 'cuore_legami', 'cuore_altrui',
+        'cuore_scelta', 'cuore_limite',
         'intelletto_orienta', 'intelletto_attesa', 'intelletto_legami',
-        'intelletto_scelta', 'intelletto_limite',
-        'gesto_orienta', 'gesto_attesa', 'gesto_legami', 'gesto_scelta',
-        'gesto_limite')],
+        'intelletto_altrui', 'intelletto_scelta', 'intelletto_limite',
+        'gesto_orienta', 'gesto_attesa', 'gesto_legami', 'gesto_altrui',
+        'gesto_scelta', 'gesto_limite')],
 }
 
 # I campi che sono pezzi di frase e non testi rivolti a te.
@@ -138,11 +138,19 @@ PEZZI = ('dono', 'via')
 # del riquadro "Cosa fare adesso".
 LETTURE_CUSTODE = ('aperta', 'futuro', 'esito', 'altrui', 'decisione',
                    'scelta', 'come', 'limite')
+# **IL GRUPPO "ALTRUI"**, ordine GA voce GA.06, ultima lettura cieca: sotto
+# "Posso fidarmi del mio compagno?" il gruppo dei legami diceva "un
+# disaccordo non è una rottura" e "ciò che vorresti ricucire", cioe' un
+# conflitto che la domanda non contiene. Le domande su che cosa prova, se
+# torna e se ci si puo' fidare di un'altra persona hanno adesso le loro
+# frasi (altrui), senza disaccordi, paci, rancori ne' errori da presupporre;
+# il gruppo dei legami resta per le domande su come comportarsi in un
+# rapporto (la via, la pace, il conflitto, il pranzo di Natale).
 LETTURE_RUOLI = tuple('%s_%s' % (r, g) for r in ('cuore', 'intelletto')
-                      for g in ('orienta', 'attesa', 'legami', 'scelta',
-                                'limite'))
+                      for g in ('orienta', 'attesa', 'legami', 'altrui',
+                                'scelta', 'limite'))
 LETTURE_GESTI = tuple('gesto_%s' % g for g in ('orienta', 'attesa', 'legami',
-                                                'scelta', 'limite'))
+                                                'altrui', 'scelta', 'limite'))
 LETTURE = LETTURE_CUSTODE + LETTURE_RUOLI + LETTURE_GESTI
 
 # La misura di ogni campo: (unita', minimo, massimo). Messaggio e consiglio
@@ -948,7 +956,13 @@ def controlla():
                     if c == c2 and t and t2 and jaccard(t, t2) > 0.5:
                         colpe.append('%s e %s, %s: lo stesso angelo dice la '
                                      'stessa cosa in due ruoli' % (a, b, c))
-    visti = Counter(t for d in letti.values() for t in d.values() if t)
+    # Ordine GA voce GA.06: la frase di un angelo che vale tanto per i legami
+    # quanto per le domande sull'altra persona (altrui) sta in tutti e due i
+    # campi: non e' un doppione.
+    visti = Counter(
+        t for nome, d in letti.items() for (c, f, n), t in d.items()
+        if t and not (nome == 'letture' and f.endswith('_altrui') and
+                      d.get((c, f.replace('_altrui', '_legami'), n)) == t))
     for t, q in visti.items():
         if q > 1:
             colpe.append('testo ripetuto %d volte: %s' % (q, t[:60]))

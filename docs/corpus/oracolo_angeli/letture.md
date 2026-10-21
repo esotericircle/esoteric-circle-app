@@ -26,6 +26,9 @@
 - gesto_legami 1: Scrivi in una riga che cosa vuoi tu in questo rapporto, senza aspettare che lo chiarisca l'altra persona.
 - gesto_scelta 1: Scrivi quale strada sceglieresti se nessuno dovesse approvarla e tienila come prima candidata, prendendoti il tempo che serve.
 - gesto_limite 1: Metti in agenda oggi il prossimo passo pratico che dipende da te, senza aspettare che qualcuno te lo ricordi.
+- cuore_altrui 1: Vehuiah ti dà la forza di partire da ciò che senti.
+- intelletto_altrui 1: Vehuiah ti mostra che chiarire ciò che vuoi viene per primo.
+- gesto_altrui 1: Scrivi in una riga che cosa vuoi tu in questo rapporto, senza aspettare che lo chiarisca l'altra persona.
 
 ## 02 Jeliel
 - aperta 1: Ieliel volge la tua attenzione ai legami da tenere vivi anche dopo un disaccordo.
@@ -42,8 +45,8 @@
 - cuore_scelta 1: Ieliel ti dona la calma di una scelta leale.
 - cuore_limite 1: Ieliel ti scalda col sostegno di chi ti sta vicino.
 - intelletto_orienta 1: Ieliel ti svela che i legami veri reggono ai disaccordi.
-- intelletto_attesa 1: Ieliel ti avverte: l'attesa non è motivo per chiuderti.
-- intelletto_legami 1: Ieliel ti insegna: un disaccordo non è una rottura.
+- intelletto_attesa 1: Ieliel ti avverte che l'attesa non è motivo per chiuderti.
+- intelletto_legami 1: Ieliel ti fa capire che un disaccordo non è una rottura.
 - intelletto_scelta 1: Ieliel ti chiarisce che scegliere non significa rompere un legame.
 - intelletto_limite 1: Ieliel ti ricorda che farti aiutare rafforza un legame.
 - gesto_orienta 1: Pensa a una persona che conta per te e dedicale oggi un gesto di presenza, senza aspettare un'occasione.
@@ -51,6 +54,9 @@
 - gesto_legami 1: Scrivi in una riga che cosa conta per te in questo legame, al di là di ogni disaccordo.
 - gesto_scelta 1: Immagina un primo giorno difficile su ciascuna strada e chiediti a quale torneresti comunque, senza fretta.
 - gesto_limite 1: Chiedi a una persona di fiducia di aiutarti a preparare le domande per chi ti segue.
+- cuore_altrui 1: Ieliel ti fa sentire quanto conta per te questo legame.
+- intelletto_altrui 1: Ieliel ti fa capire che un legame si vede nel tempo.
+- gesto_altrui 1: Scrivi in una riga che cosa conta per te in questo legame, prima di cercare risposte nell'altra persona.
 
 ## 03 Sitael
 - aperta 1: Sitael ti chiede di aggiungere oggi un pezzo a ciò che costruisci negli anni.
@@ -67,7 +73,7 @@
 - cuore_scelta 1: Sitael ti infonde la serenità di un impegno che regge.
 - cuore_limite 1: Sitael accende in te la tenuta per i tempi lunghi.
 - intelletto_orienta 1: Sitael ti rivela che ciò che dura cresce piano.
-- intelletto_attesa 1: Sitael ti ricorda: un singolo esito non misura un cammino.
+- intelletto_attesa 1: Sitael ti ricorda che un singolo esito non misura un cammino.
 - intelletto_legami 1: Sitael ti spiega che la fiducia cresce coi gesti ripetuti.
 - intelletto_scelta 1: Sitael separa per te l'intenzione dalla promessa che regge.
 - intelletto_limite 1: Sitael ti dimostra che la costanza vale più della fretta.
@@ -76,6 +82,9 @@
 - gesto_legami 1: Pensa a una parola che hai dato in questo rapporto e verifica in silenzio se la stai mantenendo.
 - gesto_scelta 1: Immagina ciascuna strada fra qualche anno e scrivi quale ti senti di mantenere davvero, senza fretta.
 - gesto_limite 1: Raccogli in un'unica cartella documenti e scadenze che ti riguardano, poi aggiornala ogni settimana con costanza.
+- cuore_altrui 1: Sitael ti fa sentire il valore della parola mantenuta.
+- intelletto_altrui 1: Sitael ti spiega che la fiducia cresce coi gesti ripetuti.
+- gesto_altrui 1: Pensa a una parola che hai dato in questo rapporto e verifica in silenzio se la stai mantenendo.
 
 ## 04 Elemiah
 - aperta 1: Elemiah ti aiuta a separare l'ostacolo reale dall'agitazione che senti dentro.
@@ -92,7 +101,7 @@
 - cuore_scelta 1: Elemiah ti trasmette la fermezza di chi vede chiaro.
 - cuore_limite 1: Elemiah accoglie la tua paura senza lasciarle il comando.
 - intelletto_orienta 1: Elemiah ti chiarisce che l'agitazione non è l'ostacolo vero.
-- intelletto_attesa 1: Elemiah ti mostra: ciò che passa col riposo era agitazione.
+- intelletto_attesa 1: Elemiah ti mostra che ciò che passa col riposo era agitazione.
 - intelletto_legami 1: Elemiah separa per te i fatti visti dalle paure immaginate.
 - intelletto_scelta 1: Elemiah distingue il rischio reale dalla paura che ti frena.
 - intelletto_limite 1: Elemiah ti insegna che i fatti calmano più delle ipotesi.
@@ -101,6 +110,9 @@
 - gesto_legami 1: Annota tre gesti concreti che hai visto in questo rapporto e separali da ciò che hai soltanto immaginato.
 - gesto_scelta 1: Per ciascuna strada scrivi gli ostacoli reali e quelli che senti soltanto dentro; rileggi la lista fra qualche giorno.
 - gesto_limite 1: Separa i fatti che conosci dalle ipotesi che ti agitano e trasforma queste in domande per chi ti segue.
+- cuore_altrui 1: Elemiah ti lascia ascoltare l'intuito, non il tumulto.
+- intelletto_altrui 1: Elemiah separa per te i fatti visti dalle paure immaginate.
+- gesto_altrui 1: Annota tre gesti concreti che hai visto in questo rapporto e separali da ciò che hai soltanto immaginato.
 
 ## 05 Mahasiah
 - aperta 1: Mahasiah ti propone di restare in pace oggi, senza cedere su ciò che conta.
@@ -119,13 +131,16 @@
 - intelletto_orienta 1: Mahasiah ti fa capire che la pace non è resa.
 - intelletto_attesa 1: Mahasiah distingue per te l'attesa serena da quella rassegnata.
 - intelletto_legami 1: Mahasiah ti chiarisce che fare pace non è dare ragione.
-- intelletto_scelta 1: Mahasiah ti avverte: un sì per quieto vivere è cedere.
-- intelletto_limite 1: Mahasiah ti fa notare: la calma rende chiare le domande.
+- intelletto_scelta 1: Mahasiah ti avverte che un sì per quieto vivere è cedere.
+- intelletto_limite 1: Mahasiah ti fa notare che la calma rende chiare le domande.
 - gesto_orienta 1: Scrivi su un biglietto la cosa su cui oggi non cedi e tienilo con te: dilla con calma, se serve.
 - gesto_attesa 1: Quando l'attesa ti agita, respira lentamente e riprendi con calma la cosa che stavi facendo.
 - gesto_legami 1: Annota la cosa su cui in questo rapporto non cedi e una su cui puoi venire incontro.
 - gesto_scelta 1: Chiediti con calma quale strada puoi percorrere senza cedere sull'essenziale e lascia maturare la risposta per qualche giorno.
 - gesto_limite 1: Prepara con calma le domande per chi ti segue e non lasciar cadere quella che ti preme di più.
+- cuore_altrui 1: Mahasiah ti lascia la pace di chi non si annulla.
+- intelletto_altrui 1: Mahasiah ti chiarisce che la serenità non dipende da una risposta.
+- gesto_altrui 1: Annota che cosa ti dà serenità in questo rapporto e che cosa invece te la toglie.
 
 ## 06 Lelahel
 - aperta 1: Lelahel ti invita a usare le tue capacità per chiarire, non per farti ammirare.
@@ -151,6 +166,9 @@
 - gesto_legami 1: Prima di parlare in questo rapporto chiediti se vuoi chiarire qualcosa o soltanto farti valere.
 - gesto_scelta 1: Scrivi ciascuna strada in tre frasi semplici, come a chi non ne sa nulla; rileggile nei giorni seguenti.
 - gesto_limite 1: Chiedi a chi ti segue di spiegarti ciò che non è chiaro e riscrivilo con parole tue.
+- cuore_altrui 1: Lelahel ti porta la chiarezza di sapere ciò che senti.
+- intelletto_altrui 1: Lelahel ti fa capire che la chiarezza parte da te.
+- gesto_altrui 1: Scrivi in una riga che cosa vorresti sapere davvero e perché ti preme saperlo.
 
 ## 07 Achaiah
 - aperta 1: Achaiah rallenta il tuo sguardo, perché oggi conta osservare più che concludere.
@@ -168,7 +186,7 @@
 - cuore_limite 1: Achaiah ti concede di non sapere ancora tutto, senza ansia.
 - intelletto_orienta 1: Achaiah ti fa capire che osservare è già imparare.
 - intelletto_attesa 1: Achaiah distingue per te l'attesa vuota dall'osservazione paziente.
-- intelletto_legami 1: Achaiah ti avverte: una persona si conosce nel tempo.
+- intelletto_legami 1: Achaiah ti avverte che una persona si conosce nel tempo.
 - intelletto_scelta 1: Achaiah ti fa capire che la prima impressione non basta.
 - intelletto_limite 1: Achaiah ti ricorda che capire richiede tempo, non conclusioni rapide.
 - gesto_orienta 1: Riprendi una cosa che credi di conoscere e annota tre dettagli che finora ti erano sfuggiti.
@@ -176,9 +194,12 @@
 - gesto_legami 1: Per qualche giorno ascolta più di quanto parli in questo rapporto e annota ciò che impari.
 - gesto_scelta 1: Raccogli per ciascuna strada un'informazione che ancora ti manca e aspetta di averle tutte prima di scegliere.
 - gesto_limite 1: Annota ogni giorno in poche righe ciò che osservi e porta queste note a chi ti segue.
+- cuore_altrui 1: Achaiah coltiva in te una curiosità paziente verso l'altra persona.
+- intelletto_altrui 1: Achaiah ti avverte che una persona si conosce nel tempo.
+- gesto_altrui 1: Per qualche giorno ascolta più di quanto parli in questo rapporto e annota ciò che impari.
 
 ## 08 Cahetel
-- aperta 1: Cahethel volge il tuo sguardo a ciò che hai e alla fatica che è costato.
+- aperta 1: Cahethel volge il tuo sguardo a ciò che hai e a quanto ti è costato.
 - futuro 1: Cahethel parte con te da ciò che hai già, con gratitudine concreta.
 - esito 1: Cahethel vuole che tu dia valore all'impegno che hai già messo, mentre aspetti.
 - altrui 1: Cahethel ti fa riconoscere con gratitudine i gesti concreti che hai dato e ricevuto.
@@ -189,7 +210,7 @@
 - cuore_orienta 1: Cahethel ti avvolge nel calore di ciò che hai costruito.
 - cuore_attesa 1: Cahethel ti lascia la gratitudine per la strada già fatta.
 - cuore_legami 1: Cahethel apre in te la gratitudine per ciò che ricevi.
-- cuore_scelta 1: Cahethel ti rasserena: sai che cosa costa ciò che scegli.
+- cuore_scelta 1: Cahethel ti rasserena, perché sai che cosa costa ciò che scegli.
 - cuore_limite 1: Cahethel ti scalda di gratitudine per chi ti aiuta.
 - intelletto_orienta 1: Cahethel ti ricorda che ciò che hai non è scontato.
 - intelletto_attesa 1: Cahethel ti chiarisce che l'impegno già messo resta, comunque vada.
@@ -198,9 +219,12 @@
 - intelletto_limite 1: Cahethel ti indica ciò che regge, oltre ciò che manca.
 - gesto_orienta 1: Stasera scegli un oggetto che usi ogni giorno, ricorda da dove viene e ringrazia chi l'ha reso possibile.
 - gesto_attesa 1: Scrivi tre cose concrete che hai già fatto per arrivare fin qui e rileggile quando l'attesa pesa.
-- gesto_legami 1: Ripensa a un gesto concreto ricevuto in questo rapporto e riconosci in te la fatica che è costato.
+- gesto_legami 1: Ripensa a un gesto concreto ricevuto in questo rapporto e a ciò che ti ha fatto sentire.
 - gesto_scelta 1: Accanto a ciascuna strada scrivi la fatica che chiede e il frutto che porta, poi lascia riposare il foglio.
 - gesto_limite 1: Ringrazia oggi chi ti sta aiutando e metti in ordine ciò che hai già fatto per questa questione.
+- cuore_altrui 1: Cahethel apre in te la gratitudine per ciò che ricevi.
+- intelletto_altrui 1: Cahethel ti dice che un grazie concreto nutre il legame.
+- gesto_altrui 1: Ripensa a un gesto concreto ricevuto in questo rapporto e a ciò che ti ha fatto sentire.
 
 ## 09 Haziel
 - aperta 1: Haziel alleggerisce la tua giornata invitandoti a dare senza tenere il conto né trattenere rancori.
@@ -217,15 +241,18 @@
 - cuore_scelta 1: Haziel ti concede il sollievo di scegliere senza rancore.
 - cuore_limite 1: Haziel ti offre la mitezza verso ciò che non controlli.
 - intelletto_orienta 1: Haziel ti fa capire che perdonare non è negare.
-- intelletto_attesa 1: Haziel ti avverte: il rancore nell'attesa pesa su di te.
+- intelletto_attesa 1: Haziel ti avverte che il rancore nell'attesa pesa su di te.
 - intelletto_legami 1: Haziel distingue per te perdonare dal far finta di niente.
-- intelletto_scelta 1: Haziel ti insegna: il rancore non è un criterio.
+- intelletto_scelta 1: Haziel ti insegna che un conto da pareggiare non guida.
 - intelletto_limite 1: Haziel ti ricorda che la clemenza con te dà sollievo.
 - gesto_orienta 1: Scegli oggi un piccolo rimprovero che ti porti dietro, anche verso di te: lascialo cadere senza conti.
 - gesto_attesa 1: Regala oggi un tuo piccolo gesto a qualcuno senza dirlo e senza aspettarti niente in cambio.
 - gesto_legami 1: Scrivi che cosa hai dato in questo rapporto aspettandoti qualcosa indietro, poi strappa il foglio.
 - gesto_scelta 1: Chiediti se una delle due strade ti attira per pareggiare un conto con qualcuno, poi lascia passare qualche giorno.
 - gesto_limite 1: Lascia per oggi da parte ogni rimprovero verso di te e scrivi con calma le domande per chi ti segue.
+- cuore_altrui 1: Haziel accende in te la tenerezza che non chiede contraccambio.
+- intelletto_altrui 1: Haziel ti fa capire che voler bene non è un conto.
+- gesto_altrui 1: Scrivi che cosa hai dato in questo rapporto aspettandoti qualcosa indietro, poi strappa il foglio.
 
 ## 10 Aladiah
 - aperta 1: Aladiah apre per te un nuovo inizio, da dove sei, senza cancellare il passato.
@@ -251,6 +278,9 @@
 - gesto_legami 1: Chiediti se in questo rapporto c'è un errore che continui a portarti addosso e scrivi che cosa ti ha insegnato.
 - gesto_scelta 1: Scrivi per ciascuna strada che cosa porti con te dal passato e che cosa lasci, senza fretta di decidere.
 - gesto_limite 1: Annota ciò che puoi fare da oggi e porta queste righe a chi ti segue, senza rimproverarti il passato.
+- cuore_altrui 1: Aladiah ti offre la libertà di non restare nel passato.
+- intelletto_altrui 1: Aladiah ti chiarisce che questo legame lo guardi per com'è oggi.
+- gesto_altrui 1: Scrivi in tre righe come vedi oggi questo rapporto, senza guardare a com'era.
 
 ## 11 Lauviah
 - aperta 1: Lauviah mette al centro ciò che sai portare avanti anche quando l'entusiasmo cala.
@@ -276,6 +306,9 @@
 - gesto_legami 1: Tieni per una settimana una piccola abitudine tua che ti fa stare bene, qualunque cosa accada in questo rapporto.
 - gesto_scelta 1: Immagina ciascuna strada fra sei mesi, a entusiasmo finito: annota quale continueresti a percorrere volentieri.
 - gesto_limite 1: Dedica un quaderno a questa questione e annota con regolarità le domande da portare a chi ti segue.
+- cuore_altrui 1: Lauviah ti porta la serenità di chi resta costante.
+- intelletto_altrui 1: Lauviah ti insegna che i legami si misurano nella costanza.
+- gesto_altrui 1: Tieni per una settimana una piccola abitudine tua che ti fa stare bene, qualunque cosa accada in questo rapporto.
 
 ## 12 Hahaiah
 - aperta 1: Hahaiah suggerisce di cercare un rifugio quieto dentro di te, prima di guardare fuori.
@@ -301,6 +334,9 @@
 - gesto_legami 1: Stasera, in un luogo quieto, chiediti che cosa senti tu in questo rapporto e tienilo per te ancora un po'.
 - gesto_scelta 1: Pensa a ciascuna strada in un luogo quieto, lontano dal rumore: annota quale ti lascia più in pace.
 - gesto_limite 1: Prepara in un momento di quiete le domande per chi ti segue, poi concediti un po' di silenzio.
+- cuore_altrui 1: Hahaiah ti fa sentire al riparo, qualunque cosa accada fuori.
+- intelletto_altrui 1: Hahaiah ti chiarisce che tacere per discrezione non è chiudersi.
+- gesto_altrui 1: Stasera, in un luogo quieto, chiediti che cosa senti tu in questo rapporto e tienilo per te ancora un po'.
 
 ## 13 Iezalel
 - aperta 1: Iezalel ti chiede di ricordarti delle persone che contano, prima di ogni altra cosa.
@@ -316,7 +352,7 @@
 - cuore_legami 1: Iezalel risveglia in te la tenerezza della memoria condivisa.
 - cuore_scelta 1: Iezalel ti avvicina alle persone che ti conoscono davvero.
 - cuore_limite 1: Iezalel ti sostiene con la forza dei legami fedeli.
-- intelletto_orienta 1: Iezalel chiarisce per te: la fedeltà è memoria, non abitudine.
+- intelletto_orienta 1: Iezalel chiarisce per te che la fedeltà è memoria, non abitudine.
 - intelletto_attesa 1: Iezalel ti ricorda che i legami fedeli reggono l'attesa.
 - intelletto_legami 1: Iezalel ti fa capire che tenere insieme non è comandare.
 - intelletto_scelta 1: Iezalel ti chiarisce che fedeltà non vuol dire immobilità.
@@ -326,13 +362,16 @@
 - gesto_legami 1: Annota i fatti di questo rapporto che ti restano più chiari, belli o difficili: la memoria fedele parte da lì.
 - gesto_scelta 1: Annota per ciascuna strada chi ti resterebbe vicino e da chi ti allontaneresti, rileggendolo con calma in più giorni.
 - gesto_limite 1: Annota i nomi di chi può accompagnarti in questa fase e chiedi a una di queste persone di esserci.
+- cuore_altrui 1: Iezalel risveglia in te la tenerezza della memoria condivisa.
+- intelletto_altrui 1: Iezalel ti fa capire che la memoria fedele conta più dell'ansia.
+- gesto_altrui 1: Annota i fatti di questo rapporto che ti restano più chiari, belli o difficili: la memoria fedele parte da lì.
 
 ## 14 Mebahel
 - aperta 1: Mebahel orienta la giornata verso la giustizia che comincia da te, prima che dagli altri.
 - futuro 1: Mebahel ti fa puntare su parole oneste, che dicono le cose come stanno senza ferire.
 - esito 1: Mebahel vuole che tu guardi con onestà la tua parte, senza ingrandirla né sminuirla.
 - altrui 1: Mebahel ti chiede di misurare con giustizia prima ciò che porti tu in questo legame.
-- decisione 1: Mebahel risponde sì se la scelta è giusta per te e per chi ne è toccato; altrimenti aspetta.
+- decisione 1: Mebahel risponde sì se puoi dire a chi ne è toccato com'è, senza aggiustare nulla; altrimenti aspetta.
 - scelta 1: Mebahel sceglie con te quella che puoi raccontare com'è, senza aggiustare nulla.
 - come 1: Mebahel ti indica di dire le cose come stanno, con parole che non feriscono.
 - limite 1: Mebahel ti aiuta a dire con onestà come stanno le cose a chi ti segue.
@@ -351,6 +390,9 @@
 - gesto_legami 1: Scrivi per te una cosa vera che non hai ancora detto in questo rapporto, con parole che non feriscono.
 - gesto_scelta 1: Elenca chi porta le conseguenze di ogni strada oltre a te e chiediti se è giusta anche per loro.
 - gesto_limite 1: Metti per iscritto le cose come stanno, senza abbellirle né aggravarle: portale così a chi ti segue.
+- cuore_altrui 1: Mebahel ti dà il coraggio gentile di dire il vero.
+- intelletto_altrui 1: Mebahel ti mostra che la sincerità non è durezza.
+- gesto_altrui 1: Scrivi per te una cosa vera che non hai ancora detto in questo rapporto, con parole che non feriscono.
 
 ## 15 Hariel
 - aperta 1: Hariel ti propone di mettere ordine nelle idee, prima di qualunque altra cosa.
@@ -376,6 +418,9 @@
 - gesto_legami 1: Scrivi in ordine i pensieri che hai su questo rapporto, dal più chiaro al più confuso.
 - gesto_scelta 1: Dai a ogni strada una pagina con ragioni, timori e primi passi, poi confrontale con calma in più giorni.
 - gesto_limite 1: Raccogli in una cartella documenti e domande, in ordine, così da portarli tutti a chi ti segue.
+- cuore_altrui 1: Hariel ti regala la serenità di pensieri finalmente chiari.
+- intelletto_altrui 1: Hariel ti spiega che pensieri in ordine diventano parole chiare.
+- gesto_altrui 1: Scrivi in ordine i pensieri che hai su questo rapporto, dal più chiaro al più confuso.
 
 ## 16 Hekamiah
 - aperta 1: Hakamiah ti incoraggia a non tirarti indietro e a dire chiaro ciò che pensi.
@@ -401,6 +446,9 @@
 - gesto_legami 1: Metti nero su bianco, senza giri di parole, che cosa vuoi tu in questo rapporto e dove stai.
 - gesto_scelta 1: Prova a spiegare ad alta voce ciascuna strada come se dovessi difenderla davanti a chi stimi, con calma.
 - gesto_limite 1: Scrivi anche le domande che ti imbarazzano e portale tutte a chi ti segue, senza tenerne indietro nessuna.
+- cuore_altrui 1: Hakamiah ti lascia il sollievo di una parola franca.
+- intelletto_altrui 1: Hakamiah ti fa capire che esserci davvero include parlare chiaro.
+- gesto_altrui 1: Metti nero su bianco, senza giri di parole, che cosa vuoi tu in questo rapporto e dove stai.
 
 ## 17 Lauviah II
 - aperta 1: Lauviah II ti invita a prendere le intuizioni notturne come piste da verificare.
@@ -426,6 +474,9 @@
 - gesto_legami 1: Scrivi ciò che intuisci di questo rapporto e accanto i fatti che lo confermano o lo smentiscono.
 - gesto_scelta 1: Per qualche notte annota al risveglio quale strada ti viene in mente, poi verifica le ragioni di giorno.
 - gesto_limite 1: Annota le paure che arrivano di notte e trasformale di giorno in domande precise per chi ti segue.
+- cuore_altrui 1: Lauviah II ti apre all'intuito, senza crederci ciecamente.
+- intelletto_altrui 1: Lauviah II ti ricorda che un'intuizione sull'altro va verificata.
+- gesto_altrui 1: Scrivi ciò che intuisci di questo rapporto e accanto i fatti che lo confermano o lo smentiscono.
 
 ## 18 Caliel
 - aperta 1: Caliel ti orienta a separare oggi i fatti dalle opinioni, tue e altrui.
@@ -433,7 +484,7 @@
 - esito 1: Caliel ti invita ad attenerti ai fatti che hai, senza riempire l'attesa di supposizioni.
 - altrui 1: Caliel ti aiuta a separare ciò che questa persona ha fatto da ciò che supponi.
 - decisione 1: Caliel risponde con una condizione: sì se sai dire tre fatti a favore, non opinioni; altrimenti aspetta.
-- scelta 1: Caliel ti mostra quella sostenuta dai fatti, non dalle opinioni altrui.
+- scelta 1: Caliel ti consiglia quella sostenuta dai fatti, non dalle opinioni altrui.
 - come 1: Caliel ti raccomanda di restare sui fatti con voce calma, lasciando da parte i giudizi.
 - limite 1: Caliel ti affianca nel distinguere ciò che sai davvero da ciò che temi.
 - cuore_orienta 1: Caliel ti offre una calma che non alza la voce.
@@ -450,13 +501,16 @@
 - gesto_attesa 1: Elenca soltanto i fatti certi su ciò che aspetti e rileggili quando la mente ti corre avanti.
 - gesto_legami 1: Dividi su un foglio ciò che sai di questo rapporto in due colonne: fatti e opinioni.
 - gesto_scelta 1: Separa per ciascuna strada i fatti che conosci dalle opinioni che hai sentito, poi rileggi con calma.
-- gesto_limite 1: Prepara per chi ti segue domande precise sui fatti, distinguendole da ciò che hai sentito dire in giro.
+- gesto_limite 1: Prepara per chi ti segue domande precise sui fatti, tenendole separate dalle supposizioni.
+- cuore_altrui 1: Caliel ti fa sentire la pace di guardare prima i fatti.
+- intelletto_altrui 1: Caliel ti chiarisce che un'impressione non è un fatto.
+- gesto_altrui 1: Dividi su un foglio ciò che sai di questo rapporto in due colonne: fatti e opinioni.
 
 ## 19 Leuviah
 - aperta 1: Leuviah ti invita a chiudere con calma, se c'è, una questione rimasta in sospeso.
 - futuro 1: Leuviah ti incoraggia a chiudere ciò che è rimasto in sospeso, senza rancore.
 - esito 1: Leuviah ti suggerisce di ricostruire con calma ciò che hai fatto finora, senza rimproverarti nulla.
-- altrui 1: Leuviah ti chiede di ricordare i fatti con precisione, per capire e non per rinfacciare.
+- altrui 1: Leuviah ti chiede di ricordare i fatti con precisione, per capire e non per giudicare.
 - decisione 1: Leuviah dice sì se ciò che hai imparato da esperienze simili sostiene la scelta; se la smentisce, aspetta.
 - scelta 1: Leuviah ti indica quella che non lascia questioni aperte alle tue spalle.
 - come 1: Leuviah ti suggerisce di usare la memoria per capire, mai per rinfacciare.
@@ -473,9 +527,12 @@
 - intelletto_limite 1: Leuviah ti ricorda che ricostruire bene aiuta chi ti segue.
 - gesto_orienta 1: Scegli una questione rimasta in sospeso e scrivi in poche righe com'è andata, senza cercare colpevoli.
 - gesto_attesa 1: Ripercorri per iscritto i passi fatti finora verso ciò che aspetti, riconoscendo ciò che hai già chiuso.
-- gesto_legami 1: Scrivi come ricordi un momento importante di questo rapporto, con i fatti in ordine e senza rinfacciare nulla.
+- gesto_legami 1: Scrivi come ricordi un momento importante di questo rapporto, con i fatti in ordine.
 - gesto_scelta 1: Prima di scegliere, rileggi come sono andate scelte simili in passato e annota che cosa ti hanno insegnato.
 - gesto_limite 1: Ricostruisci per iscritto, con le date, i passaggi di questa questione e portali a chi ti segue.
+- cuore_altrui 1: Leuviah ti porta la quiete di chi ricorda con precisione.
+- intelletto_altrui 1: Leuviah ti insegna che i fatti contano più delle impressioni.
+- gesto_altrui 1: Scrivi come ricordi un momento importante di questo rapporto, con i fatti in ordine.
 
 ## 20 Pahaliah
 - aperta 1: Pahaliah ti invita a distinguere ciò che non negozi da ciò che puoi cambiare.
@@ -492,7 +549,7 @@
 - cuore_scelta 1: Pahaliah ti toglie la paura di cambiare strada.
 - cuore_limite 1: Pahaliah ti regala la serenità di avere priorità chiare.
 - intelletto_orienta 1: Pahaliah ti chiarisce che cambiare strada non è rinnegarti.
-- intelletto_attesa 1: Pahaliah ti insegna: la rotta si corregge, i valori no.
+- intelletto_attesa 1: Pahaliah ti insegna che la rotta si corregge, i valori no.
 - intelletto_legami 1: Pahaliah ti mostra cosa concedere e cosa non negoziare.
 - intelletto_scelta 1: Pahaliah ti ricorda che cambiare idea non è incoerenza.
 - intelletto_limite 1: Pahaliah ti spiega che i piani cambiano, le priorità restano.
@@ -501,6 +558,9 @@
 - gesto_legami 1: Scrivi per te una cosa che in questo rapporto non negozi e un modo di fare che puoi cambiare.
 - gesto_scelta 1: Metti accanto a ogni strada ciò che ti chiederebbe di cedere e prenditi tutto il tempo che serve per pesarlo.
 - gesto_limite 1: Metti per iscritto le tue priorità di questo periodo e portale con le domande a chi ti segue.
+- cuore_altrui 1: Pahaliah ti ridà la fermezza di sapere ciò che conta.
+- intelletto_altrui 1: Pahaliah ti mostra che conoscere i tuoi confini ti dà stabilità.
+- gesto_altrui 1: Scrivi per te una cosa che in questo rapporto non è negoziabile e perché.
 
 ## 21 Nelchael
 - aperta 1: Nelchael ti chiede di restare con pazienza su ciò che non capisci ancora.
@@ -526,6 +586,9 @@
 - gesto_legami 1: Annota ciò che non capisci ancora dell'altra persona e per una settimana guarda senza trarre conclusioni.
 - gesto_scelta 1: Scrivi per ogni strada che cosa ti manca ancora da sapere e prenditi il tempo di informarti con calma.
 - gesto_limite 1: Scrivi i termini che non hai capito e chiedi a chi ti segue di spiegarteli con parole semplici.
+- cuore_altrui 1: Nelchael ti lascia la pazienza di capire l'altro col tempo.
+- intelletto_altrui 1: Nelchael ti avverte che non capire subito qualcuno è normale.
+- gesto_altrui 1: Annota ciò che non capisci ancora dell'altra persona e per una settimana guarda senza trarre conclusioni.
 
 ## 22 Yeiayel
 - aperta 1: Ieiaiel ti chiede di fare bene una cosa solida, anche se nessuno la vede.
@@ -551,6 +614,9 @@
 - gesto_legami 1: Elenca i fatti che hai visto nel tempo in questo rapporto, distinti dalle impressioni di un giorno.
 - gesto_scelta 1: Chiediti quale strada ti lascia fra un anno qualcosa di solido e prenditi il tempo di immaginarla bene.
 - gesto_limite 1: Tieni in ordine i documenti e le date che ti riguardano e portali completi a chi ti segue.
+- cuore_altrui 1: Ieiaiel ti porta fiducia in ciò che regge nel tempo.
+- intelletto_altrui 1: Ieiaiel ti ricorda che la fiducia nasce dai fatti.
+- gesto_altrui 1: Elenca i fatti che hai visto nel tempo in questo rapporto, distinti dalle impressioni di un giorno.
 
 ## 23 Melahel
 - aperta 1: Melahel ti porta verso una piccola attenzione quotidiana che evita un guaio domani.
@@ -576,6 +642,9 @@
 - gesto_legami 1: Dedica ogni giorno di questa settimana una piccola attenzione a chi ti sta accanto, senza aspettarti nulla.
 - gesto_scelta 1: Per ogni strada scrivi quali piccole attenzioni quotidiane ti chiederebbe e prenditi il tempo di confrontarle.
 - gesto_limite 1: Tieni un piccolo quaderno con date e domande da portare a chi ti segue e aggiornalo ogni giorno.
+- cuore_altrui 1: Melahel ti apre alla dolcezza dei piccoli gesti quotidiani.
+- intelletto_altrui 1: Melahel ti ricorda che un legame si cura ogni giorno.
+- gesto_altrui 1: Dedica ogni giorno di questa settimana una piccola attenzione a chi ti sta accanto, senza aspettarti nulla.
 
 ## 24 Haheuiah
 - aperta 1: Haheuiah ti invita a scegliere che cosa lasci entrare nelle tue giornate.
@@ -601,6 +670,9 @@
 - gesto_legami 1: Chiarisci per iscritto dove finisce il tuo spazio in questo rapporto e che cosa resta aperto.
 - gesto_scelta 1: Immagina ogni strada fra qualche mese e chiediti dove il tuo spazio resta tuo, senza fretta di rispondere.
 - gesto_limite 1: Stabilisci un orario per informarti e prepara le domande per chi ti segue, poi chiudi lì le ricerche.
+- cuore_altrui 1: Haheuiah ti dà una fermezza serena, senza durezza.
+- intelletto_altrui 1: Haheuiah distingue per te il confine dalla chiusura.
+- gesto_altrui 1: Chiarisci per iscritto dove finisce il tuo spazio in questo rapporto e che cosa resta aperto.
 
 ## 25 Nith-Haiah
 - aperta 1: Nithhaiah ti orienta al silenzio: ascolta prima di parlare, senza cercare risposte.
@@ -626,6 +698,9 @@
 - gesto_legami 1: Prenditi un momento di silenzio e chiediti che cosa senti tu, invece di cercare segnali nell'altro.
 - gesto_scelta 1: Lascia riposare la scelta qualche giorno senza ragionarci e annota l'intuizione che affiora senza cercarla.
 - gesto_limite 1: Prima dell'appuntamento resta qualche minuto in silenzio e scegli le domande che ti stanno più a cuore.
+- cuore_altrui 1: Nithhaiah ti porta la calma di ascoltare senza rispondere subito.
+- intelletto_altrui 1: Nithhaiah ti spiega che il silenzio insegna più delle discussioni.
+- gesto_altrui 1: Prenditi un momento di silenzio e chiediti che cosa senti tu, invece di cercare segnali nell'altro.
 
 ## 26 Haaiah
 - aperta 1: Haaiah ti suggerisce di cercare un punto d'incontro anche dove vedi uno scontro.
@@ -651,14 +726,17 @@
 - gesto_legami 1: Scrivi una cosa che condividi con l'altra persona e tienila davanti prima di pensare a ciò che vi divide.
 - gesto_scelta 1: Per ogni strada chiediti dove sta il punto d'incontro con chi ne è toccato e lasciati il tempo di vederlo.
 - gesto_limite 1: Affianca sul foglio le domande e i tuoi timori e portali insieme a chi ti segue.
+- cuore_altrui 1: Haaiah ti ispira la mitezza di chi spera senza pretendere.
+- intelletto_altrui 1: Haaiah ti insegna ad accordare speranza e fatti visti.
+- gesto_altrui 1: Scrivi una cosa che condividi con l'altra persona e una che speri, tenendole distinte.
 
 ## 27 Yerathel
 - aperta 1: Ierathel ti orienta a fare chiarezza su ciò che è confuso, senza condannare nessuno.
 - futuro 1: Ierathel ti porta a puntare sulla chiarezza, senza condannare né te né gli altri.
 - esito 1: Ierathel ti aiuta a vedere chiaro come stanno le cose, senza condannarti in anticipo.
-- altrui 1: Ierathel ti porta a fare chiarezza in te, senza condannare né te né l'altro.
+- altrui 1: Ierathel ti porta a fare chiarezza in te, prima di giudicare qualcuno.
 - decisione 1: Ierathel ti risponde sì se puoi sostenere la scelta con chiarezza senza colpire nessuno; altrimenti aspetta.
-- scelta 1: Ierathel ti mostra quella che sai spiegare con chiarezza, senza dover colpire nessuno.
+- scelta 1: Ierathel ti consiglia quella che sai spiegare con chiarezza, senza dover colpire nessuno.
 - come 1: Ierathel ti indica di dire chiaramente la tua posizione, senza trasformarla in un'accusa.
 - limite 1: Ierathel ti accompagna nel fare chiarezza su ciò che ti dicono, senza colpevolizzarti.
 - cuore_orienta 1: Ierathel ti dà una limpidezza che non giudica.
@@ -676,6 +754,9 @@
 - gesto_legami 1: Metti per iscritto la tua posizione in questo rapporto e togli ogni parola che suona come un'accusa.
 - gesto_scelta 1: Scrivi le ragioni di ogni strada come le spiegheresti a chi stimi e prenditi il tempo di rileggerle.
 - gesto_limite 1: Scrivi in parole semplici ciò che sai già e ciò che vuoi chiarire, poi portalo a chi ti segue.
+- cuore_altrui 1: Ierathel ti dà la fermezza mite di chi si ascolta.
+- intelletto_altrui 1: Ierathel ti insegna che chiarezza e durezza non coincidono.
+- gesto_altrui 1: Metti per iscritto in tre righe calme che cosa senti tu in questo rapporto.
 
 ## 28 Seheiah
 - aperta 1: Seheiah ti propone un passo che puoi sostenere nel tempo, invece dello strappo.
@@ -701,13 +782,16 @@
 - gesto_legami 1: Chiediti quale ritmo puoi reggere in questo rapporto senza forzarti e scrivilo in una riga.
 - gesto_scelta 1: Guarda ogni strada fra sei mesi e chiediti dove il passo resta sostenibile, senza fretta di decidere.
 - gesto_limite 1: Organizza la settimana con pause e scadenze realistiche e porta a chi ti segue le domande annotate.
+- cuore_altrui 1: Seheiah trasforma in te la paura in prudenza.
+- intelletto_altrui 1: Seheiah ti chiarisce che i legami reggono sulle abitudini.
+- gesto_altrui 1: Chiediti quale ritmo puoi reggere in questo rapporto senza forzarti e scrivilo in una riga.
 
 ## 29 Reiyel
 - aperta 1: Reiiel ti invita oggi a riconoscere ciò che ti trattiene e a scioglierlo senza rancore.
 - futuro 1: Reiiel punta su ciò che dipende da te: sciogliere adesso quello che ti trattiene.
 - esito 1: Reiiel ti chiede di attendere sciogliendo le paure che non hai scelto tu.
-- altrui 1: Reiiel ti chiede di riconoscere quali vecchie paure guidano il tuo sguardo, senza rancore.
-- decisione 1: Reiiel risponde sì se dire sì scioglie un nodo che ti trattiene; se ne stringe un altro, aspetta.
+- altrui 1: Reiiel ti chiede di riconoscere quali vecchie paure guidano il tuo sguardo, senza giudicarti.
+- decisione 1: Reiiel risponde sì se sai dire quale paura ti frena e perché non basta a fermarti; altrimenti aspetta.
 - scelta 1: Reiiel guarda alla strada che prenderesti senza le paure che ti hanno insegnato.
 - come 1: Reiiel ti chiede di sciogliere senza rancore ciò che ti frena in questo rapporto.
 - limite 1: Reiiel ti aiuta a separare le tue domande dalle paure che ti hanno raccontato.
@@ -726,6 +810,9 @@
 - gesto_legami 1: Chiediti se un vecchio rancore pesa sul tuo sguardo in questo rapporto: se c'è, scrivilo e lascialo andare.
 - gesto_scelta 1: Accanto a ogni opzione scrivi quale paura imparata da altri la spinge o la frena; prenditi il tempo che serve.
 - gesto_limite 1: Scrivi le domande per chi ti segue separando ciò che sai da ciò che ti hanno raccontato.
+- cuore_altrui 1: Reiiel ti lascia sentire una fiducia libera dalle vecchie paure.
+- intelletto_altrui 1: Reiiel ti fa capire che le vecchie paure non sono fatti.
+- gesto_altrui 1: Chiediti se una vecchia paura colora il tuo sguardo su questo rapporto: se c'è, scrivila.
 
 ## 30 Omael
 - aperta 1: Omael ti indica per oggi la cura paziente di ciò che ancora non si vede.
@@ -751,6 +838,9 @@
 - gesto_legami 1: Scrivi che cosa senti in questo rapporto e rileggilo fra una settimana, senza forzare conclusioni.
 - gesto_scelta 1: Scrivi per ogni opzione che cosa andrebbe preparato prima: poi concediti il tempo che una scelta grande chiede.
 - gesto_limite 1: Prepara una cartella con documenti e domande per chi ti segue e aggiornala con pazienza ogni settimana.
+- cuore_altrui 1: Omael ti dà la tenerezza paziente di chi lascia crescere.
+- intelletto_altrui 1: Omael ti mostra che un legame matura, non si forza.
+- gesto_altrui 1: Scrivi che cosa senti in questo rapporto e rileggilo fra una settimana, senza forzare conclusioni.
 
 ## 31 Lecabel
 - aperta 1: Lecabel porta la tua attenzione di oggi su un dettaglio, tenendo presente l'insieme.
@@ -768,7 +858,7 @@
 - cuore_limite 1: Lecabel ti offre la tranquillità di avere tutto in ordine.
 - intelletto_orienta 1: Lecabel ti insegna che il dettaglio conta dentro l'insieme.
 - intelletto_attesa 1: Lecabel ti mostra che curare ogni dettaglio fa strada.
-- intelletto_legami 1: Lecabel ti ricorda: un dettaglio non è tutto il rapporto.
+- intelletto_legami 1: Lecabel ti ricorda che un dettaglio non è tutto il rapporto.
 - intelletto_scelta 1: Lecabel ti insegna a pesare i dati, non le sensazioni.
 - intelletto_limite 1: Lecabel ti fa notare che l'ordine chiarisce le domande.
 - gesto_orienta 1: Prendi una cosa che ti sta a cuore e scrivi il prossimo passo preciso, con giorno e ora.
@@ -776,13 +866,16 @@
 - gesto_legami 1: Annota per una settimana i fatti concreti di questo rapporto in una colonna e le tue impressioni nell'altra.
 - gesto_scelta 1: Fai una tabella con i dati concreti di ogni opzione e lasciala riposare qualche giorno prima di rileggerla.
 - gesto_limite 1: Metti in ordine documenti e date in una sola cartella e scrivi tre domande precise per chi ti segue.
+- cuore_altrui 1: Lecabel ti fa sentire un'attenzione affettuosa ai piccoli segni.
+- intelletto_altrui 1: Lecabel ti ricorda che un dettaglio non è tutto il rapporto.
+- gesto_altrui 1: Annota per una settimana i fatti concreti di questo rapporto in una colonna e le tue impressioni nell'altra.
 
 ## 32 Vasariah
 - aperta 1: Vasariah ti consiglia oggi di misurare prima di giudicare, distinguendo l'errore dalla persona.
 - futuro 1: Vasariah ti affida ciò che dipende da te: giudicare con equità, senza durezza.
 - esito 1: Vasariah ti domanda di attendere misurando i fatti prima di giudicarli, con clemenza.
 - altrui 1: Vasariah ti propone uno sguardo giusto e clemente: un gesto non è tutta una persona.
-- decisione 1: Vasariah dice sì se la scelta è giusta verso tutti e verso di te; se punisce qualcuno, aspetta.
+- decisione 1: Vasariah ti dice sì se la scelta non toglie a nessuno il suo; se punisce qualcuno, aspetta.
 - scelta 1: Vasariah raccomanda quella che è giusta senza durezza, verso gli altri e verso di te.
 - come 1: Vasariah ti consiglia di parlare dei gesti, mai di ciò che l'altra persona è.
 - limite 1: Vasariah ti sta accanto mentre guardi i fatti con giustizia, senza condannarti.
@@ -801,6 +894,9 @@
 - gesto_legami 1: Scrivi un gesto di questa persona in una riga, soltanto i fatti, senza aggettivi su chi è.
 - gesto_scelta 1: Per ogni opzione scrivi chi ne porterebbe il peso, contando anche te; poi prenditi tutto il tempo.
 - gesto_limite 1: Prepara le domande per chi è competente e scrivi accanto una frase clemente rivolta a te.
+- cuore_altrui 1: Vasariah ti apre a una comprensione che resta giusta.
+- intelletto_altrui 1: Vasariah ti ricorda che un gesto non dice tutta una persona.
+- gesto_altrui 1: Scrivi un gesto di questa persona in una riga, soltanto i fatti, senza aggettivi su chi è.
 
 ## 33 Yehuiah
 - aperta 1: Iehuiah oggi ti ricorda che sei più dei ruoli che ricopri.
@@ -820,12 +916,15 @@
 - intelletto_attesa 1: Iehuiah chiarisce che il risultato riguarda il ruolo, non te.
 - intelletto_legami 1: Iehuiah ti fa distinguere il ruolo dell'altro dalla persona.
 - intelletto_scelta 1: Iehuiah ti mostra la differenza fra adattarti e perderti.
-- intelletto_limite 1: Iehuiah chiarisce i ruoli: a te spettano le domande.
+- intelletto_limite 1: Iehuiah chiarisce che a te spettano le domande.
 - gesto_orienta 1: Scrivi i ruoli che ricopri oggi e accanto a ciascuno una cosa tua che non vuoi perdere.
 - gesto_attesa 1: Dedica ogni giorno, mentre aspetti, un momento a qualcosa che fai soltanto per te, fuori da ogni ruolo.
 - gesto_legami 1: Chiediti quale ruolo hai preso in questo rapporto e se ti somiglia ancora; scrivilo in una riga.
 - gesto_scelta 1: Per ogni opzione immagina il ruolo che ti chiederebbe e scrivi che cosa di te resterebbe fuori.
 - gesto_limite 1: Scrivi in cima alle tue domande chi sei e che cosa ti preme, prima del caso tecnico.
+- cuore_altrui 1: Iehuiah ti porta la libertà di essere te nel legame.
+- intelletto_altrui 1: Iehuiah ti fa distinguere chi sei tu da come ti vedono.
+- gesto_altrui 1: Chiediti quale ruolo hai preso in questo rapporto e se ti somiglia ancora; scrivilo in una riga.
 
 ## 34 Lehahiah
 - aperta 1: Lehahiah ti consegna per oggi una calma che tiene, anche se intorno sale la tensione.
@@ -851,12 +950,15 @@
 - gesto_legami 1: Scrivi una frase calma da ripeterti nei momenti tesi di questo rapporto, prima di qualunque reazione.
 - gesto_scelta 1: Rimanda ogni decisione presa d'impulso e torna sulle opzioni in un momento calmo, anche fra qualche settimana.
 - gesto_limite 1: Prima dell'appuntamento con chi ti segue, siedi in silenzio qualche minuto e poi rileggi le tue domande.
+- cuore_altrui 1: Lehahiah ti regala la pace di non dover reagire subito.
+- intelletto_altrui 1: Lehahiah ti insegna che rispondere non è reagire d'impulso.
+- gesto_altrui 1: Scrivi una frase calma da ripeterti nei momenti tesi di questo rapporto, prima di qualunque reazione.
 
 ## 35 Chavakiah
 - aperta 1: Chavakhiah oggi mette i legami prima della ragione: chiediti dove serve un primo passo.
 - futuro 1: Chavakhiah ti chiede di puntare sui legami che contano, più che sull'avere ragione.
 - esito 1: Chavakhiah ti suggerisce di attendere accanto a chi ami, senza lasciare che l'orgoglio ti chiuda.
-- altrui 1: Chavakhiah ti porta a chiarire in te se conta più il legame o avere ragione.
+- altrui 1: Chavakhiah ti porta a chiarire in te che cosa conta di più in questo legame.
 - decisione 1: Chavakhiah inclina al sì se non sacrifichi un legame per avere ragione; se lo fai, aspetta.
 - scelta 1: Chavakhiah ti consiglia la strada che tiene vivi i legami, anche a costo di cedere.
 - come 1: Chavakhiah ti invita a mettere il legame davanti alla voglia di avere ragione.
@@ -876,6 +978,9 @@
 - gesto_legami 1: Chiediti se in questo rapporto tieni di più ad avere ragione o al legame: scrivilo in una riga sincera.
 - gesto_scelta 1: Guarda ogni opzione chiedendoti quali legami tiene vivi e quali raffredda; concediti settimane, se servono.
 - gesto_limite 1: Scegli una persona cara e condividi con lei le tue domande, senza tenerle chiuse per orgoglio.
+- cuore_altrui 1: Chavakhiah ti ispira l'umiltà buona di chi ascolta prima di concludere.
+- intelletto_altrui 1: Chavakhiah ti mostra che ascoltare richiede più tempo del giudicare.
+- gesto_altrui 1: Scrivi in una riga che cosa conta di più per te in questo rapporto, ora.
 
 ## 36 Menadel
 - aperta 1: Menadel ti orienta oggi all'impegno quotidiano: ciò che fai ogni giorno ha ancora da insegnarti.
@@ -889,7 +994,7 @@
 - cuore_orienta 1: Menadel ti dà la soddisfazione quieta dell'impegno di ogni giorno.
 - cuore_attesa 1: Menadel ti dà la fiducia di chi continua a imparare.
 - cuore_legami 1: Menadel ti trasmette l'apertura di chi impara dagli altri.
-- cuore_scelta 1: Menadel accende in te la fierezza di crescere impegnandoti.
+- cuore_scelta 1: Menadel ti trasmette la fierezza di scegliere ciò che fa crescere.
 - cuore_limite 1: Menadel ti offre la solidità dei piccoli compiti quotidiani.
 - intelletto_orienta 1: Menadel ti svela che l'impegno di ogni giorno ti forma.
 - intelletto_attesa 1: Menadel ti fa capire che l'impegno non dipende dall'esito.
@@ -901,6 +1006,9 @@
 - gesto_legami 1: Scrivi una cosa che questo rapporto ti sta insegnando e una che vuoi ancora imparare.
 - gesto_scelta 1: Chiediti che cosa ti insegnerebbe ogni opzione nei prossimi anni e torna sulla risposta per più settimane.
 - gesto_limite 1: Dividi la preparazione per chi ti segue in piccoli compiti da fare uno al giorno e spuntali con costanza.
+- cuore_altrui 1: Menadel ti trasmette l'apertura di chi impara dagli altri.
+- intelletto_altrui 1: Menadel ti mostra che un legame si impara vivendolo.
+- gesto_altrui 1: Scrivi una cosa che questo rapporto ti sta insegnando e una che vuoi ancora imparare.
 
 ## 37 Aniel
 - aperta 1: Aniel ti chiede oggi di riconoscere uno schema che si ripete e di uscirne.
@@ -926,6 +1034,9 @@
 - gesto_legami 1: Nota la reazione che ti torna più spesso in questo rapporto e scegline una diversa da provare.
 - gesto_scelta 1: Ripensa a come hai scelto in situazioni simili e chiediti quale strada ripete quel modo, senza fretta.
 - gesto_limite 1: Scrivi una volta sola le tue preoccupazioni, trasformale in domande e portale a chi è competente.
+- cuore_altrui 1: Aniel ti lascia la libertà di rispondere in modo nuovo.
+- intelletto_altrui 1: Aniel ti fa distinguere un problema da uno schema ripetuto.
+- gesto_altrui 1: Nota la reazione che ti torna più spesso in questo rapporto e scegline una diversa da provare.
 
 ## 38 Haamiah
 - aperta 1: Haamiah oggi ti affida un piccolo gesto da ripetere, che ti ricordi chi sei.
@@ -941,16 +1052,19 @@
 - cuore_legami 1: Haamiah accende in te la fiducia dei gesti costanti.
 - cuore_scelta 1: Haamiah ti lascia la quiete di riconoscerti nella scelta.
 - cuore_limite 1: Haamiah porta la stabilità di un gesto che ti somiglia.
-- intelletto_orienta 1: Haamiah ti chiarisce: il senso si coltiva, non si aspetta.
+- intelletto_orienta 1: Haamiah ti chiarisce che il senso si coltiva, non si aspetta.
 - intelletto_attesa 1: Haamiah ti insegna che un gesto ripetuto regge l'attesa.
 - intelletto_legami 1: Haamiah ti svela che un rapporto vive di gesti quotidiani.
-- intelletto_scelta 1: Haamiah ti avverte: conta il quotidiano che nutre, non l'entusiasmo.
+- intelletto_scelta 1: Haamiah ti avverte che conta il quotidiano che nutre, non l'entusiasmo.
 - intelletto_limite 1: Haamiah ti mostra che un'abitudine ordina, non decide l'esito.
 - gesto_orienta 1: Scegli un gesto semplice, come un caffè preso con calma: ripetilo ogni mattina di questa settimana.
 - gesto_attesa 1: Mentre aspetti, tieni fisso un piccolo gesto quotidiano, sempre alla stessa ora, che non dipenda dall'esito.
 - gesto_legami 1: Tieni ogni giorno un gesto tuo che ti ricordi chi sei, comunque vada con l'altra persona.
 - gesto_scelta 1: Per qualche giorno immagina ogni strada come una giornata qualunque e nota in quale i tuoi gesti hanno senso.
 - gesto_limite 1: Fissa una piccola abitudine di ordine, come rileggere ogni sera le domande da portare a chi ti segue.
+- cuore_altrui 1: Haamiah accende in te la fiducia dei gesti costanti.
+- intelletto_altrui 1: Haamiah ti svela che un rapporto vive di gesti quotidiani.
+- gesto_altrui 1: Tieni ogni giorno un gesto tuo che ti ricordi chi sei, comunque vada con l'altra persona.
 
 ## 39 Rehael
 - aperta 1: Rehael per oggi ti orienta al rispetto verso chi hai vicino, prima di ogni merito.
@@ -976,6 +1090,9 @@
 - gesto_legami 1: Scrivi per te una cosa che rispetti davvero dell'altra persona, lasciando da parte i giudizi di ieri.
 - gesto_scelta 1: Per ogni strada scrivi quali persone coinvolge e come potresti rispettarle, poi rileggi con calma.
 - gesto_limite 1: Prepara con franchezza le domande per chi ti segue e portale con rispetto, senza tacere i dubbi.
+- cuore_altrui 1: Rehael ti dona un rispetto che non chiede meriti.
+- intelletto_altrui 1: Rehael ti mostra che il rispetto non aspetta di capire tutto.
+- gesto_altrui 1: Scrivi per te una cosa che rispetti davvero dell'altra persona, lasciando da parte i giudizi di ieri.
 
 ## 40 Ieiazel
 - aperta 1: Ieiazel ti invita oggi a mettere in parole ciò che senti, anche quando pesa.
@@ -1001,6 +1118,9 @@
 - gesto_legami 1: Scrivi una lettera da non spedire con ciò che senti in questo rapporto, poi riponila.
 - gesto_scelta 1: Annota per ogni strada che cosa ti costerebbe lasciarla, accogliendo anche la malinconia, senza fretta di decidere.
 - gesto_limite 1: Scrivi le preoccupazioni così come sono e trasformale in domande per chi ti segue.
+- cuore_altrui 1: Ieiazel accoglie ciò che senti, anche ciò che fa male.
+- intelletto_altrui 1: Ieiazel ti insegna che stare accanto non è spiegare.
+- gesto_altrui 1: Scrivi una lettera da non spedire con ciò che senti in questo rapporto, poi riponila.
 
 ## 41 Hahahel
 - aperta 1: Hahahel ti chiede per oggi di fare ciò che dici di credere, anche senza testimoni.
@@ -1026,6 +1146,9 @@
 - gesto_legami 1: Scrivi una cosa che dici di volere in questo rapporto e nota se i tuoi gesti la confermano.
 - gesto_scelta 1: Confronta ogni strada con ciò che dici di credere e annota dove le tue parole e i fatti coincidono.
 - gesto_limite 1: Metti per iscritto gli impegni che hai scelto e tienili anche nei giorni in cui nessuno controlla.
+- cuore_altrui 1: Hahahel ti dona l'agio di non avere due facce.
+- intelletto_altrui 1: Hahahel ti rivela che la fiducia nasce dalla coerenza.
+- gesto_altrui 1: Scrivi una cosa che dici di volere in questo rapporto e nota se i tuoi gesti la confermano.
 
 ## 42 Mikael
 - aperta 1: Mikael ti orienta a vedere le cose come stanno, prima di prendere posizione.
@@ -1051,6 +1174,9 @@
 - gesto_legami 1: Chiediti quale accordo, detto o non detto, regge oggi questo rapporto e scrivilo com'è, senza giudicarlo.
 - gesto_scelta 1: Elenca per ogni strada i fatti che la sostengono, separandoli dalle tue speranze, poi rileggili fra qualche giorno.
 - gesto_limite 1: Metti in ordine su un foglio i fatti, le date e le domande da portare a chi ti segue.
+- cuore_altrui 1: Mikael ti dona la serenità di non giudicare in fretta.
+- intelletto_altrui 1: Mikael ti insegna che un accordo parte dai fatti condivisi.
+- gesto_altrui 1: Chiediti quale accordo, detto o non detto, regge oggi questo rapporto e scrivilo com'è, senza giudicarlo.
 
 ## 43 Veuliah
 - aperta 1: Veualiah ti chiede per oggi la disciplina di finire ciò che hai cominciato.
@@ -1076,6 +1202,9 @@
 - gesto_legami 1: Porta a termine entro la settimana un impegno preso con chi ti è vicino, anche piccolo.
 - gesto_scelta 1: Scrivi per ogni strada il primo passo e il traguardo, poi chiediti quale sai portare fino in fondo.
 - gesto_limite 1: Scrivi le domande per chi ti segue e completa l'elenco entro la settimana, senza lasciarlo a metà.
+- cuore_altrui 1: Veualiah ti porta l'orgoglio quieto di chi mantiene gli impegni.
+- intelletto_altrui 1: Veualiah ti chiarisce che un legame cresce con la costanza.
+- gesto_altrui 1: Porta a termine entro la settimana un impegno preso con chi ti è vicino, anche piccolo.
 
 ## 44 Yelahiah
 - aperta 1: Ielahiah ti richiama a una parola data, da tenere oggi anche se costa.
@@ -1101,6 +1230,9 @@
 - gesto_legami 1: Scrivi un impegno che senti tuo in questo rapporto e verifica se lo stai mantenendo anche quando costa.
 - gesto_scelta 1: Scrivi quale delle due strade ti chiede di più e quale ritieni giusta, poi rileggi fra qualche giorno.
 - gesto_limite 1: Scrivi le domande che temi di fare a chi ti segue e portale tutte, anche quelle scomode.
+- cuore_altrui 1: Ielahiah ti dà l'onore quieto di essere di parola.
+- intelletto_altrui 1: Ielahiah ti mostra che un impegno conta proprio quando pesa.
+- gesto_altrui 1: Scrivi un impegno che senti tuo in questo rapporto e verifica se lo stai mantenendo anche quando costa.
 
 ## 45 Sealiah
 - aperta 1: Sealiah ti propone per oggi di rimettere in moto, piano, ciò che si era fermato.
@@ -1126,6 +1258,9 @@
 - gesto_legami 1: Riprendi in mano una tua abitudine che si era fermata, qualunque cosa accada nel rapporto.
 - gesto_scelta 1: Per ogni strada scrivi il primo piccolo passo possibile e nota quale si muove senza forzare, con calma.
 - gesto_limite 1: Riordina con calma, un poco al giorno, i documenti e le domande da portare a chi ti segue.
+- cuore_altrui 1: Sealiah ti porta la calma di chi procede adagio.
+- intelletto_altrui 1: Sealiah ti ricorda che ogni legame ha tempi suoi.
+- gesto_altrui 1: Riprendi in mano una tua abitudine che si era fermata, qualunque cosa accada nel rapporto.
 
 ## 46 Ariel
 - aperta 1: Ariel ti invita oggi a notare un dettaglio trascurato e a verificarlo prima di agire.
@@ -1143,7 +1278,7 @@
 - cuore_limite 1: Ariel ti dà la serenità di sapere, non di supporre.
 - intelletto_orienta 1: Ariel ti chiarisce che un'intuizione va verificata, non creduta.
 - intelletto_attesa 1: Ariel distingue per te l'indizio dalla prova.
-- intelletto_legami 1: Ariel ti fa capire: un'impressione si verifica, non si presume.
+- intelletto_legami 1: Ariel ti fa capire che un'impressione si verifica, non si presume.
 - intelletto_scelta 1: Ariel ti avverte che ciò che affascina va verificato.
 - intelletto_limite 1: Ariel ti spiega che un dettaglio preciso vale più dell'ansia.
 - gesto_orienta 1: Osserva per un giorno un dettaglio che di solito ignori e verifica che cosa ti segnala davvero.
@@ -1151,6 +1286,9 @@
 - gesto_legami 1: Nota per qualche giorno i gesti concreti che vedi nel rapporto e separali da ciò che supponi.
 - gesto_scelta 1: Verifica per ogni strada un dettaglio concreto che hai dato per scontato, prima di decidere.
 - gesto_limite 1: Annota con precisione date, dettagli e dubbi da portare a chi ti segue, senza interpretarli per conto tuo.
+- cuore_altrui 1: Ariel ti apre a un'attenzione paziente per i piccoli segnali.
+- intelletto_altrui 1: Ariel ti fa capire che un'impressione si verifica, non si presume.
+- gesto_altrui 1: Nota per qualche giorno i gesti concreti che vedi nel rapporto e separali da ciò che supponi.
 
 ## 47 Asaliah
 - aperta 1: Asaliah orienta la giornata sul vero, anche quando una mezza verità ti farebbe più comodo.
@@ -1176,6 +1314,9 @@
 - gesto_legami 1: Metti in fila tre fatti del tuo rapporto così come sono andati, senza interpretarli né addolcirli.
 - gesto_scelta 1: Elenca le ragioni per ciascuna strada, cancella quelle di puro comodo e guarda che cosa resta in piedi.
 - gesto_limite 1: Scrivi anche le domande che temi di fare e portale tutte a chi ti segue, senza tagliarne nessuna.
+- cuore_altrui 1: Asaliah ti lascia sentire il rispetto che nasce dalla franchezza.
+- intelletto_altrui 1: Asaliah ti ricorda che vedere non è sperare.
+- gesto_altrui 1: Metti in fila tre fatti del tuo rapporto così come sono andati, senza interpretarli né addolcirli.
 
 ## 48 Mihael
 - aperta 1: Mihael per oggi ti chiede di esserci per chi ami, senza contare che cosa ricevi.
@@ -1201,6 +1342,9 @@
 - gesto_legami 1: Pensa a un piccolo gesto con cui esserci per chi hai accanto ogni giorno e fallo senza annunciarlo.
 - gesto_scelta 1: Immagina un giorno qualunque fra un anno dentro ciascuna strada e chiediti a quale resteresti fedele.
 - gesto_limite 1: Tieni un quaderno per le domande e gli appuntamenti e aggiornalo ogni giorno, anche quando costa.
+- cuore_altrui 1: Mihael ti dona la costanza di chi resta, senza contare.
+- intelletto_altrui 1: Mihael ti rivela che un legame si nutre di presenza.
+- gesto_altrui 1: Pensa a un piccolo gesto con cui esserci per chi hai accanto ogni giorno e fallo senza annunciarlo.
 
 ## 49 Vehuel
 - aperta 1: Vehuel oggi ti invita a riconoscere con giustizia il valore di chi hai accanto.
@@ -1219,13 +1363,16 @@
 - intelletto_orienta 1: Vehuel ti dimostra che esigere molto non vuol dire disprezzare.
 - intelletto_attesa 1: Vehuel ricorda che esigere da te non vuol dire svalutarti.
 - intelletto_legami 1: Vehuel spiega che stimare qualcuno non toglie nulla a te.
-- intelletto_scelta 1: Vehuel ti avverte: un criterio alto orienta, non paralizza.
+- intelletto_scelta 1: Vehuel ti avverte che un criterio alto orienta, non paralizza.
 - intelletto_limite 1: Vehuel ti dimostra che stimare chi sa non è arrendersi.
 - gesto_orienta 1: Di' oggi a una persona che cosa apprezzi davvero di lei, con parole tue, precise e semplici.
 - gesto_attesa 1: Scrivi tre cose che hai fatto bene finora per ciò che aspetti, con la generosità che riservi agli altri.
 - gesto_legami 1: Scrivi una qualità dell'altra persona e una tua, con la stessa misura: nessuna delle due vale meno.
 - gesto_scelta 1: Per ciascuna strada scrivi a chi porta valore, a te e agli altri, poi rileggi con calma.
 - gesto_limite 1: Prepara le domande per chi ti segue e comincia ringraziando: la stima apre un dialogo più chiaro.
+- cuore_altrui 1: Vehuel ti dona la stima che avvicina invece di misurare.
+- intelletto_altrui 1: Vehuel spiega che stimare qualcuno non toglie nulla a te.
+- gesto_altrui 1: Scrivi una qualità dell'altra persona e una tua, con la stessa misura: nessuna delle due vale meno.
 
 ## 50 Daniel
 - aperta 1: Daniel ti invita oggi a sciogliere un dubbio che tieni aperto da troppo tempo.
@@ -1242,7 +1389,7 @@
 - cuore_scelta 1: Daniel ti infonde il coraggio di scegliere, anche se costa.
 - cuore_limite 1: Daniel ti lascia sentire la fermezza di chi sa scegliere.
 - intelletto_orienta 1: Daniel ti ricorda che rimandare è già una scelta.
-- intelletto_attesa 1: Daniel ti avverte: il dubbio lungo stanca più della scelta.
+- intelletto_attesa 1: Daniel ti avverte che il dubbio lungo stanca più della scelta.
 - intelletto_legami 1: Daniel ti rende chiaro che capire non è dare ragione.
 - intelletto_scelta 1: Daniel ti ricorda che una scelta difficile non è sbagliata.
 - intelletto_limite 1: Daniel ti insegna che chiarire vale più che rimandare.
@@ -1251,6 +1398,9 @@
 - gesto_legami 1: Scrivi in tre righe come l'altra persona racconterebbe la situazione, senza correggerla né giudicarla.
 - gesto_scelta 1: Scrivi che cosa costa ciascuna strada e chiediti quale costo accetti davvero di portare.
 - gesto_limite 1: Scrivi i dubbi che ti girano in testa e trasformali in domande precise per chi ti segue.
+- cuore_altrui 1: Daniel accende in te la comprensione prima del giudizio.
+- intelletto_altrui 1: Daniel ti rende chiaro che capire una persona richiede ascolto.
+- gesto_altrui 1: Scrivi in tre righe come l'altra persona racconterebbe la situazione, senza correggerla né giudicarla.
 
 ## 51 Hahasiah
 - aperta 1: Hahasiah per la giornata ti consiglia di capire come funziona una cosa prima di toccarla.
@@ -1276,12 +1426,15 @@
 - gesto_legami 1: Osserva per una settimana che cosa accende in te vicinanza o tensione verso l'altra persona e annotalo.
 - gesto_scelta 1: Raccogli su ciascuna strada tre informazioni concrete che ancora ti mancano, prima di metterci le mani.
 - gesto_limite 1: Scrivi ciò che non ti è chiaro e chiedi a chi ti segue di spiegartelo passo per passo.
+- cuore_altrui 1: Hahasiah ti lascia sentire una curiosità paziente per l'altra persona.
+- intelletto_altrui 1: Hahasiah ti avverte che capire qualcuno chiede tempo, non intuito.
+- gesto_altrui 1: Osserva per una settimana che cosa accende in te vicinanza o tensione verso l'altra persona e annotalo.
 
 ## 52 Imamiah
 - aperta 1: Imamiah ti propone di guardare un tuo sbaglio con mitezza, poi di ripartire dai fatti.
 - futuro 1: Imamiah ti spinge a puntare sui passi che puoi fare adesso, senza rimproverarti per ieri.
 - esito 1: Imamiah ti sprona a correggere ciò che ancora puoi, senza condannarti per il resto.
-- altrui 1: Imamiah ti aiuta a guardare la tua parte nel legame senza condannarti né condannare.
+- altrui 1: Imamiah ti aiuta a guardare con onestà ciò che porti tu nel legame.
 - decisione 1: Imamiah ammette il sì se ti concedi di poter sbagliare senza condanna; se decide la paura, aspetta.
 - scelta 1: Imamiah sceglie con te quella che prenderesti se la paura di sbagliare non ti chiudesse.
 - come 1: Imamiah propone di guardare gli errori, tuoi e altrui, senza farne una condanna.
@@ -1301,6 +1454,9 @@
 - gesto_legami 1: Metti in una riga la tua parte in questo rapporto senza accusarti né giustificarti, poi tienila per te.
 - gesto_scelta 1: Scrivi quale errore temi in ciascuna strada e accanto come lo affronteresti, senza farne una condanna.
 - gesto_limite 1: Lascia da parte i rimproveri che ti fai e scrivi domande precise per chi ti segue.
+- cuore_altrui 1: Imamiah ti infonde l'umiltà di non sapere tutto dell'altra persona.
+- intelletto_altrui 1: Imamiah ti ricorda che di una persona vedi solo una parte.
+- gesto_altrui 1: Scrivi in una riga che cosa sai davvero di questa persona e che cosa ancora no.
 
 ## 53 Nanael
 - aperta 1: Nanael oggi ti chiede di essere, in silenzio, una persona su cui si può contare.
@@ -1326,14 +1482,17 @@
 - gesto_legami 1: Fai una cosa concreta su cui chi ti sta vicino possa contare questa settimana, senza farne parola.
 - gesto_scelta 1: Dedica alla tua scelta qualche ora di silenzio e studio, prima di chiedere pareri o parlarne.
 - gesto_limite 1: Prenditi un'ora di silenzio per rileggere ciò che sai già e scrivere le domande per chi ti segue.
+- cuore_altrui 1: Nanael ti fa sentire il valore di esserci senza clamore.
+- intelletto_altrui 1: Nanael ti avverte che la fiducia nasce da fatti silenziosi.
+- gesto_altrui 1: Fai una cosa concreta su cui chi ti sta vicino possa contare questa settimana, senza farne parola.
 
 ## 54 Nithael
 - aperta 1: Nithael ti orienta verso la bellezza che dura e verso il piacere di mostrarla.
 - futuro 1: Nithael ti chiede di puntare su ciò che dura, non su ciò che passa.
 - esito 1: Nithael ti ricorda di non perdere il bello di questo tempo mentre aspetti.
 - altrui 1: Nithael ti incoraggia a riconoscere ciò che di bello resta in te, comunque vada.
-- decisione 1: Nithael sostiene il sì se la scelta ti lascia qualcosa di bello e duraturo; altrimenti aspetta.
-- scelta 1: Nithael ti mostra quella che lascia qualcosa di bello anche oltre te.
+- decisione 1: Nithael ti dà il sì se la scelta vale anche fra un anno; se vale solo oggi, aspetta.
+- scelta 1: Nithael ti consiglia quella che lascia qualcosa di bello anche oltre te.
 - come 1: Nithael ti fa partire dal bello che c'è fra te e l'altra persona.
 - limite 1: Nithael ti fa tenere presente il bello che hai, mentre chiedi a chi sa.
 - cuore_orienta 1: Nithael ti fa provare meraviglia per le cose belle.
@@ -1351,13 +1510,16 @@
 - gesto_legami 1: Ripensa a un tuo ricordo bello di questo legame e scrivilo con cura in poche righe, per custodirlo.
 - gesto_scelta 1: Immagina di raccontare ciascuna strada fra molti anni e nota quale storia ti sembra più bella.
 - gesto_limite 1: Tieni accanto una cosa bella che ti ricordi chi sei mentre prepari le domande per chi ti segue.
+- cuore_altrui 1: Nithael ti dà la gioia di cogliere il bello altrui.
+- intelletto_altrui 1: Nithael ti spiega che vedere il bello non è idealizzare.
+- gesto_altrui 1: Ripensa a un tuo ricordo bello di questo legame e scrivilo con cura in poche righe, per custodirlo.
 
 ## 55 Mebahiah
 - aperta 1: Mebahiah ti orienta verso la coerenza fra ciò che pensi giusto e ciò che fai.
 - futuro 1: Mebahiah ti suggerisce di puntare su ciò che trasmetti agli altri con i tuoi gesti.
 - esito 1: Mebahiah ti invita a dirti parole che consolano, non che condannano, mentre aspetti.
 - altrui 1: Mebahiah vuole che tu viva nei gesti ciò che consideri giusto in un legame.
-- decisione 1: Mebahiah ti risponde sì se sai dire quale gesto quotidiano nasce da questa scelta; altrimenti aspetta.
+- decisione 1: Mebahiah dà il sì se riesci a immaginare i tuoi giorni ordinari dopo la scelta; altrimenti aspetta.
 - scelta 1: Mebahiah favorisce quella che sapresti raccontare come esempio a chi ti è vicino.
 - come 1: Mebahiah ti esorta ad agire come ritieni giusto, con parole che rasserenano invece di ferire.
 - limite 1: Mebahiah ti consola con una parola buona, mentre fai con ordine la tua parte.
@@ -1374,15 +1536,18 @@
 - gesto_orienta 1: Trasforma oggi un principio in cui credi in un tuo gesto concreto verso qualcuno.
 - gesto_attesa 1: Fai ogni giorno della settimana una piccola cosa giusta per ciò che aspetti, senza attendere l'esito.
 - gesto_legami 1: Di' oggi una parola che consola a chi ti è vicino, con semplicità e senza chiedere nulla.
-- gesto_scelta 1: Scrivi in una riga ciò che ritieni giusto e chiediti quale strada lo rende un gesto quotidiano.
+- gesto_scelta 1: Scrivi in una riga ciò che per te conta in questa scelta e come lo vivresti nei giorni ordinari.
 - gesto_limite 1: Scrivi una frase buona da rileggere nei momenti duri e tienila accanto alle domande per chi ti segue.
+- cuore_altrui 1: Mebahiah ti dà la calma di chi parla per rasserenare.
+- intelletto_altrui 1: Mebahiah ti avverte che si trasmette ciò che si fa.
+- gesto_altrui 1: Di' oggi una parola che consola a chi ti è vicino, con semplicità e senza chiedere nulla.
 
 ## 56 Poyel
 - aperta 1: Poyel guarda con te a ciò che ti serve davvero, da chiedere senza sminuirlo.
 - futuro 1: Poyel ti fa puntare sul necessario, su ciò che ti serve per stare in piedi.
 - esito 1: Poyel ti chiede, mentre aspetti, di curare il necessario e lasciar perdere il superfluo.
 - altrui 1: Poyel ti aiuta a nominare in te ciò che ti serve dal legame, senza vergognartene.
-- decisione 1: Poyel dice sì se la scelta ti dà ciò che ti serve; se insegui il di più, aspetta.
+- decisione 1: Poyel dice sì se la scelta risponde a un bisogno che sai nominare; altrimenti aspetta.
 - scelta 1: Poyel sceglie con te la strada che ti serve, non quella che promette di più.
 - come 1: Poyel ti indica di chiedere una sola cosa chiara, senza sminuire quanto conta per te.
 - limite 1: Poyel ti accompagna nel chiedere ciò che ti serve sapere, senza scusarti di chiederlo.
@@ -1401,6 +1566,9 @@
 - gesto_legami 1: Metti per iscritto, in una frase semplice, ciò che ti serve davvero da questo legame, senza sminuirlo.
 - gesto_scelta 1: Scrivi che cosa ti serve davvero e guarda, con calma, quale strada te lo dà senza chiederti troppo.
 - gesto_limite 1: Raccogli le domande che ti sembrano troppo piccole per farle e portale tutte a chi ti segue.
+- cuore_altrui 1: Poyel ti lascia sentire che anche un bisogno piccolo conta.
+- intelletto_altrui 1: Poyel ti assicura che un bisogno detto piano resta intero.
+- gesto_altrui 1: Metti per iscritto, in una frase semplice, ciò che ti serve davvero da questo legame, senza sminuirlo.
 
 ## 57 Nemamiah
 - aperta 1: Nemamiah oggi ti porta a guardare la sostanza delle cose, non la loro apparenza.
@@ -1426,6 +1594,9 @@
 - gesto_legami 1: Ripensa agli ultimi gesti di questo rapporto e annota per te quali hanno sostanza, al di là delle parole.
 - gesto_scelta 1: Per ciascuna strada scrivi che cosa resta tolta l'apparenza, poi rileggilo con calma nei giorni seguenti.
 - gesto_limite 1: Separa ciò che hai sentito dire da ciò che sai davvero, poi porta i dubbi a chi è competente.
+- cuore_altrui 1: Nemamiah ti dà la pace di guardare la sostanza.
+- intelletto_altrui 1: Nemamiah ti ricorda che i modi non sono sostanza.
+- gesto_altrui 1: Ripensa agli ultimi gesti di questo rapporto e annota per te quali hanno sostanza, al di là delle parole.
 
 ## 58 Yeialel
 - aperta 1: Ieialel ti orienta a restare su una cosa finché non ne capisci la causa.
@@ -1451,6 +1622,9 @@
 - gesto_legami 1: Scrivi la tua reazione più frequente in questo rapporto e cerca, con calma, da dove nasce in te.
 - gesto_scelta 1: Per ogni strada scrivi le ragioni vere, poi chiediti perché per ciascuna; ripeti nei giorni seguenti senza fretta.
 - gesto_limite 1: Tieni un quaderno con ciò che ti spiegano e segna le domande rimaste aperte per il prossimo incontro.
+- cuore_altrui 1: Ieialel nutre in te il desiderio tenace di capire davvero.
+- intelletto_altrui 1: Ieialel ti spiega che ogni reazione ha una causa.
+- gesto_altrui 1: Scrivi la tua reazione più frequente in questo rapporto e cerca, con calma, da dove nasce in te.
 
 ## 59 Harahel
 - aperta 1: Harahel ti indica oggi il valore di ciò che hai già, da apprezzare senza svalutarlo.
@@ -1476,12 +1650,15 @@
 - gesto_legami 1: Scrivi per te tre qualità vere di questo rapporto senza aggiungere nessun ma, poi rileggile con calma.
 - gesto_scelta 1: Scrivi per ciascuna strada ciò che apprezzi davvero, senza svalutare l'altra, poi rileggi tutto fra qualche giorno.
 - gesto_limite 1: Metti in una cartella le spiegazioni avute finora e rileggile prima del prossimo incontro.
+- cuore_altrui 1: Harahel ti ispira una stima che non sminuisce.
+- intelletto_altrui 1: Harahel ti chiarisce che stimare qualcuno non è approvare tutto.
+- gesto_altrui 1: Scrivi per te tre qualità vere di questo rapporto senza aggiungere nessun ma, poi rileggile con calma.
 
 ## 60 Mitzrael
 - aperta 1: Mitzrael ti volge verso ciò che va riparato, con pazienza e senza cercare rivincite.
 - futuro 1: Mitzrael ti fa puntare su ciò che puoi ricucire tu, con pazienza, adesso.
 - esito 1: Mitzrael ti raccomanda di aspettare riparando con pazienza ciò che è nelle tue mani.
-- altrui 1: Mitzrael ti consiglia di ricomporre con pazienza la tua pace, senza farla dipendere dall'altra persona.
+- altrui 1: Mitzrael ti consiglia di costruire con pazienza la tua serenità, senza farla dipendere dall'altra persona.
 - decisione 1: Mitzrael ti dice sì se scegli con pazienza, per costruire; se dentro c'è una rivincita da prenderti, aspetta.
 - scelta 1: Mitzrael ti consiglia quella che scegli con pazienza, non quella che sa di rivincita.
 - come 1: Mitzrael ti mostra la via paziente: aggiustare ciò che non va un punto alla volta.
@@ -1501,6 +1678,9 @@
 - gesto_legami 1: Annota per te ciò che vorresti ricucire in questo rapporto e il primo punto piccolo, senza conti da regolare.
 - gesto_scelta 1: Chiediti, per ciascuna strada, se la scegli per costruire o per dimostrare qualcosa; rispondi con calma, in più giorni.
 - gesto_limite 1: Riordina con pazienza i documenti e le domande che ti riguardano, un foglio alla volta, senza fretta.
+- cuore_altrui 1: Mitzrael ti apre a una pazienza che costruisce.
+- intelletto_altrui 1: Mitzrael ti fa capire che la fiducia si costruisce con pazienza.
+- gesto_altrui 1: Annota un piccolo gesto di pazienza che puoi avere in questo rapporto, senza aspettarti nulla in cambio.
 
 ## 61 Umabel
 - aperta 1: Umabel ti guida oggi verso le persone affini, da sentire vicine senza perderti in loro.
@@ -1526,6 +1706,9 @@
 - gesto_legami 1: Scrivi in due colonne ciò che senti tu e ciò che immagini senta l'altra persona, poi rileggile.
 - gesto_scelta 1: Chiedi a una persona affine di ascoltarti mentre ragioni sulle due strade, senza chiederle di scegliere per te.
 - gesto_limite 1: Scegli una persona affine che ti accompagni al prossimo appuntamento e affidale il compito di annotare.
+- cuore_altrui 1: Umabel ti fa vivere una vicinanza che non ti confonde.
+- intelletto_altrui 1: Umabel ti insegna che sentire l'altro non vuol dire confondersi.
+- gesto_altrui 1: Scrivi in due colonne ciò che senti tu e ciò che immagini senta l'altra persona, poi rileggile.
 
 ## 62 Iah-Hel
 - aperta 1: Iahhel ti consiglia per oggi un silenzio scelto, prima di reagire a ciò che arriva.
@@ -1551,6 +1734,9 @@
 - gesto_legami 1: La prossima volta che qualcosa di questo rapporto ti punge, aspetta un momento prima di rispondere.
 - gesto_scelta 1: Resta ogni giorno qualche minuto in silenzio con le due strade, senza voler decidere, finché una si chiarisce.
 - gesto_limite 1: Prima del prossimo appuntamento fermati in silenzio qualche minuto e scegli le tre domande che contano di più.
+- cuore_altrui 1: Iahhel ti restituisce la libertà di non reagire subito.
+- intelletto_altrui 1: Iahhel ti svela che una pausa cambia la risposta.
+- gesto_altrui 1: La prossima volta che qualcosa di questo rapporto ti punge, aspetta un momento prima di rispondere.
 
 ## 63 Anauel
 - aperta 1: Anauel ti porta oggi a cercare ciò che unisce, prima di ciò che separa.
@@ -1558,7 +1744,7 @@
 - esito 1: Anauel ti invita a tenere insieme l'attesa e la vita di ogni giorno, senza separarle.
 - altrui 1: Anauel ti porta a guardare il terreno comune del legame, prima di ciò che divide.
 - decisione 1: Anauel risponde sì se questo passo tiene unito ciò che ti sta a cuore; se lo divide, aspetta.
-- scelta 1: Anauel ti mostra quella che tiene insieme più parti di te, non quella che divide.
+- scelta 1: Anauel ti consiglia quella che tiene insieme più parti di te, non quella che divide.
 - come 1: Anauel ti raccomanda di partire da un interesse che condividi con l'altra persona.
 - limite 1: Anauel ti aiuta a tenere insieme domande, documenti e tempi in un unico quadro chiaro.
 - cuore_orienta 1: Anauel ti consegna il sollievo di sentirti parte di qualcosa.
@@ -1568,7 +1754,7 @@
 - cuore_limite 1: Anauel ti consola col sapere che non sei un'isola.
 - intelletto_orienta 1: Anauel ti rivela il filo che unisce cose lontane.
 - intelletto_attesa 1: Anauel ti svela che ogni parte influenza l'insieme.
-- intelletto_legami 1: Anauel ti dimostra che due interessi diversi possono incontrarsi.
+- intelletto_legami 1: Anauel ti segnala che il terreno comune sta nei fatti.
 - intelletto_scelta 1: Anauel ti ricorda che scegliere non sempre significa rinunciare.
 - intelletto_limite 1: Anauel ti suggerisce che ogni risposta va letta nell'insieme.
 - gesto_orienta 1: Scrivi due cose della tua vita che sembrano in conflitto e cerca il punto in cui si toccano.
@@ -1576,6 +1762,9 @@
 - gesto_legami 1: Annota per te un interesse che condividi con questa persona e tienilo davanti quando ci pensi.
 - gesto_scelta 1: Scrivi accanto a ogni strada ciò che tiene insieme e ciò che divide, poi lascia passare qualche giorno.
 - gesto_limite 1: Metti su un unico foglio domande, scadenze e documenti, così da vedere tutto insieme.
+- cuore_altrui 1: Anauel ti scalda con ciò che condividi.
+- intelletto_altrui 1: Anauel ti segnala che il terreno comune sta nei fatti.
+- gesto_altrui 1: Annota per te un interesse che condividi con questa persona e tienilo davanti quando ci pensi.
 
 ## 64 Mehiel
 - aperta 1: Mehiel ti spinge oggi a dare forma a un'idea che porti dentro da tempo.
@@ -1601,6 +1790,9 @@
 - gesto_legami 1: Scrivi in due righe ciò che senti e in due righe ciò che pensi di questo rapporto, poi confrontale.
 - gesto_scelta 1: Racconta a voce alta ciascuna strada e nota quale ti convince insieme col cuore e con la testa.
 - gesto_limite 1: Scrivi in parole tue ciò che sai già e ciò che vuoi chiedere, poi porta il foglio all'appuntamento.
+- cuore_altrui 1: Mehiel accende in te il calore delle parole sentite.
+- intelletto_altrui 1: Mehiel ti rivela che sentire e ragionare non si escludono.
+- gesto_altrui 1: Scrivi in due righe ciò che senti e in due righe ciò che pensi di questo rapporto, poi confrontale.
 
 ## 65 Damabiah
 - aperta 1: Damabiah oggi ti riporta alla tua sorgente interna, una calma che non dipende da nessuno.
@@ -1626,6 +1818,9 @@
 - gesto_legami 1: Quando pensi a questo rapporto, fermati un minuto in silenzio e lascia andare ciò che ti agita.
 - gesto_scelta 1: Immagina ciascuna strada in silenzio e annota quale ti dà più quiete dentro, concedendoti i giorni che servono.
 - gesto_limite 1: Respira con calma prima dell'appuntamento e scrivi le domande che ti premono, una per riga.
+- cuore_altrui 1: Damabiah ti porta la leggerezza di chi non pesa ogni segnale.
+- intelletto_altrui 1: Damabiah ti mostra che la tua serenità non dipende dall'altro.
+- gesto_altrui 1: Quando pensi a questo rapporto, fermati un minuto in silenzio e lascia andare ciò che ti agita.
 
 ## 66 Manakel
 - aperta 1: Manakel per oggi ti invita a reggere ciò che porti, senza farlo pesare su nessuno.
@@ -1651,6 +1846,9 @@
 - gesto_legami 1: Accorgiti di quanto spazio occupi nel rapporto e lascia oggi un po' più di posto all'altro.
 - gesto_scelta 1: Per ogni strada scrivi quale peso ti chiederebbe di portare e lascia maturare la risposta per qualche giorno.
 - gesto_limite 1: Annota in un quaderno le domande per chi ti segue e portale tu, senza scaricarle su chi ti sta accanto.
+- cuore_altrui 1: Manakel ti consegna la discrezione che non occupa spazio.
+- intelletto_altrui 1: Manakel ti mostra che la discrezione non è distanza.
+- gesto_altrui 1: Accorgiti di quanto spazio occupi nel rapporto e lascia oggi un po' più di posto all'altro.
 
 ## 67 Eyael
 - aperta 1: Eiael guarda con te ciò che di bello c'è già, prima di cambiare qualcosa.
@@ -1671,11 +1869,14 @@
 - intelletto_legami 1: Eiael ti insegna che un rapporto cambia senza doversi rompere.
 - intelletto_scelta 1: Eiael distingue per te il trasformare dallo strappare.
 - intelletto_limite 1: Eiael ti mostra che la fatica non cancella il bello.
-- gesto_orienta 1: Nota oggi tre cose belle dove di solito passi oltre e scrivile la sera.
+- gesto_orienta 1: Nota oggi tre cose belle che hai intorno a te e scrivile la sera, con calma.
 - gesto_attesa 1: Cambia oggi un dettaglio piccolo della tua giornata, senza stravolgerla: poi nota che cosa migliora.
-- gesto_legami 1: Nota per qualche giorno un gesto semplice di questo rapporto che di solito ti sfugge e annotalo.
+- gesto_legami 1: Nota per qualche giorno un gesto semplice e piccolo di questo rapporto: annotalo con cura, la sera.
 - gesto_scelta 1: Per ciascuna strada scrivi che cosa di bello conservi e che cosa cambia, poi lascia riposare il foglio qualche giorno.
 - gesto_limite 1: Metti in ordine le domande per chi ti segue e accanto annota una cosa bella di oggi.
+- cuore_altrui 1: Eiael accende in te lo stupore per i gesti semplici.
+- intelletto_altrui 1: Eiael ti insegna che il bello sta nei gesti semplici.
+- gesto_altrui 1: Nota per qualche giorno un gesto semplice e piccolo di questo rapporto: annotalo con cura, la sera.
 
 ## 68 Habuhiah
 - aperta 1: Habuhiah ti orienta verso un gesto generoso e concreto, fatto senza aspettarti nulla.
@@ -1701,6 +1902,9 @@
 - gesto_legami 1: Nota per una settimana che cosa dai in questo rapporto e se lo dai volentieri o per ricevere.
 - gesto_scelta 1: Accanto a ogni strada scrivi che cosa potresti dare e che cosa speri di ricevere, poi rileggi fra qualche giorno.
 - gesto_limite 1: Chiedi oggi un aiuto pratico a chi ti è vicino per preparare le domande da portare a chi ti segue.
+- cuore_altrui 1: Habuhiah ti lascia sentire la gioia di dare senza conti.
+- intelletto_altrui 1: Habuhiah separa per te il dono dal dare per ricevere.
+- gesto_altrui 1: Nota per una settimana che cosa dai in questo rapporto e se lo dai volentieri o per ricevere.
 
 ## 69 Rochel
 - aperta 1: Rochel ti propone uno sguardo lungo: oggi non giudicare in fretta ciò che vedi.
@@ -1726,6 +1930,9 @@
 - gesto_legami 1: Scrivi i fatti che hai visto in questo rapporto separati dalle tue supposizioni, senza cercare conferme dall'altro.
 - gesto_scelta 1: Guarda ogni strada come la vedresti fra qualche anno e annota cosa resta chiaro, senza decidere in fretta.
 - gesto_limite 1: Raccogli in un foglio i fatti che conosci e quelli che ti mancano, da portare a chi ti segue.
+- cuore_altrui 1: Rochel ti porta la mitezza di chi sospende il giudizio.
+- intelletto_altrui 1: Rochel separa per te i fatti osservati dalle supposizioni.
+- gesto_altrui 1: Scrivi i fatti che hai visto in questo rapporto separati dalle tue supposizioni, senza cercare conferme dall'altro.
 
 ## 70 Jabamiah
 - aperta 1: Iabamiah ti spinge a fare di ciò che ti capita oggi qualcosa che costruisci tu.
@@ -1751,6 +1958,9 @@
 - gesto_legami 1: Individua una cosa che puoi cambiare nel tuo modo di stare in questo rapporto e prova a farla questa settimana.
 - gesto_scelta 1: Annota per ciascuna strada che cosa trasformeresti tu e che cosa invece subiresti, poi prenditi alcuni giorni per rileggere.
 - gesto_limite 1: Trasforma la preoccupazione in un elenco ordinato di domande da portare a chi ti segue, una per riga.
+- cuore_altrui 1: Iabamiah ti restituisce il senso di poter agire tu.
+- intelletto_altrui 1: Iabamiah ti avverte che governi soltanto la tua parte.
+- gesto_altrui 1: Individua una cosa che puoi cambiare nel tuo modo di stare in questo rapporto e prova a farla questa settimana.
 
 ## 71 Haiaiel
 - aperta 1: Haiaiel oggi ti orienta a decidere a mente fredda, senza paura di dire no.
@@ -1776,6 +1986,9 @@
 - gesto_legami 1: Quando pensi a questa persona, aspetta che l'emozione si calmi e poi scrivi che cosa vedi davvero.
 - gesto_scelta 1: Lascia passare qualche giorno, poi rileggi la scelta con calma e annota a che cosa sai dire no.
 - gesto_limite 1: Scrivi con calma le domande da fare a chi ti segue e non decidere nulla d'impulso.
+- cuore_altrui 1: Haiaiel ti dà la fermezza di uno sguardo lucido.
+- intelletto_altrui 1: Haiaiel ti ricorda che i fatti contano più dell'emozione del momento.
+- gesto_altrui 1: Quando pensi a questa persona, aspetta che l'emozione si calmi e poi scrivi che cosa vedi davvero.
 
 ## 72 Mumiah
 - aperta 1: Mumiah ti indica di chiudere oggi ciò che è rimasto aperto, per ripartire con leggerezza.
@@ -1801,3 +2014,6 @@
 - gesto_legami 1: Scegli una questione soltanto di questo rapporto e pensaci fino in fondo, prima di passare ad altro.
 - gesto_scelta 1: Elenca per ogni strada che cosa ti chiederebbe di chiudere; poi prenditi qualche giorno per pensarci.
 - gesto_limite 1: Metti in ordine carte e appunti in un'unica cartella e chiudi la lista delle domande per chi ti segue.
+- cuore_altrui 1: Mumiah ti offre la pace di un pensiero compiuto.
+- intelletto_altrui 1: Mumiah ti insegna che un pensiero lasciato a metà ritorna.
+- gesto_altrui 1: Scegli una questione soltanto di questo rapporto e pensaci fino in fondo, prima di passare ad altro.

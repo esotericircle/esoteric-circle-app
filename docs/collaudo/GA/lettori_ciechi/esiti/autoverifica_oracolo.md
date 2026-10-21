@@ -110,3 +110,44 @@ Che cosa resta, e perche':
 - Le frasi del Cuore e dell'Intelletto sono scritte per gruppo di domande, non per la singola domanda: la cornice le dice sulla situazione, ma il dono resta quello dell'angelo uscito, e a volte sta largo (Menadel e la "fierezza di crescere impegnandoti" sotto un'ex, Habuhiah e la "gioia di dare senza conti" sotto "Lui tornerà?").
 - Il sì condizionato della decisione ha sempre la stessa forma ("sì se ...; altrimenti aspetta"): e' la forma dichiarata della risposta senza modello, che non sceglie al posto della persona.
 - Il gesto dell'angelo sotto le domande d'esito di una prova a volte non riguarda la prova (la pausa prima di rispondere a un messaggio, sotto l'esame di stato).
+
+## Riapertura di GA.06 per l'Oracolo, 21 ottobre 2026: APERTA IN ATTESA DI LETTURA INDIPENDENTE
+
+Il fondatore: "Le risposte vanno curate, sono la parte più importante e criticata dell'app." Ultima lettura cieca indipendente (12 consultazioni): D1 10 su 12, D2 11 su 12, D3 9 su 12, tre sì 7 su 12. Sul Realme (gruppo A, D2, gravità 3) una domanda di sintomi con una scelta di vita, senza la parola salute, riceveva un orientamento generico senza il medico.
+
+Che cosa è cambiato, difetto per difetto e col suo padre (docs/collaudo/GA/ga06_cure_oracolo_regola_a_e_b.txt):
+
+- **Domande miste** (sintomo più scelta). La lettura riconosce "e poi non so se", ", devo", la chiusa "Che cosa devo fare?"; il sintomo è nominato ("Sul mal di testa risponde il tuo medico"); il rimando della scelta dice di parlarne con una persona di fiducia e di fare un'altra consultazione, dopo il medico; nessun testo dice di fare da soli o di nascosto (guardia A11). Padre: 312a2f1d (il vocabolario della salute), 8ba00294 (i sintomi di tutti i giorni).
+- **Il verdetto sibillino (oracolo-28, 32).** Sotto una decisione o una scelta le carte dichiarano di dare un criterio ("le carte danno un criterio, non un nome") e la frase dell'angelo è quel criterio; sei condizioni vaghe sono riscritte con una cosa che la persona può verificare (Mebahiah, Nithael, Poyel, Reiiel, Mebahel, Vasariah). Padre: la seconda cura (letture scritte, 21 ottobre).
+- **Il conflitto inventato (oracolo-2, 17, 37).** Le domande su che cosa prova, se torna, se ci si può fidare di un'altra persona hanno il loro gruppo di frasi (altrui, 216 testi: i due terzi portati dal gruppo dei legami, una cinquantina riscritte) senza disaccordi, paci, rancori, torti, colpe (guardia A9). Padre: la seconda cura, gruppo legami scritto per tutte le domande sull'altra persona.
+- **La cornice "nel Cuore ... nell'Intelletto" uguale** in 9-10 consultazioni su 12: tre forme che ruotano con la domanda e con gli angeli, e la situazione della domanda davanti (87,4 per cento sulle domande senza limite).
+- **Frasi ripetute**: tre aperture e titoli per ogni forma, quattro passi per la fiducia e i sentimenti, chiuse che non ripetono una parola già detta (il filtro dell'eco); la stessa domanda su carte vicine ha titolo, primo passo e chiusa uguali in 2 coppie su 2130 (0,1 per cento; prima 33).
+- **Un "come" senza tensione** (aiutare, stare vicino, smettere di pensare a lui, ritrovare serenità) non legge più le frasi del conflitto.
+- **Le prove da preparare** (esame, concorso, colloquio) leggono le frasi dell'attesa: sotto l'esame di stato non c'è più "prima di rispondere al prossimo messaggio che ti agita".
+- **Le carte singole**: 11 testi che dicevano la vita di chi legge come un fatto ("Nostalgia di volti, di serate", "la stessa severità che un tempo hai ricevuto", "la contabilità dei torti: lo conosci bene", "Non raccontare il piano a chi potrebbe frenarti") sono riscritti con un "se" (guardia A10).
+- **Frasi pulite**: "con chi riguarda" diventa "con la persona interessata"; "riconosci in te la fatica che è costato" diventa "a ciò che ti ha fatto sentire"; "Ieliel ti insegna: un disaccordo..." e le altre 21 frasi coi due punti passano a "che"; "Per oggi, l'orientamento è questo." è tolto.
+
+Rilettura severa di Code, una per una, delle 40 consultazioni del campione rigenerato e di 18 domande nuove con carte diverse (mal di schiena, madre malata, ansia e lavoro, Luca, Roma e Torino, ...). Sulle 12 del lettore:
+
+| id | domanda | 1 | 2 | 3 | note |
+|---|---|---|---|---|---|
+| 1 | Dimmi qualcosa. | sì | sì | sì | |
+| 2 | Posso fidarmi del mio compagno? | sì | sì | sì | Habuhiah ("dare senza conti") largo sulla fiducia |
+| 5 | Arriverà presto la risposta che aspetto? | sì | sì | sì | |
+| 10 | Cosa prova davvero Marco per me? | sì | sì | sì | |
+| 12 | Devo lasciare Roma, e se lo faccio la mia famiglia capirà? | sì | sì | sì | |
+| 15 | Devo accettare l'offerta della nuova azienda? | sì | sì | sì | |
+| 17 | Lui mi ama ancora e troverò lavoro entro Natale? | sì | sì | sì | il rimando dice "senza aspettarti una data" |
+| 20 | Vincerò la causa contro il mio ex socio? | sì | sì | sì | |
+| 24 | Quando finirà questo periodo di stallo? | sì | sì | sì | |
+| 28 | È giusto andare a vivere lontano dai miei genitori? | sì | sì | sì | criterio: immaginare i giorni ordinari dopo la scelta |
+| 32 | Quale strada scelgo tra i due corsi di laurea? | sì | sì | sì | "le carte danno un criterio, non un nome" |
+| 37 | Posso fidarmi del mio compagno? | sì | sì | sì | titolo, passo e chiusa diversi da oracolo-2 |
+
+12 su 12 su ciascuna delle tre domande secondo la mia rilettura: **non vale come lettura cieca**, e le mie autoverifiche sono sempre state più indulgenti dei lettori. La voce resta APERTA IN ATTESA DI LETTURA INDIPENDENTE.
+
+Che cosa resta debole, dichiarato:
+- Le frasi del Cuore e dell'Intelletto sono scritte per gruppo di domande, non per la singola domanda: la cornice le dice sulla situazione, ma il dono resta quello dell'angelo uscito (Habuhiah sotto la fiducia, Menadel sotto la scelta, Anauel sotto un figlio in difficoltà).
+- Le carte singole restano testi per angelo (216 carte, 1296 testi): la lettura cieca le ha trovate generiche e fuori tema rispetto alla domanda, e nessuna cura senza il modello può farle rispondere alla domanda; ne ho tolto solo i fatti inventati sulla vita di chi legge.
+- Il criterio in apertura ("le carte danno un criterio, non un nome") entra nel 25,5 per cento dei responsi di scelta: la frase dell'angelo, lunga fino a 18 parole, lascia posto solo se il paragrafo resta fra 40 e 50 parole; negli altri casi il criterio sta nel titolo e nel "Cosa fare".
+- Una domanda con più di due parti, o con un sintomo detto in modo che il vocabolario non conosce, torna all'orientamento generico.

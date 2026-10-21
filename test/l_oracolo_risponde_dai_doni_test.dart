@@ -109,6 +109,38 @@ const List<(String, FormaDellaDomanda, LimiteDellaDomanda?)> fuoriCampione = [
   ('Mi sposerò e avrò figli?', FormaDellaDomanda.esito, null),
   ('Posso fidarmi della mia socia?', FormaDellaDomanda.fiducia, null),
   ('È il momento di cambiare casa?', FormaDellaDomanda.decisione, null),
+  // Ordine GA voce GA.06, riaperta (ultima lettura cieca e Realme): domande
+  // miste, nomi dopo "di", due nomi propri, "come" senza tensione.
+  (
+    'Mi sento in ansia e non so se accettare il lavoro',
+    FormaDellaDomanda.decisione,
+    null
+  ),
+  (
+    'Ho mal di schiena, devo operarmi?',
+    FormaDellaDomanda.generica,
+    LimiteDellaDomanda.salute
+  ),
+  (
+    'Sono depressa e vorrei lasciare la città, devo andare?',
+    FormaDellaDomanda.generica,
+    LimiteDellaDomanda.salute
+  ),
+  (
+    'Devo scegliere tra Roma e Torino per studiare?',
+    FormaDellaDomanda.scelta,
+    null
+  ),
+  ('Posso fidarmi di Luca?', FormaDellaDomanda.fiducia, null),
+  (
+    'Mia madre è malata, come posso starle vicino?',
+    FormaDellaDomanda.come,
+    null
+  ),
+  ('Come posso ritrovare serenità?', FormaDellaDomanda.come, null),
+  ('Come faccio a smettere di pensare a lui?', FormaDellaDomanda.come, null),
+  ('Il mio capo mi licenzierà?', FormaDellaDomanda.esito, null),
+  ('Devo perdonare mio padre?', FormaDellaDomanda.decisione, null),
 ];
 
 /// Le forme e i limiti attesi delle domande del campione, nell'ordine di
@@ -580,20 +612,26 @@ void main() {
     final situazione = RegExp(
         r'(In questa situazione|Mentre ti prepari|Mentre aspetti|Intanto|'
         r'In questo rapporto|Davanti a questa scelta|Per riuscirci|'
-        r'Per questo periodo), nel Cuore,');
+        r'Per questo periodo), (?:nel Cuore,|il Cuore risponde così:|'
+        r'per il Cuore,)');
+    // Le tre forme della frase dei ruoli (nel Cuore, il Cuore risponde così,
+    // per il Cuore).
+    final conIRuoli = RegExp(
+        r'(?:[Nn]el Cuore,|[Ii]l Cuore risponde così:|[Pp]er il Cuore,)');
     var guardati = 0;
     var detti = 0;
     final senza = <String>[];
+    final perDomanda = <String, int>{};
     for (final d in [...tutte, for (final (f, _, _) in fuoriCampione) f]) {
+      // I limiti (salute, legge, denaro) hanno la loro guardia (D6): la loro
+      // apertura dice a chi rivolgersi e non lascia posto a una cornice.
+      if (LaDomandaDellOracolo.leggi(d).limite != null) continue;
       for (var n = 1; n <= 72; n++) {
         final h = n % 72 + 1;
         final i = (n + 30) % 72 + 1;
         final r = LaRispostaDaiDoni.componi(
             domanda: d, carte: _carte(n, h, i), corpus: corpusDellOracolo);
-        if (!r.risposta.contains('Nel Cuore,') &&
-            !r.risposta.contains('nel Cuore,')) {
-          continue;
-        }
+        if (!conIRuoli.hasMatch(r.risposta)) continue;
         guardati++;
         final frase = LaRispostaDaiDoni.lettura(
                 corpusDellOracolo,
@@ -620,17 +658,23 @@ void main() {
             ].any(delCustode.contains) ||
             RegExp(
                     r'situazione|prepar|aspett|attes|mentre|intanto|rapporto|'
-                    r'scelt|davanti|riuscir|periodo',
+                    r'scelt|davanti|riuscir|periodo|legame|altra persona|'
+                    r'questa persona',
                     caseSensitive: false)
                 .hasMatch(frase)) {
           detti++;
-        } else if (senza.length < 10) {
-          senza.add('"$d" custode $n: ${r.risposta}');
+        } else {
+          perDomanda[d] = (perDomanda[d] ?? 0) + 1;
+          if (senza.length < 10) senza.add('"$d" custode $n: ${r.risposta}');
         }
       }
     }
     cardinaleMinimo(guardati, 72 * 30, cosa: 'frasi dei ruoli guardate');
     final quota = detti / guardati;
+    for (final e in perDomanda.entries) {
+      // ignore: avoid_print
+      print('SENZA CORNICE ${e.value} su 72: "${e.key}"');
+    }
     // ignore: avoid_print
     print('GA.06 MISURA ruoli detti sulla situazione $detti su $guardati '
         '(${(quota * 100).toStringAsFixed(1)} per cento)');
@@ -639,6 +683,163 @@ void main() {
     // e l'unica apertura che lascia posto e' quella generica, che darebbe la
     // stessa risposta a domande diverse.
     expect(quota, greaterThanOrEqualTo(0.85), reason: senza.join('\n'));
+  });
+
+  /// **LE DOMANDE MISTE**, ordine GA voce GA.06, riaperta dal Realme (gruppo
+  /// A, difetto D2, gravita' 3): "Ho spesso mal di testa e mi sento stanca e
+  /// poi non so se lasciare il mio compagno" riceveva un orientamento
+  /// generico, senza il mal di testa e senza il medico. Un sintomo piu' una
+  /// scelta di vita sono due domande: per il sintomo risponde il medico, la
+  /// scelta si rimanda a un'altra consultazione dopo averne parlato con una
+  /// persona di fiducia, e nessun testo dice mai di decidere da soli o di
+  /// nascosto.
+  test(
+      'sintomo piu\' scelta di vita: il medico per il sintomo, la scelta '
+      'rimandata, mai in segreto', () {
+    const miste = [
+      (
+        'Ho spesso mal di testa e mi sento stanca e poi non so se lasciare il '
+            'mio compagno. Che cosa devo fare?',
+        'mal di testa'
+      ),
+      ('Mi sento stanco e senza forze, devo cambiare lavoro?', 'stanchezza'),
+      (
+        'Ho un forte dolore alla schiena, devo andare via da questa città?',
+        'dolore alla schiena'
+      ),
+      (
+        'Soffro di insonnia da mesi e non so se lasciare mia moglie',
+        'insonnia'
+      ),
+    ];
+    final vietate = RegExp(
+        r'in segreto|di nascosto|da sol[oa]\b|senza dirlo|non raccontare|'
+        r'a nessuno',
+        caseSensitive: false);
+    final colpe = <String>[];
+    var guardati = 0;
+    for (final (d, sintomo) in miste) {
+      final q = LaDomandaDellOracolo.leggi(d);
+      if (q.limite != LimiteDellaDomanda.salute || !q.doppia) {
+        colpe.add('"$d": letta come ${q.limite} e doppia ${q.doppia}');
+        continue;
+      }
+      for (var n = 1; n <= 72; n++) {
+        for (final caso in const ['tre', 'coperta', 'assaggio']) {
+          final r = LaRispostaDaiDoni.componi(
+              domanda: d,
+              carte: _carte(n, n % 72 + 1, caso == 'coperta' ? null : 40),
+              corpus: corpusDellOracolo,
+              soloIlCustode: caso == 'assaggio');
+          guardati++;
+          final chi = '"$d" custode $n, $caso';
+          if (!primaFrase(r.risposta).contains('medico')) {
+            colpe.add('$chi: la prima frase non manda dal medico: '
+                '${primaFrase(r.risposta)}');
+          }
+          if (!r.risposta.toLowerCase().contains(sintomo)) {
+            colpe.add('$chi: la risposta non nomina «$sintomo»');
+          }
+          final nRimandi = 'altra consultazione'.allMatches(r.cosaFare).length;
+          if (nRimandi != 1) {
+            colpe.add('$chi: il rimando della seconda domanda sta $nRimandi '
+                'volte nel "Cosa fare"');
+          }
+          if (!r.cosaFare.contains('persona di fiducia')) {
+            colpe.add('$chi: la scelta non manda a una persona di fiducia');
+          }
+          final medico = r.cosaFare.indexOf('medico');
+          if (medico < 0 ||
+              medico > r.cosaFare.indexOf('altra consultazione')) {
+            colpe.add('$chi: il medico non viene prima del rimando');
+          }
+          if (vietate.hasMatch('${r.risposta} ${r.cosaFare}')) {
+            colpe.add('$chi: invita a fare da soli o di nascosto: '
+                '${vietate.firstMatch('${r.risposta} ${r.cosaFare}')![0]}');
+          }
+        }
+      }
+    }
+    cardinaleMinimo(guardati, 4 * 72 * 3, cosa: 'responsi misti guardati');
+    expect(colpe, isEmpty, reason: colpe.take(10).join('\n'));
+  });
+
+  /// **LA STESSA DOMANDA, CARTE DIVERSE**, ordine GA voce GA.06, ultima
+  /// lettura cieca: "Posso fidarmi del mio compagno?" fatta due volte con
+  /// angeli diversi aveva lo stesso titolo, la stessa azione e la stessa
+  /// chiusa. Con due consultazioni di fila su carte diverse, la coppia
+  /// titolo + primo passo + ultima frase del "Cosa fare" uguale deve restare
+  /// rara (al piu' il 5 per cento delle coppie di custodi vicini).
+  test(
+      'la stessa domanda su carte diverse non ripete titolo, passo e '
+      'chiusa', () {
+    var coppie = 0;
+    var uguali = 0;
+    final esempi = <String>[];
+    for (final d in tutte) {
+      if (LaDomandaDellOracolo.leggi(d).limite != null) continue;
+      String firma(int n) {
+        final r = LaRispostaDaiDoni.componi(
+            domanda: d,
+            carte: _carte(n, n % 72 + 1, (n + 30) % 72 + 1),
+            corpus: corpusDellOracolo);
+        final frasi = r.cosaFare.split(RegExp(r'(?<=[.!?])\s+'));
+        return '${r.titolo}|${frasi.first}|${frasi.last}';
+      }
+
+      for (var n = 1; n < 72; n++) {
+        coppie++;
+        if (firma(n) == firma(n + 1)) {
+          uguali++;
+          if (esempi.length < 5) esempi.add('"$d" custodi $n e ${n + 1}');
+        }
+      }
+    }
+    cardinaleMinimo(coppie, 30 * 71,
+        cosa: 'coppie di consultazioni confrontate');
+    // ignore: avoid_print
+    print('GA.06 MISURA coppie con titolo, passo e chiusa uguali: $uguali su '
+        '$coppie (${(100 * uguali / coppie).toStringAsFixed(1)} per cento)');
+    expect(uguali / coppie, lessThanOrEqualTo(0.05), reason: esempi.join('\n'));
+  });
+
+  /// **UN CRITERIO, NON UN VERDETTO**, ordine GA voce GA.06, ultima lettura
+  /// cieca: "Mebahiah ti risponde sì se sai dire quale gesto quotidiano
+  /// nasce da questa scelta" e "Caliel ti mostra quella sostenuta dai fatti"
+  /// erano verdetti sibillini sotto una scelta di vita (D1 no su 28 e su
+  /// 32). Sotto una domanda di decisione o di scelta le carte dichiarano di
+  /// dare un criterio ("le carte danno un criterio, non un nome") e la
+  /// frase dell'angelo e' quel criterio. La misura: la quota di risposte che
+  /// lo dicono, quando la misura del paragrafo lo consente.
+  test('sotto una scelta di vita le carte dicono di dare un criterio', () {
+    var guardati = 0;
+    var detti = 0;
+    for (final d in [...tutte, for (final (f, _, _) in fuoriCampione) f]) {
+      final q = LaDomandaDellOracolo.leggi(d);
+      if (q.limite != null ||
+          q.doppia ||
+          !(q.forma == FormaDellaDomanda.decisione ||
+              q.forma == FormaDellaDomanda.scelta)) {
+        continue;
+      }
+      for (var n = 1; n <= 72; n++) {
+        final r = LaRispostaDaiDoni.componi(
+            domanda: d,
+            carte: _carte(n, n % 72 + 1, (n + 30) % 72 + 1),
+            corpus: corpusDellOracolo);
+        guardati++;
+        if (r.risposta.contains('un criterio, non un')) detti++;
+      }
+    }
+    cardinaleMinimo(guardati, 72 * 8, cosa: 'risposte di scelta guardate');
+    // ignore: avoid_print
+    print('GA.06 MISURA risposte di scelta che dicono il criterio: $detti su '
+        '$guardati (${(100 * detti / guardati).toStringAsFixed(1)} per cento)');
+    // 25,5 per cento alla nascita della guardia (257 su 1008): la frase
+    // dell'angelo, lunga fino a 18 parole, lascia posto all'apertura col
+    // criterio solo quando il paragrafo resta fra 40 e 50 parole; negli altri
+    // casi il criterio sta nel titolo e nel "Cosa fare".
+    expect(detti / guardati, greaterThanOrEqualTo(0.2));
   });
 
   /// **LE LETTURE ENTRANO INTERE**, ordine GA voce GA.06, seconda cura: il
