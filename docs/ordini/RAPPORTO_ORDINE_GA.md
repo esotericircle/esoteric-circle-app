@@ -241,9 +241,10 @@ sopra l'animale, "Scendi", ombra del Serpente; Volpe, Orso e Tartaruga che
 guardano di lato. Padre: ordine FZ.
 
 **8. GA.01 e GA.02.** I numeri stanno nel codice del server
-(`functions/src/budget.ts`: `stese: [1, 3, 3, 5]`, `steseDaDieci: [0, 0, 1, 1]`)
-ma **il server in produzione non li ha ancora**: le funzioni vanno
-pubblicate (vedi sotto).
+(`functions/src/budget.ts`: `stese: [1, 3, 3, 5]`, `steseDaDieci: [0, 0, 1, 1]`),
+e dal 21 ottobre 2026 anche in produzione: le funzioni sono state pubblicate
+e verificate ACTIVE. Resta una stesa vera sul Realme che consumi contro il
+server nuovo, a video.
 
 ## LE SCHERMATE CHE VERIFICHI TU SU IPHONE CON TESTFLIGHT
 
@@ -280,17 +281,15 @@ sulla build di TestFlight:
 
 ## PER LA CONSEGNA
 
-- **Funzioni del server per la Croce Celtica.** Da lanciare tu, dalla radice
-  del repo, sull'ultimo commit del ramo, in PowerShell:
-
-```powershell
-$env:FUNCTIONS_DISCOVERY_TIMEOUT=600
-firebase deploy --only "functions:statoDelCerchio,functions:consumaDelGiorno,functions:muoviGliEos" --project esoteric-circle
-```
-
+- **Funzioni del server per la Croce Celtica, pubblicate il 21 ottobre 2026.**
+  Lanciate dal fondatore da PowerShell, dal commit `035b405e`: "Deploy
+  complete!", le tre funzioni aggiornate in `europe-west1` (Node.js 22, 2nd
+  Gen). Verificate in sola lettura con `gcloud functions describe`: tutte e
+  tre ACTIVE (`statoDelCerchio`, `consumaDelGiorno`, `muoviGliEos`).
 - **Build di collaudo** (Android su App Distribution, iPhone su TestFlight
-  con Codemagic): parte solo dopo il verde di GitHub sul commit consegnato e
-  dopo la pubblicazione delle funzioni. Aspetto il tuo sì.
+  con Codemagic): il fondatore ha dato il via il 21 ottobre 2026 ("Quando hai
+  finito, consegna nuova build"). Parte appena il verde di GitHub copre il
+  commit finale.
 - **Spese.** Nessuna chiamata a Gemini o a Vertex senza il tuo sì. Le
   simulazioni sul Realme hanno usato il tuo sì di 1,5 euro (circa 300 chiamate
   al massimo, usate al piu' una quarantina). I banchi non sono girati.
@@ -301,5 +300,5 @@ firebase deploy --only "functions:statoDelCerchio,functions:consumaDelGiorno,fun
 - La simulazione sul Realme e' di poco anteriore alle ultime cure delle
   risposte (`8ba00294`); la verifica sul codice finale e' nella sezione
   seguente.
-- Guardie nel registro: da 842 a 879. `ordine_ga_guard` e' nata rossa per
+- Guardie nel registro: da 842 a 880. `ordine_ga_guard` e' nata rossa per
   costruzione.

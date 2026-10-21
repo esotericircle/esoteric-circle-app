@@ -39,7 +39,7 @@ MISURA: unita' che si spendono per una stesa a tre carte, da 3 carte a 1
 stesa; stese al giorno dell'Adepto da 4 (mensile) e 3 (annuale) a 3 e 3;
 card dei piani lette sul Realme: 1, 3, 3, 5 su 4
 
-ASPETTA: la pubblicazione delle funzioni del server per la Croce Celtica (il comando lo lancia il fondatore) e una stesa vera sul Realme che consumi per stesa contro il server nuovo.
+ASPETTA: una stesa vera sul Realme che consumi per stesa contro il server nuovo. Le funzioni sono state pubblicate dal fondatore il 21 ottobre 2026 (verificate ACTIVE con `gcloud functions describe`), quindi resta solo la prova a video.
 
 ## VOCE GA.02
 
@@ -59,7 +59,7 @@ MISURA: caso peggiore dell'Adepto mensile, con i numeri del testo (6 stese)
 oltre il 39 per cento, con i numeri curati (3 stese) al 29,4 per cento; tutti
 i cicli sotto il tetto
 
-ASPETTA: le funzioni del server pubblicate (budget.ts e' nel codice, non in produzione) e un mese di consumi veri per confermare il caso peggiore con le chiamate reali.
+ASPETTA: un mese di consumi veri per confermare il caso peggiore con le chiamate reali. Le funzioni sono state pubblicate dal fondatore il 21 ottobre 2026 (verificate ACTIVE con `gcloud functions describe`).
 
 ## VOCE GA.03
 
@@ -299,14 +299,18 @@ ASPETTA: un account con l'ora di nascita data, sul telefono, e l'invito verifica
 ## VOCE GA.16
 
 **APERTA IN ATTESA DI VERIFICA.** La consegna: manifesto, guardia del
-manifesto, rapporto, STATO_VIVO, registro delle guardie (874). Il verde di
+manifesto, rapporto, STATO_VIVO, registro delle guardie (880). Il verde di
 GitHub sul commit consegnato, la pubblicazione delle funzioni del server per la
 Croce Celtica e la build di collaudo (Android su App Distribution, iPhone su
 TestFlight con Codemagic) sono le condizioni del fondatore del 20 ottobre
-2026: la build parte solo dopo il verde e dopo le funzioni.
+2026: la build parte solo dopo il verde e dopo le funzioni. **Le funzioni
+sono state pubblicate dal fondatore il 21 ottobre 2026**, verificate ACTIVE
+con `gcloud functions describe` (statoDelCerchio, consumaDelGiorno,
+muoviGliEos, europe-west1); il fondatore ha dato il via alla build di
+collaudo lo stesso giorno. Resta solo il verde di GitHub sul commit finale.
 
 DOMANDA: "a fine lavoro build di collaudo per i tester, Android su App Distribution e iPhone su TestFlight tramite Codemagic, ma solo dopo il verde di GitHub, le catture iPhone di GA.12 e la pubblicazione delle funzioni"
 PROVA: `docs/ordini/RAPPORTO_ORDINE_GA.md`
-MISURA: voci chiuse 2 su 16, aperte 14, da fare 0; guardie nel registro da 842 a 874
+MISURA: voci chiuse 2 su 16, aperte 14, da fare 0; guardie nel registro da 842 a 880; funzioni pubblicate 3 su 3 ACTIVE
 
-ASPETTA: il verde di GitHub sul commit consegnato, il comando delle funzioni lanciato dal fondatore e la build di collaudo lanciata dopo.
+ASPETTA: il verde di GitHub sul commit consegnato, poi la build di collaudo.
