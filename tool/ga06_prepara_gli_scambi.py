@@ -6,7 +6,8 @@ Meta' delle schede, scelte col seme, ricevono i simboli di un'altra scheda del g
 scambiato (un giro chiuso, nessuna resta con i suoi). Oroscopo: si scambiano periodo,
 dominio e fascia fra schede con dati diversi. Oracolo: si scambiano gli angeli, la
 domanda resta col suo testo. Rune: si scambiano le pietre fra gettate della
-stessa forma, la domanda resta col suo testo. Al lettore arrivano solo risposta, cosa fare e
+stessa forma, la domanda resta col suo testo. Tarocchi: si scambiano le carte
+fra stese con lo stesso numero di carte, la domanda resta col suo testo. Al lettore arrivano solo risposta, cosa fare e
 approfondimento: titolo, rito e da dove viene nominano i simboli e li direbbero.
 """
 import json, random, sys
@@ -29,12 +30,18 @@ def simboli(r):
         return {'periodo': s['periodo'], 'dominio': s['dominio'], 'fascia': s['fascia']}
     if arte == 'rune':
         return [{k: v for k, v in x.items() if k in ('posizione', 'runa', 'verso', 'parolaChiave', 'significato')} for x in r['simboli']]
+    if arte == 'tarocchi':
+        return [{k: v for k, v in x.items() if k in ('posizione', 'carta', 'verso', 'significatoDelVerso')} for x in r['simboli']]
     return [{k: v for k, v in x.items() if k in ('ruolo', 'posizione', 'angelo', 'coro', 'dominioDelCoro', 'coperta')} for x in r['simboli']]
 
 def gruppo(r):
     # Le Rune si scambiano solo fra gettate della stessa forma, perche' il
     # numero delle pietre non tradisca lo scambio.
-    return r.get('gettata', '') if arte == 'rune' else ''
+    if arte == 'rune':
+        return r.get('gettata', '')
+    if arte == 'tarocchi':
+        return str(len(r['simboli']))
+    return ''
 
 n = len(d)
 indici = list(range(n))
@@ -60,7 +67,7 @@ schede, chiave = [], []
 for i, r in enumerate(d):
     sorgente = dest.get(i, i)
     s = {'scheda': i + 1}
-    if arte in ('oracolo', 'rune'):
+    if arte in ('oracolo', 'rune', 'tarocchi'):
         s['domanda'] = r['domanda']
     if arte == 'rune':
         s['gettata'] = r['gettata']
