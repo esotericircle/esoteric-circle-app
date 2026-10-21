@@ -230,3 +230,80 @@ e 1 rosso, language_rule "Nessuna stringa del codice viola la regola della
 virgola" su lib/core/horoscope/oroscopo_vedico_data.dart, file che questo
 lavoro non tocca (padre: d51c03a9, le cure dell'Oroscopo GA.06).
 flutter analyze lib test: nessun problema.
+
+Riapertura di GA.06 per l'Oracolo, 21 ottobre 2026 (il fondatore: "Le risposte
+vanno curate, sono la parte piu' importante e criticata dell'app"). Lavoro da
+solo, in sequenza, senza sotto-agenti. Partenza: ultima lettura cieca D1
+10 su 12, D2 11 su 12, D3 9 su 12, tre si' 7 su 12; sul Realme una domanda di
+sintomi mescolata a una scelta ("Ho spesso mal di testa e mi sento stanca e
+poi non so se lasciare il mio compagno") con orientamento generico e nessun
+rimando al medico (gravita' 3).
+
+Regola B (le guardie della zona viste rosse prima di toccare): le guardie
+D2 ("sulle stesse tre carte, le domande diverse danno risposte diverse"),
+"il Cuore e l'Intelletto sono detti sulla situazione" e "la forma e il
+confine" sono diventate rosse da sole durante il lavoro, ognuna per un difetto
+vero introdotto dalla cura e curato nel compositore: D2 rossa per i titoli
+uguali sotto due domande su persone diverse (titoli ora con la persona
+nominata); la cornice a 80,4 per cento e poi 84,9 (misura rifatta senza i
+limiti, che hanno la loro guardia D6, e con le tre forme dei ruoli); la forma
+rossa per un "Cosa fare" di 39 parole sotto "Come posso ritrovare serenita'"
+e per "sentirti pronto" (genere) in una variante nuova.
+
+Regola A delle guardie nuove (innesto di una riga marcata INNESTO, grep,
+esito, ripristino dalla copia con grep -c INNESTO = 0):
+
+A9, "le frasi sull'altra persona non presuppongono un conflitto"
+(test/il_corpus_dell_oracolo_test.dart).
+  Innesto nel Dart generato: letture|02|cuore_altrui diventa "Ieliel
+  accoglie in te l'affetto che regge anche i disaccordi. INNESTO A9".
+  grep: 3006: 'Ieliel accoglie in te l\'affetto che regge anche i disaccordi.
+  INNESTO A9',
+  Esito: [E] 'letture|02|cuore_altrui: «disaccord» in: ...'.
+
+A10, "le carte singole non inventano la vita di chi legge"
+(test/il_corpus_dell_oracolo_test.dart).
+  Innesto: cuore|13|messaggio 3 torna a "Nostalgia di volti, di serate
+  passate INNESTO A10".
+  Esito: [E] 'cuore|13|messaggio: «Nostalgia di volti»'.
+
+A11, "sintomo piu' scelta di vita: il medico per il sintomo, la scelta
+rimandata, mai in segreto" (test/l_oracolo_risponde_dai_doni_test.dart).
+  Innesto: il rimando della seconda domanda perde "parlane con una persona di
+  fiducia e " (1548: final persona = dellaSalute ? '' : ''; // INNESTO A11).
+  Esito: [E] '... custode 1, tre: la scelta non manda a una persona di
+  fiducia' (e coperta, assaggio).
+
+A12, "la stessa domanda su carte diverse non ripete titolo, passo e chiusa".
+  Innesto: titolo, passo e chiusa non ruotano piu' con l'angelo (a.number
+  sostituito da 0 e da 7 nelle tre righe).
+  Esito: MISURA 644 su 2130 coppie uguali (30,2 per cento), soglia 5.
+  Misura sana: 2 su 2130 (0,1 per cento); prima dell'ultimo giro di cure
+  33 su 2130 (1,5).
+
+A13, "il Cuore e l'Intelletto sono detti sulla situazione della domanda"
+(misura rifatta, senza i limiti): innesto `_cornice` che restituisce sempre
+null (1349: return null; // INNESTO A13).
+  Esito: MISURA 445 su 2841 (15,7 per cento), soglia 85. Misura sana 87,4.
+
+A14, "sotto una scelta di vita le carte dicono di dare un criterio".
+  Innesto: l'apertura "le carte danno un criterio, non un nome" non e' piu'
+  cercata (1261: if (ap.contains('INNESTO A14')) ...).
+  Esito: MISURA 73 su 1008 (7,2 per cento), soglia 20. Misura sana 25,5
+  (la frase dell'angelo, lunga fino a 18 parole, lascia posto all'apertura
+  solo quando il paragrafo resta fra 40 e 50 parole; negli altri casi il
+  criterio sta nel titolo e nel "Cosa fare").
+
+Cambio della grandezza, mai della soglia: la cornice, 85,0 per cento nella
+prima misura, e' stata rimisurata escludendo le domande con un limite (salute,
+legge, denaro), che hanno la guardia D6 e un'apertura che non lascia posto a
+una cornice, e contando come "dette sulla situazione" le frasi dell'altra
+persona che nominano il legame. La soglia e' rimasta 0,85.
+
+Prove della zona dopo la riapertura: 130 su 130 verdi (l_oracolo_risponde_dai_
+doni 15, il_corpus_dell_oracolo 10, il_giro_intero, a_video, sociale_e_piani,
+l_oracolo_degli_angeli, forma_nuova, si_sceglie, le_dieci_domande,
+il_genere_non_si_indovina, accenti_veri, l_altare, si_apre_senza_carte,
+le_anteprime, testo_a_video, language_rule, campioni per i lettori ciechi,
+la_domanda_scelta_arriva_al_responso). flutter analyze lib test: nessun
+problema.

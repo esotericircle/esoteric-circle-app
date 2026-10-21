@@ -12,12 +12,12 @@
 /// adesso".
 const Map<String, List<String>> corpusDellOracolo = {
   'custode|01|messaggio': [
-    'C\'è una cosa nuova che aspetta un via libera che nessuno ti deve dare. Vehuiah porta la volontà che apre: il primo passo spetta a te, non a chi approva. Oggi scrivi su un foglio la prima azione di quel progetto e falla prima di sera, anche se è minuscola.',
+    'Se c\'è una cosa nuova che aspetta un via libera che nessuno ti deve dare, ricordalo: Vehuiah porta la volontà che apre. Il primo passo spetta a te, non a chi approva. Oggi scrivi su un foglio la prima azione e falla prima di sera, anche se è minuscola.',
     'Smetti di chiedere il permesso per cominciare. Vehuiah apre le porte dall\'interno, con una volontà che non attende firme altrui. Scegli l\'inizio che rimandi da più tempo e fissa sul calendario la data del primo passo: oggi, non lunedì prossimo.',
     'Quando ti accorgi di guardarti intorno in cerca di un sì, fermati: l\'inizio è già tuo. Cominciare senza autorizzazione è il gesto di Vehuiah. Prendi la cosa nuova che tieni ferma e falle fare il primo passo che dipende soltanto da te, senza chiedere a nessuno se è il momento.',
   ],
   'custode|01|consiglio': [
-    'Domani, prima di aprire la posta, compi il secondo passo dello stesso progetto senza rileggere i dubbi di ieri. Non raccontare il piano a chi potrebbe frenarti finché non è partito: la volontà che apre cresce nel silenzio dei primi giorni. Tieni il foglio sul tavolo.',
+    'Domani, prima di aprire la posta, compi il secondo passo senza rileggere i dubbi di ieri. Se vuoi un parere, chiedilo a una persona che sostiene ciò che inizi: la volontà che apre cresce dove trova appoggio. Tieni il foglio sul tavolo.',
     'Nei giorni che mancano raccogli soltanto ciò che serve al primo passo, niente di più. Cancella dall\'agenda le condizioni che rimandano l\'inizio, come il momento giusto o il parere di qualcuno. Non aspettare lunedì per prepararti: la data fissata vale come una promessa fatta a te.',
     'Fatto quel passo, fissa subito sul calendario il secondo, entro due giorni, così la cosa nuova non torna a fermarsi. Non tornare a chiedere conferme a chi non c\'entra: l\'inizio resta tuo anche dopo il primo gesto. Annota su un foglio che cosa hai cominciato oggi senza chiedere il permesso.',
   ],
@@ -384,7 +384,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'custode|38|messaggio': [
     'Un gesto ripetuto ogni giorno non serve a ottenere qualcosa: serve a ricordarti chi sei mentre lo compi. Haamiah ti invita a scegliere il tuo. Decidi oggi un piccolo rito di due minuti, una tazza preparata con calma o una riga scritta al mattino. Poi ripetilo domani alla stessa ora.',
     'Quando i giorni si sfilacciano, a tenerli insieme non è una grande decisione ma una forma piccola che torna. Questo è il dono di Haamiah. Accendi stasera una candela prima di cena e lasciala accesa finché non hai finito: fallo per sette sere di fila.',
-    'Rimetti al centro la forma che sostiene il contenuto. Hai lasciato cadere un gesto che un tempo ti dava ordine: una passeggiata, una preghiera, un quaderno. Riprendilo questa settimana, identico, alla stessa ora, anche se ti sembra vuoto: il senso torna camminando.',
+    'Rimetti al centro la forma che sostiene il contenuto. Se hai lasciato cadere un gesto che dava ordine ai tuoi giorni, una passeggiata, una preghiera, un quaderno, riprendilo questa settimana, identico, alla stessa ora, anche se ti sembra vuoto: il senso torna camminando.',
   ],
   'custode|38|consiglio': [
     'Scegli anche il luogo preciso del tuo piccolo rito e lascialo pronto da stasera: la tazza sul tavolo, il quaderno aperto accanto alla penna. Non trasformarlo in un obbligo da spuntare. Se un giorno salta, riprendilo il giorno dopo senza raddoppiare e senza rimproverarti.',
@@ -854,7 +854,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|13|messaggio': [
     'Ricordare chi sono le persone del tuo gruppo, anche nei giorni in cui sembrano lontane, porta una tenerezza un po\' stanca. Iezalel ti lascia sentire quella fedeltà come memoria viva. A volte si colora di malinconia per i tempi in cui il gruppo era più unito: anche questa è fedeltà.',
     'Tenere insieme un gruppo senza comandarlo ti dà una gioia larga, quasi domestica. Iezalel la mette in luce: è il calore di chi custodisce i legami con la memoria. Accanto può affiorare la paura di reggere tutti i fili senza aiuto: anche quella merita ascolto.',
-    'Nostalgia di volti, di serate, di promesse fatte in compagnia: Iezalel ti lascia sentirla senza tristezza. È la tua fedeltà che lavora come memoria attiva e ti dice quanto contano per te quelle persone, anche quando la vita le ha portate lontano.',
+    'Se ti capita di sentire nostalgia di volti o di serate passate, Iezalel ti lascia sentirla senza tristezza. È la tua fedeltà che lavora come memoria attiva e ti dice quanto contano per te le persone care, anche quando la vita le tiene lontane.',
   ],
   'cuore|13|consiglio': [
     'Mantieni viva la memoria del tuo gruppo con un gesto preciso. Oggi riguarda una fotografia di un momento condiviso e scrivi accanto a ogni volto una cosa che ne ricordi. Non indugiare nel rimpianto: scegli un ricordo e decidi di raccontarlo alla prossima occasione d\'incontro. Iezalel vive di memoria.',
@@ -913,7 +913,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|19|messaggio': [
     'La memoria precisa di ciò che è accaduto può portarti un rimpianto pungente. Leuviah ti lascia sentirlo senza farne un\'accusa. Quando la memoria ricuce invece di ferire, arriva la quiete di una questione rimasta aperta per anni che finalmente si chiude dentro di te.',
-    'Rimuginare ha il sapore amaro della contabilità dei torti: lo conosci bene. Leuviah accoglie quell\'amarezza senza giudicarla. Sotto, più profonda, c\'è la malinconia per ciò che è andato perso: anche lei ti chiede ascolto, fino in fondo, perché è da lì che una questione aperta comincia a chiudersi.',
+    'Se ti capita di rimuginare, può avere il sapore amaro di un conto da saldare. Leuviah accoglie quell\'amarezza senza giudicarla. Sotto c\'è la malinconia per ciò che è andato perso: anche lei ti chiede ascolto, fino in fondo, perché è da lì che una questione aperta comincia a chiudersi.',
     'Ricostruire il filo di una vecchia storia porta un sollievo inatteso, perché capire non è rinfacciare. Leuviah ti lascia sentire la pace che arriva quando i ricordi smettono di fare da prove contro qualcuno e tornano a essere soltanto la tua storia, da tenere con calma.',
   ],
   'cuore|19|consiglio': [
@@ -944,7 +944,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|22|messaggio': [
     'Consegnare un lavoro solido ti lascia una contentezza piena, diversa dall\'ebbrezza dell\'applauso: dura perché non dipende da chi guarda. Ieiaiel te la lascia gustare. Se la visibilità ti mette in imbarazzo, come un abito troppo largo, anche quell\'imbarazzo è sano: dice che il lavoro conta più della vetrina.',
     'L\'ebbrezza dell\'attenzione altrui è dolce e un po\' pericolosa. Ieiaiel non te la toglie: ti lascia sentirla per ciò che è, una festa, non una misura del tuo valore. Sotto c\'è la soddisfazione quieta del lavoro che regge nel tempo.',
-    'Risentimento è la parola esatta per ciò che senti quando il tuo lavoro passa inosservato. Ieiaiel lo accoglie senza vergogna. Accanto, però, c\'è un orgoglio artigiano che non dipende dagli sguardi: la cosa che hai fatto è solida, questo basta a scaldare.',
+    'Se capita che il tuo lavoro passi inosservato, può nascere un risentimento. Ieiaiel lo accoglie senza vergogna e senza rimproveri. Accanto, però, c\'è un orgoglio artigiano che non dipende dagli sguardi: ciò che hai fatto bene resta solido anche senza applausi: basta a scaldare.',
   ],
   'cuore|22|consiglio': [
     'Accogli la visibilità senza nasconderti né gonfiarla. Quando qualcuno nota il tuo lavoro, rispondi con un grazie e nomina chi ti ha dato aiuto. Poi torna subito alla prossima cosa da costruire. Ieiaiel insegna a stare nella luce quanto basta, con la mente già rivolta all\'opera che viene dopo.',
@@ -1032,7 +1032,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Tieni accesa la speranza con un segno visibile del lavoro fatto. Ogni sera metti un segno sul calendario per ciò che hai portato avanti, anche poco. Nei giorni di stanchezza guarda la fila dei segni, non il terreno fermo. Omael accompagna la perseveranza che non pretende prove immediate.',
   ],
   'cuore|31|messaggio': [
-    'Il perfezionismo ti porta un\'ansia minuziosa, quella del dettaglio che non torna mai. Lecabel la accoglie senza ironia e senza rimprovero: sa quanto ti importa che le cose siano fatte bene. Accanto c\'è la soddisfazione precisa di quando il dettaglio trova posto nell\'insieme e il progetto, finalmente, funziona.',
+    'Se il perfezionismo ti porta un\'ansia minuziosa, quella del dettaglio che non torna mai, Lecabel la accoglie senza ironia e senza rimprovero: sa quanto ti importa che le cose siano fatte bene. Accanto c\'è la soddisfazione precisa di quando il dettaglio trova posto nell\'insieme.',
     'Lecabel ti concede il piacere esatto del calcolo che torna, della misura giusta, del progetto che sta in piedi. Quel piacere può farsi paura di consegnare qualcosa di imperfetto; nel suo lato migliore è la fierezza artigiana di chi trasforma un\'idea in metodo.',
     'Fretta e precisione litigano dentro di te quando devi decidere. Lecabel ti permette di sentire la tensione fra le due senza condannarti: è il segno che tieni sia al tempo sia alla qualità. Sotto c\'è una calma operosa, la fiducia nei dati più che nelle impressioni del momento.',
   ],
@@ -1113,7 +1113,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|39|messaggio': [
     'Se tieni aperto un conto degli anni verso chi ti ha fatto crescere, lo senti pesare: ogni torto annotato, ogni mancanza ricordata. Rehael non chiede di strapparlo. Ti permette di sentire, accanto al rancore, una tenerezza che non avevi messo in conto: il rispetto che nasce prima del merito.',
-    'Guardando chi viene dopo di te può salire la stessa severità che un tempo hai ricevuto. Accogli il dispiacere di riconoscerla: vuol dire che te ne accorgi. Rehael porta il rispetto dato prima che sia meritato: da lì quella severità può allentarsi.',
+    'Guardando chi viene dopo di te, può salire una severità di cui forse conosci il peso. Accogli il dispiacere di riconoscerla: vuol dire che te ne accorgi. Rehael porta il rispetto dato prima che sia meritato: da lì quella severità può allentarsi.',
     'Il rispetto dato prima che sia meritato ha un sapore strano: un po\' di vertigine, un po\' di dignità. Rehael vive in quella vertigine. Senti la libertà di guardare chi ti è vicino come se lo incontrassi oggi, senza il peso degli anni passati.',
   ],
   'cuore|39|consiglio': [
@@ -1247,7 +1247,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Quando qualcosa ti ha fatto torto, la voglia di rivalsa arriva calda e convincente, con la sensazione di avere ragione. Imamiah non la nega. Ti lascia sentirne tutta la forza, poi mostra che cosa c\'è dietro: un orgoglio ferito che chiede ascolto più che rivincita. Quell\'orgoglio merita la tua tenerezza.',
   ],
   'cuore|52|consiglio': [
-    'Dì a voce alta, in una stanza tranquilla, l\'errore che hai riconosciuto, con parole semplici. Non aggiungere sentenze su chi sei: l\'errore è un fatto, non un nome. Se poi arriva il sollievo, non diffidarne: non è una scorciatoia, è il segno che hai cominciato a riparare.',
+    'Se c\'è un errore che riconosci come tuo, dillo a voce alta, con parole semplici. Non aggiungere sentenze su chi sei: l\'errore è un fatto, non un nome. Se poi arriva il sollievo, non diffidarne: non è una scorciatoia, è il segno che hai cominciato a riparare.',
     'Nomina la situazione chiusa che ti porti dentro da anni e smetti di chiamarla destino: scrivila come scelta rimandata. Poi indica la porta più piccola che potresti aprire questa settimana, anche solo una domanda o un no. Non spalancare tutto insieme: basta un po\' d\'aria.',
     'Non agire sulla voglia di rivalsa finché è calda: lascia passare almeno una notte. Scrivi intanto che cosa del torto ha ferito il tuo orgoglio, con precisione. Offri a quell\'orgoglio ascolto invece di vendetta: spesso, una volta ascoltato, smette di chiedere una rivincita.',
   ],
@@ -1537,7 +1537,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Il rancore si presenta come dignità, ma la differenza si vede bene. La dignità tiene il tuo valore; il rancore tiene il torto al posto tuo. Haziel insegna che deporre quel peso non assolve chi ha sbagliato: toglie soltanto dalle tue mani un carico che non serve a nessuno.',
   ],
   'intelletto|09|consiglio': [
-    'Nomina per iscritto il torto che hai ricevuto, con parole precise e senza aggettivi. Poi decidi se vuoi smettere di portarlo: se sì, chiudi il foglio e non tornarci. Non coprire l\'accaduto con un sorriso di circostanza; il perdono vero parte da ciò che è stato.',
+    'Se hai ricevuto un torto che ancora pesa, nominalo per iscritto, con parole precise e senza aggettivi. Poi decidi se vuoi smettere di portarlo: se sì, chiudi il foglio e non tornarci. Non coprire l\'accaduto con un sorriso di circostanza; il perdono vero parte da ciò che è stato.',
     'Ripensa a qualcosa che hai dato nelle ultime settimane e chiediti se aspetti un ritorno. Se lo aspetti, chiudi il conto adesso dentro di te: il dono resta un dono. Evita di ricordare a quella persona ciò che hai fatto per lei, nemmeno scherzando.',
     'Smetti oggi di ripassare nella mente le frasi che ancora bruciano. Il tuo valore resta intero anche se deponi il torto: non serve tenerlo stretto per dimostrare qualcosa. Lascia a chi ha sbagliato la sua responsabilità e riprenditi le mani libere.',
   ],
@@ -2048,7 +2048,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'intelletto|60|consiglio': [
     'Chiediti che cosa vuoi che torni a funzionare, prima di rispondere al torto. Scrivi quella cosa. Poi fai un passo in quella direzione e lascia cadere il desiderio di pareggiare. Pareggiare lascia due ferite aperte; riparare ne chiude almeno una: comincia da te.',
-    'Racconta oggi chi sei a qualcuno, oppure in un quaderno, senza nominare il torto che hai ricevuto. Nota quanto è difficile. Non rinunciare alla verità di ciò che è accaduto: smetti soltanto di farne il personaggio con cui ti presenti, così la riparazione torna ad avere spazio.',
+    'Se porti con te un torto, racconta oggi chi sei a qualcuno, oppure in un quaderno, senza nominarlo. Nota quanto è difficile. Non rinunciare alla verità di ciò che è accaduto: smetti soltanto di farne il personaggio con cui ti presenti, così la riparazione torna ad avere spazio.',
     'Prima di dire la cosa vera che hai in mente, rileggila e chiediti se ripara o se ferisce. Se ferisce, riscrivila finché resta vera senza colpire. Rimanda a domani le frasi nate dalla rabbia di oggi: una verità detta per sfogo rompe una seconda volta.',
   ],
   'intelletto|61|messaggio': [
@@ -2924,6 +2924,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|01|cuore_legami': [
     'Vehuiah ti dà la forza di non restare in attesa.',
   ],
+  'letture|01|cuore_altrui': [
+    'Vehuiah ti dà la forza di partire da ciò che senti.',
+  ],
   'letture|01|cuore_scelta': [
     'Vehuiah ti porta la fierezza di una scelta davvero tua.',
   ],
@@ -2939,6 +2942,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|01|intelletto_legami': [
     'Vehuiah ti chiarisce che ciò che vuoi non aspetta permessi.',
   ],
+  'letture|01|intelletto_altrui': [
+    'Vehuiah ti mostra che chiarire ciò che vuoi viene per primo.',
+  ],
   'letture|01|intelletto_scelta': [
     'Vehuiah distingue per te il volere dal cercare un permesso.',
   ],
@@ -2952,6 +2958,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Individua il primo passo che dipende soltanto da te e fallo oggi, prima di qualunque notizia.',
   ],
   'letture|01|gesto_legami': [
+    'Scrivi in una riga che cosa vuoi tu in questo rapporto, senza aspettare che lo chiarisca l\'altra persona.',
+  ],
+  'letture|01|gesto_altrui': [
     'Scrivi in una riga che cosa vuoi tu in questo rapporto, senza aspettare che lo chiarisca l\'altra persona.',
   ],
   'letture|01|gesto_scelta': [
@@ -2993,6 +3002,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|02|cuore_legami': [
     'Ieliel accoglie in te l\'affetto che regge anche i disaccordi.',
   ],
+  'letture|02|cuore_altrui': [
+    'Ieliel ti fa sentire quanto conta per te questo legame.',
+  ],
   'letture|02|cuore_scelta': [
     'Ieliel ti dona la calma di una scelta leale.',
   ],
@@ -3003,10 +3015,13 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ieliel ti svela che i legami veri reggono ai disaccordi.',
   ],
   'letture|02|intelletto_attesa': [
-    'Ieliel ti avverte: l\'attesa non è motivo per chiuderti.',
+    'Ieliel ti avverte che l\'attesa non è motivo per chiuderti.',
   ],
   'letture|02|intelletto_legami': [
-    'Ieliel ti insegna: un disaccordo non è una rottura.',
+    'Ieliel ti fa capire che un disaccordo non è una rottura.',
+  ],
+  'letture|02|intelletto_altrui': [
+    'Ieliel ti fa capire che un legame si vede nel tempo.',
   ],
   'letture|02|intelletto_scelta': [
     'Ieliel ti chiarisce che scegliere non significa rompere un legame.',
@@ -3022,6 +3037,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|02|gesto_legami': [
     'Scrivi in una riga che cosa conta per te in questo legame, al di là di ogni disaccordo.',
+  ],
+  'letture|02|gesto_altrui': [
+    'Scrivi in una riga che cosa conta per te in questo legame, prima di cercare risposte nell\'altra persona.',
   ],
   'letture|02|gesto_scelta': [
     'Immagina un primo giorno difficile su ciascuna strada e chiediti a quale torneresti comunque, senza fretta.',
@@ -3062,6 +3080,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|03|cuore_legami': [
     'Sitael ti fa sentire il valore della parola mantenuta.',
   ],
+  'letture|03|cuore_altrui': [
+    'Sitael ti fa sentire il valore della parola mantenuta.',
+  ],
   'letture|03|cuore_scelta': [
     'Sitael ti infonde la serenità di un impegno che regge.',
   ],
@@ -3072,9 +3093,12 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Sitael ti rivela che ciò che dura cresce piano.',
   ],
   'letture|03|intelletto_attesa': [
-    'Sitael ti ricorda: un singolo esito non misura un cammino.',
+    'Sitael ti ricorda che un singolo esito non misura un cammino.',
   ],
   'letture|03|intelletto_legami': [
+    'Sitael ti spiega che la fiducia cresce coi gesti ripetuti.',
+  ],
+  'letture|03|intelletto_altrui': [
     'Sitael ti spiega che la fiducia cresce coi gesti ripetuti.',
   ],
   'letture|03|intelletto_scelta': [
@@ -3090,6 +3114,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ogni giorno di questa settimana mantieni un piccolo impegno che hai preso, qualunque notizia arrivi.',
   ],
   'letture|03|gesto_legami': [
+    'Pensa a una parola che hai dato in questo rapporto e verifica in silenzio se la stai mantenendo.',
+  ],
+  'letture|03|gesto_altrui': [
     'Pensa a una parola che hai dato in questo rapporto e verifica in silenzio se la stai mantenendo.',
   ],
   'letture|03|gesto_scelta': [
@@ -3131,6 +3158,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|04|cuore_legami': [
     'Elemiah ti lascia ascoltare l\'intuito, non il tumulto.',
   ],
+  'letture|04|cuore_altrui': [
+    'Elemiah ti lascia ascoltare l\'intuito, non il tumulto.',
+  ],
   'letture|04|cuore_scelta': [
     'Elemiah ti trasmette la fermezza di chi vede chiaro.',
   ],
@@ -3141,9 +3171,12 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Elemiah ti chiarisce che l\'agitazione non è l\'ostacolo vero.',
   ],
   'letture|04|intelletto_attesa': [
-    'Elemiah ti mostra: ciò che passa col riposo era agitazione.',
+    'Elemiah ti mostra che ciò che passa col riposo era agitazione.',
   ],
   'letture|04|intelletto_legami': [
+    'Elemiah separa per te i fatti visti dalle paure immaginate.',
+  ],
+  'letture|04|intelletto_altrui': [
     'Elemiah separa per te i fatti visti dalle paure immaginate.',
   ],
   'letture|04|intelletto_scelta': [
@@ -3159,6 +3192,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Quando l\'agitazione sale, chiediti che cosa è cambiato davvero da ieri e lascia andare il resto.',
   ],
   'letture|04|gesto_legami': [
+    'Annota tre gesti concreti che hai visto in questo rapporto e separali da ciò che hai soltanto immaginato.',
+  ],
+  'letture|04|gesto_altrui': [
     'Annota tre gesti concreti che hai visto in questo rapporto e separali da ciò che hai soltanto immaginato.',
   ],
   'letture|04|gesto_scelta': [
@@ -3200,6 +3236,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|05|cuore_legami': [
     'Mahasiah ti lascia la pace di chi non si annulla.',
   ],
+  'letture|05|cuore_altrui': [
+    'Mahasiah ti lascia la pace di chi non si annulla.',
+  ],
   'letture|05|cuore_scelta': [
     'Mahasiah ti consegna la quiete di una scelta senza resa.',
   ],
@@ -3215,11 +3254,14 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|05|intelletto_legami': [
     'Mahasiah ti chiarisce che fare pace non è dare ragione.',
   ],
+  'letture|05|intelletto_altrui': [
+    'Mahasiah ti chiarisce che la serenità non dipende da una risposta.',
+  ],
   'letture|05|intelletto_scelta': [
-    'Mahasiah ti avverte: un sì per quieto vivere è cedere.',
+    'Mahasiah ti avverte che un sì per quieto vivere è cedere.',
   ],
   'letture|05|intelletto_limite': [
-    'Mahasiah ti fa notare: la calma rende chiare le domande.',
+    'Mahasiah ti fa notare che la calma rende chiare le domande.',
   ],
   'letture|05|gesto_orienta': [
     'Scrivi su un biglietto la cosa su cui oggi non cedi e tienilo con te: dilla con calma, se serve.',
@@ -3229,6 +3271,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|05|gesto_legami': [
     'Annota la cosa su cui in questo rapporto non cedi e una su cui puoi venire incontro.',
+  ],
+  'letture|05|gesto_altrui': [
+    'Annota che cosa ti dà serenità in questo rapporto e che cosa invece te la toglie.',
   ],
   'letture|05|gesto_scelta': [
     'Chiediti con calma quale strada puoi percorrere senza cedere sull\'essenziale e lascia maturare la risposta per qualche giorno.',
@@ -3269,6 +3314,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|06|cuore_legami': [
     'Lelahel ti apre alla gioia di farti capire, non ammirare.',
   ],
+  'letture|06|cuore_altrui': [
+    'Lelahel ti porta la chiarezza di sapere ciò che senti.',
+  ],
   'letture|06|cuore_scelta': [
     'Lelahel ti fa sentire la gioia di una scelta limpida.',
   ],
@@ -3284,6 +3332,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|06|intelletto_legami': [
     'Lelahel distingue per te il farti capire dal farti ammirare.',
   ],
+  'letture|06|intelletto_altrui': [
+    'Lelahel ti fa capire che la chiarezza parte da te.',
+  ],
   'letture|06|intelletto_scelta': [
     'Lelahel ti fa vedere la differenza fra servire e brillare.',
   ],
@@ -3298,6 +3349,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|06|gesto_legami': [
     'Prima di parlare in questo rapporto chiediti se vuoi chiarire qualcosa o soltanto farti valere.',
+  ],
+  'letture|06|gesto_altrui': [
+    'Scrivi in una riga che cosa vorresti sapere davvero e perché ti preme saperlo.',
   ],
   'letture|06|gesto_scelta': [
     'Scrivi ciascuna strada in tre frasi semplici, come a chi non ne sa nulla; rileggile nei giorni seguenti.',
@@ -3338,6 +3392,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|07|cuore_legami': [
     'Achaiah coltiva in te una curiosità paziente verso l\'altra persona.',
   ],
+  'letture|07|cuore_altrui': [
+    'Achaiah coltiva in te una curiosità paziente verso l\'altra persona.',
+  ],
   'letture|07|cuore_scelta': [
     'Achaiah ti concede di non decidere in fretta.',
   ],
@@ -3351,7 +3408,10 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Achaiah distingue per te l\'attesa vuota dall\'osservazione paziente.',
   ],
   'letture|07|intelletto_legami': [
-    'Achaiah ti avverte: una persona si conosce nel tempo.',
+    'Achaiah ti avverte che una persona si conosce nel tempo.',
+  ],
+  'letture|07|intelletto_altrui': [
+    'Achaiah ti avverte che una persona si conosce nel tempo.',
   ],
   'letture|07|intelletto_scelta': [
     'Achaiah ti fa capire che la prima impressione non basta.',
@@ -3368,6 +3428,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|07|gesto_legami': [
     'Per qualche giorno ascolta più di quanto parli in questo rapporto e annota ciò che impari.',
   ],
+  'letture|07|gesto_altrui': [
+    'Per qualche giorno ascolta più di quanto parli in questo rapporto e annota ciò che impari.',
+  ],
   'letture|07|gesto_scelta': [
     'Raccogli per ciascuna strada un\'informazione che ancora ti manca e aspetta di averle tutte prima di scegliere.',
   ],
@@ -3375,7 +3438,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Annota ogni giorno in poche righe ciò che osservi e porta queste note a chi ti segue.',
   ],
   'letture|08|aperta': [
-    'Cahethel volge il tuo sguardo a ciò che hai e alla fatica che è costato.',
+    'Cahethel volge il tuo sguardo a ciò che hai e a quanto ti è costato.',
   ],
   'letture|08|futuro': [
     'Cahethel parte con te da ciò che hai già, con gratitudine concreta.',
@@ -3407,8 +3470,11 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|08|cuore_legami': [
     'Cahethel apre in te la gratitudine per ciò che ricevi.',
   ],
+  'letture|08|cuore_altrui': [
+    'Cahethel apre in te la gratitudine per ciò che ricevi.',
+  ],
   'letture|08|cuore_scelta': [
-    'Cahethel ti rasserena: sai che cosa costa ciò che scegli.',
+    'Cahethel ti rasserena, perché sai che cosa costa ciò che scegli.',
   ],
   'letture|08|cuore_limite': [
     'Cahethel ti scalda di gratitudine per chi ti aiuta.',
@@ -3420,6 +3486,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Cahethel ti chiarisce che l\'impegno già messo resta, comunque vada.',
   ],
   'letture|08|intelletto_legami': [
+    'Cahethel ti dice che un grazie concreto nutre il legame.',
+  ],
+  'letture|08|intelletto_altrui': [
     'Cahethel ti dice che un grazie concreto nutre il legame.',
   ],
   'letture|08|intelletto_scelta': [
@@ -3435,7 +3504,10 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi tre cose concrete che hai già fatto per arrivare fin qui e rileggile quando l\'attesa pesa.',
   ],
   'letture|08|gesto_legami': [
-    'Ripensa a un gesto concreto ricevuto in questo rapporto e riconosci in te la fatica che è costato.',
+    'Ripensa a un gesto concreto ricevuto in questo rapporto e a ciò che ti ha fatto sentire.',
+  ],
+  'letture|08|gesto_altrui': [
+    'Ripensa a un gesto concreto ricevuto in questo rapporto e a ciò che ti ha fatto sentire.',
   ],
   'letture|08|gesto_scelta': [
     'Accanto a ciascuna strada scrivi la fatica che chiede e il frutto che porta, poi lascia riposare il foglio.',
@@ -3476,6 +3548,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|09|cuore_legami': [
     'Haziel accende in te la tenerezza che non chiede contraccambio.',
   ],
+  'letture|09|cuore_altrui': [
+    'Haziel accende in te la tenerezza che non chiede contraccambio.',
+  ],
   'letture|09|cuore_scelta': [
     'Haziel ti concede il sollievo di scegliere senza rancore.',
   ],
@@ -3486,13 +3561,16 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Haziel ti fa capire che perdonare non è negare.',
   ],
   'letture|09|intelletto_attesa': [
-    'Haziel ti avverte: il rancore nell\'attesa pesa su di te.',
+    'Haziel ti avverte che il rancore nell\'attesa pesa su di te.',
   ],
   'letture|09|intelletto_legami': [
     'Haziel distingue per te perdonare dal far finta di niente.',
   ],
+  'letture|09|intelletto_altrui': [
+    'Haziel ti fa capire che voler bene non è un conto.',
+  ],
   'letture|09|intelletto_scelta': [
-    'Haziel ti insegna: il rancore non è un criterio.',
+    'Haziel ti insegna che un conto da pareggiare non guida.',
   ],
   'letture|09|intelletto_limite': [
     'Haziel ti ricorda che la clemenza con te dà sollievo.',
@@ -3504,6 +3582,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Regala oggi un tuo piccolo gesto a qualcuno senza dirlo e senza aspettarti niente in cambio.',
   ],
   'letture|09|gesto_legami': [
+    'Scrivi che cosa hai dato in questo rapporto aspettandoti qualcosa indietro, poi strappa il foglio.',
+  ],
+  'letture|09|gesto_altrui': [
     'Scrivi che cosa hai dato in questo rapporto aspettandoti qualcosa indietro, poi strappa il foglio.',
   ],
   'letture|09|gesto_scelta': [
@@ -3545,6 +3626,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|10|cuore_legami': [
     'Aladiah ti offre la libertà di non restare nel passato.',
   ],
+  'letture|10|cuore_altrui': [
+    'Aladiah ti offre la libertà di non restare nel passato.',
+  ],
   'letture|10|cuore_scelta': [
     'Aladiah ti infonde coraggio, senza il peso del passato.',
   ],
@@ -3560,6 +3644,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|10|intelletto_legami': [
     'Aladiah ti chiarisce che un errore non definisce un legame.',
   ],
+  'letture|10|intelletto_altrui': [
+    'Aladiah ti chiarisce che questo legame lo guardi per com\'è oggi.',
+  ],
   'letture|10|intelletto_scelta': [
     'Aladiah ti fa capire che ripartire non è fuggire.',
   ],
@@ -3574,6 +3661,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|10|gesto_legami': [
     'Chiediti se in questo rapporto c\'è un errore che continui a portarti addosso e scrivi che cosa ti ha insegnato.',
+  ],
+  'letture|10|gesto_altrui': [
+    'Scrivi in tre righe come vedi oggi questo rapporto, senza guardare a com\'era.',
   ],
   'letture|10|gesto_scelta': [
     'Scrivi per ciascuna strada che cosa porti con te dal passato e che cosa lasci, senza fretta di decidere.',
@@ -3614,6 +3704,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|11|cuore_legami': [
     'Lauviah ti porta la serenità di chi resta costante.',
   ],
+  'letture|11|cuore_altrui': [
+    'Lauviah ti porta la serenità di chi resta costante.',
+  ],
   'letture|11|cuore_scelta': [
     'Lauviah ti fa sentire la solidità di una scelta durevole.',
   ],
@@ -3629,6 +3722,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|11|intelletto_legami': [
     'Lauviah ti insegna che i legami si misurano nella costanza.',
   ],
+  'letture|11|intelletto_altrui': [
+    'Lauviah ti insegna che i legami si misurano nella costanza.',
+  ],
   'letture|11|intelletto_scelta': [
     'Lauviah ti chiarisce che una scelta si misura nella durata.',
   ],
@@ -3642,6 +3738,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Fissa per ogni giorno di questa attesa un piccolo impegno tuo e rispettalo anche quando non ne hai voglia.',
   ],
   'letture|11|gesto_legami': [
+    'Tieni per una settimana una piccola abitudine tua che ti fa stare bene, qualunque cosa accada in questo rapporto.',
+  ],
+  'letture|11|gesto_altrui': [
     'Tieni per una settimana una piccola abitudine tua che ti fa stare bene, qualunque cosa accada in questo rapporto.',
   ],
   'letture|11|gesto_scelta': [
@@ -3683,6 +3782,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|12|cuore_legami': [
     'Hahaiah ti fa sentire al riparo, qualunque cosa accada fuori.',
   ],
+  'letture|12|cuore_altrui': [
+    'Hahaiah ti fa sentire al riparo, qualunque cosa accada fuori.',
+  ],
   'letture|12|cuore_scelta': [
     'Hahaiah ti porta la calma silenziosa di chi ascolta dentro.',
   ],
@@ -3698,6 +3800,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|12|intelletto_legami': [
     'Hahaiah ti chiarisce che tacere per discrezione non è chiudersi.',
   ],
+  'letture|12|intelletto_altrui': [
+    'Hahaiah ti chiarisce che tacere per discrezione non è chiudersi.',
+  ],
   'letture|12|intelletto_scelta': [
     'Hahaiah distingue per te la voce quieta dal rumore dell\'urgenza.',
   ],
@@ -3711,6 +3816,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scegli un angolo della casa come tuo rifugio e tornaci ogni sera per qualche minuto di quiete.',
   ],
   'letture|12|gesto_legami': [
+    'Stasera, in un luogo quieto, chiediti che cosa senti tu in questo rapporto e tienilo per te ancora un po\'.',
+  ],
+  'letture|12|gesto_altrui': [
     'Stasera, in un luogo quieto, chiediti che cosa senti tu in questo rapporto e tienilo per te ancora un po\'.',
   ],
   'letture|12|gesto_scelta': [
@@ -3752,6 +3860,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|13|cuore_legami': [
     'Iezalel risveglia in te la tenerezza della memoria condivisa.',
   ],
+  'letture|13|cuore_altrui': [
+    'Iezalel risveglia in te la tenerezza della memoria condivisa.',
+  ],
   'letture|13|cuore_scelta': [
     'Iezalel ti avvicina alle persone che ti conoscono davvero.',
   ],
@@ -3759,13 +3870,16 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Iezalel ti sostiene con la forza dei legami fedeli.',
   ],
   'letture|13|intelletto_orienta': [
-    'Iezalel chiarisce per te: la fedeltà è memoria, non abitudine.',
+    'Iezalel chiarisce per te che la fedeltà è memoria, non abitudine.',
   ],
   'letture|13|intelletto_attesa': [
     'Iezalel ti ricorda che i legami fedeli reggono l\'attesa.',
   ],
   'letture|13|intelletto_legami': [
     'Iezalel ti fa capire che tenere insieme non è comandare.',
+  ],
+  'letture|13|intelletto_altrui': [
+    'Iezalel ti fa capire che la memoria fedele conta più dell\'ansia.',
   ],
   'letture|13|intelletto_scelta': [
     'Iezalel ti chiarisce che fedeltà non vuol dire immobilità.',
@@ -3780,6 +3894,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Durante l\'attesa condividi un momento semplice con una persona che ti è fedele, senza parlare per forza dell\'esito.',
   ],
   'letture|13|gesto_legami': [
+    'Annota i fatti di questo rapporto che ti restano più chiari, belli o difficili: la memoria fedele parte da lì.',
+  ],
+  'letture|13|gesto_altrui': [
     'Annota i fatti di questo rapporto che ti restano più chiari, belli o difficili: la memoria fedele parte da lì.',
   ],
   'letture|13|gesto_scelta': [
@@ -3801,7 +3918,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mebahel ti chiede di misurare con giustizia prima ciò che porti tu in questo legame.',
   ],
   'letture|14|decisione': [
-    'Mebahel risponde sì se la scelta è giusta per te e per chi ne è toccato; altrimenti aspetta.',
+    'Mebahel risponde sì se puoi dire a chi ne è toccato com\'è, senza aggiustare nulla; altrimenti aspetta.',
   ],
   'letture|14|scelta': [
     'Mebahel sceglie con te quella che puoi raccontare com\'è, senza aggiustare nulla.',
@@ -3821,6 +3938,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|14|cuore_legami': [
     'Mebahel ti dà il coraggio gentile di dire il vero.',
   ],
+  'letture|14|cuore_altrui': [
+    'Mebahel ti dà il coraggio gentile di dire il vero.',
+  ],
   'letture|14|cuore_scelta': [
     'Mebahel ti dona la quiete di una scelta giusta.',
   ],
@@ -3836,6 +3956,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|14|intelletto_legami': [
     'Mebahel ti mostra che la sincerità non è durezza.',
   ],
+  'letture|14|intelletto_altrui': [
+    'Mebahel ti mostra che la sincerità non è durezza.',
+  ],
   'letture|14|intelletto_scelta': [
     'Mebahel ti mostra la differenza fra giusto e comodo.',
   ],
@@ -3849,6 +3972,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi con onestà che cosa hai fatto tu finora per ciò che aspetti, senza esagerare né sminuire.',
   ],
   'letture|14|gesto_legami': [
+    'Scrivi per te una cosa vera che non hai ancora detto in questo rapporto, con parole che non feriscono.',
+  ],
+  'letture|14|gesto_altrui': [
     'Scrivi per te una cosa vera che non hai ancora detto in questo rapporto, con parole che non feriscono.',
   ],
   'letture|14|gesto_scelta': [
@@ -3890,6 +4016,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|15|cuore_legami': [
     'Hariel ti regala la serenità di pensieri finalmente chiari.',
   ],
+  'letture|15|cuore_altrui': [
+    'Hariel ti regala la serenità di pensieri finalmente chiari.',
+  ],
   'letture|15|cuore_scelta': [
     'Hariel infonde in te la fiducia di un metodo tuo.',
   ],
@@ -3905,6 +4034,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|15|intelletto_legami': [
     'Hariel ti spiega che pensieri in ordine diventano parole chiare.',
   ],
+  'letture|15|intelletto_altrui': [
+    'Hariel ti spiega che pensieri in ordine diventano parole chiare.',
+  ],
   'letture|15|intelletto_scelta': [
     'Hariel ti mostra che l\'intuizione regge al metodo, l\'impulso no.',
   ],
@@ -3918,6 +4050,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Metti in ordine su un foglio ciò che sai, ciò che non sai e ciò che dipende da te.',
   ],
   'letture|15|gesto_legami': [
+    'Scrivi in ordine i pensieri che hai su questo rapporto, dal più chiaro al più confuso.',
+  ],
+  'letture|15|gesto_altrui': [
     'Scrivi in ordine i pensieri che hai su questo rapporto, dal più chiaro al più confuso.',
   ],
   'letture|15|gesto_scelta': [
@@ -3959,6 +4094,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|16|cuore_legami': [
     'Hakamiah ti lascia il sollievo di una parola franca.',
   ],
+  'letture|16|cuore_altrui': [
+    'Hakamiah ti lascia il sollievo di una parola franca.',
+  ],
   'letture|16|cuore_scelta': [
     'Hakamiah ti lascia sentire la dignità di una scelta dichiarata.',
   ],
@@ -3974,6 +4112,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|16|intelletto_legami': [
     'Hakamiah ti fa capire che esserci davvero include parlare chiaro.',
   ],
+  'letture|16|intelletto_altrui': [
+    'Hakamiah ti fa capire che esserci davvero include parlare chiaro.',
+  ],
   'letture|16|intelletto_scelta': [
     'Hakamiah distingue per te la scelta coraggiosa dalla fuga.',
   ],
@@ -3987,6 +4128,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'In questa attesa fai ogni giorno la tua parte a viso aperto, anche quando ti costa.',
   ],
   'letture|16|gesto_legami': [
+    'Metti nero su bianco, senza giri di parole, che cosa vuoi tu in questo rapporto e dove stai.',
+  ],
+  'letture|16|gesto_altrui': [
     'Metti nero su bianco, senza giri di parole, che cosa vuoi tu in questo rapporto e dove stai.',
   ],
   'letture|16|gesto_scelta': [
@@ -4028,6 +4172,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|17|cuore_legami': [
     'Lauviah II ti apre all\'intuito, senza crederci ciecamente.',
   ],
+  'letture|17|cuore_altrui': [
+    'Lauviah II ti apre all\'intuito, senza crederci ciecamente.',
+  ],
   'letture|17|cuore_scelta': [
     'Lauviah II ti porta la fiducia in un\'intuizione verificata.',
   ],
@@ -4043,6 +4190,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|17|intelletto_legami': [
     'Lauviah II ti ricorda che un\'intuizione sull\'altro va verificata.',
   ],
+  'letture|17|intelletto_altrui': [
+    'Lauviah II ti ricorda che un\'intuizione sull\'altro va verificata.',
+  ],
   'letture|17|intelletto_scelta': [
     'Lauviah II ti insegna che l\'intuizione indica, la verifica decide.',
   ],
@@ -4056,6 +4206,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Annota ogni tuo presentimento con la data accanto e confrontalo poi con ciò che accade davvero.',
   ],
   'letture|17|gesto_legami': [
+    'Scrivi ciò che intuisci di questo rapporto e accanto i fatti che lo confermano o lo smentiscono.',
+  ],
+  'letture|17|gesto_altrui': [
     'Scrivi ciò che intuisci di questo rapporto e accanto i fatti che lo confermano o lo smentiscono.',
   ],
   'letture|17|gesto_scelta': [
@@ -4080,7 +4233,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Caliel risponde con una condizione: sì se sai dire tre fatti a favore, non opinioni; altrimenti aspetta.',
   ],
   'letture|18|scelta': [
-    'Caliel ti mostra quella sostenuta dai fatti, non dalle opinioni altrui.',
+    'Caliel ti consiglia quella sostenuta dai fatti, non dalle opinioni altrui.',
   ],
   'letture|18|come': [
     'Caliel ti raccomanda di restare sui fatti con voce calma, lasciando da parte i giudizi.',
@@ -4097,6 +4250,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|18|cuore_legami': [
     'Caliel ti fa sentire la pace di parlare senza accusare.',
   ],
+  'letture|18|cuore_altrui': [
+    'Caliel ti fa sentire la pace di guardare prima i fatti.',
+  ],
   'letture|18|cuore_scelta': [
     'Caliel ti dà la sicurezza di chi conosce i fatti.',
   ],
@@ -4110,6 +4266,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Caliel distingue per te le supposizioni dai fatti.',
   ],
   'letture|18|intelletto_legami': [
+    'Caliel ti chiarisce che un\'impressione non è un fatto.',
+  ],
+  'letture|18|intelletto_altrui': [
     'Caliel ti chiarisce che un\'impressione non è un fatto.',
   ],
   'letture|18|intelletto_scelta': [
@@ -4127,11 +4286,14 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|18|gesto_legami': [
     'Dividi su un foglio ciò che sai di questo rapporto in due colonne: fatti e opinioni.',
   ],
+  'letture|18|gesto_altrui': [
+    'Dividi su un foglio ciò che sai di questo rapporto in due colonne: fatti e opinioni.',
+  ],
   'letture|18|gesto_scelta': [
     'Separa per ciascuna strada i fatti che conosci dalle opinioni che hai sentito, poi rileggi con calma.',
   ],
   'letture|18|gesto_limite': [
-    'Prepara per chi ti segue domande precise sui fatti, distinguendole da ciò che hai sentito dire in giro.',
+    'Prepara per chi ti segue domande precise sui fatti, tenendole separate dalle supposizioni.',
   ],
   'letture|19|aperta': [
     'Leuviah ti invita a chiudere con calma, se c\'è, una questione rimasta in sospeso.',
@@ -4143,7 +4305,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Leuviah ti suggerisce di ricostruire con calma ciò che hai fatto finora, senza rimproverarti nulla.',
   ],
   'letture|19|altrui': [
-    'Leuviah ti chiede di ricordare i fatti con precisione, per capire e non per rinfacciare.',
+    'Leuviah ti chiede di ricordare i fatti con precisione, per capire e non per giudicare.',
   ],
   'letture|19|decisione': [
     'Leuviah dice sì se ciò che hai imparato da esperienze simili sostiene la scelta; se la smentisce, aspetta.',
@@ -4166,6 +4328,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|19|cuore_legami': [
     'Leuviah ti porta la mitezza di chi ricorda senza rinfacciare.',
   ],
+  'letture|19|cuore_altrui': [
+    'Leuviah ti porta la quiete di chi ricorda con precisione.',
+  ],
   'letture|19|cuore_scelta': [
     'Leuviah ti fa sentire la leggerezza di non lasciare sospesi.',
   ],
@@ -4181,6 +4346,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|19|intelletto_legami': [
     'Leuviah ti insegna che chiarire non è rinfacciare.',
   ],
+  'letture|19|intelletto_altrui': [
+    'Leuviah ti insegna che i fatti contano più delle impressioni.',
+  ],
   'letture|19|intelletto_scelta': [
     'Leuviah ti fa vedere la differenza fra lezione e rimpianto.',
   ],
@@ -4194,7 +4362,10 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ripercorri per iscritto i passi fatti finora verso ciò che aspetti, riconoscendo ciò che hai già chiuso.',
   ],
   'letture|19|gesto_legami': [
-    'Scrivi come ricordi un momento importante di questo rapporto, con i fatti in ordine e senza rinfacciare nulla.',
+    'Scrivi come ricordi un momento importante di questo rapporto, con i fatti in ordine.',
+  ],
+  'letture|19|gesto_altrui': [
+    'Scrivi come ricordi un momento importante di questo rapporto, con i fatti in ordine.',
   ],
   'letture|19|gesto_scelta': [
     'Prima di scegliere, rileggi come sono andate scelte simili in passato e annota che cosa ti hanno insegnato.',
@@ -4235,6 +4406,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|20|cuore_legami': [
     'Pahaliah ti ridà la dignità di non cedere su tutto.',
   ],
+  'letture|20|cuore_altrui': [
+    'Pahaliah ti ridà la fermezza di sapere ciò che conta.',
+  ],
   'letture|20|cuore_scelta': [
     'Pahaliah ti toglie la paura di cambiare strada.',
   ],
@@ -4245,10 +4419,13 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Pahaliah ti chiarisce che cambiare strada non è rinnegarti.',
   ],
   'letture|20|intelletto_attesa': [
-    'Pahaliah ti insegna: la rotta si corregge, i valori no.',
+    'Pahaliah ti insegna che la rotta si corregge, i valori no.',
   ],
   'letture|20|intelletto_legami': [
     'Pahaliah ti mostra cosa concedere e cosa non negoziare.',
+  ],
+  'letture|20|intelletto_altrui': [
+    'Pahaliah ti mostra che conoscere i tuoi confini ti dà stabilità.',
   ],
   'letture|20|intelletto_scelta': [
     'Pahaliah ti ricorda che cambiare idea non è incoerenza.',
@@ -4264,6 +4441,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|20|gesto_legami': [
     'Scrivi per te una cosa che in questo rapporto non negozi e un modo di fare che puoi cambiare.',
+  ],
+  'letture|20|gesto_altrui': [
+    'Scrivi per te una cosa che in questo rapporto non è negoziabile e perché.',
   ],
   'letture|20|gesto_scelta': [
     'Metti accanto a ogni strada ciò che ti chiederebbe di cedere e prenditi tutto il tempo che serve per pesarlo.',
@@ -4304,6 +4484,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|21|cuore_legami': [
     'Nelchael ti lascia la pazienza di capire l\'altro col tempo.',
   ],
+  'letture|21|cuore_altrui': [
+    'Nelchael ti lascia la pazienza di capire l\'altro col tempo.',
+  ],
   'letture|21|cuore_scelta': [
     'Nelchael scioglie in te l\'ansia di sapere tutto subito.',
   ],
@@ -4319,6 +4502,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|21|intelletto_legami': [
     'Nelchael ti avverte che non capire subito qualcuno è normale.',
   ],
+  'letture|21|intelletto_altrui': [
+    'Nelchael ti avverte che non capire subito qualcuno è normale.',
+  ],
   'letture|21|intelletto_scelta': [
     'Nelchael ti insegna che capire serve a scegliere, non rimandare.',
   ],
@@ -4332,6 +4518,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi la domanda a cui non hai ancora risposta e accanto ciò che puoi imparare intanto.',
   ],
   'letture|21|gesto_legami': [
+    'Annota ciò che non capisci ancora dell\'altra persona e per una settimana guarda senza trarre conclusioni.',
+  ],
+  'letture|21|gesto_altrui': [
     'Annota ciò che non capisci ancora dell\'altra persona e per una settimana guarda senza trarre conclusioni.',
   ],
   'letture|21|gesto_scelta': [
@@ -4373,6 +4562,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|22|cuore_legami': [
     'Ieiaiel ti porta fiducia in ciò che regge nel tempo.',
   ],
+  'letture|22|cuore_altrui': [
+    'Ieiaiel ti porta fiducia in ciò che regge nel tempo.',
+  ],
   'letture|22|cuore_scelta': [
     'Ieiaiel ti libera dalla fame di applausi.',
   ],
@@ -4388,6 +4580,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|22|intelletto_legami': [
     'Ieiaiel ti ricorda che la fiducia nasce dai fatti.',
   ],
+  'letture|22|intelletto_altrui': [
+    'Ieiaiel ti ricorda che la fiducia nasce dai fatti.',
+  ],
   'letture|22|intelletto_scelta': [
     'Ieiaiel ti chiarisce che vale ciò che dura, non l\'effetto.',
   ],
@@ -4401,6 +4596,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mentre aspetti, metti mano a una cosa concreta e falla bene, invece di contare segnali e reazioni.',
   ],
   'letture|22|gesto_legami': [
+    'Elenca i fatti che hai visto nel tempo in questo rapporto, distinti dalle impressioni di un giorno.',
+  ],
+  'letture|22|gesto_altrui': [
     'Elenca i fatti che hai visto nel tempo in questo rapporto, distinti dalle impressioni di un giorno.',
   ],
   'letture|22|gesto_scelta': [
@@ -4442,6 +4640,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|23|cuore_legami': [
     'Melahel ti apre alla dolcezza dei piccoli gesti quotidiani.',
   ],
+  'letture|23|cuore_altrui': [
+    'Melahel ti apre alla dolcezza dei piccoli gesti quotidiani.',
+  ],
   'letture|23|cuore_scelta': [
     'Melahel ti dà il sollievo di prevenire invece di rincorrere.',
   ],
@@ -4457,6 +4658,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|23|intelletto_legami': [
     'Melahel ti ricorda che un legame si cura ogni giorno.',
   ],
+  'letture|23|intelletto_altrui': [
+    'Melahel ti ricorda che un legame si cura ogni giorno.',
+  ],
   'letture|23|intelletto_scelta': [
     'Melahel ti spiega che una scelta vive delle attenzioni quotidiane.',
   ],
@@ -4470,6 +4674,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scegli per questa settimana una piccola attenzione quotidiana legata a ciò che aspetti e tienila ogni giorno.',
   ],
   'letture|23|gesto_legami': [
+    'Dedica ogni giorno di questa settimana una piccola attenzione a chi ti sta accanto, senza aspettarti nulla.',
+  ],
+  'letture|23|gesto_altrui': [
     'Dedica ogni giorno di questa settimana una piccola attenzione a chi ti sta accanto, senza aspettarti nulla.',
   ],
   'letture|23|gesto_scelta': [
@@ -4511,6 +4718,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|24|cuore_legami': [
     'Haheuiah ti dà una fermezza serena, senza durezza.',
   ],
+  'letture|24|cuore_altrui': [
+    'Haheuiah ti dà una fermezza serena, senza durezza.',
+  ],
   'letture|24|cuore_scelta': [
     'Haheuiah ti porta la calma di un confine chiaro.',
   ],
@@ -4526,6 +4736,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|24|intelletto_legami': [
     'Haheuiah distingue per te il confine dalla chiusura.',
   ],
+  'letture|24|intelletto_altrui': [
+    'Haheuiah distingue per te il confine dalla chiusura.',
+  ],
   'letture|24|intelletto_scelta': [
     'Haheuiah ti insegna che scegliere vuol dire lasciare fuori qualcosa.',
   ],
@@ -4539,6 +4752,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Decidi un momento del giorno per pensare a ciò che aspetti e lascia il resto della giornata libero.',
   ],
   'letture|24|gesto_legami': [
+    'Chiarisci per iscritto dove finisce il tuo spazio in questo rapporto e che cosa resta aperto.',
+  ],
+  'letture|24|gesto_altrui': [
     'Chiarisci per iscritto dove finisce il tuo spazio in questo rapporto e che cosa resta aperto.',
   ],
   'letture|24|gesto_scelta': [
@@ -4580,6 +4796,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|25|cuore_legami': [
     'Nithhaiah ti porta la calma di ascoltare senza rispondere subito.',
   ],
+  'letture|25|cuore_altrui': [
+    'Nithhaiah ti porta la calma di ascoltare senza rispondere subito.',
+  ],
   'letture|25|cuore_scelta': [
     'Nithhaiah ti lascia sentire la voce più quieta, quella vera.',
   ],
@@ -4595,6 +4814,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|25|intelletto_legami': [
     'Nithhaiah ti spiega che il silenzio insegna più delle discussioni.',
   ],
+  'letture|25|intelletto_altrui': [
+    'Nithhaiah ti spiega che il silenzio insegna più delle discussioni.',
+  ],
   'letture|25|intelletto_scelta': [
     'Nithhaiah distingue per te l\'intuizione vera dall\'agitazione.',
   ],
@@ -4608,6 +4830,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ogni sera di questa settimana resta qualche minuto in silenzio, senza pensare a ciò che aspetti.',
   ],
   'letture|25|gesto_legami': [
+    'Prenditi un momento di silenzio e chiediti che cosa senti tu, invece di cercare segnali nell\'altro.',
+  ],
+  'letture|25|gesto_altrui': [
     'Prenditi un momento di silenzio e chiediti che cosa senti tu, invece di cercare segnali nell\'altro.',
   ],
   'letture|25|gesto_scelta': [
@@ -4649,6 +4874,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|26|cuore_legami': [
     'Haaiah ti ispira la mitezza che avvicina le posizioni.',
   ],
+  'letture|26|cuore_altrui': [
+    'Haaiah ti ispira la mitezza di chi spera senza pretendere.',
+  ],
   'letture|26|cuore_scelta': [
     'Haaiah ti alleggerisce dal bisogno di avere ragione.',
   ],
@@ -4664,6 +4892,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|26|intelletto_legami': [
     'Haaiah ti insegna che il punto d\'incontro esiste quasi sempre.',
   ],
+  'letture|26|intelletto_altrui': [
+    'Haaiah ti insegna ad accordare speranza e fatti visti.',
+  ],
   'letture|26|intelletto_scelta': [
     'Haaiah ti fa capire che regge la scelta che unisce.',
   ],
@@ -4678,6 +4909,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|26|gesto_legami': [
     'Scrivi una cosa che condividi con l\'altra persona e tienila davanti prima di pensare a ciò che vi divide.',
+  ],
+  'letture|26|gesto_altrui': [
+    'Scrivi una cosa che condividi con l\'altra persona e una che speri, tenendole distinte.',
   ],
   'letture|26|gesto_scelta': [
     'Per ogni strada chiediti dove sta il punto d\'incontro con chi ne è toccato e lasciati il tempo di vederlo.',
@@ -4695,13 +4929,13 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ierathel ti aiuta a vedere chiaro come stanno le cose, senza condannarti in anticipo.',
   ],
   'letture|27|altrui': [
-    'Ierathel ti porta a fare chiarezza in te, senza condannare né te né l\'altro.',
+    'Ierathel ti porta a fare chiarezza in te, prima di giudicare qualcuno.',
   ],
   'letture|27|decisione': [
     'Ierathel ti risponde sì se puoi sostenere la scelta con chiarezza senza colpire nessuno; altrimenti aspetta.',
   ],
   'letture|27|scelta': [
-    'Ierathel ti mostra quella che sai spiegare con chiarezza, senza dover colpire nessuno.',
+    'Ierathel ti consiglia quella che sai spiegare con chiarezza, senza dover colpire nessuno.',
   ],
   'letture|27|come': [
     'Ierathel ti indica di dire chiaramente la tua posizione, senza trasformarla in un\'accusa.',
@@ -4718,6 +4952,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|27|cuore_legami': [
     'Ierathel ti dà la fermezza mite di chi non colpisce.',
   ],
+  'letture|27|cuore_altrui': [
+    'Ierathel ti dà la fermezza mite di chi si ascolta.',
+  ],
   'letture|27|cuore_scelta': [
     'Ierathel ti porta la limpidezza di una posizione chiara.',
   ],
@@ -4733,6 +4970,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|27|intelletto_legami': [
     'Ierathel ti insegna che fermezza e attacco non coincidono.',
   ],
+  'letture|27|intelletto_altrui': [
+    'Ierathel ti insegna che chiarezza e durezza non coincidono.',
+  ],
   'letture|27|intelletto_scelta': [
     'Ierathel ti chiarisce che una posizione si tiene senza attaccare.',
   ],
@@ -4747,6 +4987,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|27|gesto_legami': [
     'Metti per iscritto la tua posizione in questo rapporto e togli ogni parola che suona come un\'accusa.',
+  ],
+  'letture|27|gesto_altrui': [
+    'Metti per iscritto in tre righe calme che cosa senti tu in questo rapporto.',
   ],
   'letture|27|gesto_scelta': [
     'Scrivi le ragioni di ogni strada come le spiegheresti a chi stimi e prenditi il tempo di rileggerle.',
@@ -4787,6 +5030,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|28|cuore_legami': [
     'Seheiah trasforma in te la paura in prudenza.',
   ],
+  'letture|28|cuore_altrui': [
+    'Seheiah trasforma in te la paura in prudenza.',
+  ],
   'letture|28|cuore_scelta': [
     'Seheiah ti dà la serenità di chi non corre.',
   ],
@@ -4802,6 +5048,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|28|intelletto_legami': [
     'Seheiah ti chiarisce che i legami reggono sulle abitudini.',
   ],
+  'letture|28|intelletto_altrui': [
+    'Seheiah ti chiarisce che i legami reggono sulle abitudini.',
+  ],
   'letture|28|intelletto_scelta': [
     'Seheiah ti mostra che conta il passo che puoi sostenere.',
   ],
@@ -4815,6 +5064,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Fissa per questa settimana un ritmo sostenibile per ciò che dipende da te e rispettalo ogni giorno.',
   ],
   'letture|28|gesto_legami': [
+    'Chiediti quale ritmo puoi reggere in questo rapporto senza forzarti e scrivilo in una riga.',
+  ],
+  'letture|28|gesto_altrui': [
     'Chiediti quale ritmo puoi reggere in questo rapporto senza forzarti e scrivilo in una riga.',
   ],
   'letture|28|gesto_scelta': [
@@ -4833,10 +5085,10 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Reiiel ti chiede di attendere sciogliendo le paure che non hai scelto tu.',
   ],
   'letture|29|altrui': [
-    'Reiiel ti chiede di riconoscere quali vecchie paure guidano il tuo sguardo, senza rancore.',
+    'Reiiel ti chiede di riconoscere quali vecchie paure guidano il tuo sguardo, senza giudicarti.',
   ],
   'letture|29|decisione': [
-    'Reiiel risponde sì se dire sì scioglie un nodo che ti trattiene; se ne stringe un altro, aspetta.',
+    'Reiiel risponde sì se sai dire quale paura ti frena e perché non basta a fermarti; altrimenti aspetta.',
   ],
   'letture|29|scelta': [
     'Reiiel guarda alla strada che prenderesti senza le paure che ti hanno insegnato.',
@@ -4856,6 +5108,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|29|cuore_legami': [
     'Reiiel ti lascia sentire un affetto libero dal rancore.',
   ],
+  'letture|29|cuore_altrui': [
+    'Reiiel ti lascia sentire una fiducia libera dalle vecchie paure.',
+  ],
   'letture|29|cuore_scelta': [
     'Reiiel ti dà la libertà di scegliere senza vecchi obblighi.',
   ],
@@ -4871,6 +5126,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|29|intelletto_legami': [
     'Reiiel separa per te il rancore dal legame.',
   ],
+  'letture|29|intelletto_altrui': [
+    'Reiiel ti fa capire che le vecchie paure non sono fatti.',
+  ],
   'letture|29|intelletto_scelta': [
     'Reiiel separa il tuo volere da un obbligo imparato.',
   ],
@@ -4885,6 +5143,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|29|gesto_legami': [
     'Chiediti se un vecchio rancore pesa sul tuo sguardo in questo rapporto: se c\'è, scrivilo e lascialo andare.',
+  ],
+  'letture|29|gesto_altrui': [
+    'Chiediti se una vecchia paura colora il tuo sguardo su questo rapporto: se c\'è, scrivila.',
   ],
   'letture|29|gesto_scelta': [
     'Accanto a ogni opzione scrivi quale paura imparata da altri la spinge o la frena; prenditi il tempo che serve.',
@@ -4925,6 +5186,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|30|cuore_legami': [
     'Omael ti dà la tenerezza paziente di chi lascia crescere.',
   ],
+  'letture|30|cuore_altrui': [
+    'Omael ti dà la tenerezza paziente di chi lascia crescere.',
+  ],
   'letture|30|cuore_scelta': [
     'Omael ti porta la calma di chi non deve correre.',
   ],
@@ -4940,6 +5204,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|30|intelletto_legami': [
     'Omael ti mostra che un legame matura, non si forza.',
   ],
+  'letture|30|intelletto_altrui': [
+    'Omael ti mostra che un legame matura, non si forza.',
+  ],
   'letture|30|intelletto_scelta': [
     'Omael ti fa distinguere la strada lenta da quella sbagliata.',
   ],
@@ -4953,6 +5220,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mentre aspetti, fai ogni giorno un piccolo passo di preparazione e annotalo, anche nei giorni in cui sembra inutile.',
   ],
   'letture|30|gesto_legami': [
+    'Scrivi che cosa senti in questo rapporto e rileggilo fra una settimana, senza forzare conclusioni.',
+  ],
+  'letture|30|gesto_altrui': [
     'Scrivi che cosa senti in questo rapporto e rileggilo fra una settimana, senza forzare conclusioni.',
   ],
   'letture|30|gesto_scelta': [
@@ -4994,6 +5264,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|31|cuore_legami': [
     'Lecabel ti fa sentire un\'attenzione affettuosa ai piccoli segni.',
   ],
+  'letture|31|cuore_altrui': [
+    'Lecabel ti fa sentire un\'attenzione affettuosa ai piccoli segni.',
+  ],
   'letture|31|cuore_scelta': [
     'Lecabel ti trasmette la sicurezza dei fatti verificati.',
   ],
@@ -5007,7 +5280,10 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Lecabel ti mostra che curare ogni dettaglio fa strada.',
   ],
   'letture|31|intelletto_legami': [
-    'Lecabel ti ricorda: un dettaglio non è tutto il rapporto.',
+    'Lecabel ti ricorda che un dettaglio non è tutto il rapporto.',
+  ],
+  'letture|31|intelletto_altrui': [
+    'Lecabel ti ricorda che un dettaglio non è tutto il rapporto.',
   ],
   'letture|31|intelletto_scelta': [
     'Lecabel ti insegna a pesare i dati, non le sensazioni.',
@@ -5022,6 +5298,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Fai un elenco dei dettagli che dipendono da te e spunta ogni giorno quello che hai curato.',
   ],
   'letture|31|gesto_legami': [
+    'Annota per una settimana i fatti concreti di questo rapporto in una colonna e le tue impressioni nell\'altra.',
+  ],
+  'letture|31|gesto_altrui': [
     'Annota per una settimana i fatti concreti di questo rapporto in una colonna e le tue impressioni nell\'altra.',
   ],
   'letture|31|gesto_scelta': [
@@ -5043,7 +5322,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Vasariah ti propone uno sguardo giusto e clemente: un gesto non è tutta una persona.',
   ],
   'letture|32|decisione': [
-    'Vasariah dice sì se la scelta è giusta verso tutti e verso di te; se punisce qualcuno, aspetta.',
+    'Vasariah ti dice sì se la scelta non toglie a nessuno il suo; se punisce qualcuno, aspetta.',
   ],
   'letture|32|scelta': [
     'Vasariah raccomanda quella che è giusta senza durezza, verso gli altri e verso di te.',
@@ -5063,6 +5342,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|32|cuore_legami': [
     'Vasariah ti apre a una comprensione che resta giusta.',
   ],
+  'letture|32|cuore_altrui': [
+    'Vasariah ti apre a una comprensione che resta giusta.',
+  ],
   'letture|32|cuore_scelta': [
     'Vasariah ti lascia la serenità di una scelta equa.',
   ],
@@ -5078,6 +5360,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|32|intelletto_legami': [
     'Vasariah ti aiuta a separare il gesto dalla persona.',
   ],
+  'letture|32|intelletto_altrui': [
+    'Vasariah ti ricorda che un gesto non dice tutta una persona.',
+  ],
   'letture|32|intelletto_scelta': [
     'Vasariah ti mostra la distanza fra giudizio giusto e condanna.',
   ],
@@ -5091,6 +5376,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi due righe: ciò che potevi fare meglio e ciò che hai fatto bene, senza processarti.',
   ],
   'letture|32|gesto_legami': [
+    'Scrivi un gesto di questa persona in una riga, soltanto i fatti, senza aggettivi su chi è.',
+  ],
+  'letture|32|gesto_altrui': [
     'Scrivi un gesto di questa persona in una riga, soltanto i fatti, senza aggettivi su chi è.',
   ],
   'letture|32|gesto_scelta': [
@@ -5132,6 +5420,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|33|cuore_legami': [
     'Iehuiah ti porta la libertà di essere te nel legame.',
   ],
+  'letture|33|cuore_altrui': [
+    'Iehuiah ti porta la libertà di essere te nel legame.',
+  ],
   'letture|33|cuore_scelta': [
     'Iehuiah ti infonde la fiducia di scegliere restando chi sei.',
   ],
@@ -5147,11 +5438,14 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|33|intelletto_legami': [
     'Iehuiah ti fa distinguere il ruolo dell\'altro dalla persona.',
   ],
+  'letture|33|intelletto_altrui': [
+    'Iehuiah ti fa distinguere chi sei tu da come ti vedono.',
+  ],
   'letture|33|intelletto_scelta': [
     'Iehuiah ti mostra la differenza fra adattarti e perderti.',
   ],
   'letture|33|intelletto_limite': [
-    'Iehuiah chiarisce i ruoli: a te spettano le domande.',
+    'Iehuiah chiarisce che a te spettano le domande.',
   ],
   'letture|33|gesto_orienta': [
     'Scrivi i ruoli che ricopri oggi e accanto a ciascuno una cosa tua che non vuoi perdere.',
@@ -5160,6 +5454,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Dedica ogni giorno, mentre aspetti, un momento a qualcosa che fai soltanto per te, fuori da ogni ruolo.',
   ],
   'letture|33|gesto_legami': [
+    'Chiediti quale ruolo hai preso in questo rapporto e se ti somiglia ancora; scrivilo in una riga.',
+  ],
+  'letture|33|gesto_altrui': [
     'Chiediti quale ruolo hai preso in questo rapporto e se ti somiglia ancora; scrivilo in una riga.',
   ],
   'letture|33|gesto_scelta': [
@@ -5201,6 +5498,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|34|cuore_legami': [
     'Lehahiah ti regala la pace di non dover reagire subito.',
   ],
+  'letture|34|cuore_altrui': [
+    'Lehahiah ti regala la pace di non dover reagire subito.',
+  ],
   'letture|34|cuore_scelta': [
     'Lehahiah ti dà la fermezza di chi non decide d\'impulso.',
   ],
@@ -5216,6 +5516,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|34|intelletto_legami': [
     'Lehahiah ti insegna che rispondere non è reagire d\'impulso.',
   ],
+  'letture|34|intelletto_altrui': [
+    'Lehahiah ti insegna che rispondere non è reagire d\'impulso.',
+  ],
   'letture|34|intelletto_scelta': [
     'Lehahiah ti avverte che decidere sotto pressione non è decidere.',
   ],
@@ -5229,6 +5532,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ogni volta che l\'ansia ti sale mentre aspetti, nominala a voce bassa e lasciala passare senza seguirla.',
   ],
   'letture|34|gesto_legami': [
+    'Scrivi una frase calma da ripeterti nei momenti tesi di questo rapporto, prima di qualunque reazione.',
+  ],
+  'letture|34|gesto_altrui': [
     'Scrivi una frase calma da ripeterti nei momenti tesi di questo rapporto, prima di qualunque reazione.',
   ],
   'letture|34|gesto_scelta': [
@@ -5247,7 +5553,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Chavakhiah ti suggerisce di attendere accanto a chi ami, senza lasciare che l\'orgoglio ti chiuda.',
   ],
   'letture|35|altrui': [
-    'Chavakhiah ti porta a chiarire in te se conta più il legame o avere ragione.',
+    'Chavakhiah ti porta a chiarire in te che cosa conta di più in questo legame.',
   ],
   'letture|35|decisione': [
     'Chavakhiah inclina al sì se non sacrifichi un legame per avere ragione; se lo fai, aspetta.',
@@ -5270,6 +5576,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|35|cuore_legami': [
     'Chavakhiah ti ispira l\'umiltà buona che riavvicina.',
   ],
+  'letture|35|cuore_altrui': [
+    'Chavakhiah ti ispira l\'umiltà buona di chi ascolta prima di concludere.',
+  ],
   'letture|35|cuore_scelta': [
     'Chavakhiah ti concede la pace di non dover avere ragione.',
   ],
@@ -5285,6 +5594,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|35|intelletto_legami': [
     'Chavakhiah ti mostra che fare pace non è darsi torto.',
   ],
+  'letture|35|intelletto_altrui': [
+    'Chavakhiah ti mostra che ascoltare richiede più tempo del giudicare.',
+  ],
   'letture|35|intelletto_scelta': [
     'Chavakhiah separa ciò che ti importa dall\'orgoglio.',
   ],
@@ -5299,6 +5611,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|35|gesto_legami': [
     'Chiediti se in questo rapporto tieni di più ad avere ragione o al legame: scrivilo in una riga sincera.',
+  ],
+  'letture|35|gesto_altrui': [
+    'Scrivi in una riga che cosa conta di più per te in questo rapporto, ora.',
   ],
   'letture|35|gesto_scelta': [
     'Guarda ogni opzione chiedendoti quali legami tiene vivi e quali raffredda; concediti settimane, se servono.',
@@ -5339,8 +5654,11 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|36|cuore_legami': [
     'Menadel ti trasmette l\'apertura di chi impara dagli altri.',
   ],
+  'letture|36|cuore_altrui': [
+    'Menadel ti trasmette l\'apertura di chi impara dagli altri.',
+  ],
   'letture|36|cuore_scelta': [
-    'Menadel accende in te la fierezza di crescere impegnandoti.',
+    'Menadel ti trasmette la fierezza di scegliere ciò che fa crescere.',
   ],
   'letture|36|cuore_limite': [
     'Menadel ti offre la solidità dei piccoli compiti quotidiani.',
@@ -5352,6 +5670,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Menadel ti fa capire che l\'impegno non dipende dall\'esito.',
   ],
   'letture|36|intelletto_legami': [
+    'Menadel ti mostra che un legame si impara vivendolo.',
+  ],
+  'letture|36|intelletto_altrui': [
     'Menadel ti mostra che un legame si impara vivendolo.',
   ],
   'letture|36|intelletto_scelta': [
@@ -5367,6 +5688,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi stasera che cosa hai imparato oggi da ciò che fai ogni giorno, mentre aspetti.',
   ],
   'letture|36|gesto_legami': [
+    'Scrivi una cosa che questo rapporto ti sta insegnando e una che vuoi ancora imparare.',
+  ],
+  'letture|36|gesto_altrui': [
     'Scrivi una cosa che questo rapporto ti sta insegnando e una che vuoi ancora imparare.',
   ],
   'letture|36|gesto_scelta': [
@@ -5408,6 +5732,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|37|cuore_legami': [
     'Aniel ti lascia la libertà di rispondere in modo nuovo.',
   ],
+  'letture|37|cuore_altrui': [
+    'Aniel ti lascia la libertà di rispondere in modo nuovo.',
+  ],
   'letture|37|cuore_scelta': [
     'Aniel ti offre il coraggio lucido di cambiare copione.',
   ],
@@ -5423,6 +5750,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|37|intelletto_legami': [
     'Aniel ti fa distinguere un problema da uno schema ripetuto.',
   ],
+  'letture|37|intelletto_altrui': [
+    'Aniel ti fa distinguere un problema da uno schema ripetuto.',
+  ],
   'letture|37|intelletto_scelta': [
     'Aniel ti segnala quando una novità ripete il vecchio.',
   ],
@@ -5436,6 +5766,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Quando ti sorprendi a rifare le stesse ipotesi, scrivile una volta su un foglio e chiudilo.',
   ],
   'letture|37|gesto_legami': [
+    'Nota la reazione che ti torna più spesso in questo rapporto e scegline una diversa da provare.',
+  ],
+  'letture|37|gesto_altrui': [
     'Nota la reazione che ti torna più spesso in questo rapporto e scegline una diversa da provare.',
   ],
   'letture|37|gesto_scelta': [
@@ -5477,6 +5810,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|38|cuore_legami': [
     'Haamiah accende in te la fiducia dei gesti costanti.',
   ],
+  'letture|38|cuore_altrui': [
+    'Haamiah accende in te la fiducia dei gesti costanti.',
+  ],
   'letture|38|cuore_scelta': [
     'Haamiah ti lascia la quiete di riconoscerti nella scelta.',
   ],
@@ -5484,7 +5820,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Haamiah porta la stabilità di un gesto che ti somiglia.',
   ],
   'letture|38|intelletto_orienta': [
-    'Haamiah ti chiarisce: il senso si coltiva, non si aspetta.',
+    'Haamiah ti chiarisce che il senso si coltiva, non si aspetta.',
   ],
   'letture|38|intelletto_attesa': [
     'Haamiah ti insegna che un gesto ripetuto regge l\'attesa.',
@@ -5492,8 +5828,11 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|38|intelletto_legami': [
     'Haamiah ti svela che un rapporto vive di gesti quotidiani.',
   ],
+  'letture|38|intelletto_altrui': [
+    'Haamiah ti svela che un rapporto vive di gesti quotidiani.',
+  ],
   'letture|38|intelletto_scelta': [
-    'Haamiah ti avverte: conta il quotidiano che nutre, non l\'entusiasmo.',
+    'Haamiah ti avverte che conta il quotidiano che nutre, non l\'entusiasmo.',
   ],
   'letture|38|intelletto_limite': [
     'Haamiah ti mostra che un\'abitudine ordina, non decide l\'esito.',
@@ -5505,6 +5844,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mentre aspetti, tieni fisso un piccolo gesto quotidiano, sempre alla stessa ora, che non dipenda dall\'esito.',
   ],
   'letture|38|gesto_legami': [
+    'Tieni ogni giorno un gesto tuo che ti ricordi chi sei, comunque vada con l\'altra persona.',
+  ],
+  'letture|38|gesto_altrui': [
     'Tieni ogni giorno un gesto tuo che ti ricordi chi sei, comunque vada con l\'altra persona.',
   ],
   'letture|38|gesto_scelta': [
@@ -5546,6 +5888,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|39|cuore_legami': [
     'Rehael ti dona un rispetto che non chiede meriti.',
   ],
+  'letture|39|cuore_altrui': [
+    'Rehael ti dona un rispetto che non chiede meriti.',
+  ],
   'letture|39|cuore_scelta': [
     'Rehael ti dà la dignità di scegliere rispettando tutti.',
   ],
@@ -5561,6 +5906,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|39|intelletto_legami': [
     'Rehael ti mostra che rispettare non è approvare.',
   ],
+  'letture|39|intelletto_altrui': [
+    'Rehael ti mostra che il rispetto non aspetta di capire tutto.',
+  ],
   'letture|39|intelletto_scelta': [
     'Rehael ti mostra che si sceglie anche senza ferire.',
   ],
@@ -5574,6 +5922,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Nota oggi quando l\'attesa ti fa rispondere male a chi hai vicino e scegli invece una parola di riguardo.',
   ],
   'letture|39|gesto_legami': [
+    'Scrivi per te una cosa che rispetti davvero dell\'altra persona, lasciando da parte i giudizi di ieri.',
+  ],
+  'letture|39|gesto_altrui': [
     'Scrivi per te una cosa che rispetti davvero dell\'altra persona, lasciando da parte i giudizi di ieri.',
   ],
   'letture|39|gesto_scelta': [
@@ -5615,6 +5966,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|40|cuore_legami': [
     'Ieiazel accoglie ciò che senti, anche ciò che fa male.',
   ],
+  'letture|40|cuore_altrui': [
+    'Ieiazel accoglie ciò che senti, anche ciò che fa male.',
+  ],
   'letture|40|cuore_scelta': [
     'Ieiazel ti consente la malinconia per la strada che lasci.',
   ],
@@ -5630,6 +5984,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|40|intelletto_legami': [
     'Ieiazel ti insegna che stare accanto non è spiegare.',
   ],
+  'letture|40|intelletto_altrui': [
+    'Ieiazel ti insegna che stare accanto non è spiegare.',
+  ],
   'letture|40|intelletto_scelta': [
     'Ieiazel separa per te l\'uscita dalla fuga.',
   ],
@@ -5643,6 +6000,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Metti per iscritto ciò che temi dell\'esito e ciò che speri, poi chiudi il foglio fino a domani.',
   ],
   'letture|40|gesto_legami': [
+    'Scrivi una lettera da non spedire con ciò che senti in questo rapporto, poi riponila.',
+  ],
+  'letture|40|gesto_altrui': [
     'Scrivi una lettera da non spedire con ciò che senti in questo rapporto, poi riponila.',
   ],
   'letture|40|gesto_scelta': [
@@ -5684,6 +6044,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|41|cuore_legami': [
     'Hahahel ti dona l\'agio di non avere due facce.',
   ],
+  'letture|41|cuore_altrui': [
+    'Hahahel ti dona l\'agio di non avere due facce.',
+  ],
   'letture|41|cuore_scelta': [
     'Hahahel ti porta l\'integrità di una scelta senza doppi fondi.',
   ],
@@ -5699,6 +6062,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|41|intelletto_legami': [
     'Hahahel ti rivela che la fiducia nasce dalla coerenza.',
   ],
+  'letture|41|intelletto_altrui': [
+    'Hahahel ti rivela che la fiducia nasce dalla coerenza.',
+  ],
   'letture|41|intelletto_scelta': [
     'Hahahel ti fa distinguere convinzione e convenienza.',
   ],
@@ -5712,6 +6078,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Fai ogni giorno di questa attesa un gesto coerente con ciò che dici di volere, senza annunciarlo.',
   ],
   'letture|41|gesto_legami': [
+    'Scrivi una cosa che dici di volere in questo rapporto e nota se i tuoi gesti la confermano.',
+  ],
+  'letture|41|gesto_altrui': [
     'Scrivi una cosa che dici di volere in questo rapporto e nota se i tuoi gesti la confermano.',
   ],
   'letture|41|gesto_scelta': [
@@ -5753,6 +6122,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|42|cuore_legami': [
     'Mikael ti dona la serenità di non giudicare in fretta.',
   ],
+  'letture|42|cuore_altrui': [
+    'Mikael ti dona la serenità di non giudicare in fretta.',
+  ],
   'letture|42|cuore_scelta': [
     'Mikael ti dà la fiducia di aver guardato bene.',
   ],
@@ -5768,6 +6140,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|42|intelletto_legami': [
     'Mikael ti insegna che un accordo parte dai fatti condivisi.',
   ],
+  'letture|42|intelletto_altrui': [
+    'Mikael ti insegna che un accordo parte dai fatti condivisi.',
+  ],
   'letture|42|intelletto_scelta': [
     'Mikael distingue per te i fatti dalle impressioni.',
   ],
@@ -5781,6 +6156,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Separa su un foglio i fatti accaduti da ciò che stai immaginando e torna soltanto ai primi.',
   ],
   'letture|42|gesto_legami': [
+    'Chiediti quale accordo, detto o non detto, regge oggi questo rapporto e scrivilo com\'è, senza giudicarlo.',
+  ],
+  'letture|42|gesto_altrui': [
     'Chiediti quale accordo, detto o non detto, regge oggi questo rapporto e scrivilo com\'è, senza giudicarlo.',
   ],
   'letture|42|gesto_scelta': [
@@ -5822,6 +6200,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|43|cuore_legami': [
     'Veualiah ti porta l\'orgoglio quieto di chi mantiene gli impegni.',
   ],
+  'letture|43|cuore_altrui': [
+    'Veualiah ti porta l\'orgoglio quieto di chi mantiene gli impegni.',
+  ],
   'letture|43|cuore_scelta': [
     'Veualiah ti infonde la fermezza di completare ciò che scegli.',
   ],
@@ -5837,6 +6218,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|43|intelletto_legami': [
     'Veualiah ti chiarisce che un legame cresce con la costanza.',
   ],
+  'letture|43|intelletto_altrui': [
+    'Veualiah ti chiarisce che un legame cresce con la costanza.',
+  ],
   'letture|43|intelletto_scelta': [
     'Veualiah ti mostra che scegliere è anche impegnarsi a finire.',
   ],
@@ -5850,6 +6234,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Fissa un piccolo compito quotidiano per ciò che dipende da te e chiudilo ogni sera, comunque vada.',
   ],
   'letture|43|gesto_legami': [
+    'Porta a termine entro la settimana un impegno preso con chi ti è vicino, anche piccolo.',
+  ],
+  'letture|43|gesto_altrui': [
     'Porta a termine entro la settimana un impegno preso con chi ti è vicino, anche piccolo.',
   ],
   'letture|43|gesto_scelta': [
@@ -5891,6 +6278,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|44|cuore_legami': [
     'Ielahiah ti dà l\'onore quieto di essere di parola.',
   ],
+  'letture|44|cuore_altrui': [
+    'Ielahiah ti dà l\'onore quieto di essere di parola.',
+  ],
   'letture|44|cuore_scelta': [
     'Ielahiah ti trasmette il coraggio di scegliere il giusto.',
   ],
@@ -5906,6 +6296,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|44|intelletto_legami': [
     'Ielahiah ti mostra che un impegno conta proprio quando pesa.',
   ],
+  'letture|44|intelletto_altrui': [
+    'Ielahiah ti mostra che un impegno conta proprio quando pesa.',
+  ],
   'letture|44|intelletto_scelta': [
     'Ielahiah ti fa vedere che giusto e comodo raramente coincidono.',
   ],
@@ -5919,6 +6312,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Anche sotto la pressione dell\'attesa mantieni oggi un impegno che hai preso, senza scorciatoie.',
   ],
   'letture|44|gesto_legami': [
+    'Scrivi un impegno che senti tuo in questo rapporto e verifica se lo stai mantenendo anche quando costa.',
+  ],
+  'letture|44|gesto_altrui': [
     'Scrivi un impegno che senti tuo in questo rapporto e verifica se lo stai mantenendo anche quando costa.',
   ],
   'letture|44|gesto_scelta': [
@@ -5960,6 +6356,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|45|cuore_legami': [
     'Sealiah ti porta la calma di chi procede adagio.',
   ],
+  'letture|45|cuore_altrui': [
+    'Sealiah ti porta la calma di chi procede adagio.',
+  ],
   'letture|45|cuore_scelta': [
     'Sealiah ti concede la calma di non dover correre.',
   ],
@@ -5975,6 +6374,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|45|intelletto_legami': [
     'Sealiah ti ricorda che ogni legame ha tempi suoi.',
   ],
+  'letture|45|intelletto_altrui': [
+    'Sealiah ti ricorda che ogni legame ha tempi suoi.',
+  ],
   'letture|45|intelletto_scelta': [
     'Sealiah ti aiuta a distinguere la lentezza dall\'immobilità.',
   ],
@@ -5988,6 +6390,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Rimetti in moto ogni giorno un piccolo pezzo di ciò che dipende da te, anche dieci minuti.',
   ],
   'letture|45|gesto_legami': [
+    'Riprendi in mano una tua abitudine che si era fermata, qualunque cosa accada nel rapporto.',
+  ],
+  'letture|45|gesto_altrui': [
     'Riprendi in mano una tua abitudine che si era fermata, qualunque cosa accada nel rapporto.',
   ],
   'letture|45|gesto_scelta': [
@@ -6029,6 +6434,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|46|cuore_legami': [
     'Ariel ti apre a un\'attenzione paziente per i piccoli segnali.',
   ],
+  'letture|46|cuore_altrui': [
+    'Ariel ti apre a un\'attenzione paziente per i piccoli segnali.',
+  ],
   'letture|46|cuore_scelta': [
     'Ariel ti fa sentire la solidità di un dato verificato.',
   ],
@@ -6042,7 +6450,10 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ariel distingue per te l\'indizio dalla prova.',
   ],
   'letture|46|intelletto_legami': [
-    'Ariel ti fa capire: un\'impressione si verifica, non si presume.',
+    'Ariel ti fa capire che un\'impressione si verifica, non si presume.',
+  ],
+  'letture|46|intelletto_altrui': [
+    'Ariel ti fa capire che un\'impressione si verifica, non si presume.',
   ],
   'letture|46|intelletto_scelta': [
     'Ariel ti avverte che ciò che affascina va verificato.',
@@ -6057,6 +6468,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scegli un dettaglio che ti inquieta in questa attesa e verificalo con i fatti, invece di rigirarlo nella testa.',
   ],
   'letture|46|gesto_legami': [
+    'Nota per qualche giorno i gesti concreti che vedi nel rapporto e separali da ciò che supponi.',
+  ],
+  'letture|46|gesto_altrui': [
     'Nota per qualche giorno i gesti concreti che vedi nel rapporto e separali da ciò che supponi.',
   ],
   'letture|46|gesto_scelta': [
@@ -6098,6 +6512,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|47|cuore_legami': [
     'Asaliah ti lascia sentire il rispetto che nasce dalla franchezza.',
   ],
+  'letture|47|cuore_altrui': [
+    'Asaliah ti lascia sentire il rispetto che nasce dalla franchezza.',
+  ],
   'letture|47|cuore_scelta': [
     'Asaliah ti porta la serenità di una scelta senza finzioni.',
   ],
@@ -6113,6 +6530,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|47|intelletto_legami': [
     'Asaliah ti ricorda che il quieto vivere non è pace.',
   ],
+  'letture|47|intelletto_altrui': [
+    'Asaliah ti ricorda che vedere non è sperare.',
+  ],
   'letture|47|intelletto_scelta': [
     'Asaliah separa per te la scelta giusta da quella comoda.',
   ],
@@ -6126,6 +6546,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Dividi su due colonne ciò che speri e ciò che sai, poi lascia guidare i fatti.',
   ],
   'letture|47|gesto_legami': [
+    'Metti in fila tre fatti del tuo rapporto così come sono andati, senza interpretarli né addolcirli.',
+  ],
+  'letture|47|gesto_altrui': [
     'Metti in fila tre fatti del tuo rapporto così come sono andati, senza interpretarli né addolcirli.',
   ],
   'letture|47|gesto_scelta': [
@@ -6167,6 +6590,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|48|cuore_legami': [
     'Mihael ti dona la costanza di chi resta, senza contare.',
   ],
+  'letture|48|cuore_altrui': [
+    'Mihael ti dona la costanza di chi resta, senza contare.',
+  ],
   'letture|48|cuore_scelta': [
     'Mihael ti porta la quiete di una scelta da onorare.',
   ],
@@ -6182,6 +6608,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|48|intelletto_legami': [
     'Mihael ti rivela che un legame si nutre di presenza.',
   ],
+  'letture|48|intelletto_altrui': [
+    'Mihael ti rivela che un legame si nutre di presenza.',
+  ],
   'letture|48|intelletto_scelta': [
     'Mihael distingue per te l\'entusiasmo iniziale dalla fedeltà quotidiana.',
   ],
@@ -6195,6 +6624,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scegli un piccolo gesto da ripetere ogni giorno per ciò che aspetti e segnalo sul calendario, anche senza notizie.',
   ],
   'letture|48|gesto_legami': [
+    'Pensa a un piccolo gesto con cui esserci per chi hai accanto ogni giorno e fallo senza annunciarlo.',
+  ],
+  'letture|48|gesto_altrui': [
     'Pensa a un piccolo gesto con cui esserci per chi hai accanto ogni giorno e fallo senza annunciarlo.',
   ],
   'letture|48|gesto_scelta': [
@@ -6236,6 +6668,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|49|cuore_legami': [
     'Vehuel ti dona la stima che avvicina invece di misurare.',
   ],
+  'letture|49|cuore_altrui': [
+    'Vehuel ti dona la stima che avvicina invece di misurare.',
+  ],
   'letture|49|cuore_scelta': [
     'Vehuel ti restituisce fiducia nel tuo giudizio, senza durezza.',
   ],
@@ -6251,8 +6686,11 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|49|intelletto_legami': [
     'Vehuel spiega che stimare qualcuno non toglie nulla a te.',
   ],
+  'letture|49|intelletto_altrui': [
+    'Vehuel spiega che stimare qualcuno non toglie nulla a te.',
+  ],
   'letture|49|intelletto_scelta': [
-    'Vehuel ti avverte: un criterio alto orienta, non paralizza.',
+    'Vehuel ti avverte che un criterio alto orienta, non paralizza.',
   ],
   'letture|49|intelletto_limite': [
     'Vehuel ti dimostra che stimare chi sa non è arrendersi.',
@@ -6264,6 +6702,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi tre cose che hai fatto bene finora per ciò che aspetti, con la generosità che riservi agli altri.',
   ],
   'letture|49|gesto_legami': [
+    'Scrivi una qualità dell\'altra persona e una tua, con la stessa misura: nessuna delle due vale meno.',
+  ],
+  'letture|49|gesto_altrui': [
     'Scrivi una qualità dell\'altra persona e una tua, con la stessa misura: nessuna delle due vale meno.',
   ],
   'letture|49|gesto_scelta': [
@@ -6305,6 +6746,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|50|cuore_legami': [
     'Daniel accende in te la comprensione prima del giudizio.',
   ],
+  'letture|50|cuore_altrui': [
+    'Daniel accende in te la comprensione prima del giudizio.',
+  ],
   'letture|50|cuore_scelta': [
     'Daniel ti infonde il coraggio di scegliere, anche se costa.',
   ],
@@ -6315,10 +6759,13 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Daniel ti ricorda che rimandare è già una scelta.',
   ],
   'letture|50|intelletto_attesa': [
-    'Daniel ti avverte: il dubbio lungo stanca più della scelta.',
+    'Daniel ti avverte che il dubbio lungo stanca più della scelta.',
   ],
   'letture|50|intelletto_legami': [
     'Daniel ti rende chiaro che capire non è dare ragione.',
+  ],
+  'letture|50|intelletto_altrui': [
+    'Daniel ti rende chiaro che capire una persona richiede ascolto.',
   ],
   'letture|50|intelletto_scelta': [
     'Daniel ti ricorda che una scelta difficile non è sbagliata.',
@@ -6333,6 +6780,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Fra le tue decisioni ancora in sospeso scegline una piccola e prendila entro questa settimana.',
   ],
   'letture|50|gesto_legami': [
+    'Scrivi in tre righe come l\'altra persona racconterebbe la situazione, senza correggerla né giudicarla.',
+  ],
+  'letture|50|gesto_altrui': [
     'Scrivi in tre righe come l\'altra persona racconterebbe la situazione, senza correggerla né giudicarla.',
   ],
   'letture|50|gesto_scelta': [
@@ -6374,6 +6824,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|51|cuore_legami': [
     'Hahasiah ti lascia sentire una curiosità paziente per l\'altra persona.',
   ],
+  'letture|51|cuore_altrui': [
+    'Hahasiah ti lascia sentire una curiosità paziente per l\'altra persona.',
+  ],
   'letture|51|cuore_scelta': [
     'Hahasiah ti trasmette la fiducia di chi conosce il terreno.',
   ],
@@ -6389,6 +6842,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|51|intelletto_legami': [
     'Hahasiah ti avverte che capire qualcuno chiede tempo, non intuito.',
   ],
+  'letture|51|intelletto_altrui': [
+    'Hahasiah ti avverte che capire qualcuno chiede tempo, non intuito.',
+  ],
   'letture|51|intelletto_scelta': [
     'Hahasiah ti avverte che un\'impressione non è un metodo.',
   ],
@@ -6402,6 +6858,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi in ordine i tempi e i passaggi di ciò che aspetti, informandoti su come funzionano.',
   ],
   'letture|51|gesto_legami': [
+    'Osserva per una settimana che cosa accende in te vicinanza o tensione verso l\'altra persona e annotalo.',
+  ],
+  'letture|51|gesto_altrui': [
     'Osserva per una settimana che cosa accende in te vicinanza o tensione verso l\'altra persona e annotalo.',
   ],
   'letture|51|gesto_scelta': [
@@ -6420,7 +6879,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Imamiah ti sprona a correggere ciò che ancora puoi, senza condannarti per il resto.',
   ],
   'letture|52|altrui': [
-    'Imamiah ti aiuta a guardare la tua parte nel legame senza condannarti né condannare.',
+    'Imamiah ti aiuta a guardare con onestà ciò che porti tu nel legame.',
   ],
   'letture|52|decisione': [
     'Imamiah ammette il sì se ti concedi di poter sbagliare senza condanna; se decide la paura, aspetta.',
@@ -6443,6 +6902,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|52|cuore_legami': [
     'Imamiah ti infonde l\'umiltà di ammettere senza umiliarti.',
   ],
+  'letture|52|cuore_altrui': [
+    'Imamiah ti infonde l\'umiltà di non sapere tutto dell\'altra persona.',
+  ],
   'letture|52|cuore_scelta': [
     'Imamiah ti infonde la fiducia di poter sbagliare senza crollare.',
   ],
@@ -6458,6 +6920,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|52|intelletto_legami': [
     'Imamiah distingue per te la tua parte dalla colpa intera.',
   ],
+  'letture|52|intelletto_altrui': [
+    'Imamiah ti ricorda che di una persona vedi solo una parte.',
+  ],
   'letture|52|intelletto_scelta': [
     'Imamiah ti rende chiaro che temere l\'errore non è prudenza.',
   ],
@@ -6472,6 +6937,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|52|gesto_legami': [
     'Metti in una riga la tua parte in questo rapporto senza accusarti né giustificarti, poi tienila per te.',
+  ],
+  'letture|52|gesto_altrui': [
+    'Scrivi in una riga che cosa sai davvero di questa persona e che cosa ancora no.',
   ],
   'letture|52|gesto_scelta': [
     'Scrivi quale errore temi in ciascuna strada e accanto come lo affronteresti, senza farne una condanna.',
@@ -6512,6 +6980,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|53|cuore_legami': [
     'Nanael ti fa sentire il valore di esserci senza clamore.',
   ],
+  'letture|53|cuore_altrui': [
+    'Nanael ti fa sentire il valore di esserci senza clamore.',
+  ],
   'letture|53|cuore_scelta': [
     'Nanael ti regala la serenità di chi non cerca applausi.',
   ],
@@ -6527,6 +6998,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|53|intelletto_legami': [
     'Nanael ti avverte che la fiducia nasce da fatti silenziosi.',
   ],
+  'letture|53|intelletto_altrui': [
+    'Nanael ti avverte che la fiducia nasce da fatti silenziosi.',
+  ],
   'letture|53|intelletto_scelta': [
     'Nanael ti ricorda che il clamore non misura il valore.',
   ],
@@ -6540,6 +7014,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Dedica ogni giorno un tuo tempo silenzioso a ciò che aspetti, senza controllare di continuo le notizie.',
   ],
   'letture|53|gesto_legami': [
+    'Fai una cosa concreta su cui chi ti sta vicino possa contare questa settimana, senza farne parola.',
+  ],
+  'letture|53|gesto_altrui': [
     'Fai una cosa concreta su cui chi ti sta vicino possa contare questa settimana, senza farne parola.',
   ],
   'letture|53|gesto_scelta': [
@@ -6561,10 +7038,10 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Nithael ti incoraggia a riconoscere ciò che di bello resta in te, comunque vada.',
   ],
   'letture|54|decisione': [
-    'Nithael sostiene il sì se la scelta ti lascia qualcosa di bello e duraturo; altrimenti aspetta.',
+    'Nithael ti dà il sì se la scelta vale anche fra un anno; se vale solo oggi, aspetta.',
   ],
   'letture|54|scelta': [
-    'Nithael ti mostra quella che lascia qualcosa di bello anche oltre te.',
+    'Nithael ti consiglia quella che lascia qualcosa di bello anche oltre te.',
   ],
   'letture|54|come': [
     'Nithael ti fa partire dal bello che c\'è fra te e l\'altra persona.',
@@ -6579,6 +7056,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Nithael ti porta lo stupore per ciò che già c\'è.',
   ],
   'letture|54|cuore_legami': [
+    'Nithael ti dà la gioia di cogliere il bello altrui.',
+  ],
+  'letture|54|cuore_altrui': [
     'Nithael ti dà la gioia di cogliere il bello altrui.',
   ],
   'letture|54|cuore_scelta': [
@@ -6596,6 +7076,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|54|intelletto_legami': [
     'Nithael ti spiega che vedere il bello non è idealizzare.',
   ],
+  'letture|54|intelletto_altrui': [
+    'Nithael ti spiega che vedere il bello non è idealizzare.',
+  ],
   'letture|54|intelletto_scelta': [
     'Nithael separa per te l\'effimero da ciò che dura.',
   ],
@@ -6609,6 +7092,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Elenca tre cose belle che hai già costruito per ciò che aspetti e mostrane una a qualcuno.',
   ],
   'letture|54|gesto_legami': [
+    'Ripensa a un tuo ricordo bello di questo legame e scrivilo con cura in poche righe, per custodirlo.',
+  ],
+  'letture|54|gesto_altrui': [
     'Ripensa a un tuo ricordo bello di questo legame e scrivilo con cura in poche righe, per custodirlo.',
   ],
   'letture|54|gesto_scelta': [
@@ -6630,7 +7116,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mebahiah vuole che tu viva nei gesti ciò che consideri giusto in un legame.',
   ],
   'letture|55|decisione': [
-    'Mebahiah ti risponde sì se sai dire quale gesto quotidiano nasce da questa scelta; altrimenti aspetta.',
+    'Mebahiah dà il sì se riesci a immaginare i tuoi giorni ordinari dopo la scelta; altrimenti aspetta.',
   ],
   'letture|55|scelta': [
     'Mebahiah favorisce quella che sapresti raccontare come esempio a chi ti è vicino.',
@@ -6650,6 +7136,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|55|cuore_legami': [
     'Mebahiah ti dà la calma di chi parla per rasserenare.',
   ],
+  'letture|55|cuore_altrui': [
+    'Mebahiah ti dà la calma di chi parla per rasserenare.',
+  ],
   'letture|55|cuore_scelta': [
     'Mebahiah ti trasmette la fermezza serena del giusto.',
   ],
@@ -6663,6 +7152,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mebahiah ti spiega che l\'attesa non sospende i gesti giusti.',
   ],
   'letture|55|intelletto_legami': [
+    'Mebahiah ti avverte che si trasmette ciò che si fa.',
+  ],
+  'letture|55|intelletto_altrui': [
     'Mebahiah ti avverte che si trasmette ciò che si fa.',
   ],
   'letture|55|intelletto_scelta': [
@@ -6680,8 +7172,11 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|55|gesto_legami': [
     'Di\' oggi una parola che consola a chi ti è vicino, con semplicità e senza chiedere nulla.',
   ],
+  'letture|55|gesto_altrui': [
+    'Di\' oggi una parola che consola a chi ti è vicino, con semplicità e senza chiedere nulla.',
+  ],
   'letture|55|gesto_scelta': [
-    'Scrivi in una riga ciò che ritieni giusto e chiediti quale strada lo rende un gesto quotidiano.',
+    'Scrivi in una riga ciò che per te conta in questa scelta e come lo vivresti nei giorni ordinari.',
   ],
   'letture|55|gesto_limite': [
     'Scrivi una frase buona da rileggere nei momenti duri e tienila accanto alle domande per chi ti segue.',
@@ -6699,7 +7194,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Poyel ti aiuta a nominare in te ciò che ti serve dal legame, senza vergognartene.',
   ],
   'letture|56|decisione': [
-    'Poyel dice sì se la scelta ti dà ciò che ti serve; se insegui il di più, aspetta.',
+    'Poyel dice sì se la scelta risponde a un bisogno che sai nominare; altrimenti aspetta.',
   ],
   'letture|56|scelta': [
     'Poyel sceglie con te la strada che ti serve, non quella che promette di più.',
@@ -6719,6 +7214,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|56|cuore_legami': [
     'Poyel ti lascia sentire che anche un bisogno piccolo conta.',
   ],
+  'letture|56|cuore_altrui': [
+    'Poyel ti lascia sentire che anche un bisogno piccolo conta.',
+  ],
   'letture|56|cuore_scelta': [
     'Poyel ti dà la leggerezza di volere il necessario.',
   ],
@@ -6734,6 +7232,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|56|intelletto_legami': [
     'Poyel ti assicura che un bisogno detto piano resta intero.',
   ],
+  'letture|56|intelletto_altrui': [
+    'Poyel ti assicura che un bisogno detto piano resta intero.',
+  ],
   'letture|56|intelletto_scelta': [
     'Poyel ti fa vedere la differenza fra necessario e superfluo.',
   ],
@@ -6747,6 +7248,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Fai l\'elenco di ciò che ti serve mentre aspetti e togli tutto ciò che è superfluo.',
   ],
   'letture|56|gesto_legami': [
+    'Metti per iscritto, in una frase semplice, ciò che ti serve davvero da questo legame, senza sminuirlo.',
+  ],
+  'letture|56|gesto_altrui': [
     'Metti per iscritto, in una frase semplice, ciò che ti serve davvero da questo legame, senza sminuirlo.',
   ],
   'letture|56|gesto_scelta': [
@@ -6788,6 +7292,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|57|cuore_legami': [
     'Nemamiah ti dà la pace di guardare la sostanza.',
   ],
+  'letture|57|cuore_altrui': [
+    'Nemamiah ti dà la pace di guardare la sostanza.',
+  ],
   'letture|57|cuore_scelta': [
     'Nemamiah ti infonde la prontezza di chi ha capito.',
   ],
@@ -6803,6 +7310,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|57|intelletto_legami': [
     'Nemamiah ti ricorda che i modi non sono sostanza.',
   ],
+  'letture|57|intelletto_altrui': [
+    'Nemamiah ti ricorda che i modi non sono sostanza.',
+  ],
   'letture|57|intelletto_scelta': [
     'Nemamiah ti mostra che una scelta si giudica dalla sostanza.',
   ],
@@ -6816,6 +7326,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi che cosa c\'è di concreto in ciò che aspetti e che cosa è soltanto apparenza.',
   ],
   'letture|57|gesto_legami': [
+    'Ripensa agli ultimi gesti di questo rapporto e annota per te quali hanno sostanza, al di là delle parole.',
+  ],
+  'letture|57|gesto_altrui': [
     'Ripensa agli ultimi gesti di questo rapporto e annota per te quali hanno sostanza, al di là delle parole.',
   ],
   'letture|57|gesto_scelta': [
@@ -6857,6 +7370,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|58|cuore_legami': [
     'Ieialel nutre in te il desiderio tenace di capire davvero.',
   ],
+  'letture|58|cuore_altrui': [
+    'Ieialel nutre in te il desiderio tenace di capire davvero.',
+  ],
   'letture|58|cuore_scelta': [
     'Ieialel ti porta la fiducia di chi guarda a fondo.',
   ],
@@ -6872,6 +7388,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|58|intelletto_legami': [
     'Ieialel ti spiega che ogni reazione ha una causa.',
   ],
+  'letture|58|intelletto_altrui': [
+    'Ieialel ti spiega che ogni reazione ha una causa.',
+  ],
   'letture|58|intelletto_scelta': [
     'Ieialel separa per te la causa dalla semplice impressione.',
   ],
@@ -6885,6 +7404,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Torna ogni giorno, per qualche minuto, su ciò che ancora non ti è chiaro e annota un passo avanti.',
   ],
   'letture|58|gesto_legami': [
+    'Scrivi la tua reazione più frequente in questo rapporto e cerca, con calma, da dove nasce in te.',
+  ],
+  'letture|58|gesto_altrui': [
     'Scrivi la tua reazione più frequente in questo rapporto e cerca, con calma, da dove nasce in te.',
   ],
   'letture|58|gesto_scelta': [
@@ -6926,6 +7448,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|59|cuore_legami': [
     'Harahel ti ispira una stima che non sminuisce.',
   ],
+  'letture|59|cuore_altrui': [
+    'Harahel ti ispira una stima che non sminuisce.',
+  ],
   'letture|59|cuore_scelta': [
     'Harahel ti lascia la serenità di scegliere senza disprezzare.',
   ],
@@ -6941,6 +7466,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|59|intelletto_legami': [
     'Harahel ti chiarisce che stimare qualcuno non è approvare tutto.',
   ],
+  'letture|59|intelletto_altrui': [
+    'Harahel ti chiarisce che stimare qualcuno non è approvare tutto.',
+  ],
   'letture|59|intelletto_scelta': [
     'Harahel ti chiarisce che scegliere una strada non svaluta l\'altra.',
   ],
@@ -6954,6 +7482,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ripercorri la strada fatta finora e annota ciò che hai imparato, dandogli il suo giusto valore.',
   ],
   'letture|59|gesto_legami': [
+    'Scrivi per te tre qualità vere di questo rapporto senza aggiungere nessun ma, poi rileggile con calma.',
+  ],
+  'letture|59|gesto_altrui': [
     'Scrivi per te tre qualità vere di questo rapporto senza aggiungere nessun ma, poi rileggile con calma.',
   ],
   'letture|59|gesto_scelta': [
@@ -6972,7 +7503,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mitzrael ti raccomanda di aspettare riparando con pazienza ciò che è nelle tue mani.',
   ],
   'letture|60|altrui': [
-    'Mitzrael ti consiglia di ricomporre con pazienza la tua pace, senza farla dipendere dall\'altra persona.',
+    'Mitzrael ti consiglia di costruire con pazienza la tua serenità, senza farla dipendere dall\'altra persona.',
   ],
   'letture|60|decisione': [
     'Mitzrael ti dice sì se scegli con pazienza, per costruire; se dentro c\'è una rivincita da prenderti, aspetta.',
@@ -6995,6 +7526,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|60|cuore_legami': [
     'Mitzrael ti apre a una pazienza che sa aggiustare.',
   ],
+  'letture|60|cuore_altrui': [
+    'Mitzrael ti apre a una pazienza che costruisce.',
+  ],
   'letture|60|cuore_scelta': [
     'Mitzrael ti libera dal bisogno di dimostrare qualcosa.',
   ],
@@ -7010,6 +7544,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|60|intelletto_legami': [
     'Mitzrael ti fa capire che ricucire non è cedere.',
   ],
+  'letture|60|intelletto_altrui': [
+    'Mitzrael ti fa capire che la fiducia si costruisce con pazienza.',
+  ],
   'letture|60|intelletto_scelta': [
     'Mitzrael distingue per te la riparazione dalla rivincita.',
   ],
@@ -7024,6 +7561,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'letture|60|gesto_legami': [
     'Annota per te ciò che vorresti ricucire in questo rapporto e il primo punto piccolo, senza conti da regolare.',
+  ],
+  'letture|60|gesto_altrui': [
+    'Annota un piccolo gesto di pazienza che puoi avere in questo rapporto, senza aspettarti nulla in cambio.',
   ],
   'letture|60|gesto_scelta': [
     'Chiediti, per ciascuna strada, se la scegli per costruire o per dimostrare qualcosa; rispondi con calma, in più giorni.',
@@ -7064,6 +7604,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|61|cuore_legami': [
     'Umabel ti fa vivere una vicinanza che non ti confonde.',
   ],
+  'letture|61|cuore_altrui': [
+    'Umabel ti fa vivere una vicinanza che non ti confonde.',
+  ],
   'letture|61|cuore_scelta': [
     'Umabel ti fa sentire quale desiderio è davvero tuo.',
   ],
@@ -7079,6 +7622,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|61|intelletto_legami': [
     'Umabel ti insegna che sentire l\'altro non vuol dire confondersi.',
   ],
+  'letture|61|intelletto_altrui': [
+    'Umabel ti insegna che sentire l\'altro non vuol dire confondersi.',
+  ],
   'letture|61|intelletto_scelta': [
     'Umabel ti fa distinguere il tuo desiderio da quello altrui.',
   ],
@@ -7092,6 +7638,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Passa un\'ora con una persona affine e parlale d\'altro, lasciando che l\'attesa resti tua.',
   ],
   'letture|61|gesto_legami': [
+    'Scrivi in due colonne ciò che senti tu e ciò che immagini senta l\'altra persona, poi rileggile.',
+  ],
+  'letture|61|gesto_altrui': [
     'Scrivi in due colonne ciò che senti tu e ciò che immagini senta l\'altra persona, poi rileggile.',
   ],
   'letture|61|gesto_scelta': [
@@ -7133,6 +7682,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|62|cuore_legami': [
     'Iahhel ti restituisce la libertà di non reagire subito.',
   ],
+  'letture|62|cuore_altrui': [
+    'Iahhel ti restituisce la libertà di non reagire subito.',
+  ],
   'letture|62|cuore_scelta': [
     'Iahhel ti avvolge nella calma che precede una scelta.',
   ],
@@ -7148,6 +7700,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|62|intelletto_legami': [
     'Iahhel ti svela che una pausa cambia la risposta.',
   ],
+  'letture|62|intelletto_altrui': [
+    'Iahhel ti svela che una pausa cambia la risposta.',
+  ],
   'letture|62|intelletto_scelta': [
     'Iahhel ti insegna a distinguere l\'urgenza vera dalla fretta.',
   ],
@@ -7161,6 +7716,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Concediti ogni sera di questa settimana qualche minuto di silenzio tutto per te, senza cercare notizie.',
   ],
   'letture|62|gesto_legami': [
+    'La prossima volta che qualcosa di questo rapporto ti punge, aspetta un momento prima di rispondere.',
+  ],
+  'letture|62|gesto_altrui': [
     'La prossima volta che qualcosa di questo rapporto ti punge, aspetta un momento prima di rispondere.',
   ],
   'letture|62|gesto_scelta': [
@@ -7185,7 +7743,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Anauel risponde sì se questo passo tiene unito ciò che ti sta a cuore; se lo divide, aspetta.',
   ],
   'letture|63|scelta': [
-    'Anauel ti mostra quella che tiene insieme più parti di te, non quella che divide.',
+    'Anauel ti consiglia quella che tiene insieme più parti di te, non quella che divide.',
   ],
   'letture|63|come': [
     'Anauel ti raccomanda di partire da un interesse che condividi con l\'altra persona.',
@@ -7202,6 +7760,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|63|cuore_legami': [
     'Anauel ti scalda con ciò che condividi.',
   ],
+  'letture|63|cuore_altrui': [
+    'Anauel ti scalda con ciò che condividi.',
+  ],
   'letture|63|cuore_scelta': [
     'Anauel ti mette in pace con una scelta che unisce.',
   ],
@@ -7215,7 +7776,10 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Anauel ti svela che ogni parte influenza l\'insieme.',
   ],
   'letture|63|intelletto_legami': [
-    'Anauel ti dimostra che due interessi diversi possono incontrarsi.',
+    'Anauel ti segnala che il terreno comune sta nei fatti.',
+  ],
+  'letture|63|intelletto_altrui': [
+    'Anauel ti segnala che il terreno comune sta nei fatti.',
   ],
   'letture|63|intelletto_scelta': [
     'Anauel ti ricorda che scegliere non sempre significa rinunciare.',
@@ -7230,6 +7794,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scegli un\'abitudine di ogni giorno e falla con cura mentre aspetti: tieni insieme l\'attesa e la vita.',
   ],
   'letture|63|gesto_legami': [
+    'Annota per te un interesse che condividi con questa persona e tienilo davanti quando ci pensi.',
+  ],
+  'letture|63|gesto_altrui': [
     'Annota per te un interesse che condividi con questa persona e tienilo davanti quando ci pensi.',
   ],
   'letture|63|gesto_scelta': [
@@ -7271,6 +7838,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|64|cuore_legami': [
     'Mehiel accende in te il calore delle parole sentite.',
   ],
+  'letture|64|cuore_altrui': [
+    'Mehiel accende in te il calore delle parole sentite.',
+  ],
   'letture|64|cuore_scelta': [
     'Mehiel ti regala l\'intesa fra cuore e ragione.',
   ],
@@ -7286,6 +7856,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|64|intelletto_legami': [
     'Mehiel ti rivela che sentire e ragionare non si escludono.',
   ],
+  'letture|64|intelletto_altrui': [
+    'Mehiel ti rivela che sentire e ragionare non si escludono.',
+  ],
   'letture|64|intelletto_scelta': [
     'Mehiel ti indica la scelta che convince testa e cuore.',
   ],
@@ -7299,6 +7872,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Scrivi in una pagina ciò che pensi e ciò che senti di questa attesa, senza correggerti.',
   ],
   'letture|64|gesto_legami': [
+    'Scrivi in due righe ciò che senti e in due righe ciò che pensi di questo rapporto, poi confrontale.',
+  ],
+  'letture|64|gesto_altrui': [
     'Scrivi in due righe ciò che senti e in due righe ciò che pensi di questo rapporto, poi confrontale.',
   ],
   'letture|64|gesto_scelta': [
@@ -7340,6 +7916,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|65|cuore_legami': [
     'Damabiah ti porta la leggerezza di chi non serba rancore.',
   ],
+  'letture|65|cuore_altrui': [
+    'Damabiah ti porta la leggerezza di chi non pesa ogni segnale.',
+  ],
   'letture|65|cuore_scelta': [
     'Damabiah risveglia la fiducia in ciò che senti dentro.',
   ],
@@ -7355,6 +7934,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|65|intelletto_legami': [
     'Damabiah ti mostra che la tua serenità non dipende dall\'altro.',
   ],
+  'letture|65|intelletto_altrui': [
+    'Damabiah ti mostra che la tua serenità non dipende dall\'altro.',
+  ],
   'letture|65|intelletto_scelta': [
     'Damabiah separa ciò che ti nasce dentro dalle spinte esterne.',
   ],
@@ -7368,6 +7950,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Ogni volta che l\'attesa ti stringe, fermati e fai dieci respiri lenti prima di riprendere ciò che stavi facendo.',
   ],
   'letture|65|gesto_legami': [
+    'Quando pensi a questo rapporto, fermati un minuto in silenzio e lascia andare ciò che ti agita.',
+  ],
+  'letture|65|gesto_altrui': [
     'Quando pensi a questo rapporto, fermati un minuto in silenzio e lascia andare ciò che ti agita.',
   ],
   'letture|65|gesto_scelta': [
@@ -7409,6 +7994,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|66|cuore_legami': [
     'Manakel ti consegna la discrezione che non occupa spazio.',
   ],
+  'letture|66|cuore_altrui': [
+    'Manakel ti consegna la discrezione che non occupa spazio.',
+  ],
   'letture|66|cuore_scelta': [
     'Manakel ti lascia sentire la forza tranquilla di chi regge.',
   ],
@@ -7424,6 +8012,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|66|intelletto_legami': [
     'Manakel ti mostra che la discrezione non è distanza.',
   ],
+  'letture|66|intelletto_altrui': [
+    'Manakel ti mostra che la discrezione non è distanza.',
+  ],
   'letture|66|intelletto_scelta': [
     'Manakel distingue per te il reggere dallo scaricare.',
   ],
@@ -7437,6 +8028,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Cura ogni giorno un pezzo piccolo di ciò che dipende da te e lascia il resto maturare.',
   ],
   'letture|66|gesto_legami': [
+    'Accorgiti di quanto spazio occupi nel rapporto e lascia oggi un po\' più di posto all\'altro.',
+  ],
+  'letture|66|gesto_altrui': [
     'Accorgiti di quanto spazio occupi nel rapporto e lascia oggi un po\' più di posto all\'altro.',
   ],
   'letture|66|gesto_scelta': [
@@ -7478,6 +8072,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|67|cuore_legami': [
     'Eiael accende in te lo stupore per i gesti semplici.',
   ],
+  'letture|67|cuore_altrui': [
+    'Eiael accende in te lo stupore per i gesti semplici.',
+  ],
   'letture|67|cuore_scelta': [
     'Eiael ti dà il coraggio di cambiare con delicatezza.',
   ],
@@ -7493,6 +8090,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|67|intelletto_legami': [
     'Eiael ti insegna che un rapporto cambia senza doversi rompere.',
   ],
+  'letture|67|intelletto_altrui': [
+    'Eiael ti insegna che il bello sta nei gesti semplici.',
+  ],
   'letture|67|intelletto_scelta': [
     'Eiael distingue per te il trasformare dallo strappare.',
   ],
@@ -7500,13 +8100,16 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Eiael ti mostra che la fatica non cancella il bello.',
   ],
   'letture|67|gesto_orienta': [
-    'Nota oggi tre cose belle dove di solito passi oltre e scrivile la sera.',
+    'Nota oggi tre cose belle che hai intorno a te e scrivile la sera, con calma.',
   ],
   'letture|67|gesto_attesa': [
     'Cambia oggi un dettaglio piccolo della tua giornata, senza stravolgerla: poi nota che cosa migliora.',
   ],
   'letture|67|gesto_legami': [
-    'Nota per qualche giorno un gesto semplice di questo rapporto che di solito ti sfugge e annotalo.',
+    'Nota per qualche giorno un gesto semplice e piccolo di questo rapporto: annotalo con cura, la sera.',
+  ],
+  'letture|67|gesto_altrui': [
+    'Nota per qualche giorno un gesto semplice e piccolo di questo rapporto: annotalo con cura, la sera.',
   ],
   'letture|67|gesto_scelta': [
     'Per ciascuna strada scrivi che cosa di bello conservi e che cosa cambia, poi lascia riposare il foglio qualche giorno.',
@@ -7547,6 +8150,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|68|cuore_legami': [
     'Habuhiah ti lascia sentire la gioia di dare senza conti.',
   ],
+  'letture|68|cuore_altrui': [
+    'Habuhiah ti lascia sentire la gioia di dare senza conti.',
+  ],
   'letture|68|cuore_scelta': [
     'Habuhiah accende in te la generosità che non chiede applausi.',
   ],
@@ -7562,6 +8168,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|68|intelletto_legami': [
     'Habuhiah separa per te il dono dal dare per ricevere.',
   ],
+  'letture|68|intelletto_altrui': [
+    'Habuhiah separa per te il dono dal dare per ricevere.',
+  ],
   'letture|68|intelletto_scelta': [
     'Habuhiah ti mostra se scegli per dare o per avere.',
   ],
@@ -7575,6 +8184,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mentre aspetti, dedica un\'ora del tuo tempo a un aiuto concreto per qualcuno, senza dirlo in giro.',
   ],
   'letture|68|gesto_legami': [
+    'Nota per una settimana che cosa dai in questo rapporto e se lo dai volentieri o per ricevere.',
+  ],
+  'letture|68|gesto_altrui': [
     'Nota per una settimana che cosa dai in questo rapporto e se lo dai volentieri o per ricevere.',
   ],
   'letture|68|gesto_scelta': [
@@ -7616,6 +8228,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|69|cuore_legami': [
     'Rochel ti porta la mitezza di chi sospende il giudizio.',
   ],
+  'letture|69|cuore_altrui': [
+    'Rochel ti porta la mitezza di chi sospende il giudizio.',
+  ],
   'letture|69|cuore_scelta': [
     'Rochel ti lascia la calma di chi sceglie senza fretta.',
   ],
@@ -7631,6 +8246,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|69|intelletto_legami': [
     'Rochel separa per te i fatti osservati dalle supposizioni.',
   ],
+  'letture|69|intelletto_altrui': [
+    'Rochel separa per te i fatti osservati dalle supposizioni.',
+  ],
   'letture|69|intelletto_scelta': [
     'Rochel separa ciò che sai da ciò che ancora ignori.',
   ],
@@ -7644,6 +8262,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Annota ogni sera ciò che hai osservato oggi, senza trarre conclusioni: rileggi tutto fra una settimana.',
   ],
   'letture|69|gesto_legami': [
+    'Scrivi i fatti che hai visto in questo rapporto separati dalle tue supposizioni, senza cercare conferme dall\'altro.',
+  ],
+  'letture|69|gesto_altrui': [
     'Scrivi i fatti che hai visto in questo rapporto separati dalle tue supposizioni, senza cercare conferme dall\'altro.',
   ],
   'letture|69|gesto_scelta': [
@@ -7685,6 +8306,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|70|cuore_legami': [
     'Iabamiah ti restituisce il senso di poter agire tu.',
   ],
+  'letture|70|cuore_altrui': [
+    'Iabamiah ti restituisce il senso di poter agire tu.',
+  ],
   'letture|70|cuore_scelta': [
     'Iabamiah ti dona il coraggio di cambiare forma alle cose.',
   ],
@@ -7700,6 +8324,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|70|intelletto_legami': [
     'Iabamiah ti mostra che puoi cambiare te, non l\'altro.',
   ],
+  'letture|70|intelletto_altrui': [
+    'Iabamiah ti avverte che governi soltanto la tua parte.',
+  ],
   'letture|70|intelletto_scelta': [
     'Iabamiah ti mostra che scegliere trasforma già ciò che subisci.',
   ],
@@ -7713,6 +8340,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Dedica ogni giorno un po\' del tuo tempo a preparare il dopo, qualunque esito arrivi, invece di contare i giorni.',
   ],
   'letture|70|gesto_legami': [
+    'Individua una cosa che puoi cambiare nel tuo modo di stare in questo rapporto e prova a farla questa settimana.',
+  ],
+  'letture|70|gesto_altrui': [
     'Individua una cosa che puoi cambiare nel tuo modo di stare in questo rapporto e prova a farla questa settimana.',
   ],
   'letture|70|gesto_scelta': [
@@ -7754,6 +8384,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|71|cuore_legami': [
     'Haiaiel ti porta la fermezza di uno sguardo lucido.',
   ],
+  'letture|71|cuore_altrui': [
+    'Haiaiel ti dà la fermezza di uno sguardo lucido.',
+  ],
   'letture|71|cuore_scelta': [
     'Haiaiel ti dà il coraggio di un no quando serve.',
   ],
@@ -7769,6 +8402,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|71|intelletto_legami': [
     'Haiaiel ti ricorda che dire no non toglie affetto.',
   ],
+  'letture|71|intelletto_altrui': [
+    'Haiaiel ti ricorda che i fatti contano più dell\'emozione del momento.',
+  ],
   'letture|71|intelletto_scelta': [
     'Haiaiel separa per te la decisione pensata dall\'impulso.',
   ],
@@ -7782,6 +8418,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Quando l\'agitazione ti sale, aspetta un\'ora prima di agire e poi scegli che cosa fare con calma.',
   ],
   'letture|71|gesto_legami': [
+    'Quando pensi a questa persona, aspetta che l\'emozione si calmi e poi scrivi che cosa vedi davvero.',
+  ],
+  'letture|71|gesto_altrui': [
     'Quando pensi a questa persona, aspetta che l\'emozione si calmi e poi scrivi che cosa vedi davvero.',
   ],
   'letture|71|gesto_scelta': [
@@ -7823,6 +8462,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|72|cuore_legami': [
     'Mumiah ti offre la pace di un pensiero compiuto.',
   ],
+  'letture|72|cuore_altrui': [
+    'Mumiah ti offre la pace di un pensiero compiuto.',
+  ],
   'letture|72|cuore_scelta': [
     'Mumiah ti lascia la leggerezza di chi chiude per ricominciare.',
   ],
@@ -7838,6 +8480,9 @@ const Map<String, List<String>> corpusDellOracolo = {
   'letture|72|intelletto_legami': [
     'Mumiah ti insegna che un pensiero lasciato a metà ritorna.',
   ],
+  'letture|72|intelletto_altrui': [
+    'Mumiah ti insegna che un pensiero lasciato a metà ritorna.',
+  ],
   'letture|72|intelletto_scelta': [
     'Mumiah distingue per te il chiudere dal lasciare a metà.',
   ],
@@ -7851,6 +8496,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Mentre aspetti, chiudi una faccenda in sospeso o un impegno rimasto aperto, così l\'attesa non si somma al resto.',
   ],
   'letture|72|gesto_legami': [
+    'Scegli una questione soltanto di questo rapporto e pensaci fino in fondo, prima di passare ad altro.',
+  ],
+  'letture|72|gesto_altrui': [
     'Scegli una questione soltanto di questo rapporto e pensaci fino in fondo, prima di passare ad altro.',
   ],
   'letture|72|gesto_scelta': [

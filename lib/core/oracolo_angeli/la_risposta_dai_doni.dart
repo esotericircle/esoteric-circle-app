@@ -66,6 +66,7 @@ class LaDomandaDellOracolo {
     this.attacco,
     this.evento = false,
     this.prova = false,
+    this.relazione = false,
     this.persona,
     this.clausola,
     this.alternative,
@@ -93,6 +94,10 @@ class LaDomandaDellOracolo {
   /// Vero se la cosa e' una prova da preparare (un esame, un colloquio, un
   /// concorso): la lettura e' quella di chi si prepara, non di chi aspetta.
   final bool prova;
+
+  /// La cosa della domanda e' un rapporto che puo' essere in tensione: il
+  /// conflitto, la pace, l'intesa, l'amicizia.
+  final bool relazione;
 
   /// La persona di cui parla, detta a te: "tuo marito", "Marco", "lui".
   final String? persona;
@@ -147,6 +152,7 @@ class LaDomandaDellOracolo {
       r'mal di (?:testa|pancia|stomaco|gola|denti|schiena|cuore)|'
       r'emicrani\w*|dolor\w*|stanchezz\w*|insonni\w*|vertigin\w*|'
       r'nause\w*|palpitazion\w*|attacch\w* di panico|depressione|'
+      r'sono depress[ao]|mi sento depress[ao]|operarm\w*|operarsi|'
       r'mi sento (?:sempre |molto |poco )?(?:stanc\w*|male|debole|spossat\w*)');
 
   static final RegExp _aperta = RegExp(
@@ -280,6 +286,25 @@ class LaDomandaDellOracolo {
         bool relazione,
         bool prova,
       })> _cose = [
+    // I sintomi detti con le parole di tutti i giorni (ordine GA voce GA.06,
+    // riaperta dal Realme): il responso li nomina, non parla di "questa
+    // questione medica".
+    _cosa(r'mal di (?:testa|pancia|stomaco|gola|denti|schiena|cuore)',
+        (m) => 'il $m'),
+    _cosa(r'emicrani\w*', (m) => "l'emicrania"),
+    _cosa(r"dolor(?:e|i)(?: (?:alla|allo|alle|agli|all'|ai|al)\s?[\p{L}]+)?",
+        (m) => m.startsWith('dolori') ? 'i $m' : 'il $m'),
+    _cosa(
+        r'stanchezz\w*|mi sento (?:sempre |molto |poco )?'
+        r'(?:stanc\w*|debole|spossat\w*)',
+        (m) => 'la tua stanchezza'),
+    _cosa(r'insonni\w*', (m) => "l'insonnia"),
+    _cosa(r'vertigin\w*', (m) => 'le tue vertigini'),
+    _cosa(r'nause\w*', (m) => 'la tua nausea'),
+    _cosa(r'palpitazion\w*', (m) => 'le tue palpitazioni'),
+    _cosa(r'attacch\w* di panico', (m) => 'i tuoi attacchi di panico'),
+    _cosa(r'depressione', (m) => 'la depressione'),
+    _cosa(r'febbre', (m) => 'la febbre'),
     _cosa(r"esame di stato", (m) => "l'esame di stato", prova: true),
     _cosa(r'esame|esami(?! del sangue)', (m) => "l'esame", prova: true),
     _cosa(r'colloquio(?: di [\p{L}]+)?', (m) => 'il $m', prova: true),
@@ -561,6 +586,32 @@ class LaDomandaDellOracolo {
       return (q.substring(0, punto), q.substring(punto + 1));
     }
     final basso = q.toLowerCase();
+    // "Ho spesso mal di testa e poi non so se lasciare il mio compagno": la
+    // seconda e' una scelta, e la si legge come "devo lasciare ...".
+    final nonSo = RegExp(r',?\s+(?:e\s+)?(?:poi\s+)?(?:non so se|mi chiedo se|'
+            r'vorrei sapere se)\s+')
+        .firstMatch(basso);
+    if (nonSo != null && nonSo.start > 3) {
+      final resto = q.substring(nonSo.end).trim();
+      final infinito = RegExp(r'^[\p{L}]+(?:are|ere|ire|rre)(?:\s|$)',
+              unicode: true, caseSensitive: false)
+          .hasMatch(resto);
+      return (q.substring(0, nonSo.start), infinito ? 'devo $resto' : resto);
+    }
+    final ePoi = RegExp(r',?\s+e\s+poi\s+').firstMatch(basso);
+    if (ePoi != null && ePoi.start > 3) {
+      return (q.substring(0, ePoi.start), q.substring(ePoi.end));
+    }
+    final virgolaModale =
+        RegExp(r',\s+(?=(?:devo|dovrei|posso|potrei|faccio bene a|è giusto|'
+                r'ha senso|mi conviene|conviene|vale la pena)\s)')
+            .firstMatch(basso);
+    if (virgolaModale != null && virgolaModale.start > 3) {
+      return (
+        q.substring(0, virgolaModale.start),
+        q.substring(virgolaModale.end)
+      );
+    }
     final eSe = RegExp(r',?\s+e\s+(?=se\s)').firstMatch(basso);
     if (eSe != null && eSe.start > 3) {
       return (q.substring(0, eSe.start), q.substring(eSe.end));
@@ -617,7 +668,14 @@ class LaDomandaDellOracolo {
       final prima = d.substring(0, m.start).trimRight();
       // Dopo una preposizione di luogo la maiuscola e' una citta' ("a
       // Milano", "di Bari"), non una persona.
-      if (RegExp(r'\s(?:a|d[ai]|in)$').hasMatch(prima)) continue;
+      if (RegExp(r'\s(?:a|d[ai]|in)$').hasMatch(prima) &&
+          !RegExp(
+                  r'(?:fidar\w*|fiducia|innamorat\w*|gelos\w*|pens\w*)\s+'
+                  r'(?:di|da)$',
+                  caseSensitive: false)
+              .hasMatch(prima)) {
+        continue;
+      }
       if (_nonNomi.contains(m[1])) continue;
       return m[1];
     }
@@ -627,8 +685,13 @@ class LaDomandaDellOracolo {
     return pronome?[1]?.toLowerCase();
   }
 
-  static ({String frase, String? attacco, bool evento, bool prova})? _oggetto(
-      String d, String? persona) {
+  static ({
+    String frase,
+    String? attacco,
+    bool evento,
+    bool prova,
+    bool relazione
+  })? _oggetto(String d, String? persona) {
     ({
       int pos,
       String frase,
@@ -665,7 +728,8 @@ class LaDomandaDellOracolo {
       frase: frase,
       attacco: migliore.attacco,
       evento: migliore.evento,
-      prova: migliore.prova
+      prova: migliore.prova,
+      relazione: migliore.relazione
     );
   }
 
@@ -688,6 +752,13 @@ class LaDomandaDellOracolo {
   }
 
   static (String, String)? _alternative(String d) {
+    // "Devo scegliere tra Roma e Torino per studiare?": due nomi propri.
+    final nomi = RegExp(
+            r'(?:tra|fra) ([A-ZÀ-Ý][\p{L}]+(?: [A-ZÀ-Ý][\p{L}]+)?) e '
+            r'([A-ZÀ-Ý][\p{L}]+(?: [A-ZÀ-Ý][\p{L}]+)?)(?![\p{L}])',
+            unicode: true)
+        .firstMatch(d);
+    if (nomi != null) return (nomi[1]!, nomi[2]!);
     final i = d.toLowerCase().indexOf(' o ');
     if (i < 0) return null;
     var sinistra = d.substring(0, i);
@@ -707,10 +778,39 @@ class LaDomandaDellOracolo {
 
   /// **LEGGE UNA DOMANDA.**
   static LaDomandaDellOracolo leggi(String domanda) {
-    final due = _dueDomande(domanda);
+    // "...non so se lasciare il mio compagno. Che cosa devo fare?": la chiusa
+    // generica non e' una domanda in piu'.
+    final senzaChiusa = domanda.replaceFirst(
+        RegExp(r'[.?!]\s*(?:che cosa|cosa|che)\s+devo\s+fare\s*[?.!]*\s*$',
+            caseSensitive: false),
+        '');
+    final lettura = senzaChiusa.trim().split(RegExp(r'\s+')).length >= 4
+        ? senzaChiusa
+        : domanda;
+    final due = _dueDomande(lettura);
     if (due != null) {
-      final prima = _leggiUna(due.$1);
-      final seconda = _leggiUna(due.$2);
+      var prima = _leggiUna(due.$1);
+      var seconda = _leggiUna(due.$2);
+      // "Mi sento in ansia e non so se accettare il lavoro": la prima e' uno
+      // stato, non una domanda. Si risponde alla seconda.
+      if (prima.limite == null &&
+          prima.forma == FormaDellaDomanda.generica &&
+          seconda.limite == null &&
+          seconda.forma != FormaDellaDomanda.generica) {
+        return _leggiUna(due.$2, testo: domanda);
+      }
+      // Le due parti dicono lo stesso limite ("Ho mal di schiena, devo
+      // operarmi?"): e' una domanda sola, e risponde chi e' competente.
+      if (prima.limite != null && seconda.limite == prima.limite) {
+        return _leggiUna(due.$1, testo: domanda);
+      }
+      // Se e' la seconda a portare il limite (salute, legge, denaro), e' quella
+      // la domanda a cui si risponde: l'altra si rimanda.
+      if (prima.limite == null && seconda.limite != null) {
+        final scambio = prima;
+        prima = seconda;
+        seconda = scambio;
+      }
       return LaDomandaDellOracolo._(
         testo: domanda,
         forma: prima.forma,
@@ -719,6 +819,7 @@ class LaDomandaDellOracolo {
         attacco: prima.attacco,
         evento: prima.evento,
         prova: prima.prova,
+        relazione: prima.relazione,
         persona: prima.persona,
         clausola: prima.clausola,
         alternative: prima.alternative,
@@ -728,10 +829,10 @@ class LaDomandaDellOracolo {
         seconda: seconda,
       );
     }
-    return _leggiUna(domanda);
+    return _leggiUna(lettura, testo: domanda);
   }
 
-  static LaDomandaDellOracolo _leggiUna(String domanda) {
+  static LaDomandaDellOracolo _leggiUna(String domanda, {String? testo}) {
     final d = _pulita(domanda);
     final basso = d.toLowerCase();
     final limite = limiteDi(d);
@@ -788,13 +889,14 @@ class LaDomandaDellOracolo {
       oggetto = 'la fine ${LaRispostaDaiDoni.con('di', oggetto)}';
     }
     return LaDomandaDellOracolo._(
-      testo: domanda,
+      testo: testo ?? domanda,
       forma: forma,
       limite: limite,
       oggetto: oggetto,
       attacco: forma == FormaDellaDomanda.quando ? null : cosa?.attacco,
       evento: cosa?.evento ?? false,
       prova: cosa?.prova ?? false,
+      relazione: cosa?.relazione ?? false,
       persona: persona,
       clausola: clausola,
       alternative: alternative,
@@ -813,11 +915,26 @@ enum FamigliaDellaDomanda {
   aperta('aperta', 'orienta'),
   futuro('futuro', 'orienta'),
   esito('esito', 'attesa'),
-  altrui('altrui', 'legami'),
+  altrui('altrui', 'altrui'),
   decisione('decisione', 'scelta'),
   scelta('scelta', 'scelta'),
-  come('come', 'legami'),
-  limite('limite', 'limite');
+  // Un "come" su una persona senza tensione (aiutare, stare vicino, smettere
+  // di pensare a lui) legge le frasi dell'altra persona; un "come" su un
+  // conflitto o una pace legge quelle dei legami; un "come" su se' (ritrovare
+  // serenita') legge quelle dell'orientamento. Ultima lettura cieca: "il
+  // Cuore ... libero dal rancore" sotto "come posso starle vicino".
+  come('come', 'altrui'),
+  comeInUnRapporto('come', 'legami'),
+  comeDaSoli('futuro', 'orienta'),
+  limite('limite', 'limite'),
+
+  /// Un esame, un colloquio, un concorso: si prepara e si aspetta l'esito, e
+  /// le frasi sono quelle dell'attesa (la parte che dipende da te, la calma,
+  /// la pazienza). Con quelle dell'orientamento un angelo del silenzio
+  /// diceva, sotto l'esame di stato, "prima di rispondere al prossimo
+  /// messaggio che ti agita"; con quelle del futuro, "una pausa prima di
+  /// reagire".
+  prova('esito', 'attesa');
 
   const FamigliaDellaDomanda(this.custode, this.gruppo);
 
@@ -836,7 +953,7 @@ enum FamigliaDellaDomanda {
       FormaDellaDomanda.futuro => FamigliaDellaDomanda.futuro,
       // Una prova da preparare legge le frasi di chi punta su cio' che
       // dipende da se', non quelle di chi aspetta un esito deciso da altri.
-      FormaDellaDomanda.esito when q.prova => FamigliaDellaDomanda.futuro,
+      FormaDellaDomanda.esito when q.prova => FamigliaDellaDomanda.prova,
       FormaDellaDomanda.esito ||
       FormaDellaDomanda.quando =>
         FamigliaDellaDomanda.esito,
@@ -846,6 +963,10 @@ enum FamigliaDellaDomanda {
         FamigliaDellaDomanda.altrui,
       FormaDellaDomanda.decisione => FamigliaDellaDomanda.decisione,
       FormaDellaDomanda.scelta => FamigliaDellaDomanda.scelta,
+      FormaDellaDomanda.come when q.relazione =>
+        FamigliaDellaDomanda.comeInUnRapporto,
+      FormaDellaDomanda.come when q.persona == null =>
+        FamigliaDellaDomanda.comeDaSoli,
       FormaDellaDomanda.come => FamigliaDellaDomanda.come,
     };
   }
@@ -964,13 +1085,36 @@ abstract final class LaRispostaDaiDoni {
         : null;
   }
 
-  static String aMisura(List<List<String>> posti) {
+  /// **L'ECO**: la chiusa non ripete una parola che il resto del "Cosa fare"
+  /// ha gia' detto ("rileggili fra qualche giorno. Una scelta così può
+  /// aspettare qualche giorno"). L'ultimo posto e' la chiusa.
+  static bool _senzaEco(List<String> scelte) {
+    final ultimo = scelte.last.toLowerCase();
+    if (ultimo.isEmpty) return true;
+    final altro = scelte.sublist(0, scelte.length - 1).join(' ').toLowerCase();
+    for (final e in const ['giorn', 'settiman', 'fretta', 'calma', 'passo']) {
+      if (ultimo.contains(e) && altro.contains(e)) return false;
+    }
+    return true;
+  }
+
+  static String aMisura(List<List<String>> posti,
+      {bool Function(List<String>)? valida}) {
+    final con = _misura(posti, valida);
+    if (con.$1 != null || valida == null) return con.$1 ?? con.$2!;
+    final senza = _misura(posti, null);
+    return senza.$1 ?? senza.$2!;
+  }
+
+  static (String?, String?) _misura(
+      List<List<String>> posti, bool Function(List<String>)? valida) {
     String? migliore;
     var distanza = 1 << 30;
     String? trovata;
     void prova(int i, List<String> scelte) {
       if (trovata != null) return;
       if (i == posti.length) {
+        if (valida != null && !valida(scelte)) return;
         final testo = scelte.where((s) => s.isNotEmpty).join(' ');
         final n = LaFormaDelResponso.parole(testo);
         if (n >= LaFormaDelResponso.minimo && n <= LaFormaDelResponso.massimo) {
@@ -993,7 +1137,7 @@ abstract final class LaRispostaDaiDoni {
     }
 
     prova(0, const []);
-    return trovata ?? migliore!;
+    return (trovata, migliore);
   }
 
   /// Una scelta stabile fra varianti: la stessa domanda con lo stesso angelo
@@ -1056,37 +1200,50 @@ abstract final class LaRispostaDaiDoni {
       final fraseDelCuore = lettura(corpus, h, 'cuore_${f.gruppo}') ??
           '${h.name} ti porta ${dono(corpus, h)}.';
       final i = intelletto.isEmpty ? null : intelletto.first;
+      final coperto = i == null || i.coperta;
+      final fraseDellIntelletto = coperto
+          ? ''
+          : (lettura(corpus, i.angelo, 'intelletto_${f.gruppo}') ??
+              '${i.angelo.name} ti porta ${dono(corpus, i.angelo)}.');
       // La frase dei ruoli si apre con la situazione della domanda, cosi' il
       // dono del Cuore e' detto su quella ("Mentre aspetti, nel Cuore, ...").
       // Senza cornice resta come alternativa, per la misura.
       final cornice = _cornice(q, fraseDelCustode, fraseDelCuore);
-      final attacchi = [
-        if (cornice != null) '$cornice, nel Cuore,',
-        'Nel Cuore,',
-      ];
-      if (i == null || i.coperta) {
-        ruoli = [
-          for (final at in attacchi) ...[
-            '$at $fraseDelCuore La carta dell\'Intelletto resta coperta '
-                'finché non aggiungi la tua ora di nascita.',
-            '$at $fraseDelCuore L\'Intelletto resta coperto senza la tua '
-                'ora di nascita.',
-          ],
-        ];
-      } else {
-        final fraseDellIntelletto =
-            lettura(corpus, i.angelo, 'intelletto_${f.gruppo}') ??
-                '${i.angelo.name} ti porta ${dono(corpus, i.angelo)}.';
-        ruoli = [
-          for (final at in attacchi)
-            '$at $fraseDelCuore Nell\'Intelletto, $fraseDellIntelletto',
-        ];
+      // **TRE FORME**, ordine GA voce GA.06, ultima lettura cieca: "nel Cuore
+      // ... Nell'Intelletto ..." identico in 9 consultazioni su 12. La forma
+      // ruota con la domanda e con gli angeli usciti.
+      List<String> ruolo(String forma, String? corn) {
+        final c1 = switch (forma) {
+          'a' => 'nel Cuore,',
+          'b' => 'il Cuore risponde così:',
+          _ => 'quanto al Cuore,',
+        };
+        final cuoreEtichetta = corn == null ? _maiuscola(c1) : '$corn, $c1';
+        if (coperto) {
+          return [
+            '$cuoreEtichetta $fraseDelCuore La carta dell\'Intelletto resta '
+                'coperta finché non aggiungi la tua ora di nascita.',
+            '$cuoreEtichetta $fraseDelCuore L\'Intelletto resta coperto senza '
+                'la tua ora di nascita.',
+          ];
+        }
+        final i1 = switch (forma) {
+          'a' => 'Nell\'Intelletto,',
+          'b' => 'L\'Intelletto aggiunge:',
+          _ => 'Quanto all\'Intelletto,',
+        };
+        return ['$cuoreEtichetta $fraseDelCuore $i1 $fraseDellIntelletto'];
       }
+
+      final forme = _ruota(['a', 'b', 'c'], q.testo, a.number + h.number);
+      ruoli = [
+        for (final fo in forme) ...[
+          if (cornice != null) ...ruolo(fo, cornice),
+          ...ruolo(fo, null),
+        ],
+      ];
       if (cornice != null) {
-        incorniciati = [
-          for (final r in ruoli)
-            if (r.startsWith('$cornice,')) r,
-        ];
+        incorniciati = [for (final fo in forme) ...ruolo(fo, cornice)];
       }
     }
     final custodi = [for (final ap in aperture) _unisci(ap, fraseDelCustode)];
@@ -1096,7 +1253,21 @@ abstract final class LaRispostaDaiDoni {
     // le combinazioni. L'apertura generica ("Alla tua domanda,") resta fuori
     // dalla prima ricerca: con lei due domande diverse sulle stesse carte
     // avevano la stessa risposta (D2, provato in questo lavoro).
-    final risposta = (incorniciati.isEmpty
+    // Ultima lettura cieca: le scelte di vita non hanno un verdetto, hanno un
+    // criterio. L'apertura che lo dice ("le carte non decidono per te, ma
+    // danno un criterio:") passa davanti alle altre quando la misura lo
+    // consente, anche senza la cornice dei ruoli.
+    final conCriterio = [
+      for (final ap in aperture)
+        if (ap.contains('un criterio, non un')) _unisci(ap, fraseDelCustode)
+    ];
+    final risposta = (conCriterio.isEmpty
+            ? null
+            : (incorniciati.isEmpty
+                    ? null
+                    : _seEntra([conCriterio, inPiu, incorniciati])) ??
+                _seEntra([conCriterio, inPiu, ruoli])) ??
+        (incorniciati.isEmpty
             ? null
             : _seEntra([
                 custodi.length > 2
@@ -1115,20 +1286,19 @@ abstract final class LaRispostaDaiDoni {
     // la misura lo consente, altrimenti in testa al "Cosa fare".
     final rimandoNelGesto = q.doppia;
     final cosaFare = aMisura([
-      if (rimandoNelGesto)
-        [
-          if ((q.seconda!.oggetto ?? q.seconda!.persona) case final cosa?)
-            'Le domande sono due: ${con('su', cosa)} fai un\'altra '
-                'consultazione.',
-          'Per la seconda domanda fai un\'altra consultazione.',
-        ],
+      if (rimandoNelGesto && q.limite != LimiteDellaDomanda.salute)
+        _rimandoDellaSeconda(q),
       _ruota(_passi(q), q.testo, a.number),
-      [gesto],
+      // Per la salute il medico viene prima di ogni altra cosa: il rimando
+      // dell'altra domanda sta dopo.
+      if (rimandoNelGesto && q.limite == LimiteDellaDomanda.salute)
+        _rimandoDellaSeconda(q),
+      [gesto, if (rimandoNelGesto) ''],
       _ruotaDopoIlVuoto(_passiInPiu(q), q.testo, a.number + 7),
-    ]);
+    ], valida: _senzaEco);
     return ResponsoInterpretato(
       arte: ArteInterpretata.oracolo,
-      titolo: _titolo(q, c),
+      titolo: _titolo(q, c, a.number),
       risposta: risposta,
       cosaFare: cosaFare,
     );
@@ -1219,14 +1389,14 @@ abstract final class LaRispostaDaiDoni {
     switch (q.limite) {
       case LimiteDellaDomanda.salute:
         final su = o == null
-            ? 'Su questa questione medica'
-            : 'Sull\'esito ${con('di', o)}';
+            ? 'Su questa questione di salute'
+            : _eUnEvento(o)
+                ? 'Sull\'esito ${con('di', o)}'
+                : _maiuscola(con('su', o));
         return [
           '$su nessun angelo risponde e nessuna carta può farlo: è una '
               'domanda per il tuo medico.',
           '$su risponde il tuo medico, non le carte.',
-          if (o != null)
-            '${_maiuscola(con('su', o))} risponde il tuo medico, non le carte.',
           'Su questo risponde il tuo medico, non le carte.',
         ];
       case LimiteDellaDomanda.legge:
@@ -1289,8 +1459,8 @@ abstract final class LaRispostaDaiDoni {
                 'Ciò che ti aspetta non è scritto nelle carte:',
               ];
       case FormaDellaDomanda.esito:
-        final testa = q.attacco ??
-            (o == null ? 'L\'esito che speri' : 'L\'esito ${con('di', o)}');
+        final testa =
+            q.attacco ?? (o == null ? 'L\'esito' : 'L\'esito ${con('di', o)}');
         return [
           '$testa non è scritto nelle carte e nessuno può promettertelo:',
           '$testa non è scritto nelle carte:',
@@ -1305,6 +1475,7 @@ abstract final class LaRispostaDaiDoni {
         return [
           'Ciò che $p sente per te può dirtelo solo $p2, non le carte:',
           'Ciò che $p sente per te lo sa solo $p2:',
+          if (q.persona != null) 'Ciò che prova $p non si legge nelle carte:',
           'Ciò che prova un\'altra persona non si legge nelle carte:',
         ];
       case FormaDellaDomanda.fiducia:
@@ -1313,6 +1484,7 @@ abstract final class LaRispostaDaiDoni {
           'Se puoi fidarti $di lo dicono i suoi gesti nel tempo, non le '
               'carte:',
           'Se puoi fidarti $di lo dicono i suoi gesti, non le carte:',
+          'Se puoi fidarti $di lo dicono i suoi gesti:',
           'La fiducia si misura sui gesti, non sulle carte:',
         ];
       case FormaDellaDomanda.ritorno:
@@ -1323,6 +1495,11 @@ abstract final class LaRispostaDaiDoni {
         ];
       case FormaDellaDomanda.decisione:
         return [
+          // Ultima lettura cieca: "sì se sai dire quale gesto quotidiano" era
+          // un verdetto sibillino. Le carte non decidono: danno un criterio.
+          if (q.clausola != null)
+            'Alla domanda se ${q.clausola} le carte danno un criterio, non un '
+                'verdetto:',
           if (q.clausola != null) 'Alla domanda se ${q.clausola},',
           // La domanda ripetuta come la direbbe la persona, piu' breve:
           // "Lasciare il lavoro per tornare a studiare: Lecabel dice sì se".
@@ -1332,8 +1509,15 @@ abstract final class LaRispostaDaiDoni {
       case FormaDellaDomanda.scelta:
         return [
           if (q.alternative != null)
+            'Fra ${q.alternative!.$1} e ${q.alternative!.$2} le carte danno un '
+                'criterio, non un nome:',
+          if (q.alternative != null)
             'Fra ${q.alternative!.$1} e ${q.alternative!.$2},',
+          if (q.gruppo != null)
+            'Fra ${q.gruppo} le carte danno un criterio, non un nome:',
           if (q.gruppo != null) 'Fra ${q.gruppo},',
+          if (q.alternative == null && q.gruppo == null)
+            'Fra le due strade le carte danno un criterio, non un nome:',
           'Fra le due strade,',
         ];
       case FormaDellaDomanda.come:
@@ -1344,6 +1528,44 @@ abstract final class LaRispostaDaiDoni {
         ];
     }
   }
+
+  /// **IL RIMANDO DELLA SECONDA DOMANDA**, ordine GA voce GA.06, riaperta dal
+  /// Realme: "Ho spesso mal di testa e poi non so se lasciare il mio
+  /// compagno" ha due domande, e la seconda non si risolve con le carte ne'
+  /// da soli: si parla con una persona di fiducia. Se la seconda chiede dei
+  /// tempi ("entro Natale") il rimando lo dice, perche' una seconda lettura
+  /// non dara' nessuna data.
+  static List<String> _rimandoDellaSeconda(LaDomandaDellOracolo q) {
+    final s = q.seconda!;
+    final cosa = s.oggetto ?? s.persona;
+    final dellaSalute = q.limite == LimiteDellaDomanda.salute;
+    final coiTempi = RegExp(
+            r"entro|presto|quest'anno|tra (?:poco|un |due )|fra (?:poco|un |due )|"
+            r'a (?:gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|'
+            r'settembre|ottobre|novembre|dicembre)',
+            caseSensitive: false)
+        .hasMatch(s.testo);
+    final se = s.clausola != null ? 'per decidere se ${s.clausola}' : null;
+    final persona = dellaSalute ? 'parlane con una persona di fiducia e ' : '';
+    return [
+      if (se != null)
+        'Le domande sono due: $se ${persona}fai un\'altra consultazione.',
+      if (cosa != null && coiTempi)
+        'Le domande sono due: ${con('su', cosa)} e sui suoi tempi fai '
+            'un\'altra consultazione, senza aspettarti una data.',
+      if (cosa != null)
+        'Le domande sono due: ${con('su', cosa)} $persona'
+            'fai un\'altra consultazione.',
+      'Per la seconda domanda ${persona}fai un\'altra consultazione.',
+    ];
+  }
+
+  /// L'operazione, l'intervento, la terapia: cose con un esito. Il sintomo
+  /// (il mal di testa, la stanchezza) non ha un "esito".
+  static bool _eUnEvento(String o) =>
+      RegExp(r'operazion|intervent|terapi|cura|esam|visita',
+              caseSensitive: false)
+          .hasMatch(o);
 
   /// La scelta di denaro, detta con le parole della domanda.
   static String _sceltaDiDenaro(LaDomandaDellOracolo q) {
@@ -1427,6 +1649,9 @@ abstract final class LaRispostaDaiDoni {
               'rispondere, non una carta.',
           '$su affidati al tuo medico e chiedigli tutto ciò che non ti è '
               'chiaro.',
+          if (o != null && !_eUnEvento(o))
+            '$su fissa una visita dal tuo medico e annota quando compare e '
+                'quanto dura, per portargli i dati.',
         ];
       case LimiteDellaDomanda.legge:
         final su = o == null ? 'Su questo' : _maiuscola(con('su', o));
@@ -1456,8 +1681,7 @@ abstract final class LaRispostaDaiDoni {
         // L'invito a precisare una volta sola, in due lunghezze.
         return [
           'Se c\'è una situazione che ti sta a cuore, rifai la domanda '
-              'nominandola: le carte leggono meglio ciò che nomini. Per oggi, '
-              'l\'orientamento è questo.',
+              'nominandola: le carte leggono meglio ciò che nomini.',
           'Rifai la domanda su una situazione precisa della tua vita: più è '
               'chiara, più la risposta ti serve.',
           'Se vuoi una risposta più precisa, rifai la domanda nominando la '
@@ -1479,6 +1703,10 @@ abstract final class LaRispostaDaiDoni {
               'parole e, se serve, chiediglielo con calma.',
           'Su ciò che prova $chi conta ciò che fa più di ciò che immagini: '
               'osserva per qualche giorno senza tirare conclusioni.',
+          'Invece di cercare segni, osserva per qualche giorno come si '
+              'comporta $chi con te e, se vuoi, chiediglielo con calma.',
+          'Annota per qualche giorno che cosa fa $chi, non che cosa pensi che '
+              'provi: i fatti dicono più dei sospetti.',
         ];
       case FormaDellaDomanda.fiducia:
         final chi = p ?? 'questa persona';
@@ -1487,6 +1715,10 @@ abstract final class LaRispostaDaiDoni {
               'fiducia nasce dove le due cose coincidono.',
           'Guarda se le parole e i gesti ${con('di', chi)} vanno nella stessa '
               'direzione, senza indagare di nascosto.',
+          'Chiediti quali gesti ${con('di', chi)} hai visto ripetersi nel '
+              'tempo e quali no, senza cercare conferme di nascosto.',
+          'Metti accanto ciò che $chi ha detto di fare e ciò che ha fatto '
+              'davvero nelle ultime settimane.',
         ];
       case FormaDellaDomanda.ritorno:
         return [
@@ -1494,6 +1726,8 @@ abstract final class LaRispostaDaiDoni {
               'suoi silenzi: pensa a che cosa vuoi tu, adesso.',
           'Lascia che sia una sua scelta e intanto metti al centro ciò che '
               'fa bene alla tua vita.',
+          'Per ora porta la tua attenzione su ciò che puoi curare tu: la tua '
+              'giornata, i tuoi impegni, le persone che ti stanno accanto.',
         ];
       case FormaDellaDomanda.decisione:
         // Le varianti generiche solo se la domanda non dice l'azione: il
@@ -1505,6 +1739,10 @@ abstract final class LaRispostaDaiDoni {
                 'che cosa resterebbe uguale.',
             'Prima di decidere se $cl, separa i fatti dalle paure e parlane '
                 'con una persona di cui ti fidi.',
+            'Prima di decidere se $cl, chiediti che cosa succede se aspetti '
+                'qualche settimana e che cosa se agisci oggi.',
+            'Prima di decidere se $cl, scrivi quali conseguenze porta per te '
+                'e per chi ti sta vicino.',
           ];
         }
         return [
@@ -1512,6 +1750,8 @@ abstract final class LaRispostaDaiDoni {
               'di questo peso richiede.',
           'Separa i fatti dalle paure e parlane con una persona di cui ti '
               'fidi.',
+          'Scrivi che cosa cambierebbe davvero e che cosa resterebbe uguale, '
+              'poi lascia riposare le note qualche giorno.',
         ];
       case FormaDellaDomanda.scelta:
         final strade = q.alternative != null
@@ -1522,6 +1762,10 @@ abstract final class LaRispostaDaiDoni {
             'Fra $strade, immagina una giornata qualunque fra un anno in '
                 'ciascuna strada e annota che cosa senti.',
             'Prima di scegliere fra $strade, raccogli i fatti che ti mancano.',
+            'Prima di scegliere fra $strade, scrivi che cosa guadagni e che '
+                'cosa lasci con ciascuna.',
+            'Fra $strade, chiediti quale delle due ti lascia meno rimpianti, '
+                'a mente calma.',
           ];
         }
         return [
@@ -1539,13 +1783,18 @@ abstract final class LaRispostaDaiDoni {
                 'dove fermarti se la tensione sale.',
           ];
         }
-        if (p != null) {
+        if (p != null &&
+            !RegExp(r'^(?:smett|dimentic|superar|evitar|lasciar andare|'
+                    r'liberar|non pens|accett)')
+                .hasMatch(q.infinito ?? '')) {
           return [
             'Scegli un momento tranquillo e di\' ${con('a', p)} una cosa '
                 'sola, vera e senza rimprovero, poi ascolta fino in fondo.',
             'Con $p '
                 'comincia da ciò che vi unisce e lascia per ultimo ciò che '
                 'vi divide.',
+            'Con $p comincia da una cosa semplice: ascolta fino in fondo ciò '
+                'che ha da dire, senza preparare la risposta.',
           ];
         }
         if (q.infinito != null) {
@@ -1554,10 +1803,14 @@ abstract final class LaRispostaDaiDoni {
                 'la settimana.',
             'Per ${q.infinito}, comincia da un gesto piccolo e fallo entro '
                 'la settimana.',
+            'Per ${q.infinito}, comincia da un gesto piccolo e fallo entro '
+                'la settimana, senza aspettare il momento perfetto.',
           ];
         }
         return [
           'Scegli un primo gesto concreto e fallo entro la settimana.',
+          'Scegli un primo gesto concreto e fallo entro la settimana, senza '
+              'aspettare il momento perfetto.',
         ];
     }
   }
@@ -1624,14 +1877,14 @@ abstract final class LaRispostaDaiDoni {
       // La domanda non dice di che risposta o di che cambiamento si tratta:
       // si invita a nominarlo (il lettore cieco: "nessuno chiede quale").
       final che = o.contains('risposta')
-          ? 'la risposta che aspetti'
+          ? 'dicendo di che risposta si tratta'
           : o.contains('cambiamento')
-              ? 'il cambiamento che senti arrivare'
-              : 'ciò che si è fermato';
+              ? 'dicendo di che cambiamento si tratta'
+              : 'dicendo che cosa si è fermato';
       return [
-        'Se vuoi una lettura più precisa, rifai la domanda nominando $che. '
+        'Se vuoi una lettura più precisa, rifai la domanda $che. '
             'Intanto separa ciò che dipende da te da ciò che non dipende da te.',
-        'Se vuoi una lettura più precisa, rifai la domanda nominando $che.',
+        'Se vuoi una lettura più precisa, rifai la domanda $che.',
       ];
     }
     if (o.contains('incontro')) {
@@ -1670,49 +1923,70 @@ abstract final class LaRispostaDaiDoni {
         [
           '',
           'Un gesto piccolo, fatto oggi, vale più di molte previsioni.',
+          'Un solo passo scelto bene oggi apre la giornata.',
         ],
       FormaDellaDomanda.esito || FormaDellaDomanda.quando => [
           '',
           'Ciò che prepari adesso resta tuo, qualunque sia l\'esito.',
+          'Ciò che curi adesso conta più dell\'attesa.',
+          'Ciò che costruisci oggi resta tuo, comunque vada.',
           'Ciò che prepari adesso resta tuo, qualunque sia l\'esito: nessuna '
               'attesa può togliertelo.',
         ],
-      FormaDellaDomanda.sentimenti ||
-      FormaDellaDomanda.fiducia ||
-      FormaDellaDomanda.ritorno =>
-        [
+      FormaDellaDomanda.ritorno => [
           '',
           'Ciò che decide l\'altra persona resta suo; ciò che fai tu resta '
               'tuo.',
-          'Se qualcosa non torna, parlane con calma, a voce, con chi riguarda.',
+          'Le sue scelte sono sue: tu puoi curare le tue.',
+          'Intanto la tua giornata è un luogo dove puoi stare bene.',
+        ],
+      FormaDellaDomanda.sentimenti || FormaDellaDomanda.fiducia => [
+          '',
+          'Ciò che decide l\'altra persona resta suo; ciò che fai tu resta '
+              'tuo.',
+          'Le sue scelte sono sue: tu puoi curare le tue.',
+          'Se qualcosa non torna, parlane con calma, a voce, con la persona '
+              'interessata.',
         ],
       FormaDellaDomanda.decisione || FormaDellaDomanda.scelta => [
           '',
           'Dai a questa scelta i giorni che il suo peso richiede.',
+          'Una scelta così può aspettare qualche giorno.',
+          'Non c\'è fretta: lascia decantare la scelta per qualche giorno.',
+          'Lascia riposare le note e rileggile con calma, senza farti mettere '
+              'fretta.',
           'Dai a questa scelta i giorni che il suo peso richiede, senza farti '
               'mettere fretta.',
         ],
       FormaDellaDomanda.come => [
           '',
           'Il resto viene dopo, quando il primo passo è stato fatto davvero.',
+          'Un solo passo fatto davvero vale più di molti propositi.',
+          'Il passo successivo si vede solo dopo il primo.',
         ],
     };
   }
 
   // --- il titolo ------------------------------------------------------------
 
-  static String _titolo(LaDomandaDellOracolo q, String c) {
+  static String _titolo(LaDomandaDellOracolo q, String c, int n) {
     final o = q.oggetto;
     final p = q.persona;
     final candidati = <String>[];
+    // Le varianti ruotano con la domanda e con l'angelo: due consultazioni
+    // della stessa domanda con angeli diversi non hanno lo stesso titolo.
+    List<String> giro(List<String> v) => _ruota(v, q.testo, n);
     switch (q.limite) {
       // I titoli dei limiti nominano la cosa della domanda: due domande di
       // denaro diverse non hanno lo stesso titolo.
       case LimiteDellaDomanda.salute:
-        if (o != null) {
+        if (o != null && _eUnEvento(o)) {
           candidati.add('Sull\'esito ${con('di', o)} ti risponde il medico');
+        } else if (o != null) {
+          candidati.add(
+              '${_maiuscola(con('su', o))}: ti risponde il medico, non le carte');
         }
-        candidati.add('Sull\'esito ti risponde il medico, non le carte');
+        candidati.add('Sulla tua salute ti risponde il medico, non le carte');
       case LimiteDellaDomanda.legge:
         if (o != null) {
           candidati.add('${_maiuscola(con('su', o))}: ti guida l\'avvocato');
@@ -1735,51 +2009,108 @@ abstract final class LaRispostaDaiDoni {
         switch (q.forma) {
           case FormaDellaDomanda.aperta:
           case FormaDellaDomanda.generica:
-            candidati.add('Un orientamento per oggi, da $c');
+            candidati.addAll(giro([
+              'Un orientamento per oggi, da $c',
+              'Per oggi, un orientamento con $c accanto',
+            ]));
           case FormaDellaDomanda.futuro:
-            candidati.add(q.tuttoBene
-                ? 'Nessuna carta lo promette: conta il passo che fai oggi'
-                : 'Ciò che ti aspetta non è scritto: oggi conta un tuo passo');
+            candidati.addAll(giro(q.tuttoBene
+                ? [
+                    'Nessuna carta lo promette: conta il passo che fai oggi',
+                    'Il futuro non è scritto: conta il passo di oggi',
+                    'Nessuna carta promette che tutto vada bene',
+                  ]
+                : [
+                    'Ciò che ti aspetta non è scritto: oggi conta un tuo passo',
+                    'Il futuro non è scritto: oggi conta il tuo passo',
+                    'Le carte non dicono il futuro: oggi conta il tuo passo',
+                  ]));
           case FormaDellaDomanda.esito:
             if (o != null) {
-              candidati.add(
-                  '${_maiuscola(o)}: l\'esito non è scritto, conta ciò che '
-                  'fai tu');
+              final O = _maiuscola(o);
+              candidati.addAll(giro([
+                '$O: l\'esito non è scritto, conta ciò che fai tu',
+                '$O: nessuna carta lo promette, conta il tuo passo',
+                '$O: l\'esito non è scritto, conta la tua parte',
+              ]));
             }
             candidati.add('L\'esito non è scritto: conta ciò che fai tu');
           case FormaDellaDomanda.quando:
-            candidati.add('Nessuna data: conta il passo che fai adesso');
+            candidati.addAll(giro([
+              'Nessuna data: conta il passo che fai adesso',
+              'Le carte non danno date: conta il tuo passo',
+            ]));
           case FormaDellaDomanda.sentimenti:
-            if (p != null && !p.contains(' ')) {
-              candidati.add('Ciò che sente $p lo dice $p, non le carte');
-            }
-            candidati.add(
-                'Ciò che prova un\'altra persona non si legge nelle carte');
+            // Con la persona nominata ogni titolo la porta: due domande su
+            // persone diverse non hanno lo stesso titolo.
+            candidati.addAll(giro(p != null
+                ? [
+                    'Ciò che prova $p non si legge nelle carte',
+                    'Sui sentimenti ${con('di', p)} contano i gesti, non le '
+                        'carte',
+                    if (!p.contains(' '))
+                      'Ciò che sente $p lo dice $p, non le carte',
+                  ]
+                : [
+                    "Ciò che prova un'altra persona non si legge nelle carte",
+                    "Ciò che prova l'altra persona lo sa solo lei",
+                    'Sui sentimenti altrui contano i gesti, non le carte',
+                  ]));
           case FormaDellaDomanda.fiducia:
-            candidati.add('La fiducia si misura sui gesti, non sulle carte');
+            candidati.addAll(giro([
+              'La fiducia si misura sui gesti, non sulle carte',
+              'Sulla fiducia contano i gesti nel tempo',
+              'Fidarsi: i gesti dicono più delle parole',
+              if (p != null)
+                'Fidarti ${con('di', p)}: guarda i gesti nel tempo',
+            ]));
           case FormaDellaDomanda.ritorno:
-            candidati.add('Un ritorno non si legge: torna a ciò che vuoi tu');
+            candidati.addAll(giro([
+              'Un ritorno non si legge: torna a ciò che vuoi tu',
+              'Un ritorno dipende da lui o da lei: tu parti da te',
+              'Sul ritorno decide l\'altra persona: conta il tuo passo',
+            ]));
           case FormaDellaDomanda.decisione:
             if (q.clausola != null) {
-              candidati
-                  .add('${_maiuscola(q.clausola!)}: sì, alla condizione di $c');
+              final cl = _maiuscola(q.clausola!);
+              candidati.addAll(giro([
+                '$cl: il criterio di $c',
+                '$cl: decidi con il criterio di $c',
+                '$cl: il sì ha una condizione, quella di $c',
+              ]));
             }
-            candidati.add('Sì, alla condizione che ti pone $c');
+            candidati.addAll(giro([
+              'Il criterio per decidere, da $c',
+              'Per decidere, il criterio di $c',
+            ]));
           case FormaDellaDomanda.scelta:
-            if (q.alternative != null) {
-              candidati.add('Fra ${q.alternative!.$1} e '
-                  '${q.alternative!.$2}: la strada la indica $c');
+            final strade = q.alternative != null
+                ? '${q.alternative!.$1} e ${q.alternative!.$2}'
+                : q.gruppo;
+            if (strade != null) {
+              candidati.addAll(giro([
+                'Fra $strade: il criterio di $c',
+                'Fra $strade: scegli con il criterio di $c',
+                'Fra $strade: la scelta passa dal criterio di $c',
+              ]));
             }
-            if (q.gruppo != null) {
-              candidati.add('Fra ${q.gruppo}: la strada la indica $c');
-            }
-            candidati.add('La strada giusta è quella che ti indica $c');
+            candidati.addAll(giro([
+              'Il criterio per scegliere, da $c',
+              'Per scegliere, il criterio di $c',
+            ]));
           case FormaDellaDomanda.come:
-            if (q.infinito != null) {
-              candidati.add('Per ${q.infinito}: la via di $c');
+            final per = q.infinito ?? o;
+            if (per != null) {
+              candidati.addAll(giro([
+                'Per $per: la via di $c',
+                'Per $per: un passo con $c',
+                'Per $per: la strada che indica $c',
+              ]));
             }
-            if (o != null) candidati.add('Per $o: la via di $c');
-            candidati.add('La via te la indica $c');
+            candidati.addAll(giro([
+              'La via te la indica $c',
+              'Un primo passo, con $c accanto',
+            ]));
         }
     }
     final t = candidati.firstWhere((x) => x.length <= 80,

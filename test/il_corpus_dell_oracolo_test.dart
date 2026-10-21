@@ -49,7 +49,7 @@ void main() {
     'intelletto': [('messaggio', 3), ('consiglio', 3)],
     'rito': [('rito', 2)],
     'doni': [('dono', 1), ('via', 1)],
-    // Ordine GA voce GA.06, seconda cura: le letture, 23 per angelo.
+    // Ordine GA voce GA.06, seconda cura: le letture, 26 per angelo (dall'ultima lettura cieca anche il gruppo "altrui").
     'letture': [
       for (final f in const [
         'aperta',
@@ -63,16 +63,19 @@ void main() {
         'cuore_orienta',
         'cuore_attesa',
         'cuore_legami',
+        'cuore_altrui',
         'cuore_scelta',
         'cuore_limite',
         'intelletto_orienta',
         'intelletto_attesa',
         'intelletto_legami',
+        'intelletto_altrui',
         'intelletto_scelta',
         'intelletto_limite',
         'gesto_orienta',
         'gesto_attesa',
         'gesto_legami',
+        'gesto_altrui',
         'gesto_scelta',
         'gesto_limite',
       ])
@@ -103,14 +106,14 @@ void main() {
     return fuori;
   }
 
-  test('il corpus porta tutti i 3.240 testi, senza celle vuote', () {
+  test('il corpus porta tutti i 3.456 testi, senza celle vuote', () {
     final testi = corpus.values.fold<int>(0, (n, v) => n + v.length);
-    cardinaleMinimo(testi, 3240,
+    cardinaleMinimo(testi, 3456,
         cosa: 'testi del corpus dell\'Oracolo degli Angeli',
-        perche: 'il disegno ne dichiara 3.240 (LEGGIMI.md): 648 messaggi e '
+        perche: 'il disegno ne dichiara 3.456 (LEGGIMI.md): 648 messaggi e '
             '648 consigli di Medora (ordine GA), 144 riti di Caligo, 72 doni '
-            'e 72 vie e 1.656 letture (ordine GA voce GA.06)');
-    expect(testi, 3240);
+            'e 72 vie e 1.872 letture (ordine GA voce GA.06)');
+    expect(testi, 3456);
     final mancanti = <String>[];
     final vuote = <String>[];
     for (final MapEntry(key: nome, value: campi) in file.entries) {
@@ -132,7 +135,7 @@ void main() {
         'testo vuoto ${vuote.length}');
     expect(mancanti, isEmpty, reason: 'celle mancanti o incomplete: $mancanti');
     expect(vuote, isEmpty, reason: 'celle con un testo vuoto: $vuote');
-    expect(corpus.length, 72 * 32);
+    expect(corpus.length, 72 * 35);
   });
 
   test('nessun testo e\' uguale a un altro', () {
@@ -140,6 +143,14 @@ void main() {
     final doppi = <String>[];
     for (final e in corpus.entries) {
       for (final t in e.value) {
+        // Ordine GA voce GA.06, ultima lettura cieca: la frase di un angelo
+        // che vale tanto per i legami quanto per le domande sull'altra
+        // persona sta in tutti e due i campi (lo strumento lo ammette solo se
+        // e' identica, dello stesso angelo).
+        if (e.key.endsWith('_altrui') &&
+            corpus[e.key.replaceFirst('_altrui', '_legami')]?.first == t) {
+          continue;
+        }
         final prima = visti[t];
         if (prima != null) doppi.add('$prima e ${e.key}: $t');
         visti[t] = e.key;
@@ -152,7 +163,7 @@ void main() {
 
   test('il Dart generato coincide con la fonte', () {
     final f = fonte();
-    cardinaleMinimo(f.values.fold<int>(0, (n, v) => n + v.length), 3240,
+    cardinaleMinimo(f.values.fold<int>(0, (n, v) => n + v.length), 3456,
         cosa: 'testi letti nella fonte docs/corpus/oracolo_angeli/');
     final diversi = <String>[];
     for (final k in {...f.keys, ...corpus.keys}) {
@@ -196,7 +207,7 @@ void main() {
         if (m != null) trovate.add('${e.key}: "${m.group(0)}" in $t');
       }
     }
-    cardinaleMinimo(guardati, 3240, cosa: 'testi guardati per la politica');
+    cardinaleMinimo(guardati, 3456, cosa: 'testi guardati per la politica');
     // ignore: avoid_print
     print('ORDINE FU VOCI FU.05 E FU.07: testi guardati per la politica '
         '$guardati, parole vietate trovate ${trovate.length}');
@@ -278,7 +289,7 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(guardate, 1656, cosa: 'letture guardate');
+    cardinaleMinimo(guardate, 1872, cosa: 'letture guardate');
     expect(colpe, isEmpty, reason: colpe.take(10).join('\n'));
   });
 
@@ -306,6 +317,72 @@ void main() {
       }
     }
     cardinaleMinimo(guardate, 72, cosa: 'decisioni delle letture guardate');
+    expect(colpe, isEmpty, reason: colpe.take(10).join('\n'));
+  });
+
+  /// **L'ALTRA PERSONA SENZA UN CONFLITTO INVENTATO**, ordine GA voce GA.06,
+  /// ultima lettura cieca: sotto "Posso fidarmi del mio compagno?" il Cuore
+  /// diceva "l'affetto che regge anche i disaccordi" e il gesto "ciò che
+  /// vorresti ricucire in questo rapporto": un conflitto che la domanda non
+  /// contiene (D3 no su tre consultazioni di dodici). Le frasi per le
+  /// domande su che cosa prova, se torna e se ci si può fidare di un'altra
+  /// persona (campo altrui e gruppo altrui del Cuore, dell'Intelletto e del
+  /// gesto) non presuppongono ne' un disaccordo, ne' una pace da fare, ne' un
+  /// rancore, un torto, una colpa o un perdono.
+  test('le frasi sull\'altra persona non presuppongono un conflitto', () {
+    final conflitto = RegExp(
+        r'disaccord|rottura|fare pace|rancor|rinfacciar|ricucir|perdon|'
+        r'accus|litig|\btorto|colpa|errore|rimprover|delus|tradi|ferit',
+        caseSensitive: false);
+    final colpe = <String>[];
+    var guardate = 0;
+    for (final e in corpus.entries) {
+      final campo = e.key.split('|').last;
+      if (!e.key.startsWith('letture|') ||
+          !(campo == 'altrui' || campo.endsWith('_altrui'))) {
+        continue;
+      }
+      for (final t in e.value) {
+        guardate++;
+        final m = conflitto.firstMatch(t);
+        if (m != null) colpe.add('${e.key}: «${m[0]}» in: $t');
+      }
+    }
+    cardinaleMinimo(guardate, 72 * 4, cosa: 'frasi sull\'altra persona');
+    expect(colpe, isEmpty, reason: colpe.take(10).join('\n'));
+  });
+
+  /// **LE CARTE SINGOLI NON INVENTANO LA VITA**, ordine GA voce GA.06, ultima
+  /// lettura cieca (D3 e D8): "Nostalgia di volti, di serate, di promesse",
+  /// "la stessa severità che un tempo hai ricevuto", "la contabilità dei
+  /// torti: lo conosci bene", "l'errore che hai riconosciuto" dicevano come
+  /// fosse la vita di chi legge, e "Non raccontare il piano a chi potrebbe
+  /// frenarti" consigliava il segreto. Le carte parlano con un "se" o
+  /// d'altro: mai come fatti.
+  test('le carte singole non inventano la vita di chi legge', () {
+    // Maiuscole e minuscole contano: "Nostalgia di volti" a inizio frase e'
+    // un fatto detto di chi legge, "se ti capita di sentire nostalgia di
+    // volti" e' una possibilita'.
+    final inventate = RegExp(
+        r'Nostalgia di volti|Hai lasciato cadere|Risentimento è la parola|'
+        r'Rimuginare ha il sapore|Guardando chi viene dopo di te può salire '
+        r'la stessa|un tempo hai|che un tempo ti|lo conosci bene|errore che '
+        r'hai riconosciuto|quando il tuo lavoro passa|chi potrebbe '
+        r'frenarti|Non raccontare il piano|il torto che hai ricevuto');
+    final colpe = <String>[];
+    var guardate = 0;
+    for (final e in corpus.entries) {
+      final nome = e.key.split('|').first;
+      if (nome != 'custode' && nome != 'cuore' && nome != 'intelletto') {
+        continue;
+      }
+      for (final t in e.value) {
+        guardate++;
+        final m = inventate.firstMatch(t);
+        if (m != null) colpe.add('${e.key}: «${m[0]}»');
+      }
+    }
+    cardinaleMinimo(guardate, 1296, cosa: 'testi delle carte singole');
     expect(colpe, isEmpty, reason: colpe.take(10).join('\n'));
   });
 
@@ -348,7 +425,7 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(guardati, 3240, cosa: 'testi guardati per il ti oggetto');
+    cardinaleMinimo(guardati, 3456, cosa: 'testi guardati per il ti oggetto');
     // La grandezza misurata esiste: il corpus porta forme col "ti" che vale
     // "a te" (ti ha dato, ti ha insegnato), e la prova le vede.
     cardinaleMinimo(aTeVisti, 10,
