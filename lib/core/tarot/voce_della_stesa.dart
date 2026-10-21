@@ -215,7 +215,7 @@ abstract final class VoceDellaStesa {
     TemaSensibile.salute: 'Le carte non dicono come va un intervento o una '
         'cura: decide un medico.',
     TemaSensibile.legge:
-        'Le carte non dicono come finisce una causa: decide un avvocato.',
+        'Le carte non dicono come finisce una causa: ti guida un avvocato.',
     TemaSensibile.denaro: 'Le carte non dicono se una spesa o un investimento '
         'conviene: chiedi a un consulente abilitato.',
   };
@@ -223,7 +223,7 @@ abstract final class VoceDellaStesa {
   /// I titoli dei temi sensibili.
   static const Map<TemaSensibile, String> titoliSensibili = {
     TemaSensibile.salute: 'Qui decide il medico, non le carte',
-    TemaSensibile.legge: 'Qui decide un avvocato, non le carte',
+    TemaSensibile.legge: 'Qui ti guida un avvocato, non le carte',
     TemaSensibile.denaro: 'Qui serve un consulente, non le carte',
   };
 
