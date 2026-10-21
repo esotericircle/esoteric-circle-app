@@ -83,3 +83,30 @@ Le guardie leggono anche 23 domande che il campione non contiene (`fuoriCampione
 - Il legame fra il dono dell'angelo e la domanda e' a volte largo (4 su 40): senza modello non si sceglie l'angelo, si sceglie solo come dirlo. Col modello (l'Iniziato in su) la risposta la scrive Medora sulle tre carte.
 - La frase dei ruoli ha sempre la stessa struttura ("Nel Cuore ... ; nell'Intelletto ..."): e' una scelta di chiarezza, ma un lettore attento la sente ripetersi da un responso all'altro.
 - Le carte singole hanno ancora messaggi legati al nucleo dell'angelo e non alla domanda: e' il loro disegno (la carta vale sotto ogni domanda); ne sono stati riscritti 50 (i legami finti, la formula, i testi criptici, il futuro dato per certo, Menadel e Iehuiah che davano per scontato un lavoro).
+
+## Seconda cura, ultimo giro, 21 ottobre 2026: APERTA IN ATTESA DI LETTURA INDIPENDENTE
+
+Fonte riletta: lo stesso `oracolo.json`, rigenerato dopo la seconda cura (seme 606, stesse domande, nascite e carte). Rilettura di Code, che ha scritto la cura: non vale come lettura cieca. La lettura indipendente la fa il coordinatore.
+
+Che cosa e' cambiato dalla prima cura:
+
+- Il responso non incolla piu' il dono sulla domanda: porta frasi SCRITTE per ogni angelo e ogni famiglia di domanda (`docs/corpus/oracolo_angeli/letture.md`, 1656 testi, 23 campi per angelo: otto del Custode, cinque gruppi per il Cuore, l'Intelletto e il gesto), guardate dallo strumento `tool/il_corpus_dell_oracolo.py` (nome dell'angelo in testa, misure, tetto degli attacchi, cuciture, decisione col sì e col no, decisione che non gira in tondo).
+- La frase dei ruoli si apre con la situazione della domanda ("Mentre aspetti, nel Cuore, ...", "Davanti a questa scelta, ...", "In questo rapporto, ...", "Per riuscirci, ...", "Mentre ti prepari, ...", "In questa situazione, ..."): 34 responsi su 40 nel campione, 3695 su 4176 (88,5 per cento) nella guardia.
+- Gli esiti hanno passi propri per esame e concorso, colloquio, progetto, relazione a distanza, promozione, incontro; le domande vaghe invitano a rifare la domanda nominando la situazione; il rimando della seconda domanda sta sempre in testa al "Cosa fare"; casa e attività sono riconosciute come denaro; il "Da dove viene" non nomina piu' la data di nascita fra le fonti dell'Intelletto.
+- Le quattro decisioni che giravano in tondo (Caliel, Lecabel, Mikael, Mebahiah) hanno una condizione verificabile.
+
+| misura | lettore indipendente sul campione precedente | questa rilettura di Code |
+|---|---|---|
+| (1) la prima frase risponde | 35 su 40 | 40 su 40 |
+| (2) il "Cosa fare" e' un'azione concreta pertinente | 30 su 40 | 37 su 40 (deboli: 7, 9 e 22, dove il gesto dell'angelo sta largo sulla domanda) |
+| (3) coerente con gli angeli e la domanda | 14 su 40 | 32 su 40 (deboli: 2, 9, 12, 14, 15, 22, 26, 29) |
+| trabocchetti riconosciuti | 9 su 9 | 9 su 9 |
+| testi principali distinti (D2) | | 40 su 40 |
+
+Il lettore indipendente aveva letto il campione prima delle ultime cure del compositore e della cornice: i due numeri non stanno sullo stesso file. La rilettura di Code e' quella di chi ha scritto, e per questo la voce resta APERTA IN ATTESA DI LETTURA INDIPENDENTE.
+
+Che cosa resta, e perche':
+
+- Le frasi del Cuore e dell'Intelletto sono scritte per gruppo di domande, non per la singola domanda: la cornice le dice sulla situazione, ma il dono resta quello dell'angelo uscito, e a volte sta largo (Menadel e la "fierezza di crescere impegnandoti" sotto un'ex, Habuhiah e la "gioia di dare senza conti" sotto "Lui tornerà?").
+- Il sì condizionato della decisione ha sempre la stessa forma ("sì se ...; altrimenti aspetta"): e' la forma dichiarata della risposta senza modello, che non sceglie al posto della persona.
+- Il gesto dell'angelo sotto le domande d'esito di una prova a volte non riguarda la prova (la pausa prima di rispondere a un messaggio, sotto l'esame di stato).

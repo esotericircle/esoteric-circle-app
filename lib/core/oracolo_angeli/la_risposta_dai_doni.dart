@@ -65,6 +65,7 @@ class LaDomandaDellOracolo {
     this.oggetto,
     this.attacco,
     this.evento = false,
+    this.prova = false,
     this.persona,
     this.clausola,
     this.alternative,
@@ -88,6 +89,10 @@ class LaDomandaDellOracolo {
 
   /// Vero se la cosa e' un momento da preparare (un pranzo, una cena).
   final bool evento;
+
+  /// Vero se la cosa e' una prova da preparare (un esame, un colloquio, un
+  /// concorso): la lettura e' quella di chi si prepara, non di chi aspetta.
+  final bool prova;
 
   /// La persona di cui parla, detta a te: "tuo marito", "Marco", "lui".
   final String? persona;
@@ -119,9 +124,14 @@ class LaDomandaDellOracolo {
   static RegExp _re(String corpo) =>
       RegExp('(?<![\\p{L}])(?:$corpo)', caseSensitive: false, unicode: true);
 
+  // Ordine GA voce GA.06, seconda lettura cieca: comprare casa e aprire
+  // un'attivita' sono scelte di denaro anche quando la domanda non lo dice
+  // (oracolo-27 e oracolo-30 non dicevano il limite).
   static final RegExp _denaro = _re(r'investi\w*|borsa|risparmi\w*|cripto\w*|'
       r'bitcoin|mutuo|prestit\w*|debit\w*|soldi|denaro|finanz\w*|'
-      r'patrimoni\w*|azioni in');
+      r'patrimoni\w*|azioni in|'
+      r'compr\w* (?:una |la |)casa|acquist\w* (?:una |la |)casa|'
+      r'aprire (?:la mia |una |un |)(?:attività|negozio|impresa|azienda)');
   static final RegExp _legge = _re(r'avvocat\w*|tribunal\w*|giudice|'
       r'denunc\w*|querel\w*|sentenz\w*|processo|vinc\w* la causa|'
       r'perd\w* la causa|causa (?:contro|legale|civile|penale|di lavoro)|'
@@ -261,10 +271,12 @@ class LaDomandaDellOracolo {
         String Function(String o)? attacco,
         bool evento,
         bool relazione,
+        bool prova,
       })> _cose = [
-    _cosa(r"esame di stato", (m) => "l'esame di stato"),
-    _cosa(r'esame|esami(?! del sangue)', (m) => "l'esame"),
-    _cosa(r'colloquio(?: di [\p{L}]+)?', (m) => 'il $m'),
+    _cosa(r"esame di stato", (m) => "l'esame di stato", prova: true),
+    _cosa(r'esame|esami(?! del sangue)', (m) => "l'esame", prova: true),
+    _cosa(r'colloquio(?: di [\p{L}]+)?', (m) => 'il $m', prova: true),
+    _cosa(r'concorso', (m) => 'il concorso', prova: true),
     _cosa(
         r"operazione(?: (?:al|alla|allo|ai|agli|alle) [\p{L}]+|"
         r" all'[\p{L}]+)?",
@@ -318,16 +330,19 @@ class LaDomandaDellOracolo {
     String Function(String o)? attacco,
     bool evento,
     bool relazione,
+    bool prova,
   }) _cosa(String re, String Function(String m) frase,
           {String Function(String o)? attacco,
           bool evento = false,
-          bool relazione = false}) =>
+          bool relazione = false,
+          bool prova = false}) =>
       (
         re: _re(re),
         frase: frase,
         attacco: attacco,
         evento: evento,
-        relazione: relazione
+        relazione: relazione,
+        prova: prova
       );
 
   // --- dalla prima persona a te ----------------------------------------------
@@ -605,14 +620,15 @@ class LaDomandaDellOracolo {
     return pronome?[1]?.toLowerCase();
   }
 
-  static ({String frase, String? attacco, bool evento})? _oggetto(
+  static ({String frase, String? attacco, bool evento, bool prova})? _oggetto(
       String d, String? persona) {
     ({
       int pos,
       String frase,
       String? attacco,
       bool evento,
-      bool relazione
+      bool relazione,
+      bool prova
     })? migliore;
     for (final c in _cose) {
       final m = c.re.firstMatch(d);
@@ -627,6 +643,7 @@ class LaDomandaDellOracolo {
         attacco: c.attacco?.call(frase),
         evento: c.evento,
         relazione: c.relazione,
+        prova: c.prova,
       );
     }
     if (migliore == null) return null;
@@ -637,7 +654,12 @@ class LaDomandaDellOracolo {
         !frase.contains(' con ')) {
       frase = '$frase con $persona';
     }
-    return (frase: frase, attacco: migliore.attacco, evento: migliore.evento);
+    return (
+      frase: frase,
+      attacco: migliore.attacco,
+      evento: migliore.evento,
+      prova: migliore.prova
+    );
   }
 
   static String? _clausola(String d) {
@@ -689,6 +711,7 @@ class LaDomandaDellOracolo {
         oggetto: prima.oggetto,
         attacco: prima.attacco,
         evento: prima.evento,
+        prova: prima.prova,
         persona: prima.persona,
         clausola: prima.clausola,
         alternative: prima.alternative,
@@ -764,6 +787,7 @@ class LaDomandaDellOracolo {
       oggetto: oggetto,
       attacco: forma == FormaDellaDomanda.quando ? null : cosa?.attacco,
       evento: cosa?.evento ?? false,
+      prova: cosa?.prova ?? false,
       persona: persona,
       clausola: clausola,
       alternative: alternative,
@@ -774,42 +798,99 @@ class LaDomandaDellOracolo {
   }
 }
 
-/// **LA RISPOSTA DAI DONI.** Ordine GA voce GA.06, 20 ottobre 2026: il
-/// responso principale senza modello, cioe' l'assaggio del Viandante e il
-/// ripiego quando il modello non risponde.
+/// **LA FAMIGLIA DI UNA DOMANDA**, ordine GA voce GA.06, seconda cura: il
+/// gruppo di domande per cui ogni angelo ha la sua lettura scritta nel corpus
+/// (`docs/corpus/oracolo_angeli/letture.md`). La frase del Custode ha otto
+/// famiglie; le frasi del Cuore e dell'Intelletto e il gesto ne hanno cinque.
+enum FamigliaDellaDomanda {
+  aperta('aperta', 'orienta'),
+  futuro('futuro', 'orienta'),
+  esito('esito', 'attesa'),
+  altrui('altrui', 'legami'),
+  decisione('decisione', 'scelta'),
+  scelta('scelta', 'scelta'),
+  come('come', 'legami'),
+  limite('limite', 'limite');
+
+  const FamigliaDellaDomanda(this.custode, this.gruppo);
+
+  /// Il campo della frase del Custode.
+  final String custode;
+
+  /// Il gruppo delle frasi del Cuore, dell'Intelletto e del gesto.
+  final String gruppo;
+
+  static FamigliaDellaDomanda di(LaDomandaDellOracolo q) {
+    if (q.limite != null) return FamigliaDellaDomanda.limite;
+    return switch (q.forma) {
+      FormaDellaDomanda.aperta ||
+      FormaDellaDomanda.generica =>
+        FamigliaDellaDomanda.aperta,
+      FormaDellaDomanda.futuro => FamigliaDellaDomanda.futuro,
+      // Una prova da preparare legge le frasi di chi punta su cio' che
+      // dipende da se', non quelle di chi aspetta un esito deciso da altri.
+      FormaDellaDomanda.esito when q.prova => FamigliaDellaDomanda.futuro,
+      FormaDellaDomanda.esito ||
+      FormaDellaDomanda.quando =>
+        FamigliaDellaDomanda.esito,
+      FormaDellaDomanda.sentimenti ||
+      FormaDellaDomanda.fiducia ||
+      FormaDellaDomanda.ritorno =>
+        FamigliaDellaDomanda.altrui,
+      FormaDellaDomanda.decisione => FamigliaDellaDomanda.decisione,
+      FormaDellaDomanda.scelta => FamigliaDellaDomanda.scelta,
+      FormaDellaDomanda.come => FamigliaDellaDomanda.come,
+    };
+  }
+}
+
+/// **LA RISPOSTA DALLE LETTURE.** Ordine GA voce GA.06: il responso
+/// principale senza modello, cioe' l'assaggio del Viandante e il ripiego
+/// quando il modello non risponde.
 ///
-/// **LAPIDE.** Fino a questa voce il responso senza modello era la carta del
-/// Custode copiata (ordine GA voce GA.05, `LaLetturaDellOracolo.delCorpus`):
-/// il lettore cieco l'ha trovata uguale alla carta singola 40 volte su 40,
-/// con il Cuore e l'Intelletto mai nominati, la prima frase che rispondeva
-/// alla domanda 6 volte su 40 e lo stesso testo sotto domande diverse (D1,
-/// D2). Adesso il responso si compone qui:
-/// - la PRIMA FRASE risponde alla forma della domanda
-///   ([LaDomandaDellOracolo]) e nomina l'angelo del Custode col suo dono o
-///   la sua via;
-/// - la frase dei RUOLI porta il dono dell'angelo del Cuore (che cosa
-///   sentire) e la via di quello dell'Intelletto (che cosa capire);
-/// - il riquadro "Cosa fare adesso" da' un gesto pertinente alla domanda,
-///   legato al dono del Custode;
-/// - dove la domanda tocca salute, legge o denaro, la prima frase lo dice e
-///   rimanda a chi e' competente.
-/// Il dono e la via di ogni angelo vengono dal corpus (`doni.md`, generato
-/// da `tool/il_corpus_dell_oracolo.py`), scritti dal nucleo dello schedario.
-/// Ogni paragrafo si sceglie fra alternative di frasi intere finche' sta fra
-/// 40 e 50 parole: nessun testo si tronca (GA.07).
+/// **LAPIDE, prima cura (20 ottobre 2026).** Il responso era la carta del
+/// Custode copiata (ordine GA voce GA.05): il lettore cieco l'ha trovata
+/// uguale alla carta singola 40 volte su 40. La prima cura lo componeva da
+/// frammenti: il dono e la via dell'angelo (`doni.md`) incollati dentro frasi
+/// fisse. Il secondo lettore cieco (21 ottobre 2026) ha sentito le cuciture:
+/// la prima frase rispondeva 30 volte su 40 ma la coerenza era 14 su 40 ("per
+/// l'esame di stato conta ritirarti un momento prima di rispondere", "È il
+/// gesto che X lega a" in 28 responsi, Cuore e Intelletto come etichette).
+///
+/// **ADESSO, seconda cura.** Le frasi degli angeli sono SCRITTE: per ogni
+/// angelo e per ogni famiglia di domanda ([FamigliaDellaDomanda]) il corpus
+/// porta la frase del Custode, quella del Cuore, quella dell'Intelletto e il
+/// gesto, scritti apposta per applicare quel dono a quel genere di domanda
+/// (`letture.md`, sotto lo strumento `tool/il_corpus_dell_oracolo.py`). Qui
+/// si scrive soltanto cio' che dipende dalla domanda: l'apertura che risponde
+/// alla sua forma e nomina la cosa o la persona, il passo concreto del "Cosa
+/// fare", i limiti su salute, legge e denaro. Ogni paragrafo si sceglie fra
+/// alternative di frasi intere finche' sta fra 40 e 50 parole: nessun testo
+/// si tronca (GA.07).
 abstract final class LaRispostaDaiDoni {
-  /// Il dono di un angelo dal corpus. Senza la cella, il dominio del coro.
+  /// Il dono di un angelo dal corpus (`doni.md`). Senza la cella, il dominio
+  /// del coro.
   static String dono(Map<String, List<String>> corpus, Angel a) {
-    final v = corpus['doni|${a.number.toString().padLeft(2, '0')}|dono'];
+    final v = corpus['doni|${_nn(a)}|dono'];
     return (v == null || v.isEmpty) ? a.choir.domain : v.first;
   }
 
   /// La via di un angelo dal corpus. Senza la cella, una via neutra.
   static String via(Map<String, List<String>> corpus, Angel a) {
-    final v = corpus['doni|${a.number.toString().padLeft(2, '0')}|via'];
+    final v = corpus['doni|${_nn(a)}|via'];
     return (v == null || v.isEmpty)
         ? 'restare fedele a ciò che conta per te'
         : v.first;
+  }
+
+  static String _nn(Angel a) => a.number.toString().padLeft(2, '0');
+
+  /// **UNA LETTURA DEL CORPUS**: il campo [campo] dell'angelo [a]. Nulla se
+  /// la cella manca (un corpus di prova senza le letture).
+  static String? lettura(
+      Map<String, List<String>> corpus, Angel a, String campo) {
+    final v = corpus['letture|${_nn(a)}|$campo'];
+    return (v == null || v.isEmpty || v.first.trim().isEmpty) ? null : v.first;
   }
 
   // --- le preposizioni con l'articolo ------------------------------------------
@@ -868,6 +949,14 @@ abstract final class LaRispostaDaiDoni {
   /// intere, anche vuote), la prima combinazione che sta fra 40 e 50 parole.
   /// Se nessuna ci sta, la piu' vicina: la prova
   /// `l_oracolo_risponde_dai_doni_test.dart` cade se succede.
+  static String? _seEntra(List<List<String>> posti) {
+    final t = aMisura(posti);
+    final n = LaFormaDelResponso.parole(t);
+    return n >= LaFormaDelResponso.minimo && n <= LaFormaDelResponso.massimo
+        ? t
+        : null;
+  }
+
   static String aMisura(List<List<String>> posti) {
     String? migliore;
     var distanza = 1 << 30;
@@ -900,6 +989,32 @@ abstract final class LaRispostaDaiDoni {
     return trovata ?? migliore!;
   }
 
+  /// Una scelta stabile fra varianti: la stessa domanda con lo stesso angelo
+  /// da' sempre la stessa, domande o angeli diversi ne pescano di diverse.
+  /// Come [_ruota], ma la frase vuota resta in testa: la misura prova prima
+  /// senza frase in piu', poi le frasi in un ordine che cambia con la
+  /// domanda e l'angelo, cosi' la stessa chiusa non torna in ogni responso
+  /// della famiglia (il secondo lettore cieco ne ha contate 18 su 40).
+  static List<String> _ruotaDopoIlVuoto(
+      List<String> varianti, String domanda, int n) {
+    final vuota = varianti.contains('');
+    final piene = [
+      for (final v in varianti)
+        if (v.isNotEmpty) v
+    ];
+    return [if (vuota) '', ..._ruota(piene, domanda, n)];
+  }
+
+  static List<String> _ruota(List<String> varianti, String domanda, int n) {
+    if (varianti.length < 2) return varianti;
+    var h = n;
+    for (final c in domanda.codeUnits) {
+      h = (h * 31 + c) & 0x3fffffff;
+    }
+    final k = h % varianti.length;
+    return [...varianti.sublist(k), ...varianti.sublist(0, k)];
+  }
+
   /// **IL RESPONSO**, nella forma breve di GA.03. [soloIlCustode] e' vero
   /// nell'assaggio del Viandante: il Cuore e l'Intelletto restano col
   /// lucchetto, e il responso non li nomina.
@@ -910,78 +1025,187 @@ abstract final class LaRispostaDaiDoni {
     bool soloIlCustode = false,
   }) {
     final q = LaDomandaDellOracolo.leggi(domanda);
+    final f = FamigliaDellaDomanda.di(q);
     final custode = carte.firstWhere((c) => c.ruolo == RuoloDellAngelo.custode,
         orElse: () => carte.first);
     final cuore = carte.where((c) => c.ruolo == RuoloDellAngelo.cuore);
     final intelletto =
         carte.where((c) => c.ruolo == RuoloDellAngelo.intelletto);
-    final c = custode.angelo.name;
-    final dC = dono(corpus, custode.angelo);
-    final vC = via(corpus, custode.angelo);
+    final a = custode.angelo;
+    final c = a.name;
+    final fraseDelCustode =
+        lettura(corpus, a, f.custode) ?? '$c ti chiede di ${via(corpus, a)}.';
 
-    final prima = _primaFrase(q, c, dC, vC);
-    final secondaFrase = _secondaFrase(q);
+    // La risposta: l'apertura che risponde alla forma, la frase scritta del
+    // Custode, la frase in piu' (il no, il limite, la seconda domanda), poi
+    // il Cuore e l'Intelletto con le loro frasi scritte per la famiglia.
+    final aperture = _aperture(q);
     final List<String> ruoli;
+    var incorniciati = const <String>[];
     if (soloIlCustode || cuore.isEmpty) {
-      ruoli = prima.usaIlDono
-          ? [
-              'La sua via è $vC: è da lì che conviene partire oggi.',
-              'La sua via è $vC.',
-              '',
-            ]
-          : [
-              'Il dono di $c è $dC: tienilo presente in ciò che fai oggi.',
-              'Il dono di $c è $dC.',
-              '',
-            ];
+      ruoli = _ruoliDelSoloCustode(corpus, a, f);
     } else {
       final h = cuore.first.angelo;
-      final dH = dono(corpus, h);
+      final fraseDelCuore = lettura(corpus, h, 'cuore_${f.gruppo}') ??
+          '${h.name} ti porta ${dono(corpus, h)}.';
       final i = intelletto.isEmpty ? null : intelletto.first;
+      // La frase dei ruoli si apre con la situazione della domanda, cosi' il
+      // dono del Cuore e' detto su quella ("Mentre aspetti, nel Cuore, ...").
+      // Senza cornice resta come alternativa, per la misura.
+      final cornice = _cornice(q, fraseDelCustode, fraseDelCuore);
+      final attacchi = [
+        if (cornice != null) '$cornice, nel Cuore,',
+        'Nel Cuore,',
+      ];
       if (i == null || i.coperta) {
         ruoli = [
-          'Nel Cuore ${h.name} ti fa sentire $dH; la carta dell\'Intelletto '
-              'resta coperta finché non aggiungi la tua ora di nascita.',
-          'Nel Cuore ${h.name} ti porta $dH; l\'Intelletto resta coperto '
-              'senza la tua ora di nascita.',
-          'Nel Cuore ${h.name} porta $dH.',
+          for (final at in attacchi) ...[
+            '$at $fraseDelCuore La carta dell\'Intelletto resta coperta '
+                'finché non aggiungi la tua ora di nascita.',
+            '$at $fraseDelCuore L\'Intelletto resta coperto senza la tua '
+                'ora di nascita.',
+          ],
         ];
       } else {
-        final dI = dono(corpus, i.angelo);
-        final vI = via(corpus, i.angelo);
+        final fraseDellIntelletto =
+            lettura(corpus, i.angelo, 'intelletto_${f.gruppo}') ??
+                '${i.angelo.name} ti porta ${dono(corpus, i.angelo)}.';
         ruoli = [
-          'Nel Cuore ${h.name} ti porta $dH; nell\'Intelletto '
-              '${i.angelo.name} ti fa capire che la chiave è $vI.',
-          'Nel Cuore ${h.name} ti porta $dH; nell\'Intelletto '
-              '${i.angelo.name} ti porta $dI.',
-          'Nel Cuore ${h.name} porta $dH, nell\'Intelletto ${i.angelo.name} '
-              '$dI.',
+          for (final at in attacchi)
+            '$at $fraseDelCuore Nell\'Intelletto, $fraseDellIntelletto',
+        ];
+      }
+      if (cornice != null) {
+        incorniciati = [
+          for (final r in ruoli)
+            if (r.startsWith('$cornice,')) r,
         ];
       }
     }
-    final risposta = aMisura([
-      prima.frasi,
-      secondaFrase,
-      ruoli,
-      _riempitivi,
-    ]);
+    final custodi = [for (final ap in aperture) _unisci(ap, fraseDelCustode)];
+    final inPiu = _ruotaDopoIlVuoto(_fraseInPiu(q), q.testo, a.number);
+    // La cornice dei ruoli vale piu' dell'apertura piena: prima si cerca la
+    // misura con la cornice e le aperture che nominano la domanda, poi tutte
+    // le combinazioni. L'apertura generica ("Alla tua domanda,") resta fuori
+    // dalla prima ricerca: con lei due domande diverse sulle stesse carte
+    // avevano la stessa risposta (D2, provato in questo lavoro).
+    final risposta = (incorniciati.isEmpty
+            ? null
+            : _seEntra([
+                custodi.length > 2
+                    ? custodi.sublist(0, custodi.length - 1)
+                    : custodi,
+                inPiu,
+                incorniciati,
+              ])) ??
+        aMisura([custodi, inPiu, ruoli]);
+
+    // Il "Cosa fare": il passo concreto sulla cosa della domanda, poi il
+    // gesto scritto per l'angelo del Custode in quel gruppo di domande.
+    final gesto = lettura(corpus, a, 'gesto_${f.gruppo}') ??
+        'Scegli oggi un gesto piccolo che ti avvicini a ${dono(corpus, a)}.';
+    // La seconda di due domande si rimanda una volta sola: nella risposta se
+    // la misura lo consente, altrimenti in testa al "Cosa fare".
+    final rimandoNelGesto = q.doppia;
     final cosaFare = aMisura([
-      _gesto(q),
-      _legame(q, c, dC, vC),
-      _riempitiviDelGesto,
+      if (rimandoNelGesto)
+        [
+          if ((q.seconda!.oggetto ?? q.seconda!.persona) case final cosa?)
+            'Le domande sono due: ${con('su', cosa)} fai un\'altra '
+                'consultazione.',
+          'Per la seconda domanda fai un\'altra consultazione.',
+        ],
+      _ruota(_passi(q), q.testo, a.number),
+      [gesto],
+      _ruotaDopoIlVuoto(_passiInPiu(q), q.testo, a.number + 7),
     ]);
     return ResponsoInterpretato(
       arte: ArteInterpretata.oracolo,
-      titolo: _titolo(q, c, dC, vC),
+      titolo: _titolo(q, c),
       risposta: risposta,
       cosaFare: cosaFare,
     );
   }
 
-  // --- la prima frase ---------------------------------------------------------
+  /// **LA CORNICE DEI RUOLI**, ordine GA voce GA.06, terza lettura cieca: le
+  /// frasi del Cuore e dell'Intelletto erano "glosse fisse dell'angelo,
+  /// incollate". La situazione della domanda le apre: l'attesa di un esito,
+  /// la preparazione a una prova, il rapporto con l'altra persona, la scelta,
+  /// la via, il periodo, la situazione che tocca a chi e' competente. Se la
+  /// frase del Cuore nomina gia' la stessa situazione, o la frase del Custode
+  /// dice gia' le stesse parole ("imparando mentre aspetti"), la cornice non
+  /// si ripete. L'esito di un rapporto ("La mia relazione può durare?") si
+  /// legge nel rapporto, non nell'attesa.
+  static String? _cornice(
+      LaDomandaDellOracolo q, String fraseDelCustode, String fraseDelCuore) {
+    final rapporto = RegExp(
+        r'relazione|rapporto|matrimonio|amicizia|legame|fidanzament',
+        caseSensitive: false);
+    final (String cornice, String gia) = switch (q) {
+      _ when q.limite != null => ('In questa situazione', r'situazione'),
+      _ when q.prova => ('Mentre ti prepari', r'prepar'),
+      _
+          when q.forma == FormaDellaDomanda.esito &&
+              rapporto.hasMatch(q.oggetto ?? '') =>
+        ('In questo rapporto', r'rapporto|legame|relazione'),
+      _ => switch (q.forma) {
+          FormaDellaDomanda.esito || FormaDellaDomanda.quando => (
+              'Mentre aspetti',
+              r'aspett|attes|mentre'
+            ),
+          FormaDellaDomanda.ritorno => ('Intanto', r'intanto|mentre'),
+          FormaDellaDomanda.sentimenti || FormaDellaDomanda.fiducia => (
+              'In questo rapporto',
+              r'rapporto'
+            ),
+          FormaDellaDomanda.decisione || FormaDellaDomanda.scelta => (
+              'Davanti a questa scelta',
+              r'scelt|davanti'
+            ),
+          FormaDellaDomanda.come => ('Per riuscirci', r'riuscir'),
+          _ => ('Per questo periodo', r'periodo'),
+        },
+    };
+    if (RegExp(gia, caseSensitive: false).hasMatch(fraseDelCuore) ||
+        fraseDelCustode.toLowerCase().contains(cornice.toLowerCase())) {
+      return null;
+    }
+    return cornice;
+  }
 
-  static ({List<String> frasi, bool usaIlDono}) _primaFrase(
-      LaDomandaDellOracolo q, String c, String dC, String vC) {
+  /// L'apertura e la frase del Custode: dopo i due punti o la virgola la
+  /// frase comincia col nome dell'angelo e resta com'e'; dopo un punto e'
+  /// una frase nuova.
+  static String _unisci(String apertura, String frase) => '$apertura $frase';
+
+  /// Nell'assaggio il Custode e' solo: le sue frasi del Cuore e
+  /// dell'Intelletto per la famiglia dicono che cosa il suo stesso dono fa
+  /// sentire e capire, senza nominare le carte col lucchetto.
+  static List<String> _ruoliDelSoloCustode(
+      Map<String, List<String>> corpus, Angel a, FamigliaDellaDomanda f) {
+    String? senzaNome(String? frase, String soggetto) {
+      if (frase == null) return null;
+      final nome = '${a.name} ';
+      if (!frase.startsWith(nome)) return frase;
+      return '$soggetto ${frase.substring(nome.length)}';
+    }
+
+    final h =
+        senzaNome(lettura(corpus, a, 'cuore_${f.gruppo}'), 'Lo stesso angelo');
+    final i = lettura(corpus, a, 'intelletto_${f.gruppo}');
+    return [
+      if (h != null && i != null) '$h $i',
+      if (h != null) h,
+      '',
+    ];
+  }
+
+  // --- l'apertura -----------------------------------------------------------
+
+  /// Le aperture di una domanda, dalla piu' piena alla piu' breve. Finiscono
+  /// coi due punti, con la virgola o col punto: dopo viene la frase scritta
+  /// del Custode, che comincia col nome dell'angelo.
+  static List<String> _aperture(LaDomandaDellOracolo q) {
     final o = q.oggetto;
     final p = q.persona ?? 'l\'altra persona';
     final p2 = q.persona ?? 'lei';
@@ -990,543 +1214,569 @@ abstract final class LaRispostaDaiDoni {
         final su = o == null
             ? 'Su questa questione medica'
             : 'Sull\'esito ${con('di', o)}';
-        return (
-          frasi: [
-            '$su $c non risponde e nessuna carta può farlo: è una domanda '
-                'per il tuo medico.',
-            '$su $c non risponde: chiedilo al tuo medico.',
-          ],
-          usaIlDono: false,
-        );
+        return [
+          '$su nessun angelo risponde e nessuna carta può farlo: è una '
+              'domanda per il tuo medico.',
+          '$su risponde il tuo medico, non le carte.',
+          if (o != null)
+            '${_maiuscola(con('su', o))} risponde il tuo medico, non le carte.',
+          'Su questo risponde il tuo medico, non le carte.',
+        ];
       case LimiteDellaDomanda.legge:
         final su = o == null
             ? 'Su questa questione legale'
             : 'Sull\'esito ${con('di', o)}';
-        return (
-          frasi: [
-            '$su $c non risponde e nessuna carta può farlo: è una questione '
-                'per il tuo avvocato.',
-            '$su $c non risponde: chiedilo al tuo avvocato.',
-          ],
-          usaIlDono: false,
-        );
+        return [
+          '$su nessun angelo risponde e nessuna carta può farlo: è una '
+              'questione per il tuo avvocato.',
+          '$su ti guida il tuo avvocato, non le carte.',
+          if (o != null)
+            '${_maiuscola(con('su', o))} ti guida il tuo avvocato, non le '
+                'carte.',
+          'Su questo ti guida il tuo avvocato, non le carte.',
+        ];
       case LimiteDellaDomanda.denaro:
-        final cosa = o ?? 'il tuo denaro';
-        return (
-          frasi: [
-            'Su come usare $cosa $c non dà consigli e nessuna carta può '
-                'darli: è una scelta da fare con un consulente finanziario di '
-                'fiducia.',
-            'Sul denaro $c non dà consigli: decidi con un consulente '
-                'finanziario di fiducia.',
-          ],
-          usaIlDono: false,
-        );
+        final su = _sceltaDiDenaro(q);
+        return [
+          '$su nessuna carta può darti un consiglio: è una scelta da fare con '
+              'un consulente finanziario o un commercialista di fiducia.',
+          '$su decidi con un consulente di fiducia, non con le carte.',
+          if (q.clausola != null)
+            '${_maiuscola(q.clausola!)}: decidilo con un consulente, non con '
+                'le carte.',
+          if (q.alternative != null)
+            '${_maiuscola(q.alternative!.$1)} o ${q.alternative!.$2}: '
+                'decidilo con un consulente.',
+          if (q.clausola != null)
+            '${_maiuscola(q.clausola!)}: decidilo con un consulente.',
+          if (q.oggetto != null)
+            '${_maiuscola(q.oggetto!)}: decidi con un consulente.',
+          'Su questo decidi con un consulente di fiducia, non con le carte.',
+        ];
       case null:
         break;
     }
     switch (q.forma) {
       case FormaDellaDomanda.aperta:
-        return (
-          frasi: [
-            'Alla tua domanda aperta $c risponde con il suo dono, $dC: oggi '
-                'conviene partire da lì.',
-            'Alla tua domanda aperta $c risponde con $dC.',
-          ],
-          usaIlDono: true,
-        );
+        return [
+          'Una domanda aperta riceve un orientamento per oggi, non la '
+              'risposta a un caso preciso:',
+          'Senza una domanda precisa le carte danno un orientamento:',
+        ];
+      case FormaDellaDomanda.generica:
+        return [
+          'Alla tua domanda le carte rispondono con un orientamento per il '
+              'tempo che vivi:',
+          'Alla tua domanda le carte danno un orientamento:',
+        ];
       case FormaDellaDomanda.futuro:
-        final testa = q.tuttoBene
-            ? 'Nessuna carta può prometterti che tutto vada bene'
-            : 'Ciò che ti aspetta non è scritto nelle carte';
-        return (
-          frasi: [
-            '$testa, perché il futuro non si legge come una cosa già decisa: '
-                '$c ti risponde con ciò che dipende da te oggi, cioè $vC.',
-            '$testa: $c ti indica ciò che dipende da te, cioè $vC.',
-          ],
-          usaIlDono: false,
-        );
+        return q.tuttoBene
+            ? [
+                'Nessuna carta può prometterti che tutto vada bene, perché il '
+                    'futuro non è scritto:',
+                'Nessuna carta può prometterti che tutto vada bene:',
+              ]
+            : [
+                'Ciò che ti aspetta non è scritto nelle carte, perché il '
+                    'futuro non è già deciso:',
+                'Ciò che ti aspetta non è scritto nelle carte:',
+              ];
       case FormaDellaDomanda.esito:
         final testa = q.attacco ??
             (o == null ? 'L\'esito che speri' : 'L\'esito ${con('di', o)}');
-        return (
-          frasi: [
-            '$testa non è scritto nelle carte e nessun angelo lo decide al '
-                'posto tuo: $c ti risponde che adesso conta $vC.',
-            '$testa non è scritto nelle carte: $c ti risponde che adesso '
-                'conta $vC.',
-            '$testa non è scritto: per $c conta $vC.',
-          ],
-          usaIlDono: false,
-        );
+        return [
+          '$testa non è scritto nelle carte e nessuno può promettertelo:',
+          '$testa non è scritto nelle carte:',
+          'L\'esito non è scritto nelle carte:',
+        ];
+      case FormaDellaDomanda.quando:
+        return [
+          if (o != null) 'Nessuna carta dà una data per $o:',
+          'Le carte non danno date:',
+        ];
       case FormaDellaDomanda.sentimenti:
-        return (
-          frasi: [
-            'Ciò che $p sente per te può dirtelo solo $p2, non le carte: $c '
-                'ti riporta a ciò che è tuo, $dC.',
-            'Ciò che $p sente per te può dirtelo solo $p2: $c ti riporta a '
-                '$dC.',
-          ],
-          usaIlDono: true,
-        );
+        return [
+          'Ciò che $p sente per te può dirtelo solo $p2, non le carte:',
+          'Ciò che $p sente per te lo sa solo $p2:',
+          'Ciò che prova un\'altra persona non si legge nelle carte:',
+        ];
       case FormaDellaDomanda.fiducia:
         final di = q.persona == null ? 'di questa persona' : con('di', p);
-        return (
-          frasi: [
-            'Se puoi fidarti $di lo dicono i suoi gesti nel tempo, non le '
-                'carte: $c ti risponde che per te conta $vC.',
-            'Se puoi fidarti $di lo dicono i suoi gesti, non le carte: per $c '
-                'conta $vC.',
-          ],
-          usaIlDono: false,
-        );
+        return [
+          'Se puoi fidarti $di lo dicono i suoi gesti nel tempo, non le '
+              'carte:',
+          'Se puoi fidarti $di lo dicono i suoi gesti, non le carte:',
+          'La fiducia si misura sui gesti, non sulle carte:',
+        ];
       case FormaDellaDomanda.ritorno:
-        return (
-          frasi: [
-            'Un suo ritorno non si legge nelle carte e dipende da una scelta '
-                'sua, non tua: $c ti riporta a ciò che è tuo, $dC.',
-            'Un suo ritorno non si legge nelle carte: $c ti riporta a ciò che '
-                'è tuo, $dC.',
-          ],
-          usaIlDono: true,
-        );
-      case FormaDellaDomanda.quando:
-        final per = o == null ? '' : ' per $o';
-        return (
-          frasi: [
-            'Nessuna carta dà una data$per: $c ti risponde che conta ciò che '
-                'fai adesso, cioè $vC.',
-            'Nessuna carta dà una data$per: $c ti risponde che conta $vC.',
-            'Le carte non danno date: $c ti risponde che conta $vC.',
-          ],
-          usaIlDono: false,
-        );
-      case FormaDellaDomanda.scelta:
-        final fra = q.alternative != null
-            ? 'Fra ${q.alternative!.$1} e ${q.alternative!.$2}'
-            : q.gruppo != null
-                ? 'Fra ${q.gruppo}'
-                : 'Fra le due strade';
-        final quale = q.gruppo != null && q.alternative == null
-            ? (q.gruppo!.startsWith('le ') ? 'quella' : 'quello')
-            : 'la strada';
-        return (
-          frasi: [
-            '$fra scegli $quale che ti permette meglio di $vC: è il criterio '
-                'che ti dà $c.',
-            'Fra le due strade scegli quella che ti permette di $vC: è il '
-                'criterio di $c.',
-          ],
-          usaIlDono: false,
-        );
+        return [
+          'Un suo ritorno non si legge nelle carte e dipende da una scelta '
+              'sua:',
+          'Un suo ritorno non si legge nelle carte:',
+        ];
       case FormaDellaDomanda.decisione:
-        // La risposta e' un sì con la condizione che l'angelo del Custode
-        // pone, e il no detto subito dopo: chi legge sa che cosa fare e
-        // quando non farlo.
-        final cl = q.clausola ?? 'la tua scelta';
-        return (
-          frasi: [
-            'Sì, $cl va bene a una condizione che $c ti pone: $vC. Se la '
-                'scelta ti costringe a fare il contrario, per adesso la '
-                'risposta è no.',
-            'Sì, $cl va bene a una condizione che $c ti pone: $vC. '
-                'Altrimenti, per adesso, no.',
-            'Sì, a una condizione che $c ti pone: $vC. Altrimenti, per '
-                'adesso, no.',
-          ],
-          usaIlDono: false,
-        );
+        return [
+          if (q.clausola != null) 'Alla domanda se ${q.clausola},',
+          // La domanda ripetuta come la direbbe la persona, piu' breve:
+          // "Lasciare il lavoro per tornare a studiare: Lecabel dice sì se".
+          if (q.clausola != null) '${_maiuscola(q.clausola!)}:',
+          'Alla tua domanda,',
+        ];
+      case FormaDellaDomanda.scelta:
+        return [
+          if (q.alternative != null)
+            'Fra ${q.alternative!.$1} e ${q.alternative!.$2},',
+          if (q.gruppo != null) 'Fra ${q.gruppo},',
+          'Fra le due strade,',
+        ];
       case FormaDellaDomanda.come:
-        final per = q.infinito != null
-            ? 'Per ${q.infinito}, la via'
-            : o != null
-                ? 'Per $o, la via'
-                : 'La via';
-        return (
-          frasi: [
-            '$per che $c ti indica è $vC.',
-            'La via che $c ti indica è $vC.',
-          ],
-          usaIlDono: false,
-        );
-      case FormaDellaDomanda.generica:
-        return (
-          frasi: [
-            'Alla tua domanda $c risponde così: adesso, per te, conta $vC.',
-            'Alla tua domanda $c risponde: adesso conta $vC.',
-          ],
-          usaIlDono: false,
-        );
+        return [
+          if (q.infinito != null) 'Per ${q.infinito},',
+          if (q.infinito == null && o != null) 'Per $o,',
+          'Per la via da prendere,',
+        ];
     }
   }
 
-  /// La seconda frase della risposta: il no della forma, il limite detto per
-  /// intero, la seconda domanda rimandata.
-  static List<String> _secondaFrase(LaDomandaDellOracolo q) {
-    if (q.doppia) {
-      final s = q.seconda!;
-      final cosa = s.oggetto ?? s.persona;
+  /// La scelta di denaro, detta con le parole della domanda.
+  static String _sceltaDiDenaro(LaDomandaDellOracolo q) {
+    if (q.alternative != null) {
+      return 'Sulla scelta fra ${q.alternative!.$1} e ${q.alternative!.$2}';
+    }
+    if (q.clausola != null) return 'Sulla scelta di ${q.clausola}';
+    if (q.oggetto != null) return 'Su come usare ${q.oggetto}';
+    return 'Su questa scelta di denaro';
+  }
+
+  /// La frase in piu' della risposta, quando serve alla misura o al senso:
+  /// la seconda domanda rimandata (sempre), il limite detto per intero, il
+  /// confine della lettura detto per la forma della domanda. Piu' lunghezze,
+  /// perche' la misura le scelga senza tagliare.
+  static List<String> _fraseInPiu(LaDomandaDellOracolo q) {
+    // Il rimando della seconda di due domande non sta qui: sta in testa al
+    // "Cosa fare", sempre nello stesso posto (il secondo lettore cieco l'ha
+    // trovato una volta qui e una volta nel riquadro).
+    if (q.limite != null) {
       return [
-        cosa == null
-            ? 'Le domande però sono due: per la seconda fai un\'altra '
-                'consultazione, perché le carte ne leggono una alla volta.'
-            : 'Le domande però sono due: ${LaRispostaDaiDoni.con('su', cosa)} '
-                'fai un\'altra consultazione, perché le carte ne leggono una '
-                'alla volta.',
-        'Per la seconda domanda fai un\'altra consultazione.',
+        '',
+        'Le carte non promettono un esito.',
+        'Le carte non sostituiscono chi è competente e non promettono un '
+            'esito.',
       ];
     }
-    switch (q.limite) {
-      case LimiteDellaDomanda.salute:
-        return [
-          'Le carte non sostituiscono chi ti cura e non promettono un esito.',
-          '',
-        ];
-      case LimiteDellaDomanda.legge:
-        return [
-          'Le carte non sostituiscono chi ti assiste e non promettono un '
-              'esito.',
-          '',
-        ];
-      case LimiteDellaDomanda.denaro:
-        return [
-          'Le carte non sostituiscono chi conosce i mercati e non promettono '
-              'rendimenti.',
-          '',
-        ];
-      case null:
-        break;
-    }
     return switch (q.forma) {
-      FormaDellaDomanda.aperta || FormaDellaDomanda.futuro => [
+      FormaDellaDomanda.aperta ||
+      FormaDellaDomanda.generica ||
+      FormaDellaDomanda.futuro =>
+        [
           '',
           'Una domanda precisa riceve una risposta più precisa.',
+          'Una domanda precisa riceve una risposta più precisa: le carte '
+              'leggono ciò che nomini.',
         ],
-      FormaDellaDomanda.esito => [
+      FormaDellaDomanda.esito || FormaDellaDomanda.quando => [
           '',
+          'Ciò che prepari tu conta.',
           'Ciò che prepari tu pesa più di qualunque presagio.',
+          'Ciò che prepari tu pesa più di qualunque presagio: resta tuo '
+              'qualunque sia l\'esito.',
         ],
-      FormaDellaDomanda.sentimenti || FormaDellaDomanda.fiducia => [
+      FormaDellaDomanda.sentimenti ||
+      FormaDellaDomanda.fiducia ||
+      FormaDellaDomanda.ritorno =>
+        [
           '',
+          'La sua volontà è sua.',
           'Le carte non leggono il cuore degli altri.',
+          'Le carte non leggono il cuore degli altri: leggono ciò che puoi '
+              'fare tu.',
         ],
-      FormaDellaDomanda.ritorno => [
+      FormaDellaDomanda.decisione || FormaDellaDomanda.scelta => [
           '',
-          'Le carte non leggono la volontà degli altri.',
+          'La scelta resta tua.',
+          'Una scelta di questo peso merita il suo tempo.',
+          'Una scelta di questo peso merita il suo tempo: resta tua.',
         ],
-      _ => const [''],
+      FormaDellaDomanda.come => [
+          '',
+          'Il primo passo tocca a te.',
+          'Il primo passo tocca a te: può essere piccolo.',
+        ],
     };
   }
 
-  static const List<String> _riempitivi = [
-    '',
-    'Il passo resta tuo.',
-    'Il resto viene un passo alla volta.',
-    'Le carte indicano una direzione, non un destino.',
-    'Le carte indicano una direzione, non un destino già scritto.',
-    'Le carte indicano una direzione, non un destino già scritto: il passo '
-        'resta tuo.',
-  ];
-
   // --- il riquadro "Cosa fare adesso" -----------------------------------------
 
-  static List<String> _gesto(LaDomandaDellOracolo q) {
+  /// Il passo concreto sulla cosa della domanda, in varianti: la stessa
+  /// formula non torna in ogni responso della stessa famiglia.
+  static List<String> _passi(LaDomandaDellOracolo q) {
     final o = q.oggetto;
     final p = q.persona;
     switch (q.limite) {
       case LimiteDellaDomanda.salute:
+        final su = o == null ? 'Su questo' : _maiuscola(con('su', o));
         return [
-          'Scrivi le domande che vuoi fare al tuo medico e portale alla '
-              'prossima visita: su questo è lui o lei a poterti rispondere.',
-          'Scrivi le domande per il tuo medico e portale alla prossima '
-              'visita.',
+          '$su porta ogni dubbio al tuo medico: è lui o lei a poterti '
+              'rispondere, non una carta.',
+          '$su affidati al tuo medico e chiedigli tutto ciò che non ti è '
+              'chiaro.',
         ];
       case LimiteDellaDomanda.legge:
-        final che =
-            o != null && o.startsWith('la causa') ? 'la causa' : 'la questione';
+        final su = o == null ? 'Su questo' : _maiuscola(con('su', o));
         return [
-          'Metti in ordine documenti e date, poi porta le tue domande al tuo '
-              'avvocato: è la persona giusta per valutare $che. Non decidere '
-              'nulla per impulso.',
-          'Porta documenti, date e domande al tuo avvocato e non decidere '
-              'nulla per impulso.',
+          '$su non decidere nulla per impulso: ogni mossa passa prima dal tuo '
+              'avvocato.',
+          '$su lascia che sia il tuo avvocato a valutare le mosse, prima di '
+              'agire.',
         ];
       case LimiteDellaDomanda.denaro:
-        final cosa = o ?? 'il tuo denaro';
+        // Il passo nomina la scelta della domanda e il consulente: due
+        // domande di denaro diverse non ricevono lo stesso riquadro.
+        final su = _sceltaDiDenaro(q);
         return [
-          'Prima di muovere $cosa chiedi un parere a un consulente '
-              'finanziario indipendente e fatti spiegare i rischi per '
-              'iscritto. Non decidere sotto la spinta del momento.',
-          'Chiedi un parere a un consulente finanziario indipendente prima '
-              'di muovere $cosa.',
+          '$su chiedi un parere a un consulente indipendente e fatti '
+              'spiegare i rischi per iscritto.',
+          '$su porta numeri e dubbi a un consulente di fiducia e non firmare '
+              'nulla sotto la spinta del momento.',
         ];
       case null:
         break;
     }
     switch (q.forma) {
       case FormaDellaDomanda.aperta:
+      case FormaDellaDomanda.generica:
       case FormaDellaDomanda.futuro:
+        // L'invito a precisare una volta sola, in due lunghezze.
         return [
-          'Scegli una situazione precisa della tua vita e rifai la domanda '
-              'su quella sola: più è chiara, più la risposta ti serve.',
-          'Rifai la domanda su una situazione precisa: più è chiara, più la '
-              'risposta ti serve.',
+          'Se c\'è una situazione che ti sta a cuore, rifai la domanda '
+              'nominandola: le carte leggono meglio ciò che nomini. Per oggi, '
+              'l\'orientamento è questo.',
+          'Rifai la domanda su una situazione precisa della tua vita: più è '
+              'chiara, più la risposta ti serve.',
+          'Se vuoi una risposta più precisa, rifai la domanda nominando la '
+              'situazione che vivi.',
         ];
       case FormaDellaDomanda.esito:
-        final per =
-            o == null ? '' : ' per ${o.replaceFirst('la fine di ', '')}';
-        return [
-          'Scrivi su un foglio che cosa dipende da te$per e che cosa no. Oggi '
-              'fai la cosa più piccola della prima colonna, senza aspettare '
-              'segnali.',
-          'Scrivi che cosa dipende da te$per e fanne oggi la parte più '
-              'piccola.',
-        ];
+        return _passiDellEsito(q);
       case FormaDellaDomanda.quando:
         return [
-          'Smetti di contare i giorni: scegli una cosa ferma che dipende da '
-              'te e falla muovere oggi di un passo, anche minimo.',
-          'Scegli una cosa ferma che dipende da te e muovila oggi di un '
-              'passo.',
+          'Invece di contare i giorni, scegli una cosa ferma che dipende da '
+              'te e muovila di un passo.',
+          'Lascia stare la data e chiediti che cosa puoi sbloccare tu questa '
+              'settimana.',
         ];
       case FormaDellaDomanda.sentimenti:
         final chi = p ?? 'l\'altra persona';
         return [
-          'Per una settimana guarda i gesti ${con('di', chi)} più delle '
-              'parole e annota ciò che vedi, senza interpretarlo. Se hai una '
-              'domanda, falla direttamente ${con('a', chi)}, con calma.',
-          'Guarda i gesti ${con('di', chi)} più delle parole e, se hai una '
-              'domanda, falla ${con('a', chi)} con calma.',
+          'Per capire che cosa prova $chi, guarda i suoi gesti più delle '
+              'parole e, se serve, chiediglielo con calma.',
+          'Su ciò che prova $chi conta ciò che fa più di ciò che immagini: '
+              'osserva per qualche giorno senza tirare conclusioni.',
         ];
       case FormaDellaDomanda.fiducia:
         final chi = p ?? 'questa persona';
         return [
-          'Per una settimana annota ciò che $chi dice e ciò che poi fa, senza '
-              'commentarlo. Alla fine confronta le due colonne: la fiducia si '
-              'costruisce lì, non nelle carte.',
-          'Annota per una settimana ciò che $chi dice e ciò che fa, poi '
-              'confronta le due colonne.',
+          'Per qualche giorno annota ciò che $chi dice e ciò che poi fa: la '
+              'fiducia nasce dove le due cose coincidono.',
+          'Guarda se le parole e i gesti ${con('di', chi)} vanno nella stessa '
+              'direzione, senza indagare di nascosto.',
         ];
       case FormaDellaDomanda.ritorno:
         return [
           'Non scrivere per ottenere una risposta e non cercare segni nei '
-              'suoi silenzi. Oggi scrivi per te, su un foglio che tieni, che '
-              'cosa è accaduto e che cosa vuoi adesso per la tua vita.',
-          'Non cercare segni nei suoi silenzi: scrivi per te, su un foglio '
-              'che tieni, che cosa vuoi adesso.',
-        ];
-      case FormaDellaDomanda.scelta:
-        // Il gesto nomina le due strade della domanda: due domande diverse
-        // non ricevono lo stesso "Cosa fare" (difetto D2).
-        final strade = q.alternative != null
-            ? 'Scrivi su due colonne ${q.alternative!.$1} e '
-                '${q.alternative!.$2}'
-            : q.gruppo != null
-                ? 'Scrivi su due colonne ${q.gruppo}'
-                : 'Scrivi le due strade su due colonne';
-        return [
-          '$strade: sotto ciascuna metti che cosa ti costa e che cosa ti dà. '
-              'Decidi domani, a mente fresca, non stasera.',
-          '$strade, con costi e vantaggi: decidi domani.',
-          'Metti le due strade su due colonne con costi e vantaggi: decidi '
-              'domani.',
+              'suoi silenzi: pensa a che cosa vuoi tu, adesso.',
+          'Lascia che sia una sua scelta e intanto metti al centro ciò che '
+              'fa bene alla tua vita.',
         ];
       case FormaDellaDomanda.decisione:
-        // Il gesto nomina l'azione che la persona sta pesando (D2).
-        final se = q.clausola == null ? '' : ' se ${q.clausola}';
+        // Le varianti generiche solo se la domanda non dice l'azione: il
+        // riquadro nomina cio' che la persona sta pesando (D2).
+        final cl = q.clausola;
+        if (cl != null) {
+          return [
+            'Prima di decidere se $cl, scrivi che cosa cambierebbe davvero e '
+                'che cosa resterebbe uguale.',
+            'Prima di decidere se $cl, separa i fatti dalle paure e parlane '
+                'con una persona di cui ti fidi.',
+          ];
+        }
         return [
-          'Prima di decidere$se scrivi tre fatti a favore e tre contro, senza '
-              'supposizioni. Domani rileggili: se la condizione resta vera, '
-              'muovi un primo passo piccolo che puoi ancora correggere.',
-          'Prima di decidere$se scrivi tre fatti a favore e tre contro: '
-              'domani rileggili e muovi solo un passo che puoi correggere.',
-          'Scrivi tre fatti a favore e tre contro, rileggili domani e muovi '
-              'solo un primo passo che puoi ancora correggere.',
+          'Raccogli i fatti che ti mancano e concediti il tempo che una scelta '
+              'di questo peso richiede.',
+          'Separa i fatti dalle paure e parlane con una persona di cui ti '
+              'fidi.',
+        ];
+      case FormaDellaDomanda.scelta:
+        final strade = q.alternative != null
+            ? '${q.alternative!.$1} e ${q.alternative!.$2}'
+            : q.gruppo;
+        if (strade != null) {
+          return [
+            'Fra $strade, immagina una giornata qualunque fra un anno in '
+                'ciascuna strada e annota che cosa senti.',
+            'Prima di scegliere fra $strade, raccogli i fatti che ti mancano.',
+          ];
+        }
+        return [
+          'Immagina una giornata qualunque fra un anno in ciascuna strada e '
+              'annota che cosa senti.',
+          'Raccogli i fatti che ti mancano su entrambe le strade prima di '
+              'scegliere.',
         ];
       case FormaDellaDomanda.come:
         if (q.evento && o != null) {
           return [
-            'Prepara per iscritto come vuoi stare ${con('a', o)}: che cosa '
-                'porti, quali argomenti eviti e dove ti fermi se la tensione '
-                'sale.',
-            'Prepara per iscritto come vuoi stare ${con('a', o)} e dove ti '
-                'fermi se la tensione sale.',
+            'Prepara come vuoi stare ${con('a', o)}: che cosa porti, quali '
+                'argomenti eviti e dove ti fermi se la tensione sale.',
+            'Decidi prima ${con('di', o)} quali argomenti lasciare fuori e '
+                'dove fermarti se la tensione sale.',
           ];
         }
         if (p != null) {
           return [
             'Scegli un momento tranquillo e di\' ${con('a', p)} una cosa '
-                'sola, vera e senza rimprovero. Poi ascolta la risposta fino '
-                'in fondo, senza interrompere.',
-            'Di\' ${con('a', p)} una cosa sola, vera e senza rimprovero, poi '
-                'ascolta fino in fondo.',
+                'sola, vera e senza rimprovero, poi ascolta fino in fondo.',
+            'Con $p '
+                'comincia da ciò che vi unisce e lascia per ultimo ciò che '
+                'vi divide.',
           ];
         }
-        final per = q.infinito == null ? '' : ' per ${q.infinito}';
+        if (q.infinito != null) {
+          return [
+            'Scegli un primo gesto concreto per ${q.infinito} e fallo entro '
+                'la settimana.',
+            'Per ${q.infinito}, comincia da un gesto piccolo e fallo entro '
+                'la settimana.',
+          ];
+        }
         return [
-          'Scegli oggi un primo gesto concreto$per: scrivilo, decidi quando '
-              'farlo e fallo entro la settimana. Poi guarda che cosa è '
-              'cambiato e scegli il passo seguente.',
-          'Scegli oggi un primo gesto concreto$per: scrivilo, decidi quando '
-              'farlo e fallo entro la settimana.',
           'Scegli un primo gesto concreto e fallo entro la settimana.',
         ];
-      case FormaDellaDomanda.generica:
-        return [
-          'Scegli oggi un gesto concreto che risponda alla tua domanda: '
-              'scrivilo su un foglio, decidi quando farlo e fallo prima di '
-              'sera. Se dopo il gesto la domanda resta aperta, rifalla più '
-              'precisa.',
-          'Scegli oggi un gesto concreto che risponda alla tua domanda: '
-              'scrivilo e fallo prima di sera.',
-          'Scegli un gesto concreto e fallo prima di sera.',
-        ];
     }
   }
 
-  /// Il legame fra il gesto e l'angelo del Custode: il suo dono dove la prima
-  /// frase ha detto la via, la via dove ha detto il dono, perche' i due
-  /// paragrafi non ripetano la stessa cosa.
-  static List<String> _legame(
-      LaDomandaDellOracolo q, String c, String dC, String vC) {
-    if (q.limite != null) {
+  /// **IL PASSO DELL'ESITO**, scritto per la cosa della domanda: il secondo
+  /// lettore cieco ha trovato lo stesso riquadro sotto il colloquio e sotto
+  /// la relazione a distanza, e nessuna parola sullo studio sotto l'esame.
+  static List<String> _passiDellEsito(LaDomandaDellOracolo q) {
+    final o = q.oggetto?.replaceFirst('la fine di ', '');
+    if (o == null) {
       return [
-        'Su ciò che è tuo $c ti accompagna con $dC.',
-        '$c ti accompagna con $dC.',
-        '',
+        'Separa ciò che dipende da te da ciò che non dipende da te e cura il '
+            'primo, un passo al giorno.',
+        'Lascia andare le ipotesi sull\'esito e torna a ciò che puoi ancora '
+            'preparare.',
       ];
     }
-    switch (q.forma) {
-      case FormaDellaDomanda.aperta:
-        return [
-          'Intanto, per oggi, $c ti indica una via: $vC.',
-          'Intanto la via di $c è $vC.',
-          '',
-        ];
-      case FormaDellaDomanda.futuro:
-        return [
-          'Intanto porta nella tua giornata $dC, il dono di $c.',
-          'Intanto tieni con te $dC.',
-          '',
-        ];
-      case FormaDellaDomanda.fiducia:
-        return [
-          'Su ciò che dipende da te, $c ti porta $dC.',
-          '$c ti porta $dC.',
-          '',
-        ];
-      case FormaDellaDomanda.sentimenti:
-        return [
-          'Su ciò che dipende da te, la via di $c è $vC.',
-          'La via di $c, per te, è $vC.',
-          '',
-        ];
-      case FormaDellaDomanda.ritorno:
-        // Niente via del Custode qui: sotto "tornerà?" una via sui legami
-        // si leggerebbe come un invito a cercare l'altra persona (difetto D8
-        // del lettore cieco).
-        return [
-          'Il resto appartiene alla sua scelta, non alla tua.',
-          'La sua scelta è sua.',
-          '',
-        ];
-      case FormaDellaDomanda.generica:
-      case FormaDellaDomanda.esito:
-      case FormaDellaDomanda.quando:
-      case FormaDellaDomanda.scelta:
-      case FormaDellaDomanda.decisione:
-      case FormaDellaDomanda.come:
-        return [
-          'È il gesto che $c lega ${con('a', dC)}.',
-          'Fallo con $dC, il dono di $c.',
-          '',
-        ];
+    final per = _maiuscola(o.startsWith('un ') ? 'per $o' : 'per $o');
+    if (o.contains('esame') || o.contains('concorso')) {
+      return [
+        '$per fissa un piano di ripasso fino alla data, una parte al giorno: '
+            'segna ciò che hai fatto. Quando sale l\'ansia, torna alla parte '
+            'di oggi.',
+        '$per fissa un piano di ripasso fino alla data, una parte al giorno: '
+            'segna ciò che hai fatto.',
+      ];
     }
+    if (o.contains('colloquio')) {
+      return [
+        '$per prepara tre esempi concreti di ciò che sai fare e una domanda da '
+            'porre tu. Ripetili a voce alta una volta, non di più.',
+        '$per prepara tre esempi concreti di ciò che sai fare e una domanda da '
+            'porre tu.',
+      ];
+    }
+    if (o.contains('progetto')) {
+      return [
+        '$per ormai consegnato, prepara con calma le risposte alle obiezioni '
+            'più probabili. Poi lascialo maturare senza rimaneggiarlo mentre '
+            'aspetti.',
+        '$per ormai consegnato, prepara le risposte alle obiezioni più '
+            'probabili e poi lascialo maturare.',
+      ];
+    }
+    if (o.contains('relazione') || o.contains('distanza')) {
+      return [
+        '$per concorda con l\'altra persona un ritmo di contatto sostenibile '
+            'per entrambe le parti. Contano la regolarità e la sincerità più '
+            'della frequenza.',
+        '$per concorda con l\'altra persona un ritmo di contatto sostenibile '
+            'per entrambe le parti.',
+      ];
+    }
+    if (o.contains('promozione')) {
+      return [
+        '$per chiedi a chi decide un riscontro concreto su ciò che ti manca. '
+            'Poi lavora su un punto alla volta, senza aspettare la decisione.',
+        '$per chiedi a chi decide un riscontro concreto su ciò che ti manca.',
+      ];
+    }
+    if (o.contains('risposta') ||
+        o.contains('cambiamento') ||
+        o.contains('stallo')) {
+      // La domanda non dice di che risposta o di che cambiamento si tratta:
+      // si invita a nominarlo (il lettore cieco: "nessuno chiede quale").
+      final che = o.contains('risposta')
+          ? 'la risposta che aspetti'
+          : o.contains('cambiamento')
+              ? 'il cambiamento che senti arrivare'
+              : 'ciò che si è fermato';
+      return [
+        'Se vuoi una lettura più precisa, rifai la domanda nominando $che. '
+            'Intanto separa ciò che dipende da te da ciò che non dipende da te.',
+        'Se vuoi una lettura più precisa, rifai la domanda nominando $che.',
+      ];
+    }
+    if (o.contains('incontro')) {
+      return [
+        'Per un incontro importante, scegli questa settimana un\'occasione '
+            'nuova fra persone che condividono ciò che ami. Gli incontri '
+            'nascono dove vai.',
+        'Per un incontro importante, scegli questa settimana un\'occasione '
+            'nuova fra persone che condividono ciò che ami.',
+      ];
+    }
+    return [
+      '$per separa ciò che dipende da te da ciò che non dipende da te e cura '
+          'il primo.',
+      '${_maiuscola(con('su', o))} lascia andare le ipotesi e torna a ciò che '
+          'puoi ancora preparare.',
+    ];
   }
 
-  static const List<String> _riempitiviDelGesto = [
-    '',
-    'Basta un passo.',
-    'Non serve fare tutto oggi.',
-    'Un passo piccolo vale più di un grande proposito.',
-    'Un passo piccolo e fatto vale più di un grande proposito rimandato.',
-  ];
+  /// La frase che chiude il "Cosa fare" quando la misura la chiede: detta
+  /// per la famiglia, mai un riempitivo che valga per tutto. Piu' lunghezze,
+  /// perche' la misura le scelga senza tagliare.
+  static List<String> _passiInPiu(LaDomandaDellOracolo q) {
+    if (q.limite != null) {
+      return [
+        '',
+        'Le carte ti accompagnano, non decidono.',
+        'Sul resto le carte ti accompagnano, ma non decidono al posto di chi è '
+            'competente.',
+      ];
+    }
+    return switch (q.forma) {
+      FormaDellaDomanda.aperta ||
+      FormaDellaDomanda.generica ||
+      FormaDellaDomanda.futuro =>
+        [
+          '',
+          'Un gesto piccolo, fatto oggi, vale più di molte previsioni.',
+        ],
+      FormaDellaDomanda.esito || FormaDellaDomanda.quando => [
+          '',
+          'Ciò che prepari adesso resta tuo, qualunque sia l\'esito.',
+          'Ciò che prepari adesso resta tuo, qualunque sia l\'esito: nessuna '
+              'attesa può togliertelo.',
+        ],
+      FormaDellaDomanda.sentimenti ||
+      FormaDellaDomanda.fiducia ||
+      FormaDellaDomanda.ritorno =>
+        [
+          '',
+          'Ciò che decide l\'altra persona resta suo; ciò che fai tu resta '
+              'tuo.',
+          'Se qualcosa non torna, parlane con calma, a voce, con chi riguarda.',
+        ],
+      FormaDellaDomanda.decisione || FormaDellaDomanda.scelta => [
+          '',
+          'Dai a questa scelta i giorni che il suo peso richiede.',
+          'Dai a questa scelta i giorni che il suo peso richiede, senza farti '
+              'mettere fretta.',
+        ],
+      FormaDellaDomanda.come => [
+          '',
+          'Il resto viene dopo, quando il primo passo è stato fatto davvero.',
+        ],
+    };
+  }
 
   // --- il titolo ------------------------------------------------------------
 
-  static String _titolo(
-      LaDomandaDellOracolo q, String c, String dC, String vC) {
+  static String _titolo(LaDomandaDellOracolo q, String c) {
     final o = q.oggetto;
     final p = q.persona;
-    String t;
+    final candidati = <String>[];
     switch (q.limite) {
+      // I titoli dei limiti nominano la cosa della domanda: due domande di
+      // denaro diverse non hanno lo stesso titolo.
       case LimiteDellaDomanda.salute:
-        t = 'Sull\'esito ti risponde il medico, non le carte';
+        if (o != null) {
+          candidati.add('Sull\'esito ${con('di', o)} ti risponde il medico');
+        }
+        candidati.add('Sull\'esito ti risponde il medico, non le carte');
       case LimiteDellaDomanda.legge:
-        t = 'Sulla questione legale ti guida l\'avvocato, non le carte';
+        if (o != null) {
+          candidati.add('${_maiuscola(con('su', o))}: ti guida l\'avvocato');
+        }
+        candidati
+            .add('Sulla questione legale ti guida l\'avvocato, non le carte');
       case LimiteDellaDomanda.denaro:
-        t = 'Sul denaro decidi con un consulente, non con le carte';
+        if (q.alternative != null) {
+          candidati.add('${_maiuscola(q.alternative!.$1)} o '
+              '${q.alternative!.$2}: decidi con un consulente');
+        }
+        if (q.clausola != null) {
+          candidati.add('${_maiuscola(q.clausola!)}: decidi con un consulente');
+        }
+        if (q.oggetto != null) {
+          candidati.add('${_maiuscola(q.oggetto!)}: decidi con un consulente');
+        }
+        candidati.add('Sul denaro decidi con un consulente, non con le carte');
       case null:
-        t = switch (q.forma) {
-          FormaDellaDomanda.aperta => '$c risponde con $dC',
-          FormaDellaDomanda.futuro => q.tuttoBene
-              ? 'Nessuna carta lo promette: conta il passo che fai oggi'
-              : 'Ciò che ti aspetta non è scritto: oggi conta un tuo passo',
-          FormaDellaDomanda.esito => o == null
-              ? 'L\'esito non è scritto: conta ciò che fai tu'
-              : '${_maiuscola(o)}: l\'esito non è scritto, conta ciò che fai '
-                  'tu',
-          FormaDellaDomanda.sentimenti => p == null || p.contains(' ')
-              ? 'Ciò che prova un\'altra persona non si legge nelle carte'
-              : 'Ciò che sente $p lo dice $p, non le carte',
-          FormaDellaDomanda.fiducia =>
-            'La fiducia si misura sui gesti, non sulle carte',
-          FormaDellaDomanda.ritorno =>
-            'Un ritorno non si legge: torna a ciò che vuoi tu',
-          FormaDellaDomanda.quando =>
-            'Nessuna data: conta il passo che fai adesso',
-          FormaDellaDomanda.scelta => q.alternative != null
-              ? 'Fra ${q.alternative!.$1} e ${q.alternative!.$2}: la strada '
-                  'la indica $c'
-              : q.gruppo != null
-                  ? 'Fra ${q.gruppo}: la strada la indica $c'
-                  : 'La strada giusta è quella che ti indica $c',
-          // Il titolo nomina l'azione pesata, quando la domanda la dice:
-          // due decisioni diverse non hanno lo stesso titolo.
-          FormaDellaDomanda.decisione =>
-            q.clausola != null && q.clausola!.length + c.length < 52
-                ? '${_maiuscola(q.clausola!)}: sì, a una condizione di $c'
-                : 'Sì, a una condizione che ti pone $c',
-          // Il titolo nomina che cosa la persona vuole fare: due "come"
-          // diversi non hanno lo stesso titolo.
-          FormaDellaDomanda.come => [
-              if (q.infinito != null) 'Per ${q.infinito}: $vC',
-              if (q.infinito != null) 'Per ${q.infinito}: la via di $c',
-              if (q.oggetto != null) 'Per ${q.oggetto}: la via di $c',
-              'La via di $c: $vC',
-            ].firstWhere((x) => x.length <= 80,
-                orElse: () => 'La via te la indica $c'),
-          FormaDellaDomanda.generica => '$c ti indica $dC',
-        };
+        switch (q.forma) {
+          case FormaDellaDomanda.aperta:
+          case FormaDellaDomanda.generica:
+            candidati.add('Un orientamento per oggi, da $c');
+          case FormaDellaDomanda.futuro:
+            candidati.add(q.tuttoBene
+                ? 'Nessuna carta lo promette: conta il passo che fai oggi'
+                : 'Ciò che ti aspetta non è scritto: oggi conta un tuo passo');
+          case FormaDellaDomanda.esito:
+            if (o != null) {
+              candidati.add(
+                  '${_maiuscola(o)}: l\'esito non è scritto, conta ciò che '
+                  'fai tu');
+            }
+            candidati.add('L\'esito non è scritto: conta ciò che fai tu');
+          case FormaDellaDomanda.quando:
+            candidati.add('Nessuna data: conta il passo che fai adesso');
+          case FormaDellaDomanda.sentimenti:
+            if (p != null && !p.contains(' ')) {
+              candidati.add('Ciò che sente $p lo dice $p, non le carte');
+            }
+            candidati.add(
+                'Ciò che prova un\'altra persona non si legge nelle carte');
+          case FormaDellaDomanda.fiducia:
+            candidati.add('La fiducia si misura sui gesti, non sulle carte');
+          case FormaDellaDomanda.ritorno:
+            candidati.add('Un ritorno non si legge: torna a ciò che vuoi tu');
+          case FormaDellaDomanda.decisione:
+            if (q.clausola != null) {
+              candidati
+                  .add('${_maiuscola(q.clausola!)}: sì, alla condizione di $c');
+            }
+            candidati.add('Sì, alla condizione che ti pone $c');
+          case FormaDellaDomanda.scelta:
+            if (q.alternative != null) {
+              candidati.add('Fra ${q.alternative!.$1} e '
+                  '${q.alternative!.$2}: la strada la indica $c');
+            }
+            if (q.gruppo != null) {
+              candidati.add('Fra ${q.gruppo}: la strada la indica $c');
+            }
+            candidati.add('La strada giusta è quella che ti indica $c');
+          case FormaDellaDomanda.come:
+            if (q.infinito != null) {
+              candidati.add('Per ${q.infinito}: la via di $c');
+            }
+            if (o != null) candidati.add('Per $o: la via di $c');
+            candidati.add('La via te la indica $c');
+        }
     }
-    // Le due domande in una: il titolo risponde alla prima, e la risposta
-    // dice subito dopo la prima frase che la seconda chiede un'altra
-    // consultazione.
-    if (t.length > 80) {
-      t = switch (q.forma) {
-        FormaDellaDomanda.come => 'La via te la indica $c',
-        FormaDellaDomanda.scelta =>
-          'La strada giusta è quella che ti indica $c',
-        FormaDellaDomanda.decisione => 'Sì, a una condizione che ti pone $c',
-        FormaDellaDomanda.sentimenti =>
-          'Ciò che prova un\'altra persona non si legge nelle carte',
-        FormaDellaDomanda.aperta ||
-        FormaDellaDomanda.generica =>
-          '$c risponde con il suo dono',
-        _ => 'L\'esito non è scritto: conta ciò che fai tu',
-      };
-    }
+    final t = candidati.firstWhere((x) => x.length <= 80,
+        orElse: () => 'Le carte rispondono con $c');
     return _maiuscola(t);
   }
 }
