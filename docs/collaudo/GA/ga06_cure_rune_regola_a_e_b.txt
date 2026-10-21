@@ -1,0 +1,105 @@
+ORDINE GA, VOCE GA.06, LE CURE DELLE RUNE DI CALIGO: LE PROVE DELLE REGOLE A E B
+Sul commit 1804c7d7, 21 ottobre 2026. Ramo del worktree worktree-agent-a4ac0deb8ba851272.
+
+=== PRIMA DI TOCCARE: LE PROVE DI CASA DELLA ZONA, VERDI ===
+flutter test sulle nove prove della zona (il_presagio_dal_corpus, il_corpus_delle_rune,
+le_rune_hanno_la_forma_nuova, la_domanda_scelta_arriva_al_responso,
+la_runa_singola_non_e_una_lezione, il_presagio_e_la_prima_bolla,
+il_sigillo_del_giorno_dice_a_cosa_serve, le_lunghezze_dei_responsi,
+il_genere_non_si_indovina): 42 prove, "All tests passed!" in 4:28.
+
+=== REGOLA B: LE GUARDIE CHE COPRONO LA ZONA, VISTE ROSSE PRIMA DI TOCCARE ===
+
+1) le_rune_hanno_la_forma_nuova, "LA FORMA SUI PRESAGI VERI"
+   (copre lib/core/rituals/il_presagio_dal_corpus.dart, la forma del responso)
+   Innesto: in IlPresagioDalCorpus.componi la risposta senza il verdetto,
+     risposta: '$risposta',
+   grep: "491:        risposta: '$risposta'," (l'innesto c'e').
+   Esito: ROSSA. "presagi composti 4224 (lunghi 2112), schede 15840, valori di
+   {cosa} 20, difetti 4224", il primo: "odino, seme 0, "", Breve: Rune di Caligo,
+   «Una luce si accende dove prima era buio.»: la risposta ha 23 parole".
+   Rimesso il file com'era (copia presa prima dell'innesto); git status pulito.
+
+2) il_corpus_delle_rune, "4. PAROLA PER PAROLA"
+   (copre docs/corpus/rune/*.md e il generato lib/core/rituals/il_corpus_del_presagio.g.dart)
+   Innesto: in docs/corpus/rune/risposta.md, Fehu dritta 3, "il valore XX c'è già".
+   grep: "4:3. Sì, per {cosa} il valore XX c'è già e cresce..." (l'innesto c'e').
+   Esito: ROSSA, "Expected: <0> Actual: <1>" (test\il_corpus_delle_rune_test.dart 329).
+   Rimesso il testo; git status pulito.
+
+=== REGOLA A: LE GUARDIE NUOVE, VISTE ROSSE CON L'INNESTO VERIFICATO COL GREP ===
+Ogni file e' stato rimesso com'era dalla copia presa prima dell'innesto; dopo
+il ripristino il grep dell'innesto conta 0. Prima di ogni innesto le prove
+erano verdi sul codice curato.
+
+3) il_tono_della_gettata_conta_le_pietre_vere: "il tono, i numeri e i nomi
+   delle rune dicono la gettata vera" e "OGNI VOCE DEL LEGAME E' VERA SOTTO
+   OGNI GETTATA DEL SUO GRUPPO"
+   a. Innesto in LaRispostaDellaGettata.frasiDelTono, il caso di una sola
+      pietra in ombra detto al plurale (il difetto dei lettori ciechi, "le
+      pietre rovesciate" con una sola in ombra):
+        'Le pietre in ombra stanno $doveSono: lì serve '
+      grep: "1135:        'Le pietre in ombra stanno $doveSono: lì serve '".
+      Insieme, nel generato il_corpus_del_presagio.g.dart, la voce LEGAME
+      croce/misto 33 rimessa al plurale, "Le pietre rovesciate in questa
+      gettata fanno da cornice alle dritte" (grep: riga 4435).
+      Esito: ROSSE tutte e due: "testi che dicono una gettata che non c'e'
+      182" ("norne, seme 0, «In amore, dove sto andando?», il paragrafo: «Le
+      pietre in ombra» con 1 pietre in ombra") e "voci del LEGAME ... non
+      garantito 1" ("legame/croce/misto/33, con 1 in ombra: «Le pietre
+      rovesciate»"). Il generato e' stato riscritto da
+      tool/genera_corpus_del_presagio.py.
+   b. Innesto di un nome di runa che non e' uscita, nella frase del tono con
+      le pietre tutte dritte: "pietre sono tutte dritte e Jera sostiene questa"
+      grep: "1122:        'Le ${_numeri[n]} pietre sono tutte dritte e Jera
+      sostiene questa '".
+      Esito: ROSSA, 66 testi ("norne, seme 1, «», il paragrafo: nomina Jera,
+      che non e' uscita").
+   Il primo giro della guardia sul corpus ha trovato 13 voci del LEGAME con un
+   plurale d'ombra che il gruppo non garantisce (croce/misto 21, 24, 28, 33,
+   45, 46, 48, 51; telo/misto 47, 59, 175, 180, 190). Riscritte, al neutro
+   ("ciò che è in ombra"), insieme a croce/misto 13 e 54 e telo/misto 1 che la
+   lettura a mano ha trovato con lo stesso difetto. Due allarmi erano della
+   guardia, e si e' corretta la grandezza misurata, mai la soglia: "Se una
+   pietra in ombra cade vicino al cuore del telo" (telo/misto 47) e' un'ipotesi
+   e non un conto, quindi "una pietra in ombra" non conta piu' come "una
+   sola"; "La croce non è tutta in luce" (croce/misto 24) e' vero, quindi la
+   negazione non conta come "tutta in luce".
+
+4) le_domande_delicate_delle_rune_hanno_il_limite
+   Innesto in IlPresagioDalCorpus.componi, il ramo delle domande delicate
+   spento:
+     if (letta.delicato != null && domanda.isEmpty) {
+   grep: "472:    if (letta.delicato != null && domanda.isEmpty) {".
+   Esito: ROSSA, "domande delicate 30, presagi composti 1440, senza limite o
+   con una spinta 1440".
+   Il primo giro della guardia sul codice curato ha trovato due difetti veri,
+   curati: "accogli il cambiamento un giorno alla volta, un giorno alla volta"
+   (l'animo di Dagaz) e "procedi con la tua cadenza, un passo alla volta, un
+   giorno alla volta" (l'animo di Raidho); e un allarme suo, "investi" letto
+   dentro "investimenti", corretto misurando la parola intera.
+
+5) la_pietra_nell_ostacolo_non_e_un_favore
+   a. Innesto in LaRispostaDellaGettata.titoloDellaScheda: nell'Ostacolo il
+      senso favorevole al posto del lato difficile, "'Ostacolo' => p.senso,"
+      grep: "1601:      'Ostacolo' => p.senso,".
+      Esito: ROSSA, "pietre messe nell'Ostacolo 40, lette come favore o senza
+      posizione 48".
+   b. Innesto in IlPresagioDalCorpus.componi: il titolo della scheda torna la
+      riga della runa, "titolo: p.riga.trim(),"
+      grep: "505:            titolo: p.riga.trim(),".
+      Esito: ROSSA ("ogni scheda comincia con cio' che dice la sua
+      posizione", 1 prova fallita su 1).
+
+6) la_risposta_della_gettata, prove 2, 3 e 4
+   a. Prova 4, LA PRIMA FRASE RISPONDE. Innesto: il paragrafo torna
+      nell'ordine di prima, la RISPOSTA del corpus per prima,
+        return scelta == null ? null : '$risposta $scelta';
+      grep: "1191:    return scelta == null ? null : '$risposta $scelta';".
+      Esito: ROSSA, "prime frasi lette 7560, che non rispondono 6522".
+   b. Prove 2 e 3, OGNI FORMA STA FRA 40 E 50 PAROLE e LA RISERVA NON SI USA.
+      Innesto: la finestra della prima frase stretta di trenta parole,
+        LaFormaDelResponso.massimo - b - 30);
+      grep: "1190:        LaFormaDelResponso.massimo - b - 30);".
+      Esito: ROSSE tutte e due: "paragrafi misurati 503000, riquadri 434000,
+      senza forma 495000" e "presagi composti 10080, riserve usate 8800".

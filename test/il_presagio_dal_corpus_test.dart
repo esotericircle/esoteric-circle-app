@@ -108,9 +108,29 @@ void main() {
           lunga: lunga,
         );
         final r = p.principale;
+        // **DALL'ORDINE GA VOCE GA.06** il paragrafo e' la prima frase che
+        // risponde alla domanda (`LaRispostaDellaGettata`) piu' RISPOSTA, e
+        // il riquadro di una domanda e' scritto per la domanda: il VERDETTO
+        // non si mostra piu', il GESTO resta per chi getta senza domanda
+        // (prova qui sotto). Qui c'erano le attese di prima, `[verdetto/` nel
+        // paragrafo e `[gesto/` nel riquadro.
+        // Il corpus di prova ha voci di due parole, che nessuna prima frase
+        // porta fra 40 e 50: qui il paragrafo prende la riserva (RISPOSTA piu'
+        // VERDETTO). Sul corpus vero la riserva non si usa mai: lo pretende
+        // `la_risposta_della_gettata_test.dart`, prova 3.
         expect(r.risposta, contains('[risposta/'));
-        expect(r.risposta, contains('[verdetto/'));
-        expect(r.cosaFare, contains('[gesto/'));
+        expect(r.cosaFare, isNot(contains('[gesto/')));
+        expect(r.cosaFare, contains('l’amore'));
+        final senzaDomanda = IlPresagioDalCorpus.componi(
+          corpus: corpus,
+          esito: esito,
+          domanda: '',
+          persona: 'persona-di-prova',
+          oggi: DateTime(2026, 10, 2),
+          memoria: LaMemoriaDelPresagio(),
+          lunga: lunga,
+        );
+        expect(senzaDomanda.principale.cosaFare, contains('[gesto/'));
         expect(r.daDoveViene, isNotEmpty);
         for (final parte in [...r.paragrafi, r.daDoveViene!]) {
           expect(parte.contains('{'), isFalse, reason: parte);

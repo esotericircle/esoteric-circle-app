@@ -445,7 +445,12 @@ List<Map<String, Object?>> campioniDelleRune() {
             {
               'posizione': r.posizione.titolo,
               'runa': r.rune.name,
-              'verso': r.inOmbra ? 'in ombra (merkstave)' : 'dritta',
+              // I tre nomi del verso d'ombra, come li dicono la schermata
+              // ("in merkstave (rovesciata)") e i testi ("in ombra"):
+              // il lettore cieco dell'ordine GA vedeva "in ombra
+              // (merkstave)" e leggeva "rovesciata" come un altro verso.
+              'verso':
+                  r.inOmbra ? 'in ombra (merkstave, rovesciata)' : 'dritta',
               'parolaChiave': r.rune.keyword,
               'significato': r.rune.meaning,
               'rigaDelVerso': r.riga,

@@ -94,6 +94,18 @@ void main() {
       'Passerò l’esame?',
       'Quale decisione prendere?',
       'Che cosa mi aspetta?',
+      // Ordine GA voce GA.06: le famiglie nuove del compositore, la domanda
+      // su un'altra persona, quella delicata e quella che l'app non
+      // riconosce ("Che cosa mi aspetta?" adesso vale "il tuo momento").
+      'Come faccio a dimenticarlo?',
+      'Il progetto verrà approvato?',
+      'Il cambiamento sarà positivo?',
+      'Arriverà la risposta che aspetto?',
+      'Quando finirà questo periodo?',
+      'Incontrerò qualcuno di importante?',
+      'Devo trasferirmi a Milano?',
+      'Cosa prova davvero per me?',
+      'L’operazione andrà bene?',
     ])
       IlPresagioDalCorpus.cosaDellaDomanda(d),
   };
