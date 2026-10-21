@@ -1,0 +1,1364 @@
+{
+ "schede": [
+  {
+   "scheda": 1,
+   "domanda": "Dimmi qualcosa.",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "67 Eiael",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "13 Iezalel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Alla tua domanda aperta Eiael risponde con il suo dono, la trasformazione che non rompe: oggi conviene partire da lì. Nel Cuore Iezalel ti porta la fedeltà come memoria attiva; nell'Intelletto Menadel ti fa capire che la chiave è restare dove sei finché quel posto ha qualcosa da insegnarti.",
+    "cosaFare": "Scegli una situazione precisa della tua vita e rifai la domanda su quella sola: più è chiara, più la risposta ti serve. Intanto, per oggi, Eiael ti indica una via: cambiare le cose senza romperle. Non serve fare tutto oggi."
+   }
+  },
+  {
+   "scheda": 2,
+   "domanda": "Posso fidarmi del mio compagno?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "21 Nelchael",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "23 Melahel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Se puoi fidarti del tuo compagno lo dicono i suoi gesti nel tempo, non le carte: Ieiaiel ti risponde che per te conta costruire qualcosa che regga nel tempo senza cercare applausi. Nel Cuore Habuhiah ti porta la generosità pratica; nell'Intelletto Vehuiah ti porta la volontà che apre.",
+    "cosaFare": "Per una settimana annota ciò che il tuo compagno dice e ciò che poi fa, senza commentarlo. Alla fine confronta le due colonne: la fiducia si costruisce lì, non nelle carte. Su ciò che dipende da te, Ieiaiel ti porta il lavoro solido."
+   }
+  },
+  {
+   "scheda": 3,
+   "domanda": "Come posso ritrovare l'intesa con mio marito?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "48 Mihael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "67 Eiael",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "9 Haziel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Per ritrovare l'intesa con tuo marito, la via che Haziel ti indica è perdonare per non portare più un peso inutile. Nel Cuore Ielahiah ti porta la rettitudine sotto pressione; nell'Intelletto Ieliel ti fa capire che la chiave è restare leale ai legami che contano anche dopo un disaccordo.",
+    "cosaFare": "Scegli un momento tranquillo e di' a tuo marito una cosa sola, vera e senza rimprovero. Poi ascolta la risposta fino in fondo, senza interrompere. È il gesto che Haziel lega alla clemenza consapevole. Un passo piccolo vale più di un grande proposito."
+   }
+  },
+  {
+   "scheda": 4,
+   "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "31 Lecabel",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "66 Manakel",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "13 Iezalel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, lasciare il lavoro per tornare a studiare va bene a una condizione che Lecabel ti pone: curare i dettagli senza perdere l'insieme. Altrimenti, per adesso, no. Nel Cuore Manakel ti porta la forza discreta che regge; nell'Intelletto Iezalel ti porta la fedeltà come memoria attiva.",
+    "cosaFare": "Prima di decidere se lasciare il lavoro per tornare a studiare scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Lecabel lega alla cura del dettaglio."
+   }
+  },
+  {
+   "scheda": 5,
+   "domanda": "Arriverà presto la risposta che aspetto?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "44 Ielahiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "49 Vehuel",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "56 Poyel",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Se e quando arriva la risposta che aspetti non è scritto nelle carte: Nelchael ti risponde che adesso conta sopportare di non capire subito e continuare a imparare. Nel Cuore Melahel ti porta la cura delle piccole attenzioni; nell'Intelletto Menadel ti porta l'impegno di ogni giorno.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per la risposta che aspetti e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Nelchael lega allo studio paziente. Basta un passo."
+   }
+  },
+  {
+   "scheda": 6,
+   "domanda": "Devo chiudere l'amicizia con Giulia?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "42 Mikael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "4 Elemiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "14 Mebahel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, chiudere l'amicizia con Giulia va bene a una condizione che Mikael ti pone: guardare le cose come stanno prima di prendere posizione. Altrimenti, per adesso, no. Nel Cuore Elemiah ti porta il discernimento su chi hai intorno; nell'Intelletto Mebahel ti porta la giustizia che comincia da te.",
+    "cosaFare": "Prima di decidere se chiudere l'amicizia con Giulia scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Mikael lega all'ordine interiore."
+   }
+  },
+  {
+   "scheda": 7,
+   "domanda": "Andrà tutto bene?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "9 Haziel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "44 Ielahiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "2 Ieliel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Nessuna carta può prometterti che tutto vada bene: Iahhel ti indica ciò che dipende da te, cioè ritirarti un momento prima di rispondere. Nel Cuore Leuviah ti porta la memoria che ricostruisce; nell'Intelletto Pahaliah ti porta la fermezza su ciò che conta.",
+    "cosaFare": "Scegli una situazione precisa della tua vita e rifai la domanda su quella sola: più è chiara, più la risposta ti serve. Intanto porta nella tua giornata la saggezza del silenzio scelto, il dono di Iahhel. Non serve fare tutto oggi."
+   }
+  },
+  {
+   "scheda": 8,
+   "domanda": "Devo dirle che sono innamorato di lei?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "24 Haheuiah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "34 Lehahiah",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "coperta": true
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, dirle come stanno le cose va bene a una condizione che Haheuiah ti pone: porre un confine chiaro intorno a te senza chiuderti. Se la scelta ti costringe a fare il contrario, per adesso la risposta è no. Nel Cuore Lehahiah porta la calma che tiene.",
+    "cosaFare": "Prima di decidere se dirle come stanno le cose scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Haheuiah lega al confine chiaro."
+   }
+  },
+  {
+   "scheda": 9,
+   "domanda": "Passerò l'esame di stato a dicembre?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "47 Asaliah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "57 Nemamiah",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "23 Melahel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "L'esito dell'esame di stato non è scritto nelle carte e nessun angelo lo decide al posto tuo: Iahhel ti risponde che adesso conta ritirarti un momento prima di rispondere. Nel Cuore Eiael ti porta la trasformazione che non rompe; nell'Intelletto Ieiazel ti porta la consolazione che non nega il dolore.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per l'esame di stato e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Iahhel lega alla saggezza del silenzio scelto."
+   }
+  },
+  {
+   "scheda": 10,
+   "domanda": "Cosa prova davvero Marco per me?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "27 Ierathel",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "23 Melahel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Ciò che Marco sente per te può dirtelo solo Marco, non le carte: Mumiah ti riporta a ciò che è tuo, l'arte di chiudere. Nel Cuore Rehael ti porta il rispetto dato in anticipo; nell'Intelletto Poyel ti porta la richiesta misurata.",
+    "cosaFare": "Per una settimana guarda i gesti di Marco più delle parole e annota ciò che vedi, senza interpretarlo. Se hai una domanda, falla direttamente a Marco, con calma. Su ciò che dipende da te, la via di Mumiah è portare a termine per poter ricominciare da capo."
+   }
+  },
+  {
+   "scheda": 11,
+   "domanda": "Incontrerò qualcuno di importante quest'anno?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "8 Cahethel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "63 Anauel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Se arriva un incontro importante non è scritto nelle carte e nessun angelo lo decide al posto tuo: Cahethel ti risponde che adesso conta riconoscere la fatica che sta dietro a ciò che hai. Nel Cuore Menadel porta l'impegno di ogni giorno, nell'Intelletto Anauel il senso dell'unità fra le cose.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per un incontro importante e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Cahethel lega alla gratitudine concreta. Basta un passo."
+   }
+  },
+  {
+   "scheda": 12,
+   "domanda": "Devo lasciare Roma, e se lo faccio la mia famiglia capirà?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "44 Ielahiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "42 Mikael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "6 Lelahel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, lasciare Roma va bene a una condizione che Ielahiah ti pone: tenere la parola data proprio quando costa. Altrimenti, per adesso, no. Per la seconda domanda fai un'altra consultazione. Nel Cuore Mikael ti porta l'ordine interiore; nell'Intelletto Lelahel ti porta il talento che chiarisce.",
+    "cosaFare": "Prima di decidere se lasciare Roma scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Ielahiah lega alla rettitudine sotto pressione."
+   }
+  },
+  {
+   "scheda": 13,
+   "domanda": "Devo trasferirmi a Milano o restare a Bari?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "22 Ieiaiel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "1 Vehuiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Fra trasferirti a Milano e restare a Bari scegli la strada che ti permette meglio di portare a termine ciò che inizi e ripartire dopo una caduta: è il criterio che ti dà Veualiah. Nel Cuore Ieiaiel ti porta il lavoro solido; nell'Intelletto Mumiah ti porta l'arte di chiudere.",
+    "cosaFare": "Scrivi su due colonne trasferirti a Milano e restare a Bari: sotto ciascuna metti che cosa ti costa e che cosa ti dà. Decidi domani, a mente fresca, non stasera. È il gesto che Veualiah lega alla disciplina che porta a termine."
+   }
+  },
+  {
+   "scheda": 14,
+   "domanda": "Ha senso riprovarci con la mia ex?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "61 Umabel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, riprovarci con la tua ex va bene a una condizione che Habuhiah ti pone: dare senza contare e senza aspettare riconoscimento. Altrimenti, per adesso, no. Nel Cuore Menadel ti porta l'impegno di ogni giorno; nell'Intelletto Umabel ti porta l'affinità che non confonde.",
+    "cosaFare": "Prima di decidere se riprovarci con la tua ex scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Habuhiah lega alla generosità pratica."
+   }
+  },
+  {
+   "scheda": 15,
+   "domanda": "Devo accettare l'offerta della nuova azienda?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "42 Mikael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "55 Mebahiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, accettare l'offerta della nuova azienda va bene a una condizione che Mikael ti pone: guardare le cose come stanno prima di prendere posizione. Altrimenti, per adesso, no. Nel Cuore Menadel ti porta l'impegno di ogni giorno; nell'Intelletto Mebahiah ti porta la giustizia fatta gesto quotidiano.",
+    "cosaFare": "Prima di decidere se accettare l'offerta della nuova azienda scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Mikael lega all'ordine interiore."
+   }
+  },
+  {
+   "scheda": 16,
+   "domanda": "Che cosa mi aspetta?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "71 Haiaiel",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "30 Omael",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "coperta": true
+    }
+   ],
+   "testo": {
+    "risposta": "Ciò che ti aspetta non è scritto nelle carte, perché il futuro non si legge come una cosa già decisa: Haiaiel ti risponde con ciò che dipende da te oggi, cioè decidere a mente fredda e saper dire di no. Nel Cuore Omael porta la pazienza che prepara il terreno.",
+    "cosaFare": "Scegli una situazione precisa della tua vita e rifai la domanda su quella sola: più è chiara, più la risposta ti serve. Intanto porta nella tua giornata il coraggio a mente fredda, il dono di Haiaiel. Non serve fare tutto oggi."
+   }
+  },
+  {
+   "scheda": 17,
+   "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "8 Cahethel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "2 Ieliel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "5 Mahasiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Ciò che lui sente per te può dirtelo solo lui, non le carte: Cahethel ti riporta a ciò che è tuo, la gratitudine concreta. Per la seconda domanda fai un'altra consultazione. Nel Cuore Ieliel ti porta il legame che tiene; nell'Intelletto Mahasiah ti porta la pace che non cede.",
+    "cosaFare": "Per una settimana guarda i gesti di lui più delle parole e annota ciò che vedi, senza interpretarlo. Se hai una domanda, falla direttamente a lui, con calma. Su ciò che dipende da te, la via di Cahethel è riconoscere la fatica che sta dietro a ciò che hai."
+   }
+  },
+  {
+   "scheda": 18,
+   "domanda": "Come posso fare pace con mia sorella?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "72 Mumiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "39 Rehael",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "56 Poyel",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Per fare pace con tua sorella, la via che Haheuiah ti indica è porre un confine chiaro intorno a te senza chiuderti. Nel Cuore Iezalel ti porta la fedeltà come memoria attiva; nell'Intelletto Imamiah ti fa capire che la chiave è riconoscere un tuo errore senza farne una condanna.",
+    "cosaFare": "Scegli un momento tranquillo e di' a tua sorella una cosa sola, vera e senza rimprovero. Poi ascolta la risposta fino in fondo, senza interrompere. È il gesto che Haheuiah lega al confine chiaro. Un passo piccolo vale più di un grande proposito."
+   }
+  },
+  {
+   "scheda": 19,
+   "domanda": "L'operazione al ginocchio del mese prossimo andrà bene?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "60 Mitzrael",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "31 Lecabel",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "2 Ieliel",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sull'esito dell'operazione al ginocchio Mihael non risponde e nessuna carta può farlo: è una domanda per il tuo medico. Le carte non sostituiscono chi ti cura e non promettono un esito. Nel Cuore Eiael ti porta la trasformazione che non rompe; nell'Intelletto Haziel ti porta la clemenza consapevole.",
+    "cosaFare": "Scrivi le domande che vuoi fare al tuo medico e portale alla prossima visita: su questo è lui o lei a poterti rispondere. Su ciò che è tuo Mihael ti accompagna con la fedeltà di ogni giorno. Basta un passo."
+   }
+  },
+  {
+   "scheda": 20,
+   "domanda": "Vincerò la causa contro il mio ex socio?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "18 Caliel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "15 Hariel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "58 Ieialel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sull'esito della causa contro il tuo ex socio Caliel non risponde e nessuna carta può farlo: è una questione per il tuo avvocato. Nel Cuore Hariel ti porta l'intuizione che diventa metodo; nell'Intelletto Ieialel ti fa capire che la chiave è guardare una cosa finché ne capisci la causa.",
+    "cosaFare": "Metti in ordine documenti e date, poi porta le tue domande al tuo avvocato: è la persona giusta per valutare la causa. Non decidere nulla per impulso. Su ciò che è tuo Caliel ti accompagna con la distinzione fra fatti e opinioni."
+   }
+  },
+  {
+   "scheda": 21,
+   "domanda": "Conviene investire i miei risparmi in borsa adesso?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "55 Mebahiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "43 Veualiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "63 Anauel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Su come usare i tuoi risparmi Lehahiah non dà consigli e nessuna carta può darli: è una scelta da fare con un consulente finanziario di fiducia. Nel Cuore Nemamiah ti porta la sostanza oltre l'apparenza; nell'Intelletto Iehuiah ti porta la distinzione fra ruolo e persona.",
+    "cosaFare": "Prima di muovere i tuoi risparmi chiedi un parere a un consulente finanziario indipendente e fatti spiegare i rischi per iscritto. Non decidere sotto la spinta del momento. Su ciò che è tuo Lehahiah ti accompagna con la calma che tiene."
+   }
+  },
+  {
+   "scheda": 22,
+   "domanda": "Il colloquio di giovedì andrà bene?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "19 Leuviah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "57 Nemamiah",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "67 Eiael",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "L'esito del colloquio di giovedì non è scritto nelle carte e nessun angelo lo decide al posto tuo: Asaliah ti risponde che adesso conta cercare il vero prima del comodo. Nel Cuore Mihael ti porta la fedeltà di ogni giorno; nell'Intelletto Veualiah ti porta la disciplina che porta a termine.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per il colloquio di giovedì e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Asaliah lega al senso della misura fra le persone."
+   }
+  },
+  {
+   "scheda": 23,
+   "domanda": "Il progetto che ho presentato verrà approvato?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "36 Menadel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "59 Harahel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "37 Aniel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "L'esito del tuo progetto non è scritto nelle carte e nessun angelo lo decide al posto tuo: Lecabel ti risponde che adesso conta curare i dettagli senza perdere l'insieme. Nel Cuore Nelchael ti porta lo studio paziente; nell'Intelletto Mahasiah ti porta la pace che non cede.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per il tuo progetto e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Lecabel lega alla cura del dettaglio. Basta un passo."
+   }
+  },
+  {
+   "scheda": 24,
+   "domanda": "Quando finirà questo periodo di stallo?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "26 Haaiah",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "19 Leuviah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "coperta": true
+    }
+   ],
+   "testo": {
+    "risposta": "Nessuna carta dà una data per la fine di questo periodo di stallo: Haaiah ti risponde che conta ciò che fai adesso, cioè cercare il punto d'incontro dove gli altri vedono uno scontro. Nel Cuore Leuviah porta la memoria che ricostruisce.",
+    "cosaFare": "Smetti di contare i giorni: scegli una cosa ferma che dipende da te e falla muovere oggi di un passo, anche minimo. È il gesto che Haaiah lega al punto d'incontro. Un passo piccolo vale più di un grande proposito."
+   }
+  },
+  {
+   "scheda": 25,
+   "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "24 Haheuiah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "13 Iezalel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "52 Imamiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Per affrontare il pranzo di Natale con la famiglia di lui, la via che Leuviah ti indica è chiudere le questioni rimaste aperte senza rinfacciare nulla. Nel Cuore Nemamiah ti porta la sostanza oltre l'apparenza; nell'Intelletto Eiael ti fa capire che la chiave è cambiare le cose senza romperle.",
+    "cosaFare": "Prepara per iscritto come vuoi stare al pranzo di Natale: che cosa porti, quali argomenti eviti e dove ti fermi se la tensione sale. È il gesto che Leuviah lega alla memoria che ricostruisce. Un passo piccolo vale più di un grande proposito."
+   }
+  },
+  {
+   "scheda": 26,
+   "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "31 Lecabel",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "21 Nelchael",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "5 Mahasiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Per aiutare tuo figlio, la via che Mebahiah ti indica è trasformare in gesti quotidiani ciò che consideri giusto. Nel Cuore Veualiah ti porta la disciplina che porta a termine; nell'Intelletto Anauel ti fa capire che la chiave è trovare il punto in cui due interessi diversi si toccano.",
+    "cosaFare": "Scegli un momento tranquillo e di' a tuo figlio una cosa sola, vera e senza rimprovero. Poi ascolta la risposta fino in fondo, senza interrompere. È il gesto che Mebahiah lega alla giustizia fatta gesto quotidiano. Non serve fare tutto oggi."
+   }
+  },
+  {
+   "scheda": 27,
+   "domanda": "È il momento giusto per aprire la mia attività?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "34 Lehahiah",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "57 Nemamiah",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "33 Iehuiah",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, aprire la tua attività va bene a una condizione che Ierathel ti pone: tenere la tua posizione senza colpire nessuno. Se la scelta ti costringe a fare il contrario, per adesso la risposta è no. Nel Cuore Melahel porta la cura delle piccole attenzioni, nell'Intelletto Habuhiah la generosità pratica.",
+    "cosaFare": "Prima di decidere se aprire la tua attività scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Ierathel lega alla chiarezza che non condanna."
+   }
+  },
+  {
+   "scheda": 28,
+   "domanda": "È giusto andare a vivere lontano dai miei genitori?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "55 Mebahiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "12 Hahaiah",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "24 Haheuiah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, andare a vivere lontano dai tuoi genitori va bene a una condizione che Mebahiah ti pone: trasformare in gesti quotidiani ciò che consideri giusto. Altrimenti, per adesso, no. Nel Cuore Hahaiah ti porta il rifugio interiore; nell'Intelletto Haheuiah ti porta il confine chiaro.",
+    "cosaFare": "Prima di decidere se andare a vivere lontano dai tuoi genitori scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Mebahiah lega alla giustizia fatta gesto quotidiano."
+   }
+  },
+  {
+   "scheda": 29,
+   "domanda": "Lui tornerà da me dopo quello che è successo?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "47 Asaliah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "48 Mihael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "43 Veualiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Un suo ritorno non si legge nelle carte e dipende da una scelta sua, non tua: Asaliah ti riporta a ciò che è tuo, il senso della misura fra le persone. Nel Cuore Habuhiah ti porta la generosità pratica; nell'Intelletto Vasariah ti porta la giustizia temperata dalla clemenza.",
+    "cosaFare": "Non scrivere per ottenere una risposta e non cercare segni nei suoi silenzi. Oggi scrivi per te, su un foglio che tieni, che cosa è accaduto e che cosa vuoi adesso per la tua vita. Il resto appartiene alla sua scelta, non alla tua."
+   }
+  },
+  {
+   "scheda": 30,
+   "domanda": "Compro casa adesso o aspetto un anno?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "46 Ariel",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "47 Asaliah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Fra comprare casa adesso e aspettare un anno scegli la strada che ti permette meglio di dare senza contare e senza aspettare riconoscimento: è il criterio che ti dà Habuhiah. Nel Cuore Ariel porta la percezione che precede la prova, nell'Intelletto Asaliah il senso della misura fra le persone.",
+    "cosaFare": "Scrivi su due colonne comprare casa adesso e aspettare un anno: sotto ciascuna metti che cosa ti costa e che cosa ti dà. Decidi domani, a mente fresca, non stasera. È il gesto che Habuhiah lega alla generosità pratica. Basta un passo."
+   }
+  },
+  {
+   "scheda": 31,
+   "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "21 Nelchael",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "46 Ariel",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "19 Leuviah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "L'esito della promozione non è scritto nelle carte e nessun angelo lo decide al posto tuo: Nelchael ti risponde che adesso conta sopportare di non capire subito e continuare a imparare. Nel Cuore Ariel ti porta la percezione che precede la prova; nell'Intelletto Leuviah ti porta la memoria che ricostruisce.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per la promozione e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Nelchael lega allo studio paziente. Basta un passo."
+   }
+  },
+  {
+   "scheda": 32,
+   "domanda": "Quale strada scelgo tra i due corsi di laurea?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "18 Caliel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "52 Imamiah",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "coperta": true
+    }
+   ],
+   "testo": {
+    "risposta": "Fra i due corsi di laurea scegli quello che ti permette meglio di separare i fatti dalle opinioni senza alzare il tono: è il criterio che ti dà Caliel. Nel Cuore Imamiah ti porta l'errore ammesso senza condanna; l'Intelletto resta coperto senza la tua ora di nascita.",
+    "cosaFare": "Scrivi su due colonne i due corsi di laurea: sotto ciascuna metti che cosa ti costa e che cosa ti dà. Decidi domani, a mente fresca, non stasera. È il gesto che Caliel lega alla distinzione fra fatti e opinioni."
+   }
+  },
+  {
+   "scheda": 33,
+   "domanda": "Come gestisco il conflitto con il mio capo?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "63 Anauel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "25 Nithhaiah",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "14 Mebahel",
+     "coro": "Cherubini",
+     "dominioDelCoro": "la sapienza e la luce che mette ordine",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Per gestire il conflitto con il tuo capo, la via che Anauel ti indica è trovare il punto in cui due interessi diversi si toccano. Nel Cuore Nithhaiah ti porta il silenzio che precede la parola; nell'Intelletto Mebahel ti porta la giustizia che comincia da te.",
+    "cosaFare": "Scegli un momento tranquillo e di' al tuo capo una cosa sola, vera e senza rimprovero. Poi ascolta la risposta fino in fondo, senza interrompere. È il gesto che Anauel lega al senso dell'unità fra le cose. Basta un passo."
+   }
+  },
+  {
+   "scheda": 34,
+   "domanda": "Il cambiamento che sento arrivare sarà positivo?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "62 Iahhel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "19 Leuviah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "20 Pahaliah",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "L'esito del cambiamento non è scritto nelle carte e nessun angelo lo decide al posto tuo: Menadel ti risponde che adesso conta restare dove sei finché quel posto ha qualcosa da insegnarti. Nel Cuore Harahel porta l'apprezzamento che non svaluta, nell'Intelletto Aniel la decisione che rompe un cerchio.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per il cambiamento e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Menadel lega all'impegno di ogni giorno. Basta un passo."
+   }
+  },
+  {
+   "scheda": 35,
+   "domanda": "La mia relazione può durare nonostante la distanza?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "43 Veualiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "22 Ieiaiel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "72 Mumiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Se la tua relazione può durare non è scritto nelle carte e nessun angelo lo decide al posto tuo: Asaliah ti risponde che adesso conta cercare il vero prima del comodo. Nel Cuore Nemamiah ti porta la sostanza oltre l'apparenza; nell'Intelletto Melahel ti porta la cura delle piccole attenzioni.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per la tua relazione e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Asaliah lega al senso della misura fra le persone."
+   }
+  },
+  {
+   "scheda": 36,
+   "domanda": "Dimmi qualcosa.",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "54 Nithael",
+     "coro": "Principati",
+     "dominioDelCoro": "la vittoria e lo slancio che persiste",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "41 Hahahel",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "23 Melahel",
+     "coro": "Troni",
+     "dominioDelCoro": "la comprensione profonda e la fermezza",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Alla tua domanda aperta Nithael risponde con il suo dono, lo sguardo che riconosce la bellezza: oggi conviene partire da lì. Nel Cuore Hahahel ti porta la coerenza fra fede e gesti; nell'Intelletto Melahel ti fa capire che la chiave è prevenire con piccole attenzioni invece di riparare dopo.",
+    "cosaFare": "Scegli una situazione precisa della tua vita e rifai la domanda su quella sola: più è chiara, più la risposta ti serve. Intanto, per oggi, Nithael ti indica una via: riconoscere ciò che vale e mostrarlo agli altri. Basta un passo."
+   }
+  },
+  {
+   "scheda": 37,
+   "domanda": "Posso fidarmi del mio compagno?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "62 Iahhel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "67 Eiael",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "40 Ieiazel",
+     "coro": "Potenze",
+     "dominioDelCoro": "la forza e il rigore che pone confini",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Se puoi fidarti del tuo compagno lo dicono i suoi gesti nel tempo, non le carte: Mitzrael ti risponde che per te conta riparare ciò che si è rotto con pazienza e senza rivincita. Nel Cuore Lecabel porta la cura del dettaglio, nell'Intelletto Ieliel il legame che tiene.",
+    "cosaFare": "Per una settimana annota ciò che il tuo compagno dice e ciò che poi fa, senza commentarlo. Alla fine confronta le due colonne: la fiducia si costruisce lì, non nelle carte. Su ciò che dipende da te, Mitzrael ti porta la riparazione paziente."
+   }
+  },
+  {
+   "scheda": 38,
+   "domanda": "Come posso ritrovare l'intesa con mio marito?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "64 Mehiel",
+     "coro": "Arcangeli",
+     "dominioDelCoro": "la gloria e la parola che annuncia",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "4 Elemiah",
+     "coro": "Serafini",
+     "dominioDelCoro": "l'amore che arde e la volontà che accende",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "48 Mihael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Per ritrovare l'intesa con tuo marito, la via che Mehiel ti indica è dare una forma chiara a un'idea, per iscritto o a voce. Nel Cuore Elemiah ti porta il discernimento su chi hai intorno; nell'Intelletto Mihael ti porta la fedeltà di ogni giorno.",
+    "cosaFare": "Scegli un momento tranquillo e di' a tuo marito una cosa sola, vera e senza rimprovero. Poi ascolta la risposta fino in fondo, senza interrompere. È il gesto che Mehiel lega all'idea che prende forma. Non serve fare tutto oggi."
+   }
+  },
+  {
+   "scheda": 39,
+   "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "47 Asaliah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "68 Habuhiah",
+     "coro": "Angeli",
+     "dominioDelCoro": "il fondamento e la materia che si compie",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": "32 Vasariah",
+     "coro": "Dominazioni",
+     "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+     "coperta": false
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, lasciare il lavoro per tornare a studiare va bene a una condizione che Ielahiah ti pone: tenere la parola data proprio quando costa. Altrimenti, per adesso, no. Nel Cuore Vehuel ti porta la stima per il valore degli altri; nell'Intelletto Poyel ti porta la richiesta misurata.",
+    "cosaFare": "Prima di decidere se lasciare il lavoro per tornare a studiare scrivi tre fatti a favore e tre contro, senza supposizioni. Domani rileggili: se la condizione resta vera, muovi un primo passo piccolo che puoi ancora correggere. È il gesto che Ielahiah lega alla rettitudine sotto pressione."
+   }
+  },
+  {
+   "scheda": 40,
+   "domanda": "Arriverà presto la risposta che aspetto?",
+   "simboli": [
+    {
+     "ruolo": "Angelo Custode",
+     "posizione": "Cosa fare",
+     "angelo": "45 Sealiah",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo del Cuore",
+     "posizione": "Cosa sentire",
+     "angelo": "48 Mihael",
+     "coro": "Virtu'",
+     "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+     "coperta": false
+    },
+    {
+     "ruolo": "Angelo dell'Intelletto",
+     "posizione": "Cosa capire",
+     "angelo": null,
+     "coro": null,
+     "dominioDelCoro": null,
+     "coperta": true
+    }
+   ],
+   "testo": {
+    "risposta": "Se e quando arriva la risposta che aspetti non è scritto nelle carte e nessun angelo lo decide al posto tuo: Sealiah ti risponde che adesso conta rimettere in moto ciò che si era fermato. Nel Cuore Mihael porta la fedeltà di ogni giorno.",
+    "cosaFare": "Scrivi su un foglio che cosa dipende da te per la risposta che aspetti e che cosa no. Oggi fai la cosa più piccola della prima colonna, senza aspettare segnali. È il gesto che Sealiah lega alla volontà applicata alle cose lente."
+   }
+  }
+ ]
+}

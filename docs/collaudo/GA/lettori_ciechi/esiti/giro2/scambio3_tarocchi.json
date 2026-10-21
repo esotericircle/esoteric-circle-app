@@ -1,0 +1,1484 @@
+{
+ "schede": [
+  {
+   "scheda": 1,
+   "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Dieci di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il carico da alleggerire."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, ma a una condizione: Dieci di Bastoni rovesciato dice che porti un fardello che forse non ti appartiene, per abitudine o per dovere. Prima serve questo: restituisci un compito che non è tuo e dillo con chiarezza. Al centro c'è un fardello da restituire.",
+    "cosaFare": "Chiedi un incontro breve con chi decide e porta due risultati misurabili del tuo lavoro. Scrivi su una pagina che cosa hai ottenuto quest'anno e consegnala a chi decide. Non chiedere la promozione nel mezzo di una giornata storta. Non aspettare che qualcuno si accorga del tuo lavoro senza dirlo."
+   }
+  },
+  {
+   "scheda": 2,
+   "domanda": "La mia relazione può durare nonostante la distanza?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Re di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La prosperità sicura."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "La Giustizia",
+     "verso": "dritta",
+     "significatoDelVerso": "La bilancia della verità."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "La Temperanza",
+     "verso": "dritta",
+     "significatoDelVerso": "La misura che accorda."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, ma a una condizione: L'Eremita dice che è tempo di ritiro e di ricerca interiore; la risposta arriva un tratto alla volta. Prima, però, prenditi del tempo per te prima di decidere. Davanti a te c'è Quattro di Bastoni, cioè una stabilità da festeggiare.",
+    "cosaFare": "Quattro di Bastoni davanti a te aggiunge un gesto: festeggia ciò che hai costruito con le persone che contano. Fissate insieme la data del prossimo incontro e scrivetela nel calendario. Non tenere il conto di chi ha dato di più."
+   }
+  },
+  {
+   "scheda": 3,
+   "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Il Papa",
+     "verso": "dritta",
+     "significatoDelVerso": "La guida antica."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Regina di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La cura dispersa."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Dieci di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La casa divisa."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Tre di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La festa da riequilibrare."
+    }
+   ],
+   "testo": {
+    "risposta": "Le domande sono due: le carte rispondono alla prima, la seconda chiede una stesa sua. Sì, la tendenza è favorevole: Fante di Bastoni dice che arriva un'idea giovane, una curiosità che chiede di essere esplorata. All'esito c'è Regina di Denari, cioè una cura concreta.",
+    "cosaFare": "Per l'altra domanda fai una stesa a parte, con quella sola. Regina di Denari all'esito aggiunge un gesto: prenditi cura della cosa con un gesto pratico e concreto. Guarda i gesti degli ultimi giorni più delle parole: scrivi tre fatti concreti. Non chiedere conferme a chi non c'entra."
+   }
+  },
+  {
+   "scheda": 4,
+   "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Tre di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il ritorno diverso dall'atteso."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Fante di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il messaggero ardente."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Sei di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il dono dell'infanzia."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Quattro di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La festa della soglia."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Quattro di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "L'offerta non vista."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Cinque di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Le coppe versate."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "La Papessa",
+     "verso": "dritta",
+     "significatoDelVerso": "Il sapere del silenzio."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "La Torre",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il crollo evitato."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Fante di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La promessa rimandata."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Sette di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "L'attesa del raccolto."
+    }
+   ],
+   "testo": {
+    "risposta": "Il modo c'è, a una condizione: lascia cadere ora ciò che è falso, prima che il crollo diventi più grande. La Torre rovesciata dice che stai rimandando una scossa necessaria, oppure ne stai uscendo a fatica. All'esito c'è Sette di Denari, cioè un raccolto che chiede pazienza.",
+    "cosaFare": "Sette di Denari all'esito aggiunge un gesto: aspetta il tempo giusto e intanto valuta con calma i risultati. Trova un momento a due, senza domande dirette; ascolta più di quanto parli. Non fare paragoni con fratelli, cugini o compagni di scuola."
+   }
+  },
+  {
+   "scheda": 5,
+   "domanda": "Incontrerò qualcuno di importante quest'anno?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "La Forza",
+     "verso": "dritta",
+     "significatoDelVerso": "La forza gentile."
+    }
+   ],
+   "testo": {
+    "risposta": "La risposta delle carte è sì, perché Re di Coppe indica che serve calma emotiva; chi governa i sentimenti con serenità tiene la direzione. Per sostenere questa tendenza, rispondi con calma e senza farti trascinare dall'umore. Al centro c'è una calma che governa.",
+    "cosaFare": "Scegli un ambiente che ti piace davvero e frequentalo con regolarità. Questa settimana accetta un invito o iscriviti a un'attività con persone nuove che condividono un tuo interesse. Non giudicare una persona dal primo minuto di conversazione. Non chiuderti in casa aspettando che succeda qualcosa."
+   }
+  },
+  {
+   "scheda": 6,
+   "domanda": "Cosa prova davvero Marco per me?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Sei di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il dare sbilanciato."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Quattro di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il riposo del guerriero."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "La Papessa",
+     "verso": "dritta",
+     "significatoDelVerso": "Il sapere del silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Le carte vedono una cosa ancora in sospeso: La Papessa dice che la risposta matura nel silenzio e non tutto va deciso adesso. Il consiglio della carta è questo: aspetta qualche giorno prima di decidere e ascolta che cosa senti davvero.",
+    "cosaFare": "Quattro di Spade nel presente aggiunge un gesto: fermati qualche giorno e recupera le forze prima di agire. Fai una domanda diretta e semplice a quattr'occhi, poi ascolta la risposta senza interrompere. Non chiedere conferme a chi non c'entra. Non cercare la risposta nei messaggi o nei social."
+   }
+  },
+  {
+   "scheda": 7,
+   "domanda": "È il momento giusto per aprire la mia attività?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Fante di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il messaggero ardente."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Nove di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il desiderio appagato."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Asso di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cuore trattenuto."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Regina di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La cura concreta."
+    }
+   ],
+   "testo": {
+    "risposta": "Il Mago risponde: sì, la tendenza è favorevole, perché hai già gli strumenti che servono e l'idea chiede di diventare un gesto concreto. All'esito c'è Tre di Coppe rovesciato, cioè un gruppo da curare meglio: un esito che chiede ancora un impegno.",
+    "cosaFare": "Tre di Coppe rovesciato all'esito aggiunge un gesto: torna alle persone che ti sostengono davvero e lascia i rapporti di facciata. Scrivi su una pagina chi comprerebbe, a quale prezzo e perché; poi mostrala a una persona competente. Non ascoltare solo chi ti dice quello che vuoi sentire."
+   }
+  },
+  {
+   "scheda": 8,
+   "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Re di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il comando impaziente."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Il Giudizio",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La chiamata inascoltata."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Il Mondo",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cerchio che si compie."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Fante di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il messaggero ardente."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Re di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La prosperità sicura."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Fante di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La mente curiosa."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "Tre di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La collaborazione stonata."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Fante di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo studente diligente."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Due di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La scelta bendata."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Cinque di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Le coppe versate."
+    }
+   ],
+   "testo": {
+    "risposta": "Il modo è questo: porta un piccolo dono e fai una domanda sincera a chi ti accoglie. Lo sostiene Il Mondo: dice che c'è pienezza e armonia; ciò che hai costruito trova il suo compimento. All'esito c'è Cinque di Coppe, cioè una perdita che pesa: un rischio, non una meta.",
+    "cosaFare": "Cinque di Coppe all'esito aggiunge un gesto: riconosci il dolore e poi guarda ciò che ti resta in piedi. Prepara due argomenti leggeri e decidi prima a che ora andare via. Non bere un bicchiere in più per allentare la tensione."
+   }
+  },
+  {
+   "scheda": 9,
+   "domanda": "Il progetto che ho presentato verrà approvato?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Il Mondo",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cerchio che si compie."
+    }
+   ],
+   "testo": {
+    "risposta": "La Forza risponde: sì, la tendenza è favorevole, perché il coraggio qui è calma; ciò che ti agita si placa con fermezza gentile. Per sostenere questa tendenza, affronta la cosa con calma e fermezza, senza alzare i toni. Il punto è la calma che regge: da questo dipende la risposta.",
+    "cosaFare": "Chiedi a chi decide quando arriva la valutazione e che cosa serve ancora. Prepara una risposta breve alle due obiezioni più probabili sul progetto. Non riscrivere il progetto da capo mentre aspetti la risposta. Non dare per persa la cosa prima della decisione."
+   }
+  },
+  {
+   "scheda": 10,
+   "domanda": "Devo trasferirmi a Milano o restare a Bari?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Re di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "La calma del cuore."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Otto di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La prigione dei pensieri."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Il Giudizio",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La chiamata inascoltata."
+    }
+   ],
+   "testo": {
+    "risposta": "Non ancora, perché Il Mondo rovesciato indica che la meta è vicina, ma manca ancora un pezzo da sistemare. Prima serve questo: trova il pezzo che manca e completalo, senza fermarti proprio adesso. Davanti a te c'è Nove di Denari, cioè un raccolto meritato.",
+    "cosaFare": "Nove di Denari davanti a te aggiunge un gesto: goditi ciò che hai costruito e difendi la tua autonomia. Passa un fine settimana nella città che valuti, facendo la vita di un giorno normale. Non decidere senza aver visto la città in un giorno qualunque."
+   }
+  },
+  {
+   "scheda": 11,
+   "domanda": "Dimmi qualcosa.",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Sei di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La bilancia del dare."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Il Carro",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Le redini allentate."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Cavaliere di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore in viaggio."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Cinque di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La sfida vivace."
+    }
+   ],
+   "testo": {
+    "risposta": "La domanda è ampia, quindi sul periodo le carte vedono una difficoltà: Il Carro rovesciato dice che forze opposte ti fanno sbandare, oppure stai correndo senza sapere bene dove. All'esito c'è Cinque di Bastoni, cioè un confronto acceso: un esito che chiede ancora un impegno.",
+    "cosaFare": "Per una risposta precisa, rifai la domanda nominando la cosa che ti sta a cuore. Cinque di Bastoni all'esito aggiunge un gesto: usa il confronto per migliorare, non per vincere a ogni costo. Prenditi un'ora per mettere in ordine le priorità del mese. Non disperdere le energie in dieci direzioni."
+   }
+  },
+  {
+   "scheda": 12,
+   "domanda": "Ha senso riprovarci con la mia ex?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Cinque di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il conflitto che stanca."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Sei di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La vittoria che sfila."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Sette di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La guardia stanca."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Quattro di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il riposo del guerriero."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Due di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "L'armonia incrinata."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "La Ruota della Fortuna",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giro del destino."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Regina di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La lucidità sincera."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Sette di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La strategia silenziosa."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Re di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giudizio giusto."
+    }
+   ],
+   "testo": {
+    "risposta": "La Ruota della Fortuna risponde: sì, la tendenza è favorevole, perché un ciclo gira e porta una svolta, spesso quando meno te lo aspetti. All'esito c'è Re di Spade, cioè un giudizio equo: è lì che la cosa può arrivare. Lo contrasta Nove di Spade al centro, con l'ansia notturna.",
+    "cosaFare": "Prima di tutto, accogli il cambiamento invece di aggrapparti a com'era prima. Re di Spade all'esito aggiunge un gesto: decidi in base ai fatti e con equità. Aspetta tre giorni prima di scrivere e rileggi il messaggio a mente fredda. Non fingere che quello che è successo non conti."
+   }
+  },
+  {
+   "scheda": 13,
+   "domanda": "Come gestisco il conflitto con il mio capo?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Fante di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La mente curiosa."
+    }
+   ],
+   "testo": {
+    "risposta": "Il modo è questo: scrivi i fatti del conflitto in tre righe, senza aggettivi, prima di parlarne. Lo sostiene Quattro di Bastoni: dice che c'è stabilità e una meta da festeggiare; le fondamenta reggono. Al centro c'è una stabilità da festeggiare: è questo che decide la risposta.",
+    "cosaFare": "In pratica, festeggia ciò che hai costruito con le persone che contano. Chiedi un incontro a quattr'occhi e porta un solo argomento, detto con calma. Non rispondere a caldo a un messaggio che ti ha ferito. Non affrontare la questione davanti ai colleghi."
+   }
+  },
+  {
+   "scheda": 14,
+   "domanda": "Vincerò la causa contro il mio ex socio?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Asso di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La scintilla che tarda."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Re di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La visione che guida."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "La Torre",
+     "verso": "dritta",
+     "significatoDelVerso": "Il crollo che rivela."
+    }
+   ],
+   "testo": {
+    "risposta": "Le carte non dicono come finisce una causa: decide il tuo avvocato. La Torre parla del modo di viverla e non dell'esito; chiede questo: guarda che cosa resta in piedi e riparti solo da quello. Lo attenua Re di Bastoni nel presente, con una guida che dà l'esempio.",
+    "cosaFare": "Re di Bastoni nel presente aggiunge un gesto: prendi tu la direzione e fai per primo ciò che chiedi agli altri. Raccogli i documenti in ordine cronologico e fissa un incontro con il tuo avvocato. Non prendere decisioni legali in base alle carte: decide chi conosce la legge."
+   }
+  },
+  {
+   "scheda": 15,
+   "domanda": "Passerò l'esame di stato a dicembre?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Regina di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La cura concreta."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Dieci di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il carico da alleggerire."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Regina di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il carisma caldo."
+    }
+   ],
+   "testo": {
+    "risposta": "Regina di Denari risponde: sì, la tendenza è favorevole, perché c'è cura concreta e senso pratico, cuore e concretezza insieme. All'esito c'è Regina di Bastoni, cioè un calore che attira: è lì che la cosa può arrivare. Lo contrasta Nove di Spade di lato, con l'ansia notturna.",
+    "cosaFare": "Prima di tutto, prenditi cura della cosa con un gesto pratico e concreto. Regina di Bastoni all'esito aggiunge un gesto: mostrati per ciò che sei, con generosità. Fissa ogni giorno, fino all'esame, un blocco di ripasso con un orario preciso. Non studiare tutta la notte prima della prova."
+   }
+  },
+  {
+   "scheda": 16,
+   "domanda": "L'operazione al ginocchio del mese prossimo andrà bene?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Dieci di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "L'arcobaleno della famiglia."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Dieci di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La risalita."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Tre di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il brindisi degli amici."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Sei di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La traversata calma."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Il Mondo",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cerchio quasi chiuso."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Regina di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "L'emozione che sommerge."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "Asso di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore che trabocca."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Due di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo sguardo lontano."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Due di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "L'incontro dei cuori."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Re di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La visione che guida."
+    }
+   ],
+   "testo": {
+    "risposta": "Le carte non dicono come va un intervento o una cura: decide il tuo medico. Il Mondo rovesciato parla del modo di viverla e non dell'esito; chiede questo: trova il pezzo che manca e completalo, senza fermarti proprio adesso. All'esito c'è Re di Bastoni, cioè una guida che dà l'esempio.",
+    "cosaFare": "Re di Bastoni all'esito aggiunge un gesto: prendi tu la direzione e fai per primo ciò che chiedi agli altri. Chiedi al medico di spiegarti con calma i tempi, il recupero e che cosa puoi fare tu. Non cambiare cure o tempi senza il parere del medico che ti segue."
+   }
+  },
+  {
+   "scheda": 17,
+   "domanda": "Quando finirà questo periodo di stallo?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Cavaliere di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La corsa audace."
+    }
+   ],
+   "testo": {
+    "risposta": "Non manca molto, se la tendenza resta questa: Cavaliere di Bastoni dice che è un tempo per osare; passione e azione portano verso ciò che desideri. Per sostenere questa tendenza, parti con coraggio, ma scrivi prima la meta. Il punto è il coraggio di partire: da questo dipende la risposta.",
+    "cosaFare": "Cambia una sola abitudine questa settimana, una che dipende solo da te. Scegli una cosa ferma da tempo e dedicale mezz'ora ogni mattina. Non rifare ogni giorno le stesse mosse sperando in un esito diverso. Non aspettare che il cambiamento arrivi da fuori."
+   }
+  },
+  {
+   "scheda": 18,
+   "domanda": "Come posso fare pace con mia sorella?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Cavaliere di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La carica del pensiero."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Re di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giudizio giusto."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "L'Imperatore",
+     "verso": "dritta",
+     "significatoDelVerso": "La struttura che protegge."
+    }
+   ],
+   "testo": {
+    "risposta": "Il modo è questo: proponi un incontro in un posto neutro, per un caffè e non per un processo. Lo sostiene La Luna rovesciata: dice che la confusione si sta chiarendo e ciò che faceva paura si mostra più piccolo.",
+    "cosaFare": "Cavaliere di Spade davanti a te aggiunge un gesto: vai dritto allo scopo, ma senza travolgere chi ti sta accanto. Manda un messaggio breve che riconosca la tua parte, senza chiedere niente in cambio. Non riaprire la lite su chi aveva ragione."
+   }
+  },
+  {
+   "scheda": 19,
+   "domanda": "È giusto andare a vivere lontano dai miei genitori?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Fante di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La mente curiosa."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "L'Imperatore",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La regola che soffoca."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Sei di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il dono dell'infanzia."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Re di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La visione che guida."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, è il momento di andare, perché Il Mago indica che hai già gli strumenti che servono e l'idea chiede di diventare un gesto concreto. All'esito c'è Due di Coppe, cioè un'intesa a due: è lì che la cosa può arrivare.",
+    "cosaFare": "Due di Coppe all'esito aggiunge un gesto: cura il rapporto con chi è coinvolto, con un gesto reciproco. Parlane con calma a cena, dicendo che cosa cambia e che cosa resta come prima. Non rimandare la scelta solo per paura di deludere."
+   }
+  },
+  {
+   "scheda": 20,
+   "domanda": "Arriverà presto la risposta che aspetto?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Tre di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore trafitto."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Cavaliere di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore in viaggio."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Gli Amanti",
+     "verso": "dritta",
+     "significatoDelVerso": "La scelta del cuore."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Fante di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo studente diligente."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Nove di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giardino conquistato."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Il Matto",
+     "verso": "dritta",
+     "significatoDelVerso": "Il salto nel vuoto."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "La Papessa",
+     "verso": "dritta",
+     "significatoDelVerso": "Il sapere del silenzio."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Due di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il gioco d'equilibrio."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "La Temperanza",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La misura perduta."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Sette di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La posizione difesa."
+    }
+   ],
+   "testo": {
+    "risposta": "Per ora no: La Temperanza rovesciata dice che ci sono eccessi e fretta; il ritmo giusto si è perso. All'esito c'è Sette di Bastoni, cioè una posizione da tenere: un esito che chiede ancora un impegno. Lo conferma Tre di Spade al centro, con un dolore che ferisce.",
+    "cosaFare": "Sette di Bastoni all'esito aggiunge un gesto: difendi la tua posizione con calma, senza cedere proprio adesso. Scrivi sul calendario la data oltre la quale chiedi tu notizie, con un messaggio breve e cortese. Non leggere il silenzio come un rifiuto prima di averne le prove."
+   }
+  },
+  {
+   "scheda": 21,
+   "domanda": "Devo dirle che sono innamorato di lei?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Re di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giudizio giusto."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, la tendenza è favorevole: Asso di Spade dice che c'è chiarezza, un taglio netto che separa il vero dal falso. Per sostenere questa tendenza, di' le cose come stanno, con onestà e poche parole. Il punto è una chiarezza netta: da questo dipende la risposta.",
+    "cosaFare": "Scegli un momento tranquillo e dillo con una frase semplice, senza preparare discorsi. Proponi un caffè a due e di' quello che senti in poche parole. Non pretendere una risposta immediata: lascia all'altra persona il suo tempo. Non dichiararti per messaggio o davanti ad altri."
+   }
+  },
+  {
+   "scheda": 22,
+   "domanda": "Il cambiamento che sento arrivare sarà positivo?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Il Diavolo",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La catena che si spezza."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Il Mondo",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cerchio quasi chiuso."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Nove di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giardino conquistato."
+    }
+   ],
+   "testo": {
+    "risposta": "L'Imperatore risponde: sì, la tendenza è favorevole, perché è il momento dell'ordine e delle fondamenta solide; ciò che costruisci con regola dura. Lo conferma Re di Spade nel presente, con un giudizio equo. Accanto c'è Cavaliere di Spade alle spalle, con una determinazione veloce: una cosa da curare.",
+    "cosaFare": "In pratica, dai una struttura alla cosa, con tempi, compiti e una regola chiara. Re di Spade nel presente aggiunge un gesto: decidi in base ai fatti e con equità. Prepara una cosa concreta per accogliere il cambiamento: un'agenda, un posto, un orario. Non giudicare il cambiamento dal primo giorno."
+   }
+  },
+  {
+   "scheda": 23,
+   "domanda": "Il colloquio di giovedì andrà bene?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Dieci di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La fine e la resa."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Il Diavolo",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La catena che si spezza."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Asso di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cuore trattenuto."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Otto di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "La partenza silenziosa."
+    }
+   ],
+   "testo": {
+    "risposta": "Per ora no: L'Imperatore rovesciato dice che il controllo è diventato troppo stretto, oppure mancano le basi e tutto vacilla. All'esito c'è Re di Bastoni, cioè una guida che dà l'esempio: la cosa può ancora girare, se cambi qualcosa adesso.",
+    "cosaFare": "Re di Bastoni all'esito aggiunge un gesto: prendi tu la direzione e fai per primo ciò che chiedi agli altri. Prima del colloquio scrivi tre risultati concreti che puoi raccontare e ripetili davanti allo specchio. Non presentarti senza aver riletto l'annuncio e il tuo curriculum."
+   }
+  },
+  {
+   "scheda": 24,
+   "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Tre di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore trafitto."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Il Mago",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il potere sprecato."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "La Forza",
+     "verso": "dritta",
+     "significatoDelVerso": "La forza gentile."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Otto di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La prigione dei pensieri."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "La Temperanza",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La misura perduta."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Cinque di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Le coppe versate."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "Re di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cuore senza governo."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Due di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo sguardo lontano."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Tre di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La collaborazione stonata."
+    }
+   ],
+   "testo": {
+    "risposta": "La Temperanza rovesciata risponde: non decidere adesso, perché ci sono eccessi e fretta; il ritmo giusto si è perso. All'esito c'è Tre di Denari rovesciato, cioè una collaborazione confusa: un rischio da guardare adesso, non una meta. Lo conferma Tre di Spade al centro, con un dolore che ferisce.",
+    "cosaFare": "Prima di tutto, rallenta e togli un eccesso, uno soltanto, da questa settimana. Tre di Denari rovesciato all'esito aggiunge un gesto: chiarisci compiti e aspettative con chi lavora con te. Metti per iscritto un piano di sei mesi con spese, orari e obiettivi. Non decidere in una giornata di stanchezza."
+   }
+  },
+  {
+   "scheda": 25,
+   "domanda": "Come posso ritrovare l'intesa con mio marito?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Re di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "La calma del cuore."
+    }
+   ],
+   "testo": {
+    "risposta": "Il modo c'è, a una condizione: raccogli informazioni e scegli con cura le parole. Fante di Spade dice che serve vigilanza, cioè osservare e informarsi prima di parlare. Al centro c'è una vigilanza attenta: è questo che decide la risposta.",
+    "cosaFare": "Proponi una sera senza telefoni, solo voi due; fissatela oggi stesso. Parlate di una cosa sola che vorreste cambiare, a turno e senza interrompervi. Fissate insieme la data del prossimo incontro e scrivetela nel calendario. Non tenere il conto di chi ha dato di più."
+   }
+  },
+  {
+   "scheda": 26,
+   "domanda": "Posso fidarmi del mio compagno?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "La Luna",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il velo che si dirada."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Cinque di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La vittoria amara."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Cavaliere di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La carica del pensiero."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, ma a una condizione: La Giustizia dice che torna indietro ciò che hai seminato; la bilancia pende verso chi agisce con onestà. Prima serve questo: metti per iscritto i fatti così come stanno, senza sconti. Davanti a te c'è La Temperanza, cioè la pazienza che accorda.",
+    "cosaFare": "La Temperanza davanti a te aggiunge un gesto: vai piano e trova una via di mezzo fra le due parti. Scrivi i fatti che ti fanno dubitare in una colonna e le supposizioni in un'altra. Non accusare prima di aver chiesto e ascoltato una spiegazione."
+   }
+  },
+  {
+   "scheda": 27,
+   "domanda": "Conviene investire i miei risparmi in borsa adesso?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Il Mago",
+     "verso": "dritta",
+     "significatoDelVerso": "Il potere di creare."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Nove di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La difesa irrigidita."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Fante di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo studente diligente."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Due di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "L'incontro dei cuori."
+    }
+   ],
+   "testo": {
+    "risposta": "Le carte non dicono se un investimento conviene: chiedi a un consulente abilitato. Il Papa parla del modo di viverla e non dell'esito; chiede questo: chiedi il parere di una persona esperta di cui ti fidi. All'esito c'è Tre di Coppe rovesciato, cioè un gruppo da curare meglio.",
+    "cosaFare": "Tre di Coppe rovesciato all'esito aggiunge un gesto: torna alle persone che ti sostengono davvero e lascia i rapporti di facciata. Scrivi quanto puoi permetterti di perdere senza cambiare la tua vita; poi porta il foglio al consulente. Non muovere i risparmi per paura di perdere un'occasione."
+   }
+  },
+  {
+   "scheda": 28,
+   "domanda": "Compro casa adesso o aspetto un anno?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "La Forza",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il dominio perso."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Cavaliere di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La foga imprudente."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Asso di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il seme d'oro."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Dieci di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La risalita."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Sei di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La partenza difficile."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "L'Eremita",
+     "verso": "dritta",
+     "significatoDelVerso": "La luce interiore."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "Due di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo sguardo lontano."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Il Matto",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il passo avventato."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Regina di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La fiamma insicura."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "La Stella",
+     "verso": "dritta",
+     "significatoDelVerso": "La speranza ritrovata."
+    }
+   ],
+   "testo": {
+    "risposta": "Le carte inclinano ad aspettare, per ora: La Forza rovesciata dice che dubiti della tua tenuta, oppure ti tratti con troppa durezza. All'esito c'è La Stella, cioè la fiducia ritrovata: la cosa può ancora girare, se cambi qualcosa adesso. Lo attenua Asso di Denari sopra, con un'occasione concreta.",
+    "cosaFare": "Prima di tutto, tratta te e la situazione con mitezza invece che con la stretta. La Stella all'esito aggiunge un gesto: coltiva la fiducia con un gesto piccolo ogni giorno. Visita almeno tre case simili prima di decidere sul prezzo. Non firmare una proposta d'acquisto nello stesso giorno della visita."
+   }
+  },
+  {
+   "scheda": 29,
+   "domanda": "Che cosa mi aspetta?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Quattro di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La festa della soglia."
+    }
+   ],
+   "testo": {
+    "risposta": "La domanda è ampia, quindi sul periodo le carte vedono una cosa buona: Re di Spade dice che serve un giudizio equo, la ragione al servizio del cuore. Per sostenere questa tendenza, decidi in base ai fatti e con equità.",
+    "cosaFare": "Per una risposta precisa, rifai la domanda nominando la cosa che ti sta a cuore. Di' a un'amicizia che conta quanto tieni a lei, con un gesto concreto. Scrivi a una persona amica che senti poco e proponi di vedervi. Non tenere un rancore senza dirlo a chi riguarda."
+   }
+  },
+  {
+   "scheda": 30,
+   "domanda": "Devo accettare l'offerta della nuova azienda?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Dieci di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il peso portato."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Cavaliere di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il passo costante."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Otto di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Le frecce nell'aria."
+    }
+   ],
+   "testo": {
+    "risposta": "La risposta delle carte è sì, perché Cavaliere di Denari indica che l'andatura è lenta ma costante; chi non si ferma arriva. Davanti a te c'è Otto di Bastoni, cioè un'accelerazione improvvisa: è lì che la cosa può arrivare. Al centro c'è una costanza che arriva.",
+    "cosaFare": "Prima di tutto, avanza con metodo, un tratto fisso ogni giorno. Otto di Bastoni davanti a te aggiunge un gesto: rispondi subito alle notizie che arrivano, senza rimandare. Chiedi all'azienda un colloquio in più per chiarire compiti, orari e prospettive. Non decidere sull'entusiasmo del primo giorno."
+   }
+  },
+  {
+   "scheda": 31,
+   "domanda": "Andrà tutto bene?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Cavaliere di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La corsa audace."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Fante di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il messaggero ardente."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Nove di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "L'indipendenza da curare."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "La Morte",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La fine trattenuta."
+    }
+   ],
+   "testo": {
+    "risposta": "In generale non ancora, anche se la domanda è ampia: La Morte rovesciata dice che stai resistendo a un cambiamento già arrivato; trattenere fa più male che lasciare. Lo attenua Cavaliere di Bastoni su di te, con il coraggio di partire.",
+    "cosaFare": "Per una risposta precisa, rifai la domanda nominando la cosa che ti sta a cuore. Organizza questa settimana una cena o una passeggiata con le persone di casa, senza telefoni a tavola. Non dare per scontato chi ti sta vicino ogni giorno."
+   }
+  },
+  {
+   "scheda": 32,
+   "domanda": "Lui tornerà da me dopo quello che è successo?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "La Luna",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il velo che si dirada."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Quattro di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La mano che stringe."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Il Matto",
+     "verso": "dritta",
+     "significatoDelVerso": "Il salto nel vuoto."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Regina di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il carisma caldo."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Due di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il piano incerto."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Asso di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cuore trattenuto."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "Due di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il gioco d'equilibrio."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Re di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il rigore senza cuore."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Cinque di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il ritorno al caldo."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "La Torre",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il crollo evitato."
+    }
+   ],
+   "testo": {
+    "risposta": "La risposta delle carte è sì, perché La Luna rovesciata indica che la confusione si sta chiarendo e ciò che faceva paura si mostra più piccolo. All'esito c'è La Torre rovesciata, cioè una scossa rimandata: un esito che chiede ancora un impegno.",
+    "cosaFare": "La Torre rovesciata all'esito aggiunge un gesto: lascia cadere ora ciò che è falso, prima che il crollo diventi più grande. Aspetta tre giorni prima di scrivere e rileggi il messaggio a mente fredda. Non fingere che quello che è successo non conti."
+   }
+  },
+  {
+   "scheda": 33,
+   "domanda": "Quale strada scelgo tra i due corsi di laurea?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Il Matto",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il passo avventato."
+    }
+   ],
+   "testo": {
+    "risposta": "Le carte non scelgono al posto tuo, ma danno il criterio: scarta l'opzione in cui pesa uno slancio senza direzione. Lo indica Il Matto rovesciato, con un consiglio preciso: fermati e chiediti se ti spinge il coraggio o la voglia di fuggire.",
+    "cosaFare": "Scrivi per ogni corso tre materie che seguiresti volentieri e confronta le due liste. Parla con uno studente di ciascun corso e chiedi com'è una settimana normale. Non scegliere solo in base a ciò che fanno gli amici. Non decidere guardando soltanto le voci che girano."
+   }
+  },
+  {
+   "scheda": 34,
+   "domanda": "Devo lasciare Roma, e se lo faccio la mia famiglia capirà?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "L'Eremita",
+     "verso": "dritta",
+     "significatoDelVerso": "La luce interiore."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Quattro di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La festa della soglia."
+    }
+   ],
+   "testo": {
+    "risposta": "Le domande sono due: le carte rispondono alla prima, la seconda chiede una stesa sua. Il Giudizio rovesciato risponde: non decidere adesso, perché stai rimandando un bilancio necessario, oppure ti giudichi con troppa durezza. Lo conferma Otto di Spade nel presente, con una trappola fatta di pensieri.",
+    "cosaFare": "Per l'altra domanda fai una stesa a parte, con quella sola. In pratica, fai il bilancio che rimandi, con giustizia e senza durezza verso di te. Passa un fine settimana nella città che valuti, facendo la vita di un giorno normale. Non partire solo per scappare da qualcosa."
+   }
+  },
+  {
+   "scheda": 35,
+   "domanda": "Devo chiudere l'amicizia con Giulia?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Il Diavolo",
+     "verso": "dritta",
+     "significatoDelVerso": "L'ombra da guardare."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Otto di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La prigione dei pensieri."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Cinque di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il freddo fuori dalla porta."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Dieci di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il peso portato."
+    }
+   ],
+   "testo": {
+    "risposta": "Il Diavolo rovesciato risponde: sì, le carte sostengono questo passo, perché ti accorgi di una catena che ti tratteneva; vederla è già metà della libertà. All'esito c'è Otto di Coppe, cioè una partenza silenziosa: un esito che chiede ancora un impegno.",
+    "cosaFare": "Otto di Coppe all'esito aggiunge un gesto: allontanati da ciò che ti svuota, anche senza conoscere ancora la meta. Prenditi due settimane di distanza e osserva se ti manca o ti alleggerisce. Non sparire senza una parola: anche una chiusura merita rispetto."
+   }
+  },
+  {
+   "scheda": 36,
+   "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Nove di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "L'indipendenza da curare."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Il Matto",
+     "verso": "dritta",
+     "significatoDelVerso": "Il salto nel vuoto."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Cavaliere di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il passo costante."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "La Forza",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il dominio perso."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Il Mondo",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cerchio che si compie."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "La Stella",
+     "verso": "dritta",
+     "significatoDelVerso": "La speranza ritrovata."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "Re di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il possesso che irrigidisce."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Dieci di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "L'eredità della casa."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Tre di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La festa da riequilibrare."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Re di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il rigore senza cuore."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, la tendenza è favorevole: Il Mondo dice che c'è pienezza e armonia; ciò che hai costruito trova il suo compimento. All'esito c'è Re di Spade rovesciato, cioè una freddezza che ferisce: un rischio da guardare adesso, non una meta.",
+    "cosaFare": "Re di Spade rovesciato all'esito aggiunge un gesto: unisci alla logica un gesto di comprensione. Scrivi su una pagina che cosa hai ottenuto quest'anno e consegnala a chi decide. Non chiedere la promozione nel mezzo di una giornata storta. Non aspettare che qualcuno si accorga del tuo lavoro senza dirlo."
+   }
+  },
+  {
+   "scheda": 37,
+   "domanda": "La mia relazione può durare nonostante la distanza?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Asso di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La lama della verità."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, la tendenza è favorevole: Il Mondo dice che c'è pienezza e armonia; ciò che hai costruito trova il suo compimento. Per sostenere questa tendenza, riconosci ciò che hai raggiunto e goditelo, senza correre già oltre. Il punto è un compimento pieno: da questo dipende la risposta.",
+    "cosaFare": "Proponi una sera senza telefoni, solo voi due; fissatela oggi stesso. Parlate di una cosa sola che vorreste cambiare, a turno e senza interrompervi. Fissate insieme la data del prossimo incontro e scrivetela nel calendario. Non lasciare che i silenzi parlino al posto vostro."
+   }
+  },
+  {
+   "scheda": 38,
+   "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Il Sole",
+     "verso": "dritta",
+     "significatoDelVerso": "La gioia piena."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Il Mago",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il potere sprecato."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Tre di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La festa da riequilibrare."
+    }
+   ],
+   "testo": {
+    "risposta": "Le domande sono due: le carte rispondono alla prima, la seconda chiede una stesa sua. Il Mago rovesciato risponde: per ora no, perché le parole promettono più di quanto le mani mantengono e un talento resta fermo. Lo attenua Il Sole alle spalle, con una riuscita piena.",
+    "cosaFare": "Per l'altra domanda fai una stesa a parte, con quella sola. Prima di tutto, mantieni una sola delle cose che hai promesso, prima di prometterne altre. Fai una domanda diretta e semplice a quattr'occhi, poi ascolta la risposta senza interrompere. Non cercare la risposta nei messaggi o nei social."
+   }
+  },
+  {
+   "scheda": 39,
+   "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Re di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La visione che guida."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Otto di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il lavoro senz'anima."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Il Mago",
+     "verso": "dritta",
+     "significatoDelVerso": "Il potere di creare."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Tre di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La festa da riequilibrare."
+    }
+   ],
+   "testo": {
+    "risposta": "Prima c'è una difficoltà da affrontare, perché Il Diavolo indica che c'è un legame o un'abitudine che ti tiene più di quanto ammetti. All'esito c'è Dieci di Bastoni, cioè un carico troppo grande: un rischio da guardare adesso, non una meta.",
+    "cosaFare": "Dieci di Bastoni all'esito aggiunge un gesto: decidi che cosa posare e lascia almeno un compito che non è tuo. Proponi un'attività da fare insieme questa settimana, scelta da chi ha bisogno di aiuto. Non riempire il silenzio di consigli che nessuno ti ha chiesto."
+   }
+  },
+  {
+   "scheda": 40,
+   "domanda": "Incontrerò qualcuno di importante quest'anno?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Cinque di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La pace da ricucire."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Asso di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore che trabocca."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Gli Amanti",
+     "verso": "dritta",
+     "significatoDelVerso": "La scelta del cuore."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Cavaliere di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La corsa audace."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "L'Imperatore",
+     "verso": "dritta",
+     "significatoDelVerso": "La struttura che protegge."
+    },
+    {
+     "posizione": "Tu",
+     "carta": "Sei di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La vittoria che sfila."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Regina di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La cura concreta."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Il Papa",
+     "verso": "dritta",
+     "significatoDelVerso": "La guida antica."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Asso di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La scintilla che tarda."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, la tendenza è favorevole: Gli Amanti dicono che è una scelta di cuore e di valori, da fare con testa e sentimento insieme. All'esito c'è Asso di Bastoni rovesciato, cioè una partenza che slitta: un rischio da guardare adesso, non una meta.",
+    "cosaFare": "Asso di Bastoni rovesciato all'esito aggiunge un gesto: ritrova il motivo per cui volevi partire, poi fissa il giorno dell'inizio. Questa settimana accetta un invito o iscriviti a un'attività con persone nuove che condividono un tuo interesse. Non giudicare una persona dal primo minuto di conversazione."
+   }
+  }
+ ]
+}

@@ -1,0 +1,242 @@
+[
+ {
+  "scheda": 1,
+  "id": "oracolo-1",
+  "scambiato": false,
+  "simboliDi": "oracolo-1"
+ },
+ {
+  "scheda": 2,
+  "id": "oracolo-2",
+  "scambiato": true,
+  "simboliDi": "oracolo-5"
+ },
+ {
+  "scheda": 3,
+  "id": "oracolo-3",
+  "scambiato": true,
+  "simboliDi": "oracolo-19"
+ },
+ {
+  "scheda": 4,
+  "id": "oracolo-4",
+  "scambiato": false,
+  "simboliDi": "oracolo-4"
+ },
+ {
+  "scheda": 5,
+  "id": "oracolo-5",
+  "scambiato": true,
+  "simboliDi": "oracolo-39"
+ },
+ {
+  "scheda": 6,
+  "id": "oracolo-6",
+  "scambiato": false,
+  "simboliDi": "oracolo-6"
+ },
+ {
+  "scheda": 7,
+  "id": "oracolo-7",
+  "scambiato": true,
+  "simboliDi": "oracolo-3"
+ },
+ {
+  "scheda": 8,
+  "id": "oracolo-8",
+  "scambiato": false,
+  "simboliDi": "oracolo-8"
+ },
+ {
+  "scheda": 9,
+  "id": "oracolo-9",
+  "scambiato": true,
+  "simboliDi": "oracolo-35"
+ },
+ {
+  "scheda": 10,
+  "id": "oracolo-10",
+  "scambiato": true,
+  "simboliDi": "oracolo-27"
+ },
+ {
+  "scheda": 11,
+  "id": "oracolo-11",
+  "scambiato": false,
+  "simboliDi": "oracolo-11"
+ },
+ {
+  "scheda": 12,
+  "id": "oracolo-12",
+  "scambiato": false,
+  "simboliDi": "oracolo-12"
+ },
+ {
+  "scheda": 13,
+  "id": "oracolo-13",
+  "scambiato": true,
+  "simboliDi": "oracolo-2"
+ },
+ {
+  "scheda": 14,
+  "id": "oracolo-14",
+  "scambiato": false,
+  "simboliDi": "oracolo-14"
+ },
+ {
+  "scheda": 15,
+  "id": "oracolo-15",
+  "scambiato": false,
+  "simboliDi": "oracolo-15"
+ },
+ {
+  "scheda": 16,
+  "id": "oracolo-16",
+  "scambiato": false,
+  "simboliDi": "oracolo-16"
+ },
+ {
+  "scheda": 17,
+  "id": "oracolo-17",
+  "scambiato": false,
+  "simboliDi": "oracolo-17"
+ },
+ {
+  "scheda": 18,
+  "id": "oracolo-18",
+  "scambiato": true,
+  "simboliDi": "oracolo-10"
+ },
+ {
+  "scheda": 19,
+  "id": "oracolo-19",
+  "scambiato": true,
+  "simboliDi": "oracolo-37"
+ },
+ {
+  "scheda": 20,
+  "id": "oracolo-20",
+  "scambiato": false,
+  "simboliDi": "oracolo-20"
+ },
+ {
+  "scheda": 21,
+  "id": "oracolo-21",
+  "scambiato": true,
+  "simboliDi": "oracolo-26"
+ },
+ {
+  "scheda": 22,
+  "id": "oracolo-22",
+  "scambiato": true,
+  "simboliDi": "oracolo-25"
+ },
+ {
+  "scheda": 23,
+  "id": "oracolo-23",
+  "scambiato": true,
+  "simboliDi": "oracolo-34"
+ },
+ {
+  "scheda": 24,
+  "id": "oracolo-24",
+  "scambiato": false,
+  "simboliDi": "oracolo-24"
+ },
+ {
+  "scheda": 25,
+  "id": "oracolo-25",
+  "scambiato": true,
+  "simboliDi": "oracolo-18"
+ },
+ {
+  "scheda": 26,
+  "id": "oracolo-26",
+  "scambiato": true,
+  "simboliDi": "oracolo-23"
+ },
+ {
+  "scheda": 27,
+  "id": "oracolo-27",
+  "scambiato": true,
+  "simboliDi": "oracolo-21"
+ },
+ {
+  "scheda": 28,
+  "id": "oracolo-28",
+  "scambiato": false,
+  "simboliDi": "oracolo-28"
+ },
+ {
+  "scheda": 29,
+  "id": "oracolo-29",
+  "scambiato": true,
+  "simboliDi": "oracolo-22"
+ },
+ {
+  "scheda": 30,
+  "id": "oracolo-30",
+  "scambiato": false,
+  "simboliDi": "oracolo-30"
+ },
+ {
+  "scheda": 31,
+  "id": "oracolo-31",
+  "scambiato": false,
+  "simboliDi": "oracolo-31"
+ },
+ {
+  "scheda": 32,
+  "id": "oracolo-32",
+  "scambiato": false,
+  "simboliDi": "oracolo-32"
+ },
+ {
+  "scheda": 33,
+  "id": "oracolo-33",
+  "scambiato": false,
+  "simboliDi": "oracolo-33"
+ },
+ {
+  "scheda": 34,
+  "id": "oracolo-34",
+  "scambiato": true,
+  "simboliDi": "oracolo-7"
+ },
+ {
+  "scheda": 35,
+  "id": "oracolo-35",
+  "scambiato": true,
+  "simboliDi": "oracolo-13"
+ },
+ {
+  "scheda": 36,
+  "id": "oracolo-36",
+  "scambiato": false,
+  "simboliDi": "oracolo-36"
+ },
+ {
+  "scheda": 37,
+  "id": "oracolo-37",
+  "scambiato": true,
+  "simboliDi": "oracolo-9"
+ },
+ {
+  "scheda": 38,
+  "id": "oracolo-38",
+  "scambiato": false,
+  "simboliDi": "oracolo-38"
+ },
+ {
+  "scheda": 39,
+  "id": "oracolo-39",
+  "scambiato": true,
+  "simboliDi": "oracolo-29"
+ },
+ {
+  "scheda": 40,
+  "id": "oracolo-40",
+  "scambiato": false,
+  "simboliDi": "oracolo-40"
+ }
+]
