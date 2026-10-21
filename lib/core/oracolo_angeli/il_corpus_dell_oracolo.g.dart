@@ -1,13 +1,15 @@
 // GENERATO da tool/il_corpus_dell_oracolo.py dalla fonte in
 // docs/corpus/oracolo_angeli/. Non si modifica a mano:
 // si corregge la fonte e si rigenera. Ordine FU voci FU.05 e FU.07,
-// col consiglio dell'ordine GA voci GA.03, GA.05 e GA.07.
+// col consiglio dell'ordine GA voci GA.03, GA.05 e GA.07
+// e il dono e la via degli angeli dell'ordine GA voce GA.06.
 
 /// Il corpus dell'Oracolo degli Angeli: chiave
-/// "<file>|<NN>|<campo>" (file: custode, cuore, intelletto, rito;
-/// NN: il numero dell'angelo a due cifre; campo: messaggio, consiglio
-/// o rito), valore le varianti in ordine. Il consiglio n accompagna il
-/// messaggio n, nel riquadro "Cosa fare adesso".
+/// "<file>|<NN>|<campo>" (file: custode, cuore, intelletto, rito,
+/// doni; NN: il numero dell'angelo a due cifre; campo: messaggio,
+/// consiglio, rito, dono o via), valore le varianti in ordine. Il
+/// consiglio n accompagna il messaggio n, nel riquadro "Cosa fare
+/// adesso".
 const Map<String, List<String>> corpusDellOracolo = {
   'custode|01|messaggio': [
     'C\'è una cosa nuova che aspetta un via libera che nessuno ti deve dare. Vehuiah porta la volontà che apre: il primo passo spetta a te, non a chi approva. Oggi scrivi su un foglio la prima azione di quel progetto e falla prima di sera, anche se è minuscola.',
@@ -732,7 +734,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|01|messaggio': [
     'C\'è un fremito che sale quando pensi alla cosa nuova da aprire: è l\'impazienza di chi ha già deciso dentro e aspetta ancora un sì da fuori. Puoi sentirla tutta, senza vergogna. Sotto c\'è un orgoglio giovane, quello di cominciare con le tue mani: merita la stessa accoglienza.',
     'Vehuiah porta il calore dell\'inizio, quella fierezza quieta che si accende quando smetti di aspettare autorizzazioni. Dove scalda, ti fa sentire la tua volontà come una cosa viva. Dove pesa, lascia affiorare il timore di sbagliare da principio, senza nessuno a cui dare la colpa: anche quel timore è tuo.',
-    'Nella tua domanda c\'è la frustrazione di chi sta sulla soglia con la chiave in mano. Non è debolezza: è la volontà che preme contro un permesso mai arrivato. Dentro quella frustrazione abita già il sollievo del primo passo: lo puoi sentire in anticipo, come un sapore noto.',
+    'Sulla soglia, con la chiave in mano, può salire una frustrazione che non è debolezza: è la volontà che preme contro un permesso mai arrivato. Vehuiah ti lascia sentirla fino in fondo. Dentro c\'è già il sollievo del primo passo: lo puoi riconoscere prima ancora di muoverti.',
   ],
   'cuore|01|consiglio': [
     'Smetti oggi di aspettare il sì che cerchi da fuori. Scegli la cosa nuova che vuoi aprire e compi il primo gesto prima di sera, anche minimo: una pagina, un\'iscrizione, un attrezzo preparato. Non chiedere pareri prima di averlo fatto: Vehuiah accende così l\'orgoglio di cominciare con le tue mani.',
@@ -745,7 +747,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Nel ritorno dopo una lite c\'è un sollievo che quasi fa vergogna, tanto è dolce. Puoi lasciarlo salire per intero. Sotto, forse, resta il timore che il disaccordo torni: è un timore legittimo, ma non pesa quanto la gioia di sapere che quel filo ha retto.',
   ],
   'cuore|02|consiglio': [
-    'Concedi all\'orgoglio ferito un momento di ascolto, poi non lasciargli l\'ultima parola. Scrivi per te tre righe su ciò che ti ha dato fastidio nel disaccordo e una riga su ciò che ti manca di quella persona. Rileggi soltanto l\'ultima: Ieliel ti mostra che il legame riprende da lì.',
+    'Concedi all\'orgoglio ferito un momento di ascolto, poi non lasciargli l\'ultima parola. Scrivi per te tre righe su ciò che ti ha dato fastidio nel disaccordo e una riga su ciò che ti manca di quella persona. Rileggi soltanto l\'ultima: Ieliel ti chiede di ripartire da lì, se lo vuoi.',
     'Torna verso quella persona senza chiederle di cambiare per te. Oggi fai un gesto di attenzione che non pretende risposta: un caffè preparato, una domanda sincera sulla sua giornata, un ricordo condiviso. Evita di controllare se ricambia. Il legame di Ieliel si rinnova scegliendo, mai trattenendo.',
     'Accogli la pace tornata senza riaprire il fascicolo della lite. Se il timore che il disaccordo si ripeta si fa sentire, nominalo in silenzio e lascialo lì. Stasera richiama alla mente un momento buono vissuto insieme dopo un litigio: il filo di Ieliel ha retto una volta e merita fiducia.',
   ],
@@ -761,11 +763,11 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|04|messaggio': [
     'Il sospetto verso qualcuno che hai vicino porta un\'inquietudine che toglie il respiro. Elemiah non ti chiede di scacciarla: ti concede di sentirla abbastanza da capire se nasce da un fatto o dal tuo tumulto interiore. C\'è anche un sollievo nascosto, quello di poterti fidare del tuo intuito.',
-    'Dentro di te si muove un\'agitazione che somiglia alla paura di un ostacolo. Puoi accoglierla senza obbedirle: a volte l\'ostacolo è vero, a volte è il tuo tumulto che fa rumore. Sentire questa differenza scalda come la quiete di chi riconosce finalmente le persone intorno a sé.',
+    'Dentro di te si muove un\'agitazione che somiglia alla paura di un ostacolo. Puoi accoglierla senza obbedirle: a volte l\'ostacolo è vero, altre volte è il tuo tumulto a fare rumore. Elemiah ti lascia sentire il sollievo di saperli distinguere, invece di temere tutto allo stesso modo.',
     'Riconoscere per tempo una slealtà lascia una tristezza asciutta, senza rancore. Elemiah ti concede quella tristezza e ti risparmia la rabbia che cerca un conto da regolare. Sotto, piano, affiora la gratitudine per la lealtà che invece c\'è intorno a te: anche lei chiede posto.',
   ],
   'cuore|04|consiglio': [
-    'Separa il fatto dal sospetto prima di muoverti. Prendi un foglio e scrivi da una parte ciò che quella persona ha fatto davvero, dall\'altra ciò che temi. Non affrontarla finché la prima colonna resta vuota: se il sospetto vive soltanto nella seconda, Elemiah ti dice che nasce dal tuo tumulto.',
+    'Separa il fatto dal sospetto prima di muoverti. Prendi un foglio e scrivi da una parte ciò che quella persona ha fatto, dall\'altra ciò che temi. Non affrontarla finché la prima colonna resta vuota: se il sospetto vive soltanto nella seconda, conviene guardare prima il tuo tumulto, come suggerisce Elemiah.',
     'Concediti un giorno prima di reagire all\'ostacolo che senti. Oggi osserva soltanto: quando arriva l\'agitazione, segna l\'ora e che cosa stava succedendo intorno. Stasera rileggi le note. Se l\'agitazione sale anche quando non accade niente, Elemiah ti mostra che il rumore viene da dentro, non dalla strada che hai davanti.',
     'Lascia la tristezza al suo posto e rinuncia a regolare i conti. Non cercare spiegazioni né rivalse con chi è stato sleale. Pensa invece a una persona che ti è rimasta accanto con fedeltà e rivolgile un grazie concreto: Elemiah ti fa vedere anche la lealtà che c\'è.',
   ],
@@ -802,7 +804,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|08|messaggio': [
     'Davanti a ciò che hai costruito sale una gratitudine concreta, fatta di fatica riconosciuta. Cahethel ti lascia sentire il calore di casa che viene da lì. Dove pesa, la gratitudine si confonde col timore di perdere: un timore umano, che si posa quando riconosci da dove viene ogni cosa.',
     'Esiste un sollievo semplice nel vedere il frutto della propria fatica sulla tavola di casa. Cahethel lo mette al centro: non orgoglio, contentezza. Accanto può pungere la svalutazione, quello sguardo fisso su ciò che manca; anche lei chiede un riconoscimento, poi lascia spazio.',
-    'Tenerezza è la parola che Cahethel mette sulla tua casa: per ciò che ci hai portato con fatica e per ciò che ti è stato dato. Puoi sentirla senza vergogna. Dove pesa, diventa rimpianto per ciò che non hai ancora; dove scalda, è gratitudine che si vede nei gesti.',
+    'Tenerezza è la parola che Cahethel mette sul luogo dove vivi: per ciò che ci hai portato con fatica e per ciò che ti è stato dato. Puoi sentirla senza vergogna. Se si fa rimpianto per ciò che manca ancora, riportala a ciò che c\'è già.',
   ],
   'cuore|08|consiglio': [
     'Trasforma la gratitudine in un gesto visibile dentro casa. Stasera scegli un oggetto che hai ottenuto con la tua fatica e prenditene cura: puliscilo, sistemalo, rimettilo dove si vede. Quando affiora il timore di perderlo, ricorda da dove viene. Cahethel posa quel timore con la memoria del lavoro fatto.',
@@ -812,7 +814,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|09|messaggio': [
     'Perdonare porta un sollievo che a volte spaventa: il peso che posi era diventato familiare. Haziel ti lascia sentire quella leggerezza nuova senza fingere che il torto non ci sia mai stato. Accanto può restare un\'amarezza piccola; ha diritto a un angolo, non al centro della casa.',
     'Il rancore tenuto stretto somiglia alla dignità, ma pesa come un debito mai chiuso. Haziel ti concede di sentirne tutta la fatica. Sotto, se lo lasci affiorare, c\'è il desiderio di posarlo: una clemenza che nasce da te e non chiede nulla in cambio.',
-    'Quando dai senza aprire in silenzio un debito, provi una gioia sobria, senza conti. Haziel la mette in luce. Dove pesa, si affaccia il dubbio di dare troppo a chi non ricambia: è un dubbio da ascoltare, non da obbedire, perché la clemenza consapevole sa dove fermarsi.',
+    'Quando dai senza aprire in silenzio un debito, provi una gioia sobria, senza conti. Haziel la mette in luce. Accanto può affacciarsi il dubbio di dare troppo a chi non ricambia: è un dubbio da ascoltare, non da obbedire, perché la clemenza consapevole sa dove fermarsi.',
   ],
   'cuore|09|consiglio': [
     'Non tornare a rileggere il torto ora che hai scelto di posarlo. Se l\'amarezza riaffiora, concedile un minuto, poi rivolgi l\'attenzione a un\'attività che ti assorbe. Stasera scrivi una riga su che cosa hai potuto fare oggi che quel peso ti impediva: Haziel ti lascia questa leggerezza da usare.',
@@ -822,7 +824,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|10|messaggio': [
     'La colpa che porti da tempo è diventata quasi un nome. Aladiah ti concede di sentirla ancora una volta, intera, senza scappare. Poi lascia affiorare qualcosa di più lieve: il sollievo di scoprire che quell\'errore è un fatto della tua storia, non la tua identità.',
     'Ricominciare dopo uno sbaglio porta una vergogna che brucia e insieme una speranza timida. Aladiah ti lascia sentire tutte e due. La vergogna dice che ciò che è accaduto conta; la speranza dice che non ti definisce più. Possono convivere dentro di te.',
-    'Nella tua domanda c\'è un\'indulgenza che vorresti concederti e non osi. Aladiah la legge come tenerezza verso di te, non come assoluzione facile: il ricordo dello sbaglio resta, smette soltanto di comandare. Puoi sentirla senza giustificarla e senza vergognartene: è il primo calore che torna dopo un errore.',
+    'C\'è un\'indulgenza verso di te che vorresti concederti e non osi. Aladiah la legge come tenerezza, non come assoluzione facile: il ricordo dello sbaglio resta, smette soltanto di comandare. Puoi sentirla senza giustificarla e senza vergognartene: è il primo calore che torna dopo un errore.',
   ],
   'cuore|10|consiglio': [
     'Separa oggi l\'errore dalla tua identità con una frase precisa. Scrivi: ho commesso questo, in quel momento. Sotto scrivi tre cose che fai bene adesso, senza legami con quell\'errore. Rileggi le due parti ad alta voce: Aladiah ti mostra che la prima è storia, la seconda è chi sei oggi.',
@@ -840,7 +842,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Riconosci da te la fatica dei mesi lunghi, prima di aspettarla dagli altri. Oggi fai l\'elenco delle settimane in cui hai tenuto duro e degli ostacoli superati. Non mostrarlo per ottenere conferme: con Lauviah tienilo a portata di mano per i giorni in cui il desiderio di riconoscimento brucia.',
   ],
   'cuore|12|messaggio': [
-    'Il bisogno di un rifugio quando fuori è complicato non è fuga: è una nostalgia di quiete che hai diritto di sentire. Hahaiah la accoglie. Dove scalda, è la pace di una stanza interiore con la porta socchiusa; dove pesa, è il timore di non uscirne più.',
+    'Il bisogno di un rifugio quando fuori è complicato non è fuga: è una nostalgia di quiete che hai diritto di sentire. Hahaiah la accoglie. È la pace di una stanza interiore con la porta socchiusa; il suo rischio è il timore di non uscirne più.',
     'Un sogno della notte ti lascia addosso un\'emozione che non sai nominare: stupore, forse, o un velo di malinconia. Hahaiah ti concede di tenerla con te senza pretendere subito una spiegazione. Quel che arriva di notte chiede accoglienza, non interrogatorio.',
     'Custodire ciò che qualcuno ti ha confidato porta una tenerezza discreta e un certo peso. Puoi sentire entrambi: la tenerezza della fiducia ricevuta e la fatica di tenere un segreto che non è tuo. Nel rifugio interiore c\'è posto per tutti e due.',
   ],
@@ -850,9 +852,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Serba la confidenza ricevuta senza raccontarla a nessuno, nemmeno per alleggerirti. Se il peso cresce, scrivi su un foglio ciò che provi tu, senza nomi né dettagli dell\'altra persona, poi strappalo. Hahaiah ti lascia portare il segreto con discrezione: nel tuo rifugio interiore c\'è posto anche per questo.',
   ],
   'cuore|13|messaggio': [
-    'Ricordare chi sono le persone del tuo gruppo, anche nei giorni in cui sembrano lontane, porta una tenerezza un po\' stanca. Iezalel ti lascia sentire quella fedeltà come memoria viva. Dove pesa, si fa malinconia per i tempi in cui il gruppo era più unito.',
+    'Ricordare chi sono le persone del tuo gruppo, anche nei giorni in cui sembrano lontane, porta una tenerezza un po\' stanca. Iezalel ti lascia sentire quella fedeltà come memoria viva. A volte si colora di malinconia per i tempi in cui il gruppo era più unito: anche questa è fedeltà.',
     'Tenere insieme un gruppo senza comandarlo ti dà una gioia larga, quasi domestica. Iezalel la mette in luce: è il calore di chi custodisce i legami con la memoria. Accanto può affiorare la paura di reggere tutti i fili senza aiuto: anche quella merita ascolto.',
-    'Nostalgia è la parola che Iezalel mette sulla tua domanda: nostalgia di volti, di serate, di promesse fatte in compagnia. Puoi accoglierla senza tristezza. È la tua fedeltà che lavora come memoria attiva: ti dice quanto contano per te quelle persone.',
+    'Nostalgia di volti, di serate, di promesse fatte in compagnia: Iezalel ti lascia sentirla senza tristezza. È la tua fedeltà che lavora come memoria attiva e ti dice quanto contano per te quelle persone, anche quando la vita le ha portate lontano.',
   ],
   'cuore|13|consiglio': [
     'Mantieni viva la memoria del tuo gruppo con un gesto preciso. Oggi riguarda una fotografia di un momento condiviso e scrivi accanto a ogni volto una cosa che ne ricordi. Non indugiare nel rimpianto: scegli un ricordo e decidi di raccontarlo alla prossima occasione d\'incontro. Iezalel vive di memoria.',
@@ -861,7 +863,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|14|messaggio': [
     'Dire una verità difficile a qualcuno ti porta un\'apprensione che stringe: temi di ferire più che di sbagliare. Mebahel accoglie quella paura come segno di rispetto. Sotto, se la lasci salire, c\'è la dignità quieta di chi usa la verità come una mano tesa e non come un colpo.',
-    'Applicare la giustizia prima di tutto a ciò che fai tu lascia un\'amarezza sana, quella di chi si guarda senza sconti. Mebahel te la concede. Dove scalda, si fa limpidezza; dove pesa, diventa una severità che chiede anche un po\' di indulgenza.',
+    'Applicare la giustizia prima di tutto a ciò che fai tu lascia un\'amarezza sana, quella di chi si guarda senza sconti. Mebahel te la concede. Può farsi limpidezza, oppure una severità che chiede anche un po\' di indulgenza: le due cose possono stare insieme.',
     'Davanti a un accordo che hai firmato senti un misto di sollievo e di inquietudine. Mebahel ti lascia provare entrambi: il sollievo di aver detto le cose come stanno, l\'inquietudine di doverle onorare. È l\'emozione onesta di chi tiene alla giustizia.',
   ],
   'cuore|14|consiglio': [
@@ -870,7 +872,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Rileggi l\'impegno preso e scegli il primo gesto che lo rende concreto, da compiere entro domani. Non lasciare che l\'inquietudine ti faccia rimandare: la parola data si alleggerisce quando comincia a vivere nei fatti. Mebahel ti chiede di dire le cose come stanno, anche a te, prima che agli altri.',
   ],
   'cuore|15|messaggio': [
-    'Quando i nessi fra le idee si accendono uno dopo l\'altro provi un\'euforia limpida, quasi infantile. Hariel te la lascia gustare. Dove pesa, l\'euforia si sparpaglia in mille inizi lasciati a metà: anche quella dispersione si può accogliere con un sorriso.',
+    'Quando i nessi fra le idee si accendono uno dopo l\'altro provi un\'euforia limpida, quasi infantile. Hariel te la lascia gustare. Il suo rovescio è la dispersione in mille inizi lasciati a metà: anche quella si può accogliere con un sorriso, senza giudicarti.',
     'Il disordine dei pensieri porta un\'irritazione che conosci bene, simile a una stanza ingombra di carte. Hariel ti concede di sentirla senza rimprovero. Dietro, come una finestra che si apre, c\'è il sollievo dell\'ordine che arriva prima nelle idee che nelle cose.',
     'Hariel accende in te la gioia dell\'intuizione che si fa chiara, un piacere che somiglia a una casa con l\'aria nuova. Accanto può affiorare il timore che l\'idea svanisca prima di diventare metodo: è un timore tenero, che dice quanto ci tieni.',
   ],
@@ -882,7 +884,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|16|messaggio': [
     'Restare al tuo posto quando sparire converrebbe ti lascia dentro una paura vera. Hakamiah non la nega: la accoglie accanto al coraggio di parlare chiaro a chi comanda. Dietro la paura c\'è la fierezza quieta di chi non volta le spalle: anche quella è tua. Lasciala salire.',
     'Parlare chiaro a chi ha potere su di te porta un\'agitazione che ti scuote. Hakamiah ti concede di sentirla tutta. È il prezzo della franchezza, non un segno di debolezza. Accanto può nascere un rispetto nuovo per ciò che sai dire quando costa.',
-    'Lealtà e timore si intrecciano quando pensi a chi ti guida o a chi dipende da te. Hakamiah legge in quel nodo un sentimento nobile. Dove scalda, è fedeltà alla parola data; dove pesa, è la tentazione di ritirarti con eleganza e chiamarla prudenza.',
+    'Lealtà e timore si intrecciano quando pensi a chi ti guida o a chi dipende da te. Hakamiah legge in quel nodo un sentimento nobile: da una parte la fedeltà alla parola data, dall\'altra la tentazione di ritirarti con eleganza e chiamarla prudenza.',
   ],
   'cuore|16|consiglio': [
     'Resta al tuo posto anche oggi, senza nasconderti dietro il silenzio. Scegli la cosa che temi di affrontare e mettila in agenda a un\'ora precisa. Se la paura sale, non scacciarla: tienila accanto e vai lo stesso. Hakamiah fa della paura una compagna di strada, non un comando da eseguire.',
@@ -891,7 +893,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|17|messaggio': [
     'Di notte, nel silenzio, un collegamento si accende e ti lascia uno stupore che toglie la quiete. Lauviah II ti permette di sentirlo pienamente. Accanto allo stupore c\'è anche una prudenza calma: la rivelazione emoziona, ma resta un dato da verificare alla luce del giorno.',
-    'L\'eccitazione di un\'intuizione notturna somiglia a una brace accesa nel buio. Lauviah II la accoglie senza spegnerla. Dove pesa, si mescola all\'ansia di chi legge ogni segno come minaccia; dove scalda, è meraviglia che aspetta conferma e ti tiene sveglia la mente.',
+    'L\'eccitazione di un\'intuizione notturna somiglia a una brace accesa nel buio. Lauviah II la accoglie senza spegnerla. Può mescolarsi all\'ansia di chi legge ogni segno come minaccia, oppure farsi meraviglia che aspetta conferma e tiene sveglia la tua mente, anche a notte fonda.',
     'Smarrimento e meraviglia arrivano insieme quando la notte ti porta un\'idea che non avevi cercato. Nella mia lettura questo angelo ti concede di provarli entrambi, senza decidere subito se fidarti. È una sospensione buona, un\'attesa piena di luce, in cui lo stupore e il dubbio possono stare vicini.',
   ],
   'cuore|17|consiglio': [
@@ -900,8 +902,8 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Lascia l\'idea in sospeso per tre giorni prima di decidere se fidarti. Intanto osservala da più lati: che cosa cambierebbe se fosse vera, che cosa se non lo fosse. Non spiegarla agli altri per farti rassicurare. Lauviah II concede l\'attesa come uno spazio in cui la luce si chiarisce.',
   ],
   'cuore|18|messaggio': [
-    'Davanti a opinioni gridate come fatti sale in te un\'irritazione che vorrebbe alzare la voce. Caliel la accoglie e ti mostra dove scalda: nella fermezza di chi non ha bisogno di gridare per farsi credere. È una calma che ha il sapore della dignità.',
-    'La serenità di chi decide sui fatti e non sulle impressioni ha un peso dolce. Caliel te la concede quando sai separare ciò che è accaduto da ciò che si dice. Dove pesa, si fa solitudine: pronunciarsi a voce bassa a volte lascia un vuoto intorno.',
+    'Davanti a opinioni gridate come fatti sale in te un\'irritazione che vorrebbe alzare la voce. Caliel la accoglie e ti mostra il suo lato buono: la fermezza di chi non ha bisogno di gridare per farsi credere. È una calma che ha il sapore della dignità.',
+    'La serenità di chi decide sui fatti e non sulle impressioni ha un peso dolce. Caliel te la concede quando sai separare ciò che è accaduto da ciò che si dice. Il suo prezzo può essere una certa solitudine: pronunciarsi a voce bassa a volte lascia un vuoto intorno.',
     'Pronunciarti su qualcosa ti mette addosso un\'ansia sottile, il timore di sbagliare giudizio. Caliel la legge con tenerezza: è la paura di chi tiene alla verità. Sotto c\'è una quiete ferma, quella di chi ha guardato i fatti uno per uno e non deve gridare.',
   ],
   'cuore|18|consiglio': [
@@ -910,9 +912,9 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Rivedi i fatti uno per uno prima di pronunciarti, poi parla. Accanto a ogni fatto segna se l\'hai visto o se te l\'hanno riferito. Pronunciati solo su ciò che hai visto. Se l\'ansia resta, ammetti apertamente il margine di dubbio: per Caliel un giudizio onesto non deve sembrare infallibile.',
   ],
   'cuore|19|messaggio': [
-    'La memoria precisa di ciò che è accaduto può portarti un rimpianto pungente. Leuviah ti lascia sentirlo senza farne un\'accusa. Dove scalda, la memoria ricuce: ti fa sentire la quiete di una questione rimasta aperta per anni che finalmente si chiude dentro di te.',
+    'La memoria precisa di ciò che è accaduto può portarti un rimpianto pungente. Leuviah ti lascia sentirlo senza farne un\'accusa. Quando la memoria ricuce invece di ferire, arriva la quiete di una questione rimasta aperta per anni che finalmente si chiude dentro di te.',
     'Rimuginare ha il sapore amaro della contabilità dei torti: lo conosci bene. Leuviah accoglie quell\'amarezza senza giudicarla. Sotto, più profonda, c\'è la malinconia per ciò che è andato perso: anche lei ti chiede ascolto, fino in fondo, perché è da lì che una questione aperta comincia a chiudersi.',
-    'Ricostruire il filo di una vecchia storia ti porta un sollievo inatteso. Leuviah lo mette al centro della tua domanda: capire non è rinfacciare. Puoi sentire la pace che arriva quando i ricordi smettono di fare da prove e tornano a essere soltanto la tua storia.',
+    'Ricostruire il filo di una vecchia storia porta un sollievo inatteso, perché capire non è rinfacciare. Leuviah ti lascia sentire la pace che arriva quando i ricordi smettono di fare da prove contro qualcuno e tornano a essere soltanto la tua storia, da tenere con calma.',
   ],
   'cuore|19|consiglio': [
     'Scrivi la storia di quella questione dall\'inizio alla fine, come la racconteresti a chi non c\'era. Fermati quando arrivi a oggi e aggiungi una riga finale: questa storia per me si chiude qui. Non usarla per accusare nessuno: Leuviah ti dà la memoria per chiudere, non per rinfacciare.',
@@ -921,7 +923,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|20|messaggio': [
     'Cambiare direzione a metà strada porta uno smarrimento che spaventa: lasci un sentiero noto per uno ancora da tracciare. Pahaliah ti concede di sentire quella vertigine. Dentro la vertigine c\'è anche il sollievo di non mentirti più sul senso che cerchi.',
-    'Una fierezza silenziosa nasce quando decidi che qualcosa per te non è negoziabile. Pahaliah la accoglie e ti lascia sentire quanto ti tiene in piedi. Dove pesa, quella fermezza porta il timore di imporre agli altri la tua regola; dove scalda, è coerenza con ciò che senti giusto.',
+    'Una fierezza silenziosa nasce quando decidi che qualcosa per te non è negoziabile. Pahaliah la accoglie e ti lascia sentire quanto ti tiene in piedi. Può portare il timore di imporre agli altri la tua regola, ma nel profondo è coerenza con ciò che senti giusto.',
     'Gli anni passati sulla strada sbagliata ti lasciano una vergogna che conosci. Pahaliah la tocca e la rende sopportabile, perché il passato non si cancella e non ha bisogno di esserlo. Accanto alla vergogna può salire in te la gioia nuova di chi ha avuto il coraggio di voltarsi.',
   ],
   'cuore|20|consiglio': [
@@ -931,7 +933,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|21|messaggio': [
     'Non capire subito porta una frustrazione che punge l\'orgoglio. Nelchael ti concede di sentirla senza vergogna: è il prezzo di ogni sapere vero. Sotto la frustrazione, piano, si accende la gioia di quando una formula o un\'idea astratta finalmente si apre.',
-    'Trasmettere a qualcuno ciò che sai accende una tenerezza generosa, da bottega antica. Nelchael la mette in luce. Dove pesa, si fa impazienza verso chi impara più lentamente; dove scalda, diventa la gioia di vedere un sapere passare di mano.',
+    'Trasmettere a qualcuno ciò che sai accende una tenerezza generosa, da bottega antica. Nelchael la mette in luce. A volte si fa impazienza verso chi impara più lentamente di te; più spesso diventa la gioia di vedere un sapere passare di mano.',
     'Il piacere di avere ragione è dolce, ma Nelchael ti invita a sentire accanto anche qualcosa di più umile: la curiosità che sopporta il dubbio. È lei a scaldare davvero. Il bisogno di prevalere, guardato con calma, rivela soltanto la paura di non valere abbastanza.',
   ],
   'cuore|21|consiglio': [
@@ -940,7 +942,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Nella prossima discussione rinuncia a prevalere e fai una domanda in più. Chiedi all\'altra persona da dove nasce la sua idea e ascolta la risposta fino in fondo prima di ribattere. Annota poi una cosa che non sapevi. Nelchael scambia volentieri il piacere della ragione con quello della scoperta.',
   ],
   'cuore|22|messaggio': [
-    'Consegnare un lavoro solido ti lascia una contentezza piena, diversa dall\'ebbrezza dell\'applauso: dura perché non dipende da chi guarda. Ieiaiel te la lascia gustare. Dove pesa, la visibilità mette in imbarazzo, come un abito troppo largo: anche quell\'imbarazzo è sano, segno che il lavoro conta più della vetrina.',
+    'Consegnare un lavoro solido ti lascia una contentezza piena, diversa dall\'ebbrezza dell\'applauso: dura perché non dipende da chi guarda. Ieiaiel te la lascia gustare. Se la visibilità ti mette in imbarazzo, come un abito troppo largo, anche quell\'imbarazzo è sano: dice che il lavoro conta più della vetrina.',
     'L\'ebbrezza dell\'attenzione altrui è dolce e un po\' pericolosa. Ieiaiel non te la toglie: ti lascia sentirla per ciò che è, una festa, non una misura del tuo valore. Sotto c\'è la soddisfazione quieta del lavoro che regge nel tempo.',
     'Risentimento è la parola esatta per ciò che senti quando il tuo lavoro passa inosservato. Ieiaiel lo accoglie senza vergogna. Accanto, però, c\'è un orgoglio artigiano che non dipende dagli sguardi: la cosa che hai fatto è solida, questo basta a scaldare.',
   ],
@@ -950,7 +952,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Non lasciare che il risentimento rovini la qualità di ciò che fai. Oggi rifinisci un dettaglio del tuo lavoro che nessuno noterebbe, solo perché sia fatto bene. Se vuoi che venga visto, presentalo tu con semplicità, senza accusare chi non l\'ha notato. Ieiaiel scalda l\'orgoglio artigiano che regge da sé.',
   ],
   'cuore|23|messaggio': [
-    'Le piccole attenzioni di ogni giorno ti portano una tenerezza discreta, quasi invisibile. Melahel la mette in luce: è l\'affetto di chi previene invece di riparare. Dove pesa, si fa apprensione continua, l\'allerta che non si spegne; anche quella si può accogliere senza obbedirle.',
+    'Le piccole attenzioni di ogni giorno ti portano una tenerezza discreta, quasi invisibile. Melahel la mette in luce: è l\'affetto di chi previene invece di riparare. A volte si fa apprensione continua, un\'allerta che non si spegne: anche quella si può accogliere senza obbedirle.',
     'Una quiete umile accompagna i gesti ripetuti con costanza, come chiudere la finestra prima che arrivi il vento. Melahel ti concede quel sentimento senza clamore. È la soddisfazione di chi non aspetta il guasto per accorgersi di ciò che ama.',
     'Melahel tocca un senso di colpa sottile: quello per le piccole attenzioni rimandate. Puoi sentirlo senza farne un processo. Accanto c\'è il sollievo di sapere che la costanza ricomincia da un giorno qualunque, anche da oggi, con un gesto minuscolo che previene più di ogni riparazione.',
   ],
@@ -972,7 +974,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|25|messaggio': [
     'Il silenzio che precede la parola ha un peso dolce, come una stanza appena prima dell\'alba. Nithhaiah ti invita a sentirlo senza riempirlo, anche quando la mente vorrebbe già una risposta. Dentro quel raccoglimento affiora lo stupore delle intuizioni che arrivano quando smetti di cercarle.',
     'Smettere di cercare una risposta ti porta prima un\'ansia, poi una resa morbida. Nithhaiah accoglie entrambe. L\'ansia è il bisogno di controllo che si allenta; la resa è il luogo dove le intuizioni trovano spazio. Puoi lasciarti attraversare dal mistero senza paura.',
-    'Fascinazione è il nome di ciò che provi davanti a ciò che non si spiega subito. Nithhaiah non la spegne: la guarda con tenerezza. Dove scalda, è meraviglia che rischiara il silenzio; dove pesa, è il desiderio di sapere più di quanto il silenzio voglia dire.',
+    'Fascinazione è il nome di ciò che provi davanti a ciò che non si spiega subito. Nithhaiah non la spegne: la guarda con tenerezza. È meraviglia che rischiara il silenzio, anche quando accanto preme il desiderio di sapere più di quanto il silenzio voglia dire.',
   ],
   'cuore|25|consiglio': [
     'Prima di parlare oggi, concediti un minuto di silenzio pieno. Vale nelle conversazioni importanti come davanti a una pagina bianca: non riempire la pausa, lasciala durare. Annota l\'intuizione che ti affiora in quel vuoto, anche se sembra piccola. Nithhaiah insegna che la parola giusta matura nel raccoglimento.',
@@ -980,7 +982,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Accogli il mistero senza forzarlo a spiegarsi. Oggi non cercare altre letture o interpretazioni su ciò che ti affascina: resta con ciò che hai già percepito. Scrivi una domanda aperta e lasciala senza risposta. Non usare ciò che intuisci per impressionare gli altri: il silenzio di Nithhaiah si custodisce.',
   ],
   'cuore|26|messaggio': [
-    'Scorgere un punto d\'incontro mentre intorno le posizioni si irrigidiscono ti porta una speranza quasi testarda. Haaiah la accoglie. Dove pesa, si fa la fatica di chi media e resta in mezzo; dove scalda, è la gioia di un ponte che regge.',
+    'Scorgere un punto d\'incontro mentre intorno le posizioni si irrigidiscono ti porta una speranza quasi testarda. Haaiah la accoglie. Costa la fatica di chi media e resta in mezzo, ma dà anche la gioia di vedere che il ponte regge per tutti.',
     'Tenere tutto dentro per evitare uno scontro lascia una tensione che cresce in silenzio. Haaiah ti concede di sentirla: è il segnale che la diplomazia sta diventando reticenza. Accanto c\'è il sollievo, ancora lontano, di dire la cosa giusta al momento giusto.',
     'Coerenza fra ciò che prometti e ciò che fai: Haaiah la fa sentire come una pace interiore, quasi un respiro lungo. Quando promessa e azione si separano, invece, nasce un disagio sottile: quel disagio ha qualcosa di amico, perché ti avverte prima che la distanza diventi abitudine.',
   ],
@@ -1002,7 +1004,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|28|messaggio': [
     'L\'ansia anticipatoria ti fa vivere un danno che non c\'è ancora. Seheiah la accoglie e la distingue con dolcezza dalla prudenza che guarda avanti: l\'una spaventa, l\'altra orienta. Sotto l\'ansia c\'è un desiderio legittimo: camminare con un passo che regga per anni, senza strappi e senza crolli.',
     'Scegliere un passo sostenibile invece dello strappo ti porta una pazienza un po\' malinconica. Seheiah te la concede: rinunci all\'ebbrezza della corsa e puoi sentirne la mancanza. In cambio senti una sicurezza quieta, quella di chi vede in anticipo dove la strada cede e sa rallentare in tempo.',
-    'Fiducia nel ritmo lungo è il sentimento che Seheiah mette al centro. Puoi accoglierla anche se la fretta protesta e ti chiede risultati subito. Dove pesa, la prudenza si fa timore di muoverti; dove scalda, è la serenità delle abitudini che reggono nel tempo.',
+    'Fiducia nel ritmo lungo è il sentimento che Seheiah mette al centro. Puoi accoglierla anche se la fretta protesta e ti chiede risultati subito. Quando la prudenza diventa timore di muoverti, perde il suo senso; quando resta misura, è la serenità delle abitudini che reggono nel tempo.',
   ],
   'cuore|28|consiglio': [
     'Distingui il danno possibile da quello che stai già vivendo in anticipo. Scrivi la paura principale e accanto una sola misura prudente che puoi prendere oggi. Poi smetti di ripassare lo scenario. Seheiah ti chiede di guardare avanti per scegliere il passo, non per vivere il danno prima che accada.',
@@ -1021,8 +1023,8 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|30|messaggio': [
     'Quando nulla sembra muoversi sale uno scoraggiamento che pesa come terra bagnata. Omael ti concede di sentirlo senza vergogna. Sotto quella terra, però, qualcosa matura in silenzio: puoi accogliere anche la fiducia timida di chi prepara il terreno senza vederne ancora i frutti.',
-    'La pazienza che fa crescere ha un sapore di attesa tenera, come aspettare l\'alba. Omael te la mette al centro. Dove pesa, scivola nella rassegnazione, l\'attesa di un cambiamento mai avviato; dove scalda, è la quiete di chi non forza il raccolto.',
-    'Speranza lenta è il nome giusto per ciò che Omael porta nella tua domanda. Non è euforia né certezza: è la perseveranza che resta accesa nei mesi in cui il terreno sembra fermo. Puoi lasciarla vivere accanto alla stanchezza, senza chiederle prove che ancora non può dare.',
+    'La pazienza che fa crescere ha un sapore di attesa tenera, come aspettare l\'alba. Omael te la mette al centro. Può scivolare nella rassegnazione, l\'attesa di un cambiamento mai avviato; quando è vera, è la quiete di chi non forza il raccolto.',
+    'Speranza lenta è il nome giusto per ciò che Omael porta con sé. Non è euforia né certezza: è la perseveranza che resta accesa nei mesi in cui il terreno sembra fermo. Puoi lasciarla vivere accanto alla stanchezza, senza chiederle prove che ancora non può dare.',
   ],
   'cuore|30|consiglio': [
     'Continua a preparare il terreno anche se oggi non vedi nulla crescere. Scegli un gesto di preparazione fra questi: studiare un\'ora, ordinare i materiali, rivedere il piano. Ripetilo ogni giorno della settimana senza controllare i risultati. Omael ti chiede di fidarti del lavoro che ancora non si vede.',
@@ -1031,7 +1033,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|31|messaggio': [
     'Il perfezionismo ti porta un\'ansia minuziosa, quella del dettaglio che non torna mai. Lecabel la accoglie senza ironia e senza rimprovero: sa quanto ti importa che le cose siano fatte bene. Accanto c\'è la soddisfazione precisa di quando il dettaglio trova posto nell\'insieme e il progetto, finalmente, funziona.',
-    'Lecabel ti concede il piacere esatto del calcolo che torna, della misura giusta, del progetto che sta in piedi. Dove pesa, quel piacere si fa paura di consegnare qualcosa di imperfetto; dove scalda, è la fierezza artigiana di chi trasforma un\'idea in metodo.',
+    'Lecabel ti concede il piacere esatto del calcolo che torna, della misura giusta, del progetto che sta in piedi. Quel piacere può farsi paura di consegnare qualcosa di imperfetto; nel suo lato migliore è la fierezza artigiana di chi trasforma un\'idea in metodo.',
     'Fretta e precisione litigano dentro di te quando devi decidere. Lecabel ti permette di sentire la tensione fra le due senza condannarti: è il segno che tieni sia al tempo sia alla qualità. Sotto c\'è una calma operosa, la fiducia nei dati più che nelle impressioni del momento.',
   ],
   'cuore|31|consiglio': [
@@ -1052,7 +1054,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|33|messaggio': [
     'Dentro un\'organizzazione grande può nascere un senso di smarrimento, come se il tuo nome contasse meno del tuo ruolo. Iehuiah ti concede di sentirlo senza vergogna. Sotto c\'è un\'identità che resta intera: non coincidi con la casella che occupi, anche quando la giornata te lo fa credere.',
     'Rispetto e insofferenza convivono verso chi sta sopra di te. Iehuiah li accoglie entrambi. Il rispetto va al ruolo, l\'insofferenza spesso alla persona che lo occupa: sentirli separati porta una quiete nuova, quella di chi non si perde dentro la struttura.',
-    'La lealtà messa alla prova ti lascia una tensione che stringe. Iehuiah la legge come segno di serietà, non di debolezza: ti importa di chi ti ha dato fiducia. Dove pesa, diventa obbedienza che ti costa; dove scalda, è la dignità di chi serve un ordine senza smarrirsi.',
+    'La lealtà messa alla prova ti lascia una tensione che stringe. Iehuiah la legge come segno di serietà, non di debolezza: ti importa di chi ti ha dato fiducia. Può diventare obbedienza che ti costa, oppure la dignità di chi serve un incarico senza smarrirsi.',
   ],
   'cuore|33|consiglio': [
     'Dedica oggi, dopo il lavoro, un tempo a qualcosa che non c\'entra con la tua casella: una passione, una persona, un luogo che ami. Non presentarti col tuo titolo quando non serve. Iehuiah ti chiede di ricordare chi sei fuori dal ruolo, perché l\'identità resta intera anche dentro la struttura.',
@@ -1061,7 +1063,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|34|messaggio': [
     'La collera che sale quando gli altri alzano la voce è un fuoco vero. Lehahiah non ti chiede di spegnerla: ti concede di sentirla tutta, senza lasciarla esplodere. In quel trattenere c\'è una forza quieta: dentro abita una fierezza che nessuno vede.',
-    'Calma, sotto la pressione, non vuol dire mitezza. Lehahiah ti fa sentire il calore di una forza che sceglie di non esplodere. Dove pesa, diventa durezza verso di te; dove scalda, è la pace di chi tiene mentre intorno tutto trema.',
+    'Calma, sotto la pressione, non vuol dire mitezza. Lehahiah ti fa sentire il calore di una forza che sceglie di non esplodere. Il suo rischio è diventare durezza verso di te; il suo dono è la pace di chi tiene mentre intorno tutto trema.',
     'Dopo uno scoppio d\'ira resta spesso una vergogna amara. Lehahiah la accoglie con dolcezza: è il segno che la calma ti sta a cuore. Sotto la vergogna c\'è il desiderio di una forza diversa, che tiene senza alzare la voce.',
   ],
   'cuore|34|consiglio': [
@@ -1080,19 +1082,19 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Tieni insieme rimorso e speranza, ma lascia guidare la speranza. Pensa alla porta chiusa e scrivi una frase che riconosce la tua parte senza accusare l\'altra. Rileggila finché ti suona vera. Non aspettare che si muova l\'altra persona: Chavakhiah sceglie il legame anche quando le ragioni restano divise.',
   ],
   'cuore|36|messaggio': [
-    'Il lavoro di ogni giorno a volte pesa come una condanna. Menadel ti concede di sentire quella fatica senza vergogna. Sotto, però, abita un sentimento più quieto: la gratitudine per un posto dove stai diventando qualcuno, un giorno alla volta.',
-    'Voglia di fuggire e voglia di restare si contendono il tuo posto di lavoro. Menadel accoglie entrambe. La prima dice che qualcosa ti stanca; la seconda che quel luogo ha ancora qualcosa da insegnarti. Puoi sentirle insieme senza decidere oggi.',
-    'Riconoscerti nel tuo mestiere ti dà un orgoglio discreto, che raramente dici ad alta voce. Menadel lo tocca con rispetto. Dove scalda, è appartenenza; dove pesa, diventa il timore di sparire dentro il ruolo. L\'uno e l\'altro dicono quanto quel lavoro conta per te.',
+    'Il posto dove fai la tua parte, che sia un lavoro, uno studio o una casa da mandare avanti, a volte pesa come una condanna. Menadel ti concede di sentire quella fatica senza vergogna. Sotto abita un sentimento più quieto: la gratitudine per un luogo dove stai diventando qualcuno.',
+    'Voglia di andartene e voglia di restare possono contendersi il posto dove passi le tue giornate, che sia un lavoro, una scuola o una casa. Menadel accoglie entrambe. La prima dice che qualcosa ti stanca; la seconda che quel luogo ha qualcosa da insegnarti. Puoi sentirle insieme senza decidere oggi.',
+    'Riconoscerti in ciò che sai fare ti dà un orgoglio discreto, che raramente dici ad alta voce. Menadel lo tocca con rispetto. Accanto può salire il timore di sparire dentro il ruolo: anche quello dice quanto conta per te il posto dove fai la tua parte.',
   ],
   'cuore|36|consiglio': [
-    'Cerca nel tuo lavoro una cosa che hai imparato quest\'anno. Scrivila e accanto annota com\'era la tua giornata prima di saperla fare. Oggi non definire il tuo lavoro una condanna, nemmeno per scherzo: Menadel ti chiede di guardare il posto in cui stai crescendo, un giorno alla volta.',
-    'Non decidere oggi se andartene o restare. Per una settimana annota ogni sera una cosa che il tuo lavoro ti ha insegnato e una che ti ha tolto energie. Alla fine guarda quale colonna è più lunga. Menadel invita a restare finché il posto insegna, non un giorno di più.',
-    'Coltiva l\'orgoglio del mestiere senza lasciarti assorbire dal ruolo. Oggi fai con cura particolare una parte del lavoro che ami, poi stacca a un\'ora precisa e dedica la sera a ciò che ti riguarda fuori dal lavoro. Menadel ti chiede di riconoscerti nel mestiere senza sparire dentro di esso.',
+    'Pensa al posto dove fai la tua parte ogni giorno: lavoro, studio o casa. Cerca una cosa che lì hai imparato quest\'anno, scrivila e accanto annota com\'era la tua giornata prima di saperla fare. Oggi non chiamarlo una condanna, nemmeno per scherzo: Menadel ti chiede di guardare dove stai crescendo.',
+    'Non decidere oggi se andartene o restare. Per una settimana annota ogni sera una cosa che quel posto ti ha insegnato e una che ti ha tolto energie. Alla fine guarda quale colonna è più lunga. Menadel invita a restare finché il posto insegna, non un giorno di più.',
+    'Coltiva l\'orgoglio per ciò che sai fare senza lasciarti assorbire dal ruolo. Oggi fai con cura particolare una parte del tuo impegno che ami, poi fermati a un\'ora precisa e dedica la sera a ciò che ti riguarda fuori da lì. Menadel ti chiede di riconoscerti senza sparire.',
   ],
   'cuore|37|messaggio': [
     'Senti la noia sottile che sale quando ti accorgi di stare di nuovo nello stesso punto, davanti alla stessa discussione, allo stesso rinvio. Aniel la vuole accolta, non zittita: quella noia è lucidità che si sveglia. Sotto c\'è un sollievo nuovo, quello di poter smettere di girare.',
     'Il cerchio che percorri da anni ha anche un suo calore: è familiare, ne conosci ogni curva. Lascia che salga la malinconia di questo saperlo: smettere di girarci intorno significa lasciare una casa vecchia. Accanto a quella malinconia c\'è una fierezza quieta, quella della decisione che finalmente tiene.',
-    'Dentro la ripetizione abita una rabbia piccola, rivolta a te, ogni volta che rifai la stessa mossa sapendo dove porta. Aniel ti chiede di sentirla senza trasformarla in condanna: è l\'energia che serve a uscire dal giro. Dove pesa, è perché ti importa davvero. Dove scalda, è già decisione.',
+    'Dentro la ripetizione abita una rabbia piccola, rivolta a te, ogni volta che rifai la stessa mossa sapendo dove porta. Aniel ti chiede di sentirla senza trasformarla in condanna: è l\'energia che serve a uscire dal giro. Se brucia, è perché ti importa davvero: è già l\'inizio di una decisione.',
   ],
   'cuore|37|consiglio': [
     'Scrivi in una riga il punto preciso in cui torni ogni volta: la stessa discussione, lo stesso rinvio. Poi rileggila senza commentarla. Non riaprire oggi quella discussione per abitudine: quando la noia sale, lasciala lavorare come un segnale che ti dice dove il giro può finire.',
@@ -1111,12 +1113,12 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|39|messaggio': [
     'Pesa, quel conto degli anni che tieni aperto verso chi ti ha fatto crescere: ogni torto annotato, ogni mancanza ricordata. Rehael non chiede di strapparlo. Ti permette di sentire, accanto al rancore, una tenerezza che non avevi messo in conto: il rispetto che nasce prima del merito, quasi senza permesso.',
-    'Guardando chi viene dopo di te senti una severità che non ti piace, la stessa che hai ricevuto. Accogli il dispiacere di riconoscerla: è il segno che qualcosa sta passando di mano. Rehael porta un rispetto dato in anticipo: lì il dispiacere si scioglie in una calma nuova.',
+    'Guardando chi viene dopo di te può salire la stessa severità che un tempo hai ricevuto. Accogli il dispiacere di riconoscerla: vuol dire che te ne accorgi. Rehael porta il rispetto dato prima che sia meritato: da lì quella severità può allentarsi.',
     'Il rispetto dato prima che sia meritato ha un sapore strano: un po\' di vertigine, un po\' di dignità. Nella mia lettura Rehael vive in quella vertigine. Senti la libertà di guardare chi ti è vicino come se lo incontrassi oggi, senza il peso degli anni passati.',
   ],
   'cuore|39|consiglio': [
     'Non strappare il conto degli anni e non riaprirlo: oggi lascialo chiuso in un cassetto. Pensa a chi ti ha fatto crescere e scrivi una cosa sola che rispetti in quella persona, senza aggiungere nessun ma. Lascia che la tenerezza stia accanto al rancore, senza chiederle di cancellarlo.',
-    'Quando senti salire verso chi viene dopo di te la stessa severità che hai ricevuto, rallenta prima di parlare. Abbassa il tono di un grado e comincia da ciò che quella persona fa bene. Non punirti per averla riconosciuta: è proprio lì che il conto cambia mano.',
+    'Quando senti salire verso chi viene dopo di te la stessa severità che hai ricevuto, rallenta prima di parlare. Abbassa il tono di un grado e comincia da ciò che quella persona fa bene. Non rimproverarti per averla riconosciuta: accorgersene è già il primo passo per non ripeterla.',
     'Guarda oggi una persona vicina come se la incontrassi per la prima volta: ascoltala fino in fondo prima di rispondere, senza richiamare episodi vecchi. Offrile rispetto prima che abbia fatto qualcosa per meritarlo. Se affiora un ricordo amaro, lascialo passare: per oggi non decide lui.',
   ],
   'cuore|40|messaggio': [
@@ -1132,7 +1134,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|41|messaggio': [
     'Quando nessuno guarda e fai esattamente ciò che dici di credere, nasce una fierezza silenziosa che non ha bisogno di testimoni. Hahahel la porta con sé. Lasciala crescere: è diversa dall\'orgoglio, non chiede applausi. È il piacere discreto di riconoscerti uguale dentro e fuori.',
     'Conosci il disagio di quando condotta e parole non coincidono, anche nelle piccole cose. Hahahel non lo tratta come colpa: è la coscienza che bussa con garbo. Puoi accoglierlo senza processarti: dice quanto ti importa che la tua fede e i tuoi giorni parlino la stessa lingua.',
-    'C\'è una solitudine che appartiene a chi tiene alle proprie convinzioni anche quando nessuno le vede praticate. Nella mia lettura Hahahel la rende abitabile. Puoi sentirne il peso e la dignità: la tua parola resta al servizio di qualcosa che ti supera. Questo scalda più di quanto pesi.',
+    'Tenere alle tue convinzioni quando nessuno le vede praticate può lasciare una certa solitudine. Hahahel te la rende abitabile: puoi sentirne il peso e insieme la dignità. Ciò che fai di nascosto, coerente con ciò che credi, ti dà una pace che non dipende dall\'approvazione degli altri.',
   ],
   'cuore|41|consiglio': [
     'Non raccontare a nessuno il gesto coerente che hai fatto: lascialo senza testimoni. Stasera ripeti una cosa piccola in cui credi, anche se nessuno la vede, come rimettere a posto ciò che hai usato. Godi quella fierezza in silenzio: cresce meglio lontano dagli applausi.',
@@ -1141,7 +1143,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|42|messaggio': [
     'Prima di prendere posizione senti spesso un\'urgenza che spinge: schierarti, rispondere, firmare. Mikael porta un\'altra emozione accanto a quella, una calma ordinata come una stanza rimessa a posto. Non è freddezza: è il piacere di guardare le cose come stanno prima di muoverti. Puoi concedertelo.',
-    'Un accordo ben fatto lascia una serenità particolare, quella di chi sa che ogni parte ha detto il vero. Mikael la fa salire in te quando una trattativa si chiude con chiarezza. Senti anche dove pesa: nella fatica di tenere insieme intelligenza e responsabilità senza che l\'una copra l\'altra.',
+    'Un accordo ben fatto lascia una serenità particolare, quella di chi sa che ogni parte ha detto il vero. Mikael la fa salire in te quando un\'intesa si chiude con chiarezza. Accanto c\'è una fatica: tenere insieme intelligenza e responsabilità senza che l\'una copra l\'altra.',
     'Quando la lealtà che dai non torna indietro come ti aspettavi, arriva una delusione che brucia. Nella mia lettura Mikael ti permette di sentirla fino in fondo, senza vergogna. Dentro c\'è un insegnamento affettuoso: la fiducia resta preziosa quando l\'ordine interiore le dà occhi aperti.',
   ],
   'cuore|42|consiglio': [
@@ -1182,7 +1184,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|46|messaggio': [
     'Quando ti accorgi di un dettaglio che gli altri non hanno ancora notato, sale uno stupore vivo, quasi una scossa. Ariel ti lascia goderlo. Senti anche l\'altra metà: la prudenza affettuosa che chiede di verificarlo prima di innamorartene. Lo stupore e la prudenza insieme fanno una percezione di cui fidarti.',
     'Forse diffidi delle tue percezioni e aspetti che qualcun altro le confermi. Ariel porta un permesso: sentire la fiducia che nasce quando un piccolo indizio, colto in tempo, si rivela fondato. Quella fiducia non è presunzione. È rispetto per il modo in cui ti accorgi delle cose.',
-    'Nella mia lettura Ariel abita l\'eccitazione del dettaglio che stona, il particolare che cattura l\'occhio prima della ragione. È un\'emozione bella da accogliere. Dove pesa, è quando diventa sospetto e vedi segni ovunque; dove scalda, ti tiene in ascolto del reale.',
+    'Ariel porta con sé l\'eccitazione del dettaglio che stona, il particolare che cattura l\'occhio prima della ragione. È un\'emozione bella da accogliere: ti tiene in ascolto del reale. Diventa un peso solo se si fa sospetto e comincia a vedere segni ovunque.',
   ],
   'cuore|46|consiglio': [
     'Annota subito il dettaglio che ha acceso il tuo stupore, con la data e ciò che hai notato esattamente. Non parlarne ancora come di una certezza. Cerca nei prossimi giorni un modo semplice per controllarlo: lo stupore resta intatto, la prudenza gli dà un fondamento su cui contare.',
@@ -1192,7 +1194,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|47|messaggio': [
     'Cercare il vero prima del comodo ha un costo emotivo preciso: l\'imbarazzo di scoprire che il torto, stavolta, è tuo. Asaliah ti permette di sentirlo senza fuggire. Sotto quell\'imbarazzo c\'è un sollievo pulito, quello di chi preferisce la verità a una ragione comoda.',
     'Tacere per non esporti, fra le persone che ami, lascia un fastidio preciso. Nella mia lettura Asaliah gli dà un nome: è il senso della misura che protesta. Lascia che parli. Accanto c\'è una serenità che nasce solo quando dici il vero, anche se costa un po\' di quiete.',
-    'La misura giusta fra te e gli altri dà un piacere sobrio, quasi musicale: nessuno sopra, nessuno sotto, ognuno al suo posto. Asaliah porta quell\'armonia. Senti dove pesa, nella tentazione di giudicare prima di aver ascoltato fino in fondo; senti dove scalda, nella pace di un giudizio che ha atteso.',
+    'La misura giusta fra te e gli altri dà un piacere sobrio, quasi musicale: nessuno sopra, nessuno sotto, ognuno al suo posto. Asaliah porta quell\'armonia. Può incrinarla la tentazione di giudicare prima di aver ascoltato fino in fondo; la nutre la pace di un giudizio che ha saputo attendere.',
   ],
   'cuore|47|consiglio': [
     'Ammetti il torto appena lo riconosci, con una frase breve e senza giustificazioni lunghe. Non aspettare che l\'imbarazzo passi prima di parlare: passa dopo averlo detto. Poi lascia cadere l\'argomento. Il sollievo arriva dalla verità pronunciata, non dal discorso che la accompagna.',
@@ -1211,7 +1213,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'cuore|49|messaggio': [
     'Hai un metro alto che spesso punti contro di te. Vehuel ti permette di sentire il senso di inadeguatezza che ne nasce, senza farne una sentenza. Poi lascia salire un\'emozione più generosa: l\'ammirazione sincera per il valore di chi ti sta davanti, misurato con lo stesso metro.',
-    'L\'ammirazione è un\'emozione nobile e spesso trascurata. Nella mia lettura Vehuel la porta: riconoscere ciò che vale in un\'altra persona e sentirne gioia invece di invidia. Accogli quel calore quando arriva. Dove pesa, è quando il metro alto diventa vanità; dove scalda, ti apre agli altri.',
+    'L\'ammirazione è un\'emozione nobile e spesso trascurata. Vehuel la porta: riconoscere ciò che vale in un\'altra persona e sentirne gioia invece di invidia. Accogli quel calore quando arriva: ti apre agli altri, a patto che il tuo metro alto non si trasformi in vanità.',
     'Quando una tua parola riesce a mettere d\'accordo due posizioni lontane, sale una contentezza tranquilla che non somiglia all\'aver ragione. Vehuel abita lì. Senti la gioia di chi accorda invece di prevalere: è un piacere più quieto, che lascia tutti in piedi.',
   ],
   'cuore|49|consiglio': [
@@ -1232,7 +1234,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|51|messaggio': [
     'La curiosità di sapere come funziona una cosa, prima di metterci le mani, è un\'emozione da onorare. Hahasiah la accende: il piacere quasi infantile di aprire il meccanismo, guardare gli ingranaggi, capire dove gira. Lascia che ti prenda. È il fondamento di ogni metodo che regge.',
     'Quando qualcuno parla con grande sicurezza, senti la tentazione di fidarti senza verificare: è più comodo. Nella mia lettura Hahasiah ti permette di accogliere anche il piccolo disagio che segue, quella voce che chiede da dove venga tanta certezza. Quel disagio è prezioso: è il tuo metodo che si sveglia.',
-    'Capire il meccanismo di una cosa dà una soddisfazione limpida: il clic dei pezzi che tornano al loro posto. Hahasiah porta quella gioia. Dove pesa, è quando il sapere diventa un recinto che ti mette sopra gli altri; dove scalda, ti rende umile davanti a ciò che funziona.',
+    'Capire il meccanismo di una cosa dà una soddisfazione limpida: il clic dei pezzi che tornano al loro posto. Hahasiah porta quella gioia. Ti rende umile davanti a ciò che funziona, purché il sapere non diventi un recinto che ti mette sopra gli altri.',
   ],
   'cuore|51|consiglio': [
     'Prenditi oggi un\'ora per capire come funziona una cosa che usi senza conoscerla: un attrezzo, una procedura, un\'abitudine tua. Non metterci mano prima di averla capita. Segui la curiosità fino in fondo e annota in tre righe che cosa hai scoperto del suo meccanismo.',
@@ -1250,7 +1252,7 @@ const Map<String, List<String>> corpusDellOracolo = {
     'Non agire sulla voglia di rivalsa finché è calda: lascia passare almeno una notte. Scrivi intanto che cosa del torto ha ferito il tuo orgoglio, con precisione. Offri a quell\'orgoglio ascolto invece di vendetta: spesso, una volta ascoltato, smette di chiedere una rivincita.',
   ],
   'cuore|53|messaggio': [
-    'Il silenzio lungo dello studio ha una pace speciale, raccolta come una biblioteca a tarda sera. Nanael la porta. Senti quanto ti nutre e ti rende presente a ciò che conta. Dove pesa, il silenzio diventa distanza dal mondo; dove scalda, ti fa una persona su cui si può contare.',
+    'Il silenzio lungo dello studio ha una pace speciale, raccolta come una biblioteca a tarda sera. Nanael la porta. Senti quanto ti nutre e ti rende presente a ciò che conta: ti fa una persona su cui si può contare, se il silenzio non diventa distanza dal mondo.',
     'Scegliere la profondità invece della chiacchiera ti costa qualcosa: meno inviti, meno applausi, qualche serata in disparte. Nella mia lettura Nanael ti permette di sentire anche il piccolo rimpianto che ne viene. Accanto a lui c\'è una dignità quieta, quella di chi è affidabile perché ha studiato davvero.',
     'Sapere che si può contare su di te porta una fierezza sobria, che non ha bisogno di dirsi. Nanael la alimenta nel tempo lungo, fatto di ore silenziose. Accoglila senza modestia finta: è il frutto di una fedeltà allo studio che nessuno nota e che tutti sentono quando serve.',
   ],
@@ -1352,7 +1354,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|63|messaggio': [
     'Arriva un momento, in una trattativa difficile, in cui due interessi lontani si toccano e tutto si allenta. Anauel abita quel sollievo. Senti la meraviglia di scoprire che le cose sono più unite di quanto sembrassero: è un\'emozione che ti allarga il respiro.',
     'Una sola parola sbagliata può accendere in te una suscettibilità che manda all\'aria un accordo quasi fatto. Nella mia lettura Anauel ti permette di sentirla senza vergognartene. Sotto c\'è un bisogno legittimo di rispetto. Riconoscerlo scioglie la punta della ferita e lascia spazio all\'intesa.',
-    'Percepire l\'unità fra le cose dà una calma ampia, come guardare un paesaggio dall\'alto. Anauel porta quella calma dentro i rapporti: ti fa sentire il punto in cui la tua ragione e quella dell\'altro si incontrano. Dove pesa, è nel calcolo senza calore; dove scalda, è intesa.',
+    'Percepire l\'unità fra le cose dà una calma ampia, come guardare un paesaggio dall\'alto. Anauel porta quella calma dentro i rapporti: ti fa sentire il punto in cui la tua ragione e quella dell\'altro si incontrano. Senza calore resta calcolo; con il calore diventa intesa.',
   ],
   'cuore|63|consiglio': [
     'Nella trattativa che hai aperta, scrivi che cosa vuoi tu e che cosa vuole l\'altra parte, poi cerca la parola che compare in tutte e due le colonne. Parti da quella nella prossima conversazione. Lascia stare la voglia di prevalere: il punto d\'incontro allenta più di qualunque argomento.',
@@ -1362,7 +1364,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|64|messaggio': [
     'Quando un\'idea che porti da tempo trova finalmente le parole giuste, sale una gioia che somiglia a un\'alba. Mehiel abita quella gioia. Senti come il pensiero e il sentimento, per un istante, parlano la stessa lingua: è il piacere di dare forma viva a ciò che prima era soltanto intuito.',
     'La frase che non arriva lascia una frustrazione precisa, un\'impazienza della mente. Nella mia lettura Mehiel non la scaccia: è il segno che l\'idea è viva e chiede forma. Accogli anche la timidezza di mostrarla agli altri. Sotto c\'è il desiderio bello di farti capire con parole tue.',
-    'Unire il sentire al ragionare porta una sensazione di interezza, come se due metà finalmente si parlassero. Mehiel ti invita a sentirla quando scrivi o quando racconti. Dove pesa, è se lasci che l\'immaginazione scavalchi il vaglio; dove scalda, la tua voce diventa più tua.',
+    'Unire il sentire al ragionare porta una sensazione di interezza, come se due metà finalmente si parlassero. Mehiel ti invita a sentirla quando scrivi o quando racconti: la tua voce diventa più tua, purché l\'immaginazione non scavalchi il vaglio dei fatti.',
   ],
   'cuore|64|consiglio': [
     'Scrivi subito l\'idea che ha trovato le parole, prima che la gioia si disperda: anche dieci righe imperfette. Rileggile domani e correggi soltanto ciò che non suona tuo. Non tenerla nel cassetto: mostrala entro la settimana a una persona di cui ti fidi.',
@@ -1402,7 +1404,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|68|messaggio': [
     'Dare senza contare porta una leggerezza che riconosci subito: niente registri, niente attese, soltanto il gesto e il suo calore. Habuhiah abita quella leggerezza. Lascia che ti attraversi. È la gioia pratica di chi aiuta con le mani prima che con le parole.',
     'Quando doni aspettando un grazie che non arriva, sale un risentimento piccolo e amaro. Nella mia lettura Habuhiah ti permette di sentirlo senza vergogna: è umano. Sotto c\'è un bisogno di accoglienza. Riconoscerlo libera il dono dal peso del ricambio.',
-    'La generosità vera ha un sapore semplice, quasi domestico: un piatto in più, un passaggio offerto, un\'ora regalata. Habuhiah te la fa sentire come gioia, non come dovere. Dove pesa, è quando il dono diventa rivendicazione; dove scalda, ti alleggerisce la giornata.',
+    'La generosità vera ha un sapore semplice, quasi domestico: un piatto in più, un passaggio offerto, un\'ora regalata. Habuhiah te la fa sentire come gioia, non come dovere. Ti alleggerisce la giornata finché il dono non diventa una rivendicazione da far pesare.',
   ],
   'cuore|68|consiglio': [
     'Fai oggi un gesto generoso con le mani, senza annunciarlo: porta una cosa utile a chi ne ha bisogno, aiuta a spostare un mobile, prepara qualcosa per qualcuno. Non tenere il conto e non aspettare il grazie. Lascia che la leggerezza di quel gesto ti attraversi.',
@@ -1412,7 +1414,7 @@ const Map<String, List<String>> corpusDellOracolo = {
   'cuore|69|messaggio': [
     'Davanti a una situazione confusa, dove qualcosa è stato coperto, sale un\'inquietudine che non trova pace. Rochel ti permette di sentirla senza correre a giudicare. Accanto c\'è una calma lunga, quella dello sguardo che guarda lontano e aspetta che le tracce affiorino con il tempo.',
     'La tua onestà a volte è scomoda, anche per te: dire ciò che vedi costa qualche silenzio imbarazzato. Nella mia lettura Rochel abita quel disagio e lo rende sopportabile. Sotto c\'è una fermezza tranquilla, l\'unica cosa che ti tiene in piedi quando intorno tutto si muove.',
-    'Non avere fretta di giudicare dà una libertà rara: puoi lasciare che il quadro si componga piano, senza chiuderlo troppo presto. Rochel ti fa sentire quel respiro lungo. Senti anche dove pesa, nella tentazione di non guardare ciò che non ti conviene: lì c\'è un piccolo timore da accogliere.',
+    'Non avere fretta di giudicare dà una libertà rara: puoi lasciare che il quadro si componga piano, senza chiuderlo troppo presto. Rochel ti fa sentire quel respiro lungo. Accanto può esserci un piccolo timore da accogliere: la tentazione di non guardare ciò che non ti conviene.',
   ],
   'cuore|69|consiglio': [
     'Non correre a giudicare la situazione confusa che ti inquieta: annota i fatti certi su un foglio e lascia vuoto lo spazio di ciò che non sai. Torna a guardarlo fra qualche giorno. Le tracce affiorano a chi aspetta con calma, non a chi chiude il quadro per ansia.',
@@ -1771,12 +1773,12 @@ const Map<String, List<String>> corpusDellOracolo = {
   ],
   'intelletto|33|messaggio': [
     'Il ruolo e la persona che lo occupa sono due cose da tenere separate. Iehuiah ti insegna a rispettare il primo senza idolatrare la seconda. Allo stesso modo, il tuo ruolo dentro una struttura non coincide con te: puoi servirlo bene senza esaurirti in lui.',
-    'In ogni organizzazione c\'è chi comanda sulla carta e chi comanda davvero. Nella mia lettura di questo angelo, vedere questa differenza è la prima forma di lucidità: ti permette di stare dentro la struttura senza perderti, perché sai dove passano le decisioni reali.',
+    'Dove ci sono più persone insieme, in un ufficio, in un\'associazione o in una famiglia, chi decide sulla carta e chi decide davvero possono non coincidere. Vedere questa differenza è una forma di lucidità: ti permette di stare dentro un gruppo senza perderti, perché sai dove passano le decisioni reali.',
     'Obbedienza cieca e ribellione automatica sono la stessa dipendenza guardata da due lati. Entrambe lasciano alla gerarchia il compito di decidere per te: una seguendola sempre, l\'altra opponendosi sempre. Iehuiah mostra la terza possibilità, quella di valutare ogni ordine per ciò che chiede.',
   ],
   'intelletto|33|consiglio': [
     'Distingui oggi, davanti a chi sta sopra di te, il rispetto per il ruolo dall\'ammirazione per la persona. Dai il primo senza obbligarti alla seconda. Poi stacca dal tuo ruolo a fine giornata: fai una cosa che non c\'entra col lavoro e ricordati chi sei fuori.',
-    'Disegna su un foglio come passano davvero le decisioni nel posto in cui lavori, accanto all\'organigramma ufficiale. Individua dove le due mappe non coincidono. Non fermarti a chi ha soltanto il titolo; porta le tue proposte dove le scelte si fanno, con rispetto per tutti.',
+    'Disegna su un foglio come passano le decisioni nel gruppo di cui fai parte, accanto a ciò che dicono i ruoli ufficiali. Segna dove le due mappe non coincidono. Non fermarti a chi ha soltanto il titolo: porta le tue proposte dove le scelte si fanno, con rispetto per tutti.',
     'Valuta la prossima richiesta che ricevi dall\'alto per ciò che chiede, non per chi la manda. Se è sensata, eseguila bene anche se ti costa; se non lo è, dillo con motivazioni precise. Evita sia il sì automatico sia il no di principio.',
   ],
   'intelletto|34|messaggio': [
@@ -2456,5 +2458,437 @@ const Map<String, List<String>> corpusDellOracolo = {
   'rito|72|rito': [
     'Chiudi una cosa rimasta aperta: un cassetto, una lettera, una pratica. Pronuncia Mumiah. Falla fino in fondo, senza lasciare code. Poi sgombra il tavolo e resta un istante davanti al vuoto.',
     'Mumiah si pronuncia alla fine di qualcosa. Spegni la candela con un gesto deciso. Scrivi su un foglio ciò che hai concluso oggi e sotto la parola fine. Il resto ricomincia pulito.',
+  ],
+  'doni|01|dono': [
+    'la volontà che apre',
+  ],
+  'doni|01|via': [
+    'cominciare senza aspettare il permesso di nessuno',
+  ],
+  'doni|02|dono': [
+    'il legame che tiene',
+  ],
+  'doni|02|via': [
+    'restare leale ai legami che contano anche dopo un disaccordo',
+  ],
+  'doni|03|dono': [
+    'la parola mantenuta',
+  ],
+  'doni|03|via': [
+    'costruire con pazienza ciò che si misura in anni',
+  ],
+  'doni|04|dono': [
+    'il discernimento su chi hai intorno',
+  ],
+  'doni|04|via': [
+    'distinguere l\'ostacolo reale dall\'agitazione che senti dentro',
+  ],
+  'doni|05|dono': [
+    'la pace che non cede',
+  ],
+  'doni|05|via': [
+    'restare in pace senza cedere su ciò che conta',
+  ],
+  'doni|06|dono': [
+    'il talento che chiarisce',
+  ],
+  'doni|06|via': [
+    'usare le tue capacità per chiarire invece che per abbagliare',
+  ],
+  'doni|07|dono': [
+    'la pazienza che osserva',
+  ],
+  'doni|07|via': [
+    'osservare con pazienza prima di trarre conclusioni',
+  ],
+  'doni|08|dono': [
+    'la gratitudine concreta',
+  ],
+  'doni|08|via': [
+    'riconoscere la fatica che sta dietro a ciò che hai',
+  ],
+  'doni|09|dono': [
+    'la clemenza consapevole',
+  ],
+  'doni|09|via': [
+    'perdonare per non portare più un peso inutile',
+  ],
+  'doni|10|dono': [
+    'la forza di ricominciare',
+  ],
+  'doni|10|via': [
+    'ricominciare senza cancellare il passato',
+  ],
+  'doni|11|dono': [
+    'la costanza che regge',
+  ],
+  'doni|11|via': [
+    'continuare con costanza anche quando l\'entusiasmo è finito',
+  ],
+  'doni|12|dono': [
+    'il rifugio interiore',
+  ],
+  'doni|12|via': [
+    'cercare dentro di te un luogo quieto prima di agire',
+  ],
+  'doni|13|dono': [
+    'la fedeltà come memoria attiva',
+  ],
+  'doni|13|via': [
+    'tenere insieme le persone senza volerle comandare',
+  ],
+  'doni|14|dono': [
+    'la giustizia che comincia da te',
+  ],
+  'doni|14|via': [
+    'dire le cose come stanno senza ferire',
+  ],
+  'doni|15|dono': [
+    'l\'intuizione che diventa metodo',
+  ],
+  'doni|15|via': [
+    'mettere ordine nelle idee prima di muoverti',
+  ],
+  'doni|16|dono': [
+    'la lealtà che parla chiaro',
+  ],
+  'doni|16|via': [
+    'parlare chiaro con chi decide senza lasciare il tuo posto',
+  ],
+  'doni|17|dono': [
+    'l\'intuizione verificata',
+  ],
+  'doni|17|via': [
+    'trattare un\'intuizione come un dato da verificare',
+  ],
+  'doni|18|dono': [
+    'la distinzione fra fatti e opinioni',
+  ],
+  'doni|18|via': [
+    'separare i fatti dalle opinioni senza alzare il tono',
+  ],
+  'doni|19|dono': [
+    'la memoria che ricostruisce',
+  ],
+  'doni|19|via': [
+    'chiudere le questioni rimaste aperte senza rinfacciare nulla',
+  ],
+  'doni|20|dono': [
+    'la fermezza su ciò che conta',
+  ],
+  'doni|20|via': [
+    'cambiare direzione se serve tenendo fermo ciò che non negozi',
+  ],
+  'doni|21|dono': [
+    'lo studio paziente',
+  ],
+  'doni|21|via': [
+    'sopportare di non capire subito e continuare a imparare',
+  ],
+  'doni|22|dono': [
+    'il lavoro solido',
+  ],
+  'doni|22|via': [
+    'costruire qualcosa che regga nel tempo senza cercare applausi',
+  ],
+  'doni|23|dono': [
+    'la cura delle piccole attenzioni',
+  ],
+  'doni|23|via': [
+    'prevenire con piccole attenzioni invece di riparare dopo',
+  ],
+  'doni|24|dono': [
+    'il confine chiaro',
+  ],
+  'doni|24|via': [
+    'porre un confine chiaro intorno a te senza chiuderti',
+  ],
+  'doni|25|dono': [
+    'il silenzio che precede la parola',
+  ],
+  'doni|25|via': [
+    'lasciare arrivare le intuizioni smettendo di inseguirle',
+  ],
+  'doni|26|dono': [
+    'il punto d\'incontro',
+  ],
+  'doni|26|via': [
+    'cercare il punto d\'incontro dove gli altri vedono uno scontro',
+  ],
+  'doni|27|dono': [
+    'la chiarezza che non condanna',
+  ],
+  'doni|27|via': [
+    'tenere la tua posizione senza colpire nessuno',
+  ],
+  'doni|28|dono': [
+    'la prudenza che guarda avanti',
+  ],
+  'doni|28|via': [
+    'scegliere un passo che puoi sostenere nel tempo',
+  ],
+  'doni|29|dono': [
+    'la libertà da ciò che ti trattiene',
+  ],
+  'doni|29|via': [
+    'lasciare andare senza rancore ciò che ti trattiene',
+  ],
+  'doni|30|dono': [
+    'la pazienza che prepara il terreno',
+  ],
+  'doni|30|via': [
+    'preparare il terreno anche quando nulla sembra muoversi',
+  ],
+  'doni|31|dono': [
+    'la cura del dettaglio',
+  ],
+  'doni|31|via': [
+    'curare i dettagli senza perdere l\'insieme',
+  ],
+  'doni|32|dono': [
+    'la giustizia temperata dalla clemenza',
+  ],
+  'doni|32|via': [
+    'distinguere l\'errore dalla persona che lo commette',
+  ],
+  'doni|33|dono': [
+    'la distinzione fra ruolo e persona',
+  ],
+  'doni|33|via': [
+    'servire un ruolo senza consegnargli tutto di te',
+  ],
+  'doni|34|dono': [
+    'la calma che tiene',
+  ],
+  'doni|34|via': [
+    'mantenere la calma mentre gli altri alzano la voce',
+  ],
+  'doni|35|dono': [
+    'il primo passo verso l\'altro',
+  ],
+  'doni|35|via': [
+    'mettere il legame con gli altri prima dell\'avere ragione',
+  ],
+  'doni|36|dono': [
+    'l\'impegno di ogni giorno',
+  ],
+  'doni|36|via': [
+    'restare dove sei finché quel posto ha qualcosa da insegnarti',
+  ],
+  'doni|37|dono': [
+    'la decisione che rompe un cerchio',
+  ],
+  'doni|37|via': [
+    'smettere di girare intorno allo stesso punto e decidere',
+  ],
+  'doni|38|dono': [
+    'il gesto ripetuto che dà senso',
+  ],
+  'doni|38|via': [
+    'ripetere ogni giorno un gesto che ti ricorda chi sei',
+  ],
+  'doni|39|dono': [
+    'il rispetto dato in anticipo',
+  ],
+  'doni|39|via': [
+    'dare rispetto prima che sia meritato',
+  ],
+  'doni|40|dono': [
+    'la consolazione che non nega il dolore',
+  ],
+  'doni|40|via': [
+    'uscire da ciò che ti tiene chiuso senza negarlo',
+  ],
+  'doni|41|dono': [
+    'la coerenza fra fede e gesti',
+  ],
+  'doni|41|via': [
+    'fare ciò che dici di credere anche quando nessuno guarda',
+  ],
+  'doni|42|dono': [
+    'l\'ordine interiore',
+  ],
+  'doni|42|via': [
+    'guardare le cose come stanno prima di prendere posizione',
+  ],
+  'doni|43|dono': [
+    'la disciplina che porta a termine',
+  ],
+  'doni|43|via': [
+    'portare a termine ciò che inizi e ripartire dopo una caduta',
+  ],
+  'doni|44|dono': [
+    'la rettitudine sotto pressione',
+  ],
+  'doni|44|via': [
+    'tenere la parola data proprio quando costa',
+  ],
+  'doni|45|dono': [
+    'la volontà applicata alle cose lente',
+  ],
+  'doni|45|via': [
+    'rimettere in moto ciò che si era fermato',
+  ],
+  'doni|46|dono': [
+    'la percezione che precede la prova',
+  ],
+  'doni|46|via': [
+    'accorgerti del dettaglio e verificarlo prima di agire',
+  ],
+  'doni|47|dono': [
+    'il senso della misura fra le persone',
+  ],
+  'doni|47|via': [
+    'cercare il vero prima del comodo',
+  ],
+  'doni|48|dono': [
+    'la fedeltà di ogni giorno',
+  ],
+  'doni|48|via': [
+    'restare presente nei legami anche quando non restituiscono',
+  ],
+  'doni|49|dono': [
+    'la stima per il valore degli altri',
+  ],
+  'doni|49|via': [
+    'riconoscere il valore degli altri senza abbassare il tuo metro',
+  ],
+  'doni|50|dono': [
+    'la chiarezza che porta alla scelta',
+  ],
+  'doni|50|via': [
+    'capire le ragioni dell\'altro prima di giudicarle',
+  ],
+  'doni|51|dono': [
+    'la curiosità per come funzionano le cose',
+  ],
+  'doni|51|via': [
+    'capire come funziona una cosa prima di metterci le mani',
+  ],
+  'doni|52|dono': [
+    'l\'errore ammesso senza condanna',
+  ],
+  'doni|52|via': [
+    'riconoscere un tuo errore senza farne una condanna',
+  ],
+  'doni|53|dono': [
+    'l\'affidabilità silenziosa',
+  ],
+  'doni|53|via': [
+    'essere una persona su cui si può contare',
+  ],
+  'doni|54|dono': [
+    'lo sguardo che riconosce la bellezza',
+  ],
+  'doni|54|via': [
+    'riconoscere ciò che vale e mostrarlo agli altri',
+  ],
+  'doni|55|dono': [
+    'la giustizia fatta gesto quotidiano',
+  ],
+  'doni|55|via': [
+    'trasformare in gesti quotidiani ciò che consideri giusto',
+  ],
+  'doni|56|dono': [
+    'la richiesta misurata',
+  ],
+  'doni|56|via': [
+    'chiedere poco senza togliere peso a ciò che chiedi',
+  ],
+  'doni|57|dono': [
+    'la sostanza oltre l\'apparenza',
+  ],
+  'doni|57|via': [
+    'distinguere la sostanza dall\'apparenza prima di decidere',
+  ],
+  'doni|58|dono': [
+    'la forza mentale della fatica lunga',
+  ],
+  'doni|58|via': [
+    'guardare una cosa finché ne capisci la causa',
+  ],
+  'doni|59|dono': [
+    'l\'apprezzamento che non svaluta',
+  ],
+  'doni|59|via': [
+    'apprezzare ciò che c\'è senza svalutarlo',
+  ],
+  'doni|60|dono': [
+    'la riparazione paziente',
+  ],
+  'doni|60|via': [
+    'riparare ciò che si è rotto con pazienza e senza rivincita',
+  ],
+  'doni|61|dono': [
+    'l\'affinità che non confonde',
+  ],
+  'doni|61|via': [
+    'sentire l\'altra persona senza confonderti con lei',
+  ],
+  'doni|62|dono': [
+    'la saggezza del silenzio scelto',
+  ],
+  'doni|62|via': [
+    'ritirarti un momento prima di rispondere',
+  ],
+  'doni|63|dono': [
+    'il senso dell\'unità fra le cose',
+  ],
+  'doni|63|via': [
+    'trovare il punto in cui due interessi diversi si toccano',
+  ],
+  'doni|64|dono': [
+    'l\'idea che prende forma',
+  ],
+  'doni|64|via': [
+    'dare una forma chiara a un\'idea, per iscritto o a voce',
+  ],
+  'doni|65|dono': [
+    'la sorgente interna',
+  ],
+  'doni|65|via': [
+    'lasciare che ciò che finisce si sciolga senza rancore',
+  ],
+  'doni|66|dono': [
+    'la forza discreta che regge',
+  ],
+  'doni|66|via': [
+    'reggere il peso senza farlo pesare agli altri',
+  ],
+  'doni|67|dono': [
+    'la trasformazione che non rompe',
+  ],
+  'doni|67|via': [
+    'cambiare le cose senza romperle',
+  ],
+  'doni|68|dono': [
+    'la generosità pratica',
+  ],
+  'doni|68|via': [
+    'dare senza contare e senza aspettare riconoscimento',
+  ],
+  'doni|69|dono': [
+    'lo sguardo lungo',
+  ],
+  'doni|69|via': [
+    'fare chiarezza senza fretta di giudicare',
+  ],
+  'doni|70|dono': [
+    'la fine che diventa inizio',
+  ],
+  'doni|70|via': [
+    'trasformare una situazione invece di subirla',
+  ],
+  'doni|71|dono': [
+    'il coraggio a mente fredda',
+  ],
+  'doni|71|via': [
+    'decidere a mente fredda e saper dire di no',
+  ],
+  'doni|72|dono': [
+    'l\'arte di chiudere',
+  ],
+  'doni|72|via': [
+    'portare a termine per poter ricominciare da capo',
   ],
 };

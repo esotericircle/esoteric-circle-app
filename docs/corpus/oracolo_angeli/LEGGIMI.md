@@ -12,7 +12,10 @@ Ordine FU voci FU.05 e FU.07, 15 ottobre 2026. Il fondatore, alla domanda su chi
 | cuore.md | Medora: l'Angelo del Cuore, che cosa sentire | 72 | 3 messaggi e 3 consigli | 432 |
 | intelletto.md | Medora: l'Angelo dell'Intelletto, che cosa capire | 72 | 3 messaggi e 3 consigli | 432 |
 | rito.md | Caligo: il rito nei venti minuti dell'angelo | 72 | 2 riti | 144 |
-| **Totale** | | | | **1.440** (648 messaggi, 648 consigli e 144 riti) |
+| doni.md | Medora: il dono e la via di ogni angelo, pezzi del responso senza modello | 72 | 1 dono e 1 via | 144 |
+| **Totale** | | | | **1.584** (648 messaggi, 648 consigli, 144 riti, 72 doni e 72 vie) |
+
+**Il dono e la via, ordine GA voce GA.06, 20 ottobre 2026.** Il lettore cieco ha trovato il responso principale senza modello (l'assaggio del Viandante e il ripiego) uguale alla carta del Custode 40 volte su 40, con la prima frase che rispondeva alla domanda 6 volte su 40 (`docs/collaudo/GA/lettori_ciechi/esiti/esito_tre_domande_oracolo.md`). Adesso quel responso lo compone `LaRispostaDaiDoni` (`lib/core/oracolo_angeli/la_risposta_dai_doni.dart`) sulla domanda e sui tre angeli usciti, e di ogni angelo gli servono due pezzi brevi scritti dal suo nucleo (qui sotto, nello schedario): il **dono**, un nome con l'articolo, da 2 a 7 parole ("la volontà che apre"), che il compositore mette dopo "porta" o "con"; la **via**, un infinito da 3 a 11 parole ("cominciare senza aspettare il permesso di nessuno"), che il compositore mette dopo "conta", "la via è", "una condizione". Minuscoli, senza punto finale, nessun genere di chi legge, nessuna parola vietata, nessuna parola che dia per scontato un contesto (un lavoro, una coppia): la via si applica a qualunque domanda.
 
 **Il consiglio, ordine GA voci GA.03, GA.05 e GA.07, 20 ottobre 2026.** Dalla forma nuova dei responsi ogni carta singola si legge così: il nome dell'angelo come titolo, il suo messaggio, e sotto il riquadro "Cosa fare adesso" col consiglio. Il consiglio n accompagna il messaggio n, nella stessa cella. Fino all'ordine FU i testi erano 792; i consigli sono 648 in più, scritti da sei agenti (custode, cuore e intelletto in due fasce di 36 angeli) e portati nella fonte con `applica`.
 
@@ -23,6 +26,7 @@ Perché tre varianti per i messaggi: la stessa carta può uscire due volte di fi
 - Una cella per angelo, intestazione `## NN Nome`: NN il numero a due cifre (da 01 a 72), Nome il `seedName` di `lib/core/angels/angel_catalog.dart` (per esempio `## 01 Vehuiah`, `## 02 Jeliel`).
 - custode, cuore, intelletto: tre righe `- messaggio 1:`, `- messaggio 2:`, `- messaggio 3:` e, dall'ordine GA, tre righe `- consiglio 1:`, `- consiglio 2:`, `- consiglio 3:`.
 - rito: due righe `- rito 1:`, `- rito 2:`.
+- doni, dall'ordine GA voce GA.06: due righe `- dono 1:` e `- via 1:`, chiavi `doni|NN|dono` e `doni|NN|via`.
 - Il generatore scrive `lib/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart` con `const Map<String, List<String>> corpusDellOracolo`, chiave `<file>|<NN>|<campo>` (per esempio `custode|01|messaggio`, `cuore|07|consiglio`, `rito|72|rito`), valore le varianti in ordine.
 
 ## Le tre posizioni, e il confine fra loro
@@ -30,7 +34,8 @@ Perché tre varianti per i messaggi: la stessa carta può uscire due volte di fi
 La persona affida una domanda; l'Angelo Custode porta la carta di cosa fare, l'Angelo del Cuore quella di cosa sentire, l'Angelo dell'Intelletto quella di cosa capire. Ogni carta è uno dei 72. Il messaggio è dunque **l'angelo estratto letto dalla posizione in cui è caduto**.
 
 - **custode, che cosa fare.** Il testo porta il nucleo dell'angelo in un'azione e **finisce con un gesto concreto e piccolo**, fattibile oggi o in settimana: scrivi, togli, rimetti in ordine, dì una frase. **Mai l'invito a chiamare o telefonare a qualcuno**, ordine FV aggiunta voce FVA.01 del 15 ottobre 2026: il fondatore, "Il consiglio di chiamare qualcuno sarebbe già una presa di posizione"; il controllo lo ferma. Il verbo all'imperativo c'è sempre.
-- **cuore, che cosa sentire.** Il testo dice che cosa accogliere, che cosa lasciar salire, dove pesa e dove scalda il nucleo dell'angelo. **Nessun gesto da eseguire**: un permesso a sentire, un'emozione nominata con precisione.
+- **cuore, che cosa sentire.** Il testo dice che cosa accogliere, che cosa lasciar salire, dove pesa e dove scalda il nucleo dell'angelo. **Nessun gesto da eseguire**: un permesso a sentire, un'emozione nominata con precisione. **Il contenuto, non la formula** (ordine GA voce GA.06): gli scrittori avevano preso alla lettera "dove pesa / dove scalda", che era finita in 41 messaggi del cuore e il lettore cieco l'ha sentita ripetersi da una carta all'altra; lo strumento non la lascia in piu' di otto testi per file (TETTO_FORMULA). La forza e l'ombra dell'emozione si dicono con parole sempre diverse.
+- **Nessuna carta conosce la domanda** (ordine GA voce GA.06, D9 del lettore cieco). La carta vale sotto qualunque domanda: un messaggio che dice "nella tua domanda", "sulla tua domanda" finge un legame che non c'e' ("Nostalgia è la parola che Iezalel mette sulla tua domanda" sotto "Dimmi qualcosa."). Lo ferma LEGAME_FINTO nello strumento, e la prova lo pretende su cio' che arriva in lib. Allo stesso modo un messaggio non da' per scontato un contesto che chi legge puo' non avere (Menadel non parla del "tuo lavoro" come di un fatto: parla del posto dove fai la tua parte, lavoro, studio o casa), non da' un verdetto o un futuro per certo ("il legame riprende da lì"), non sostituisce il senso con un'immagine criptica.
 - **intelletto, che cosa capire.** Il testo dice che cosa vedere chiaro: **una distinzione netta** che l'angelo insegna (questo, non quello), il meccanismo dietro la situazione. Nessun gesto, nessuna emozione al centro.
 
 Il confine: un messaggio del cuore che finisce con un compito è caduto nel custode; un messaggio dell'intelletto che parla di come ti senti è caduto nel cuore. I lettori ciechi (agenti, mai Gemini) leggono messaggi mescolati e dicono a quale posizione appartengono: la soglia è otto su dieci.
@@ -57,7 +62,7 @@ Il confine: un messaggio del cuore che finisce con un compito è caduto nel cust
 
 ## La prova vista rossa
 
-`test/il_corpus_dell_oracolo_test.dart` pretende i 792 testi, nessuna cella vuota, nessun testo uguale a un altro, il Dart generato uguale alla fonte e nessuna parola vietata dalla politica. L'innesto e l'esito sono scritti in fondo a questo file, nella sezione **L'innesto**.
+`test/il_corpus_dell_oracolo_test.dart` pretende i 792 testi, nessuna cella vuota, nessun testo uguale a un altro, il Dart generato uguale alla fonte e nessuna parola vietata dalla politica. Dall'ordine GA i testi sono 1.440 e dalla voce GA.06 1.584 (coi doni e le vie), e la prova pretende anche che nessun messaggio finga di conoscere la domanda e che la formula "dove pesa / dove scalda" non stia in piu' di otto testi per file; le prove viste rosse stanno in `docs/collaudo/GA/ga06_cure_oracolo_regola_a_e_b.txt`. Il responso composto dai doni lo sorveglia `test/l_oracolo_risponde_dai_doni_test.dart`. L'innesto e l'esito sono scritti in fondo a questo file, nella sezione **L'innesto**.
 
 ## Lo schedario degli angeli
 
