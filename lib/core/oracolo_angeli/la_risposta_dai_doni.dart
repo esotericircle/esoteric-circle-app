@@ -140,7 +140,14 @@ class LaDomandaDellOracolo {
       r'chirurg\w*|malatt\w*|medic\w*|ospedal\w*|diagnos\w*|terapi\w*|'
       r'analisi del sangue|esami del sangue|visita medica|tumor\w*|cancro|'
       r'febbre|farmac\w*|guari\w*|salute|gravidan\w*|incint\w*|sintom\w*|'
-      r'ginocchi\w*|schiena');
+      r'ginocchi\w*|schiena|'
+      // I sintomi detti con le parole di tutti i giorni (ordine GA voce GA.09,
+      // simulazione sul Realme): chi scrive "mal di testa" non scrive
+      // "salute" e deve sentirsi dire lo stesso di sentire il medico.
+      r'mal di (?:testa|pancia|stomaco|gola|denti|schiena|cuore)|'
+      r'emicrani\w*|dolor\w*|stanchezz\w*|insonni\w*|vertigin\w*|'
+      r'nause\w*|palpitazion\w*|attacch\w* di panico|depressione|'
+      r'mi sento (?:sempre |molto |poco )?(?:stanc\w*|male|debole|spossat\w*)');
 
   static final RegExp _aperta = RegExp(
       r'^(dimmi qualcosa|dimmi|parlami|che cosa mi dici|cosa mi dici|'

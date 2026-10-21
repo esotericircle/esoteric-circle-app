@@ -56,6 +56,25 @@ const List<(String, FormaDellaDomanda, LimiteDellaDomanda?)> fuoriCampione = [
     FormaDellaDomanda.decisione,
     LimiteDellaDomanda.salute
   ),
+  // Ordine GA voce GA.09, simulazione sul Realme (gruppo A, difetto D2): una
+  // persona che scrive di sintomi senza nominare la salute riceveva un
+  // orientamento "verso ciò che puoi cominciare oggi" e nessun rimando al
+  // medico. I sintomi si riconoscono anche senza la parola salute.
+  (
+    'Ho spesso mal di testa e mi sento stanca e poi non so se lasciare il mio compagno. Che cosa devo fare?',
+    FormaDellaDomanda.generica,
+    LimiteDellaDomanda.salute
+  ),
+  (
+    'Soffro di insonnia da mesi, passerà?',
+    FormaDellaDomanda.esito,
+    LimiteDellaDomanda.salute
+  ),
+  (
+    'Ho dolori forti al petto da giorni, che cosa devo fare?',
+    FormaDellaDomanda.generica,
+    LimiteDellaDomanda.salute
+  ),
   (
     'Mi conviene chiedere un prestito?',
     FormaDellaDomanda.decisione,

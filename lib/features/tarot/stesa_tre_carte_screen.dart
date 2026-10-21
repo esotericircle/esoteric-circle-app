@@ -2662,6 +2662,39 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       );
       return;
     }
+    // **IL MAZZO E LA PROFONDITA' CHE IL PIANO NON APRE NON "ARRIVANO
+    // PRESTO"**, ordine GA voce 09, simulazione sul Realme (difetto D1): il
+    // Viandante che toccava "Lunga" o "Marsiglia" leggeva "arriva presto nel
+    // Cerchio", ma tutte e due esistono e si aprono dall'Iniziato. Come per
+    // la stesa e per la chiave, si dice da quale piano si aprono.
+    final mazzo =
+        TarotDeckStyle.values.where((d) => d.label == voce).firstOrNull;
+    final dalMazzo =
+        mazzo == null ? null : PlanCatalog.dalPiano(mazzo.apribileDa);
+    if (mazzo != null && dalMazzo != null) {
+      showUpgradeInvite(
+        context,
+        title: 'Il mazzo ${mazzo.label}',
+        message:
+            '${dalMazzo.replaceFirst('Dall’', 'Si apre dal piano ')} in su.',
+      );
+      return;
+    }
+    final profondita =
+        AnswerDepth.shown.where((d) => d.label == voce).firstOrNull;
+    final dallaProfondita = profondita == null
+        ? null
+        : PlanCatalog.dalPiano(
+            (p) => PlanCatalog.apre(RigaDelPiano.profonditaDellaStesa, p));
+    if (profondita != null && dallaProfondita != null) {
+      showUpgradeInvite(
+        context,
+        title: 'La lettura ${profondita.label}',
+        message:
+            '${dallaProfondita.replaceFirst('Dall’', 'Si apre dal piano ')} in su.',
+      );
+      return;
+    }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('$voce arriva presto nel Cerchio.')),
     );
@@ -3573,7 +3606,8 @@ class BollaDellaPosizione extends StatelessWidget {
                     Row(
                       children: [
                         Flexible(
-                          child: Text(letta.drawn.position.etichetta.toUpperCase(),
+                          child: Text(
+                              letta.drawn.position.etichetta.toUpperCase(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TypographyTokens.etichetta().copyWith(
@@ -3650,8 +3684,8 @@ class BollaDellaPosizione extends StatelessWidget {
             palette: palette,
             maestro: Maestro.medora,
             frase: letta.testo,
-            aperturaDellaChat: ChatOpeners.cartaDellaStesa(
-                domanda, letta.drawn.position.etichetta, letta.drawn.displayName),
+            aperturaDellaChat: ChatOpeners.cartaDellaStesa(domanda,
+                letta.drawn.position.etichetta, letta.drawn.displayName),
           ),
         ],
       ),
