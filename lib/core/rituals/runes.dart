@@ -233,7 +233,7 @@ const List<Rune> kElderFuthark = [
           'Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene.',
       stem: 'rune_bone_19_ehwaz_v1',
       upright: 'Si va lontano solo in armonia con l’altro.',
-      shadow: 'Ritrova il ritmo comune, poi riparti con chi ti affianca.'),
+      shadow: 'Ritrova il passo comune: riparti con chi ti affianca.'),
   Rune(
       name: 'Mannaz',
       glyph: 'ᛗ',

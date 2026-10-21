@@ -31,10 +31,20 @@ void main() {
   /// corpus dell'Oroscopo veniva accusato per la sola presenza di "nomeDell"
   /// dentro un'altra parola, e una prova che accusa gli innocenti si finisce
   /// per allentarla.
+  ///
+  /// **RISTRETTA, ordine GA voce 06 (`nomeDelPianeta`).** Il terzo schema era
+  /// `\bnomeDe[li][A-Z]`, generico su ogni identificatore "nomeDelXxx" di
+  /// tutto `lib/`: la convenzione e' comune a decine di nomi senza niente a
+  /// che fare col traguardo (`nomeDelLuogo`, `nomeDelFile`, `nomeDelCiclo`,
+  /// `nomeDelPaese`...), e il nuovo `nomeDelPianeta` dell'Oroscopo (il nome
+  /// invariabile di un pianeta, senza singolare o plurale da dichiarare) e'
+  /// stato accusato a vuoto. La grandezza cambia, non la soglia: resta solo
+  /// la forma vera del difetto, `nomeDelMini` o `nomeDelGrande` (o la loro
+  /// variante al plurale), le sole due che il Sigillo ha mai portato nude.
   final pescanoUnNome = [
     RegExp(r'\.mini\b'),
     RegExp(r'\.grande\b'),
-    RegExp(r'\bnomeDe[li][A-Z]'),
+    RegExp(r'\bnomeDe[li](?:Mini|Grande)\b'),
   ];
 
   /// Le sole forme dichiarate: leggere un nome vuol dire chiedere una di

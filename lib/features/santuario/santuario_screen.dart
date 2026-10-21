@@ -1365,16 +1365,30 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                           // stare una frase: **le tre guide sono il prodotto, la
                           // riga di testo no**.
                           child: LayoutBuilder(builder: (context, box) {
-                            // **CREMA PIENO E OMBRA, ordine GA voce GA.10**: il
+                            // **CREMA PIENO, ordine GA voce GA.10**: il
                             // grigio caldo faceva 3,86 a 1 sulla Home di Aura
-                            // ("Chi nasce sotto Gemelli cerca quiete"), il crema
-                            // pieno ne fa 5,22 e l'ombra toglie i punti chiari.
+                            // ("Chi nasce sotto Gemelli cerca quiete"), il
+                            // crema pieno da solo ne fa 5,22, sopra soglia.
+                            //
+                            // **SENZA L'OMBRA, ordine GA voce 16, 21 ottobre
+                            // 2026.** L'ombra a tre strati (fino a 12 di
+                            // sfocatura) qui c'era anche lei, ma allargava
+                            // l'inchiostro della riga ben oltre le lettere
+                            // vere, ed e' proprio questa riga che i Maestri
+                            // lambiscono dall'alto: su schermo alto la quota
+                            // coperta saliva da 8,8 a 21,7 per cento, sopra
+                            // il tetto LEGGERA del 20 (`i_maestri_sui_pixel_
+                            // e_non_sui_rettangoli_test.dart`). Tolta qui: il
+                            // crema pieno basta da solo (5,22 sul fondo piu'
+                            // frequente, soglia 4,5); resta la segnalazione,
+                            // non piu' coperta dalla cura comune, sul punto
+                            // piu' chiaro dello sfondo (2,31 misurato, nei
+                            // 172 non curati uno per uno di GA.10).
                             final stile =
                                 TypographyTokens.didascalia().copyWith(
                               color: ColorTokens.textPrimary,
                               fontStyle: FontStyle.italic,
                               height: 1.15,
-                              shadows: TypographyTokens.ombraDelTesto,
                             );
                             // Prima dei puntini si scende la scala: col
                             // segno, senza segno, senza nome. Un taglio a

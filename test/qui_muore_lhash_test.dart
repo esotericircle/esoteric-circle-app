@@ -162,14 +162,24 @@ void main() {
     // *"ALL'UTENTE NON GLIENE FREGA UN CAZZO DEI TRANSITI"*, e il cielo sta
     // solo in "Da dove viene". Adesso lo nomina la riga del livello, e il
     // testo no; i paragrafi li misura i_paragrafi_dicono_risposte_test.dart.
+    //
+    // **AGGIORNATA, ordine GA voce 06 sesto giro (commit 0776fb65).** La
+    // misura era letteralmente "di nascita": il sesto giro, per togliere il
+    // gergo dal "Da dove viene" (lettura cieca, D3 6 su 12 per gergo), ha
+    // sostituito "la tua Venere di nascita" con "il tuo modo di amare" e
+    // simili per i pianeti comuni (sole, luna, mercurio, venere, marte,
+    // giove, saturno), tenendo "di nascita" solo per i punti rari. La
+    // grandezza misurata cambia, non la soglia: non piu' la frase letterale,
+    // ma il possessivo che prova che il punto e' SUO (non generico), "tuo" o
+    // "tua", che ogni forma di bersaglioInParole porta.
     test('Il cielo lo nomina "Da dove viene", il testo no', () {
       final generale = schede(cartaUna, giorno)
           .firstWhere((c) => c.domain == HoroscopeDomain.generale);
       final riga = generale.rigaDelLivello ?? '';
       expect(CorpoCeleste.values.any((c) => riga.contains(c.nome)), isTrue,
           reason: '"Da dove viene" non nomina nessun pianeta: $riga');
-      expect(riga, contains('di nascita'),
-          reason: '"Da dove viene" non nomina nessun punto della carta');
+      expect(riga, anyOf(contains(' tuo '), contains(' tua '), contains('di nascita')),
+          reason: '"Da dove viene" non nomina nessun punto SUO della carta: $riga');
       expect(CorpoCeleste.values.any((c) => generale.text.contains(c.nome)),
           isFalse,
           reason: 'il testo nomina un pianeta: ${generale.text}');
