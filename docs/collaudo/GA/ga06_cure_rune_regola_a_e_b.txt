@@ -103,3 +103,110 @@ erano verdi sul codice curato.
       grep: "1190:        LaFormaDelResponso.massimo - b - 30);".
       Esito: ROSSE tutte e due: "paragrafi misurati 503000, riquadri 434000,
       senza forma 495000" e "presagi composti 10080, riserve usate 8800".
+
+=== SECONDO GIRO (dopo il lettore cieco indipendente, sul ramo comune 067dc1eb) ===
+
+7) l_estrazione_delle_rune_e_uniforme (nuova)
+   Il sospetto del lettore (Ingwaz decide 9 gettate su 40) misurato su 4.000
+   gettate: l'estrazione dell'app e' uniforme (la pietra che decide fra 144 e
+   186, attese 166); il campione no, perche' ogni gettata aveva il suo
+   Random(606 * 100 + i) e semi consecutivi danno estrazioni vicine (nei primi
+   40: Ingwaz 9). Il generatore dei campioni ora usa un generatore solo.
+   a. Innesto in RuneCast.getta (rune_cast.dart riga 282): Ingwaz forzata in
+      testa una gettata su sei,
+        final r = (i == 0 && rng.nextInt(6) == 0) ? kElderFuthark[21] : ...
+      grep: riga 282 con "kElderFuthark[21]".
+      Esito: ROSSA, "chi quadro della pietra che decide 964.5, delle pietre
+      uscite 2109.3 (soglia 49.73)".
+   b. Innesto nel generatore dei campioni: di nuovo un Random per gettata,
+        RuneCast.getta(gettata, random: Random(_seme * 100 + i))
+      grep: "428:      final esito = RuneCast.getta(gettata, random:
+      Random(_seme * 100 + i));".
+      Esito: ROSSA ("il campione dei lettori ciechi non semina una gettata per
+      volta").
+   Tutti e due i file rimessi dalla copia; verdi dopo: chi quadro 24.2 e 30.6,
+   ombra 50,3 per cento.
+
+Regola B del secondo giro: prima di toccare il compositore, sul ramo comune
+067dc1eb con le risposte dirette ancora parziali, le guardie della zona erano
+gia' ROSSE sul lavoro in corso (21 ottobre 2026): la_risposta_della_gettata
+prove 3 e 4 ("il GESTO nel riquadro", "non risponde" su 6 domande del
+Cerchio), il_tono_della_gettata ("«pietre» al plurale con una pietra sola",
+6 testi), il_presagio_dal_corpus ("[gesto/" atteso fuori dal riquadro). Le
+tre sono state portate alla regola nuova e viste rosse di nuovo qui sotto.
+
+Ogni innesto e' fatto con lo strumento della copia di riserva
+(scratchpad/rune/rossa.py: sostituisce una volta sola, tiene la copia, la
+rimette), verificato col grep "INNESTO PROVA ROSSA" prima di leggere l'esito,
+e tolto subito dopo (grep finale: 0 righe in lib/core/rituals).
+
+8) le_risposte_dirette_delle_rune (nuova, quattro prove)
+   1. IL CORPUS E' NEL CODICE E COMPLETO.
+      Innesto nel generato: il gruppo 'Fehu/dritta/come' rinominato
+      'Fehu/dritta/comeX' (le_risposte_dirette.g.dart riga 23).
+      Esito: ROSSA, "diretta: manca Fehu/dritta/come".
+   2. OGNI VOCE STA FRA 40 E 50 PAROLE COI VALORI VERI.
+      Innesto nel generato: la prima voce di Fehu/dritta/come allungata di
+      dodici parole ("davvero e sempre, ogni giorno della settimana e del
+      mese"); grep: 1 riga.
+      Esito: ROSSA, "voci provate coi valori veri 9856, fuori misura 4".
+      Il cardinale minimo scritto per primo, 30000, era una stima sbagliata
+      fatta prima di contare: le prove sono 22 domande x 224 voci del tipo x
+      2 campi = 9856, e il cardinale e' 9800 (il conto sta nel commento).
+   3. LA PERSONA NON SPARISCE.
+      Innesto in LeRisposteDirette.valori: per ogni tipo tranne le vaghe lo
+      spazio prende solo il tema, cioe' il difetto contato dal lettore ("per
+      il lavoro" al posto del capo),
+        if (tipo != 'vaga') return [q.tema]; // INNESTO PROVA ROSSA
+      grep: riga 55.
+      Esito: ROSSA, "paragrafi letti 1520, senza la cosa della domanda 874".
+   4. NESSUNA FORMULA.
+      Innesto nel compositore: il riquadro diretto preceduto da una delle
+      formule contate ("Cura con costanza ciò che dipende da te."); grep:
+      riga 592.
+      Esito: ROSSA, "responsi composti 400, formule 801".
+
+9) la_risposta_della_gettata, prove 3 e 4 portate alle risposte dirette
+   3. LA RISERVA NON SI USA: il GESTO resta il riquadro di chi getta senza
+      domanda e delle domande aperte del Cerchio; ogni domanda con un tipo,
+      delicata o doppia ha il suo.
+      Innesto nel compositore: il riquadro diretto tolto alle domande sugli
+      altri (riquadroDiretto = letta.tipo == TipoDiDomanda.altrui ? null :
+      p2); grep: riga 592.
+      Esito: ROSSA, "presagi composti 10080, riserve usate 770".
+   4. LA PRIMA FRASE RISPONDE: per le domande con un tipo del corpus le regole
+      dello strumento (verdetto e azione di chi chiede nelle decisioni, la
+      cosa della domanda e mai un si' o un no negli altri tipi, il criterio
+      nella scelta, il limite delle rune con la negazione in quando,
+      previsione, altrui e vaghe, l'invito a precisare nelle vaghe).
+      Innesto in LeRisposteDirette.valori: le decisioni prendono "questa
+      decisione" al posto dell'azione di chi chiede; grep: riga 50.
+      Esito: ROSSA, "prime frasi lette 7560, che non rispondono 1320".
+
+10) il_tono_della_gettata_conta_le_pietre_vere, il plurale dell'oracolo
+   La regola "pietre al plurale con una pietra sola" adesso toglie prima gli
+   usi generali ("le pietre non", "alle/nelle/dalle pietre", "pietre non"):
+   "Le pietre non predicono l'esito" e' l'oracolo, vero anche sotto una
+   pietra sola. I quindici testi del corpus che con "pietre" descrivevano la
+   gettata ("le pietre parlano di te", "queste pietre indicano") sono stati
+   riscritti, non coperti.
+   Innesto nel compositore: dopo il paragrafo diretto la frase "Le pietre
+   uscite lo dicono."; grep: riga 591.
+   Esito: ROSSA, "testi che dicono una gettata che non c'e' 600".
+
+11) il_presagio_dal_corpus, "il presagio ha la forma nuova"
+   L'attesa del riquadro per la domanda aperta del Cerchio ("In amore, dove
+   sto andando?") e' adesso il GESTO.
+   Innesto in LeRisposteDirette.tipoDelCorpus: le domande aperte prendono il
+   corpus diretto della previsione; grep: riga 37.
+   Esito: ROSSA, alla prima attesa del paragrafo: "Expected: contains
+   '[risposta/' Actual: 'Il risultato, per l’amore, nessuna pietra lo
+   mostra in anticipo...'".
+
+Dopo: tutte verdi sul lavoro vero, con questi conti (21 ottobre 2026):
+risposte dirette nel codice 3136; voci provate 9856, fuori misura 0;
+paragrafi letti 1520, senza la cosa della domanda 0; responsi composti 400,
+formule 0; testi letti 61560, gettate che non ci sono 0; domande delicate 30,
+senza limite 0; paragrafi misurati 503000, senza forma 0; riserve usate 0 su
+10080; prime frasi che non rispondono 0 su 7560; pietre nell'Ostacolo lette
+come favore 0 su 40; sessanta giorni: voci ripetute 0 su 54000 gettate.

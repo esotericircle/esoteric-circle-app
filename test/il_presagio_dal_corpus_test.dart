@@ -119,7 +119,11 @@ void main() {
         // VERDETTO). Sul corpus vero la riserva non si usa mai: lo pretende
         // `la_risposta_della_gettata_test.dart`, prova 3.
         expect(r.risposta, contains('[risposta/'));
-        expect(r.cosaFare, isNot(contains('[gesto/')));
+        // "In amore, dove sto andando?" e' una domanda aperta del Cerchio:
+        // dal secondo giro della voce GA.06 il suo riquadro e' il GESTO della
+        // pietra (le domande con un tipo hanno il riquadro scritto per loro,
+        // `azione.md`, e lo sorveglia `le_risposte_dirette_delle_rune_test`).
+        expect(r.cosaFare, contains('[gesto/'));
         expect(r.cosaFare, contains('l’amore'));
         final senzaDomanda = IlPresagioDalCorpus.componi(
           corpus: corpus,

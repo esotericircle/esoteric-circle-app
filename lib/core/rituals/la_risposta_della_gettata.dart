@@ -477,12 +477,37 @@ class LaPietraLetta {
   /// **IL LATO DIFFICILE DI UNA PIETRA**, come si legge nell'Ostacolo: il
   /// senso del suo verso d'ombra, o il lato scritto per le simmetriche, o il
   /// senso stesso se e' gia' in ombra.
+  ///
+  /// **Una pietra dritta nell'Ostacolo non prende il senso del suo verso
+  /// d'ombra**: il lettore cieco indipendente dell'ordine GA l'ha letto come
+  /// un "senso rovesciato su una pietra dritta" (Raidho dritta "un cammino
+  /// che ha perso la cadenza", Gebo "uno scambio che pende da un lato").
+  /// Dritta, nell'Ostacolo, la pietra frena con la sua stessa qualita'
+  /// portata all'eccesso o ancora da conquistare ([ostacoloDritto]).
   static String latoDifficile(RunaGettata p) {
     if (p.inOmbra) return di(p).senso;
-    final propria = di(p).lato;
-    if (propria != null) return propria;
-    return tutte[chiave(p.rune.name, true)]!.senso;
+    return di(p).lato ?? ostacoloDritto[p.rune.name]!;
   }
+
+  /// Come frena una pietra dritta non simmetrica quando cade nell'Ostacolo.
+  static const Map<String, String> ostacoloDritto = {
+    'Fehu': 'la paura di perdere ciò che hai',
+    'Uruz': 'una forza che spinge oltre misura',
+    'Thurisaz': 'una difesa che si irrigidisce in muro',
+    'Ansuz': 'parole che ancora non sono state dette',
+    'Raidho': 'una strada più lunga di quanto speri',
+    'Kenaz': 'un punto che non hai ancora guardato alla luce',
+    'Wunjo': 'il desiderio che tutto sia già perfetto',
+    'Nauthiz': 'un bisogno che stringe e chiede pazienza',
+    'Perthro': 'ciò che ancora non si può sapere',
+    'Algiz': 'una prudenza che rischia di chiuderti',
+    'Tiwaz': 'il prezzo che la scelta giusta chiede',
+    'Berkano': 'una crescita lenta che chiede cura',
+    'Ehwaz': 'un passo che dipende anche da un altro',
+    'Mannaz': 'lo sguardo degli altri su di te',
+    'Laguz': 'un sentire che non trova ancora parole',
+    'Othala': 'l’attaccamento a ciò che conosci',
+  };
 
   /// Le quaranta pietre: ventiquattro dritte e sedici in ombra (le otto
   /// simmetriche non escono mai in ombra).
@@ -598,7 +623,7 @@ class LaPietraLetta {
         criterio: 'tiene in equilibrio ciò che dai e ciò che ricevi',
         nonFare: 'Non dare tutto senza chiedere niente in cambio.',
         animo: 'accetta l’aiuto che ti offrono e ricambialo con gratitudine',
-        lato: 'uno scambio che pende da un lato',
+        lato: 'l’obbligo che nasce da un dono ricevuto',
         seChiudi: ClasseDellaPietra.correggi,
         verdettoSeChiudi: 'Non prima di aver riequilibrato lo scambio'),
     // Wunjo: "Un momento di pienezza vera: prendilo." / "Cura il legame: la
@@ -630,7 +655,7 @@ class LaPietraLetta {
         criterio: 'ti libera di ciò che non regge più',
         nonFare: 'Non puntellare ciò che si è già incrinato.',
         animo: 'lascia passare l’agitazione senza trattenerla',
-        lato: 'una scossa che ancora spaventa',
+        lato: 'una scossa da attraversare',
         seChiudi: ClasseDellaPietra.via,
         verdettoSeChiudi: 'Sì'),
     // Nauthiz: "Qui la pazienza è potere: aspetta con metodo." / "La prova
@@ -671,7 +696,7 @@ class LaPietraLetta {
         criterio: 'rispetta i tempi giusti',
         nonFare: 'Non anticipare il raccolto e non rimandarlo per paura.',
         animo: 'rispetta i tempi e non anticipare niente',
-        lato: 'l’impazienza di raccogliere'),
+        lato: 'i tempi lunghi della maturazione'),
     // Eihwaz: "Reggi: ciò che sembra piegarti non ti spezza."
     'Eihwaz/dritta': LaPietraLetta(
         classe: ClasseDellaPietra.prudenza,
@@ -681,7 +706,7 @@ class LaPietraLetta {
         criterio: 'regge alla prova del tempo',
         nonFare: 'Non mollare al primo vento contrario.',
         animo: 'tieni duro senza irrigidirti',
-        lato: 'una rigidità che non sa piegarsi',
+        lato: 'una prova che chiede di resistere',
         seChiudi: ClasseDellaPietra.attesa,
         verdettoSeChiudi: 'Non ancora, prima tieni duro'),
     // Perthro: "Qualcosa si muove sotto, non ancora visibile." / "Non
@@ -725,7 +750,7 @@ class LaPietraLetta {
         criterio: 'ti somiglia di più',
         nonFare: 'Non disperdere l’energia in troppe direzioni.',
         animo: 'tieni lo sguardo sulla tua meta',
-        lato: 'un’energia dispersa in troppe direzioni'),
+        lato: 'una luce che abbaglia invece di guidare'),
     // Tiwaz: "Prendi ciò che ti spetta, non ciò che si strappa." /
     // "Ritrova il tuo giusto: la mira torna ferma."
     'Tiwaz/dritta': LaPietraLetta(
@@ -1248,14 +1273,21 @@ abstract final class LaRispostaDellaGettata {
   }) {
     final ambito = domanda.delicato!;
     final p = LaPietraLetta.di(IlPresagioDalCorpus.pietraCheDecide(esito));
+    // "La pietra che decide" era la formula che il lettore cieco
+    // indipendente ha contato in 21 responsi su 40: qui il tempo si nomina
+    // per l'ambito, e la pietra resta la runa uscita.
+    final tempo = switch (ambito) {
+      AmbitoDelicato.salute => 'il modo di attraversare questi giorni di cura',
+      AmbitoDelicato.legge => 'il modo di reggere i tempi della causa',
+      AmbitoDelicato.denaro => 'il modo di prendere questa decisione',
+    };
     final seconde = [
-      'La pietra che decide parla solo di come vivi questo tempo: '
-          '${p.animo}, un giorno alla volta, senza decidere niente sulla '
-          'base di questa gettata.',
-      'La pietra che decide parla solo di come vivi questo tempo: '
-          '${p.animo}, un giorno alla volta.',
-      'La pietra che decide parla solo di come vivi questo tempo: '
-          '${p.animo}.',
+      'Ciò che la runa uscita può darti è $tempo: ${p.animo}, un giorno '
+          'alla volta, senza decidere niente sulla base di questa gettata.',
+      'Ciò che la runa uscita può darti è $tempo: ${p.animo}, un giorno '
+          'alla volta.',
+      'Ciò che la runa uscita può darti è $tempo: ${p.animo}.',
+      'La runa uscita ti dà solo $tempo: ${p.animo}.',
     ];
     final toni = frasiDelTono(esito);
     final candidati = [
@@ -1551,10 +1583,19 @@ abstract final class LaRispostaDellaGettata {
               'chiedi per iscritto rischi e costi.',
         ],
     };
+    // "Nei giorni che mancano" non diceva a che cosa (il lettore cieco
+    // indipendente: "mancano a cosa?"): adesso il tempo e' quello fino
+    // all'incontro che la prima frase ha appena chiesto.
+    final finoA = switch (a) {
+      AmbitoDelicato.salute => 'fino alla visita',
+      AmbitoDelicato.legge => 'fino all’incontro con l’avvocato',
+      AmbitoDelicato.denaro => 'fino all’incontro con il consulente',
+    };
     final secondi = [
-      'Non decidere niente sulla base di questa gettata: nei giorni che '
-          'mancano ${p.animo}.',
-      'Nei giorni che mancano ${p.animo}.',
+      'Non decidere niente sulla base di questa gettata: $finoA '
+          '${p.animo}.',
+      '${finoA[0].toUpperCase()}${finoA.substring(1)} ${p.animo}.',
+      'Intanto ${p.animo}.',
     ];
     const code = [
       '',
