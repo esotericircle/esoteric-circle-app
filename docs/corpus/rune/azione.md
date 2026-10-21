@@ -72,7 +72,7 @@
 1. Per {cosa} scegli oggi una dispersione da fermare (ore perse a rimuginare, impegni che ti svuotano, attese senza fine) e chiudila entro una settimana. Poi rifai lo stesso la settimana dopo con un'altra: l'attesa può accorciarsi una falla alla volta, senza fretta.
 2. Smetti per {cosa} di contare i giorni: scrivi su un foglio la data che speri, mettilo in un cassetto e non riaprirlo per quindici giorni. Usa quel tempo per riordinare le forze, con una sera alla settimana dedicata a ciò che ti ricarica.
 3. Ogni sera per {cosa} annota una cosa che ti ha tolto energia e una che te l'ha restituita. Dopo dieci giorni rileggi: elimina la perdita che torna più spesso e moltiplica ciò che ti rimette in forze, senza fissare date né contare i giorni.
-4. Per {cosa} lascia cadere entro tre giorni un'attività che tieni in piedi solo per paura di perdere qualcosa. Usa il tempo liberato per una sola cosa che conta e torna a chiederti a che punto sei fra un mese, non prima.
+4. Per {cosa} lascia cadere entro tre giorni un'attività che tieni in piedi solo per paura di perdere qualcosa. Usa il tempo liberato per una sola cosa che conta e fino ad allora non cercare altri segnali: guarda soltanto come cambia la tua giornata.
 5. Fissa per {cosa} un controllo fra tre settimane e fino a quel giorno rinuncia a cercare segnali nuovi ogni mattina. Metti invece da parte un'ora alla settimana per chiudere ciò che è rimasto in sospeso e ti pesa addosso da troppo tempo.
 
 ## Fehu, in ombra, previsione
@@ -660,7 +660,7 @@
 1. Prima di confermare la scelta di {azione}, scrivi i nomi delle tre persone che contano di più per te e accanto a ciascuno se la decisione ti avvicina o ti allontana. Se prevalgono gli avvicinamenti procedi; altrimenti parlane con loro entro domenica.
 2. Questa settimana racconta a una persona cara, davanti a un caffè, la decisione di {azione}: mentre ne parli nota se senti più leggerezza o più peso. La leggerezza dice sì; il peso chiede di aspettare qualche giorno e di parlarne ancora.
 3. Scrivi stasera tre cose che oggi ti danno gioia e accanto a ciascuna se la scelta di {azione} la conserva o la toglie. Se le conserva tutte, procedi; se ne toglie una, parlane prima a voce con chi la condivide con te.
-4. Se la scelta di {azione} ti avvicina a chi ami, fissa entro dieci giorni il momento di comunicarla e scegli con chi condividere il giorno dopo. Se invece chiude un legame che ti dà ancora gioia, aspetta un mese e parlane con chi è coinvolto.
+4. Se la scelta di {azione} ti avvicina a chi ami, fissa entro dieci giorni il momento di comunicarla e scegli con chi condividere il giorno dopo. Se invece ti allontana da chi ti dà ancora gioia, aspetta un mese e parlane con chi è coinvolto.
 5. Dedica un pomeriggio di questa settimana, prima di {azione}, a qualcosa che ti fa stare bene insieme a chi ami, senza parlare della scelta: decidi il giorno dopo, con l'animo disteso. Non decidere mai sotto pressione o in un momento di malumore.
 
 ## Wunjo, dritta, scelta
@@ -1089,7 +1089,7 @@
 4. Prima della prossima conversazione importante per {cosa}, scrivi l'unica cosa su cui non vuoi cedere e due su cui puoi venire incontro. Durante il confronto tieni ferma la prima e concedi le altre, come il tasso che si piega nei rami e non nel tronco.
 5. Tieni un quaderno del tuo impegno per {cosa}: ogni volta che fai qualcosa, anche minimo, scrivilo in una riga. Quando senti la tentazione di mollare, rileggilo tutto: la strada fatta, vista per intero, ti dà la forza di continuare senza forzare.
 6. Ogni volta che per {cosa} senti l'impulso di forzare o di arrenderti, aspetta ventiquattro ore prima di agire e intanto fai una cosa ordinaria che ti tenga in piedi: una camminata, il lavoro di sempre, una telefonata a un amico.
-7. Scegli un momento tranquillo dei prossimi giorni e di' con calma a chi è coinvolto, in tre frasi, ciò che ti sta a cuore per {cosa}. Poi tieni quella linea nelle settimane seguenti, senza ripeterla a ogni occasione e senza ritirarla.
+7. Scegli un momento tranquillo dei prossimi giorni e di' con calma a chi è coinvolto, in tre frasi, ciò che per {cosa} ti sta più a cuore. Poi tieni quella linea nelle settimane seguenti, senza ripeterla a ogni occasione e senza ritirarla.
 8. Per {cosa} fai un patto con te: niente gesti clamorosi, solo parole misurate e una presenza costante fino in fondo. Segna sul calendario ogni giorno in cui l'hai rispettato: se salti un giorno, riprendi il successivo senza ricominciare da capo e senza colpe.
 
 ## Eihwaz, dritta, quando
@@ -1395,7 +1395,7 @@
 4. Per {cosa} nomina oggi una cosa sola che desideri e una sola che temi, scritte una sotto l'altra su un foglio. Porta la prima come domanda nella prossima lettura; per la seconda, chiediti che cosa puoi fare questa settimana per toglierle forza.
 5. Domattina, alla luce del giorno, scrivi tre domande per {cosa} e cancellane due: tieni quella che ti fa battere il cuore. Riformulala con un nome o una scadenza; poi torna a farla, perché una domanda chiara riceve una risposta chiara.
 6. Non chiedere tutto insieme: per {cosa} scegli la questione che occupa più spazio nei tuoi pensieri di questi giorni e formulala come domanda diretta, dicendo chi o che cosa riguarda. Portala alla prossima lettura; intanto dedicale dieci minuti ogni sera.
-7. Fai una lista di ciò che ti sta a cuore per {cosa} e sottolinea la voce che ti toglie più sonno. Fai di quella voce una domanda precisa e chiedila di nuovo: una rotta si traccia verso un porto alla volta, mai verso tutti insieme.
+7. Per {cosa} fai una lista di ciò che ti sta a cuore e sottolinea la voce che ti toglie più sonno. Fai di quella voce una domanda precisa e chiedila di nuovo: una rotta si traccia verso un porto alla volta, mai verso tutti insieme.
 8. Rimetti la domanda a fuoco: per {cosa} dimmi che cosa ti preme davvero, una persona, una scelta, un luogo; allora la lettura può indicarti una rotta. Intanto, questa settimana, scrivi la meta che vuoi raggiungere entro tre mesi e tienila sul comodino.
 
 ## Tiwaz, dritta, decisione
@@ -1466,7 +1466,7 @@
 2. Questa settimana, per {cosa}, rinuncia a ogni battuta, frecciata o risposta di rivalsa, anche quando ti sembra meritata. Annota ogni sera le occasioni in cui hai scelto la calma: dopo sette giorni possono diventare la base per un confronto sereno con la persona coinvolta.
 3. Per {cosa} stabilisci un unico punto fermo che non vuoi cedere: scrivilo stasera, poi lascia andare tutto il resto. Nel prossimo confronto difendi solo quello, con parole tranquille e frasi brevi; non aggiungere altre richieste e non alzare il tono, nemmeno se ti provocano.
 4. Concediti due giorni di distanza per {cosa}: niente messaggi lunghi, niente decisioni a caldo. Nel frattempo chiedi a una persona di fiducia di aiutarti a distinguere ciò che ti preme davvero da ciò che è solo orgoglio; poi parla soltanto del primo.
-5. Comincia per {cosa} da un impegno minimo che puoi mantenere anche con poca energia: dieci minuti di ascolto al giorno, una piccola promessa rispettata. Fallo per una settimana di fila, senza aspettarti riconoscimenti; così ritrovi la misura di ciò che è giusto per te.
+5. Comincia per {cosa} da un impegno minimo che puoi mantenere anche con poca energia: dieci minuti di ascolto oggi, una piccola promessa rispettata domani. Senza aspettarti riconoscimenti, annota la sera che cosa hai mantenuto: così ritrovi la misura di ciò che è giusto per te.
 
 ## Tiwaz, in ombra, quando
 1. Per {cosa} smetti per dieci giorni di chiedere a te e agli altri quanto manca. Usa quel tempo per scrivere che cosa è giusto per te in questa situazione; quando la frase è chiara, scegli una sola azione coerente e fissala in agenda.
@@ -1526,10 +1526,10 @@
 
 ## Berkano, dritta, previsione
 1. Scrivi stasera tre cose che puoi ancora curare, per {cosa}, prima di sapere come va: un dettaglio da rifinire, una persona da sentire, un punto da rafforzare. Dedica a ciascuna un giorno di questa settimana. Non aspettare l'esito con le mani ferme.
-2. Per {cosa} tieni un quaderno della crescita: ogni sera annota un piccolo segno di ciò che sta nascendo, anche minimo. Dopo tre settimane rileggilo dall'inizio e scegli che cosa curare di più. Non pretendere frutti subito: la betulla mette foglie poco alla volta.
-3. Chiedi un parere sincero, per {cosa}, a una persona competente entro venerdì, su ciò che hai preparato o costruito: lavora per dieci giorni sul punto che ti indica. Non chiedere rassicurazioni, chiedi correzioni: sono il nutrimento di ciò che cresce davvero.
-4. Fai stasera un elenco di ciò che, per {cosa}, hai già costruito e rileggilo ogni mattina per due settimane. Accanto aggiungi ogni giorno una riga nuova su ciò che hai rafforzato. Non lasciare tutto all'ultimo momento: ciò che nasce vuole cura distribuita.
-5. Ogni sera, per {cosa}, prenditi dieci minuti per rivedere ciò che hai fatto nella giornata e scegliere che cosa curare domani. Mantienili per un mese, anche nei giorni pieni. Non affidarti all'ispirazione dell'ultimo momento: affidati a ciò che hai coltivato con pazienza.
+2. Per {cosa} tieni un quaderno della crescita: ogni sera annota un piccolo segno di ciò che sta nascendo, anche minimo. Prima di conoscere l'esito rileggilo dall'inizio e scegli che cosa curare di più. Non pretendere frutti subito: la betulla mette foglie poco alla volta.
+3. Chiedi un parere sincero, per {cosa}, a una persona competente entro venerdì, su ciò che hai preparato o costruito: lavora da subito sul punto che ti indica. Non chiedere rassicurazioni, chiedi correzioni: sono il nutrimento di ciò che cresce davvero.
+4. Fai stasera un elenco di ciò che, per {cosa}, hai già costruito e rileggilo ogni mattina finché non conosci l'esito. Accanto aggiungi ogni giorno una riga nuova su ciò che hai rafforzato. Non lasciare tutto all'ultimo momento: ciò che nasce vuole cura distribuita.
+5. Ogni sera, per {cosa}, prenditi dieci minuti per rivedere ciò che hai fatto nella giornata e scegliere che cosa curare domani. Mantienili anche nei giorni più pieni, senza saltarne nessuno. Non affidarti all'ispirazione dell'ultimo momento: affidati a ciò che hai coltivato con pazienza.
 
 ## Berkano, dritta, altrui
 1. Per {cosa}, se c'è un contatto aperto, scegli tre attenzioni semplici da offrire senza chiedere nulla, come ascoltare fino in fondo: distribuiscile in due settimane. Poi guarda i fatti, non le parole. Non chiedere dichiarazioni né promesse in questo periodo.
@@ -1979,7 +1979,7 @@
 8. Per {cosa} togli dalla bilancia ogni ragione che nasce solo dal desiderio di scappare da qualcosa: scrivile, rileggile e cancellale. Con ciò che resta sul foglio scegli entro venerdì la strada che segna il cambiamento più vero e comunicala a chi ne sarà toccato.
 
 ## Dagaz, dritta, come
-1. Per {cosa} cambia alla prossima occasione una cosa sola nel modo in cui ti presenti: l'ora, il luogo, il tono o la prima frase. Scegli quella più legata alla vecchia abitudine e sostituiscila del tutto, senza tornare indietro nelle volte successive.
+1. Per {cosa} cambia alla prossima occasione una cosa sola nel modo in cui ti presenti: il tono, la prima frase o il modo di ascoltare. Scegli quella più legata alla vecchia abitudine e sostituiscila del tutto, senza tornare indietro a metà strada.
 2. Per {cosa} scegli un mattino di questa settimana e, nelle prime ore, di' a chi è coinvolto come vuoi che vada da qui in avanti, in tre frasi al massimo. Preparale la sera prima e dille senza preamboli, guardando in faccia chi ascolta.
 3. Stasera scrivi per {cosa} che cosa vuoi che finisca e che cosa vuoi che cominci, una riga ciascuno. Domani di' quelle due righe a chi è coinvolto, con calma e a voce; poi proponi un giorno preciso da cui il nuovo modo comincia.
 4. Per {cosa} metti per iscritto, alla luce del giorno, i fatti come sono: tre righe, senza aggettivi né ipotesi. Rileggile domattina e scegli la mossa che quei fatti rendono evidente; falla entro due giorni, lasciando da parte i timori notturni.
@@ -2106,11 +2106,11 @@
 5. Componi per {cosa} una lettera da non spedire a ciò che ti trattiene dal passato: un'abitudine, una voce, un'attesa ricevuta. Ringrazia per ciò che è servito, saluta, chiudila in un cassetto; da domani agisci come chi ha già voltato pagina, un giorno alla volta.
 
 ## Othala, in ombra, previsione
-1. Metti su carta, per {cosa}, la frase scoraggiante che ti torna in mente nei momenti di dubbio, se ne hai una. Sotto riscrivila in una versione tua, realistica: leggila ogni mattina per due settimane e non portare con te la voce vecchia.
+1. Metti su carta, per {cosa}, la frase scoraggiante che ti torna in mente nei momenti di dubbio, se ne hai una. Sotto riscrivila in una versione tua, realistica: leggila ogni mattina finché non conosci l'esito e non portare con te la voce vecchia.
 2. Prepara per {cosa} un modo nuovo di andarci incontro: scegli una cosa che fai sempre allo stesso modo quando sale l'ansia e cambiala, un orario, un'abitudine, una frase. Non ripetere ciò che in passato non ha funzionato solo perché ti rassicura.
 3. Elenca per {cosa} le aspettative che senti addosso, di chi sono e quanto pesano da uno a dieci. Cancella quelle che non ti appartengono e vai con le sole tue; non portare sulle spalle il risultato che qualcun altro si aspetta.
 4. Se per {cosa} ti porti dietro una paura che viene dalla tua storia, raccontala entro domenica a una persona fidata, nominandola senza vergogna. Detta ad alta voce perde presa; poi torna al presente, con le forze e le capacità che hai oggi.
-5. Questa settimana, per {cosa}, tieni lontani i paragoni con chi è venuto prima di te in famiglia o altrove: ogni volta che ne fai uno, annotalo. Rileggi l'elenco ogni domenica; vai con la tua misura, non con quella di altri.
+5. Questa settimana, per {cosa}, tieni lontani i paragoni con chi è venuto prima di te in famiglia o altrove: ogni volta che ne fai uno, annotalo. Rileggi l'elenco prima di conoscere l'esito; vai con la tua misura, non con quella di altri.
 
 ## Othala, in ombra, altrui
 1. Stasera chiediti per {cosa} se i tuoi timori in questo legame somigliano a qualcosa che hai già vissuto altrove. Se sì, annota da dove vengono e guarda chi è coinvolto oggi per i suoi fatti, non per il volto del passato.

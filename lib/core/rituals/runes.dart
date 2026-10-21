@@ -18,7 +18,10 @@ class Rune {
     this.stem,
     String upright = '',
     String shadow = '',
-  }) : _keyword = keyword, _meaning = meaning, _upright = upright, _shadow = shadow;
+  })  : _keyword = keyword,
+        _meaning = meaning,
+        _upright = upright,
+        _shadow = shadow;
 
   final String name;
   final String glyph;
@@ -120,7 +123,7 @@ const List<Rune> kElderFuthark = [
           'La torcia, conoscenza che rivela: una scintilla illumina l\'opera.',
       stem: 'rune_bone_06_kenaz_v1',
       upright: 'Una luce si accende dove prima era buio.',
-      shadow: 'La fiamma c’è: dalle tempo di prendere.'),
+      shadow: 'La fiamma c’è: lascia che prenda il suo tempo.'),
   Rune(
       name: 'Gebo',
       glyph: 'ᚷ',
@@ -230,7 +233,7 @@ const List<Rune> kElderFuthark = [
           'Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene.',
       stem: 'rune_bone_19_ehwaz_v1',
       upright: 'Si va lontano solo in armonia con l’altro.',
-      shadow: 'Ritrova il ritmo comune, poi riprendete la corsa.'),
+      shadow: 'Ritrova il ritmo comune, poi riparti con chi ti affianca.'),
   Rune(
       name: 'Mannaz',
       glyph: 'ᛗ',
@@ -263,7 +266,7 @@ const List<Rune> kElderFuthark = [
       keyword: 'Risveglio',
       meaning: 'Il giorno, l\'alba che cambia: una svolta chiara si apre.',
       stem: 'rune_bone_23_dagaz_v1',
-      upright: 'Un nuovo giorno: cambia stato con lui.',
+      upright: 'Un nuovo giorno comincia: cambia passo con la luce.',
       shadow: 'Il giorno arriva: tieni la soglia.'),
   Rune(
       name: 'Othala',

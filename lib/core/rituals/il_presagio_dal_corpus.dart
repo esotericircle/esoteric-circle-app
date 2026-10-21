@@ -8,6 +8,7 @@ import 'il_titolo_della_gettata.dart';
 import 'la_risposta_della_gettata.dart';
 import 'le_risposte_dirette.dart';
 import 'le_risposte_dirette.g.dart';
+import 'le_voci_neutre.g.dart';
 import 'rune_cast.dart';
 import 'rune_lore.g.dart';
 
@@ -298,7 +299,7 @@ abstract final class IlPresagioDalCorpus {
   }
 
   /// Un numero dal testo, stabile fra le esecuzioni (FNV-1a a 32 bit).
-  static int _seme(String testo) {
+  static int seme(String testo) {
     var h = 0x811c9dc5;
     for (final c in testo.codeUnits) {
       h ^= c;
@@ -359,7 +360,7 @@ abstract final class IlPresagioDalCorpus {
         if (vuota == null || !vuota(i)) i
     ];
     // Fisher-Yates con un generatore lineare dal seme della persona.
-    var stato = _seme('$persona|$campo|$gruppo');
+    var stato = seme('$persona|$campo|$gruppo');
     for (var i = ordine.length - 1; i > 0; i--) {
       stato = (stato * 1103515245 + 12345) & 0x7fffffff;
       final j = stato % (i + 1);
@@ -414,6 +415,11 @@ abstract final class IlPresagioDalCorpus {
   /// propiziatorio della pietra che decide: dall'Iniziato in su
   /// (`RigaDelPiano.runeLunga`), mai alle schede (voce GA.05).
   ///
+  /// [neutre]: le coppie di PIETRA/CONSIGLIO e RISPOSTA/GESTO che non
+  /// presuppongono una situazione (`le_voci_neutre.g.dart`); le prove sulla
+  /// scelta con un corpus di prova passano `{}`, perche' quell'elenco e'
+  /// scritto sui numeri del corpus vero.
+  ///
   /// **Si sceglie solo cio' che si mostra**: il LEGAME solo nella Lunga, le
   /// schede solo con piu' di una pietra. Lo stesso giorno, la stessa
   /// gettata con la stessa domanda ridà le stesse voci; se nel frattempo si
@@ -428,6 +434,7 @@ abstract final class IlPresagioDalCorpus {
     required LaMemoriaDelPresagio memoria,
     bool lunga = false,
     CourtesyForm? forma,
+    Map<String, Map<String, List<(int, int)>>>? neutre,
   }) {
     memoria.pota(oggi);
     final pietre = esito.rune;
@@ -495,13 +502,13 @@ abstract final class IlPresagioDalCorpus {
     }
 
     final cosa = cosaDellaDomanda(domanda);
-    String testo(String id) {
+    String testo(String id, {String? cosaQui}) {
       final parti = id.split('/');
       final campo = parti.first;
       final numero = int.parse(parti.last);
       final gruppo = parti.sublist(1, parti.length - 1).join('/');
       final t = corpus.voci[campo]![gruppo]![numero - 1]
-          .replaceAll('{cosa}', cosa)
+          .replaceAll('{cosa}', cosaQui ?? cosa)
           .replaceAll('{gettata}', esito.gettata.nome.toLowerCase());
       return LaMarcaDelGenere.risolvi(t, forma: forma);
     }
@@ -519,8 +526,155 @@ abstract final class IlPresagioDalCorpus {
     // domanda. Salute, legge e denaro hanno il loro limite per primo, e la
     // RISPOSTA del corpus li' non entra. Tutto in `la_risposta_della_gettata.dart`.
     final t = tono(pietre);
-    String? paragrafo;
-    String? riquadroDiretto;
+    final ambito = letta.delicato;
+    // La stessa persona che rifa' la stessa domanda non legge sempre le
+    // stesse forme.
+    final variante = seme('$persona|$giorno|${letta.tipo.name}') % 7;
+    final tipoDiretto = LeRisposteDirette.tipoDelCorpus(letta, domanda);
+    final licenze = {
+      ...LeRisposteDirette.licenze(domanda),
+      // Le domande sugli altri hanno sempre una controparte.
+      if (LeRisposteDirette.tipoDelCorpus(letta, domanda) == 'altrui')
+        'controparte',
+    };
+    final note = letta.doppia
+        ? LaRispostaDellaGettata.notaDellaSeconda(letta)
+        : const [''];
+    String voce(String v) => LaMarcaDelGenere.risolvi(v, forma: forma);
+
+    /// **LA COPPIA: LA VOCE N DEL PARAGRAFO E LA VOCE N DEL RIQUADRO.** Gli
+    /// scrittori hanno scritto l'azione che segue il suo paragrafo; sceglierle
+    /// in due estrazioni separate dava un cosa fare che non seguiva la sua
+    /// risposta (rune-21: "togli peso all'esito" sopra "dopo una settimana
+    /// rileggi", lettore cieco, riapertura della voce GA.06). Si sceglie il
+    /// paragrafo e il riquadro e' quello che gli sta accanto. Restituisce il
+    /// paragrafo e il riquadro riempiti, o null se nessuna coppia sta nella
+    /// misura con le parole della domanda.
+    ///
+    /// Con [nonRipetere] (le schede) un gruppo le cui voci la persona ha gia'
+    /// lette tutte nei sessanta giorni non dà una coppia: la scheda passa alla
+    /// coppia neutra e la voce non torna finche' ne resta una non letta. I
+    /// gruppi "come" hanno cinque voci (otto per le pietre simmetriche): a chi
+    /// getta tre volte al giorno finirebbero in due giorni.
+    ({String paragrafo, String riquadro})? coppia(String parteDiretta,
+        String parteAzione, String gruppo, List<String> valori, List<String> n,
+        {String? preferito, bool nonRipetere = false}) {
+      final persona = LeRisposteDirette.laPersona(
+          letta, domanda, LeRisposteDirette.tipoDelCorpus(letta, domanda));
+      final dirette = leRisposteDirette['diretta']?[gruppo];
+      final azioni = leRisposteDirette['azione']?[gruppo];
+      if (dirette == null ||
+          azioni == null ||
+          dirette.isEmpty ||
+          dirette.length != azioni.length) {
+        return null;
+      }
+      // Il primo valore (dal piu' fedele) per cui c'e' una coppia che sta
+      // nella misura e non e' gia' stata presa in questo presagio.
+      final ordine = [
+        if (preferito != null && valori.contains(preferito)) preferito,
+        ...valori.where((v) => v != preferito),
+      ];
+      final stato = diOggi[parteDiretta];
+      for (final v in ordine) {
+        final scelta = LeRisposteDirette.scegliValore(
+          dirette: dirette,
+          azioni: azioni,
+          valori: [v],
+          note: n,
+          chiude: letta.chiude,
+          forma: forma,
+          licenze: licenze,
+        );
+        if (scelta == null) continue;
+        final fonte = [
+          for (var i = 0; i < dirette.length; i++)
+            scelta.stanno[i] &&
+                    (stato != null ||
+                        !presi.contains('diretta/$gruppo/${i + 1}'))
+                ? dirette[i]
+                : '',
+        ];
+        if (!fonte.any((x) => x.trim().isNotEmpty) && stato == null) continue;
+        if (nonRipetere &&
+            stato == null &&
+            !List.generate(fonte.length, (i) => i).any((i) =>
+                fonte[i].trim().isNotEmpty &&
+                !memoria.letti.containsKey('diretta/$gruppo/${i + 1}'))) {
+          continue;
+        }
+        final idDiretta = prendi(parteDiretta, 'diretta', gruppo, fonte: fonte);
+        final numero = int.parse(idDiretta.split('/').last);
+        final idAzione = 'azione/$gruppo/$numero';
+        if (diOggi[parteAzione] == null) {
+          diOggi[parteAzione] = idAzione;
+          presi.add(idAzione);
+          memoria.letti[idAzione] = giorno;
+        }
+        var p1 =
+            LeRisposteDirette.riempi(voce(dirette[numero - 1]), [v], note: n);
+        var p2 = LeRisposteDirette.riempi(voce(azioni[numero - 1]), [v]);
+        // La persona della domanda al posto di "chi e' coinvolto": solo se il
+        // testo resta a misura.
+        if (persona != null && p1 != null && p2 != null) {
+          final q1 = LeRisposteDirette.conLaPersona(p1, persona);
+          final q2 = LeRisposteDirette.conLaPersona(p2, persona);
+          if (LaFormaDelResponso.aMisura(q1)) p1 = q1;
+          if (LaFormaDelResponso.aMisura(q2)) p2 = q2;
+        }
+        if (p1 != null && p2 != null) return (paragrafo: p1, riquadro: p2);
+      }
+      return null;
+    }
+
+    /// **LA COPPIA NEUTRA: LA VOCE N DI UN CAMPO E LA VOCE N DEL SUO
+    /// SEGUITO** (PIETRA e CONSIGLIO, RISPOSTA e GESTO). Il consiglio segue
+    /// il suo paragrafo, e scegliere i due in estrazioni separate dava una
+    /// scheda con il cosa fare slegato dalla sua risposta (lettore cieco,
+    /// riapertura della voce GA.06). Si scelgono solo le coppie che non
+    /// presuppongono una situazione (`le_voci_neutre.g.dart`).
+    ({String a, String b}) coppiaNeutra(String campoA, String campoB,
+        String parteA, String parteB, String gruppo) {
+      final voci = corpus.voci[campoA]?[gruppo] ?? const <String>[];
+      final strette = (neutre ?? leVociNeutre)[campoA]?[gruppo];
+      // **PRIMA LE STRETTE, POI LE LARGHE, POI LA PIU' VECCHIA.** Le coppie
+      // strette sono quelle che non presuppongono niente (cinque o piu' per
+      // gruppo, non abbastanza per chi getta ogni giorno); quando la persona
+      // le ha lette tutte nei sessanta giorni, la scelta passa alle larghe
+      // (senza i divieti duri) invece di ripetere una voce: la regola dei
+      // sessanta giorni (ordine EX voce 03) vale quanto la coerenza, e
+      // vince su una voce che qui e li' puo' presupporre qualcosa.
+      List<(int, int)>? largheQui;
+      if (neutre == null) largheQui = leVociNeutreLarghe[campoA]?[gruppo];
+      final stretteLette = strette != null &&
+          strette.isNotEmpty &&
+          diOggi[parteA] == null &&
+          strette.every(
+              (c) => memoria.letti.containsKey('$campoA/$gruppo/${c.$1}'));
+      final coppie = stretteLette ? [...strette, ...?largheQui] : strette;
+      final scelti = {for (final c in coppie ?? const <(int, int)>[]) c.$1};
+      final fonte = scelti.isEmpty
+          ? null
+          : [
+              for (var i = 0; i < voci.length; i++)
+                scelti.contains(i + 1) ? voci[i] : '',
+            ];
+      final idA = prendi(parteA, campoA, gruppo, fonte: fonte);
+      final numero = int.parse(idA.split('/').last);
+      // La voce che segue la scelta: quella che la somiglia, non sempre la
+      // stessa numerata (il generato lo dice).
+      final segue =
+          coppie?.where((c) => c.$1 == numero).map((c) => c.$2).firstOrNull ??
+              numero;
+      final idB = diOggi[parteB] ?? '$campoB/$gruppo/$segue';
+      if (diOggi[parteB] == null) {
+        diOggi[parteB] = idB;
+        presi.add(idB);
+        memoria.letti[idB] = giorno;
+      }
+      return (a: idA, b: idB);
+    }
+
     // **LE RISPOSTE DIRETTE, SCRITTE PER PIETRA E PER TIPO DI DOMANDA.**
     // Ordine GA voce GA.06, il secondo giro della cura delle Rune: il
     // lettore cieco indipendente, sulla prima cura (paragrafi montati da
@@ -533,84 +687,32 @@ abstract final class IlPresagioDalCorpus {
     // chiede (`LOggettoDellaDomanda`). Salute, legge e denaro restano col
     // loro limite; la giornata e le domande aperte del Cerchio restano come
     // prima.
-    final tipoDiretto = LeRisposteDirette.tipoDelCorpus(letta, domanda);
+    String? paragrafo;
+    String? riquadroDiretto;
+    String? gestoId;
     if (tipoDiretto != null) {
-      final gruppo = '${gruppoDellaPietra(decide)}/$tipoDiretto';
-      final dirette = leRisposteDirette['diretta']?[gruppo];
-      final azioni = leRisposteDirette['azione']?[gruppo];
-      if (dirette != null &&
-          dirette.isNotEmpty &&
-          azioni != null &&
-          azioni.isNotEmpty) {
-        final valori = LeRisposteDirette.valori(letta, domanda, tipoDiretto);
-        final nota = LaRispostaDellaGettata.notaDellaSeconda(letta);
-        String voce(String id, List<String> fonte) =>
-            LaMarcaDelGenere.risolvi(fonte[int.parse(id.split('/').last) - 1],
-                forma: forma);
-        final note = letta.doppia ? nota : const [''];
-        // **LA COSA DELLA DOMANDA NELLE PAROLE PIU' FEDELI, LA STESSA NEI DUE
-        // TESTI.** Si sceglie prima il valore dello spazio, dal piu' fedele
-        // alle parole di chi chiede al piu' generale, e poi le voci: fra
-        // quelle del gruppo restano le sole che con quel valore stanno nella
-        // misura (con la nota della seconda domanda, se c'e') e che non lo
-        // ripetono gia' con parole loro. Il campione aveva "la decisione di
-        // prendere questa decisione" (una voce lunga che con "andare a vivere
-        // lontano dai tuoi genitori" non stava e prendeva la riserva), "il
-        // pranzo con la famiglia di lui" sopra e "la tua famiglia" sotto, e
-        // per la domanda doppia la forma di prima ("per il trasferimento la
-        // gettata indica"). Le voci lasciate da parte restano vuote per la
-        // scelta, senza spostare i numeri; solo se nessun valore trova voci
-        // nei due campi si sceglie fra tutte, come prima.
-        List<String> filtra(List<String> voci, String v, List<String> n) => [
-              for (final x in voci)
-                LeRisposteDirette.riempi(
-                                LaMarcaDelGenere.risolvi(x, forma: forma), [v],
-                                note: n) !=
-                            null &&
-                        LeRisposteDirette.senzaRipetizioni(x, [v, '']).first ==
-                            v
-                    ? x
-                    : '',
-            ];
-        bool qualcuna(List<String> voci) => voci.any((x) => x.isNotEmpty);
-        var fonteDiretta = dirette;
-        var fonteAzione = azioni;
-        var usa = valori;
-        for (final v in valori) {
-          final fd = filtra(dirette, v, note);
-          final fa = filtra(azioni, v, const ['']);
-          if (qualcuna(fd) && qualcuna(fa)) {
-            fonteDiretta = fd;
-            fonteAzione = fa;
-            usa = [v];
-            break;
-          }
-        }
-        final idDiretta =
-            prendi('diretta', 'diretta', gruppo, fonte: fonteDiretta);
-        final idAzione = prendi('azione', 'azione', gruppo, fonte: fonteAzione);
-        final vd = voce(idDiretta, dirette);
-        final va = voce(idAzione, azioni);
-        final p1 = LeRisposteDirette.riempi(vd, usa, note: note) ??
-            LeRisposteDirette.riempi(vd, valori, note: note) ??
-            '';
-        final p2 = LeRisposteDirette.riempi(va, usa) ??
-            LeRisposteDirette.riempi(va, valori) ??
-            '';
-        if (p1.isNotEmpty && p2.isNotEmpty) {
-          paragrafo = p1;
-          riquadroDiretto = p2;
-        }
+      final c = coppia(
+        'diretta',
+        'azione',
+        '${gruppoDellaPietra(decide)}/$tipoDiretto',
+        LeRisposteDirette.valori(letta, domanda, tipoDiretto),
+        note,
+      );
+      if (c != null) {
+        paragrafo = c.paragrafo;
+        riquadroDiretto = c.riquadro;
       }
     }
     if (paragrafo != null) {
       // Le risposte dirette hanno gia' il paragrafo e il riquadro.
-    } else if (letta.delicato != null) {
+    } else if (ambito != null) {
       paragrafo = LaRispostaDellaGettata.paragrafoDelicato(
-          domanda: letta, esito: esito);
+          domanda: letta, esito: esito, variante: variante);
     } else {
-      final risposta = testo(prendi(
-          parteRisposta, CampiDelPresagio.risposta, gruppoDellaPietra(decide)));
+      final rg = coppiaNeutra(CampiDelPresagio.risposta, CampiDelPresagio.gesto,
+          parteRisposta, parteGesto, gruppoDellaPietra(decide));
+      gestoId = rg.b;
+      final risposta = testo(rg.a);
       paragrafo = LaRispostaDellaGettata.paragrafoDellaRisposta(
           domanda: letta, esito: esito, risposta: risposta);
       // La riserva, che la prova `la_risposta_della_gettata_test.dart`
@@ -619,46 +721,152 @@ abstract final class IlPresagioDalCorpus {
           '$risposta ${testo(prendi(parteVerdetto, CampiDelPresagio.verdetto, '$t/${famigliaCheDomina(pietre, decide.rune.name)}'))}';
     }
     paragrafo ??= LaRispostaDellaGettata.primeFrasi(letta, esito).first;
-    final variante = _seme('$persona|$giorno|${letta.tipo.name}') % 7;
     // Il riquadro: la risposta diretta; per salute, legge e denaro (e per
     // una domanda doppia che non trova la sua) quello composto; per la
     // giornata e le domande aperte del Cerchio il GESTO della pietra, un
     // gesto concreto che la formula composta non sapeva dare.
     final cosaFare = riquadroDiretto ??
-        (letta.delicato != null || letta.doppia
+        (ambito != null || letta.doppia
             ? LaRispostaDellaGettata.riquadro(
                 domanda: letta, esito: esito, variante: variante)
             : null) ??
-        testo(prendi(
-            parteGesto, CampiDelPresagio.gesto, gruppoDellaPietra(decide)));
+        testo(gestoId ??
+            prendi(
+                parteGesto, CampiDelPresagio.gesto, gruppoDellaPietra(decide)));
+    // **L'APPROFONDIMENTO DELLA LUNGA E' COMPOSTO DALLE PIETRE USCITE**, non
+    // scelto per tono dal corpus LEGAME: il tono non dice la direzione del
+    // responso, e "il tempo e' maturo" stava sotto un "nessun verdetto"
+    // (lettore cieco indipendente, riapertura della voce GA.06). Il LEGAME
+    // resta il ripiego se la composizione non sta nella misura.
+    // Il responso ha una direzione quando dice un verdetto: le decisioni e le
+    // scelte, e le domande aperte e la giornata, che aprono con "la gettata
+    // indica ... è il momento di muoverti" (percorso di prima).
+    final direzione = tipoDiretto == 'decisione' ||
+            tipoDiretto == 'scelta' ||
+            (tipoDiretto == null && ambito == null)
+        ? LaRispostaDellaGettata.classe(esito, chiude: letta.chiude)
+        : null;
     final legame = lunga
-        ? testo(prendi(parteLegame, CampiDelPresagio.legame, '$gettata/$t'))
+        ? (LaRispostaDellaGettata.approfondimento(
+              esito: esito,
+              direzione: direzione,
+              ambito: ambito,
+              variante: variante,
+            ) ??
+            testo(prendi(parteLegame, CampiDelPresagio.legame, '$gettata/$t')))
         : null;
     final galdr = lunga ? galdrDi(decide, forma: forma) : null;
-    final schede = <ResponsoInterpretato>[
-      if (pietre.length > 1)
-        for (final p in pietre)
-          ResponsoInterpretato(
-            arte: ArteInterpretata.rune,
-            // **IL TITOLO LEGGE LA POSIZIONE**, ordine GA voce GA.06: era la
-            // riga della runa, uguale in ogni posto, e una pietra
-            // nell'Ostacolo si leggeva come un favore.
-            titolo: LaRispostaDellaGettata.titoloDellaScheda(p,
-                delicata: letta.delicato != null),
-            risposta: testo(prendi(
-                parteDellaPietra(CampiDelPresagio.pietra, p.rune.name),
-                CampiDelPresagio.pietra,
-                gruppoDellaPietra(p))),
-            cosaFare: testo(prendi(
-                parteDellaPietra(CampiDelPresagio.consiglio, p.rune.name),
-                CampiDelPresagio.consiglio,
-                gruppoDellaPietra(p))),
-          ),
-    ];
+
+    // **LE SCHEDE DELLE SINGOLE PIETRE.** Ordine GA voce GA.06, riapertura: il
+    // lettore cieco ha contato 21 schede su 34 con il "Cosa fare" slegato
+    // dalla domanda o dalla propria risposta, perche' PIETRA e CONSIGLIO sono
+    // scritti per ogni domanda (CONSIGLIO non porta nemmeno lo spazio della
+    // cosa). Adesso la scheda di una pietra e' la coppia "come" di quella
+    // pietra: il suo modo per la cosa della domanda, e l'azione che gli sta
+    // accanto, senza un verdetto che potrebbe contraddire quello della pietra
+    // che decide. Su salute, legge e denaro la scheda dice il limite e manda
+    // a chi e' competente, come il principale.
+    final schede = <ResponsoInterpretato>[];
+    if (pietre.length > 1) {
+      final tipoSchede = LeRisposteDirette.tipoDelleSchede(tipoDiretto);
+      final valoriSchede = ambito == null && tipoSchede != null
+          ? LeRisposteDirette.valoriPerLeSchede(letta, domanda, tipoDiretto)
+          : const <String>[];
+      // Lo stesso nome per la cosa in tutte le schede, se tutte le pietre lo
+      // reggono: la persona della domanda non cambia da una scheda all'altra.
+      String? comune;
+      if (ambito == null && tipoSchede != null) {
+        for (final v in valoriSchede) {
+          final tutte = pietre.every((p) {
+            final gr = '${gruppoDellaPietra(p)}/$tipoSchede';
+            final dd = leRisposteDirette['diretta']?[gr];
+            final aa = leRisposteDirette['azione']?[gr];
+            if (dd == null || aa == null || dd.length != aa.length) {
+              return false;
+            }
+            return LeRisposteDirette.scegliValore(
+                  dirette: dd,
+                  azioni: aa,
+                  valori: [v],
+                  note: const [''],
+                  chiude: letta.chiude,
+                  forma: forma,
+                  licenze: licenze,
+                ) !=
+                null;
+          });
+          if (tutte) {
+            comune = v;
+            break;
+          }
+        }
+      }
+      for (var i = 0; i < pietre.length; i++) {
+        final p = pietre[i];
+        String? rispostaScheda;
+        String? cosaFareScheda;
+        if (ambito != null) {
+          rispostaScheda = LaRispostaDellaGettata.schedaDelicata(
+              ambito: ambito, pietra: p, indice: i, variante: variante);
+          cosaFareScheda = LaRispostaDellaGettata.consiglioDelicato(
+              ambito: ambito, indice: i, variante: variante, escludi: cosaFare);
+        } else if (tipoSchede != null) {
+          final c = coppia(
+            parteDellaPietra('diretta', p.rune.name),
+            parteDellaPietra('azione', p.rune.name),
+            '${gruppoDellaPietra(p)}/$tipoSchede',
+            i.isOdd
+                ? [
+                    LeRisposteDirette.genericoPerLeSchede(tipoSchede),
+                    ...valoriSchede,
+                  ]
+                : valoriSchede,
+            const [''],
+            preferito: i.isOdd
+                ? LeRisposteDirette.genericoPerLeSchede(tipoSchede)
+                : comune,
+            nonRipetere: true,
+          );
+          rispostaScheda = c?.paragrafo;
+          cosaFareScheda = c?.riquadro;
+        }
+        // Le vaghe, la giornata e le domande aperte del Cerchio non portano
+        // una situazione: la scheda e' la coppia PIETRA/CONSIGLIO della
+        // pietra, scelta fra le neutre. Lo stesso se nessuna coppia "come"
+        // sta nella misura.
+        if (rispostaScheda == null || cosaFareScheda == null) {
+          final pc = coppiaNeutra(
+              CampiDelPresagio.pietra,
+              CampiDelPresagio.consiglio,
+              parteDellaPietra(CampiDelPresagio.pietra, p.rune.name),
+              parteDellaPietra(CampiDelPresagio.consiglio, p.rune.name),
+              gruppoDellaPietra(p));
+          // La cosa lunga della domanda ("ciò che non guardi di te") non apre
+          // ogni scheda: le dispari dicono "questo momento" (lettura severa
+          // del terzo giro, la cucitura ripetuta).
+          final cosaQui =
+              i.isOdd && cosa.split(' ').length >= 3 ? 'questo momento' : cosa;
+          rispostaScheda = testo(pc.a, cosaQui: cosaQui);
+          cosaFareScheda = testo(pc.b, cosaQui: cosaQui);
+        }
+        schede.add(ResponsoInterpretato(
+          arte: ArteInterpretata.rune,
+          // **IL TITOLO LEGGE LA POSIZIONE**, ordine GA voce GA.06: era la
+          // riga della runa, uguale in ogni posto, e una pietra
+          // nell'Ostacolo si leggeva come un favore.
+          titolo: LaRispostaDellaGettata.titoloDellaScheda(p,
+              delicata: ambito != null),
+          risposta: rispostaScheda,
+          cosaFare: cosaFareScheda,
+        ));
+      }
+    }
     return IlPresagioComposto(
       principale: ResponsoInterpretato(
         arte: ArteInterpretata.rune,
-        titolo: IlTitoloDellaGettata.di(esito),
+        titolo: ambito != null
+            ? LaRispostaDellaGettata.titoloDelicato(ambito, decide)
+            : IlTitoloDellaGettata.di(esito),
         risposta: paragrafo,
         cosaFare: cosaFare,
         approfondimento: legame,
@@ -756,7 +964,8 @@ abstract final class IlPresagioDalCorpus {
     for (final e in _delCerchio.entries) {
       if (d == LaDomandaLetta.normalizza(e.key)) return e.value;
     }
-    if (LaDomandaLetta.ambitoDelicato(d) != null) return 'il tuo stato d’animo';
+    final delicato = LaDomandaLetta.ambitoDelicato(d);
+    if (delicato != null) return LaRispostaDellaGettata.cosaDelicata(delicato);
     String? migliore;
     var dove = 1 << 30;
     final citta = _lasciareUnLuogo.firstMatch(domanda.trim());
@@ -773,7 +982,7 @@ abstract final class IlPresagioDalCorpus {
     }
     if (migliore != null) return migliore;
     if (LaDomandaLetta.parlaDiUnAltro(d)) return 'questo legame';
-    if (LaDomandaLetta.eVaga(d)) return 'il tuo momento';
+    if (LaDomandaLetta.eVaga(d)) return 'questo momento';
     return 'ciò che hai chiesto';
   }
 

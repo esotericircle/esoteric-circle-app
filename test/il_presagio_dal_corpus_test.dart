@@ -101,7 +101,7 @@ void main() {
         final p = IlPresagioDalCorpus.componi(
           corpus: corpus,
           esito: esito,
-          domanda: 'In amore, dove sto andando?',
+          domanda: 'Cosa mi sfugge di questa situazione?',
           persona: 'persona-di-prova',
           oggi: DateTime(2026, 10, 2),
           memoria: LaMemoriaDelPresagio(),
@@ -119,12 +119,15 @@ void main() {
         // VERDETTO). Sul corpus vero la riserva non si usa mai: lo pretende
         // `la_risposta_della_gettata_test.dart`, prova 3.
         expect(r.risposta, contains('[risposta/'));
-        // "In amore, dove sto andando?" e' una domanda aperta del Cerchio:
-        // dal secondo giro della voce GA.06 il suo riquadro e' il GESTO della
-        // pietra (le domande con un tipo hanno il riquadro scritto per loro,
-        // `azione.md`, e lo sorveglia `le_risposte_dirette_delle_rune_test`).
+        // "Cosa mi sfugge di questa situazione?" e' una domanda aperta del
+        // Cerchio: dal secondo giro della voce GA.06 il suo riquadro e' il
+        // GESTO della pietra (le domande con un tipo hanno il riquadro scritto
+        // per loro, `azione.md`, e lo sorveglia
+        // `le_risposte_dirette_delle_rune_test`). "In amore, dove sto
+        // andando?" aveva qui il suo posto, e dalla riapertura ha un tipo
+        // (previsione).
         expect(r.cosaFare, contains('[gesto/'));
-        expect(r.cosaFare, contains('l’amore'));
+        expect(r.cosaFare, contains('questa situazione'));
         final senzaDomanda = IlPresagioDalCorpus.componi(
           corpus: corpus,
           esito: esito,
@@ -139,10 +142,17 @@ void main() {
         for (final parte in [...r.paragrafi, r.daDoveViene!]) {
           expect(parte.contains('{'), isFalse, reason: parte);
         }
-        expect(r.risposta, contains('l’amore'));
+        expect(r.risposta, contains('questa situazione'));
         if (lunga) {
-          // Il legame della gettata e il galdr della pietra che decide.
-          expect(r.approfondimento, contains('[legame/${g.id}/'));
+          // **DALLA RIAPERTURA DELLA VOCE GA.06** l'approfondimento non e'
+          // piu' la voce LEGAME del corpus (il tono non dice la direzione del
+          // responso: "il tempo e' maturo" sotto un "nessun verdetto"): e'
+          // composto dalle pietre uscite, e lo sorveglia
+          // `l_approfondimento_e_le_schede_delicate_delle_rune_test.dart`.
+          // Qui basta che ci sia e sia riempito, con il galdr della pietra
+          // che decide.
+          expect(r.approfondimento, isNotNull);
+          expect(r.approfondimento!.contains('{'), isFalse);
           expect(r.rito, isNotNull);
         } else {
           expect(r.approfondimento, isNull);
@@ -209,6 +219,9 @@ void main() {
               oggi: oggi,
               memoria: memoria,
               lunga: true,
+              // Il corpus di prova ha i numeri della specifica, non quelli
+              // del corpus vero su cui sono scritte le coppie neutre.
+              neutre: const {},
             );
             // Le voci del presagio appena composto: ognuna gia' letta nei
             // sessanta giorni (anche oggi, in un'altra gettata) e' una

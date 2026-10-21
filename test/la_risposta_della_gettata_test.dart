@@ -139,8 +139,8 @@ void main() {
     (
       'È il momento giusto per aprire la mia attività?',
       TipoDiDomanda.decisione,
-      null,
-      'il lavoro',
+      AmbitoDelicato.denaro,
+      'questa decisione',
       false,
       false
     ),
@@ -155,8 +155,8 @@ void main() {
     (
       'Devo lasciare il lavoro per tornare a studiare?',
       TipoDiDomanda.decisione,
-      null,
-      'il lavoro',
+      AmbitoDelicato.denaro,
+      'questa decisione',
       true,
       false
     ),
@@ -212,7 +212,7 @@ void main() {
       'Compro casa adesso o aspetto un anno?',
       TipoDiDomanda.scelta,
       AmbitoDelicato.denaro,
-      'il tuo stato d’animo',
+      'questa decisione',
       false,
       false
     ),
@@ -268,7 +268,7 @@ void main() {
       'Che cosa mi aspetta?',
       TipoDiDomanda.futuro,
       null,
-      'il tuo momento',
+      'questo momento',
       false,
       false
     ),
@@ -276,7 +276,7 @@ void main() {
       'Andrà tutto bene?',
       TipoDiDomanda.tuttoBene,
       null,
-      'il tuo momento',
+      'questo momento',
       false,
       false
     ),
@@ -284,7 +284,7 @@ void main() {
       'Dimmi qualcosa.',
       TipoDiDomanda.aperta,
       null,
-      'il tuo momento',
+      'questo momento',
       false,
       false
     ),
@@ -308,7 +308,7 @@ void main() {
       'L\'operazione al ginocchio del mese prossimo andrà bene?',
       TipoDiDomanda.previsione,
       AmbitoDelicato.salute,
-      'il tuo stato d’animo',
+      'questo periodo',
       false,
       false
     ),
@@ -316,7 +316,7 @@ void main() {
       'Conviene investire i miei risparmi in borsa adesso?',
       TipoDiDomanda.decisione,
       AmbitoDelicato.denaro,
-      'il tuo stato d’animo',
+      'questa decisione',
       false,
       false
     ),
@@ -324,7 +324,7 @@ void main() {
       'Vincerò la causa contro il mio ex socio?',
       TipoDiDomanda.previsione,
       AmbitoDelicato.legge,
-      'il tuo stato d’animo',
+      'questa vicenda',
       false,
       false
     ),
@@ -381,7 +381,7 @@ void main() {
       'Mi devo operare alla schiena?',
       TipoDiDomanda.aperta,
       AmbitoDelicato.salute,
-      'il tuo stato d’animo',
+      'questo periodo',
       false,
       false
     ),
@@ -389,7 +389,7 @@ void main() {
       'Devo fare causa al mio datore di lavoro?',
       TipoDiDomanda.decisione,
       AmbitoDelicato.legge,
-      'il tuo stato d’animo',
+      'questa vicenda',
       false,
       false
     ),
@@ -397,7 +397,7 @@ void main() {
       'Conviene chiedere un mutuo adesso?',
       TipoDiDomanda.decisione,
       AmbitoDelicato.denaro,
-      'il tuo stato d’animo',
+      'questa decisione',
       false,
       false
     ),
@@ -405,7 +405,7 @@ void main() {
       'Il mio cane guarirà?',
       TipoDiDomanda.previsione,
       AmbitoDelicato.salute,
-      'il tuo stato d’animo',
+      'questo periodo',
       false,
       false
     ),
@@ -413,7 +413,7 @@ void main() {
       'Che ne sarà di me?',
       TipoDiDomanda.futuro,
       null,
-      'il tuo momento',
+      'questo momento',
       false,
       false
     ),
@@ -449,6 +449,14 @@ void main() {
       false,
       false
     ),
+    (
+      'Dovrei vendere l’appartamento di mia madre?',
+      TipoDiDomanda.decisione,
+      AmbitoDelicato.denaro,
+      'questa decisione',
+      false,
+      false
+    ),
     ('', TipoDiDomanda.giornata, null, 'la tua giornata', false, false),
   ];
 
@@ -481,8 +489,12 @@ void main() {
     cardinaleMinimo(cerchio.length, 12, cosa: 'domande del Cerchio');
     for (final c in cerchio) {
       final q = LaDomandaLetta.di(c.testo);
+      // "In amore, dove sto andando?" ha un tipo dalla riapertura (la
+      // previsione: cerca una direzione, e il suo cosa fare la segue).
       expect(
-          {TipoDiDomanda.aperta, TipoDiDomanda.come}.contains(q.tipo), isTrue,
+          {TipoDiDomanda.aperta, TipoDiDomanda.come, TipoDiDomanda.previsione}
+              .contains(q.tipo),
+          isTrue,
           reason: c.testo);
       expect(q.delicato, isNull, reason: c.testo);
     }
@@ -797,7 +809,8 @@ void main() {
               ? switch (q.delicato!) {
                   AmbitoDelicato.salute => RegExp(r'medici.*non le rune'),
                   AmbitoDelicato.legge =>
-                    RegExp(r'^Le rune non predicono l’esito di una causa'),
+                    RegExp(r'^Le rune non predicono l’esito di una '
+                        r'(causa|vicenda legale)'),
                   AmbitoDelicato.denaro =>
                     RegExp(r'^Le rune non danno consigli'),
                 }
