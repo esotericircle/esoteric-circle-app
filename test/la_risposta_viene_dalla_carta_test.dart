@@ -508,7 +508,7 @@ void main() {
     final guasti = <String>[];
     var guardati = 0;
     var neutri = 0;
-    for (final (domanda, s, r) in responsi(60, 5151)) {
+    for (final (domanda, _, r) in responsi(60, 5151)) {
       final d = LaDomandaLetta.di(domanda);
       if (d.forma != FormaDellaDomanda.siNo ||
           d.sensibile != null ||
