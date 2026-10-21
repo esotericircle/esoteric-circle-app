@@ -247,7 +247,11 @@ jobs:
             NOME="$(printf 'avvio_%02d_dopo_%02ds.png' "$N" "$T")"
             xcrun simctl io "$UDID" screenshot "$CATTURE/$NOME"
           done
-          if xcrun simctl spawn "$UDID" launchctl list | grep -q "$BUNDLE_ID"; then
+          # Si guarda il processo sul Mac, non launchctl del simulatore: sul
+          # simulatore di iOS 26 launchctl non elenca l'app col suo bundle, e
+          # il giro del 21 ottobre (118984243710) diceva "non e' piu' viva"
+          # con l'app in primo piano nella cattura dei 90 secondi.
+          if pgrep -f "CoreSimulator/Devices/$UDID/.*/Runner.app/Runner" > /dev/null; then
             echo "L'app e' ancora viva dopo 90 secondi." | tee "$CATTURE/esito_avvio.txt"
           else
             echo "::error title=L'app non e' piu' viva::dopo 90 secondi il processo di $BUNDLE_ID non c'e' piu'. Guarda registro_dell_app.txt e i rapporti di crollo nell'artifact."
@@ -272,7 +276,9 @@ jobs:
           # integration_test NON sta nel pubspec del repository: l'ordine
           # del 6 ottobre 2026 l'ha tolto perche' rompe le build di rilascio.
           # Si aggiunge solo qui, sulla copia del giro, che nessuno spinge.
-          flutter pub add --dev 'integration_test:{"sdk":"flutter"}' 'flutter_driver:{"sdk":"flutter"}'
+          # Con una descrizione il pacchetto va col prefisso dev: davanti, non
+          # con --dev (flutter pub add, giro 118984243710: "cannot be combined").
+          flutter pub add 'dev:integration_test:{"sdk":"flutter"}' 'dev:flutter_driver:{"sdk":"flutter"}'
           mkdir -p integration_test test_driver
           for f in "$SORGENTI"/*_test.dart.txt; do
             cp "$f" "integration_test/$(basename "${f%.txt}")"
