@@ -134,8 +134,18 @@ def prova_di_accensione(archivio, attesa_secondi=12):
     # sono 750 KB: arrivava vuoto, e la prova diceva "nessun Displayed" con
     # zero righe da mostrare. Dal telefono partono solo le righe che la prova
     # legge, e le ultime 25 per il caso in cui una pretesa cade.
+    #
+    # **IL FILTRO NON SI LEGGA DA SOLO.** Ordine GA voce 16, 22 ottobre 2026.
+    # Il comando shell che adb manda al telefono viene registrato da adbd in
+    # logcat com'e' scritto: "adbd service requested '...grep -E FATAL
+    # EXCEPTION|AndroidRuntime|Displayed...'". Quella riga contiene le parole
+    # del filtro dentro se stessa, e il filtro la ripescava come se fosse un
+    # crash vero: la consegna della 2315 e' morta qui con un processo vivo e
+    # nessun crash, perche' la "prova" era questa riga di eco, non l'app.
+    # Si escludono le righe di adbd che riportano il comando lanciato.
     filtro = ("logcat -d -v threadtime | grep -E "
-              "'FATAL EXCEPTION|AndroidRuntime|Displayed' | tail -n 80")
+              "'FATAL EXCEPTION|AndroidRuntime|Displayed' | "
+              "grep -v 'adbd service requested' | tail -n 80")
     _, log = _corri([adb, 'shell', filtro])
     _, coda = _corri([adb, 'shell', 'logcat -d -v threadtime | tail -n 25'])
     fatali = [r for r in log.splitlines() if 'FATAL EXCEPTION' in r
