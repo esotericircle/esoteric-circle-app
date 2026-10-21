@@ -16,7 +16,7 @@ import '../config/la_regione_dei_dati.dart';
 import '../viaggio/la_domanda_capita.dart';
 import 'i_ruoli_e_l_estrazione.dart';
 import 'l_ora_degli_angeli.dart';
-import 'le_domande_dell_oracolo.dart';
+import 'la_risposta_dai_doni.dart';
 
 /// La firma di una chiamata al modello, la stessa della Stesa
 /// (`ChiamataDellaStesa`): l'istruzione, la richiesta, i campi. Le prove ne
@@ -34,7 +34,8 @@ typedef ChiamataDellOracolo = Future<String?> Function(
 /// approfondimento li scrive Medora per la domanda e le tre carte; il salmo
 /// viene sempre dalla raccolta dei riti (`IRitiPropiziatori.salmiMartini`),
 /// mai dal modello (GA.04: "nessuna formula inventata"). Senza modello il
-/// responso e' quello della carta del Custode, dal corpus.
+/// responso lo compone `LaRispostaDaiDoni` sulla domanda e sui doni degli
+/// angeli usciti (ordine GA voce GA.06; prima era la carta del Custode).
 ///
 /// **LAPIDE, ordine GA voce GA.03.** Prima la risposta erano tre paragrafi,
 /// uno per carta, col secondo scritto dal modello nel riquadro e i due
@@ -246,11 +247,14 @@ Regole che non si rompono:
   /// i salmi, i tre angeli della persona, chi scrive la risposta e, nella
   /// Lunga, la fonte del salmo propiziatorio (Lenain e Martini).
   static String daDoveViene({required bool dalModello, String? delSalmo}) {
+    // Ordine GA voce GA.06: senza modello la risposta non e' piu' la carta
+    // del Custode copiata, la compone Medora dai doni degli angeli usciti.
     final chi = dalModello
         ? 'La risposta alla tua domanda la scrive Medora sulle tre carte '
             'uscite.'
-        : 'Il messaggio e il consiglio della carta li ha scritti Medora per '
-            'ogni angelo.';
+        : 'La risposta la compone Medora dal dono e dalla via di ogni angelo '
+            'uscito; i messaggi e i consigli delle carte li ha scritti lei '
+            'per ogni angelo.';
     return 'I 72 nomi vengono dal versetto triplice dell\'Esodo, 14, 19-21; '
         'i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. '
         'I tuoi tre angeli vengono dal grado del Sole, dal giorno e dall\'ora '
@@ -260,24 +264,36 @@ Regole che non si rompono:
 
   /// **LA RISPOSTA DEL SOLO CORPUS**, gratis e sempre disponibile:
   /// l'assaggio del Viandante e il ripiego quando il modello manca. Il
-  /// responso principale e' la carta del Custode nella forma breve: il
-  /// titolo dal tema riconosciuto sul telefono, il suo messaggio e il suo
-  /// consiglio (ordine GA voce GA.05).
+  /// responso principale lo compone `LaRispostaDaiDoni` sulla domanda e sui
+  /// doni degli angeli usciti, nella forma breve (ordine GA voce GA.06).
+  /// [soloIlCustode] e' vero nell'assaggio: il Cuore e l'Intelletto restano
+  /// col lucchetto e il responso non li nomina.
+  ///
+  /// **LAPIDE, ordine GA voce GA.06, 20 ottobre 2026.** Qui il responso era la
+  /// carta del Custode copiata, col titolo dal tema riconosciuto
+  /// (`TemaDellOracolo.titoloDiRipiego`, sei titoli fissi): il lettore cieco
+  /// l'ha trovata uguale alla carta singola 40 volte su 40, con la prima
+  /// frase che rispondeva alla domanda 6 volte su 40 (difetti D1, D2, D3).
+  /// [variante] resta nella firma: serve alle carte singole, non al
+  /// responso principale.
   static RispostaDellOracolo delCorpus({
     required String domanda,
     required List<CartaDellOracolo> carte,
     required Map<String, List<String>> corpus,
     required int variante,
+    bool soloIlCustode = false,
   }) {
-    final tema = TemaDellOracolo.di(domanda);
-    final custode = cartaDelCustode(carte);
-    final messaggio = messaggioDellaCarta(corpus, custode, variante);
+    final r = LaRispostaDaiDoni.componi(
+        domanda: domanda,
+        carte: carte,
+        corpus: corpus,
+        soloIlCustode: soloIlCustode);
     return RispostaDellOracolo(
       responso: ResponsoInterpretato(
         arte: ArteInterpretata.oracolo,
-        titolo: tema?.titoloDiRipiego ?? TemaDellOracolo.titoloSenzaTema,
-        risposta: messaggio,
-        cosaFare: consiglioDellaCarta(corpus, custode, variante) ?? messaggio,
+        titolo: r.titolo,
+        risposta: r.risposta,
+        cosaFare: r.cosaFare,
         daDoveViene: daDoveViene(dalModello: false),
       ),
       dalModello: false,

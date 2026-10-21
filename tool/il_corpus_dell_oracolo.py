@@ -27,6 +27,26 @@
 # portano nella fonte col comando `applica`, che passa da `riempi` e quindi
 # da tutti i controlli qui sotto.
 #
+# **I DONI, ordine GA voce GA.06, 20 ottobre 2026.** Il responso principale
+# senza modello (l'assaggio del Viandante e il ripiego) non copia piu' la
+# carta del Custode: lo compone `LaRispostaDaiDoni`
+# (lib/core/oracolo_angeli/la_risposta_dai_doni.dart) sulla domanda e sui tre
+# angeli usciti. Di ogni angelo gli servono due pezzi brevi, scritti dal
+# nucleo dello schedario (LEGGIMI.md, "Il nucleo"): il `dono`, un nome con
+# l'articolo ("la volontà che apre"), e la `via`, un infinito che dice come
+# si mette in pratica ("cominciare senza aspettare il permesso di nessuno").
+# Stanno nel file doni.md, una cella per angelo come gli altri, e passano
+# dagli stessi controlli, salvo il tu (sono pezzi di frase che il compositore
+# mette dentro frasi rivolte a te).
+#
+# **LE CARTE NON CONOSCONO LA DOMANDA**, ordine GA voce GA.06 (difetto D9 dei
+# lettori ciechi): il messaggio di una carta e' lo stesso sotto qualunque
+# domanda, e un messaggio che dice "la tua domanda" ("Nostalgia è la parola
+# che Iezalel mette sulla tua domanda") finge un legame che non c'e'. Lo
+# ferma LEGAME_FINTO. E la formula "dove pesa / dove scalda", che lo
+# schedario suggeriva come contenuto e gli scrittori hanno preso alla
+# lettera, non sta in piu' di TETTO_FORMULA testi per file.
+#
 # I CONTROLLI (regole R7 e R8 dell'ordine FU, la POLITICA DI PUBBLICAZIONE
 # di docs/corpus/angeli.md, le guardie di casa sui testi a video):
 #  - lunghezza per campo (in parole per messaggio e consiglio, in caratteri
@@ -61,7 +81,7 @@
 #   python tool/il_corpus_dell_oracolo.py conta
 #   python tool/il_corpus_dell_oracolo.py applica <parte.md> [<parte.md>...]
 #
-# <file> e' custode, cuore, intelletto o rito. <testi.json> e' una lista di
+# <file> e' custode, cuore, intelletto, rito o doni. <testi.json> e' una lista di
 # {"cella": "01 Vehuiah", "campo": "messaggio", "n": 1, "testo": "..."}.
 # <parte.md> e' scritta nella forma della fonte ("## NN Nome" e righe
 # "- <campo> <n>: <testo>") e il suo nome dice il file: consiglio_cuore_01_36.md
@@ -91,7 +111,13 @@ FILE = {
     'cuore': [('messaggio', 3), ('consiglio', 3)],
     'intelletto': [('messaggio', 3), ('consiglio', 3)],
     'rito': [('rito', 2)],
+    # Ordine GA voce GA.06: il dono e la via di ogni angelo, per il
+    # compositore del responso principale senza modello.
+    'doni': [('dono', 1), ('via', 1)],
 }
+
+# I campi che sono pezzi di frase e non testi rivolti a te.
+PEZZI = ('dono', 'via')
 
 # La misura di ogni campo: (unita', minimo, massimo). Messaggio e consiglio
 # in parole dall'ordine GA (prima: messaggio da 160 a 320 caratteri, ordine
@@ -100,6 +126,9 @@ LUNGHEZZE = {
     'messaggio': ('parole', 40, 50),
     'consiglio': ('parole', 40, 50),
     'rito': ('caratteri', 100, 240),
+    # Pezzi di frase: un nome con l'articolo, un infinito breve.
+    'dono': ('parole', 2, 7),
+    'via': ('parole', 3, 11),
 }
 
 
@@ -157,6 +186,7 @@ TITOLI = {
     'cuore': 'L\'Angelo del Cuore: che cosa sentire (voce di Medora)',
     'intelletto': 'L\'Angelo dell\'Intelletto: che cosa capire (voce di Medora)',
     'rito': 'Il rito con Caligo: come vivere i venti minuti dell\'angelo',
+    'doni': 'Il dono e la via di ogni angelo: i pezzi del responso senza modello',
 }
 
 
@@ -213,8 +243,13 @@ def scheletro():
             continue
         out = io.StringIO()
         out.write('# %s\n\n' % TITOLI[nome] + INTESTAZIONE)
+        cella_scritta = None
         for cella, campo, k in cs:
-            out.write('\n## %s\n' % cella)
+            # Ordine GA voce GA.06: una cella con piu' campi (il dono e la
+            # via) ha la sua intestazione una volta sola.
+            if cella != cella_scritta:
+                out.write('\n## %s\n' % cella)
+                cella_scritta = cella
             for i in range(1, k + 1):
                 out.write('- %s %d:\n' % (campo, i))
         _scrivi(p, out.getvalue())
@@ -341,6 +376,25 @@ TI_COL_PARTICIPIO = re.compile(
     r"avranno|avrebbe|avrebbero) (?:(?:solo|soltanto|già|davvero|sempre|"
     r"anche|appena|mai|più|molto|tanto|spesso|forse|ancora|poi) )*"
     r"([%s]+)" % L, re.I)
+# **IL LEGAME FINTO CON LA DOMANDA**, ordine GA voce GA.06 (D9): la carta non
+# conosce la domanda di chi consulta, quindi il suo messaggio non la nomina.
+LEGAME_FINTO = re.compile(
+    r"(?<![%s])(nella|sulla|della|alla|dentro la|al centro della) tua "
+    r"domanda(?![%s])" % (L, L), re.I)
+
+# **LA FORMULA "DOVE PESA / DOVE SCALDA"**, ordine GA voce GA.06 (D9): al
+# massimo TETTO_FORMULA testi per file la usano alla lettera.
+FORMULA = re.compile(r"(?<![%s])dove (pesa|scalda)(?![%s])" % (L, L), re.I)
+TETTO_FORMULA = 8
+
+# **IL DONO E LA VIA**, ordine GA voce GA.06: il dono comincia con un
+# articolo (e' un nome che il compositore mette dopo "porta" o "con"), la
+# via con un infinito (va dopo "conta", "cioè", "la via è"). Minuscoli,
+# senza punto finale.
+ARTICOLO = re.compile(r"^((il|lo|la|i|gli|le|un|una|uno)\s|l'|un')", re.I)
+INFINITO = re.compile(r"^([a-zà-ÿ]+(are|ere|ire|rre)|[a-zà-ÿ]+(ar|er|ir|r)"
+                      r"(ti|lo|la|li|le|ne|ci|si|gli|tene|sene))(?![a-zà-ÿ])")
+
 TI_A_TE = set((
     'dato detto chiesto mostrato concesso prestato permesso parlato affidato '
     'mandato regalato riferito passato trasmesso imposto assegnato indicato '
@@ -389,7 +443,18 @@ def difetti_di(cella, campo, testo):
         colpe.append('lunghezza %d %s, fuori da %d-%d' % (
             misura(campo, testo), unita, lo, hi))
     senza_marche = MARCA.sub(' ', testo)
-    if not SEGNI_DEL_TU.search(senza_marche) and '[' not in testo:
+    if campo in PEZZI:
+        if testo[:1] != testo[:1].lower():
+            colpe.append('il pezzo comincia con la maiuscola: il compositore '
+                         'lo mette dentro una frase')
+        if testo.rstrip()[-1:] in '.;:!?,':
+            colpe.append('il pezzo finisce con un segno: il compositore lo '
+                         'mette dentro una frase')
+        if campo == 'dono' and not ARTICOLO.match(testo):
+            colpe.append('il dono non comincia con un articolo')
+        if campo == 'via' and not INFINITO.match(testo):
+            colpe.append('la via non comincia con un infinito')
+    elif not SEGNI_DEL_TU.search(senza_marche) and '[' not in testo:
         colpe.append('non si rivolge a te (seconda persona singolare)')
     if SEGNI_DEL_VOI.search(testo):
         colpe.append('si rivolge al voi: "%s"' % SEGNI_DEL_VOI.search(testo).group(0))
@@ -425,6 +490,10 @@ def difetti_di(cella, campo, testo):
                          'di chi legge: "%s"' % m.group(0))
     if CIFRA.search(testo):
         colpe.append('cifra nel testo')
+    if campo == 'messaggio' and LEGAME_FINTO.search(testo):
+        colpe.append('la carta finge di conoscere la domanda: "%s" (il '
+                     'messaggio vale sotto ogni domanda)'
+                     % LEGAME_FINTO.search(testo).group(0))
     if '«' in testo or '»' in testo or '"' in testo:
         colpe.append('citazione fra virgolette (il salmo lo scrive l\'app)')
     altri = altri_angeli(cella, testo)
@@ -549,6 +618,13 @@ def colpe_fra_testi(nome, chiave, testo, tutto, altri_ruoli):
         if s.split()[0].lower() == testo.split()[0].lower():
             colpe.append('comincia con la stessa parola di un\'altra variante')
             break
+    if FORMULA.search(testo):
+        con_formula = sum(1 for (c, f, n), t in tutto.items()
+                          if t and (c, f, n) != chiave and FORMULA.search(t))
+        if con_formula >= TETTO_FORMULA:
+            colpe.append('formula "dove pesa / dove scalda": la usano gia\' '
+                         '%d testi di questo file (tetto %d)'
+                         % (con_formula, TETTO_FORMULA))
     uguali = sum(1 for (c, f, n), t in tutto.items()
                  if t and (c, f, n) != chiave and _attacco(t) == _attacco(testo))
     if uguali >= TETTO_ATTACCO:
@@ -567,7 +643,7 @@ def colpe_fra_testi(nome, chiave, testo, tutto, altri_ruoli):
 
 def stessi_angelo_altri_ruoli(nome, cella):
     fuori = []
-    if nome == 'rito':
+    if nome in ('rito', 'doni'):
         return fuori
     for altro in ('custode', 'cuore', 'intelletto'):
         if altro == nome or not os.path.exists(percorso(altro)):
@@ -580,7 +656,8 @@ def stessi_angelo_altri_ruoli(nome, cella):
 
 def riempi(nome, testi_json):
     if nome not in FILE:
-        raise SystemExit('file sconosciuto: %s (custode, cuore, intelletto, rito)' % nome)
+        raise SystemExit('file sconosciuto: %s (custode, cuore, intelletto, '
+                         'rito, doni)' % nome)
     proposte = json.load(io.open(testi_json, encoding='utf-8-sig'))
     scartati = []
     candidati = []
@@ -721,6 +798,11 @@ def controlla():
             if q > TETTO_ATTACCO:
                 colpe.append('%s: l\'attacco "%s" apre %d testi (tetto %d)'
                              % (nome, a, q, TETTO_ATTACCO))
+        # Ordine GA voce GA.06: la formula "dove pesa / dove scalda".
+        formula = sum(1 for t in d.values() if t and FORMULA.search(t))
+        if formula > TETTO_FORMULA:
+            colpe.append('%s: la formula "dove pesa / dove scalda" sta in %d '
+                         'testi (tetto %d)' % (nome, formula, TETTO_FORMULA))
         # Le varianti sono quelle dello stesso campo della cella: dall'ordine
         # GA una cella porta due campi, messaggio e consiglio.
         per_cella = {}
@@ -773,15 +855,18 @@ def genera():
               '// docs/corpus/oracolo_angeli/. Non si modifica a mano:\n'
               '// si corregge la fonte e si rigenera. Ordine FU voci FU.05 e '
               'FU.07,\n'
-              '// col consiglio dell\'ordine GA voci GA.03, GA.05 e GA.07.\n\n'
+              '// col consiglio dell\'ordine GA voci GA.03, GA.05 e GA.07\n'
+              '// e il dono e la via degli angeli dell\'ordine GA voce GA.06.\n\n'
               '/// Il corpus dell\'Oracolo degli Angeli: chiave\n'
               '/// "<file>|<NN>|<campo>" (file: custode, cuore, intelletto, '
-              'rito;\n'
-              '/// NN: il numero dell\'angelo a due cifre; campo: messaggio, '
-              'consiglio\n'
-              '/// o rito), valore le varianti in ordine. Il consiglio n '
-              'accompagna il\n'
-              '/// messaggio n, nel riquadro "Cosa fare adesso".\n'
+              'rito,\n'
+              '/// doni; NN: il numero dell\'angelo a due cifre; campo: '
+              'messaggio,\n'
+              '/// consiglio, rito, dono o via), valore le varianti in ordine. '
+              'Il\n'
+              '/// consiglio n accompagna il messaggio n, nel riquadro "Cosa '
+              'fare\n'
+              '/// adesso".\n'
               'const Map<String, List<String>> corpusDellOracolo = {\n')
     for nome, cs in struttura().items():
         d = leggi(nome)

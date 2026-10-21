@@ -10,7 +10,6 @@ import 'package:esoteric_circle/core/oracolo_angeli/i_ruoli_e_l_estrazione.dart'
 import 'package:esoteric_circle/core/oracolo_angeli/il_corpus_dell_oracolo.g.dart';
 import 'package:esoteric_circle/core/oracolo_angeli/l_ora_degli_angeli.dart';
 import 'package:esoteric_circle/core/oracolo_angeli/la_lettura_dell_oracolo.dart';
-import 'package:esoteric_circle/core/oracolo_angeli/le_domande_dell_oracolo.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
@@ -256,20 +255,26 @@ void main() {
             'titolo': 'Il passo lento',
             'riquadro': 'Senti la pausa che ti serve, poi scegli con calma.',
           }));
+      // Ordine GA voce GA.06: il ripiego e' il responso composto dai doni dei
+      // tre angeli sulla domanda (`LaRispostaDaiDoni`), nella forma breve;
+      // prima era la carta del Custode copiata, col titolo del tema.
+      final atteso = LaLetturaDellOracolo.delCorpus(
+          domanda: 'Come ritrovo la calma in questi giorni?',
+          carte: carte,
+          corpus: corpusDellOracolo,
+          variante: 1);
       final custode = LaLetturaDellOracolo.cartaDelCustode(carte);
       for (final r in [lenta, rotta, vietata, trattino, corta, vecchia]) {
         expect(r.dalModello, isFalse);
-        expect(r.titolo, TemaDellOracolo.serenita.titoloDiRipiego);
-        // Il ripiego e' la carta del Custode, nella forma breve.
+        expect(r.titolo, atteso.titolo);
         expect(r.responso.lungo, isFalse);
+        expect(r.responso.risposta, atteso.responso.risposta);
+        expect(r.responso.cosaFare, atteso.responso.cosaFare);
         expect(
             r.responso.risposta,
-            LaLetturaDellOracolo.messaggioDellaCarta(
-                corpusDellOracolo, custode, 1));
-        expect(
-            r.responso.cosaFare,
-            LaLetturaDellOracolo.consiglioDellaCarta(
-                corpusDellOracolo, custode, 1));
+            isNot(LaLetturaDellOracolo.messaggioDellaCarta(
+                corpusDellOracolo, custode, 1)));
+        expect(r.responso.risposta, contains(custode.angelo.name));
         expect(r.responso.difetti(), isEmpty);
       }
     });

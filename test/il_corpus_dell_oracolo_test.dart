@@ -32,6 +32,15 @@ import 'cardinale_minimo.dart';
 /// a 1.440 (648 messaggi, 648 consigli, 144 riti) e le celle da 288 a 504.
 /// La misura in parole (da 40 a 50) la pretende
 /// `test/l_oracolo_ha_la_forma_nuova_test.dart`.
+///
+/// **L'ORDINE GA, voce GA.06**, 20 ottobre 2026: il file `doni.md` porta il
+/// dono e la via di ogni angelo, che `LaRispostaDaiDoni` usa per comporre il
+/// responso principale senza modello. I testi passano da 1.440 a 1.584 e le
+/// celle da 504 a 648. E due difetti delle carte singole trovati dal lettore
+/// cieco (D9) diventano prove: nessun messaggio finge di conoscere la
+/// domanda ("Nostalgia è la parola che Iezalel mette sulla tua domanda"), e
+/// la formula "dove pesa / dove scalda" non sta in piu' di otto testi per
+/// file (era in 41 messaggi del cuore).
 void main() {
   const corpus = corpusDellOracolo;
   const file = {
@@ -39,6 +48,7 @@ void main() {
     'cuore': [('messaggio', 3), ('consiglio', 3)],
     'intelletto': [('messaggio', 3), ('consiglio', 3)],
     'rito': [('rito', 2)],
+    'doni': [('dono', 1), ('via', 1)],
   };
 
   /// La fonte riletta come la rilegge lo strumento: "## NN Nome" e le righe
@@ -64,13 +74,14 @@ void main() {
     return fuori;
   }
 
-  test('il corpus porta tutti i 1.440 testi, senza celle vuote', () {
+  test('il corpus porta tutti i 1.584 testi, senza celle vuote', () {
     final testi = corpus.values.fold<int>(0, (n, v) => n + v.length);
-    cardinaleMinimo(testi, 1440,
+    cardinaleMinimo(testi, 1584,
         cosa: 'testi del corpus dell\'Oracolo degli Angeli',
-        perche: 'il disegno ne dichiara 1.440 (LEGGIMI.md): 648 messaggi e '
-            '648 consigli di Medora (ordine GA) e 144 riti di Caligo');
-    expect(testi, 1440);
+        perche: 'il disegno ne dichiara 1.584 (LEGGIMI.md): 648 messaggi e '
+            '648 consigli di Medora (ordine GA), 144 riti di Caligo, 72 doni '
+            'e 72 vie (ordine GA voce GA.06)');
+    expect(testi, 1584);
     final mancanti = <String>[];
     final vuote = <String>[];
     for (final MapEntry(key: nome, value: campi) in file.entries) {
@@ -92,7 +103,7 @@ void main() {
         'testo vuoto ${vuote.length}');
     expect(mancanti, isEmpty, reason: 'celle mancanti o incomplete: $mancanti');
     expect(vuote, isEmpty, reason: 'celle con un testo vuoto: $vuote');
-    expect(corpus.length, 72 * 7);
+    expect(corpus.length, 72 * 9);
   });
 
   test('nessun testo e\' uguale a un altro', () {
@@ -105,14 +116,14 @@ void main() {
         visti[t] = e.key;
       }
     }
-    cardinaleMinimo(visti.length + doppi.length, 1440,
+    cardinaleMinimo(visti.length + doppi.length, 1584,
         cosa: 'testi confrontati fra loro');
     expect(doppi, isEmpty, reason: 'testi ripetuti: $doppi');
   });
 
   test('il Dart generato coincide con la fonte', () {
     final f = fonte();
-    cardinaleMinimo(f.values.fold<int>(0, (n, v) => n + v.length), 1440,
+    cardinaleMinimo(f.values.fold<int>(0, (n, v) => n + v.length), 1584,
         cosa: 'testi letti nella fonte docs/corpus/oracolo_angeli/');
     final diversi = <String>[];
     for (final k in {...f.keys, ...corpus.keys}) {
@@ -156,12 +167,54 @@ void main() {
         if (m != null) trovate.add('${e.key}: "${m.group(0)}" in $t');
       }
     }
-    cardinaleMinimo(guardati, 1440, cosa: 'testi guardati per la politica');
+    cardinaleMinimo(guardati, 1584, cosa: 'testi guardati per la politica');
     // ignore: avoid_print
     print('ORDINE FU VOCI FU.05 E FU.07: testi guardati per la politica '
         '$guardati, parole vietate trovate ${trovate.length}');
     expect(trovate, isEmpty,
         reason: 'parole vietate dalla politica di pubblicazione: $trovate');
+  });
+
+  /// **LE CARTE NON CONOSCONO LA DOMANDA**, ordine GA voce GA.06 (D9 del
+  /// lettore cieco): il messaggio di una carta vale sotto ogni domanda, e uno
+  /// che dice "la tua domanda" finge un legame. Lo stesso criterio di
+  /// `tool/il_corpus_dell_oracolo.py` (LEGAME_FINTO), su cio' che arriva in
+  /// lib. E la formula "dove pesa / dove scalda" al massimo in otto testi per
+  /// file (TETTO_FORMULA).
+  test(
+      'nessuna carta finge di conoscere la domanda, e la formula "dove pesa '
+      '/ dove scalda" non si ripete', () {
+    final legame = RegExp(
+        r'(?<![A-Za-zÀ-ÿ])(nella|sulla|della|alla|dentro la|al centro della) '
+        r'tua domanda(?![A-Za-zÀ-ÿ])',
+        caseSensitive: false);
+    final formula = RegExp(r'(?<![A-Za-zÀ-ÿ])dove (pesa|scalda)(?![A-Za-zÀ-ÿ])',
+        caseSensitive: false);
+    final finti = <String>[];
+    final perFile = <String, int>{};
+    var messaggi = 0;
+    for (final e in corpus.entries) {
+      final nome = e.key.split('|').first;
+      for (final t in e.value) {
+        if (e.key.endsWith('|messaggio')) {
+          messaggi++;
+          if (legame.hasMatch(t)) finti.add('${e.key}: $t');
+        }
+        if (formula.hasMatch(t)) perFile[nome] = (perFile[nome] ?? 0) + 1;
+      }
+    }
+    cardinaleMinimo(messaggi, 648, cosa: 'messaggi delle carte guardati');
+    // ignore: avoid_print
+    print('ORDINE GA VOCE GA.06: messaggi guardati $messaggi, legami finti '
+        '${finti.length}, formula per file $perFile');
+    expect(finti, isEmpty, reason: 'la carta non conosce la domanda: $finti');
+    final oltre = {
+      for (final MapEntry(key: k, value: v) in perFile.entries)
+        if (v > 8) k: v
+    };
+    expect(oltre, isEmpty,
+        reason: 'la formula "dove pesa / dove scalda" oltre otto testi: '
+            '$oltre');
   });
 
   /// **IL "TI" OGGETTO COL PARTICIPIO**, ordine GA voci 03, 04, 05 e 08, 20
@@ -203,7 +256,7 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(guardati, 1440, cosa: 'testi guardati per il ti oggetto');
+    cardinaleMinimo(guardati, 1584, cosa: 'testi guardati per il ti oggetto');
     // La grandezza misurata esiste: il corpus porta forme col "ti" che vale
     // "a te" (ti ha dato, ti ha insegnato), e la prova le vede.
     cardinaleMinimo(aTeVisti, 10,
