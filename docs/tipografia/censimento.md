@@ -1,6 +1,6 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 77 -->
+<!-- TOTALE_CENSITO: 75 -->
 <!-- FILE_CENSITI: 33 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
@@ -20,7 +20,7 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **77** |
+| Misure esplicite sotto `lib/` | **75** |
 | File che ne contengono | **33** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
@@ -46,7 +46,6 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/identity/widgets/identity_widgets.dart` | 4 | 0 | 0 |
 | `lib/features/maestri/aura/archetype/archetype_share_card.dart` | 4 | 0 | 0 |
 | `lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart` | 3 | 0 | 0 |
-| `lib/features/respiro_della_luna/la_collana_delle_lune_screen.dart` | 3 | 0 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 2 | 0 | 0 |
 | `lib/core/permissions/app_permission.dart` | 2 | 0 | 0 |
 | `lib/core/permissions/avviso_del_permesso.dart` | 2 | 0 | 0 |
@@ -67,6 +66,7 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | `lib/features/maestri/caligo/animal/guide_animal_share_card.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/chat/widgets/chat_empty_state.dart` | 1 | 0 | 0 |
 | `lib/features/maestri/maestro_screen.dart` | 1 | 0 | 0 |
+| `lib/features/respiro_della_luna/la_collana_delle_lune_screen.dart` | 1 | 0 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 | 0 |
 | `lib/features/rituals/sunset_rune_card.dart` | 1 | 0 | 0 |
 | `lib/features/synastry/sinastria_share_card.dart` | 1 | 0 | 0 |
