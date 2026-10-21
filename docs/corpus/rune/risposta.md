@@ -1,19 +1,19 @@
 ## Fehu, dritta
 1. La gettata vede abbondanza in movimento dentro {cosa}: ciò che hai già tra le mani chiede di circolare per dare frutto.
 2. Per {cosa} si apre una stagione generosa, purché tu lasci scorrere ciò che ricevi invece di chiuderlo in un cassetto.
-3. Sì, per {cosa} il valore c'è già e cresce quando lo condividi: mostra a qualcuno come fai ciò che ti riesce meglio.
+3. Il valore per {cosa} c'è già e cresce quando lo condividi: mostra a qualcuno come fai ciò che ti riesce meglio.
 4. Muoviti: per {cosa} offri il tuo tempo, la tua attenzione o il tuo mestiere, perché ciò che dai torna indietro con abbondanza.
 5. Guarda {cosa} come un campo già seminato: il raccolto c'è e chiede solo mani che lo portino a chi lo aspetta.
 6. Non trattenere ancora: con {cosa} hai accumulato abbastanza forze e capacità, metterle in opera adesso le tiene vive mentre l'attesa le raffredda.
 7. Accogli ciò che arriva: verso {cosa} scorre un flusso buono, ma va lasciato passare oltre te invece di misurarlo con paura.
-8. Sì, apri le strade: con {cosa} ciò che hai costruito non sopporta recinti e si rafforza ogni volta che passa di mano.
+8. Apri le strade: con {cosa} ciò che hai costruito non sopporta recinti e si rafforza ogni volta che passa di mano.
 9. Dentro {cosa} il fuoco del focolare è acceso e c'è legna per tutti: è il giorno giusto per aprire la porta.
 10. Quanto ti è stato dato per {cosa} non va custodito come un peso ma condiviso con cura, come si spezza il pane caldo.
 11. Accetta subito l'aiuto che ti viene offerto: verso {cosa} si muove un'occasione concreta e rimandarla per prudenza la fa scivolare altrove.
 12. Tieni la mano aperta: per {cosa} oggi raccoglie chi offre per primo, non chi aspetta di ricevere prima di dare qualcosa.
 13. Fai circolare ciò che sai: per {cosa} un favore reso o un'esperienza condivisa valgono più di quanto tieni sotto chiave.
 14. Hai già fra le mani ciò che serve per {cosa}; ora conta il coraggio di metterlo in gioco invece di contarlo ancora.
-15. Sì, scambia: con {cosa} la crescita nasce dal dare e dal ricevere con uguale semplicità, senza tenere il conto di chi deve cosa.
+15. Dai e ricevi: per {cosa} la crescita nasce dallo scambio fatto con semplicità, senza tenere il conto di chi deve cosa.
 16. Metti energia senza risparmiarti: dentro {cosa} ciò che porti scende come acqua verso i campi e nutre più di quanto vedi adesso.
 17. Per {cosa} il momento premia chi semina con larghezza: ciò che offri oggi torna a te per strade che non prevedi.
 18. Vedi {cosa} con gli occhi di chi ha già: la mancanza che senti è più piccola della dote che porti.
@@ -25,13 +25,13 @@
 1. Per {cosa} qualcosa scivola via tra le dita: la gettata chiede di capire dove si disperde la tua energia prima di cercarne altra.
 2. Allenta la presa: dentro {cosa} stai stringendo così forte che ciò che vuoi tenere comincia a consumarsi fra le dita.
 3. Lascia andare: con {cosa} tieni stretto qualcosa il cui tempo con te si è chiuso e che ormai pesa più di quanto dia.
-4. Sì, alleggerisci: per {cosa} serve togliere ciò che pesa, perché solo uno spazio libero lascia entrare qualcosa che nutre davvero.
+4. Alleggerisci adesso: per {cosa} serve togliere ciò che pesa, perché solo uno spazio libero lascia entrare qualcosa che nutre davvero.
 5. Non contendere: sopra {cosa} pesa una disputa fra persone care per qualcosa da possedere e sciogliere quel nodo vale più che averla vinta.
 6. Raccogli le forze: verso {cosa} stai spendendo energia in troppe direzioni, scegline due o tre e lascia cadere tutte le altre.
 7. Smetti di misurare tutto: con {cosa} la paura di perdere chiude proprio i passaggi da cui potrebbe arrivare ciò che desideri.
 8. Il flusso verso {cosa} si è fermato in un punto preciso: cerca il nodo, non la colpa e il passaggio si riapre.
 9. Rimetti cura dove l'avevi tolta: per {cosa} ciò che davi per scontato comincia a sfilacciarsi e ripararlo adesso costa ancora poco.
-10. No, stringere non aiuta: per {cosa} il pugno chiuso tiene meno della mano aperta, quindi lascia uscire qualcosa e lo spazio torna.
+10. Stringere non aiuta: per {cosa} il pugno chiuso tiene meno della mano aperta, quindi lascia uscire qualcosa e lo spazio torna.
 11. Cerca la piccola perdita: dentro {cosa} qualcosa si disperde ogni giorno senza rumore, trovarla adesso costa poca fatica e chiude la falla.
 12. Non accumulare oltre: con {cosa} quello che tieni immobile si guasta come pane dimenticato sul tavolo, quindi rimettilo in moto.
 13.
@@ -42,17 +42,17 @@
 18. Una parte del tuo slancio per {cosa} finisce in rivoli inutili: chiudili uno a uno e il fuoco riprende vigore.
 
 ## Uruz, dritta
-1. Sì, alzati e agisci: per {cosa} c'è una forza grezza ma autentica, sufficiente a rimetterti in piedi già da oggi.
+1. Alzati e agisci adesso: per {cosa} c'è una forza grezza ma autentica, sufficiente a rimetterti in piedi già da oggi.
 2. Usa il vigore che senti: dentro {cosa} scorre un'energia nuova che chiede coraggio più che prudenza, quindi fai il primo passo.
-3. Sì, affronta la fatica: guarda {cosa} come un terreno duro da dissodare, perché hai nelle braccia tutto il vigore che occorre.
+3. Affronta la fatica a viso aperto: guarda {cosa} come un terreno duro da dissodare, perché hai nelle braccia tutto il vigore che occorre.
 4. La gettata vede coraggio da spendere per {cosa}: il primo passo è il più duro e anche quello che dà più energia.
 5. Mettiti alla prova: con {cosa} reggi più a lungo di quanto immagini e questo è il tempo giusto per scoprirlo senza timore.
 6. Lascia correre l'istinto: dentro {cosa} si sveglia qualcosa di selvatico e sano, che va seguito un poco prima di essere messo alla briglia.
 7. Vai di petto: affronta {cosa} con passo fermo, perché adesso premia chi entra con decisione e non chi gira intorno all'ostacolo.
-8. Sì, reggi la prova: la fatica che attraversa {cosa} ti tempra come il ferro nel fuoco e ti lascia più resistente.
+8. Reggi la prova: la fatica che attraversa {cosa} ti tempra come il ferro nel fuoco e ti lascia più resistente.
 9. Muoviti adesso: per {cosa} l'attesa ormai ti costa più fatica dell'azione e il vento oggi spinge chi si mette in cammino.
 10. Segui la spinta: verso {cosa} quello che senti non è un capriccio ma energia vera, che ha bisogno soltanto di una direzione chiara.
-11. Sì, ti stai rialzando: per {cosa} le gambe sono di nuovo salde e metà del cammino è già alle tue spalle.
+11. Ti stai rialzando: per {cosa} le gambe tornano salde, quindi usale subito per il tratto di cammino che resta davanti.
 12. Apri tu la pista: verso {cosa} conviene un passo largo e deciso, come chi batte la neve per quelli che vengono dopo.
 13. Attingi alla riserva: per {cosa} torna disponibile un'energia rimasta nascosta, da spendere solo su ciò che conta davvero per te.
 14. Non è troppo grande: dentro {cosa} l'ostacolo si fa affrontabile appena metti in gioco tutte le tue forze, senza risparmiarne una parte.
@@ -81,7 +81,7 @@
 15.
 
 ## Thurisaz, dritta
-1. Sì, difenditi: per {cosa} serve una reazione ferma ma misurata, che tenga lontano chi vorrebbe entrare nel tuo spazio senza chiedere permesso.
+1. Difenditi: per {cosa} serve una reazione ferma ma misurata, che tenga lontano chi vorrebbe entrare nel tuo spazio senza chiedere permesso.
 2. Non temere la tua asprezza: con {cosa} hai in mano un'energia ruvida che, guidata con fermezza, apre il varco invece di chiuderlo.
 3. Traccia un confine netto: con {cosa} ti serve una siepe di rovi che custodisca ciò che coltivi, non un cancello sempre aperto.
 4. Quello che oggi sembra un ostacolo per {cosa} è un riparo: la spina ti costringe a passare dalla porta giusta.
@@ -125,8 +125,8 @@
 19.
 
 ## Ansuz, dritta
-1. Sì, una risposta arriva: per {cosa} tieni l'orecchio aperto, perché la parola che chiarisce può uscire oggi da una bocca inattesa.
-2. Presta attenzione alle frasi casuali: verso {cosa} è in cammino un messaggio e una parola detta di passaggio indica la strada.
+1. Tieni l'orecchio aperto: per {cosa} la parola che chiarisce può uscire oggi da una bocca inattesa, anche in una frase qualunque.
+2. Presta attenzione alle frasi casuali: verso {cosa} una parola detta di passaggio può indicarti la strada più di un lungo discorso.
 3. Dillo ad alta voce: dentro {cosa} c'è un'ispirazione che cresce se la pronunci e si spegne se continui a trattenerla.
 4. Parla con calma: per {cosa} le parole che scegli oggi pesano più del solito e quella giusta apre porte che sembravano murate.
 5. Chiedi consiglio: per {cosa} una persona che stimi ha già qualcosa da dirti, cercala invece di aspettare che sia lei a farlo.
@@ -141,8 +141,8 @@
 14. Apri all'intuizione: dietro {cosa} c'è un'idea che bussa da giorni e oggi va lasciata parlare, magari scrivendola su un foglio prima di sera.
 15. Comunica: verso {cosa} la strada passa da una lettera, un messaggio o una telefonata che rimandi da troppo tempo, falla oggi.
 16. Lascia parlare fino in fondo: qualcuno che incontri oggi ha in mano una chiave per {cosa}, ascoltalo per intero prima di rispondere.
-17. Sì, è ora di spiegare: con {cosa} chiarezza e ispirazione vanno insieme, quindi insegna, chiedi, metti in parole ciò che sai.
-18. Sì, adesso puoi dirlo: ciò che taceva dentro {cosa} ha trovato le sue parole e conviene usarle prima che svaniscano di nuovo.
+17. È ora di spiegare: con {cosa} chiarezza e ispirazione vanno insieme, quindi insegna, chiedi, metti in parole ciò che sai.
+18. Adesso puoi dirlo: ciò che taceva dentro {cosa} ha trovato le sue parole e conviene usarle prima che svaniscano di nuovo.
 19. Parla poco e vero: per {cosa} la bocca saggia costruisce un ponte con frasi brevi, senza bisogno di convincere nessuno.
 20. Una notizia utile è in viaggio: per {cosa} tieni aperte le porte e la mente, perché arriva da una direzione inattesa.
 21.
@@ -169,19 +169,19 @@
 17.
 
 ## Raidho, dritta
-1. Sì, la via è percorribile: per {cosa} il terreno tiene e stai andando nella direzione giusta, quindi rimettiti in marcia senza esitare.
+1. La via è percorribile: per {cosa} il terreno tiene e la direzione è buona, quindi rimettiti in marcia senza esitare.
 2. Non interrompere il passo: con {cosa} hai già trovato una cadenza buona e fermarti adesso costerebbe più fatica che proseguire.
 3. Per {cosa} la strada c'è ed è sgombra: ciò che conta adesso è partire col ritmo che il tuo respiro conosce.
 4. Parti adesso: verso {cosa} l'ora di mettersi in strada è questa, aspettare un'occasione migliore ti fa perdere la cadenza giusta.
 5. Ogni tappa ha il suo tempo e {cosa} segue un percorso sensato: affidati alla successione dei passi, non alla fretta.
 6. Continua: con {cosa} sei in viaggio da più tempo di quanto pensi, voltati un attimo e misura la distanza che hai già coperto.
-7. Sì, il sentiero scelto regge: per {cosa} conta camminarlo con regolarità, una tappa al giorno, senza cercare scorciatoie che ti fanno perdere tempo.
+7. Il sentiero scelto regge: per {cosa} conta camminarlo con regolarità, una tappa al giorno, senza cercare scorciatoie che ti fanno perdere tempo.
 8. Accorda mente e gambe: per {cosa} quando pensiero e azione procedono allo stesso ritmo la meta si avvicina quasi da sola.
 9. Qui il movimento è giusto e per {cosa} conviene accompagnare il passo, non forzarlo, come con un cavallo che conosce la strada.
 10. La via si fa chiara man mano che la percorri: per {cosa} basta vedere il prossimo tratto, non serve scorgere il traguardo.
 11. Si muove qualcosa dentro {cosa}, nella direzione giusta: è il momento di salire in sella e lasciarti portare con giudizio.
 12. C'è un viaggio da fare con {cosa}, anche breve: uno spostamento, una visita, un cambio di strada che rimette in moto.
-13. Avanza senza timore: verso {cosa} nessun ostacolo vero sbarra la strada, le pietre del sentiero sono piccole e sai già come superarle.
+13. Avanza con il tuo passo: verso {cosa} i sassi del sentiero si superano uno alla volta, senza fretta e senza paura.
 14. Quando {cosa} procede al suo ritmo i nodi si sciolgono strada facendo: non cercare di risolverli tutti prima di partire.
 15. Metti ordine strada facendo: per {cosa} le cose trovano il loro posto mentre procedi, non serve sistemarle tutte prima di partire.
 16. Hai in mano le redini e {cosa} risponde bene a una guida ferma e gentile, che non strattona e non molla.
@@ -217,7 +217,7 @@
 
 ## Kenaz, dritta
 1. Dentro {cosa} si accende una luce dove prima c'era buio: ciò che non capivi comincia a mostrare la sua forma.
-2. Sì, segui l'intuizione: per {cosa} un'idea nata in questi giorni accende una fiamma vera e va seguita fino al suo compimento.
+2. Segui l'intuizione: per {cosa} un'idea nata in questi giorni accende una fiamma vera e va seguita fino al suo compimento.
 3. Usa l'ingegno, non la forza: per {cosa} la soluzione pratica è vicina, cercala fra le cose che sai già fare bene.
 4. Il fuoco di casa scalda {cosa}: ciò che nasce vicino a chi ami ha radici più salde di quanto pensi.
 5. Impara qualcosa di nuovo: per {cosa} arriva una conoscenza da una lettura o da un incontro, mettila subito alla prova.
@@ -258,7 +258,7 @@
 
 ## Gebo, dritta
 1. Dentro {cosa} si apre uno scambio alla pari: ciò che porgi torna indietro con lo stesso peso, come pane spezzato a metà.
-2. Sì, offri e accetta: per {cosa} c'è un dono pronto a passare di mano, dallo senza calcolo e ricevi senza imbarazzo.
+2. Offri e accetta: per {cosa} c'è un dono pronto a passare di mano, dallo senza calcolo e ricevi senza imbarazzo.
 3. Stringi un patto alla pari: per {cosa} il legame regge se ognuno dà quanto riceve, quindi controlla che lo scambio sia giusto.
 4. Quello che serve per {cosa} è già nelle mani di qualcuno vicino: basta chiedere con la stessa franchezza con cui daresti.
 5. Si vede un nodo che lega senza stringere: è lo scambio con qualcuno a mettere in ordine {cosa} in questi giorni.
@@ -286,8 +286,8 @@
 
 ## Wunjo, dritta
 1. Per {cosa} la gettata vede un frutto ormai dolce: lo sforzo di questi mesi chiede di essere gustato, non rimandato.
-2. Sì, accogli la gioia: dentro {cosa} c'è una contentezza semplice che non chiede spiegazioni, prenderla oggi è già una decisione saggia.
-3. Si apre un tempo di armonia e {cosa} trova il suo posto, come una pietra che si incastra nel muro a secco.
+2. Accogli la gioia: dentro {cosa} c'è una contentezza semplice che non chiede spiegazioni, prenderla oggi è già una decisione saggia.
+3. Cerca l'armonia: per {cosa} ogni parte può trovare il suo posto, come una pietra che si incastra nel muro a secco.
 4. Torna tra i tuoi: per {cosa} c'è un focolare acceso e intorno persone a cui appartieni, che ti riconoscono per quello che sei.
 5. Lascia andare l'affanno: con {cosa} la fatica ha concluso il suo giro e adesso c'è posto per un sorriso vero, conceditelo.
 6. Guarda {cosa} come un pomeriggio senza orologio: la fatica ha lasciato il posto a un piacere che non chiede permesso.
@@ -320,7 +320,7 @@
 12. Il focolare si è abbassato ma la brace è viva: per {cosa} basta un ramo secco, un gesto di cura.
 13. Riprendi un legame trascurato: dove {cosa} ha perso gusto c'è una persona che hai messo da parte, cercala oggi con un gesto.
 14. Ricorda a chi tieni e diglielo: dentro {cosa} l'appartenenza vacilla ma non si spezza, una parola aperta la rimette in piedi.
-15. Dopo lo sforzo manca ancora la ricompensa per {cosa}: non è un rifiuto, è un raccolto che chiede un'altra stagione.
+15. Dopo lo sforzo manca ancora la gioia per {cosa}: non è un rifiuto, è un legame che adesso chiede cura e attenzione.
 16.
 17.
 18.
@@ -333,7 +333,7 @@
 5. Accetta lo scossone: per {cosa} ti libera da pesi che da tempo non avevano più ragione di esserci, lascialo lavorare.
 6. Non trattenere ciò che cade: con {cosa} è uno sgombero che crea spazio, non una rovina, quindi lascialo arrivare in fondo.
 7. La gettata vede {cosa} sotto una grandine breve: colpisce forte e passa in fretta, lasciando il campo sgombro e lavato.
-8. Sì, lascia cadere: il crollo dentro {cosa} sgombera un posto che qualcosa di nuovo attende da tempo, preparati ad accoglierlo.
+8. Lascia cadere ciò che cede: il crollo dentro {cosa} sgombera un posto che qualcosa di nuovo attende da tempo, preparati ad accoglierlo.
 9. Rimetti in ordine le priorità: per {cosa} il rinnovamento passa da uno scuotimento, guarda che cosa resta in piedi e parti da lì.
 10. Con {cosa} è arrivato il momento in cui le fondamenta deboli si mostrano: vederle ora ti risparmia fatica più avanti.
 11. Sopporta il freddo ancora un poco: il gelo che stringe {cosa} prepara lo scioglimento e la durezza di oggi domani torna a scorrere.
@@ -407,7 +407,7 @@
 5. C'è un gelo buono che avvolge {cosa}: tiene ferme le cose il tempo che serve a capire quali meritano di ripartire.
 6. Questo è il tempo del silenzio per {cosa}: con meno parole e meno mosse ciò che conta affiora senza bisogno di cercarlo.
 7. Fai una pausa: per {cosa} serve un tempo limpido e fermo, come il fiato sospeso che precede una decisione importante, non affrettarla.
-8. No, non forzare: con {cosa} il ghiaccio non cede ai colpi, si scioglie lentamente se gli stai accanto con un fuoco paziente.
+8. Non forzare: con {cosa} il ghiaccio non cede ai colpi, si scioglie lentamente se gli stai accanto con un fuoco paziente.
 9. Fra {cosa} e te adesso c'è una lastra di quiete: guardaci attraverso e scopri quello che la fretta ti impediva di notare.
 10. Vai adagio: verso {cosa} il terreno è coperto di brina, appoggia bene ogni passo prima del successivo e il piede non scivola.
 11. Il gesto più saggio con {cosa} oggi è attendere: non per rinuncia ma per dare a ogni cosa il tempo di mostrarsi intera.
@@ -430,14 +430,14 @@
 
 ## Jera, dritta
 1. Per {cosa} è tempo di raccolto: ciò che hai seminato con pazienza nei mesi scorsi comincia a mostrare il suo frutto.
-2. Sì, raccogli: per {cosa} si chiude un ciclo e la fatica che credevi dispersa ti ritorna fra le mani come frutto.
+2. Raccogli ciò che è maturo: per {cosa} si chiude un ciclo e la fatica fatta può tornarti fra le mani come frutto.
 3. La gettata vede maturare {cosa} al suo ritmo, senza salti: ogni stagione ha portato la sua parte e ora i conti tornano.
 4. Non lasciarlo sul ramo: quello che hai fatto crescere con costanza per {cosa} è maturo, raccoglilo adesso senza eccesso di prudenza.
 5. Riconosci il tuo impegno: con {cosa} la fatica di questi mesi si vede, come il grano che cresce piano ma cresce.
 6. Verso {cosa} il tempo lavora a tuo favore: la ruota dell'anno gira e porta a compimento quello che hai avviato con fiducia.
 7. Il raccolto che riguarda {cosa} matura adesso: è il momento di chinarsi, prendere ciò che è tuo e ringraziare la terra.
 8. Quello che con {cosa} sembrava fermo stava solo mettendo radici: ora il frutto affiora, nel momento giusto e non prima.
-9. Sì, il cerchio si chiude: per {cosa} ogni piccolo gesto fatto con pazienza mostra adesso il suo senso, riconoscilo e fermati a guardarlo.
+9. Il cerchio si chiude: per {cosa} ogni piccolo gesto fatto con pazienza mostra adesso il suo senso, riconoscilo e fermati a guardarlo.
 10. Guarda indietro e conta la strada: con {cosa} si vede finalmente il frutto di una stagione lunga di impegno, dagli il giusto valore.
 11. Smetti di spingere: per {cosa} il ciclo ha raggiunto il suo compimento e ti basta aprire le mani verso il frutto ormai pronto.
 12. Raccogli adesso: per {cosa} il tempo della semina è passato e si apre quello del raccolto, non rimandarlo per paura di sbagliare.
@@ -445,9 +445,9 @@
 14. Ogni cosa matura al suo tempo: per {cosa} quel tempo è adesso e il granaio aspetta solo di essere riempito.
 15. Raccogli con gratitudine quanto {cosa} ti restituisce: è il frutto onesto di un impegno che non si è mai interrotto.
 16. Rispetta i tempi: anche per {cosa} vale il giro lento delle stagioni e ciò che pareva in ritardo può arrivare proprio quando serve.
-17. Sì, è tempo di mietere: per {cosa} la lunga fatica diventa un raccolto concreto che puoi stringere davvero, prendilo senza esitare.
+17. È tempo di mietere: per {cosa} la lunga fatica diventa un raccolto concreto che puoi stringere davvero, prendilo senza esitare.
 18. Questo è un tempo buono per {cosa}: non perché tutto sia facile ma perché ciò che hai coltivato regge e dà nutrimento.
-19. Sì, qualcosa ritorna: per {cosa} la pazienza che hai messo rientra in forma nuova, come la spiga che sale dal seme dopo l'inverno.
+19. Ciò che hai dato ritorna: per {cosa} la pazienza messa rientra in forma nuova, come la spiga che sale dal seme dopo l'inverno.
 20. Lascia compiere il giro: con {cosa} chi rispetta il ritmo della terra raccoglie tutto, senza strappi né sprechi, quindi non anticipare la mietitura.
 21. Condividi il frutto: per {cosa} quello che hai coltivato in silenzio matura in qualcosa di concreto da offrire alle persone che ami.
 22. Goditi il compenso: con {cosa} si conclude un giro completo e la fatica riceve ciò che le spetta, gustalo senza fretta.
@@ -491,12 +491,12 @@
 4. Aspetta senza scoprire: ciò che desideri per {cosa} sta crescendo al coperto e ha bisogno di tempo e di calore, non di controlli.
 5. Fai domande: per {cosa} oggi conta la curiosità più della certezza, apri le porte socchiuse e accogli ciò che sorprende.
 6. Tieni la mente aperta: verso {cosa} può arrivare una notizia inattesa che cambia il modo in cui guardi le cose.
-7. Hai fra le mani un dado ancora in aria per {cosa}: goditi l'attesa senza pretendere di sapere già come cade.
+7. Per {cosa} l'esito non è ancora deciso: non forzarlo, raccogli informazioni e muoviti solo quando qualcosa di nuovo diventa davvero visibile.
 8. Qualcosa di nascosto sta salendo verso {cosa}, come l'acqua di una sorgente che trova la sua strada fra i sassi.
 9. Con {cosa} conta ciò che ancora non sai più di ciò che sai: tieni un posto libero alla tavola per la sorpresa.
 10. Non sollevare il velo: sopra {cosa} c'è una copertura buona che protegge ciò che sta prendendo forma, aspetta che si mostri da sé.
-11. Il mistero che avvolge {cosa} è un invito, non un muro: avvicinati con rispetto e qualche risposta arriva per conto suo.
-12. Sì, qualcosa cambia sotto la superficie: con {cosa} quello che sta salendo può sorprenderti in positivo, dagli il tempo di affiorare.
+11. Dentro {cosa} c'è ancora qualcosa che non conosci: fai domande con rispetto e lascia che le risposte arrivino nei loro tempi.
+12. Qualcosa cambia sotto la superficie: con {cosa} quello che sta salendo può sorprenderti in positivo, dagli il tempo di affiorare.
 13. Muovi le tue carte per {cosa} con mano leggera: la sorte si scopre a chi non la tira per la manica.
 14. Pazienta: per {cosa} è la stagione dei semi interrati, in superficie non si vede niente ma sotto terra tutto continua a lavorare.
 15. Cerca nei dettagli: dentro {cosa} si nasconde un'occasione che nessuno ha ancora notato, proprio dove per abitudine non guardi mai.
@@ -529,7 +529,7 @@
 ## Algiz, dritta
 1. Per {cosa} hai un riparo più solido di quanto credi: puoi smettere di difenderti da tutto e muoverti con le spalle sciolte.
 2. La gettata vede un istinto che ha già visto giusto dentro {cosa}: quel primo avvertimento merita più credito del rumore che lo segue.
-3. Sì, hai riparo: sopra {cosa} c'è una protezione salda che regge anche quando il vento cambia e ti prende di fianco.
+3. Hai un riparo: sopra {cosa} c'è una protezione salda che regge anche quando il vento cambia e ti prende di fianco.
 4. Alza lo sguardo: osserva {cosa} come da un punto più alto, da lì capisci quale passo fare e le paure rimpiccioliscono.
 5. Il giunco della palude taglia chi lo afferra senza rispetto: con {cosa} il tuo confine è giusto e chi lo rispetta resta vicino.
 6. Quando guardi {cosa} e qualcosa si irrigidisce in te, quel segnale ha ragione: rallenta e controlla prima di firmare un sì.
@@ -579,18 +579,18 @@
 5. Dentro {cosa} la rotta è già tracciata: smetti di cercare mappe nuove e segui con decisione quella che hai sotto gli occhi.
 6. Il fuoco che porti dentro rischiara anche gli altri: con {cosa} la tua presenza scalda e orienta più di quanto pensi.
 7. Tieni la rotta: verso {cosa} hai un punto fermo come chi naviga col sole e la tua volontà regge anche col mare mosso.
-8. Si apre una stagione di chiarezza per {cosa}: le risposte che aspettavi affiorano senza forzature, basta tenere gli occhi aperti.
+8. Cerca la chiarezza per {cosa}: le risposte che aspettavi possono affiorare senza forzature, se tieni gli occhi aperti e la mente calma.
 9. Hai la forza di portare a termine ciò che hai cominciato e {cosa} chiede proprio questo, un ultimo tratto percorso con passo deciso.
 10. Qui la volontà conta più della fortuna: tieni dritta la prua verso {cosa} e ogni giorno guadagni un tratto di mare.
 11. Nessuna nebbia copre {cosa} adesso: vedi bene dove metti i piedi, quindi puoi permetterti un passo più lungo del solito.
 12. La luce che orienta sta dalla tua parte: con {cosa} la direzione che hai scelto regge e non serve rimetterla in discussione.
 13. Agisci finché il metallo è caldo: con {cosa} adesso ogni colpo dato con decisione lascia il segno, quindi modella ciò che desideri.
-14. Sì, adesso: affronta {cosa} finché hai tutte le forze dalla tua parte, rimandare ancora significa lasciare che l'abitudine decida per te.
-15. Sì, ora capisci: guardando {cosa} ti si chiarisce il perché di una fatica che finora non sapevi spiegare e puoi andare avanti.
+14. Muoviti adesso: affronta {cosa} finché hai tutte le forze dalla tua parte, rimandare ancora significa lasciare che l'abitudine decida per te.
+15. Porta luce sul punto oscuro: guardando {cosa} con calma si chiarisce il perché di una fatica che finora non sapevi spiegare.
 16. Accogli l'entusiasmo: per {cosa} arriva un calore che ti raggiunge davvero, lasciati scaldare invece di guardarlo con sospetto e usalo per agire.
 17. Mantieni la rotta scelta per {cosa} anche se qualcuno ti suggerisce scorciatoie: la strada lunga che hai scelto porta dove vuoi andare.
 18. Vai avanti con la luce che hai: per {cosa} ti basta vedere il tratto vicino, il resto della strada si illumina mentre cammini.
-19. Sì, entra: per {cosa} slancio, chiarezza e volontà sono insieme e aprono un passaggio che fino a ieri pareva chiuso.
+19. Entra con decisione: per {cosa} slancio, chiarezza e volontà sono insieme e aprono un passaggio che fino a ieri pareva chiuso.
 20. Condividi la tua energia: con {cosa} chi ti cammina accanto si accende al tuo fuoco e la strada si allarga per tutti.
 21. Il desiderio vero si mostra senza veli: per {cosa} sai già che cosa vuoi, resta solo da dirlo ad alta voce.
 22.
@@ -641,7 +641,7 @@
 18.
 
 ## Berkano, dritta
-1. Sì, sta nascendo qualcosa: dentro {cosa} spunta un inizio tenero, che ha bisogno di piccole attenzioni ogni giorno più che di gesti grandi.
+1. Sta nascendo qualcosa: dentro {cosa} spunta un inizio tenero, che ha bisogno di piccole attenzioni ogni giorno più che di gesti grandi.
 2. Nutri con pazienza: per {cosa} è un tempo di crescita e ciò che curi ogni giorno mette radici e prende forma.
 3. Proteggi l'inizio piccolo: osserva {cosa} con gli occhi di chi ha appena messo il seme nella terra e riparalo dal vento più forte.
 4. Accudisci con dolcezza: per {cosa} serve la mano che bagna la terra, non quella che tira il germoglio per vedere se cresce.
@@ -683,7 +683,7 @@
 18.
 
 ## Ehwaz, dritta
-1. Sì, vai avanti in due: per {cosa} il tuo passo si accorda con quello di qualcuno e insieme la strada lunga si accorcia.
+1. Vai avanti in due: per {cosa} il tuo passo si accorda con quello di qualcuno e insieme la strada lunga si accorcia.
 2. Dentro {cosa} si muove un'alleanza buona: chi cammina al tuo fianco tiene il tuo stesso ritmo e la fatica si divide in due.
 3. La gettata guarda {cosa} e vede movimento: qualcosa si sblocca perché accanto a te c'è una persona di cui ti puoi fidare.
 4. Ciò che serve adesso per {cosa} è un compagno di strada più che una spinta in più: la fiducia reciproca porta lontano.
@@ -769,7 +769,7 @@
 
 ## Laguz, dritta
 1. Sotto la superficie di ciò che vedi, {cosa} si muove già nella direzione giusta: lascia che la corrente ti porti senza remare contro.
-2. Sì, segui ciò che senti: con {cosa} sei come acqua che conosce la via verso valle e l'istinto vale più delle spiegazioni altrui.
+2. Segui ciò che senti: con {cosa} sei come acqua che conosce la via verso valle e l'istinto vale più delle spiegazioni altrui.
 3. Dentro {cosa} parla un sapere che non passa dalle parole: quel presentimento che torna da giorni merita di essere preso sul serio.
 4. Con {cosa} conviene muoversi come chi nuota con la marea e non contro: la spinta c'è già, basta non irrigidirsi.
 5. Lascia salire l'emozione: verso {cosa} quello che provi non è confusione ma profondità e chiede i suoi tempi per emergere.
@@ -843,7 +843,7 @@
 2. La gettata vede una svolta luminosa dentro {cosa}: il buio di prima finisce qui e la stanza si riempie di chiarore.
 3. Ciò che ieri pesava come una porta chiusa oggi si scosta: dentro {cosa} entra una luce che cambia il modo di vedere.
 4. C'è un passaggio netto in corso per {cosa}, come quando si spalanca una finestra dopo una notte lunga e l'aria cambia.
-5. Sì, la soluzione c'è: osserva {cosa} con occhi riposati e scopri che la risposta era davanti a te, soltanto in ombra.
+5. La soluzione c'è: osserva {cosa} con occhi riposati e può darsi che la risposta sia davanti a te, soltanto in ombra.
 6. Muoviti da oggi: per {cosa} il vento ha cambiato direzione e ciò che restava fermo ricomincia a scorrere, segui quel movimento.
 7. Volta pagina: per {cosa} finisce una stagione grigia e ne comincia una più chiara, anche per chi ti sta accanto.
 8. Accorgiti del cambiamento: con {cosa} hai già varcato una soglia e non serve forzare niente, basta riconoscere che il giorno è cambiato.
@@ -856,7 +856,7 @@
 15. Il metallo battuto a lungo trova adesso la sua forma, così anche {cosa} si compie in un tempo più breve del previsto.
 16. Apri gli occhi al giorno pieno: alla luce di adesso {cosa} mostra tutte le sue possibilità, scegline una e comincia prima di sera.
 17. Accetta il cambio di stato: per {cosa} la svolta arriva rapida e generosa, prendila appena si presenta senza chiederle garanzie.
-18. Sì, il varco c'è: per {cosa} l'attesa lunga finisce e l'apertura si trova proprio dove ti sembrava tutto sbarrato da mesi.
+18. Cerca il varco: per {cosa} l'apertura può trovarsi proprio dove ti sembrava tutto sbarrato da mesi, guarda di nuovo con calma.
 19. È l'ora: per {cosa} la luce che hai acceso nel buio arriva finalmente a ogni angolo, quindi alzati e guarda.
 20. Ti è dato un inizio pulito per {cosa}, senza il peso delle ore storte: puoi rifare il passo che non ti era riuscito.
 21. Rispondi al risveglio: per {cosa} una parte di te che dormiva da tempo si muove e chiede di essere seguita, comincia oggi stesso.

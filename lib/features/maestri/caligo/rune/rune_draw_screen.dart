@@ -1361,8 +1361,10 @@ class _LetturaRuna extends StatelessWidget {
   /// **LA SCHEDA DELLA RUNA NELLA FORMA BREVE, ordine GA voce GA.05**, 20
   /// ottobre 2026: *"Le singole carte e le singole rune hanno sempre il
   /// responso breve: il loro titolo, un paragrafo e il riquadro 'Cosa fare
-  /// adesso'"*. Il titolo e' la riga della runa nel suo verso, il paragrafo
-  /// e' PIETRA, il riquadro e' il CONSIGLIO, dal corpus.
+  /// adesso'"*. Il titolo legge la posizione della pietra (ordine GA voce
+  /// GA.06, `LaRispostaDellaGettata.titoloDellaScheda`: nell'Ostacolo il suo
+  /// lato difficile), il paragrafo e' PIETRA, il riquadro e' il CONSIGLIO,
+  /// dal corpus.
   ///
   /// **Nulla con una runa sola**: la Runa di Odino e' gia' il responso
   /// principale, e qui restano la testata e la porta. Prima qui c'era `sola`
@@ -1486,7 +1488,9 @@ class _LetturaRuna extends StatelessWidget {
             // ottobre 2026 alle 23:08: *"Restano all'inizio i titoli, anche
             // per le singola carte o le singole rune"*, e la voce GA.05 vuole
             // per ogni runa il titolo, un paragrafo da 40 a 50 parole e il
-            // riquadro "Cosa fare adesso". La riga diventa il TITOLO; il
+            // riquadro "Cosa fare adesso". La riga diventava il TITOLO;
+            // dall'ordine GA voce GA.06 il titolo legge la posizione della
+            // pietra (lettori ciechi: "La posizione non è mai letta"); il
             // paragrafo e il riquadro vengono dal corpus (PIETRA e
             // CONSIGLIO); il significato e la Voce della Runa scendono
             // dietro la porta "Da dove nasce questa runa", con la materia

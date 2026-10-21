@@ -507,8 +507,8 @@
 20.
 
 ## Perthro, in ombra
-1. La domanda che volevi fare oggi rimandala di qualche giorno e intanto annotala in un quaderno, con la data. Non cercare indizi e non interrogare chi ti sta intorno. La coppa è capovolta: per adesso ciò che chiedi non si svela. Rispetta questo silenzio e lascia lavorare il tempo.
-2. Metti una tazza capovolta sul davanzale e lasciala lì per una settimana come promemoria. Ogni volta che la vedi, rinuncia a controllare l'esito di ciò che aspetti. Ciò che matura al coperto non va scoperchiato: se lo scopri prima del tempo, lo interrompi.
+1. La domanda che volevi fare oggi rimandala di qualche giorno e intanto annotala in un quaderno, con la data. Non cercare indizi e non interrogare chi ti sta intorno. La coppa è rovesciata: per adesso ciò che chiedi non si svela. Rispetta questo silenzio e lascia lavorare il tempo.
+2. Metti una tazza rovesciata sul davanzale e lasciala lì per una settimana come promemoria. Ogni volta che la vedi, rinuncia a controllare l'esito di ciò che aspetti. Ciò che matura al coperto non va scoperchiato: se lo scopri prima del tempo, lo interrompi.
 3. Per un giorno intero evita di controllare messaggi, profili e notizie che ti tengono in ansia sull'esito di una questione. Tieni il telefono lontano dal letto. Scrutare di continuo non accelera niente: lascia che la sorte compia il suo giro senza il tuo sguardo addosso.
 4. Dedica la serata a un lavoro manuale lento, come impastare, rammendare o colorare, lontano da ogni schermo. Concentrati sul gesto. Quando le mani sono occupate, la mente smette di forzare ciò che ancora non può sapere: è il riposo che serve a chi aspetta.
 5. Scrivi in una lista tutto ciò che non sai ancora della situazione e chiudi il foglio in un cassetto per una settimana. Non aggiungere voci. Accettare di non sapere è più saggio che inventare risposte: ciò che resta nascosto oggi non chiede di essere indovinato.
@@ -520,7 +520,7 @@
 11. Chiudi oggi la conversazione che gira a vuoto da giorni e proponi di riprenderla fra una settimana. Dillo senza tensione. Insistere adesso significa forzare una risposta che non è pronta: dare tempo a entrambi lascia che le cose si chiariscano da sole.
 12. Prepara una tisana, siediti alla finestra e lasciala intiepidire prima di berla, senza fretta. Mentre aspetti, nota quanto ti costa non fare niente. È lo stesso esercizio che ti chiede la questione aperta: lasciala raffreddare prima di toccarla, poi capire è più facile.
 13. Riordina il tavolo di lavoro lasciando un angolo completamente vuoto, dedicato a ciò che ancora non sai. Non metterci niente per un mese. Quello spazio sgombro ti ricorda ogni giorno che la sorte ha tempi suoi: non riempirlo con risposte inventate.
-14. Per una settimana smetti di chiedere pareri a tutti e tieni {cosa} fra te e il tuo quaderno. Scrivi ogni sera una riga, senza cercare conclusioni. Troppe voci intorno alla coppa capovolta la tengono chiusa: il silenzio la lascia maturare.
+14. Per una settimana smetti di chiedere pareri a tutti e tieni {cosa} fra te e il tuo quaderno. Scrivi ogni sera una riga, senza cercare conclusioni. Troppe voci intorno alla coppa rovesciata la tengono chiusa: il silenzio la lascia maturare.
 15. Rileggi una vecchia lettera o un diario e cerca una risposta che è arrivata proprio quando avevi smesso di aspettarla. Ricorda come è andata. Le cose nascoste si svelano spesso quando non le guardi: oggi smetti di guardare e torna alla tua vita di tutti i giorni.
 16.
 17.

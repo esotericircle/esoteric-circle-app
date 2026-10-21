@@ -19,6 +19,7 @@ import 'package:esoteric_circle/core/responsi/la_forma_del_responso.dart';
 import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
 import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
 import 'package:esoteric_circle/core/rituals/il_titolo_della_gettata.dart';
+import 'package:esoteric_circle/core/rituals/la_risposta_della_gettata.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
@@ -73,6 +74,17 @@ void main() {
     'Passerò l’esame di settembre?',
     'Quale decisione prendere?',
     'Che cosa mi aspetta?',
+    // Ordine GA voce GA.06: le famiglie nuove del compositore, la domanda su
+    // un'altra persona, quella delicata e quella che l'app non riconosce.
+    'Come faccio a dimenticarlo?',
+    'Il progetto verrà approvato?',
+    'Il cambiamento sarà positivo?',
+    'Arriverà la risposta che aspetto?',
+    'Quando finirà questo periodo?',
+    'Incontrerò qualcuno di importante?',
+    'Devo trasferirmi a Milano?',
+    'Cosa prova davvero per me?',
+    'L’operazione andrà bene?',
   ];
 
   test(
@@ -159,9 +171,14 @@ void main() {
                 difetti.add('$dove, scheda di ${pietra.rune.name}: non e\' '
                     'breve o porta la fonte');
               }
-              if (s.titolo != pietra.riga.trim()) {
+              // **DALL'ORDINE GA VOCE GA.06** il titolo della scheda legge la
+              // posizione (lettori ciechi: "La posizione non è mai letta");
+              // qui si pretendeva la riga della runa, uguale in ogni posto.
+              if (s.titolo !=
+                  LaRispostaDellaGettata.titoloDellaScheda(pietra,
+                      delicata: LaDomandaLetta.di(domanda).delicato != null)) {
                 difetti.add('$dove, scheda di ${pietra.rune.name}: il titolo '
-                    'non e\' la riga della runa');
+                    'non legge la posizione');
               }
               if (!s.risposta.contains(pietra.rune.name)) {
                 difetti.add('$dove, scheda di ${pietra.rune.name}: il '

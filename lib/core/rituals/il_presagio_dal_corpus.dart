@@ -5,6 +5,7 @@ import '../chat/user_profile.dart';
 import '../responsi/i_riti_propiziatori.dart';
 import '../responsi/la_forma_del_responso.dart';
 import 'il_titolo_della_gettata.dart';
+import 'la_risposta_della_gettata.dart';
 import 'rune_cast.dart';
 import 'rune_lore.g.dart';
 
@@ -316,6 +317,17 @@ abstract final class IlPresagioDalCorpus {
   /// corrette lo stesso giorno e sono tornate a uscire.
   static const Set<String> vociTrattenute = <String>{};
 
+  /// Le voci che chiedono al corpo uno sforzo: camminare, correre, salire,
+  /// sollevare, fare attivita' fisica. Su una domanda di salute non si
+  /// scelgono (ordine GA voce GA.06).
+  static final RegExp sforzoFisico = LaDomandaLetta.parola(
+      r'cammin\w*|corri|correre|corsa|corsetta|salit\w*|sali[lr]\w*|scal[ae]|'
+      r'scalinat\w*|'
+      r'sentier\w*|passo sostenuto|attività fisica|esercizi\w*|palestr\w*|'
+      r'nuot\w*|sport\w*|sposta\w* (un |i |dei )?mobil\w*|sollev\w*|'
+      r'il corpo|al corpo|del corpo|fatica fisica|sforzo fisico|'
+      r'braccia|in movimento|muovi il corpo|salti');
+
   /// **LA SCELTA.** Fra le voci del gruppo, nell'ordine proprio di questa
   /// persona (una permutazione seminata dal suo identificativo), la prima
   /// che non ha letto nei sessanta giorni; se le ha lette tutte, quella
@@ -417,13 +429,34 @@ abstract final class IlPresagioDalCorpus {
     // Mai la stessa voce due volte nello stesso presagio, nemmeno fra una
     // parte gia' data oggi e una scelta adesso.
     final presi = <String>{...diOggi.values};
+    final letta = LaDomandaLetta.di(domanda);
+    // **SU UNA DOMANDA DI SALUTE LE SCHEDE NON CHIEDONO SFORZI FISICI**,
+    // ordine GA voce GA.06: i lettori ciechi hanno letto "Cammina all'aperto
+    // subito dopo un momento difficile" sotto un'operazione al ginocchio. Le
+    // voci di PIETRA e CONSIGLIO che chiedono al corpo uno sforzo non si
+    // scelgono quando la domanda tocca la salute (se un gruppo le avesse
+    // tutte, si sceglie come sempre).
+    final perLaSalute = letta.delicato == AmbitoDelicato.salute;
     String prendi(String parte, String campo, String gruppo) {
       final gia = diOggi[parte];
       if (gia != null) return gia;
-      final n = corpus.voci[campo]?[gruppo]?.length ?? 0;
+      final voci = corpus.voci[campo]?[gruppo] ?? const <String>[];
+      final n = voci.length;
       if (n == 0) {
         throw StateError('corpus incompleto: $campo/$gruppo');
       }
+      bool vuota(int i) =>
+          voci[i].trim().isEmpty ||
+          vociTrattenute.contains('$campo/$gruppo/${i + 1}');
+      final faticosa = perLaSalute &&
+              (campo == CampiDelPresagio.consiglio ||
+                  campo == CampiDelPresagio.pietra)
+          ? (int i) => sforzoFisico.hasMatch(voci[i])
+          : null;
+      final restano = faticosa == null
+          ? true
+          : [for (var i = 0; i < n; i++) i]
+              .any((i) => !vuota(i) && !faticosa(i));
       final v = scegli(
         campo: campo,
         gruppo: gruppo,
@@ -431,9 +464,9 @@ abstract final class IlPresagioDalCorpus {
         persona: persona,
         memoria: memoria,
         giaPresi: presi,
-        vuota: (i) =>
-            corpus.voci[campo]![gruppo]![i].trim().isEmpty ||
-            vociTrattenute.contains('$campo/$gruppo/${i + 1}'),
+        vuota: faticosa != null && restano
+            ? (i) => vuota(i) || faticosa(i)
+            : vuota,
       );
       presi.add(v);
       diOggi[parte] = v;
@@ -453,17 +486,41 @@ abstract final class IlPresagioDalCorpus {
       return LaMarcaDelGenere.risolvi(t, forma: forma);
     }
 
-    // **IL VERDETTO SEGUE IL TONO VERO DELLA GETTATA**, non quello della
-    // sola pietra che decide: dice come pesa l'insieme, e una gettata in
-    // ombra con la pietra che decide dritta resta in ombra nel suo insieme
-    // (nota degli scrittori dell'ordine GA, R2).
+    // **LA RISPOSTA DIRETTA, ordine GA voce GA.06, la cura delle Rune, 21
+    // ottobre 2026.** Qui il paragrafo era RISPOSTA piu' VERDETTO e il
+    // riquadro era GESTO: nessuno dei tre dipendeva dalla domanda, e il
+    // VERDETTO, scritto per una famiglia di rune, parlava di pietre che non
+    // c'erano (lettori ciechi: la prima frase rispondeva in 6 responsi su
+    // 40, il cosa fare era pertinente in 7). Adesso la domanda si legge
+    // ([LaDomandaLetta]) e la prima frase risponde, dalla pietra che decide
+    // nel suo verso e dal tema; il tono si conta sulle pietre vere; poi la
+    // RISPOSTA del corpus spiega. Il riquadro e' scritto per la domanda nel
+    // modo della pietra che decide; il GESTO resta per chi getta senza
+    // domanda. Salute, legge e denaro hanno il loro limite per primo, e la
+    // RISPOSTA del corpus li' non entra. Tutto in `la_risposta_della_gettata.dart`.
     final t = tono(pietre);
-    final risposta = testo(prendi(
-        parteRisposta, CampiDelPresagio.risposta, gruppoDellaPietra(decide)));
-    final verdetto = testo(prendi(parteVerdetto, CampiDelPresagio.verdetto,
-        '$t/${famigliaCheDomina(pietre, decide.rune.name)}'));
-    final gesto = testo(
-        prendi(parteGesto, CampiDelPresagio.gesto, gruppoDellaPietra(decide)));
+    String? paragrafo;
+    if (letta.delicato != null) {
+      paragrafo = LaRispostaDellaGettata.paragrafoDelicato(
+          domanda: letta, esito: esito);
+    } else {
+      final risposta = testo(prendi(
+          parteRisposta, CampiDelPresagio.risposta, gruppoDellaPietra(decide)));
+      paragrafo = LaRispostaDellaGettata.paragrafoDellaRisposta(
+          domanda: letta, esito: esito, risposta: risposta);
+      // La riserva, che la prova `la_risposta_della_gettata_test.dart`
+      // pretende mai usata: la forma di prima, sempre a misura.
+      paragrafo ??=
+          '$risposta ${testo(prendi(parteVerdetto, CampiDelPresagio.verdetto, '$t/${famigliaCheDomina(pietre, decide.rune.name)}'))}';
+    }
+    paragrafo ??= LaRispostaDellaGettata.primeFrasi(letta, esito).first;
+    final variante = _seme('$persona|$giorno|${letta.tipo.name}') % 7;
+    final cosaFare = (letta.tipo == TipoDiDomanda.giornata
+            ? null
+            : LaRispostaDellaGettata.riquadro(
+                domanda: letta, esito: esito, variante: variante)) ??
+        testo(prendi(
+            parteGesto, CampiDelPresagio.gesto, gruppoDellaPietra(decide)));
     final legame = lunga
         ? testo(prendi(parteLegame, CampiDelPresagio.legame, '$gettata/$t'))
         : null;
@@ -473,7 +530,11 @@ abstract final class IlPresagioDalCorpus {
         for (final p in pietre)
           ResponsoInterpretato(
             arte: ArteInterpretata.rune,
-            titolo: p.riga.trim(),
+            // **IL TITOLO LEGGE LA POSIZIONE**, ordine GA voce GA.06: era la
+            // riga della runa, uguale in ogni posto, e una pietra
+            // nell'Ostacolo si leggeva come un favore.
+            titolo: LaRispostaDellaGettata.titoloDellaScheda(p,
+                delicata: letta.delicato != null),
             risposta: testo(prendi(
                 parteDellaPietra(CampiDelPresagio.pietra, p.rune.name),
                 CampiDelPresagio.pietra,
@@ -488,8 +549,8 @@ abstract final class IlPresagioDalCorpus {
       principale: ResponsoInterpretato(
         arte: ArteInterpretata.rune,
         titolo: IlTitoloDellaGettata.di(esito),
-        risposta: '$risposta $verdetto',
-        cosaFare: gesto,
+        risposta: paragrafo,
+        cosaFare: cosaFare,
         approfondimento: legame,
         rito: galdr,
         daDoveViene: daDoveViene(esito, lunga: lunga),
@@ -566,17 +627,54 @@ abstract final class IlPresagioDalCorpus {
   /// Cerchio un valore fisso, per una domanda scritta a mano la cosa
   /// riconosciuta dalle famiglie di parole, altrimenti "ciò che hai
   /// chiesto"; senza domanda "la tua giornata".
+  ///
+  /// **ORDINE GA VOCE GA.06, la cura delle Rune, 21 ottobre 2026.** I
+  /// lettori ciechi hanno letto "ciò che hai chiesto" al posto del tema in
+  /// 20 risposte su 40, e "l'amore" su una domanda di famiglia ("il pranzo
+  /// di Natale con la famiglia di lui": la famiglia "lui" vinceva perche'
+  /// era la prima dell'elenco). Adesso vince la famiglia la cui parola viene
+  /// PRIMA nella domanda, i confini di parola sono scritti a mano (`\b` in
+  /// Dart non vede "città", "papà"), le famiglie sono di piu' (il progetto,
+  /// il cambiamento, l'attesa di una risposta, il trasferimento, lo studio
+  /// con l'esame e il corso), e una domanda che tocca salute, legge o denaro
+  /// ha per tema "il tuo stato d’animo": e' l'unica cosa di cui le rune
+  /// parlano li' (ordine S voce 17), e le schede non leggono piu' l'esito di
+  /// un'operazione, di una causa o di un investimento.
   static String cosaDellaDomanda(String domanda) {
-    final d = domanda.trim().toLowerCase();
+    final d = LaDomandaLetta.normalizza(domanda);
     if (d.isEmpty) return 'la tua giornata';
     for (final e in _delCerchio.entries) {
-      if (d == e.key.toLowerCase()) return e.value;
+      if (d == LaDomandaLetta.normalizza(e.key)) return e.value;
     }
-    for (final e in _famiglie.entries) {
-      if (RegExp(e.key, caseSensitive: false).hasMatch(d)) return e.value;
+    if (LaDomandaLetta.ambitoDelicato(d) != null) return 'il tuo stato d’animo';
+    String? migliore;
+    var dove = 1 << 30;
+    final citta = _lasciareUnLuogo.firstMatch(domanda.trim());
+    if (citta != null) {
+      migliore = 'il trasferimento';
+      dove = citta.start;
     }
+    for (final (regola, cosa) in _famiglieCompilate) {
+      final m = regola.firstMatch(d);
+      if (m != null && m.start < dove) {
+        dove = m.start;
+        migliore = cosa;
+      }
+    }
+    if (migliore != null) return migliore;
+    if (LaDomandaLetta.parlaDiUnAltro(d)) return 'questo legame';
+    if (LaDomandaLetta.eVaga(d)) return 'il tuo momento';
     return 'ciò che hai chiesto';
   }
+
+  /// "Devo lasciare Roma": un luogo con la maiuscola dopo "lasciare" e' un
+  /// trasferimento.
+  static final RegExp _lasciareUnLuogo =
+      RegExp(r'(?:^|\s)(?:lasciare|lascio|lasciando)\s+[A-ZÀ-Ý][a-zà-ÿ]+');
+
+  static final List<(RegExp, String)> _famiglieCompilate = [
+    for (final e in _famiglie.entries) (LaDomandaLetta.parola(e.key), e.value),
+  ];
 
   /// **LE DOMANDE DEL CERCHIO VENGONO DAL PUNTO UNICO**
   /// (`DomandeDelCerchio`, ordine S voce 21): qui stanno solo le cose della
@@ -609,17 +707,30 @@ abstract final class IlPresagioDalCorpus {
     };
   }();
 
+  /// Le famiglie di parole: una regola sulla domanda in minuscolo con gli
+  /// apostrofi dritti, i confini di parola li mette [LaDomandaLetta.parola].
+  /// Vince la famiglia la cui parola viene prima nella domanda. Il denaro non
+  /// c'e' piu' (ordine GA voce GA.06): e' un ambito delicato, e il suo tema e'
+  /// "il tuo stato d’animo".
   static const Map<String, String> _famiglie = {
-    r'\b(amor\w*|innamorat\w*|fidanzat\w*|marit\w*|mogli\w*|sposar\w*|relazion\w*|lui|lei)\b':
+    r'amor\w*|innamorat\w*|fidanzat\w*|marit[oi]|mogli\w*|spos\w*|relazion\w*|compagn[oa]|ragazz[oa]|partner|ex|mi ama|lui|lei':
         'l’amore',
-    r'\b(lavor\w*|cap[oi]\b|colloqui\w*|carrier\w*|uffici\w*|promozion\w*)':
+    r'lavor\w*|capo|capi|colleg[ah]\w*|colloqui\w*|carrier\w*|uffici\w*|promozion\w*|aziend\w*|attività|impieg\w*|assunzion\w*|licenzia\w*|client\w*':
         'il lavoro',
-    r'\b(cas[ae]|trasloc\w*|trasferi\w*|citt[aà])\b': 'la casa',
-    r'\b(madre|padre|mamma|pap[aà]|sorell\w*|fratell\w*|figli\w*|famigli\w*)\b':
+    r'cas[ae]|appartament\w*|trasloc\w*': 'la casa',
+    r'trasferi\w*|andare a vivere|cambiare città|emigra\w*': 'il trasferimento',
+    r'madre|padre|mamma|papà|sorell\w*|fratell\w*|figli\w*|famigli\w*|genitor\w*|suocer\w*|nonn[aoie]|nipot\w*|parent\w*':
         'la tua famiglia',
-    r'\b(amic\w*)\b': 'l’amicizia',
-    r'\b(soldi|denaro|debit\w*|spes[ae]\w*|prestit\w*)\b': 'il denaro',
-    r'\b(studi\w*|esam\w*|universit\w*|scuola)\b': 'lo studio',
-    r'\b(scelt\w*|decid\w*|decision\w*)\b': 'la tua scelta',
+    r'amic\w*': 'l’amicizia',
+    r'studi\w*|esam[ei]|universit\w*|scuola|laurea|master|cors[oi]|maturità|concors\w*':
+        'lo studio',
+    r'progett\w*': 'il progetto',
+    r'cambiament\w*': 'il cambiamento',
+    r'(risposta|notizia|chiamata) che aspett\w*|aspett\w* (una|la) (risposta|notizia)':
+        'la risposta che aspetti',
+    r'periodo|stallo': 'questo periodo',
+    r'incontrer\w*|qualcuno di importante|anima gemella':
+        'l’incontro che cerchi',
+    r'scelt\w*|decid\w*|decision\w*': 'la tua scelta',
   };
 }
