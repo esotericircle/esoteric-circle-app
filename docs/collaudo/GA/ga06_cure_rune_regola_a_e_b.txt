@@ -210,3 +210,75 @@ formule 0; testi letti 61560, gettate che non ci sono 0; domande delicate 30,
 senza limite 0; paragrafi misurati 503000, senza forma 0; riserve usate 0 su
 10080; prime frasi che non rispondono 0 su 7560; pietre nell'Ostacolo lette
 come favore 0 su 40; sessanta giorni: voci ripetute 0 su 54000 gettate.
+
+================================================================================
+TERZO GIRO, RIAPERTURA DELLE RUNE DI CALIGO (21 ottobre 2026, seconda parte)
+Dopo la lettura cieca di dodici gettate (D1 12/12, D2 11/12, D3 10/12, tre si'
+9/12) e il collaudo sul Realme (gruppo C: alla domanda di denaro la sintesi
+manda dal consulente e i "Cosa fare" delle singole pietre no).
+================================================================================
+
+REGOLA B, le guardie della zona viste rosse prima di toccarla (21 ottobre 2026)
+  - le_domande_delicate_delle_rune_hanno_il_limite: finoA 'consulente' tolto
+    dal riquadro delicato, esito ROSSO, 400 gettate delicate senza il rinvio.
+  - la_risposta_della_gettata_test (vendere casa, affitto, caparra): regex del
+    denaro tolta, esito ROSSO, "sbagliate 1".
+  - le_rune_hanno_la_forma_nuova: titolo del riquadro delicato spostato,
+    esito ROSSO, 384.
+  - il_presagio_dal_corpus_test (forma nuova, legame): legame null, esito
+    ROSSO, "Expected: not null".
+
+REGOLA A, le guardie nuove o cambiate nate rosse (stesso giorno)
+  1. le_voci_neutre_delle_rune_test (NUOVA). Guarda le voci neutre PIETRA e
+     CONSIGLIO, RISPOSTA e GESTO: nessuna presuppone un conflitto, una paura,
+     un legame, una data o una cosa dei tarocchi. Innesto: una voce con
+     "paura" lasciata nel pozzo stretto; grep sul .g.dart per verificare che
+     l'innesto fosse entrato; esito ROSSO, difetti 1 (poi tolto).
+  2. le_schede_delle_rune_seguono_la_domanda_test (NUOVA), cinque prove:
+       T1 conflitto e paura che la domanda non porta: 63 conflitti, 244 paure;
+       T2 la persona nominata nella domanda entra nella scheda: 298 mancate;
+       T3 la persona assente non riceve voci di presenza: 22;
+       T4 l'evento breve non riceve cosa fare di settimane: 24, poi la misura
+          cambiata (conteggio esatto 0, mai soglia al 10%) dopo che
+          "ultime due settimane" era scappato a _tempoLungo;
+       T5 cuciture e schede uguali: 16 (la misura e' cambiata da "quattro
+          parole" a "due parole, esclusi persona, tema e generici").
+  3. l_approfondimento_e_le_schede_delicate_delle_rune_test (NUOVA), quattro:
+       grammatica dell'approfondimento con una pietra sola ("la pietra non
+       danno"): 360; senso di Fehu da esito sotto il denaro: 14; forme
+       delicate uguali nel telo a sette pietre: 240; "parla di il passo
+       giusto" (preposizione non contratta, _di): 416.
+  4. il_corpus_delle_rune_test n. 3 (CAMBIATA): ora fa potare la memoria prima
+     di calcolare le voci gia' uscite (padre del difetto: la prova dell'ordine
+     EX voce 03, che confrontava con la memoria non potata); aggiunge la
+     proprieta' di scelta ("prima le strette, poi le larghe, poi la piu'
+     vecchia"): violazioni 85.498 se rotta, larghe prima delle strette 53.570;
+     e il "debito dichiarato" come cricchetto (pietra e consiglio 213.585,
+     risposta e gesto 283): innesto debito pietra 0, esito ROSSO, 8.550.
+  5. la_risposta_della_gettata_test, le_domande_delicate..., il_presagio_dal_
+     corpus_test, le_rune_hanno_la_forma_nuova_test (AGGIORNATE alle forme
+     nuove: terapie, vendere casa, attivita', limite "vicenda legale").
+
+  Dopo (stessa data): tutte verdi sulla zona (116 prove nel giro completo, con
+  il corpus vero a piena scala), piu' la cura di rune-39 (Dagaz, "un orario
+  diverso" sotto un pranzo di Natale; "nelle volte successive": riscritte le
+  due voci; il riconoscimento di Natale come evento breve provato e TOLTO,
+  perche' la guardia T1 delle schede e' scattata su una scheda con "ansia") e di
+  "ciò che hai perso" sotto il denaro, fatta DOPO la lettura severa finale.
+
+NUMERI, prima e dopo (60 giorni, corpus vero, 2000 persone, 359.965 gettate)
+  Voci ripetute alla stessa persona nei sessanta giorni:
+    prima delle cure del terzo giro, pozzo neutro piccolo: 2.123.658
+    a meta' (pozzo neutro piu' ampio, senza il fallback largo): 2.523.694
+    dopo (strette poi larghe): 427.736
+       (pietra 213.585, consiglio 213.585, risposta 283, gesto 283)
+  Scelte che ripetevano con una voce libera: 0. Larghe usate prima delle
+  strette: 0. Voci trattenute uscite: 0.
+
+DEBITO DICHIARATO (non e' una cura)
+  Con tre gettate al giorno per sessanta giorni le schede ripetono ancora.
+  Servono circa cinquanta coppie neutre PIETRA e CONSIGLIO per gruppo: oggi 9
+  strette e circa 24 larghe. I gruppi tipati hanno solo 5-8 voci di diretta e
+  azione, e sotto uso pesante il principale ripete. Il cricchetto del test n. 3
+  impedisce che il debito cresca; per scenderlo serve scrittura (padre:
+  ordine EX voce 03, corpus dell'Architetto).

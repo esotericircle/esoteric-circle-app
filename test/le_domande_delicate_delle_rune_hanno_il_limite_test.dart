@@ -27,7 +27,8 @@ import 'cardinale_minimo.dart';
 /// la PRIMA frase dica il limite e nomini chi e' competente; che nessun testo
 /// del responso principale spinga ad agire o prometta l'esito; che il
 /// riquadro rimandi a chi e' competente; che le schede non leggano l'esito
-/// (il tema e' "il tuo stato d’animo").
+/// (la cosa e' quella dell'ambito: "questo periodo", "questa vicenda",
+/// "questa decisione", mai "il tuo stato d’animo", che non diceva niente).
 void main() {
   const domande = <AmbitoDelicato, List<String>>{
     AmbitoDelicato.salute: [
@@ -65,6 +66,7 @@ void main() {
       'Lo stipendio basterà per trasferirmi?',
       'Devo accettare l\'eredità di mio zio?',
       'Mi conviene acquistare un appartamento in centro?',
+      'Dovrei vendere l’appartamento di mia madre?',
     ],
   };
 
@@ -102,7 +104,8 @@ void main() {
           colpe.add('«$d»: letta come ${q.delicato?.name}, e\' ${ambito.name}');
           continue;
         }
-        if (IlPresagioDalCorpus.cosaDellaDomanda(d) != 'il tuo stato d’animo') {
+        if (IlPresagioDalCorpus.cosaDellaDomanda(d) !=
+            LaRispostaDellaGettata.cosaDelicata(ambito)) {
           colpe.add('«$d»: le schede leggerebbero '
               '«${IlPresagioDalCorpus.cosaDellaDomanda(d)}»');
         }
@@ -166,5 +169,50 @@ void main() {
         cosa: 'domande delicate', perche: 'dieci per ambito, scritte diverse');
     cardinaleMinimo(composti, 30 * 4 * 12, cosa: 'presagi delicati composti');
     expect(colpe, isEmpty, reason: colpe.take(20).join('\n'));
+  });
+
+  test(
+      'smettere o cambiare una terapia: il limite lo dice per nome, perche\' '
+      'il rischio e\' sospendere una cura per una gettata', () {
+    const terapie = <String>[
+      'Posso smettere le medicine che prendo?',
+      'Devo sospendere la terapia che sto facendo?',
+      'Posso ridurre i farmaci che prendo?',
+    ];
+    final colpe = <String>[];
+    var composti = 0;
+    for (final d in terapie) {
+      final q = LaDomandaLetta.di(d);
+      if (!q.suTerapia) {
+        colpe.add('«$d»: non letta come domanda su una terapia');
+      }
+      for (final g in gettate) {
+        for (var seme = 0; seme < 8; seme++) {
+          final p = IlPresagioDalCorpus.componi(
+            corpus: corpusDelPresagio,
+            esito: RuneCast.getta(g, random: Random(40 + seme)),
+            domanda: d,
+            persona: 'terapia-$seme',
+            oggi: DateTime(2026, 10, 21),
+            memoria: LaMemoriaDelPresagio(),
+          );
+          composti++;
+          final r = p.principale;
+          final prima = r.risposta.split(RegExp(r'(?<=\.)\s')).first;
+          if (!RegExp(r'terapia|medicine').hasMatch(prima)) {
+            colpe.add('${g.id}, $seme, «$d»: la prima frase non nomina la '
+                'terapia: «$prima»');
+          }
+          if (!RegExp(r'medicina|terapia').hasMatch(r.cosaFare)) {
+            colpe.add('${g.id}, $seme, «$d»: il riquadro non parla della '
+                'terapia: «${r.cosaFare}»');
+          }
+        }
+      }
+    }
+    print('ORDINE GA VOCE GA.06, RUNE: presagi sulle terapie $composti, '
+        'senza il limite per nome ${colpe.length}');
+    cardinaleMinimo(composti, 90, cosa: 'presagi sulle terapie');
+    expect(colpe, isEmpty, reason: colpe.take(8).join('\n'));
   });
 }

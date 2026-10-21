@@ -85,7 +85,7 @@ enum TipoDiDomanda {
   /// "Che cosa mi aspetta?": le rune non mostrano un futuro gia' scritto.
   futuro,
 
-  /// Tutte le altre: "Cosa devo sapere sul mio momento?", "Dimmi qualcosa".
+  /// Tutte le altre: "che cosa devo sapere sul mio momento", "dimmi qualcosa".
   aperta,
 }
 
@@ -106,6 +106,7 @@ class LaDomandaLetta {
     this.strade,
     this.seconda,
     this.chiude = false,
+    this.suTerapia = false,
   });
 
   final TipoDiDomanda tipo;
@@ -130,6 +131,12 @@ class LaDomandaLetta {
 
   bool get doppia => seconda != null;
 
+  /// **LA DOMANDA CHIEDE SE SMETTERE O CAMBIARE UNA TERAPIA** ("Posso smettere
+  /// le medicine che prendo?"). Il limite generico della salute dice che
+  /// decidono i medici sull'esito; qui il rischio e' un altro, e piu' grave:
+  /// sospendere una cura per una gettata. Lettura severa del terzo giro.
+  final bool suTerapia;
+
   /// **IL LETTORE.** Le regole sono scritte sulle forme della lingua, non su
   /// un elenco di domande: le domande dei lettori ciechi sono una prova, non
   /// la misura (`test/la_risposta_della_gettata_test.dart` ne porta altre,
@@ -143,11 +150,13 @@ class LaDomandaLetta {
     }
     final tema = IlPresagioDalCorpus.cosaDellaDomanda(originale);
     final delicato = ambitoDelicato(d);
+    final terapia = delicato == AmbitoDelicato.salute && _suTerapia.hasMatch(d);
     // Le domande del Cerchio hanno il loro tipo, scritto qui: sono dodici e
     // non cambiano senza che cambi questo file (la prova lo controlla).
     final delCerchio = _tipoDelCerchio[d];
     if (delCerchio != null) {
-      return LaDomandaLetta(tipo: delCerchio, tema: tema, delicato: delicato);
+      return LaDomandaLetta(
+          tipo: delCerchio, tema: tema, delicato: delicato, suTerapia: terapia);
     }
     final parti = _dividi(originale);
     if (parti != null) {
@@ -165,6 +174,7 @@ class LaDomandaLetta {
         strade: prima.strade,
         seconda: seconda,
         chiude: prima.chiude,
+        suTerapia: terapia || prima.suTerapia,
       );
     }
     final tipo = _tipo(d);
@@ -175,8 +185,15 @@ class LaDomandaLetta {
       azione: tipo == TipoDiDomanda.decisione ? _azione(originale) : null,
       strade: tipo == TipoDiDomanda.scelta ? _strade(originale) : null,
       chiude: tipo == TipoDiDomanda.decisione && _chiusura.hasMatch(d),
+      suTerapia: terapia,
     );
   }
+
+  /// Smettere, sospendere o cambiare una medicina, una terapia, una cura.
+  static final RegExp _suTerapia = RegExp(
+      r'(smett|sospend|interromp|ridur|tolg|cambi|salt|dimezz|aument)[a-zà-ÿ]* '
+      r'.*(medicin|farmac|terapi|cura|cure|pillol|dosagg|antibiotic|insulin|'
+      r'compress|trattament)');
 
   static final RegExp _chiusura = RegExp(
       r"^(devo|dovrei|posso|potrei|conviene|mi conviene|è giusto|e' giusto|"
@@ -219,7 +236,21 @@ class LaDomandaLetta {
       r'soldi|denaro|risparmi\w*|investi\w*|borsa|azioni|cripto\w*|bitcoin|'
       r'mutu[oi]|prestit\w*|debit\w*|finanz\w*|stipend\w*|eredit\w*|'
       r'compr\w* (casa|una casa|la casa|un appartamento)|'
-      r'acquist\w* (casa|una casa|la casa|un appartamento)');
+      r'acquist\w* (casa|una casa|la casa|un appartamento)|'
+      // Aprire un'attivita' e lasciare il lavoro sono scelte di denaro anche
+      // quando la domanda non lo dice (ordine GA voce GA.06, riapertura: il
+      // lettore cieco ha letto "Sì, adesso" a lasciare il lavoro e "vai
+      // avanti" ad aprire un'attivita' senza una parola sui conti).
+      r'apr\w* (la mia |una |un |il mio |)(attività|negozio|impresa|azienda|'
+      r'studio)|'
+      r'(lasciare|mollare|abbandonare) (il|la mia|il mio) (lavoro|posto)|'
+      r'licenziarmi|dimettermi|'
+      // Vendere o affittare una casa, un terreno, un negozio: "Dovrei vendere
+      // l'appartamento di mia madre?" prendeva un "Sì, la volonta' c'e'"
+      // (lettura severa del terzo giro).
+      r"vend\w* (la |il |l'|lo |un |una )?(mia |mio |tua |tuo )?"
+      r'(casa|appartament\w*|immobil\w*|terren\w*|negozi\w*|aziend\w*|'
+      r'auto|macchina)|affitt\w*|caparra');
 
   /// L'ambito delicato di una domanda gia' normalizzata. Il denaro prima
   /// della salute: "un'operazione in borsa" e' denaro. "Causa" vale solo
@@ -238,6 +269,10 @@ class LaDomandaLetta {
       'una scelta mi blocca: cosa la scioglie',
       'il mio archetipo: quale passo mi somiglia',
     };
+    // La domanda del Cerchio sull'amore e la direzione chiede dove va una cosa che ha un nome:
+    // le voci della previsione la leggono per l'amore (le aperte non portano
+    // un tema, e il suo riquadro era un gesto che non c'entrava con l'amore).
+    const previsione = {'in amore, dove sto andando'};
     return {
       for (final q in [
         ...DomandeDelCerchio.generichePerLaGettata,
@@ -245,7 +280,9 @@ class LaDomandaLetta {
       ])
         normalizza(q.testo): come.contains(normalizza(q.testo))
             ? TipoDiDomanda.come
-            : TipoDiDomanda.aperta,
+            : previsione.contains(normalizza(q.testo))
+                ? TipoDiDomanda.previsione
+                : TipoDiDomanda.aperta,
     };
   }();
 
@@ -520,11 +557,11 @@ class LaPietraLetta {
         modo: 'mettendo in circolo ciò che hai già',
         criterio: 'fa fruttare ciò che hai già',
         nonFare: 'Non tenere fermo per paura ciò che può circolare.',
-        animo: 'conta sulle risorse che hai già e falle lavorare'),
+        animo: 'ricorda ciò che hai già, senza l’ansia di perderlo'),
     'Fehu/ombra': LaPietraLetta(
         classe: ClasseDellaPietra.correggi,
         senso: 'un bene che si disperde',
-        modo: 'chiudendo prima le perdite che non vedi',
+        modo: 'guardando dove si disperde ciò che hai',
         criterio: 'non ti fa disperdere ciò che hai',
         nonFare: 'Non stringere ciò che hai fino a perderlo.',
         animo:
@@ -538,14 +575,14 @@ class LaPietraLetta {
         modo: 'usando adesso la forza che hai',
         criterio: 'chiede la tua forza invece della tua paura',
         nonFare: 'Non aspettare di sentirti all’altezza per muoverti.',
-        animo: 'riconosci la forza che hai e usala con misura'),
+        animo: 'riconosci la forza che hai e non sprecarla in timori'),
     'Uruz/ombra': LaPietraLetta(
         classe: ClasseDellaPietra.attesa,
         senso: 'una forza da ritrovare prima di caricare',
         modo: 'ritrovando il ritmo prima di caricare',
         criterio: 'non ti costringe a forzare',
         nonFare: 'Non caricare a testa bassa prima di aver ritrovato il ritmo.',
-        animo: 'ritrova il tuo ritmo prima di ogni sforzo'),
+        animo: 'ritrova il tuo ritmo e non caricarti di troppo'),
     // Thurisaz: "Dirigi la forza con misura, senza temerla." / "Fermati un
     // istante: qui la fretta ferisce."
     'Thurisaz/dritta': LaPietraLetta(
@@ -593,7 +630,7 @@ class LaPietraLetta {
         animo: 'procedi con la tua cadenza, senza fretta'),
     'Raidho/ombra': LaPietraLetta(
         classe: ClasseDellaPietra.correggi,
-        senso: 'un cammino che ha perso la cadenza',
+        senso: 'un ritmo che ha perso la cadenza',
         modo: 'rallentando finché ritrovi la cadenza',
         criterio: 'non ti costringe a correre',
         nonFare: 'Non forzare la tabella di marcia.',
@@ -724,7 +761,7 @@ class LaPietraLetta {
         modo: 'senza forzare la sorte',
         criterio: 'non dipende dall’azzardo',
         nonFare: 'Non giocarti tutto in una volta.',
-        animo: 'non forzare la sorte e lascia maturare le cose'),
+        animo: 'non forzare la sorte e accetta i suoi tempi'),
     // Algiz: "Hai più difese di quanto pensi." / "Rialza la guardia e
     // riascolta ciò che senti."
     'Algiz/dritta': LaPietraLetta(
@@ -749,7 +786,7 @@ class LaPietraLetta {
         modo: 'tenendo la rotta che hai scelto',
         criterio: 'ti somiglia di più',
         nonFare: 'Non disperdere l’energia in troppe direzioni.',
-        animo: 'tieni lo sguardo sulla tua meta',
+        animo: 'tieni lo sguardo su ciò che conta davvero',
         lato: 'una luce che abbaglia invece di guidare'),
     // Tiwaz: "Prendi ciò che ti spetta, non ciò che si strappa." /
     // "Ritrova il tuo giusto: la mira torna ferma."
@@ -759,7 +796,7 @@ class LaPietraLetta {
         modo: 'a viso aperto, con onestà',
         criterio: 'puoi difendere a testa alta',
         nonFare: 'Non prendere scorciatoie che non potresti spiegare.',
-        animo: 'agisci con onestà e con coraggio'),
+        animo: 'dì il vero con te e con gli altri'),
     'Tiwaz/ombra': LaPietraLetta(
         classe: ClasseDellaPietra.correggi,
         senso: 'una mira che trema',
@@ -787,7 +824,7 @@ class LaPietraLetta {
     // ritmo comune, poi riprendete la corsa."
     'Ehwaz/dritta': LaPietraLetta(
         classe: ClasseDellaPietra.via,
-        senso: 'un’alleanza in cammino',
+        senso: 'un’alleanza che procede insieme',
         modo: 'insieme a qualcuno di cui ti fidi',
         criterio: 'ti mette accanto a persone affidabili',
         nonFare: 'Non fare tutto senza nessuno accanto.',
@@ -842,19 +879,19 @@ class LaPietraLetta {
     'Ingwaz/dritta': LaPietraLetta(
         classe: ClasseDellaPietra.attesa,
         senso: 'un compimento che matura dentro',
-        modo: 'preparando in silenzio',
+        modo: 'preparando con calma ciò che vuoi compiere',
         criterio: 'ti lascia completare ciò che hai avviato',
         nonFare: 'Non annunciare prima del tempo.',
         animo: 'custodisci le forze e preparati in silenzio',
         lato: 'un lavoro interiore non ancora compiuto'),
-    // Dagaz: "Un nuovo giorno: cambia stato con lui."
+    // Dagaz: "Un nuovo giorno comincia: cambia passo con la luce."
     'Dagaz/dritta': LaPietraLetta(
         classe: ClasseDellaPietra.via,
         senso: 'una svolta chiara',
         modo: 'cambiando passo adesso',
         criterio: 'segna un cambiamento vero',
         nonFare: 'Non restare sulla soglia.',
-        animo: 'accogli il cambiamento con fiducia',
+        animo: 'tieni viva la fiducia e non decidere a caldo',
         lato: 'la paura di cambiare stato'),
     // Othala: "Ciò che viene da lontano ti sostiene: appoggiati." / "Tieni
     // ciò che sostiene, lascia ciò che trattiene."
@@ -874,7 +911,7 @@ class LaPietraLetta {
         modo: 'lasciando le abitudini che ti trattengono',
         criterio: 'non ti lega a vecchi schemi',
         nonFare: 'Non restare per sola abitudine.',
-        animo: 'tieni ciò che ti sostiene e lascia ciò che ti trattiene',
+        animo: 'tieni ciò che ti sostiene e guarda con calma ciò che ti pesa',
         seChiudi: ClasseDellaPietra.via,
         verdettoSeChiudi: 'Sì'),
   };
@@ -1075,8 +1112,20 @@ abstract final class LaRispostaDellaGettata {
           'La tua giornata porta ${p.senso}.',
         ]);
       case TipoDiDomanda.aperta:
+        // Una domanda aperta ("che cosa mi sfugge di questa situazione") non
+        // chiede se muoversi: "è il momento di muoverti" sopra una pietra che
+        // dice "resta dove hai radici" si contraddiceva (lettura severa del
+        // terzo giro). La conclusione dice come tenere conto di cio' che la
+        // gettata indica.
+        final conclusione = switch (c) {
+          ClasseDellaPietra.via => 'tienine conto nelle tue scelte',
+          ClasseDellaPietra.prudenza => 'tienine conto, ma con cautela',
+          ClasseDellaPietra.attesa => 'dagli ancora tempo',
+          ClasseDellaPietra.sosta => 'adesso fermati e non forzare',
+          ClasseDellaPietra.correggi => 'prima correggi ciò che non funziona',
+        };
         fuori.addAll([
-          'Per $tema la gettata indica ${p.senso}: ${_imperativo(c)}.',
+          'Per $tema la gettata indica ${p.senso}: $conclusione.',
           'Per $tema la gettata indica ${p.senso}, ${_conseguenza(c)}.',
           'Per $tema la gettata indica ${p.senso}.',
         ]);
@@ -1222,8 +1271,10 @@ abstract final class LaRispostaDellaGettata {
   static List<String> notaDellaSeconda(LaDomandaLetta q) {
     if (!q.doppia) return const [''];
     final s = q.seconda!;
-    final propria =
-        s != q.tema && s != 'ciò che hai chiesto' && s != 'il tuo momento';
+    final propria = s != q.tema &&
+        s != 'ciò che hai chiesto' &&
+        s != 'il tuo momento' &&
+        s != 'questo momento';
     return [
       if (propria)
         'Questa gettata risponde alla prima domanda: la seconda, per $s, '
@@ -1238,7 +1289,15 @@ abstract final class LaRispostaDellaGettata {
   // SALUTE, LEGGE, DENARO
   // -------------------------------------------------------------------------
 
-  static List<String> _limite(AmbitoDelicato a) => switch (a) {
+  static List<String> _limite(AmbitoDelicato a, {bool terapia = false}) =>
+      switch (a) {
+        AmbitoDelicato.salute when terapia => [
+            'Nessuna terapia si sospende per una gettata: decidono i medici '
+                'che ti seguono, non le rune.',
+            'Sulle medicine decidono i medici che ti seguono, non le rune: '
+                'non sospendere né cambiare niente senza averne parlato con '
+                'loro.',
+          ],
         AmbitoDelicato.salute => [
             'Su come andrà decidono i medici che ti seguono, non le rune: '
                 'porta a loro ogni domanda e ogni dubbio.',
@@ -1246,9 +1305,9 @@ abstract final class LaRispostaDellaGettata {
                 'a loro ogni domanda.',
           ],
         AmbitoDelicato.legge => [
-            'Le rune non predicono l’esito di una causa e non sostituiscono '
+            'Le rune non predicono l’esito di una vicenda legale e non sostituiscono '
                 'un avvocato: ogni passo va deciso con chi ti assiste.',
-            'Le rune non predicono l’esito di una causa: ogni passo va '
+            'Le rune non predicono l’esito di una vicenda legale: ogni passo va '
                 'deciso con un avvocato.',
           ],
         AmbitoDelicato.denaro => [
@@ -1260,6 +1319,62 @@ abstract final class LaRispostaDellaGettata {
           ],
       };
 
+  /// Una lista ruotata di [passo] posti: la stessa persona che rifa' la stessa
+  /// domanda non legge sempre la stessa forma.
+  static List<T> _ruotata<T>(List<T> l, int passo) => [
+        for (var i = 0; i < l.length; i++) l[(i + passo) % l.length],
+      ];
+
+  /// **LE PAROLE DELL'AMBITO DELICATO.** Ordine GA voce GA.06, riapertura: la
+  /// cosa di cui si parla ("per il tuo stato d'animo" su un'operazione al
+  /// ginocchio non diceva niente), chi decide davvero e che cosa la runa non
+  /// sa.
+  static String cosaDelicata(AmbitoDelicato a) => switch (a) {
+        AmbitoDelicato.salute => 'questo periodo',
+        AmbitoDelicato.legge => 'questa vicenda',
+        AmbitoDelicato.denaro => 'questa decisione',
+      };
+
+  static String _cheNonSa(AmbitoDelicato a) => switch (a) {
+        AmbitoDelicato.salute => 'i tuoi esami e la tua storia clinica',
+        AmbitoDelicato.legge => 'le tue carte e le tue scadenze',
+        AmbitoDelicato.denaro => 'i tuoi conti e i tuoi impegni',
+      };
+
+  static String _tempoDelicato(AmbitoDelicato a) => switch (a) {
+        AmbitoDelicato.salute => 'il modo di attraversare questo periodo',
+        AmbitoDelicato.legge => 'il modo di reggere i tempi della vicenda',
+        AmbitoDelicato.denaro => 'il modo di prendere questa decisione',
+      };
+
+  /// **IL TITOLO DEL RESPONSO SU SALUTE, LEGGE O DENARO.** Era la riga della
+  /// pietra che decide, scritta per ogni domanda: "Un nuovo giorno: cambia
+  /// stato con lui" sopra una frase che manda dal consulente (simulazione sul
+  /// Realme, gruppo C, D8), "Apri la mano" su un investimento. Qui il titolo
+  /// dice il limite, nelle parole dell'ambito.
+  static String titoloDelicato(AmbitoDelicato a, RunaGettata decide) {
+    final titoli = switch (a) {
+      AmbitoDelicato.salute => [
+          'Le rune non sostituiscono chi ti cura.',
+          'Prima di ogni decisione ascolta chi ti segue.',
+          'Su questo parla il medico, la runa ti accompagna.',
+        ],
+      AmbitoDelicato.legge => [
+          'Le rune non sostituiscono un avvocato.',
+          'Prima di ogni mossa parla con chi ti assiste.',
+          'Su questo parla chi conosce la legge.',
+        ],
+      AmbitoDelicato.denaro => [
+          'Prima di muovere denaro, fermati.',
+          'Su questo parla chi conosce i tuoi numeri.',
+          'Per i tuoi soldi serve un consulente, non un presagio.',
+        ],
+    };
+    return titoli[
+        IlPresagioDalCorpus.seme('${decide.rune.name}|${decide.inOmbra}') %
+            titoli.length];
+  }
+
   /// **IL PARAGRAFO DELLA RISPOSTA QUANDO LA DOMANDA TOCCA SALUTE, LEGGE O
   /// DENARO** (ordine S voce 17, voce GA.06): il limite per primo, poi
   /// l'atteggiamento che la pietra che decide chiede, mai l'esito. La
@@ -1270,28 +1385,24 @@ abstract final class LaRispostaDellaGettata {
   static String? paragrafoDelicato({
     required LaDomandaLetta domanda,
     required EsitoGettata esito,
+    int variante = 0,
   }) {
     final ambito = domanda.delicato!;
-    final p = LaPietraLetta.di(IlPresagioDalCorpus.pietraCheDecide(esito));
-    // "La pietra che decide" era la formula che il lettore cieco
-    // indipendente ha contato in 21 responsi su 40: qui il tempo si nomina
-    // per l'ambito, e la pietra resta la runa uscita.
-    final tempo = switch (ambito) {
-      AmbitoDelicato.salute => 'il modo di attraversare questi giorni di cura',
-      AmbitoDelicato.legge => 'il modo di reggere i tempi della causa',
-      AmbitoDelicato.denaro => 'il modo di prendere questa decisione',
-    };
-    final seconde = [
-      'Ciò che la runa uscita può darti è $tempo: ${p.animo}, un giorno '
+    final animo = animoDelicato(IlPresagioDalCorpus.pietraCheDecide(esito));
+    final tempo = _tempoDelicato(ambito);
+    final seconde = _ruotata([
+      'Ciò che la runa uscita può darti è $tempo: $animo, un giorno '
           'alla volta, senza decidere niente sulla base di questa gettata.',
-      'Ciò che la runa uscita può darti è $tempo: ${p.animo}, un giorno '
-          'alla volta.',
-      'Ciò che la runa uscita può darti è $tempo: ${p.animo}.',
-      'La runa uscita ti dà solo $tempo: ${p.animo}.',
-    ];
+      'La runa uscita non dice come andrà: ti offre $tempo. '
+          '${maiuscola(animo)}, un giorno alla volta.',
+      'Dalla runa uscita puoi avere solo $tempo: $animo, senza cercare '
+          'in lei ciò che spetta ad altri.',
+      'Per $tempo la runa uscita ti consiglia questo: $animo.',
+    ], variante);
     final toni = frasiDelTono(esito);
     final candidati = [
-      for (final l in _limite(ambito))
+      for (final l
+          in _ruotata(_limite(ambito, terapia: domanda.suTerapia), variante))
         for (final n in notaDellaSeconda(domanda))
           for (final s in seconde)
             for (final t in ['', ...toni.reversed])
@@ -1520,7 +1631,8 @@ abstract final class LaRispostaDellaGettata {
     final p = LaPietraLetta.di(IlPresagioDalCorpus.pietraCheDecide(esito));
     final g = _gruppo(classe(esito, chiude: domanda.chiude));
     if (domanda.delicato != null) {
-      return _riquadroDelicato(domanda.delicato!, p);
+      return _riquadroDelicato(domanda.delicato!, variante,
+          terapia: domanda.suTerapia);
     }
     final forme = _daFare(domanda.tipo, g, domanda.azione);
     final ruotate = [
@@ -1561,41 +1673,94 @@ abstract final class LaRispostaDellaGettata {
         candidati, LaFormaDelResponso.minimo, LaFormaDelResponso.massimo);
   }
 
-  static String? _riquadroDelicato(AmbitoDelicato a, LaPietraLetta p) {
+  static String? _riquadroDelicato(AmbitoDelicato a, int variante,
+      {bool terapia = false}) {
     final primi = switch (a) {
+      AmbitoDelicato.salute when terapia => [
+          'Non sospendere e non cambiare nessuna medicina prima di averne '
+              'parlato con chi ti segue: scrivi i dubbi che hai e portali alla '
+              'prossima visita.',
+          'Se una medicina ti pesa, dillo a chi ti segue senza interromperla '
+              'da solo: chiedi che cosa si può cambiare e annota la risposta '
+              'che ti danno.',
+          'Annota gli effetti che noti e quando compaiono e portali a chi ti '
+              'segue: è chi ti cura, con i tuoi esami, a poter dire se la '
+              'terapia va cambiata.',
+          'Fissa con chi ti segue un momento per parlare della terapia e '
+              'arrivaci con le domande già scritte: nessuna medicina si '
+              'toglie per una sensazione o per un presagio.',
+        ],
       AmbitoDelicato.salute => [
           'Scrivi su un foglio le domande che hai e portale a chi ti segue '
               'alla prossima visita: lì stanno le risposte sull’esito.',
-          'Scrivi le domande che hai e portale a chi ti segue alla prossima '
-              'visita.',
+          'Prima della visita elenca i dubbi che ti pesano, uno per riga e '
+              'chiedi a chi ti segue di rispondere a ognuno con parole '
+              'semplici.',
+          'Annota che cosa senti e che cosa ti preoccupa e portalo a chi ti '
+              'segue: è chi ti cura che può dirti che cosa aspettarti '
+              'davvero.',
+          'Fissa con chi ti segue il momento per parlare di dubbi e paure e '
+              'arrivaci con le domande già scritte: ti aiuteranno a non '
+              'dimenticare nulla.',
+          'Chiedi a chi ti segue di spiegarti ogni passo che ti aspetta e '
+              'scrivi le risposte: sapere che cosa succede toglie peso '
+              'all’attesa.',
         ],
       AmbitoDelicato.legge => [
           'Raccogli in ordine carte, date e messaggi e portali a un avvocato '
               'prima di qualunque passo: è lì che si decide come muoversi.',
-          'Raccogli in ordine carte, date e messaggi e portali a un avvocato '
-              'prima di qualunque passo.',
+          'Prima di ogni mossa scrivi i fatti con le date esatte e le '
+              'domande che vuoi fare e portali a un avvocato che possa '
+              'leggerli per intero.',
+          'Non rispondere, non firmare e non inviare niente che riguardi la '
+              'vicenda senza averne parlato prima con chi ti assiste: ogni '
+              'parola scritta pesa.',
+          'Chiedi a un avvocato quali sono i tempi, le possibilità e i '
+              'rischi reali e fatteli spiegare in parole semplici prima di '
+              'decidere qualunque cosa.',
+          'Tieni in un solo posto tutti i documenti che riguardano la '
+              'vicenda e controlla con chi ti assiste che non manchi nulla '
+              'prima della prossima scadenza.',
         ],
       AmbitoDelicato.denaro => [
           'Prima di muovere denaro fissa un incontro con un consulente '
               'finanziario e chiedi per iscritto rischi e costi di ogni '
               'strada.',
-          'Prima di muovere denaro parla con un consulente finanziario e '
-              'chiedi per iscritto rischi e costi.',
+          'Scrivi quanto hai, quanto devi e quanto puoi permetterti di '
+              'perdere senza intaccare ciò che ti serve per vivere e '
+              'portalo a un consulente.',
+          'Non firmare e non versare niente finché non hai letto per '
+              'iscritto costi, rischi e scadenze insieme a chi conosce i '
+              'tuoi numeri.',
+          'Chiedi a un consulente di mostrarti con cifre vere lo scenario '
+              'peggiore e quello migliore e decidi solo dopo averli '
+              'guardati entrambi.',
+          'Metti sul tavolo tutte le cifre che hanno già un impegno e fatti '
+              'dire da un esperto che margine ti resta davvero prima di ogni '
+              'scelta.',
         ],
     };
     // "Nei giorni che mancano" non diceva a che cosa (il lettore cieco
-    // indipendente: "mancano a cosa?"): adesso il tempo e' quello fino
-    // all'incontro che la prima frase ha appena chiesto.
+    // indipendente: "mancano a cosa?"): il tempo e' quello fino all'incontro
+    // che la prima frase ha appena chiesto. Niente atteggiamento della
+    // pietra qui: sta gia' nel paragrafo, e ripeterlo in tre punti (paragrafo,
+    // riquadro, titolo) e' il difetto che il lettore ha contato sull'operazione
+    // al ginocchio.
     final finoA = switch (a) {
       AmbitoDelicato.salute => 'fino alla visita',
       AmbitoDelicato.legge => 'fino all’incontro con l’avvocato',
-      AmbitoDelicato.denaro => 'fino all’incontro con il consulente',
+      AmbitoDelicato.denaro =>
+        'fino all’incontro con il consulente finanziario',
     };
     final secondi = [
-      'Non decidere niente sulla base di questa gettata: $finoA '
-          '${p.animo}.',
-      '${finoA[0].toUpperCase()}${finoA.substring(1)} ${p.animo}.',
-      'Intanto ${p.animo}.',
+      'Non decidere niente sulla base di questa gettata: $finoA ogni scelta '
+          'aspetta chi può guardare i dati veri.',
+      'Questa gettata non può sostituire i fatti: $finoA non prendere '
+          'decisioni definitive e lascia che sia chi se ne intende a dire '
+          'l’ultima parola.',
+      'Non decidere niente sulla base di questa gettata. Il suo posto è '
+          'accanto a ciò che senti, mai al posto di chi può guardare le tue '
+          'carte, i tuoi numeri o i tuoi esami.',
     ];
     const code = [
       '',
@@ -1605,13 +1770,610 @@ abstract final class LaRispostaDellaGettata {
       'Chiedi tutto ciò che non ti è chiaro, anche due volte.',
     ];
     final candidati = [
-      for (final f in primi)
-        for (final s in secondi)
+      for (final f in _ruotata(primi, variante))
+        for (final s in _ruotata(secondi, variante))
           for (final c in code) c.isEmpty ? '$f $s' : '$f $s $c',
     ];
     return primaCheSta(
         candidati, LaFormaDelResponso.minimo, LaFormaDelResponso.massimo);
   }
+
+  // -------------------------------------------------------------------------
+  // LE SCHEDE DELLE PIETRE SU SALUTE, LEGGE E DENARO
+  // -------------------------------------------------------------------------
+
+  static String _versoParola(RunaGettata p) =>
+      p.inOmbra ? 'rovesciata' : 'dritta';
+
+  /// Chi decide davvero, con la preposizione "a": tre modi per ambito, uno per
+  /// scheda, perche' le schede della stessa gettata non lo ripetano uguale.
+  static String _chiA(AmbitoDelicato a, [int k = 0]) {
+    final l = switch (a) {
+      AmbitoDelicato.salute => const [
+          'ai medici che ti seguono',
+          'a chi ti cura',
+          'al medico che conosce il tuo caso',
+        ],
+      AmbitoDelicato.legge => const [
+          'a chi ti assiste',
+          'a un avvocato',
+          'a un legale che conosca le tue carte',
+        ],
+      AmbitoDelicato.denaro => const [
+          'a un consulente che conosca i tuoi numeri',
+          'a un consulente finanziario',
+          'a chi sa leggere i tuoi conti',
+        ],
+    };
+    return l[k % l.length];
+  }
+
+  static String _chiCon(AmbitoDelicato a, [int k = 0]) {
+    final l = switch (a) {
+      AmbitoDelicato.salute => const [
+          'con i medici che ti seguono',
+          'con chi ti cura',
+          'con il medico che conosce il tuo caso',
+        ],
+      AmbitoDelicato.legge => const [
+          'con chi ti assiste',
+          'con un avvocato',
+          'con un legale che conosca le tue carte',
+        ],
+      AmbitoDelicato.denaro => const [
+          'con un consulente che conosca i tuoi numeri',
+          'con un consulente finanziario',
+          'con chi sa leggere i tuoi conti',
+        ],
+    };
+    return l[k % l.length];
+  }
+
+  /// **IL PARAGRAFO DI UNA PIETRA QUANDO LA DOMANDA TOCCA SALUTE, LEGGE O
+  /// DENARO.** Ordine GA voce GA.06, riapertura. Il corpus PIETRA e' scritto
+  /// per ogni domanda ("Offri quanto serve perche' il legame cresca", "dentro
+  /// il tuo stato d'animo manca il rispetto"): sotto un'operazione o un
+  /// investimento il lettore cieco ha letto schede che parlavano d'altro. Qui
+  /// la pietra dice il suo senso nel suo posto e niente sull'esito, e rimanda
+  /// a chi decide davvero. [indice] e' la posizione della pietra nella
+  /// gettata, e sceglie la forma, perche' le schede della stessa gettata non
+  /// aprano tutte allo stesso modo. Ogni forma ha una coda che la porta fra
+  /// 40 e 50 parole quando il senso della pietra e' corto.
+  static String schedaDelicata({
+    required AmbitoDelicato ambito,
+    required RunaGettata pietra,
+    required int indice,
+    int variante = 0,
+  }) {
+    final forme =
+        formeSchedaDelicata(ambito: ambito, pietra: pietra, chi: indice);
+    for (var k = 0; k < forme.length; k++) {
+      final f = forme[(indice + variante + k) % forme.length];
+      if (LaFormaDelResponso.aMisura(f)) return f;
+    }
+    return forme[(indice + variante) % forme.length];
+  }
+
+  /// "di" davanti a un sintagma con l'articolo, contratto: "parla del passo
+  /// giusto", non "parla di il passo giusto" (lettura severa del terzo giro).
+  static String _di(String s) {
+    for (final (art, con) in const [
+      ('il ', 'del '),
+      ('lo ', 'dello '),
+      ('la ', 'della '),
+      ('l’', 'dell’'),
+      ('i ', 'dei '),
+      ('gli ', 'degli '),
+      ('le ', 'delle '),
+    ]) {
+      if (s.startsWith(art)) return '$con${s.substring(art.length)}';
+    }
+    return 'di $s';
+  }
+
+  /// **IL SENSO DI UNA PIETRA SOTTO SALUTE, LEGGE O DENARO**, quando quello
+  /// scritto per ogni domanda ("senso" in [LaPietraLetta.tutte]) suona come
+  /// un esito o un consiglio: "un bene che cresce quando circola" sotto un
+  /// investimento, "un bene che si disperde" e "una rottura che libera
+  /// spazio" sotto un'operazione al ginocchio, "una crescita che si è
+  /// fermata" sotto "Rimarrò incinta?". Lettura severa del terzo giro; padre:
+  /// i sensi scritti per ogni domanda, ordine GA voce GA.06, riapertura.
+  /// Null: vale il senso di sempre.
+  static String? sensoDelicato(AmbitoDelicato ambito, RunaGettata pietra) {
+    final k = '${pietra.rune.name}/${pietra.inOmbra ? 'ombra' : 'dritta'}';
+    final denaro = ambito == AmbitoDelicato.denaro;
+    return switch (k) {
+      'Fehu/dritta' => denaro
+          ? 'il valore di ciò che possiedi, da guardare con chiarezza'
+          : 'ciò che hai da custodire con cura',
+      'Fehu/ombra' => denaro
+          ? 'un rapporto con ciò che possiedi da rivedere con calma'
+          : 'una presa troppo stretta da allentare',
+      'Hagalaz/dritta' => 'un passaggio che scuote e poi lascia spazio',
+      'Thurisaz/ombra' => 'una fretta da evitare',
+      'Berkano/dritta' => 'una cura che chiede costanza',
+      'Berkano/ombra' => 'una cura da riprendere con pazienza',
+      'Othala/ombra' => 'un vecchio schema che trattiene',
+      'Jera/dritta' => 'un tempo che ha i suoi ritmi',
+      _ => null,
+    };
+  }
+
+  /// **L'ATTEGGIAMENTO DI UNA PIETRA SOTTO SALUTE, LEGGE O DENARO.** Come
+  /// [sensoDelicato]: "ricorda ciò che hai, senza l'ansia di perderlo" sotto
+  /// un'operazione o un investimento presume un'ansia e suona come un
+  /// consiglio sui beni, e "non lasciare che la paura ti spinga a forzare"
+  /// presume una paura. Null: vale l'atteggiamento di sempre.
+  static String animoDelicato(RunaGettata pietra) {
+    final k = '${pietra.rune.name}/${pietra.inOmbra ? 'ombra' : 'dritta'}';
+    return switch (k) {
+      'Fehu/dritta' => 'ricorda ciò che hai già e custodiscilo con cura',
+      'Fehu/ombra' => 'allenta la presa e tieni solo ciò che serve',
+      'Nauthiz/ombra' => 'non lasciare che l’urgenza ti spinga a forzare',
+      _ => LaPietraLetta.di(pietra).animo,
+    };
+  }
+
+  /// Le otto forme del paragrafo di una pietra su salute, legge o denaro,
+  /// ognuna con la coda che la porta fra 40 e 50 parole (la prima che ci
+  /// sta). Lo pretende la prova, per ogni pietra, posto e ambito.
+  static List<String> formeSchedaDelicata({
+    required AmbitoDelicato ambito,
+    required RunaGettata pietra,
+    int chi = 0,
+  }) {
+    final p = LaPietraLetta.di(pietra);
+    final r = '${pietra.rune.name} ${_versoParola(pietra)}';
+    final dov = dove(pietra.posizione);
+    // Nemmeno nell'Ostacolo si dice "il lato difficile" della pietra ("la
+    // paura di cambiare stato" sotto un investimento, lettura severa del
+    // terzo giro): sotto salute, legge e denaro il posto non si legge come un
+    // freno, e la scheda dice il senso della pietra.
+    final senso = sensoDelicato(ambito, pietra) ?? p.senso;
+    final cosa = cosaDelicata(ambito);
+    final chiA = _chiA(ambito, chi);
+    final chiCon = _chiCon(ambito, chi + 1);
+    final nonSa = _cheNonSa(ambito);
+    // Le code cambiano da una scheda all'altra: "un giorno alla volta" in
+    // fondo a quattro schede su sette era la formula che il lettore cieco ha
+    // contato (rune-31: "un giorno alla volta" tre volte).
+    final code = _ruotata(const [
+      '',
+      ' Un giorno alla volta.',
+      ' Passo dopo passo, con calma.',
+      ' Senza forzare i tempi.',
+      ' Senza fretta, un giorno alla volta.',
+      ' Con calma e senza fretta, passo dopo passo.',
+      ' Un giorno alla volta, senza cercare certezze che nessuno può dare.',
+      ' Non serve altro, per ora: un giorno alla volta, senza cercare '
+          'certezze che nessuno può dare.',
+    ], chi);
+    final nuclei = [
+      '$r, $dov, indica $senso. Non dice come andrà $cosa: nessuna runa lo '
+          'sa e la parola decisiva spetta $chiA. Ti dice invece con che '
+          'animo attraversare questo tratto.',
+      '$r $dov: $senso. Non è una previsione su $cosa e nessuna gettata '
+          'può esserlo. È un invito a stare presente a ciò che senti, mentre '
+          'le decisioni che contano restano $chiA.',
+      'Il segno di $r $dov è $senso. Su $cosa la runa non sa niente di '
+          'concreto, perché non conosce $nonSa. Per il resto rivolgiti '
+          '$chiA.',
+      '$r $dov parla ${_di(senso)}. Non è un verdetto su $cosa: il verdetto, '
+          'se c’è, lo danno i fatti, letti $chiCon.',
+      'Per $cosa, $r $dov non promette e non nega: indica $senso. Resta con '
+          'questo e porta ogni dubbio concreto $chiA, perché venga guardato '
+          'davvero.',
+      '$r, $dov, mostra $senso. Non risponde alla tua domanda su $cosa: '
+          'risponde a un’altra, più vicina, cioè come vuoi stare mentre '
+          'aspetti. Per le domande pratiche rivolgiti $chiA.',
+      '$r, $dov, porta $senso. Su $cosa questo non è un annuncio: è '
+          'un’indicazione sul tuo modo di stare, mentre la parte concreta '
+          'resta $chiA.',
+      'Che cosa accadrà per $cosa, $r $dov non lo sa: lo dicono i fatti, '
+          'letti $chiCon. Quello che sa dirti è $senso.',
+    ];
+    return [
+      for (final n in nuclei)
+        code.map((c) => '$n$c').firstWhere(LaFormaDelResponso.aMisura,
+            orElse: () =>
+                '$n${code.reduce((a, b) => a.length >= b.length ? a : b)}'),
+    ];
+  }
+
+  /// Le dieci forme del "Cosa fare" di una pietra su salute, legge o denaro
+  /// (la gettata sul telo ha sette pietre, due schede non hanno lo stesso
+  /// testo, e nessuna ripete il riquadro del responso principale). Ognuna sta fra 40 e 50 parole (lo pretende la prova).
+  static List<String> formeConsiglioDelicato(AmbitoDelicato ambito) {
+    return switch (ambito) {
+      AmbitoDelicato.salute => [
+          'Scrivi le domande che hai e portale a chi ti segue alla prossima '
+              'visita: nessuna gettata può rispondere al posto suo. Intanto '
+              'non cercare presagi in ogni piccolo segnale e concediti '
+              'momenti di quiete che non dipendano dall’esito, anche brevi.',
+          'Chiedi a chi ti segue di spiegarti con parole semplici che cosa '
+              'aspetta e che cosa è possibile e annota le risposte. Sapere '
+              'come stanno le cose è più utile di qualunque lettura: porta '
+              'alla visita le tue paure scritte.',
+          'Prima di ogni scelta che riguarda le cure parlane con chi ti '
+              'segue: la runa non sostituisce il suo parere e non lo '
+              'corregge. Se un dubbio ti toglie la pace, chiamalo per nome e '
+              'portalo alla prossima visita, senza vergognarti.',
+          'Fatti accompagnare alla visita da una persona fidata, che ascolti '
+              'con te e ricordi quello che viene detto. Poi rileggi gli '
+              'appunti insieme a quella persona: due paia di orecchie '
+              'capiscono più di uno solo, soprattutto quando il cuore è '
+              'agitato.',
+          'Tieni un quaderno con le domande che ti vengono in mente nei '
+              'giorni di attesa e portalo con te alla visita. Non lasciare '
+              'che sia l’ansia a decidere che cosa chiedere: scrivere ti '
+              'aiuta a distinguere i dubbi veri dalle paure.',
+          'Se hai bisogno di un parere in più, chiedilo a un altro medico o '
+              'a chi ti segue, ma non a una gettata: le rune parlano di come '
+              'stai tu, non di che cosa dicono gli esami. Concediti tempo e '
+              'riposo, senza fretta di sapere.',
+          'Prima della visita decidi con una persona di fiducia quali tre '
+              'cose vuoi capire e chiedile di ascoltare con te. Nessuna runa '
+              'conosce le tue analisi: chi le ha davanti può spiegarti che '
+              'cosa significano, con calma e senza promettere più di quanto '
+              'sa.',
+          'Se in questi giorni ti vengono in mente sintomi o dubbi nuovi, '
+              'annotali con la data e comunicali a chi ti segue senza '
+              'aspettare la visita. Le rune non sono un esame: servono a '
+              'stare più saldo, mentre le risposte vere vengono da chi ti '
+              'cura.',
+          'Dedica ogni giorno un momento a qualcosa che ti calma e non ha '
+              'a che fare con l’attesa: una musica, una tazza calda, due '
+              'righe su un quaderno. Quando arriva il momento di decidere, '
+              'affidati alle parole di chi ti segue e non a un presagio.',
+          'Di’ a una persona vicina di che cosa hai bisogno in questi '
+              'giorni, anche solo di compagnia o di una telefonata. Le rune '
+              'non possono sostituire chi ti cura, ma una presenza amica '
+              'aiuta: lascia che qualcuno ti stia accanto mentre aspetti le '
+              'risposte vere.',
+        ],
+      AmbitoDelicato.legge => [
+          'Raccogli in un fascicolo carte, date e messaggi che riguardano la '
+              'vicenda e portali a un avvocato prima di ogni mossa. Nessuna '
+              'gettata conosce i fatti: chi li ha davanti può dirti che cosa '
+              'è possibile e che cosa è prudente fare.',
+          'Scrivi le domande che vuoi fare a chi ti assiste, una per riga e '
+              'fatti spiegare i rischi in parole semplici. Non firmare e non '
+              'inviare niente che riguardi la vicenda senza averne parlato '
+              'con un avvocato. Poi decidi con calma, a mente fredda.',
+          'Prima di rispondere a una lettera o a un messaggio che riguarda '
+              'la vicenda, chiedi a un avvocato come farlo. Una frase scritta '
+              'd’impulso può pesare molto: dai alla calma il tempo che serve '
+              'e lascia che sia un parere competente a guidarti.',
+          'Tieni un elenco delle date che contano e controlla con chi ti '
+              'assiste che nessuna scadenza ti sfugga. La runa non può '
+              'sapere che cosa prevede la legge nel tuo caso: per questo '
+              'serve chi la conosce e può leggere le tue carte.',
+          'Evita di discutere la vicenda a caldo con l’altra parte: ogni '
+              'parola detta o scritta può essere ripresa più avanti, anche a '
+              'distanza di mesi. Prima parlane con un avvocato, che può '
+              'dirti che cosa è prudente dire e quando, senza lasciarti '
+              'guidare dalla fretta.',
+          'Chiedi a un avvocato quali sono i tempi e le possibilità reali '
+              'nel tuo caso e quali sono i costi. Decidere con i dati veri '
+              'toglie peso all’attesa; decidere sulla base di una gettata non '
+              'cambia i fatti e non li conosce.',
+          'Prima di dire o firmare qualcosa sulla vicenda scrivi in tre '
+              'righe che cosa vuoi ottenere e che cosa temi e portale a un '
+              'avvocato. Sarà l’avvocato a dirti se la strada è praticabile: '
+              'una gettata non conosce le leggi né i tempi del tuo caso.',
+          'Metti in ordine ricevute, contratti e messaggi in una cartella, '
+              'dal più vecchio al più recente e porta tutto a chi ti '
+              'assiste. Non cercare nelle rune una sentenza: il parere che '
+              'conta nasce dai documenti e da chi sa leggerli, con calma e '
+              'metodo.',
+          'Prima di raccontare la vicenda a qualcuno, decidi con un '
+              'avvocato che cosa è bene dire e che cosa tacere. Anche una '
+              'conversazione amichevole può tornare utile all’altra parte: la '
+              'prudenza non è sospetto, è cura di te e delle tue ragioni.',
+          'Chiedi a chi ti assiste quali scadenze hai davanti e che cosa '
+              'succede se non le rispetti e segnala la data sul calendario '
+              'con un margine di sicurezza. Nessuna gettata sa leggere un '
+              'termine di legge: un errore di data può costare più di '
+              'qualunque attesa.',
+        ],
+      AmbitoDelicato.denaro => [
+          'Prima di muovere denaro fissa un incontro con un consulente che '
+              'conosca i tuoi numeri e chiedi per iscritto rischi e costi di '
+              'ogni strada. Nessuna gettata sa quanto hai, quanto devi e '
+              'quanto puoi permetterti di perdere, nemmeno a grandi linee.',
+          'Scrivi quanto ti serve ogni mese per vivere e quanto puoi '
+              'permetterti di perdere e portalo a un consulente prima di '
+              'scegliere. Sono questi numeri a dire che cosa è prudente, non '
+              'una runa e non un presagio. Il resto può aspettare.',
+          'Non firmare e non versare niente finché non hai letto con calma, '
+              'per iscritto, costi, rischi e scadenze. Se qualcuno ti mette '
+              'fretta, prendi tempo: una buona occasione resiste a una '
+              'settimana di verifiche fatte con chi se ne intende.',
+          'Chiedi a un consulente di mostrarti con cifre vere lo scenario '
+              'peggiore oltre a quello migliore e guardali entrambi prima '
+              'di decidere. La runa non conosce i tuoi conti: chi li guarda '
+              'con te può darti un parere che regge.',
+          'Metti per iscritto gli impegni che hai già e il margine che ti '
+              'resta e confrontalo con un esperto. Decidere dopo aver visto '
+              'i numeri è più sereno che decidere sperando in un segno: i '
+              'segni non entrano nel tuo bilancio.',
+          'Dai a questa scelta il tempo che chiede e non lasciare che sia '
+              'l’urgenza a decidere. Un parere competente sui tuoi conti '
+              'viene prima di qualunque gettata: se non lo hai ancora, '
+              'cercalo e solo dopo torna a chiederti che cosa senti.',
+          'Prima di impegnare una somma parlane con un consulente e porta '
+              'con te le cifre vere: entrate, spese, debiti, risparmi. '
+              'Nessun segno sostituisce un conto fatto bene. Se la proposta '
+              'non lascia il tempo di verificare, prendi comunque quel '
+              'tempo.',
+          'Immagina il caso peggiore e scrivi quanto ti costerebbe davvero; '
+              'poi chiedi a un consulente se potresti sostenerlo. Una runa '
+              'non sa dirti se i tuoi conti reggono e nessun presagio ti '
+              'restituirebbe una somma perduta: la prudenza si fa con i '
+              'numeri, prima di decidere.',
+          'Se ti viene voglia di decidere subito, aspetta un giorno e '
+              'riparlane con una persona di fiducia che non abbia interesse '
+              'nella scelta. Poi porta i numeri a un consulente. Una runa non '
+              'conosce i tuoi conti e non può dirti quando è prudente '
+              'muoverti.',
+          'Distingui ciò che ti serve per vivere da ciò che puoi '
+              'destinare a un rischio e scrivi le due somme. Porta il foglio '
+              'a un consulente prima di decidere: la runa non sa quanto pesa '
+              'per te una perdita. Solo chi vede i tuoi conti può aiutarti a '
+              'misurarla.',
+        ],
+    };
+  }
+
+  /// Il "Cosa fare" di una pietra su salute, legge o denaro: dice il limite e
+  /// manda a chi e' competente, come il principale, ma con un'azione diversa
+  /// per ogni posizione della gettata.
+  static String consiglioDelicato({
+    required AmbitoDelicato ambito,
+    required int indice,
+    int variante = 0,
+    String? escludi,
+  }) {
+    // Mai la stessa cosa che il responso principale ha appena detto nel suo
+    // riquadro (lettura severa del terzo giro: "Prima di muovere denaro fissa
+    // un incontro con un consulente" sopra e dentro la scheda).
+    final tutte = formeConsiglioDelicato(ambito);
+    final altre = escludi == null
+        ? tutte
+        : [
+            for (final f in tutte)
+              if (!_simile(f, escludi)) f
+          ];
+    final forme = altre.length >= 7 ? altre : tutte;
+    return forme[(indice + variante) % forme.length];
+  }
+
+  /// Due frasi che dicono la stessa cosa: le prime frasi condividono almeno
+  /// la meta' delle parole lunghe della piu' corta.
+  static bool _simile(String a, String b) {
+    Set<String> parole(String s) => {
+          for (final m in RegExp(r'[a-zà-ÿ]{4,}')
+              .allMatches(s.split(RegExp(r'[.:;]')).first.toLowerCase()))
+            m[0]!
+        };
+    final x = parole(a);
+    final y = parole(b);
+    if (x.isEmpty || y.isEmpty) return false;
+    final comuni = x.intersection(y).length;
+    return comuni / (x.length < y.length ? x.length : y.length) >= 0.5;
+  }
+
+  // -------------------------------------------------------------------------
+  // L'APPROFONDIMENTO DELLA LUNGA
+  // -------------------------------------------------------------------------
+
+  /// **L'APPROFONDIMENTO DELLA GETTATA, COMPOSTO DALLE PIETRE USCITE.** Ordine
+  /// GA voce GA.06, riapertura. Era una voce del corpus LEGAME, scelta per
+  /// gettata e per tono (quante pietre in ombra), e il tono non dice la
+  /// direzione del responso: "Le tre pietre in luce dicono che il tempo è
+  /// maturo" sotto un responso che diceva "nessun verdetto" e con Isa, la
+  /// sosta, al centro (lettore cieco indipendente, rune-2); "Attraversalo senza
+  /// esitare" sotto un "Aspetta"; "Un'ombra sul Cuore" con il Cuore dritto.
+  /// Una frase che dice il vero di ogni gettata e' solo quella che descrive le
+  /// pietre che ci sono: qui il paragrafo dice che cosa mostra ogni pietra nel
+  /// suo posto (il suo senso, quello stesso dei titoli delle schede), conta le
+  /// pietre in ombra come le conta il codice, e chiude con una frase che va
+  /// nella direzione del responso principale, mai in un'altra.
+  ///
+  /// [direzione]: la classe del verdetto del responso principale, per le
+  /// decisioni e le scelte; null per le altre domande, che non hanno un
+  /// verdetto. [ambito]: salute, legge o denaro: allora il paragrafo non
+  /// legge nessun esito (neanche "dove tende la strada"), dice solo
+  /// l'atteggiamento che ogni pietra chiede, e chiude rimandando a chi e'
+  /// competente.
+  static String? approfondimento({
+    required EsitoGettata esito,
+    ClasseDellaPietra? direzione,
+    AmbitoDelicato? ambito,
+    int variante = 0,
+  }) {
+    final pietre = esito.rune;
+    if (pietre.isEmpty) return null;
+    final solo = pietre.length == 1;
+    String senso(RunaGettata p) => p.posizione.titolo == 'Ostacolo'
+        ? LaPietraLetta.latoDifficile(p)
+        : LaPietraLetta.di(p).senso;
+    RunaGettata? alPosto(String titolo) {
+      for (final p in pietre) {
+        if (p.posizione.titolo == titolo) return p;
+      }
+      return null;
+    }
+
+    final decide = IlPresagioDalCorpus.pietraCheDecide(esito);
+    final aperture = <String>[];
+    if (ambito != null) {
+      // Gli atteggiamenti, la pietra che decide per prima.
+      final ordine = [decide, ...pietre.where((p) => p != decide)];
+      final animi = [for (final p in ordine) animoDelicato(p)];
+      if (solo) {
+        // Il significato scritto per ogni domanda non si apre sotto salute,
+        // legge o denaro ("Il bestiame, il bene che circola" sotto un
+        // investimento): la pietra dice il suo senso delicato, nel suo verso.
+        final sensoSolo =
+            sensoDelicato(ambito, decide) ?? LaPietraLetta.di(decide).senso;
+        aperture.add('${decide.rune.name} ${_versoParola(decide)}: '
+            '$sensoSolo. La runa non dice come andrà: chiede soltanto '
+            'questo: ${animi.first}.');
+      } else {
+        for (final quanti in [3, 2]) {
+          if (animi.length < quanti) continue;
+          aperture.add('Le pietre non dicono come andrà e chiedono, in '
+              'ordine: ${animi.take(quanti).join('; ')}.');
+        }
+      }
+    } else {
+      switch (esito.gettata.id) {
+        case 'norne':
+          if (pietre.length == 3) {
+            aperture.addAll([
+              'Le tre Norne raccontano un cammino: alle spalle '
+                  '${senso(pietre[0])}, nel presente ${senso(pietre[1])}, '
+                  'davanti a te ${senso(pietre[2])}.',
+              'Da dove vieni, ${senso(pietre[0])}. Dove sei adesso, '
+                  '${senso(pietre[1])}. Dove tende la strada, '
+                  '${senso(pietre[2])}.',
+            ]);
+          }
+        case 'croce':
+          final cuore = alPosto('Cuore');
+          final radice = alPosto('Radice');
+          final ostacolo = alPosto('Ostacolo');
+          final esitoP = alPosto('Esito');
+          if (cuore != null &&
+              radice != null &&
+              ostacolo != null &&
+              esitoP != null) {
+            aperture.addAll([
+              'Nel cuore della questione, ${senso(cuore)}. Ciò che ti frena, '
+                  '${senso(ostacolo)}. Dove tende la questione, '
+                  '${senso(esitoP)}.',
+              'Nel cuore della questione, ${senso(cuore)}. Alla radice, '
+                  '${senso(radice)}. Ciò che ti frena, ${senso(ostacolo)}. '
+                  'Dove tende la questione, ${senso(esitoP)}.',
+              'Cuore: ${senso(cuore)}. Ostacolo: ${senso(ostacolo)}. Esito: '
+                  '${senso(esitoP)}.',
+            ]);
+          }
+        case 'telo':
+          final centro = alPosto('Al centro');
+          final presso = alPosto('Presso il centro');
+          if (centro != null && presso != null) {
+            final margini = [
+              for (final p in pietre)
+                if (p.posizione.titolo == 'Ai margini') p.rune.name
+            ];
+            final elenco = margini.isEmpty
+                ? ''
+                : ' Ai margini si muovono voci più lievi: '
+                    '${_elenco(margini)}.';
+            aperture.addAll([
+              'Sul telo, al centro, ${senso(centro)}; presso il centro, '
+                  '${senso(presso)}.$elenco',
+              'Il centro del telo porta ${senso(centro)} e accanto a lui '
+                  '${senso(presso)}.$elenco',
+            ]);
+          }
+        default:
+          final p = pietre.first;
+          final l = LaPietraLetta.di(p);
+          // Una pietra in ombra non si apre con il significato della dritta:
+          // "La betulla, la crescita che cura: qualcosa di nuovo germoglia"
+          // sopra un responso che diceva "un germoglio che stenta" (lettura
+          // severa del terzo giro).
+          final apre = p.inOmbra
+              ? '${p.rune.name} in ombra: ${l.senso}.'
+              : p.rune.meaning;
+          aperture.addAll([
+            '$apre La runa agisce così: ${l.modo}. ${l.nonFare}',
+            '$apre ${l.nonFare} Agisce così: ${l.modo}.',
+          ]);
+      }
+    }
+    if (aperture.isEmpty) {
+      aperture.add('Le pietre uscite sono '
+          '${_elenco([for (final p in pietre) p.rune.name])}.');
+    }
+    final toni = [
+      '',
+      ...frasiDelTono(esito).where((f) => !f.contains('lì serve')),
+    ];
+    // Le chiuse: la lunga e la breve. Con una pietra sola "letti insieme"
+    // non si dice.
+    final insieme = solo ? 'Letta così, la pietra' : 'Letti insieme, i segni';
+    final insiemeBreve = solo ? 'Da sola la pietra' : 'Insieme i segni';
+    // Il verbo concorda con "la pietra" o con "i segni" ("Da sola la pietra
+    // non danno un verdetto", lettura severa del terzo giro).
+    final danno = solo ? 'dà' : 'danno';
+    final sostengono = solo ? 'sostiene' : 'sostengono';
+    final chiedono = solo ? 'chiede' : 'chiedono';
+    final dicono = solo ? 'dice' : 'dicono';
+    final chiuse = ambito != null
+        ? switch (ambito) {
+            AmbitoDelicato.salute => [
+                'Ogni scelta sulla salute spetta a chi ti segue.',
+                'Per tutto ciò che riguarda le cure, decidono i medici.',
+              ],
+            AmbitoDelicato.legge => [
+                'Ogni mossa con conseguenze reali spetta a un avvocato.',
+                'Le scelte sulla vicenda spettano a chi ti assiste.',
+              ],
+            AmbitoDelicato.denaro => [
+                'Cifre e rischi si guardano con un consulente.',
+                'Su numeri e scadenze decide chi conosce i tuoi conti.',
+              ],
+          }
+        : switch (direzione) {
+            ClasseDellaPietra.via || ClasseDellaPietra.prudenza => [
+                '$insieme $sostengono la direzione indicata sopra; resta tua '
+                    'la misura del passo.',
+                '$insiemeBreve $sostengono la strada del responso, col tuo '
+                    'ritmo.',
+                '$insiemeBreve $sostengono il responso.',
+              ],
+            ClasseDellaPietra.attesa || ClasseDellaPietra.sosta => [
+                '$insieme $chiedono tempo: prima di ogni mossa lascia che ciò '
+                    'che è fermo trovi il suo assetto.',
+                '$insiemeBreve $chiedono quiete: la mossa giusta si vede dopo '
+                    'una pausa.',
+                '$insiemeBreve $chiedono quiete.',
+              ],
+            ClasseDellaPietra.correggi => [
+                '$insieme $chiedono prima di correggere ciò che non regge: la '
+                    'direzione si legge dopo.',
+                '$insiemeBreve $dicono di sistemare un punto prima di '
+                    'andare avanti.',
+                '$insiemeBreve $chiedono prima una correzione.',
+              ],
+            null => [
+                '$insieme non $danno un verdetto: ${solo ? 'mostra' : 'mostrano'} '
+                    'il clima in cui vivi la domanda.',
+                '$insiemeBreve non $danno un verdetto: '
+                    '${solo ? 'descrive' : 'descrivono'} il tuo modo di stare '
+                    'nella domanda.',
+                '$insiemeBreve non $danno un verdetto.',
+              ],
+          };
+    final candidati = <String>[];
+    for (final c in chiuse) {
+      for (final t in toni) {
+        for (final a in aperture) {
+          candidati.add([a, t, c].where((x) => x.isNotEmpty).join(' '));
+        }
+      }
+    }
+    final bene = [
+      for (final c in candidati)
+        if (LaFormaDelResponso.aMisura(c)) c,
+    ];
+    return bene.isEmpty ? null : bene[variante % bene.length];
+  }
+
   // -------------------------------------------------------------------------
   // IL TITOLO DELLA SCHEDA DI UNA PIETRA
   // -------------------------------------------------------------------------
@@ -1645,11 +2407,17 @@ abstract final class LaRispostaDellaGettata {
   static String titoloDellaScheda(RunaGettata pietra, {bool delicata = false}) {
     final p = LaPietraLetta.di(pietra);
     if (delicata) {
-      return '${maiuscola(dove(pietra.posizione))}, per te: ${p.animo}.';
+      return '${maiuscola(dove(pietra.posizione))}, per te: '
+          '${animoDelicato(pietra)}.';
     }
+    // Nel Consiglio il titolo e' l'atteggiamento della pietra, detto a chi
+    // legge ("Il consiglio: custodisci le forze e preparati in silenzio"):
+    // il modo e' un gerundio scritto per continuare una frase, e da solo
+    // diceva "Il consiglio: chiudendo prima le perdite che non vedi" (lettore
+    // cieco indipendente, riapertura della voce GA.06).
     final che = switch (pietra.posizione.titolo) {
       'Ostacolo' => LaPietraLetta.latoDifficile(pietra),
-      'Consiglio' => p.modo,
+      'Consiglio' => p.animo,
       _ => p.senso,
     };
     return '${ruolo(pietra.posizione)}: $che.';

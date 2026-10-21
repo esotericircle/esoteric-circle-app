@@ -72,7 +72,7 @@
 1. Le rune non segnano il giorno per {cosa}: dicono però che il tempo si allunga finché qualcosa continua a disperdersi. Prima chiudi ciò che ti svuota (abitudini, impegni inutili, promesse senza seguito): solo così l'attesa smette di consumarti e le cose possono tornare a scorrere.
 2. Questa gettata non indica quando cambierà qualcosa per {cosa}, mostra però perché il tempo sembra non passare. Le energie che scivolano via ogni giorno tengono ferma la situazione: tappane una sola e il movimento può ricominciare prima di quanto temi.
 3. Nessuna pietra conta i giorni per {cosa}, ma il bene che sfugge insegna che stringere l'attesa con ansia la rende più lunga. Allenta la presa sui tempi, tieni solo ciò che serve per andare avanti e lascia che le cose riprendano il loro corso.
-4. Non c'è runa che dia una data per {cosa}, c'è però un segno che parla di risorse disperse. Finché ciò che hai se ne va in rivoli l'attesa resta lunga: raccogli le forze su una cosa sola e il tempo può tornare a muoversi.
+4. Non c'è runa che dia una data per {cosa}, c'è però un segno che parla di risorse disperse. Finché ciò che hai se ne va in rivoli, l'attesa resta lunga: raccogli le forze su una cosa sola e il tempo può tornare a muoversi.
 5. Il quando per {cosa} sfugge alle rune, che non leggono calendari. Leggono invece una perdita da fermare: più a lungo lasci scorrere via energie e attenzione in cose che non ti restituiscono niente, più a lungo la situazione resta sospesa a mezz'aria.
 
 ## Fehu, in ombra, previsione
@@ -91,7 +91,7 @@
 
 ## Fehu, in ombra, vaga
 1. Per {cosa} le rune non rispondono a una domanda così larga: nomina una cosa precisa e la lettura cambia. Per ora il segno parla di energie che si disperdono: ti chiede di tenere solo ciò che serve davvero e di lasciar cadere il superfluo.
-2. Nessuna pietra può dirti che cosa ti aspetta per {cosa} senza una domanda precisa: dimmi che cosa ti preoccupa e la risposta si fa chiara. Intanto il segno mostra un bene che scivola via, quindi chiudi le fessure prima di aggiungere altro.
+2. Nessuna pietra può dirti che cosa ti aspetta per {cosa} senza una domanda precisa: dimmi che cosa ti preme e la risposta si fa chiara. Intanto il segno mostra un bene che scivola via, quindi chiudi le fessure prima di aggiungere altro.
 3. Le rune non leggono il futuro in generale per {cosa}: raccontami la situazione che ti sta a cuore. Per adesso dicono di allentare la presa, perché ciò che stringi con ansia si consuma mentre ciò che lasci respirare resta con te.
 4. Senza una domanda mirata per {cosa} nessuna runa può indicarti la via, quindi restringi a una scelta sola o a una persona sola. Il segno di oggi riguarda le risorse che perdi senza accorgertene: tempo, attenzione, energia spesa dove non torna indietro.
 5. Così com'è posta, la domanda per {cosa} sfugge alle rune, che non parlano per frasi generali. Riformulala attorno a una sola situazione che ti sta a cuore. Per ora il messaggio è uno: tieni ciò che serve davvero e lascia andare il superfluo.
@@ -337,7 +337,7 @@
 ## Ansuz, dritta, vaga
 1. Nessuna runa disegna un futuro intero per {cosa}, ma a una domanda precisa la lettura sa rispondere meglio. Dimmi che cosa ti preme. Per ora questa pietra consiglia la parola detta a voce più del pensiero che tieni chiuso dentro.
 2. Su tutto insieme le pietre non rispondono, nemmeno per {cosa}: nomina una cosa sola e la lettura si fa precisa. Intanto la bocca cede il posto all’orecchio: un consiglio sensato, una parola di chi ti conosce, può chiarire più di quanto credi.
-3. Di un destino già scritto per {cosa} questa gettata non sa nulla: offre un consiglio. Se vuoi una risposta vera, raccontami che cosa ti preoccupa o che cosa desideri; intanto conta la parola: dire ciò che pensi invece di tenerlo dentro.
+3. Di un destino già scritto per {cosa} questa gettata non sa nulla: offre un consiglio. Se vuoi una risposta vera, raccontami che cosa ti preme o che cosa desideri; intanto conta la parola: dire ciò che pensi invece di tenerlo dentro.
 4. Per intero, il domani non sta in nessuna runa, neppure per {cosa}: restringi la domanda a una persona o a una scelta e la risposta può farsi chiara. Per adesso basta dire ad alta voce ciò che desideri: la parola detta è già un inizio.
 5. A una domanda così ampia nessuna pietra risponde per {cosa}: riformulala con un nome, un luogo o una scelta e la lettura si fa netta. Per ora conta l’orecchio: qualcuno vicino a te può avere una parola utile, se gliela chiedi.
 
@@ -372,7 +372,7 @@
 ## Ansuz, in ombra, previsione
 1. Nessuna runa svela l'esito per {cosa}: questa pietra chiede di controllare che le informazioni su cui conti siano esatte. Ciò che senti dire in giro, previsioni comprese, va preso con cautela: un dettaglio capito male pesa più di quanto sembri.
 2. L'esito per {cosa} non compare in questa gettata; compare invece un avvertimento sulle parole. Pronostici altrui, frasi rassicuranti o allarmanti: lasciali tutti da parte e fidati soltanto di ciò che sai davvero, non di ciò che si racconta in giro.
-3. Non c'è runa che legga in anticipo l'esito per {cosa}. Qui parla la parola fraintesa. I segnali, ora, si leggono facilmente storti: un silenzio non è per forza un rifiuto, una parola gentile non è per forza una promessa. Giudica dai fatti.
+3. Non c'è runa che legga in anticipo l'esito per {cosa}. Qui il rischio è la parola fraintesa. I segnali, ora, si leggono facilmente storti: un silenzio non è per forza un rifiuto, una parola gentile non è per forza una promessa. Giudica dai fatti.
 4. Sull'esito per {cosa} le pietre non dicono nulla: parlano invece del modo di aspettarlo, che qui è verificare prima di fidarti. Rileggi ciò che sai, chiedi conferma di ogni punto incerto e non lasciare che una voce di corridoio cambi le tue scelte.
 5. Del risultato per {cosa} questa gettata non dice nulla; dice però che le parole, ora, possono ingannare anche chi le pronuncia in buona fede. Prima di contare su qualcosa, fatti ripetere ciò che conta e annotalo subito con parole tue.
 
@@ -580,7 +580,7 @@
 5. Questa gettata non guarda dentro un'altra persona per {cosa}, ma ti chiede con fermezza di non correre alle conclusioni. Ciò che senti adesso può essere più paura che verità: solo il tempo, con la luce giusta, separa davvero le due cose.
 
 ## Kenaz, in ombra, vaga
-1. Le pietre non rispondono bene a domande così larghe per {cosa}: dimmi che cosa ti preoccupa in concreto e la lettura si fa precisa. Per ora la fiamma parla di una chiarezza che tarda: non tutto è ancora visibile e questo è del tutto normale.
+1. Le pietre non rispondono bene a domande così larghe per {cosa}: dimmi che cosa ti preme in concreto e la lettura si fa precisa. Per ora la fiamma parla di una chiarezza che tarda: non tutto è ancora visibile e questo è del tutto normale.
 2. Nessuna runa disegna tutto il futuro per {cosa}, quindi nomina una sola questione che ti sta davvero a cuore e la risposta diventa precisa. Intanto il segno chiede pazienza: un'idea è ancora al buio e ha bisogno di tempo per mostrarsi.
 3. Una domanda così vaga non trova nei segni una risposta utile per {cosa}: raccontami che cosa vuoi capire e il responso si stringe. La lettura dice comunque una cosa importante: la luce arriva piano, quindi oggi conviene non tirare conclusioni affrettate su nessun fronte.
 4. Senza un tema preciso le rune non possono guidarti per {cosa}; restringi a una situazione, una persona o una scelta. Quello che emerge adesso è una fiamma che stenta a prendere: qualcosa deve ancora chiarirsi, dentro o intorno a te, prima di farsi comprensibile.
@@ -657,11 +657,11 @@
 8. Nessun responso delle rune abbraccia tutto per {cosa}: riformula la domanda attorno a una sola questione e la risposta diventa più chiara. Il segno di oggi è il patto: chiediti quale legame ti sostiene e che cosa puoi dare in cambio già questa settimana.
 
 ## Wunjo, dritta, decisione
-1. Sì, purché la scelta di {azione} nasca dal desiderio di stare meglio con le persone che contano. Se invece vuol dire rompere un legame che ti dà ancora gioia, non adesso: prima guarda che cosa ti lega a chi è coinvolto.
-2. Sì: la decisione di {azione} può darti la pienezza che cerchi, se la vivi insieme a chi conta per te. Una gioia vera è condivisa, quindi non ti spinge ad allontanarti da chi ti vuole bene: se la scelta separa, parlane prima.
-3. Sì, quando pensando al dopo vedi ancora intorno a te le persone care: allora la scelta di {azione} è quella giusta. Se al contrario ti toglie compagnia e leggerezza, non adesso: qui si chiede una gioia da condividere, non strappi improvvisi.
+1. Sì, purché la scelta di {azione} nasca dal desiderio di stare meglio con le persone che contano. Se invece ti toglie una gioia che hai già, non adesso: prima guarda che cosa ti lega a chi ti sta vicino e che cosa rischi di perdere.
+2. Sì: la decisione di {azione} può darti la pienezza che cerchi, se la vivi insieme a chi conta per te. Una gioia vera è condivisa, quindi non ti spinge ad allontanarti da chi ti vuole bene: se la scelta ti allontana da qualcuno, parlane prima.
+3. Sì, quando pensando al dopo vedi ancora intorno a te le persone care: allora la scelta di {azione} è quella giusta. Se al contrario ti toglie compagnia e leggerezza, non adesso: qui si chiede una gioia da condividere, non una mossa presa da soli.
 4. Sì, con il cuore aperto: decidere di {azione} può portarti un momento di pienezza vera e condivisa. Ma se la scelta allontana da te chi ti dà gioia, fermati e domandati se esiste un modo che tenga insieme decisione e affetti.
-5. Sì, senza aspettare che tutto sia perfetto: la scelta di {azione} può portare armonia se tiene vicine le persone che contano. Solo se vuol dire chiudere un legame che ti fa ancora sorridere, rallenta e parlane prima a voce con chi è coinvolto.
+5. Sì, senza aspettare che tutto sia perfetto: la scelta di {azione} può portare armonia se tiene vicine le persone che contano. Solo se ti toglie la compagnia di chi ti fa ancora sorridere, rallenta e parlane prima a voce con chi è coinvolto.
 
 ## Wunjo, dritta, scelta
 1. Scegli, per {cosa}, la strada che ti lascia accanto alle persone che ti fanno stare bene. La gioia vera di questa pietra è condivisa: una scelta che ti isola, anche se brillante a prima vista, toglie più gioia di quanta ne promette.
@@ -681,7 +681,7 @@
 1. Nessuna pietra fissa una data per {cosa}: eppure il tempo pesa meno appena torni a cercare la gioia invece di aspettarla. Il periodo può accorciarsi se smetti di rimandare il buono che hai e lo vivi con chi ti sta accanto.
 2. Una data per {cosa} nessuna runa sa dartela, ma qui la pienezza è a portata di mano: il buon momento può essere più vicino di quanto temi. Spesso comincia nel giorno in cui ti concedi di godere di ciò che va già bene.
 3. Questa gettata non dà scadenze per {cosa}: dice piuttosto che il tempo della gioia non va rimandato a quando tutto sarà a posto. Concediti fin da ora un pezzo di quel bene, con chi ti è caro: così i giorni dell'attesa smettono di sembrare vuoti.
-4. Il quando per {cosa} non sta scritto in nessuna pietra: c'è però un frutto che si fa dolce quando smetti di guardarlo solo come una fatica. Il tempo si alleggerisce se ogni settimana trovi un'occasione di gioia condivisa, anche piccola.
+4. Il quando per {cosa} non sta scritto in nessuna pietra: c'è però un frutto che si fa dolce quando smetti di guardarlo solo come una fatica. Il tempo si alleggerisce se trovi spesso un'occasione di gioia condivisa, anche piccola e semplice.
 5. Per {cosa} nessuna runa indica il giorno, ma la gioia ha un suo segnale: quando torni a sentire leggerezza con le persone vicine, il periodo sta già cambiando. Cerca quei momenti invece di contare i giorni: sono loro a dirti che il tempo è venuto.
 
 ## Wunjo, dritta, previsione
@@ -816,7 +816,7 @@
 
 ## Hagalaz, dritta, vaga
 1. Nessuna pietra abbraccia tutto il futuro per {cosa}: nomina un solo pensiero che ti preme e la lettura diventa chiara. Intanto la grandine dice che è un tempo di scosse buone, che portano via ciò che non regge e lasciano il terreno più pulito.
-2. Le rune non sanno rispondere a un tutto per {cosa}, ma a una domanda mirata sì: raccontami che cosa ti preoccupa davvero. Per ora questo segno parla di un passaggio mosso, dove qualcosa si scuote per lasciare posto a ciò che serve.
+2. Le rune non sanno rispondere a un tutto per {cosa}, ma a una domanda mirata sì: raccontami che cosa ti preme davvero. Per ora questo segno parla di un passaggio mosso, dove qualcosa si scuote per lasciare posto a ciò che serve.
 3. Per {cosa} le pietre non tracciano un quadro generale: chiedi di una cosa precisa e la lettura cambia volto. Per ora c'è una scossa in corso, simile a una grandinata breve: passa, si scioglie e lascia l'aria più limpida di prima.
 4. Una domanda così ampia per {cosa} non trova risposta nelle rune: restringila a una persona, a una scelta o a un'attesa. Quello che si vede intanto è una raffica che scuote ciò che è fragile, perché rimanga ciò che sa reggere davvero.
 5. Le pietre non parlano del tutto per {cosa}; parlano bene di una cosa alla volta, quindi dimmi quale ti sta più a cuore. Nel frattempo il segno uscito è una grandine che rinnova: scuote, poi lascia spazio pulito per ciò che vuoi davvero.
@@ -930,7 +930,7 @@
 5. Fermati e guarda, prima di decidere di {azione}: è il momento di osservare, non di muovere. Non si tratta di rinunciare per sempre: una sosta breve e voluta ti permette di capire se il desiderio regge anche quando la fretta si è spenta.
 6. Rimanda di una settimana la decisione di {azione}: adesso ogni spinta forzerebbe ciò che è ancora bloccato. Il ghiaccio è un ponte largo che regge chi lo attraversa con calma: arriva alla decisione per gradi, ascoltando anche chi vede la situazione da fuori.
 7. Non adesso, ma non per paura: il desiderio di {azione} merita la chiarezza del ghiaccio che lascia vedere il fondo. Finché le ragioni dentro di te si contraddicono, una decisione d'impeto pesa più di una sosta; quando smettono, la risposta può farsi evidente.
-8. Meglio lasciare in sosta per qualche giorno l'idea di {azione}: il momento chiede raccoglimento, non movimento. Il gelo concentra le forze: usa questa pausa per capire che cosa vuoi ottenere davvero, perché una decisione nata nel silenzio vale più di dieci prese nell'urgenza.
+8. Meglio una sosta di qualche giorno prima di {azione}: il momento chiede raccoglimento, non movimento. Il gelo concentra le forze: usa questa pausa per capire che cosa vuoi ottenere davvero, perché una decisione nata nel silenzio vale più di dieci prese nell'urgenza.
 
 ## Isa, dritta, scelta
 1. Per {cosa}, scegli la strada che non ti costringe a decidere tutto adesso. Il ghiaccio chiede una sosta: vale di più la possibilità che ti lascia il tempo di guardare con calma, senza strappare una risposta che la situazione non sa ancora dare.
@@ -949,7 +949,7 @@
 4. Abbassa il ritmo invece di alzarlo, per {cosa}. Quando qualcosa si blocca la tentazione è spingere: il ghiaccio chiede il contrario, meno parole, meno richieste, più ascolto, finché ciò che è fermo trova da sé il momento di muoversi di nuovo.
 5. Chiarezza fredda, non impeto: per {cosa} decidi che cosa vuoi dire o fare prima di farlo. Il ghiaccio limpido lascia vedere il fondo: una richiesta chiara, detta con voce tranquilla e senza accuse, ha più forza di molte frasi cariche di emozione.
 6. Procedi piano per {cosa}, come chi attraversa una distesa gelata: un passo, una verifica lucida, poi il passo successivo. Niente gesti bruschi né richieste pesanti tutte insieme: una cosa per volta, controllando ogni volta come viene accolta prima di aggiungerne un'altra.
-7. Uno sguardo esterno è il modo giusto per {cosa}: chiedi consiglio a qualcuno di cui ti fidi prima di muoverti. Il cieco, sul ghiaccio, va guidato: da dentro una situazione ferma è difficile vedere dove scivola il piede, mentre chi sta fuori lo vede.
+7. Uno sguardo esterno è il modo giusto per {cosa}: chiedi consiglio a qualcuno di cui ti fidi prima di muoverti. Sul ghiaccio si cammina in due: da dentro una situazione ferma è difficile vedere dove scivola il piede, mentre chi sta fuori lo vede.
 8. Sospendi le pretese per un po', per {cosa}: non chiedere risultati immediati né risposte definitive. Il ghiaccio custodisce l'acqua fino al disgelo; anche qui una pausa senza pressioni lascia a tutti, anche a te, lo spazio per ritrovare chiarezza e parole più giuste.
 
 ## Isa, dritta, quando
@@ -1104,7 +1104,7 @@
 
 ## Eihwaz, dritta, previsione
 1. Nessuna pietra anticipa come andrà a finire, nemmeno per {cosa}: il tasso parla di come arrivarci, cioè con un impegno che regge alla fatica. Chi tiene il ritmo nelle settimane faticose, senza mollare a metà, ha radici ferme quando conta.
-2. L'esito che ti attende per {cosa}, questa gettata non lo mostra: dice di che cosa hai bisogno nel frattempo, costanza e nervi saldi. Il tasso resiste alle raffiche perché è radicato a fondo; radica anche tu il tuo impegno in abitudini regolari, fino alla fine.
+2. Per {cosa} questa gettata non mostra l'esito: dice di che cosa hai bisogno nel frattempo, costanza e nervi saldi. Il tasso resiste alle raffiche perché è radicato a fondo; radica anche tu il tuo impegno in abitudini regolari, fino alla fine.
 3. Il risultato per {cosa} le rune non lo vedono: vedono la tua tenuta, che è il punto su cui lavorare. Il tasso regge perché ha radici che nessuno vede; costruisci anche tu, giorno dopo giorno, una base solida che nessuna fretta possa scuotere.
 4. Alle pietre non è dato conoscere l'esito, nemmeno per {cosa}: possono indicarti come restare in piedi fino ad allora. Tieni duro sulle cose che sai fare e, se un passaggio va storto, non mollare tutto: il tasso si piega al vento e poi si rialza.
 5. Nessun segno di questa gettata mostra come andrà per {cosa}. Mostra però la qualità che ti serve: la tenuta del tasso, che non vive di slanci ma di presenza ostinata, settimana dopo settimana, anche quando nessuno guarda e la fatica si fa sentire.
@@ -1124,7 +1124,7 @@
 
 ## Eihwaz, dritta, vaga
 1. Per {cosa} una domanda così larga non dà alle pietre un punto su cui posarsi: nomina una sola questione e la risposta si fa chiara. Per ora il tasso parla di tenuta: non mollare ciò che regge le tue giornate, anche se il vento soffia.
-2. Il futuro in generale le pietre non lo leggono, nemmeno per {cosa}: raccontami che cosa ti preoccupa o che cosa desideri e la lettura diventa precisa. Intanto il tasso ti indica un atteggiamento: resistere senza indurirti, come un albero che regge il vento da secoli.
+2. Il futuro in generale le pietre non lo leggono, nemmeno per {cosa}: raccontami che cosa ti preme o che cosa desideri e la lettura diventa precisa. Intanto il tasso ti indica un atteggiamento: resistere senza indurirti, come un albero che regge il vento da secoli.
 3. A una domanda così aperta nessuna gettata risponde bene, neanche per {cosa}. Restringi il campo a una persona, a una scelta, a un periodo: allora la lettura si fa netta. Per adesso il tasso consiglia di tenere duro, anche quando costa.
 4. Davanti a una domanda generica i segni non hanno un oggetto, nemmeno per {cosa}: dimmi che cosa vuoi sapere e la risposta diventa netta. Nel frattempo il tasso parla di resistenza: è un periodo da attraversare tenendo il tuo ritmo, senza decisioni improvvise.
 5. Una domanda senza confini non lascia alle rune niente da leggere, nemmeno per {cosa}: scegli una cosa sola che ti sta a cuore e chiedi di quella. Oggi il tasso suggerisce costanza: non cambiare tutto soltanto per un momento storto.
@@ -1345,7 +1345,7 @@
 4. Per {cosa} preferisci la strada di cui vedi l'approdo, anche se più lunga. Il sole è speranza per chi naviga perché porta la barca fino a terra: scegli l'opzione di cui sai descrivere il punto d'arrivo in poche parole, lascia quella che resta nebbia.
 5. Nel decidere per {cosa}, scegli la strada che ti dà energia invece di consumarla, quella a cui pensi con slancio e non con fatica. La luce piena chiede una volontà piena: un'opzione che ti spegne prima ancora di cominciare non è la tua rotta.
 6. Fra le opzioni per {cosa}, scegli quella che ti avvicina alla meta che hai in mente, non quella che ti allontana soltanto da un disagio. Il sole guida chi ha un porto: la strada che punta dritto verso il tuo è quella da prendere.
-7. Davanti alle opzioni per {cosa}, preferisci quella che sapresti indicare come tua rotta a una persona cara, senza giri di parole. Il sole è luce delle terre: scegli la strada che illumina anche la vita di chi ti sta accanto, oltre alla tua.
+7. Davanti alle opzioni per {cosa}, preferisci quella che sapresti indicare come tua rotta a una persona cara, senza giri di parole. Il sole illumina tutte le terre: scegli la strada che illumina anche la vita di chi ti sta accanto, oltre alla tua.
 8. Tieni, per {cosa}, la strada in cui la tua luce si vede, quella dove ciò che sai fare e ciò che vuoi diventare vanno nella stessa direzione. Una barca con due rotte non tocca nessun porto: scegli dove volontà e talento remano insieme.
 
 ## Sowilo, dritta, come
@@ -1355,7 +1355,7 @@
 4. Tenendo lo sguardo sulla meta: per {cosa}, prima di ogni parola o decisione, chiediti se ti avvicina a ciò che vuoi davvero costruire. Il navigante guarda il sole per correggere la rotta, non per cambiarla; fai lo stesso con le piccole deviazioni.
 5. Con calore e chiarezza insieme: per {cosa} serve la luce del sole, che scalda e orienta nello stesso momento. Di' apertamente che cosa speri, poi resta coerente con quelle parole in ciò che fai; una luce costante crea fiducia più di un discorso.
 6. Concentrando le forze: per {cosa} smetti di disperdere energie su troppi fronti e mettile in un unico punto, quello che conta di più. Una luce raccolta orienta, una luce sparsa abbaglia; decidi con precisione che cosa vuoi ottenere prima di muoverti.
-7. Con l'esempio, prima che con le parole: per {cosa} vivi tu, in prima persona, la direzione che speri di vedere. Il sole è luce delle terre senza dire niente; chi ti osserva capisce la rotta dai tuoi comportamenti costanti più che da ogni consiglio.
+7. Con l'esempio, prima che con le parole: per {cosa} vivi tu, in prima persona, la direzione che speri di vedere. Il sole illumina le terre senza dire niente; chi ti osserva capisce la rotta dai tuoi comportamenti costanti più che da ogni consiglio.
 8. Per {cosa} serve un traguardo visibile: fissa che cosa vuoi che cambi, poi tieni quella direzione con pazienza e calore. Come il sole che porta i naviganti fino a riva, la tua volontà chiara può fare da guida anche a chi ti sta accanto.
 
 ## Sowilo, dritta, quando
@@ -1385,7 +1385,7 @@
 4. Anche per {cosa} vale la regola: nessuna pietra conosce i pensieri di un altro. La luce di questa gettata cade su di te e sulla tua volontà; usala per mostrarti per ciò che sei, con chiarezza, invece di inseguire risposte che solo l'altro può darti.
 5. Sul cuore altrui, per {cosa}, la lettura non si pronuncia: nessuna runa ci entra. Ti invita invece a essere luce: chi mostra con calore e chiarezza ciò che desidera aiuta anche l'altro a orientarsi e a rispondere con la stessa chiarezza.
 6. Nessuna gettata svela le intenzioni altrui per {cosa}; svela una cosa tua: la volontà è forte e la rotta si vede. Se ti fai guidare da ciò che vuoi invece che da ciò che temi, le risposte che cerchi si leggono più facilmente nei fatti.
-7. Per {cosa}, i pensieri di chi ti sta di fronte non sono materia di questa gettata; materia sua è la tua luce. Tieni lo sguardo sulla tua meta: le cose si chiariscono più in fretta quando sai con precisione che cosa cerchi tu.
+7. Per {cosa}, i pensieri di chi ti sta di fronte non sono cosa che questa gettata legge; ciò che mostra è la tua luce. Tieni lo sguardo sulla tua meta: le cose si chiariscono più in fretta quando sai con precisione che cosa cerchi tu.
 8. Nessuna runa può rispondere al posto di un altro, nemmeno per {cosa}; può però dirti che hai luce sufficiente per vedere i fatti. Guarda ciò che l'altro fa, non ciò che immagini che provi: il sole mostra le cose come sono.
 
 ## Sowilo, dritta, vaga
@@ -1665,7 +1665,7 @@
 5. Rafforza la fiducia per {cosa} partendo da ciò che condividi con chi è coinvolto: un obiettivo, un valore, un desiderio comune. Da lì si accorda il passo, senza forzature e senza rimproveri, finché i ritmi di tutti si sostengono a vicenda.
 
 ## Ehwaz, in ombra, quando
-1. Nessuna runa indica una data per {cosa}; questa dice però che il tempo riprende a scorrere quando i passi tornano d'accordo. Finché chi è coinvolto tira in direzioni diverse il cammino resta fermo: ricucire l'intesa è il modo per accorciare l'attesa.
+1. Nessuna runa indica una data per {cosa}; questa dice però che il tempo riprende a scorrere quando i passi tornano d'accordo. Finché chi è coinvolto tira in direzioni diverse, il cammino resta fermo: ricucire l'intesa è il modo per accorciare l'attesa.
 2. Le pietre non contano i giorni per {cosa}: contano i passi. E qui i passi sono sfasati, perciò il tempo si allunga finché non ritrovi un ritmo comune con chi ti sta vicino. Prima viene l'accordo, poi viene il movimento.
 3. Dalle pietre non arriva un calendario per {cosa}, arriva un'indicazione: il momento si sblocca quando la fiducia si riallinea. Se aspetti senza parlare con chi è coinvolto l'attesa tende ad allungarsi, se invece cerchi apertamente l'accordo può accorciarsi di molto.
 4. Questa pietra non fissa scadenze per {cosa}; mostra però perché il tempo sembra fermo: due passi che non coincidono. Il movimento può tornare quando chiarisci a voce con chi ti sta vicino dove andare insieme e con quale ritmo procedere da qui.
@@ -1673,7 +1673,7 @@
 
 ## Ehwaz, in ombra, previsione
 1. Nessuna runa rivela l'esito per {cosa}; questa avverte però che procedere con i passi sfasati costa fatica. Ritrova prima l'accordo con chi ti sostiene o ti accompagna, così non porti con te una tensione che pesa a ogni passo e a ogni scelta.
-2. Se andrà bene per {cosa}, le rune non lo dicono: dicono che un'alleanza fuori passo rende ogni cosa più faticosa. Se qualcuno coinvolto tira da un'altra parte chiarisci adesso a voce, così affronti ciò che viene con la fiducia rimessa in fila.
+2. Se andrà bene per {cosa}, le rune non lo dicono: dicono che un'alleanza fuori passo rende ogni cosa più faticosa. Se qualcuno coinvolto tira da un'altra parte, chiarisci adesso a voce, così affronti ciò che viene con la fiducia rimessa in fila.
 3. Risultati per {cosa} questa gettata non ne anticipa; indica un punto da sistemare prima: il ritmo comune con le persone che contano. Quando i passi si riaccordano anche le prove diventano più leggere, perché nessuno ti strattona o ti frena mentre avanzi.
 4. L'esito per {cosa} non è scritto nelle pietre, che segnalano invece una fiducia da riallineare con cura. Prima di contare sul risultato controlla di non andare avanti in disaccordo con chi conta per te: un passo condiviso regge meglio qualunque prova.
 5. Del risultato per {cosa} questa pietra non parla; parla di due cavalli fuori passo, cioè di forze che dovrebbero aiutarti e invece tirano in direzioni diverse. Rimettile d'accordo con una conversazione calma prima di tutto e il cammino si fa meno faticoso.
@@ -1979,7 +1979,7 @@
 8. Scegli per {cosa} la strada che ti chiede di cambiare passo adesso, invece di quella che ti invita ad aspettare tempi migliori. Il mattino non si rimanda: fra due vie, quella che apre subito un tempo nuovo è la più vicina alla luce che sorge.
 
 ## Dagaz, dritta, come
-1. Per {cosa} il modo è cambiare passo adesso: porta subito in quella situazione qualcosa che non c'era, un tono più aperto, un orario diverso, un'idea nuova da proporre. Il giorno comincia quando la notte smette davvero, non quando la si aggiusta.
+1. Per {cosa} il modo è cambiare passo adesso: porta subito in quella situazione qualcosa che non c'era, un tono più aperto, un gesto inatteso, un'idea nuova da proporre. Una luce nuova non si aspetta da fuori: si accende con un gesto tuo.
 2. Per {cosa} serve chiarezza piena: mostra apertamente ciò che pensi e ciò che vuoi, senza lasciare zone d'ombra da interpretare. Come il giorno rende visibile ogni cosa a tutti, così una posizione limpida cambia il clima più di molte mezze misure.
 3. Per {cosa} conviene segnare una svolta riconoscibile: un nuovo inizio con una data scelta, un'azione che separi bene il prima dal dopo. Chi è coinvolto ha bisogno di vedere che qualcosa è cambiato davvero, non soltanto di sentirselo dire a parole.
 4. Il modo giusto per {cosa} è guardare la situazione alla luce del giorno: metti per iscritto i fatti come sono, senza le paure della notte. Quando i contorni si vedono, la mossa da fare diventa evidente e il cambiamento può cominciare con fiducia.
@@ -2072,7 +2072,7 @@
 
 ## Othala, dritta, vaga
 1. Una domanda larga per {cosa} non trova risposta nelle rune: nomina una cosa sola, una persona o una scelta, così la lettura diventa precisa. Per ora la terra avita dice che hai basi solide: ciò che hai costruito regge più di quanto senti.
-2. Nessuna runa risponde a tutto, nemmeno per {cosa}: raccontami che cosa ti preoccupa davvero, così posso dirti qualcosa di preciso. Intanto la casa indica radici salde: appoggiati a ciò che ti sostiene da sempre mentre metti a fuoco la domanda.
+2. Nessuna runa risponde a tutto, nemmeno per {cosa}: raccontami che cosa ti preme davvero, così posso dirti qualcosa di preciso. Intanto la casa indica radici salde: appoggiati a ciò che ti sostiene da sempre mentre metti a fuoco la domanda.
 3. Un futuro generico per {cosa} nessuna runa lo legge: per una risposta vera serve una domanda precisa, su una persona, un passo o un luogo. Per ora ti dicono di tornare alle tue basi: ciò che è tuo per radice resta e ti regge.
 4. Così com'è, la domanda per {cosa} è troppo ampia e nessuna pietra può risponderle bene: restringi a una scelta o a una persona. Ciò che si vede già è una casa con fondamenta solide: hai più appoggi di quanti ne conti.
 5. Che vada tutto bene per {cosa} le rune non lo promettono, né il contrario: riformula la domanda attorno a una cosa sola e la risposta si fa chiara. Intanto la terra dei padri ricorda che ciò che ti regge da sempre è ancora lì.
@@ -2108,7 +2108,7 @@
 ## Othala, in ombra, previsione
 1. Ciò che uscirà per {cosa} non si legge nelle rune: si legge che un vecchio schema può frenarti più delle circostanze. Vacci con un modo tuo, non con le paure ricevute: muoviti come oggi ti serve, non come si è sempre fatto.
 2. Nessuna pietra anticipa il risultato per {cosa}: questa gettata mostra però un'abitudine che pesa sul modo di andarci. Se ti accorgi di ripetere la strategia di sempre, cambiala in un punto: un vecchio copione sciolto lascia spazio alla tua forza vera.
-3. Come andrà per {cosa} nessuna pietra lo promette: si vede però un peso dal passato da posare adesso. Lascia a casa le voci che ripetono i timori di altri o i tuoi di ieri: regolati sul presente, con ciò che sai fare oggi.
+3. Come andrà per {cosa} nessuna pietra lo promette: si vede però un peso dal passato da posare adesso. Lascia a casa le voci che ripetono i dubbi di altri o i tuoi di ieri: regolati sul presente, con ciò che sai fare oggi.
 4. Un esito per {cosa} non sta nelle rune, che vedono invece un'eredità da sciogliere: aspettative ricevute, paragoni, il dovere di non deludere. Andarci senza quel carico vuol dire ricordare che la strada è tua e soltanto tua, non di chi ti guarda da fuori.
 5. Se andrà come speri per {cosa}, le rune non lo rivelano: rivelano un nodo antico da allentare. Spesso a pesare non sono i fatti ma la voce che ti porti dietro da anni: abbassala e vai con ciò che sei oggi.
 

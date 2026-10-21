@@ -39,7 +39,7 @@ void main() {
     'decisione': [
       'Devo accettare l’offerta della nuova azienda?',
       'Devo chiudere l’amicizia con Giulia?',
-      'Devo lasciare il lavoro per tornare a studiare?',
+      'Devo iscrivermi al corso di ceramica con Anna?',
       'Ha senso riprovarci con la mia ex?',
       'Dovrei cambiare lavoro quest’anno?',
     ],

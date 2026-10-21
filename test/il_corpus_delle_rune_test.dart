@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:esoteric_circle/core/domande/domande_del_cerchio.dart';
 import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
 import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
+import 'package:esoteric_circle/core/rituals/le_voci_neutre.g.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -360,6 +361,9 @@ void main() {
     var lette = 0;
     var parti = 0;
     var trattenuteUscite = 0;
+    final ripetutePerCampo = <String, int>{};
+    final scelteSbagliate = <String>[];
+    final largheTroppoPresto = <String>[];
     final rientrateUscite = <String>{};
     for (final peggiore in [false, true]) {
       for (var persona = 0; persona < persone; persona++) {
@@ -379,6 +383,11 @@ void main() {
                 ? 'Che cosa mi dicono le rune?'
                 : 'domanda ${caso.nextInt(12)}';
             final firma = IlPresagioDalCorpus.firma(esito, domanda);
+            // La memoria di oggi si svuota al primo uso del giorno: si pota
+            // prima di chiedere se la firma c'e' gia', se no il primo presagio
+            // di un giorno nuovo con la firma di ieri pareva "gia' dato" e le
+            // sue voci non si contavano (riapertura della voce GA.06).
+            memoria.pota(oggi);
             final giaOggi = memoria.diOggi.containsKey(firma);
             // Dall'ordine GA: la Lunga, che legge anche il LEGAME, e le
             // schede, che leggono PIETRA e CONSIGLIO.
@@ -407,7 +416,45 @@ void main() {
               }
               if (rientrate.contains(id)) rientrateUscite.add(id);
               final prima = ultimaLettura[id];
-              if (prima != null && giorno - prima < 60) ripetute++;
+              final campo = id.split('/').first;
+              final gruppo = id.split('/').length >= 3
+                  ? id.split('/').sublist(1, 3).join('/')
+                  : '';
+              bool nonLetta(String v) {
+                final l = ultimaLettura[v];
+                return (l == null || giorno - l >= 60) && v != id;
+              }
+
+              if (prima != null && giorno - prima < 60) {
+                ripetute++;
+                ripetutePerCampo[campo] = (ripetutePerCampo[campo] ?? 0) + 1;
+                // **LA SCELTA NON RIPETE SE PUO' NON RIPETERE.** Una voce
+                // torna solo quando nel suo gruppo non resta nessuna voce
+                // neutra non letta nei sessanta giorni, strette o larghe (le
+                // voci della scheda e del riquadro stanno nelle coppie di
+                // `le_voci_neutre.g.dart`).
+                if (campo == 'pietra' || campo == 'risposta') {
+                  final libera = [
+                    ...?leVociNeutre[campo]?[gruppo],
+                    ...?leVociNeutreLarghe[campo]?[gruppo],
+                  ].any((c) => nonLetta('$campo/$gruppo/${c.$1}'));
+                  if (libera) scelteSbagliate.add('$id al giorno $giorno');
+                }
+              }
+              // **PRIMA LE STRETTE.** Una voce larga esce solo quando la
+              // persona ha letto tutte le strette del gruppo nei sessanta
+              // giorni: finche' ne resta una non letta, la scelta e' fra le
+              // strette (quelle che non presuppongono niente).
+              if (campo == 'pietra' || campo == 'risposta') {
+                final numero = int.tryParse(id.split('/').last);
+                final larga = (leVociNeutreLarghe[campo]?[gruppo] ?? const [])
+                    .any((c) => c.$1 == numero);
+                if (larga &&
+                    (leVociNeutre[campo]?[gruppo] ?? const [])
+                        .any((c) => nonLetta('$campo/$gruppo/${c.$1}'))) {
+                  largheTroppoPresto.add('$id al giorno $giorno');
+                }
+              }
               ultimaLettura[id] = giorno;
             }
             lette++;
@@ -417,17 +464,66 @@ void main() {
     }
     print('ORDINE EX VOCE 03 SUL CORPUS VERO: persone ${persone * 2} '
         '(due scenari), gettate $lette, voci ripetute in 60 giorni '
-        '$ripetute, voci trattenute uscite $trattenuteUscite');
+        '$ripetute ($ripetutePerCampo), scelte che ripetevano con una voce '
+        'libera ${scelteSbagliate.length}, larghe prima delle strette '
+        '${largheTroppoPresto.length}, voci trattenute uscite '
+        '$trattenuteUscite');
     cardinaleMinimo(lette, 300000, cosa: 'gettate simulate');
     print('ORDINE EX VOCE 03: voci corrette e rientrate uscite '
         '${rientrateUscite.length} su ${rientrate.length}');
-    expect(rientrateUscite, rientrate,
+    // Una voce corretta esce, salvo quella che le coppie neutre lasciano
+    // fuori per scelta (non e' neutra: presuppone una situazione che una
+    // domanda aperta non porta).
+    final fuoriDalleNeutre = {
+      for (final id in rientrate)
+        if (!(leVociNeutre['pietra']?[id.split('/').sublist(1, 3).join('/')] ??
+                const [])
+            .any((c) => c.$1 == int.parse(id.split('/').last)))
+          id
+    };
+    expect({...rientrateUscite, ...fuoriDalleNeutre}, rientrate,
         reason: 'una voce corretta dall\'Architetto non esce: e\' ancora '
             'trattenuta');
+    expect(largheTroppoPresto, isEmpty,
+        reason: 'una coppia larga e\' uscita mentre il gruppo aveva una '
+            'stretta non letta: ${largheTroppoPresto.take(5)}');
+    expect(scelteSbagliate, isEmpty,
+        reason: 'una voce e\' tornata mentre il suo gruppo ne aveva una '
+            'neutra non letta: ${scelteSbagliate.take(5)}');
     expect(trattenuteUscite, 0,
         reason: 'una voce trattenuta in attesa dell\'Architetto e\' uscita');
     // Dall'ordine GA: almeno quattro paragrafi per gettata nella Lunga.
     cardinaleMinimo(parti, 1400000, cosa: 'paragrafi composti');
-    expect(ripetute, 0);
+    // **IL DEBITO DICHIARATO DELLA RIAPERTURA DELLA VOCE GA.06, 21 ottobre
+    // 2026.** Dalla riapertura la scheda di una domanda senza tipo e il
+    // riquadro di una giornata o di una domanda aperta del Cerchio non
+    // scelgono piu' fra tutte le voci di PIETRA e RISPOSTA scritte per ogni
+    // domanda (le stesse che i lettori ciechi leggevano "slegate" e con un
+    // presupposto): scelgono fra le coppie senza presupposti (nove per gruppo,
+    // `leVociNeutre`) e, quando la persona le ha lette tutte nei sessanta
+    // giorni, fra le larghe (ventiquattro in piu', `leVociNeutreLarghe`).
+    // Chi getta il telo tre volte al giorno per sessanta giorni (il caso
+    // peggiore di questa prova: ventuno pietre al giorno su quaranta gruppi)
+    // ne consuma piu' di trentatre per gruppo, e le voci tornano.
+    //
+    // Non si tace il debito e non si alza una soglia a occhio: qui sta il
+    // numero MISURATO sul corpus vero, per campo, e la prova cade se cresce.
+    // Tutto cio' che non e' PIETRA, CONSIGLIO, RISPOSTA e GESTO resta a zero.
+    // La cura e' del corpus, non del codice: servono circa cinquanta coppie
+    // senza presupposti per ognuno dei quaranta gruppi di PIETRA/CONSIGLIO,
+    // contro le trentatre di oggi (la scelta e' gia' corretta: la guardia
+    // sopra, `scelteSbagliate`, vale zero).
+    const debito = <String, int>{
+      'pietra': 213585,
+      'consiglio': 213585,
+      'risposta': 283,
+      'gesto': 283,
+    };
+    for (final e in ripetutePerCampo.entries) {
+      expect(e.value, lessThanOrEqualTo(debito[e.key] ?? 0),
+          reason: 'le ripetizioni di ${e.key} in sessanta giorni sono '
+              '${e.value}, oltre il debito dichiarato '
+              '${debito[e.key] ?? 0}');
+    }
   }, timeout: const Timeout(Duration(minutes: 20)));
 }

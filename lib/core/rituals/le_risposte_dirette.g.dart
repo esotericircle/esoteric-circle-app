@@ -80,7 +80,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Le rune non segnano il giorno per {cosa}: dicono però che il tempo si allunga finché qualcosa continua a disperdersi. Prima chiudi ciò che ti svuota (abitudini, impegni inutili, promesse senza seguito): solo così l\'attesa smette di consumarti e le cose possono tornare a scorrere.',
       'Questa gettata non indica quando cambierà qualcosa per {cosa}, mostra però perché il tempo sembra non passare. Le energie che scivolano via ogni giorno tengono ferma la situazione: tappane una sola e il movimento può ricominciare prima di quanto temi.',
       'Nessuna pietra conta i giorni per {cosa}, ma il bene che sfugge insegna che stringere l\'attesa con ansia la rende più lunga. Allenta la presa sui tempi, tieni solo ciò che serve per andare avanti e lascia che le cose riprendano il loro corso.',
-      'Non c\'è runa che dia una data per {cosa}, c\'è però un segno che parla di risorse disperse. Finché ciò che hai se ne va in rivoli l\'attesa resta lunga: raccogli le forze su una cosa sola e il tempo può tornare a muoversi.',
+      'Non c\'è runa che dia una data per {cosa}, c\'è però un segno che parla di risorse disperse. Finché ciò che hai se ne va in rivoli, l\'attesa resta lunga: raccogli le forze su una cosa sola e il tempo può tornare a muoversi.',
       'Il quando per {cosa} sfugge alle rune, che non leggono calendari. Leggono invece una perdita da fermare: più a lungo lasci scorrere via energie e attenzione in cose che non ti restituiscono niente, più a lungo la situazione resta sospesa a mezz\'aria.',
     ],
     'Fehu/ombra/previsione': [
@@ -99,7 +99,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Fehu/ombra/vaga': [
       'Per {cosa} le rune non rispondono a una domanda così larga: nomina una cosa precisa e la lettura cambia. Per ora il segno parla di energie che si disperdono: ti chiede di tenere solo ciò che serve davvero e di lasciar cadere il superfluo.',
-      'Nessuna pietra può dirti che cosa ti aspetta per {cosa} senza una domanda precisa: dimmi che cosa ti preoccupa e la risposta si fa chiara. Intanto il segno mostra un bene che scivola via, quindi chiudi le fessure prima di aggiungere altro.',
+      'Nessuna pietra può dirti che cosa ti aspetta per {cosa} senza una domanda precisa: dimmi che cosa ti preme e la risposta si fa chiara. Intanto il segno mostra un bene che scivola via, quindi chiudi le fessure prima di aggiungere altro.',
       'Le rune non leggono il futuro in generale per {cosa}: raccontami la situazione che ti sta a cuore. Per adesso dicono di allentare la presa, perché ciò che stringi con ansia si consuma mentre ciò che lasci respirare resta con te.',
       'Senza una domanda mirata per {cosa} nessuna runa può indicarti la via, quindi restringi a una scelta sola o a una persona sola. Il segno di oggi riguarda le risorse che perdi senza accorgertene: tempo, attenzione, energia spesa dove non torna indietro.',
       'Così com\'è posta, la domanda per {cosa} sfugge alle rune, che non parlano per frasi generali. Riformulala attorno a una sola situazione che ti sta a cuore. Per ora il messaggio è uno: tieni ciò che serve davvero e lascia andare il superfluo.',
@@ -345,7 +345,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Ansuz/dritta/vaga': [
       'Nessuna runa disegna un futuro intero per {cosa}, ma a una domanda precisa la lettura sa rispondere meglio. Dimmi che cosa ti preme. Per ora questa pietra consiglia la parola detta a voce più del pensiero che tieni chiuso dentro.',
       'Su tutto insieme le pietre non rispondono, nemmeno per {cosa}: nomina una cosa sola e la lettura si fa precisa. Intanto la bocca cede il posto all’orecchio: un consiglio sensato, una parola di chi ti conosce, può chiarire più di quanto credi.',
-      'Di un destino già scritto per {cosa} questa gettata non sa nulla: offre un consiglio. Se vuoi una risposta vera, raccontami che cosa ti preoccupa o che cosa desideri; intanto conta la parola: dire ciò che pensi invece di tenerlo dentro.',
+      'Di un destino già scritto per {cosa} questa gettata non sa nulla: offre un consiglio. Se vuoi una risposta vera, raccontami che cosa ti preme o che cosa desideri; intanto conta la parola: dire ciò che pensi invece di tenerlo dentro.',
       'Per intero, il domani non sta in nessuna runa, neppure per {cosa}: restringi la domanda a una persona o a una scelta e la risposta può farsi chiara. Per adesso basta dire ad alta voce ciò che desideri: la parola detta è già un inizio.',
       'A una domanda così ampia nessuna pietra risponde per {cosa}: riformulala con un nome, un luogo o una scelta e la lettura si fa netta. Per ora conta l’orecchio: qualcuno vicino a te può avere una parola utile, se gliela chiedi.',
     ],
@@ -380,7 +380,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Ansuz/ombra/previsione': [
       'Nessuna runa svela l\'esito per {cosa}: questa pietra chiede di controllare che le informazioni su cui conti siano esatte. Ciò che senti dire in giro, previsioni comprese, va preso con cautela: un dettaglio capito male pesa più di quanto sembri.',
       'L\'esito per {cosa} non compare in questa gettata; compare invece un avvertimento sulle parole. Pronostici altrui, frasi rassicuranti o allarmanti: lasciali tutti da parte e fidati soltanto di ciò che sai davvero, non di ciò che si racconta in giro.',
-      'Non c\'è runa che legga in anticipo l\'esito per {cosa}. Qui parla la parola fraintesa. I segnali, ora, si leggono facilmente storti: un silenzio non è per forza un rifiuto, una parola gentile non è per forza una promessa. Giudica dai fatti.',
+      'Non c\'è runa che legga in anticipo l\'esito per {cosa}. Qui il rischio è la parola fraintesa. I segnali, ora, si leggono facilmente storti: un silenzio non è per forza un rifiuto, una parola gentile non è per forza una promessa. Giudica dai fatti.',
       'Sull\'esito per {cosa} le pietre non dicono nulla: parlano invece del modo di aspettarlo, che qui è verificare prima di fidarti. Rileggi ciò che sai, chiedi conferma di ogni punto incerto e non lasciare che una voce di corridoio cambi le tue scelte.',
       'Del risultato per {cosa} questa gettata non dice nulla; dice però che le parole, ora, possono ingannare anche chi le pronuncia in buona fede. Prima di contare su qualcosa, fatti ripetere ciò che conta e annotalo subito con parole tue.',
     ],
@@ -588,7 +588,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Questa gettata non guarda dentro un\'altra persona per {cosa}, ma ti chiede con fermezza di non correre alle conclusioni. Ciò che senti adesso può essere più paura che verità: solo il tempo, con la luce giusta, separa davvero le due cose.',
     ],
     'Kenaz/ombra/vaga': [
-      'Le pietre non rispondono bene a domande così larghe per {cosa}: dimmi che cosa ti preoccupa in concreto e la lettura si fa precisa. Per ora la fiamma parla di una chiarezza che tarda: non tutto è ancora visibile e questo è del tutto normale.',
+      'Le pietre non rispondono bene a domande così larghe per {cosa}: dimmi che cosa ti preme in concreto e la lettura si fa precisa. Per ora la fiamma parla di una chiarezza che tarda: non tutto è ancora visibile e questo è del tutto normale.',
       'Nessuna runa disegna tutto il futuro per {cosa}, quindi nomina una sola questione che ti sta davvero a cuore e la risposta diventa precisa. Intanto il segno chiede pazienza: un\'idea è ancora al buio e ha bisogno di tempo per mostrarsi.',
       'Una domanda così vaga non trova nei segni una risposta utile per {cosa}: raccontami che cosa vuoi capire e il responso si stringe. La lettura dice comunque una cosa importante: la luce arriva piano, quindi oggi conviene non tirare conclusioni affrettate su nessun fronte.',
       'Senza un tema preciso le rune non possono guidarti per {cosa}; restringi a una situazione, una persona o una scelta. Quello che emerge adesso è una fiamma che stenta a prendere: qualcosa deve ancora chiarirsi, dentro o intorno a te, prima di farsi comprensibile.',
@@ -665,11 +665,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Nessun responso delle rune abbraccia tutto per {cosa}: riformula la domanda attorno a una sola questione e la risposta diventa più chiara. Il segno di oggi è il patto: chiediti quale legame ti sostiene e che cosa puoi dare in cambio già questa settimana.',
     ],
     'Wunjo/dritta/decisione': [
-      'Sì, purché la scelta di {azione} nasca dal desiderio di stare meglio con le persone che contano. Se invece vuol dire rompere un legame che ti dà ancora gioia, non adesso: prima guarda che cosa ti lega a chi è coinvolto.',
-      'Sì: la decisione di {azione} può darti la pienezza che cerchi, se la vivi insieme a chi conta per te. Una gioia vera è condivisa, quindi non ti spinge ad allontanarti da chi ti vuole bene: se la scelta separa, parlane prima.',
-      'Sì, quando pensando al dopo vedi ancora intorno a te le persone care: allora la scelta di {azione} è quella giusta. Se al contrario ti toglie compagnia e leggerezza, non adesso: qui si chiede una gioia da condividere, non strappi improvvisi.',
+      'Sì, purché la scelta di {azione} nasca dal desiderio di stare meglio con le persone che contano. Se invece ti toglie una gioia che hai già, non adesso: prima guarda che cosa ti lega a chi ti sta vicino e che cosa rischi di perdere.',
+      'Sì: la decisione di {azione} può darti la pienezza che cerchi, se la vivi insieme a chi conta per te. Una gioia vera è condivisa, quindi non ti spinge ad allontanarti da chi ti vuole bene: se la scelta ti allontana da qualcuno, parlane prima.',
+      'Sì, quando pensando al dopo vedi ancora intorno a te le persone care: allora la scelta di {azione} è quella giusta. Se al contrario ti toglie compagnia e leggerezza, non adesso: qui si chiede una gioia da condividere, non una mossa presa da soli.',
       'Sì, con il cuore aperto: decidere di {azione} può portarti un momento di pienezza vera e condivisa. Ma se la scelta allontana da te chi ti dà gioia, fermati e domandati se esiste un modo che tenga insieme decisione e affetti.',
-      'Sì, senza aspettare che tutto sia perfetto: la scelta di {azione} può portare armonia se tiene vicine le persone che contano. Solo se vuol dire chiudere un legame che ti fa ancora sorridere, rallenta e parlane prima a voce con chi è coinvolto.',
+      'Sì, senza aspettare che tutto sia perfetto: la scelta di {azione} può portare armonia se tiene vicine le persone che contano. Solo se ti toglie la compagnia di chi ti fa ancora sorridere, rallenta e parlane prima a voce con chi è coinvolto.',
     ],
     'Wunjo/dritta/scelta': [
       'Scegli, per {cosa}, la strada che ti lascia accanto alle persone che ti fanno stare bene. La gioia vera di questa pietra è condivisa: una scelta che ti isola, anche se brillante a prima vista, toglie più gioia di quanta ne promette.',
@@ -689,7 +689,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Nessuna pietra fissa una data per {cosa}: eppure il tempo pesa meno appena torni a cercare la gioia invece di aspettarla. Il periodo può accorciarsi se smetti di rimandare il buono che hai e lo vivi con chi ti sta accanto.',
       'Una data per {cosa} nessuna runa sa dartela, ma qui la pienezza è a portata di mano: il buon momento può essere più vicino di quanto temi. Spesso comincia nel giorno in cui ti concedi di godere di ciò che va già bene.',
       'Questa gettata non dà scadenze per {cosa}: dice piuttosto che il tempo della gioia non va rimandato a quando tutto sarà a posto. Concediti fin da ora un pezzo di quel bene, con chi ti è caro: così i giorni dell\'attesa smettono di sembrare vuoti.',
-      'Il quando per {cosa} non sta scritto in nessuna pietra: c\'è però un frutto che si fa dolce quando smetti di guardarlo solo come una fatica. Il tempo si alleggerisce se ogni settimana trovi un\'occasione di gioia condivisa, anche piccola.',
+      'Il quando per {cosa} non sta scritto in nessuna pietra: c\'è però un frutto che si fa dolce quando smetti di guardarlo solo come una fatica. Il tempo si alleggerisce se trovi spesso un\'occasione di gioia condivisa, anche piccola e semplice.',
       'Per {cosa} nessuna runa indica il giorno, ma la gioia ha un suo segnale: quando torni a sentire leggerezza con le persone vicine, il periodo sta già cambiando. Cerca quei momenti invece di contare i giorni: sono loro a dirti che il tempo è venuto.',
     ],
     'Wunjo/dritta/previsione': [
@@ -824,7 +824,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Hagalaz/dritta/vaga': [
       'Nessuna pietra abbraccia tutto il futuro per {cosa}: nomina un solo pensiero che ti preme e la lettura diventa chiara. Intanto la grandine dice che è un tempo di scosse buone, che portano via ciò che non regge e lasciano il terreno più pulito.',
-      'Le rune non sanno rispondere a un tutto per {cosa}, ma a una domanda mirata sì: raccontami che cosa ti preoccupa davvero. Per ora questo segno parla di un passaggio mosso, dove qualcosa si scuote per lasciare posto a ciò che serve.',
+      'Le rune non sanno rispondere a un tutto per {cosa}, ma a una domanda mirata sì: raccontami che cosa ti preme davvero. Per ora questo segno parla di un passaggio mosso, dove qualcosa si scuote per lasciare posto a ciò che serve.',
       'Per {cosa} le pietre non tracciano un quadro generale: chiedi di una cosa precisa e la lettura cambia volto. Per ora c\'è una scossa in corso, simile a una grandinata breve: passa, si scioglie e lascia l\'aria più limpida di prima.',
       'Una domanda così ampia per {cosa} non trova risposta nelle rune: restringila a una persona, a una scelta o a un\'attesa. Quello che si vede intanto è una raffica che scuote ciò che è fragile, perché rimanga ciò che sa reggere davvero.',
       'Le pietre non parlano del tutto per {cosa}; parlano bene di una cosa alla volta, quindi dimmi quale ti sta più a cuore. Nel frattempo il segno uscito è una grandine che rinnova: scuote, poi lascia spazio pulito per ciò che vuoi davvero.',
@@ -938,7 +938,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Fermati e guarda, prima di decidere di {azione}: è il momento di osservare, non di muovere. Non si tratta di rinunciare per sempre: una sosta breve e voluta ti permette di capire se il desiderio regge anche quando la fretta si è spenta.',
       'Rimanda di una settimana la decisione di {azione}: adesso ogni spinta forzerebbe ciò che è ancora bloccato. Il ghiaccio è un ponte largo che regge chi lo attraversa con calma: arriva alla decisione per gradi, ascoltando anche chi vede la situazione da fuori.',
       'Non adesso, ma non per paura: il desiderio di {azione} merita la chiarezza del ghiaccio che lascia vedere il fondo. Finché le ragioni dentro di te si contraddicono, una decisione d\'impeto pesa più di una sosta; quando smettono, la risposta può farsi evidente.',
-      'Meglio lasciare in sosta per qualche giorno l\'idea di {azione}: il momento chiede raccoglimento, non movimento. Il gelo concentra le forze: usa questa pausa per capire che cosa vuoi ottenere davvero, perché una decisione nata nel silenzio vale più di dieci prese nell\'urgenza.',
+      'Meglio una sosta di qualche giorno prima di {azione}: il momento chiede raccoglimento, non movimento. Il gelo concentra le forze: usa questa pausa per capire che cosa vuoi ottenere davvero, perché una decisione nata nel silenzio vale più di dieci prese nell\'urgenza.',
     ],
     'Isa/dritta/scelta': [
       'Per {cosa}, scegli la strada che non ti costringe a decidere tutto adesso. Il ghiaccio chiede una sosta: vale di più la possibilità che ti lascia il tempo di guardare con calma, senza strappare una risposta che la situazione non sa ancora dare.',
@@ -957,7 +957,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Abbassa il ritmo invece di alzarlo, per {cosa}. Quando qualcosa si blocca la tentazione è spingere: il ghiaccio chiede il contrario, meno parole, meno richieste, più ascolto, finché ciò che è fermo trova da sé il momento di muoversi di nuovo.',
       'Chiarezza fredda, non impeto: per {cosa} decidi che cosa vuoi dire o fare prima di farlo. Il ghiaccio limpido lascia vedere il fondo: una richiesta chiara, detta con voce tranquilla e senza accuse, ha più forza di molte frasi cariche di emozione.',
       'Procedi piano per {cosa}, come chi attraversa una distesa gelata: un passo, una verifica lucida, poi il passo successivo. Niente gesti bruschi né richieste pesanti tutte insieme: una cosa per volta, controllando ogni volta come viene accolta prima di aggiungerne un\'altra.',
-      'Uno sguardo esterno è il modo giusto per {cosa}: chiedi consiglio a qualcuno di cui ti fidi prima di muoverti. Il cieco, sul ghiaccio, va guidato: da dentro una situazione ferma è difficile vedere dove scivola il piede, mentre chi sta fuori lo vede.',
+      'Uno sguardo esterno è il modo giusto per {cosa}: chiedi consiglio a qualcuno di cui ti fidi prima di muoverti. Sul ghiaccio si cammina in due: da dentro una situazione ferma è difficile vedere dove scivola il piede, mentre chi sta fuori lo vede.',
       'Sospendi le pretese per un po\', per {cosa}: non chiedere risultati immediati né risposte definitive. Il ghiaccio custodisce l\'acqua fino al disgelo; anche qui una pausa senza pressioni lascia a tutti, anche a te, lo spazio per ritrovare chiarezza e parole più giuste.',
     ],
     'Isa/dritta/quando': [
@@ -1112,7 +1112,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Eihwaz/dritta/previsione': [
       'Nessuna pietra anticipa come andrà a finire, nemmeno per {cosa}: il tasso parla di come arrivarci, cioè con un impegno che regge alla fatica. Chi tiene il ritmo nelle settimane faticose, senza mollare a metà, ha radici ferme quando conta.',
-      'L\'esito che ti attende per {cosa}, questa gettata non lo mostra: dice di che cosa hai bisogno nel frattempo, costanza e nervi saldi. Il tasso resiste alle raffiche perché è radicato a fondo; radica anche tu il tuo impegno in abitudini regolari, fino alla fine.',
+      'Per {cosa} questa gettata non mostra l\'esito: dice di che cosa hai bisogno nel frattempo, costanza e nervi saldi. Il tasso resiste alle raffiche perché è radicato a fondo; radica anche tu il tuo impegno in abitudini regolari, fino alla fine.',
       'Il risultato per {cosa} le rune non lo vedono: vedono la tua tenuta, che è il punto su cui lavorare. Il tasso regge perché ha radici che nessuno vede; costruisci anche tu, giorno dopo giorno, una base solida che nessuna fretta possa scuotere.',
       'Alle pietre non è dato conoscere l\'esito, nemmeno per {cosa}: possono indicarti come restare in piedi fino ad allora. Tieni duro sulle cose che sai fare e, se un passaggio va storto, non mollare tutto: il tasso si piega al vento e poi si rialza.',
       'Nessun segno di questa gettata mostra come andrà per {cosa}. Mostra però la qualità che ti serve: la tenuta del tasso, che non vive di slanci ma di presenza ostinata, settimana dopo settimana, anche quando nessuno guarda e la fatica si fa sentire.',
@@ -1132,7 +1132,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Eihwaz/dritta/vaga': [
       'Per {cosa} una domanda così larga non dà alle pietre un punto su cui posarsi: nomina una sola questione e la risposta si fa chiara. Per ora il tasso parla di tenuta: non mollare ciò che regge le tue giornate, anche se il vento soffia.',
-      'Il futuro in generale le pietre non lo leggono, nemmeno per {cosa}: raccontami che cosa ti preoccupa o che cosa desideri e la lettura diventa precisa. Intanto il tasso ti indica un atteggiamento: resistere senza indurirti, come un albero che regge il vento da secoli.',
+      'Il futuro in generale le pietre non lo leggono, nemmeno per {cosa}: raccontami che cosa ti preme o che cosa desideri e la lettura diventa precisa. Intanto il tasso ti indica un atteggiamento: resistere senza indurirti, come un albero che regge il vento da secoli.',
       'A una domanda così aperta nessuna gettata risponde bene, neanche per {cosa}. Restringi il campo a una persona, a una scelta, a un periodo: allora la lettura si fa netta. Per adesso il tasso consiglia di tenere duro, anche quando costa.',
       'Davanti a una domanda generica i segni non hanno un oggetto, nemmeno per {cosa}: dimmi che cosa vuoi sapere e la risposta diventa netta. Nel frattempo il tasso parla di resistenza: è un periodo da attraversare tenendo il tuo ritmo, senza decisioni improvvise.',
       'Una domanda senza confini non lascia alle rune niente da leggere, nemmeno per {cosa}: scegli una cosa sola che ti sta a cuore e chiedi di quella. Oggi il tasso suggerisce costanza: non cambiare tutto soltanto per un momento storto.',
@@ -1353,7 +1353,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} preferisci la strada di cui vedi l\'approdo, anche se più lunga. Il sole è speranza per chi naviga perché porta la barca fino a terra: scegli l\'opzione di cui sai descrivere il punto d\'arrivo in poche parole, lascia quella che resta nebbia.',
       'Nel decidere per {cosa}, scegli la strada che ti dà energia invece di consumarla, quella a cui pensi con slancio e non con fatica. La luce piena chiede una volontà piena: un\'opzione che ti spegne prima ancora di cominciare non è la tua rotta.',
       'Fra le opzioni per {cosa}, scegli quella che ti avvicina alla meta che hai in mente, non quella che ti allontana soltanto da un disagio. Il sole guida chi ha un porto: la strada che punta dritto verso il tuo è quella da prendere.',
-      'Davanti alle opzioni per {cosa}, preferisci quella che sapresti indicare come tua rotta a una persona cara, senza giri di parole. Il sole è luce delle terre: scegli la strada che illumina anche la vita di chi ti sta accanto, oltre alla tua.',
+      'Davanti alle opzioni per {cosa}, preferisci quella che sapresti indicare come tua rotta a una persona cara, senza giri di parole. Il sole illumina tutte le terre: scegli la strada che illumina anche la vita di chi ti sta accanto, oltre alla tua.',
       'Tieni, per {cosa}, la strada in cui la tua luce si vede, quella dove ciò che sai fare e ciò che vuoi diventare vanno nella stessa direzione. Una barca con due rotte non tocca nessun porto: scegli dove volontà e talento remano insieme.',
     ],
     'Sowilo/dritta/come': [
@@ -1363,7 +1363,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Tenendo lo sguardo sulla meta: per {cosa}, prima di ogni parola o decisione, chiediti se ti avvicina a ciò che vuoi davvero costruire. Il navigante guarda il sole per correggere la rotta, non per cambiarla; fai lo stesso con le piccole deviazioni.',
       'Con calore e chiarezza insieme: per {cosa} serve la luce del sole, che scalda e orienta nello stesso momento. Di\' apertamente che cosa speri, poi resta coerente con quelle parole in ciò che fai; una luce costante crea fiducia più di un discorso.',
       'Concentrando le forze: per {cosa} smetti di disperdere energie su troppi fronti e mettile in un unico punto, quello che conta di più. Una luce raccolta orienta, una luce sparsa abbaglia; decidi con precisione che cosa vuoi ottenere prima di muoverti.',
-      'Con l\'esempio, prima che con le parole: per {cosa} vivi tu, in prima persona, la direzione che speri di vedere. Il sole è luce delle terre senza dire niente; chi ti osserva capisce la rotta dai tuoi comportamenti costanti più che da ogni consiglio.',
+      'Con l\'esempio, prima che con le parole: per {cosa} vivi tu, in prima persona, la direzione che speri di vedere. Il sole illumina le terre senza dire niente; chi ti osserva capisce la rotta dai tuoi comportamenti costanti più che da ogni consiglio.',
       'Per {cosa} serve un traguardo visibile: fissa che cosa vuoi che cambi, poi tieni quella direzione con pazienza e calore. Come il sole che porta i naviganti fino a riva, la tua volontà chiara può fare da guida anche a chi ti sta accanto.',
     ],
     'Sowilo/dritta/quando': [
@@ -1393,7 +1393,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Anche per {cosa} vale la regola: nessuna pietra conosce i pensieri di un altro. La luce di questa gettata cade su di te e sulla tua volontà; usala per mostrarti per ciò che sei, con chiarezza, invece di inseguire risposte che solo l\'altro può darti.',
       'Sul cuore altrui, per {cosa}, la lettura non si pronuncia: nessuna runa ci entra. Ti invita invece a essere luce: chi mostra con calore e chiarezza ciò che desidera aiuta anche l\'altro a orientarsi e a rispondere con la stessa chiarezza.',
       'Nessuna gettata svela le intenzioni altrui per {cosa}; svela una cosa tua: la volontà è forte e la rotta si vede. Se ti fai guidare da ciò che vuoi invece che da ciò che temi, le risposte che cerchi si leggono più facilmente nei fatti.',
-      'Per {cosa}, i pensieri di chi ti sta di fronte non sono materia di questa gettata; materia sua è la tua luce. Tieni lo sguardo sulla tua meta: le cose si chiariscono più in fretta quando sai con precisione che cosa cerchi tu.',
+      'Per {cosa}, i pensieri di chi ti sta di fronte non sono cosa che questa gettata legge; ciò che mostra è la tua luce. Tieni lo sguardo sulla tua meta: le cose si chiariscono più in fretta quando sai con precisione che cosa cerchi tu.',
       'Nessuna runa può rispondere al posto di un altro, nemmeno per {cosa}; può però dirti che hai luce sufficiente per vedere i fatti. Guarda ciò che l\'altro fa, non ciò che immagini che provi: il sole mostra le cose come sono.',
     ],
     'Sowilo/dritta/vaga': [
@@ -1673,7 +1673,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Rafforza la fiducia per {cosa} partendo da ciò che condividi con chi è coinvolto: un obiettivo, un valore, un desiderio comune. Da lì si accorda il passo, senza forzature e senza rimproveri, finché i ritmi di tutti si sostengono a vicenda.',
     ],
     'Ehwaz/ombra/quando': [
-      'Nessuna runa indica una data per {cosa}; questa dice però che il tempo riprende a scorrere quando i passi tornano d\'accordo. Finché chi è coinvolto tira in direzioni diverse il cammino resta fermo: ricucire l\'intesa è il modo per accorciare l\'attesa.',
+      'Nessuna runa indica una data per {cosa}; questa dice però che il tempo riprende a scorrere quando i passi tornano d\'accordo. Finché chi è coinvolto tira in direzioni diverse, il cammino resta fermo: ricucire l\'intesa è il modo per accorciare l\'attesa.',
       'Le pietre non contano i giorni per {cosa}: contano i passi. E qui i passi sono sfasati, perciò il tempo si allunga finché non ritrovi un ritmo comune con chi ti sta vicino. Prima viene l\'accordo, poi viene il movimento.',
       'Dalle pietre non arriva un calendario per {cosa}, arriva un\'indicazione: il momento si sblocca quando la fiducia si riallinea. Se aspetti senza parlare con chi è coinvolto l\'attesa tende ad allungarsi, se invece cerchi apertamente l\'accordo può accorciarsi di molto.',
       'Questa pietra non fissa scadenze per {cosa}; mostra però perché il tempo sembra fermo: due passi che non coincidono. Il movimento può tornare quando chiarisci a voce con chi ti sta vicino dove andare insieme e con quale ritmo procedere da qui.',
@@ -1681,7 +1681,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Ehwaz/ombra/previsione': [
       'Nessuna runa rivela l\'esito per {cosa}; questa avverte però che procedere con i passi sfasati costa fatica. Ritrova prima l\'accordo con chi ti sostiene o ti accompagna, così non porti con te una tensione che pesa a ogni passo e a ogni scelta.',
-      'Se andrà bene per {cosa}, le rune non lo dicono: dicono che un\'alleanza fuori passo rende ogni cosa più faticosa. Se qualcuno coinvolto tira da un\'altra parte chiarisci adesso a voce, così affronti ciò che viene con la fiducia rimessa in fila.',
+      'Se andrà bene per {cosa}, le rune non lo dicono: dicono che un\'alleanza fuori passo rende ogni cosa più faticosa. Se qualcuno coinvolto tira da un\'altra parte, chiarisci adesso a voce, così affronti ciò che viene con la fiducia rimessa in fila.',
       'Risultati per {cosa} questa gettata non ne anticipa; indica un punto da sistemare prima: il ritmo comune con le persone che contano. Quando i passi si riaccordano anche le prove diventano più leggere, perché nessuno ti strattona o ti frena mentre avanzi.',
       'L\'esito per {cosa} non è scritto nelle pietre, che segnalano invece una fiducia da riallineare con cura. Prima di contare sul risultato controlla di non andare avanti in disaccordo con chi conta per te: un passo condiviso regge meglio qualunque prova.',
       'Del risultato per {cosa} questa pietra non parla; parla di due cavalli fuori passo, cioè di forze che dovrebbero aiutarti e invece tirano in direzioni diverse. Rimettile d\'accordo con una conversazione calma prima di tutto e il cammino si fa meno faticoso.',
@@ -1987,7 +1987,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Scegli per {cosa} la strada che ti chiede di cambiare passo adesso, invece di quella che ti invita ad aspettare tempi migliori. Il mattino non si rimanda: fra due vie, quella che apre subito un tempo nuovo è la più vicina alla luce che sorge.',
     ],
     'Dagaz/dritta/come': [
-      'Per {cosa} il modo è cambiare passo adesso: porta subito in quella situazione qualcosa che non c\'era, un tono più aperto, un orario diverso, un\'idea nuova da proporre. Il giorno comincia quando la notte smette davvero, non quando la si aggiusta.',
+      'Per {cosa} il modo è cambiare passo adesso: porta subito in quella situazione qualcosa che non c\'era, un tono più aperto, un gesto inatteso, un\'idea nuova da proporre. Una luce nuova non si aspetta da fuori: si accende con un gesto tuo.',
       'Per {cosa} serve chiarezza piena: mostra apertamente ciò che pensi e ciò che vuoi, senza lasciare zone d\'ombra da interpretare. Come il giorno rende visibile ogni cosa a tutti, così una posizione limpida cambia il clima più di molte mezze misure.',
       'Per {cosa} conviene segnare una svolta riconoscibile: un nuovo inizio con una data scelta, un\'azione che separi bene il prima dal dopo. Chi è coinvolto ha bisogno di vedere che qualcosa è cambiato davvero, non soltanto di sentirselo dire a parole.',
       'Il modo giusto per {cosa} è guardare la situazione alla luce del giorno: metti per iscritto i fatti come sono, senza le paure della notte. Quando i contorni si vedono, la mossa da fare diventa evidente e il cambiamento può cominciare con fiducia.',
@@ -2080,7 +2080,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Othala/dritta/vaga': [
       'Una domanda larga per {cosa} non trova risposta nelle rune: nomina una cosa sola, una persona o una scelta, così la lettura diventa precisa. Per ora la terra avita dice che hai basi solide: ciò che hai costruito regge più di quanto senti.',
-      'Nessuna runa risponde a tutto, nemmeno per {cosa}: raccontami che cosa ti preoccupa davvero, così posso dirti qualcosa di preciso. Intanto la casa indica radici salde: appoggiati a ciò che ti sostiene da sempre mentre metti a fuoco la domanda.',
+      'Nessuna runa risponde a tutto, nemmeno per {cosa}: raccontami che cosa ti preme davvero, così posso dirti qualcosa di preciso. Intanto la casa indica radici salde: appoggiati a ciò che ti sostiene da sempre mentre metti a fuoco la domanda.',
       'Un futuro generico per {cosa} nessuna runa lo legge: per una risposta vera serve una domanda precisa, su una persona, un passo o un luogo. Per ora ti dicono di tornare alle tue basi: ciò che è tuo per radice resta e ti regge.',
       'Così com\'è, la domanda per {cosa} è troppo ampia e nessuna pietra può risponderle bene: restringi a una scelta o a una persona. Ciò che si vede già è una casa con fondamenta solide: hai più appoggi di quanti ne conti.',
       'Che vada tutto bene per {cosa} le rune non lo promettono, né il contrario: riformula la domanda attorno a una cosa sola e la risposta si fa chiara. Intanto la terra dei padri ricorda che ciò che ti regge da sempre è ancora lì.',
@@ -2116,7 +2116,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     'Othala/ombra/previsione': [
       'Ciò che uscirà per {cosa} non si legge nelle rune: si legge che un vecchio schema può frenarti più delle circostanze. Vacci con un modo tuo, non con le paure ricevute: muoviti come oggi ti serve, non come si è sempre fatto.',
       'Nessuna pietra anticipa il risultato per {cosa}: questa gettata mostra però un\'abitudine che pesa sul modo di andarci. Se ti accorgi di ripetere la strategia di sempre, cambiala in un punto: un vecchio copione sciolto lascia spazio alla tua forza vera.',
-      'Come andrà per {cosa} nessuna pietra lo promette: si vede però un peso dal passato da posare adesso. Lascia a casa le voci che ripetono i timori di altri o i tuoi di ieri: regolati sul presente, con ciò che sai fare oggi.',
+      'Come andrà per {cosa} nessuna pietra lo promette: si vede però un peso dal passato da posare adesso. Lascia a casa le voci che ripetono i dubbi di altri o i tuoi di ieri: regolati sul presente, con ciò che sai fare oggi.',
       'Un esito per {cosa} non sta nelle rune, che vedono invece un\'eredità da sciogliere: aspettative ricevute, paragoni, il dovere di non deludere. Andarci senza quel carico vuol dire ricordare che la strada è tua e soltanto tua, non di chi ti guarda da fuori.',
       'Se andrà come speri per {cosa}, le rune non lo rivelano: rivelano un nodo antico da allentare. Spesso a pesare non sono i fatti ma la voce che ti porti dietro da anni: abbassala e vai con ciò che sei oggi.',
     ],
@@ -2210,7 +2210,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} scegli oggi una dispersione da fermare (ore perse a rimuginare, impegni che ti svuotano, attese senza fine) e chiudila entro una settimana. Poi rifai lo stesso la settimana dopo con un\'altra: l\'attesa può accorciarsi una falla alla volta, senza fretta.',
       'Smetti per {cosa} di contare i giorni: scrivi su un foglio la data che speri, mettilo in un cassetto e non riaprirlo per quindici giorni. Usa quel tempo per riordinare le forze, con una sera alla settimana dedicata a ciò che ti ricarica.',
       'Ogni sera per {cosa} annota una cosa che ti ha tolto energia e una che te l\'ha restituita. Dopo dieci giorni rileggi: elimina la perdita che torna più spesso e moltiplica ciò che ti rimette in forze, senza fissare date né contare i giorni.',
-      'Per {cosa} lascia cadere entro tre giorni un\'attività che tieni in piedi solo per paura di perdere qualcosa. Usa il tempo liberato per una sola cosa che conta e torna a chiederti a che punto sei fra un mese, non prima.',
+      'Per {cosa} lascia cadere entro tre giorni un\'attività che tieni in piedi solo per paura di perdere qualcosa. Usa il tempo liberato per una sola cosa che conta e fino ad allora non cercare altri segnali: guarda soltanto come cambia la tua giornata.',
       'Fissa per {cosa} un controllo fra tre settimane e fino a quel giorno rinuncia a cercare segnali nuovi ogni mattina. Metti invece da parte un\'ora alla settimana per chiudere ciò che è rimasto in sospeso e ti pesa addosso da troppo tempo.',
     ],
     'Fehu/ombra/previsione': [
@@ -2798,7 +2798,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Prima di confermare la scelta di {azione}, scrivi i nomi delle tre persone che contano di più per te e accanto a ciascuno se la decisione ti avvicina o ti allontana. Se prevalgono gli avvicinamenti procedi; altrimenti parlane con loro entro domenica.',
       'Questa settimana racconta a una persona cara, davanti a un caffè, la decisione di {azione}: mentre ne parli nota se senti più leggerezza o più peso. La leggerezza dice sì; il peso chiede di aspettare qualche giorno e di parlarne ancora.',
       'Scrivi stasera tre cose che oggi ti danno gioia e accanto a ciascuna se la scelta di {azione} la conserva o la toglie. Se le conserva tutte, procedi; se ne toglie una, parlane prima a voce con chi la condivide con te.',
-      'Se la scelta di {azione} ti avvicina a chi ami, fissa entro dieci giorni il momento di comunicarla e scegli con chi condividere il giorno dopo. Se invece chiude un legame che ti dà ancora gioia, aspetta un mese e parlane con chi è coinvolto.',
+      'Se la scelta di {azione} ti avvicina a chi ami, fissa entro dieci giorni il momento di comunicarla e scegli con chi condividere il giorno dopo. Se invece ti allontana da chi ti dà ancora gioia, aspetta un mese e parlane con chi è coinvolto.',
       'Dedica un pomeriggio di questa settimana, prima di {azione}, a qualcosa che ti fa stare bene insieme a chi ami, senza parlare della scelta: decidi il giorno dopo, con l\'animo disteso. Non decidere mai sotto pressione o in un momento di malumore.',
     ],
     'Wunjo/dritta/scelta': [
@@ -3227,7 +3227,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Prima della prossima conversazione importante per {cosa}, scrivi l\'unica cosa su cui non vuoi cedere e due su cui puoi venire incontro. Durante il confronto tieni ferma la prima e concedi le altre, come il tasso che si piega nei rami e non nel tronco.',
       'Tieni un quaderno del tuo impegno per {cosa}: ogni volta che fai qualcosa, anche minimo, scrivilo in una riga. Quando senti la tentazione di mollare, rileggilo tutto: la strada fatta, vista per intero, ti dà la forza di continuare senza forzare.',
       'Ogni volta che per {cosa} senti l\'impulso di forzare o di arrenderti, aspetta ventiquattro ore prima di agire e intanto fai una cosa ordinaria che ti tenga in piedi: una camminata, il lavoro di sempre, una telefonata a un amico.',
-      'Scegli un momento tranquillo dei prossimi giorni e di\' con calma a chi è coinvolto, in tre frasi, ciò che ti sta a cuore per {cosa}. Poi tieni quella linea nelle settimane seguenti, senza ripeterla a ogni occasione e senza ritirarla.',
+      'Scegli un momento tranquillo dei prossimi giorni e di\' con calma a chi è coinvolto, in tre frasi, ciò che per {cosa} ti sta più a cuore. Poi tieni quella linea nelle settimane seguenti, senza ripeterla a ogni occasione e senza ritirarla.',
       'Per {cosa} fai un patto con te: niente gesti clamorosi, solo parole misurate e una presenza costante fino in fondo. Segna sul calendario ogni giorno in cui l\'hai rispettato: se salti un giorno, riprendi il successivo senza ricominciare da capo e senza colpe.',
     ],
     'Eihwaz/dritta/quando': [
@@ -3533,7 +3533,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} nomina oggi una cosa sola che desideri e una sola che temi, scritte una sotto l\'altra su un foglio. Porta la prima come domanda nella prossima lettura; per la seconda, chiediti che cosa puoi fare questa settimana per toglierle forza.',
       'Domattina, alla luce del giorno, scrivi tre domande per {cosa} e cancellane due: tieni quella che ti fa battere il cuore. Riformulala con un nome o una scadenza; poi torna a farla, perché una domanda chiara riceve una risposta chiara.',
       'Non chiedere tutto insieme: per {cosa} scegli la questione che occupa più spazio nei tuoi pensieri di questi giorni e formulala come domanda diretta, dicendo chi o che cosa riguarda. Portala alla prossima lettura; intanto dedicale dieci minuti ogni sera.',
-      'Fai una lista di ciò che ti sta a cuore per {cosa} e sottolinea la voce che ti toglie più sonno. Fai di quella voce una domanda precisa e chiedila di nuovo: una rotta si traccia verso un porto alla volta, mai verso tutti insieme.',
+      'Per {cosa} fai una lista di ciò che ti sta a cuore e sottolinea la voce che ti toglie più sonno. Fai di quella voce una domanda precisa e chiedila di nuovo: una rotta si traccia verso un porto alla volta, mai verso tutti insieme.',
       'Rimetti la domanda a fuoco: per {cosa} dimmi che cosa ti preme davvero, una persona, una scelta, un luogo; allora la lettura può indicarti una rotta. Intanto, questa settimana, scrivi la meta che vuoi raggiungere entro tre mesi e tienila sul comodino.',
     ],
     'Tiwaz/dritta/decisione': [
@@ -3604,7 +3604,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Questa settimana, per {cosa}, rinuncia a ogni battuta, frecciata o risposta di rivalsa, anche quando ti sembra meritata. Annota ogni sera le occasioni in cui hai scelto la calma: dopo sette giorni possono diventare la base per un confronto sereno con la persona coinvolta.',
       'Per {cosa} stabilisci un unico punto fermo che non vuoi cedere: scrivilo stasera, poi lascia andare tutto il resto. Nel prossimo confronto difendi solo quello, con parole tranquille e frasi brevi; non aggiungere altre richieste e non alzare il tono, nemmeno se ti provocano.',
       'Concediti due giorni di distanza per {cosa}: niente messaggi lunghi, niente decisioni a caldo. Nel frattempo chiedi a una persona di fiducia di aiutarti a distinguere ciò che ti preme davvero da ciò che è solo orgoglio; poi parla soltanto del primo.',
-      'Comincia per {cosa} da un impegno minimo che puoi mantenere anche con poca energia: dieci minuti di ascolto al giorno, una piccola promessa rispettata. Fallo per una settimana di fila, senza aspettarti riconoscimenti; così ritrovi la misura di ciò che è giusto per te.',
+      'Comincia per {cosa} da un impegno minimo che puoi mantenere anche con poca energia: dieci minuti di ascolto oggi, una piccola promessa rispettata domani. Senza aspettarti riconoscimenti, annota la sera che cosa hai mantenuto: così ritrovi la misura di ciò che è giusto per te.',
     ],
     'Tiwaz/ombra/quando': [
       'Per {cosa} smetti per dieci giorni di chiedere a te e agli altri quanto manca. Usa quel tempo per scrivere che cosa è giusto per te in questa situazione; quando la frase è chiara, scegli una sola azione coerente e fissala in agenda.',
@@ -3664,10 +3664,10 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
     ],
     'Berkano/dritta/previsione': [
       'Scrivi stasera tre cose che puoi ancora curare, per {cosa}, prima di sapere come va: un dettaglio da rifinire, una persona da sentire, un punto da rafforzare. Dedica a ciascuna un giorno di questa settimana. Non aspettare l\'esito con le mani ferme.',
-      'Per {cosa} tieni un quaderno della crescita: ogni sera annota un piccolo segno di ciò che sta nascendo, anche minimo. Dopo tre settimane rileggilo dall\'inizio e scegli che cosa curare di più. Non pretendere frutti subito: la betulla mette foglie poco alla volta.',
-      'Chiedi un parere sincero, per {cosa}, a una persona competente entro venerdì, su ciò che hai preparato o costruito: lavora per dieci giorni sul punto che ti indica. Non chiedere rassicurazioni, chiedi correzioni: sono il nutrimento di ciò che cresce davvero.',
-      'Fai stasera un elenco di ciò che, per {cosa}, hai già costruito e rileggilo ogni mattina per due settimane. Accanto aggiungi ogni giorno una riga nuova su ciò che hai rafforzato. Non lasciare tutto all\'ultimo momento: ciò che nasce vuole cura distribuita.',
-      'Ogni sera, per {cosa}, prenditi dieci minuti per rivedere ciò che hai fatto nella giornata e scegliere che cosa curare domani. Mantienili per un mese, anche nei giorni pieni. Non affidarti all\'ispirazione dell\'ultimo momento: affidati a ciò che hai coltivato con pazienza.',
+      'Per {cosa} tieni un quaderno della crescita: ogni sera annota un piccolo segno di ciò che sta nascendo, anche minimo. Prima di conoscere l\'esito rileggilo dall\'inizio e scegli che cosa curare di più. Non pretendere frutti subito: la betulla mette foglie poco alla volta.',
+      'Chiedi un parere sincero, per {cosa}, a una persona competente entro venerdì, su ciò che hai preparato o costruito: lavora da subito sul punto che ti indica. Non chiedere rassicurazioni, chiedi correzioni: sono il nutrimento di ciò che cresce davvero.',
+      'Fai stasera un elenco di ciò che, per {cosa}, hai già costruito e rileggilo ogni mattina finché non conosci l\'esito. Accanto aggiungi ogni giorno una riga nuova su ciò che hai rafforzato. Non lasciare tutto all\'ultimo momento: ciò che nasce vuole cura distribuita.',
+      'Ogni sera, per {cosa}, prenditi dieci minuti per rivedere ciò che hai fatto nella giornata e scegliere che cosa curare domani. Mantienili anche nei giorni più pieni, senza saltarne nessuno. Non affidarti all\'ispirazione dell\'ultimo momento: affidati a ciò che hai coltivato con pazienza.',
     ],
     'Berkano/dritta/altrui': [
       'Per {cosa}, se c\'è un contatto aperto, scegli tre attenzioni semplici da offrire senza chiedere nulla, come ascoltare fino in fondo: distribuiscile in due settimane. Poi guarda i fatti, non le parole. Non chiedere dichiarazioni né promesse in questo periodo.',
@@ -4117,7 +4117,7 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Per {cosa} togli dalla bilancia ogni ragione che nasce solo dal desiderio di scappare da qualcosa: scrivile, rileggile e cancellale. Con ciò che resta sul foglio scegli entro venerdì la strada che segna il cambiamento più vero e comunicala a chi ne sarà toccato.',
     ],
     'Dagaz/dritta/come': [
-      'Per {cosa} cambia alla prossima occasione una cosa sola nel modo in cui ti presenti: l\'ora, il luogo, il tono o la prima frase. Scegli quella più legata alla vecchia abitudine e sostituiscila del tutto, senza tornare indietro nelle volte successive.',
+      'Per {cosa} cambia alla prossima occasione una cosa sola nel modo in cui ti presenti: il tono, la prima frase o il modo di ascoltare. Scegli quella più legata alla vecchia abitudine e sostituiscila del tutto, senza tornare indietro a metà strada.',
       'Per {cosa} scegli un mattino di questa settimana e, nelle prime ore, di\' a chi è coinvolto come vuoi che vada da qui in avanti, in tre frasi al massimo. Preparale la sera prima e dille senza preamboli, guardando in faccia chi ascolta.',
       'Stasera scrivi per {cosa} che cosa vuoi che finisca e che cosa vuoi che cominci, una riga ciascuno. Domani di\' quelle due righe a chi è coinvolto, con calma e a voce; poi proponi un giorno preciso da cui il nuovo modo comincia.',
       'Per {cosa} metti per iscritto, alla luce del giorno, i fatti come sono: tre righe, senza aggettivi né ipotesi. Rileggile domattina e scegli la mossa che quei fatti rendono evidente; falla entro due giorni, lasciando da parte i timori notturni.',
@@ -4244,11 +4244,11 @@ const Map<String, Map<String, List<String>>> leRisposteDirette = {
       'Componi per {cosa} una lettera da non spedire a ciò che ti trattiene dal passato: un\'abitudine, una voce, un\'attesa ricevuta. Ringrazia per ciò che è servito, saluta, chiudila in un cassetto; da domani agisci come chi ha già voltato pagina, un giorno alla volta.',
     ],
     'Othala/ombra/previsione': [
-      'Metti su carta, per {cosa}, la frase scoraggiante che ti torna in mente nei momenti di dubbio, se ne hai una. Sotto riscrivila in una versione tua, realistica: leggila ogni mattina per due settimane e non portare con te la voce vecchia.',
+      'Metti su carta, per {cosa}, la frase scoraggiante che ti torna in mente nei momenti di dubbio, se ne hai una. Sotto riscrivila in una versione tua, realistica: leggila ogni mattina finché non conosci l\'esito e non portare con te la voce vecchia.',
       'Prepara per {cosa} un modo nuovo di andarci incontro: scegli una cosa che fai sempre allo stesso modo quando sale l\'ansia e cambiala, un orario, un\'abitudine, una frase. Non ripetere ciò che in passato non ha funzionato solo perché ti rassicura.',
       'Elenca per {cosa} le aspettative che senti addosso, di chi sono e quanto pesano da uno a dieci. Cancella quelle che non ti appartengono e vai con le sole tue; non portare sulle spalle il risultato che qualcun altro si aspetta.',
       'Se per {cosa} ti porti dietro una paura che viene dalla tua storia, raccontala entro domenica a una persona fidata, nominandola senza vergogna. Detta ad alta voce perde presa; poi torna al presente, con le forze e le capacità che hai oggi.',
-      'Questa settimana, per {cosa}, tieni lontani i paragoni con chi è venuto prima di te in famiglia o altrove: ogni volta che ne fai uno, annotalo. Rileggi l\'elenco ogni domenica; vai con la tua misura, non con quella di altri.',
+      'Questa settimana, per {cosa}, tieni lontani i paragoni con chi è venuto prima di te in famiglia o altrove: ogni volta che ne fai uno, annotalo. Rileggi l\'elenco prima di conoscere l\'esito; vai con la tua misura, non con quella di altri.',
     ],
     'Othala/ombra/altrui': [
       'Stasera chiediti per {cosa} se i tuoi timori in questo legame somigliano a qualcosa che hai già vissuto altrove. Se sì, annota da dove vengono e guarda chi è coinvolto oggi per i suoi fatti, non per il volto del passato.',

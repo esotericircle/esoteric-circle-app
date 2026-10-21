@@ -20,6 +20,7 @@ import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
 import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
 import 'package:esoteric_circle/core/rituals/il_titolo_della_gettata.dart';
 import 'package:esoteric_circle/core/rituals/la_risposta_della_gettata.dart';
+import 'package:esoteric_circle/core/rituals/le_risposte_dirette.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
@@ -120,10 +121,20 @@ void main() {
             for (final d in r.difetti()) {
               difetti.add('$dove: $d');
             }
-            if (r.titolo != decide.riga.trim() ||
-                r.titolo != IlTitoloDellaGettata.di(esito)) {
-              difetti.add('$dove: il titolo «${r.titolo}» non e\' la riga '
-                  'della pietra che decide, ${decide.rune.name}');
+            // **DALLA RIAPERTURA DELLA VOCE GA.06** su salute, legge e
+            // denaro il titolo dice il limite (simulazione sul Realme,
+            // gruppo C, D8: "Un nuovo giorno: cambia stato con lui" sopra
+            // una frase che manda dal consulente); sulle altre domande
+            // resta la riga della pietra che decide.
+            final delicata = LaDomandaLetta.di(domanda).delicato;
+            final titoloAtteso = delicata != null
+                ? LaRispostaDellaGettata.titoloDelicato(delicata, decide)
+                : decide.riga.trim();
+            if (r.titolo != titoloAtteso ||
+                (delicata == null &&
+                    r.titolo != IlTitoloDellaGettata.di(esito))) {
+              difetti.add('$dove: il titolo «${r.titolo}» non e\' quello '
+                  'atteso per la pietra che decide, ${decide.rune.name}');
             }
             if (lunga) {
               lunghi++;
@@ -180,7 +191,17 @@ void main() {
                 difetti.add('$dove, scheda di ${pietra.rune.name}: il titolo '
                     'non legge la posizione');
               }
-              if (!s.risposta.contains(pietra.rune.name)) {
+              // La scheda nomina la sua runa nel paragrafo quando e' la
+              // voce di PIETRA o la forma delicata; la scheda di una domanda
+              // con un tipo e' la risposta diretta "come" di quella pietra,
+              // scritta per la domanda e non per il nome (la testata della
+              // scheda a video porta nome e posto della runa, `_LetturaRuna`).
+              final q = LaDomandaLetta.di(domanda);
+              final conTipo = q.delicato == null &&
+                  LeRisposteDirette.tipoDelleSchede(
+                          LeRisposteDirette.tipoDelCorpus(q, domanda)) !=
+                      null;
+              if (!conTipo && !s.risposta.contains(pietra.rune.name)) {
                 difetti.add('$dove, scheda di ${pietra.rune.name}: il '
                     'paragrafo non nomina la sua runa');
               }

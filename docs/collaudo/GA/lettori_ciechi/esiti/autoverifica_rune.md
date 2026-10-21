@@ -117,3 +117,35 @@ era indulgente. Qui uso i criteri del lettore, alla lettera
 - I tipi quando e vaga e le voci altrui di azione e diretta hanno avuto una
   revisione parziale (vedi il rapporto); la revisione per tipo di previsione,
   come, decisione e scelta è applicata intera.
+
+## Terzo giro, lettura severa dopo la riapertura (21 ottobre 2026)
+
+Riaperta dopo la lettura cieca (D1 12/12, D2 11/12, D3 10/12, tre sì 9/12) e il
+Realme. Ho riletto circa novanta gettate in blocchi, il principale e tutte le
+schede, correggendo dopo ogni blocco. L'ultimo blocco ha trovato un solo no
+(l'Ostacolo con "paura di cambiare stato" sotto una domanda di denaro, curato
+usando il senso delicato). Dopo la lettura finale sono rimasti due no che ho
+curato prima di consegnare: rune-39, "un orario diverso" e "nelle volte
+successive" sotto un pranzo di Natale (riscritte le due voci di Dagaz; avevo
+provato a riconoscere Natale e pranzo come eventi brevi, ma il filtro più
+stretto faceva scegliere una scheda con "ansia" e la guardia delle schede l'ha
+colto, quindi l'ho tolto), e
+"ciò che hai perso" sotto una domanda di denaro (presupponeva una perdita).
+
+Cosa so di non aver curato, e lo dico qui:
+
+- Il pozzo neutro PIETRA, CONSIGLIO, RISPOSTA, GESTO non si controlla fino in
+  fondo con un lessico: restano formule come "ciò che ti preoccupa" o "un
+  fastidio di questi giorni" che un lettore severo può contare come
+  presupposti.
+- Il principale lo decide la sola pietra che decide: le altre stanno
+  nell'approfondimento e nelle schede.
+- Con uso molto pesante (tre gettate al giorno per sessanta giorni) le schede
+  ripetono ancora: servono circa cinquanta coppie neutre per gruppo.
+- La frase del rito (galdr) parafrasa il titolo della runa: sta nel corpus
+  dell'Architetto, `docs/corpus/riti/galdr_delle_rune.md`.
+- Resta qualche ordine di parole poco naturale ("ringrazia entro due giorni
+  lui") e la persona nominata due volte quando sta già nella cosa.
+
+Le mie letture sono sempre state più indulgenti di quelle dei lettori ciechi:
+il numero che conta è la lettura indipendente, non questa.
