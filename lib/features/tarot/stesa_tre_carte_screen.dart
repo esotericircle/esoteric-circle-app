@@ -3242,7 +3242,7 @@ class _BloccoDelleCarte extends StatelessWidget {
             runSpacing: 2,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text(drawn.position.label.toUpperCase(),
+              Text(drawn.position.etichetta.toUpperCase(),
                   style: TypographyTokens.etichetta().copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.8),
                       letterSpacing: 1.2)),
@@ -3573,7 +3573,7 @@ class BollaDellaPosizione extends StatelessWidget {
                     Row(
                       children: [
                         Flexible(
-                          child: Text(letta.drawn.position.label.toUpperCase(),
+                          child: Text(letta.drawn.position.etichetta.toUpperCase(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TypographyTokens.etichetta().copyWith(
@@ -3651,7 +3651,7 @@ class BollaDellaPosizione extends StatelessWidget {
             maestro: Maestro.medora,
             frase: letta.testo,
             aperturaDellaChat: ChatOpeners.cartaDellaStesa(
-                domanda, letta.drawn.position.label, letta.drawn.displayName),
+                domanda, letta.drawn.position.etichetta, letta.drawn.displayName),
           ),
         ],
       ),

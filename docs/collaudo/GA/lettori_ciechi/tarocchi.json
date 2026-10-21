@@ -26,9 +26,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il peso che porti non è tuo",
-        "risposta": "L'abitudine fa da cinghia a un peso che non ti riguarda. Le spalle lo reggono per inerzia, il proprietario è un altro e metterlo a terra lascia tutti al loro posto. I compiti delegati ai colleghi, il carico ridistribuito nel reparto, l'incarico in più rifiutato con garbo.",
-        "cosaFare": "Rifiuta con garbo l'incarico in più che ti propongono oggi, spiegando quali compiti hai già in corso. Questa carta mostra il carico che si alleggerisce: dire di no a ciò che non ti spetta protegge la qualità di ciò che fai e il tuo respiro.",
+        "titolo": "Sì, ma pesa un fardello da restituire",
+        "risposta": "Sì, ma a una condizione: Dieci di Bastoni rovesciato dice che porti un fardello che forse non ti appartiene, per abitudine o per dovere. Prima serve questo: restituisci un compito che non è tuo e dillo con chiarezza. Al centro c'è un fardello da restituire.",
+        "cosaFare": "Chiedi un incontro breve con chi decide e porta due risultati misurabili del tuo lavoro. Scrivi su una pagina che cosa hai ottenuto quest'anno e consegnala a chi decide. Non chiedere la promozione nel mezzo di una giornata storta. Non aspettare che qualcuno si accorga del tuo lavoro senza dirlo.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -68,9 +68,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "La porta è socchiusa",
-        "risposta": "Con Nove di Spade le carte, nel tuo quadro affettivo, indicano una situazione che gira a tuo favore. Parla di una porta socchiusa: non si apre da sola, ma non è chiusa. Non serve un colpo di fortuna: serve la costanza delle cose piccole.",
-        "cosaFare": "Quello che le carte chiedono è una cosa sola. Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non farti dettare i tempi da chi aspetta. Quattro di Bastoni chiude la lettura su una nota concreta: questo gesto è il modo di raggiungerla.",
+        "titolo": "Sì, ma pesa un ritiro che chiarisce",
+        "risposta": "Sì, ma a una condizione: L'Eremita dice che è tempo di ritiro e di ricerca interiore; la risposta arriva un tratto alla volta. Prima, però, prenditi del tempo per te prima di decidere. Davanti a te c'è Quattro di Bastoni, cioè una stabilità da festeggiare.",
+        "cosaFare": "Quattro di Bastoni davanti a te aggiunge un gesto: festeggia ciò che hai costruito con le persone che contano. Fissate insieme la data del prossimo incontro e scrivetela nel calendario. Non tenere il conto di chi ha dato di più.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -150,9 +150,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il terreno è buono",
-        "risposta": "Fante di Bastoni risponde, su cosa prova per te, con un favore concreto e vicino su cui puoi contare. Dice che il terreno è buono: non promette clamori, ma quello che ci pianti cresce. È il momento buono per muoverti, senza aspettare condizioni migliori di queste.",
-        "cosaFare": "Le carte non lasciano il consiglio nel vago: eccolo. Rendi visibile quello che sai fare, anche con una riga sola in più. Non lasciare che resti un segreto. L'ultima carta è Regina di Denari: un risultato alla portata, se il gesto si fa adesso.",
+        "titolo": "Sì, conta un'idea giovane da provare",
+        "risposta": "Le domande sono due: le carte rispondono alla prima, la seconda chiede una stesa sua. Sì, la tendenza è favorevole: Fante di Bastoni dice che arriva un'idea giovane, una curiosità che chiede di essere esplorata. All'esito c'è Regina di Denari, cioè una cura concreta.",
+        "cosaFare": "Per l'altra domanda fai una stesa a parte, con quella sola. Regina di Denari all'esito aggiunge un gesto: prenditi cura della cosa con un gesto pratico e concreto. Guarda i gesti degli ultimi giorni più delle parole: scrivi tre fatti concreti. Non chiedere conferme a chi non c'entra.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -185,7 +185,7 @@
           "posizione": "Il lato",
           "carta": "Asso di Coppe rovesciato",
           "titolo": "Un sentire fermo dove nasce",
-          "risposta": "Il tuo sentire tenuto a chiave da dentro, prima che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l'acqua ferma resta nella coppa. L'emozione trattenuta, l'amore rimandato per paura di soffrire, il cuore chiuso davanti a un sentimento.",
+          "risposta": "Il tuo sentire resta chiuso da dentro, prima ancora che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l'acqua ferma resta nella coppa. L'emozione trattenuta, l'amore rimandato per paura di soffrire, il cuore chiuso davanti a un sentimento.",
           "cosaFare": "Chiediti che cosa temi davvero se ti lasci andare con questa persona: scrivilo su un foglio, nero su bianco. Spesso la paura, vista da vicino, è più piccola del desiderio. La carta parla di un cuore chiuso davanti al nuovo; nominare il timore lo rende meno padrone.",
           "approfondimento": null,
           "rito": null,
@@ -251,7 +251,7 @@
           "significatoDelVerso": "Le coppe versate."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "La Papessa",
           "verso": "dritta",
           "significatoDelVerso": "Il sapere del silenzio."
@@ -279,13 +279,13 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Manca un pezzo in un punto solo",
-        "risposta": "Nella tua casa, la risposta è un ritardo piccolo e del tutto rimediabile, come mostra Tre di Bastoni rovesciato. Un ingranaggio gratta: non si è rotto niente, manca qualcosa in un punto solo. Non è un segnale di fine: è un granello che si toglie subito.",
-        "cosaFare": "La mossa suggerita si fa in pochi giorni. Parla presto con la persona che sta dall'altra parte dell'inghippo. Non provare a sistemarlo in segreto, senza dirglielo. La lettura si chiude con Sette di Denari: cose che si vedono e si contano, se cominci.",
+        "titolo": "Prima cura una scossa rimandata",
+        "risposta": "Il modo c'è, a una condizione: lascia cadere ora ciò che è falso, prima che il crollo diventi più grande. La Torre rovesciata dice che stai rimandando una scossa necessaria, oppure ne stai uscendo a fatica. All'esito c'è Sette di Denari, cioè un raccolto che chiede pazienza.",
+        "cosaFare": "Sette di Denari all'esito aggiunge un gesto: aspetta il tempo giusto e intanto valuta con calma i risultati. Trova un momento a due, senza domande dirette; ascolta più di quanto parli. Non fare paragoni con fratelli, cugini o compagni di scuola.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: Tre di Bastoni rovesciato (ciò che copre), Fante di Bastoni (ciò che attraversa), Sei di Coppe (ciò che corona), Quattro di Bastoni (il fondamento), Quattro di Coppe (ciò che è dietro), Cinque di Coppe (futuro), La Papessa ([te stesso|te stessa|tu]), La Torre rovesciata (la tua casa), Fante di Denari rovesciato (speranze o timori), Sette di Denari (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: Tre di Bastoni rovesciato (ciò che copre), Fante di Bastoni (ciò che attraversa), Sei di Coppe (ciò che corona), Quattro di Bastoni (il fondamento), Quattro di Coppe (ciò che è dietro), Cinque di Coppe (futuro), La Papessa (tu), La Torre rovesciata (la tua casa), Fante di Denari rovesciato (speranze o timori), Sette di Denari (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
@@ -303,7 +303,7 @@
           "posizione": "Ciò che attraversa",
           "carta": "Fante di Bastoni",
           "titolo": "Una notizia fresca che arriva nel momento sbagliato",
-          "risposta": "Il recapito dell'annuncio porta allo scoperto un tuo riserbo: il messaggero racconta subito quello che ha visto, senza sapere quali porte erano chiuse. La curiosità, l'esplorazione, la voglia di provare tutto con la meraviglia degli inizi, il primo passo fuori.",
+          "risposta": "Il messaggio arriva e svela ciò che tenevi per te: chi lo porta racconta subito quello che ha visto, senza badare a ciò che era riservato. La curiosità, l'esplorazione, la voglia di provare tutto con la meraviglia degli inizi, il primo passo fuori.",
           "cosaFare": "Non spegnere l'entusiasmo con troppi calcoli: quando un'idea ti accende, concediti di provarla in piccolo prima di giudicarla. Scegli un gesto concreto per metterla alla prova entro stasera. Questa carta porta lo slancio degli inizi: chiede mani in movimento più che lunghi ragionamenti.",
           "approfondimento": null,
           "rito": null,
@@ -314,7 +314,7 @@
           "posizione": "Ciò che corona",
           "carta": "Sei di Coppe",
           "titolo": "Il bene delle origini salvato intero",
-          "risposta": "Questo massimo è fatto di un fiore porto da una mano piccola: un affetto di molti anni indietro che alla tua questione torna intatto, con l'innocenza che aveva allora. La nostalgia dolce, i ricordi, la casa natale, i fiori offerti in una coppa come un dono d'infanzia.",
+          "risposta": "Questo meglio è un dono semplice, come un fiore offerto da un bambino: un affetto di molti anni fa torna intatto alla tua questione, con l'innocenza che aveva allora. La nostalgia dolce, i ricordi, la casa natale, i fiori offerti in una coppa come un dono d'infanzia.",
           "cosaFare": "Torna oggi, di persona o col pensiero, in un luogo della tua infanzia: una strada, un sapore, una canzone. Concediti mezz'ora per goderlo senza confrontarlo col presente. La nostalgia dolce nutre quando la accogli come un dono, non quando la usi per giudicare l'oggi.",
           "approfondimento": null,
           "rito": null,
@@ -325,7 +325,7 @@
           "posizione": "Il fondamento",
           "carta": "Quattro di Bastoni",
           "titolo": "Poggi su un traguardo già raggiunto",
-          "risposta": "Pali piantati nel terreno con una ghirlanda legata in cima: quel portale regge da sé e sta sotto la tua questione, che da prima di questa domanda ci passa in mezzo. La festa sotto la ghirlanda, le radici, il ritorno a casa, la gioia condivisa in famiglia.",
+          "risposta": "Pali piantati nel terreno con una ghirlanda legata in cima: alla base della tua questione c'è una casa solida già festeggiata, che regge da sé da prima di questa domanda. La festa sotto la ghirlanda, le radici, il ritorno a casa, la gioia condivisa in famiglia.",
           "cosaFare": "Apri la tua casa a qualcuno, oggi o nel fine settimana, anche solo per un tè o una cena semplice. La carta parla di radici che reggono e di gioia divisa: festeggiare con chi ti vuole bene rende più salda la base che hai costruito.",
           "approfondimento": null,
           "rito": null,
@@ -355,7 +355,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "La Papessa",
           "titolo": "Scegli il silenzio e l'ascolto",
           "risposta": "Scegli il silenzio: davanti alla questione non spieghi, non insegui, tieni il libro chiuso in grembo e aspetti che la risposta salga da sé. Il silenzio, l'intuizione, i libri e i misteri, le risposte che maturano piano nell'attesa, senza spiegazioni.",
@@ -420,9 +420,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Un cuore calmo che regge le onde",
-        "risposta": "L'acqua si agita e il seggio che la domina non cede: senti tutto quanto per intero e nulla ti rovescia, così la tua calma diventa un posto fermo per gli altri. Il partner maturo, il porto sicuro, l'amore calmo che sa reggere le tempeste di entrambi.",
-        "cosaFare": "Quando nasce una tensione con il tuo partner, abbassa il tono invece di alzarlo e proponi di parlarne con calma più tardi, a un'ora precisa. Fare da porto sicuro non significa tacere: significa scegliere il momento in cui le parole aiutano davvero.",
+        "titolo": "Sì, conta una calma che governa",
+        "risposta": "La risposta delle carte è sì, perché Re di Coppe indica che serve calma emotiva; chi governa i sentimenti con serenità tiene la direzione. Per sostenere questa tendenza, rispondi con calma e senza farti trascinare dall'umore. Al centro c'è una calma che governa.",
+        "cosaFare": "Scegli un ambiente che ti piace davvero e frequentalo con regolarità. Questa settimana accetta un invito o iscriviti a un'attività con persone nuove che condividono un tuo interesse. Non giudicare una persona dal primo minuto di conversazione. Non chiuderti in casa aspettando che succeda qualcosa.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -462,9 +462,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Le cose stanno dove devono",
-        "risposta": "Su cosa prova per te, la risposta è buona e sta alla tua misura, come mostra Quattro di Spade. Racconta una misura giusta: le cose stanno dove devono e chiedono solo di essere usate. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
-        "cosaFare": "Le carte indicano un gesto preciso: è questo. Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non farti dettare i tempi da chi aspetta. Dove la lettura si chiude c'è La Papessa: questo gesto è il primo tratto per arrivarci.",
+        "titolo": "Le carte vedono una risposta che matura piano",
+        "risposta": "Le carte vedono una cosa ancora in sospeso: La Papessa dice che la risposta matura nel silenzio e non tutto va deciso adesso. Il consiglio della carta è questo: aspetta qualche giorno prima di decidere e ascolta che cosa senti davvero.",
+        "cosaFare": "Quattro di Spade nel presente aggiunge un gesto: fermati qualche giorno e recupera le forze prima di agire. Fai una domanda diretta e semplice a quattr'occhi, poi ascolta la risposta senza interrompere. Non chiedere conferme a chi non c'entra. Non cercare la risposta nei messaggi o nei social.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -544,9 +544,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "La porta è socchiusa",
-        "risposta": "Sul progetto che porti, la risposta è positiva e concreta, senza clamore: a dirlo è Re di Bastoni. Parla di una porta socchiusa: non si apre da sola, ma non è chiusa. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
-        "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Fai la versione piccola della cosa grande che hai in mente, questa settimana. Non progettare oltre prima di averla provata. L'ultima carta è Tre di Coppe rovesciato: la più facile da smentire, con un gesto come questo.",
+        "titolo": "Sì, conta la capacità di fare",
+        "risposta": "Il Mago risponde: sì, la tendenza è favorevole, perché hai già gli strumenti che servono e l'idea chiede di diventare un gesto concreto. All'esito c'è Tre di Coppe rovesciato, cioè un gruppo da curare meglio: un esito che chiede ancora un impegno.",
+        "cosaFare": "Tre di Coppe rovesciato all'esito aggiunge un gesto: torna alle persone che ti sostengono davvero e lascia i rapporti di facciata. Scrivi su una pagina chi comprerebbe, a quale prezzo e perché; poi mostrala a una persona competente. Non ascoltare solo chi ti dice quello che vuoi sentire.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -645,7 +645,7 @@
           "significatoDelVerso": "La mente curiosa."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Tre di Denari",
           "verso": "rovesciata",
           "significatoDelVerso": "La collaborazione stonata."
@@ -673,13 +673,13 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Un attrito piccolo frena tutto",
-        "risposta": "Re di Bastoni rovesciato regge la lettura e, nella tua casa, dice che la cosa si ripara con poco. È un attrito piccolo, di quelli che non si vedono da fuori e rallentano tutto. Il ritardo è reale ma si recupera, se te ne occupi adesso.",
-        "cosaFare": "Le carte indicano un gesto preciso: è questo. Metti per iscritto che cosa esattamente si è inceppato e dove. Non lamentartene con nessuno prima di averlo nominato bene. Cinque di Coppe aspetta in fondo alla stesa: è il seguito di questo gesto, non una sorpresa.",
+        "titolo": "Punta su un compimento pieno",
+        "risposta": "Il modo è questo: porta un piccolo dono e fai una domanda sincera a chi ti accoglie. Lo sostiene Il Mondo: dice che c'è pienezza e armonia; ciò che hai costruito trova il suo compimento. All'esito c'è Cinque di Coppe, cioè una perdita che pesa: un rischio, non una meta.",
+        "cosaFare": "Cinque di Coppe all'esito aggiunge un gesto: riconosci il dolore e poi guarda ciò che ti resta in piedi. Prepara due argomenti leggeri e decidi prima a che ora andare via. Non bere un bicchiere in più per allentare la tensione.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: Re di Bastoni rovesciato (ciò che copre), Il Giudizio rovesciato (ciò che attraversa), Il Mondo (ciò che corona), Fante di Bastoni (il fondamento), Re di Denari (ciò che è dietro), Fante di Spade (futuro), Tre di Denari rovesciato ([te stesso|te stessa|tu]), Fante di Denari (la tua casa), Due di Spade (speranze o timori), Cinque di Coppe (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: Re di Bastoni rovesciato (ciò che copre), Il Giudizio rovesciato (ciò che attraversa), Il Mondo (ciò che corona), Fante di Bastoni (il fondamento), Re di Denari (ciò che è dietro), Fante di Spade (futuro), Tre di Denari rovesciato (tu), Fante di Denari (la tua casa), Due di Spade (speranze o timori), Cinque di Coppe (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
@@ -697,7 +697,7 @@
           "posizione": "Ciò che attraversa",
           "carta": "Il Giudizio rovesciato",
           "titolo": "Severità e rinvii al posto del bilancio",
-          "risposta": "Il rinvio tiene il bilancio al coperto dallo sguardo e nello stesso gesto lo chiude fuori dalla stanza in cui la tua decisione lo stava aspettando. La chiamata inascoltata, il rinvio continuo di una scelta di vita che si sente necessaria da tempo.",
+          "risposta": "Il rinvio tiene il bilancio lontano dagli occhi e intanto lo esclude dalla decisione che stai prendendo: rimandare la resa dei conti ti impedisce di scegliere davvero. La chiamata inascoltata, il rinvio continuo di una scelta di vita che si sente necessaria da tempo.",
           "cosaFare": "Scrivi una lettera breve alla persona che eri qualche anno fa, senza rimproveri: dille che cosa hai capito da allora. Non devi spedirla a nessuno. Il bilancio che rimandi diventa più leggero quando lo fai con comprensione invece che con un processo.",
           "approfondimento": null,
           "rito": null,
@@ -749,7 +749,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Tre di Denari rovesciato",
           "titolo": "Vai per conto tuo senza parlarne",
           "risposta": "Il tuo atteggiamento nel gruppo è stonato: fai di testa tua, non chiedi, non spieghi, ti lamenti poi che gli altri non capiscono il lavoro. La collaborazione da ricucire, l'opera ferma a metà perché nessuno sa qual è la sua parte.",
@@ -814,9 +814,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Governa l'istinto con mano gentile",
-        "risposta": "Una mano senza armi si posa sul muso di un animale che potrebbe mordere e l'animale si acquieta perché nessuno lo sfida: la tua dolcezza che non cede nulla governa l'istinto meglio della stretta. La tenacia paziente, la calma coi colleghi difficili, il gruppo guidato senza alzare i toni.",
-        "cosaFare": "Con la persona più difficile del gruppo, abbassa il tono invece di alzarlo. Oggi ascoltala fino in fondo prima di rispondere e cerca un punto su cui tu e lei potete essere d'accordo: la calma ferma convince più di qualsiasi braccio di ferro.",
+        "titolo": "Sì, conta la calma che regge",
+        "risposta": "La Forza risponde: sì, la tendenza è favorevole, perché il coraggio qui è calma; ciò che ti agita si placa con fermezza gentile. Per sostenere questa tendenza, affronta la cosa con calma e fermezza, senza alzare i toni. Il punto è la calma che regge: da questo dipende la risposta.",
+        "cosaFare": "Chiedi a chi decide quando arriva la valutazione e che cosa serve ancora. Prepara una risposta breve alle due obiezioni più probabili sul progetto. Non riscrivere il progetto da capo mentre aspetti la risposta. Non dare per persa la cosa prima della decisione.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -856,9 +856,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il tempo giusto non è ancora il tuo",
-        "risposta": "Sul cambiamento in arrivo, la risposta è che serve più tempo del previsto: a dirlo è Il Mondo rovesciato. Racconta un tempo che non coincide col tuo: non è ostilità, è un altro orologio. Quello che desideri non sparisce affatto: chiede soltanto un'altra via per arrivare.",
-        "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Smetti di spingere per qualche giorno e guarda che cosa si muove da solo. Non forzare la porta. Dove la lettura si chiude c'è una cosa che si costruisce e non capita: Nove di Denari.",
+        "titolo": "Non ancora, pesa un pezzo che manca",
+        "risposta": "Non ancora, perché Il Mondo rovesciato indica che la meta è vicina, ma manca ancora un pezzo da sistemare. Prima serve questo: trova il pezzo che manca e completalo, senza fermarti proprio adesso. Davanti a te c'è Nove di Denari, cioè un raccolto meritato.",
+        "cosaFare": "Nove di Denari davanti a te aggiunge un gesto: goditi ciò che hai costruito e difendi la tua autonomia. Passa un fine settimana nella città che valuti, facendo la vita di un giorno normale. Non decidere senza aver visto la città in un giorno qualunque.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -938,9 +938,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "La porta è socchiusa",
-        "risposta": "Sei di Denari risponde, nel momento che vivi, con un favore concreto e vicino su cui puoi contare. Parla di una porta socchiusa: non si apre da sola, ma non è chiusa. Quello che ti serve è già vicino: va solo preso e usato.",
-        "cosaFare": "Non serve un piano intero: serve una cosa sola. Scegli una sola cosa fra quelle aperte e portala a termine. Non aprirne un'altra prima di averla chiusa. Cinque di Bastoni sta in fondo alla stesa: una carta piccola e dritta, che chiede solo costanza.",
+        "titolo": "Il periodo porta una corsa che sbanda",
+        "risposta": "La domanda è ampia, quindi sul periodo le carte vedono una difficoltà: Il Carro rovesciato dice che forze opposte ti fanno sbandare, oppure stai correndo senza sapere bene dove. All'esito c'è Cinque di Bastoni, cioè un confronto acceso: un esito che chiede ancora un impegno.",
+        "cosaFare": "Per una risposta precisa, rifai la domanda nominando la cosa che ti sta a cuore. Cinque di Bastoni all'esito aggiunge un gesto: usa il confronto per migliorare, non per vincere a ogni costo. Prenditi un'ora per mettere in ordine le priorità del mese. Non disperdere le energie in dieci direzioni.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -1039,7 +1039,7 @@
           "significatoDelVerso": "L'armonia incrinata."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "La Ruota della Fortuna",
           "verso": "dritta",
           "significatoDelVerso": "Il giro del destino."
@@ -1067,20 +1067,20 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "La porta è socchiusa",
-        "risposta": "Le carte, sul ritorno che aspetti, vedono un vantaggio a portata di mano: lo porta Nove di Spade. Parla di una porta socchiusa: non si apre da sola, ma non è chiusa. Le carte minori dritte parlano di cose che si vedono e si contano.",
-        "cosaFare": "Non serve un piano intero: serve una cosa sola. Fai oggi il passo concreto che rimandi da tempo, anche se piccolo. Non aspettare di avere tutto chiaro. Re di Spade aspetta in fondo alla stesa: è il seguito di questo gesto, non una sorpresa.",
+        "titolo": "Sì, conta una svolta che arriva",
+        "risposta": "La Ruota della Fortuna risponde: sì, la tendenza è favorevole, perché un ciclo gira e porta una svolta, spesso quando meno te lo aspetti. All'esito c'è Re di Spade, cioè un giudizio equo: è lì che la cosa può arrivare. Lo contrasta Nove di Spade al centro, con l'ansia notturna.",
+        "cosaFare": "Prima di tutto, accogli il cambiamento invece di aggrapparti a com'era prima. Re di Spade all'esito aggiunge un gesto: decidi in base ai fatti e con equità. Aspetta tre giorni prima di scrivere e rileggi il messaggio a mente fredda. Non fingere che quello che è successo non conti.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: Nove di Spade (ciò che copre), Cinque di Bastoni rovesciato (ciò che attraversa), Sei di Bastoni (ciò che corona), Sette di Bastoni rovesciato (il fondamento), Quattro di Spade (ciò che è dietro), Due di Coppe rovesciato (futuro), La Ruota della Fortuna ([te stesso|te stessa|tu]), Regina di Spade (la tua casa), Sette di Spade (speranze o timori), Re di Spade (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: Nove di Spade (ciò che copre), Cinque di Bastoni rovesciato (ciò che attraversa), Sei di Bastoni (ciò che corona), Sette di Bastoni rovesciato (il fondamento), Quattro di Spade (ciò che è dietro), Due di Coppe rovesciato (futuro), La Ruota della Fortuna (tu), Regina di Spade (la tua casa), Sette di Spade (speranze o timori), Re di Spade (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
           "posizione": "Ciò che copre",
           "carta": "Nove di Spade",
           "titolo": "Un'aria notturna che ingrandisce ogni dettaglio",
-          "risposta": "Allunga le ombre di tutto quello che la tua domanda contiene una lampada accesa nella notte: le sagome diventano enormi, mentre i loro contorni restano identici a prima. L'ansia per il legame, i pensieri gelosi notturni, i messaggi riletti cento volte nel buio della stanza.",
+          "risposta": "Allunga le ombre di tutto ciò che riguarda la tua domanda, come una lampada accesa di notte: le sagome sembrano enormi, mentre i contorni restano identici a prima. L'ansia per il legame, i pensieri gelosi notturni, i messaggi riletti cento volte nel buio della stanza.",
           "cosaFare": "Prima di dormire lascia il telefono in un'altra stanza: i messaggi riletti cento volte al buio alimentano l'ansia per il legame invece di placarla. Se una paura insiste, rimandala al mattino e parlane con calma: alla luce del giorno ti accorgi che ha un'altra misura.",
           "approfondimento": null,
           "rito": null,
@@ -1143,7 +1143,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "La Ruota della Fortuna",
           "titolo": "Ti muovi col giro senza opporti",
           "risposta": "Il tuo atteggiamento è elastico: accogli la svolta in alto o in basso con lo stesso passo, sapendo che nessuna posizione sul cerchio dura per sempre. L'incontro casuale, la svolta inattesa nel legame, la persona giusta nel momento meno previsto.",
@@ -1208,9 +1208,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Una base solida da celebrare con chi ami",
-        "risposta": "Le fondamenta hanno passato la prova del peso e sopra di esse si sta in piedi in compagnia. La gioia che ti riguarda è divisa con altri e la corsa al prossimo resta ferma. Il traguardo festeggiato, l'inaugurazione di una sede nuova, la stabilità raggiunta dopo un periodo di fatica.",
-        "cosaFare": "Segna oggi un traguardo raggiunto nel tuo lavoro, anche piccolo: festeggialo davvero, avvisa chi ha collaborato con te, offri un caffè, scrivi due righe di ringraziamento sincero. Le fondamenta tengono e riconoscerlo apertamente dà forza alla squadra prima del prossimo obiettivo.",
+        "titolo": "Punta su una stabilità da festeggiare",
+        "risposta": "Il modo è questo: scrivi i fatti del conflitto in tre righe, senza aggettivi, prima di parlarne. Lo sostiene Quattro di Bastoni: dice che c'è stabilità e una meta da festeggiare; le fondamenta reggono. Al centro c'è una stabilità da festeggiare: è questo che decide la risposta.",
+        "cosaFare": "In pratica, festeggia ciò che hai costruito con le persone che contano. Chiedi un incontro a quattr'occhi e porta un solo argomento, detto con calma. Non rispondere a caldo a un messaggio che ti ha ferito. Non affrontare la questione davanti ai colleghi.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -1250,9 +1250,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Un passo che riesce",
-        "risposta": "Le carte, sul ritorno che aspetti, vedono un vantaggio a portata di mano: lo porta Re di Bastoni. Parla di un passo che riesce, di quelli che non fanno rumore e spostano molto. Il buon senso basta: qui la scelta semplice è anche quella che funziona.",
-        "cosaFare": "Non serve un piano intero: serve una cosa sola. Rendi visibile quello che sai fare, anche con una riga sola in più. Non lasciare che resti un segreto. Dove la lettura si chiude c'è La Torre: questo gesto è il primo tratto per arrivarci.",
+        "titolo": "Qui decide un avvocato, non le carte",
+        "risposta": "Le carte non dicono come finisce una causa: decide il tuo avvocato. La Torre parla del modo di viverla e non dell'esito; chiede questo: guarda che cosa resta in piedi e riparti solo da quello. Lo attenua Re di Bastoni nel presente, con una guida che dà l'esempio.",
+        "cosaFare": "Re di Bastoni nel presente aggiunge un gesto: prendi tu la direzione e fai per primo ciò che chiedi agli altri. Raccogli i documenti in ordine cronologico e fissa un incontro con il tuo avvocato. Non prendere decisioni legali in base alle carte: decide chi conosce la legge.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -1332,9 +1332,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Le cose stanno dove devono",
-        "risposta": "Sulla tua crescita, la risposta è positiva e concreta, senza clamore: a dirlo è Regina di Denari. Racconta una misura giusta: le cose stanno dove devono e chiedono solo di essere usate. Il buon senso basta: qui la scelta semplice è anche quella che funziona.",
-        "cosaFare": "La lettura porta un compito breve e chiaro. Chiedi apertamente quello che finora hai solo sperato che ti venisse offerto. Non pretendere che lo indovinino da soli. La lettura si chiude con Regina di Bastoni: cose che si vedono e si contano, se cominci.",
+        "titolo": "Sì, conta una cura concreta",
+        "risposta": "Regina di Denari risponde: sì, la tendenza è favorevole, perché c'è cura concreta e senso pratico, cuore e concretezza insieme. All'esito c'è Regina di Bastoni, cioè un calore che attira: è lì che la cosa può arrivare. Lo contrasta Nove di Spade di lato, con l'ansia notturna.",
+        "cosaFare": "Prima di tutto, prenditi cura della cosa con un gesto pratico e concreto. Regina di Bastoni all'esito aggiunge un gesto: mostrati per ciò che sei, con generosità. Fissa ogni giorno, fino all'esame, un blocco di ripasso con un orario preciso. Non studiare tutta la notte prima della prova.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -1433,7 +1433,7 @@
           "significatoDelVerso": "L'emozione che sommerge."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Asso di Coppe",
           "verso": "dritta",
           "significatoDelVerso": "Il cuore che trabocca."
@@ -1461,13 +1461,13 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Le cose stanno dove devono",
-        "risposta": "Con Dieci di Coppe le carte, sul cambiamento in arrivo, indicano una situazione che gira a tuo favore. Racconta una misura giusta: le cose stanno dove devono e chiedono solo di essere usate. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
-        "cosaFare": "Quello che le carte chiedono è una cosa sola. Metti un numero su quello che stai valutando: quanto costa, quanto rende, entro quando. Non decidere a sensazione. Con Re di Bastoni in fondo alla lettura, il seguito dipende più da te che dalle circostanze.",
+        "titolo": "Qui decide il medico, non le carte",
+        "risposta": "Le carte non dicono come va un intervento o una cura: decide il tuo medico. Il Mondo rovesciato parla del modo di viverla e non dell'esito; chiede questo: trova il pezzo che manca e completalo, senza fermarti proprio adesso. All'esito c'è Re di Bastoni, cioè una guida che dà l'esempio.",
+        "cosaFare": "Re di Bastoni all'esito aggiunge un gesto: prendi tu la direzione e fai per primo ciò che chiedi agli altri. Chiedi al medico di spiegarti con calma i tempi, il recupero e che cosa puoi fare tu. Non cambiare cure o tempi senza il parere del medico che ti segue.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: Dieci di Coppe (ciò che copre), Dieci di Spade rovesciato (ciò che attraversa), Tre di Coppe (ciò che corona), Sei di Spade (il fondamento), Il Mondo rovesciato (ciò che è dietro), Regina di Coppe rovesciata (futuro), Asso di Coppe ([te stesso|te stessa|tu]), Due di Bastoni (la tua casa), Due di Coppe (speranze o timori), Re di Bastoni (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: Dieci di Coppe (ciò che copre), Dieci di Spade rovesciato (ciò che attraversa), Tre di Coppe (ciò che corona), Sei di Spade (il fondamento), Il Mondo rovesciato (ciò che è dietro), Regina di Coppe rovesciata (futuro), Asso di Coppe (tu), Due di Bastoni (la tua casa), Due di Coppe (speranze o timori), Re di Bastoni (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
@@ -1485,7 +1485,7 @@
           "posizione": "Ciò che attraversa",
           "carta": "Dieci di Spade rovesciato",
           "titolo": "Ricostruire da capo toglie tempo all'attesa",
-          "risposta": "Un intero cominciamento da reggere si aggiunge alle cose che porti, perché di prima non resta materia da riusare. La faccenda che aspetta le tue ore ne vuole altrettante. La risalita lenta, ogni gesto che rimette in piedi qualcosa dopo una chiusura, il terreno sgombro.",
+          "risposta": "Ripartire da zero si aggiunge a tutto quello che già porti, perché di prima non resta niente da riusare. La faccenda che aspetta il tuo tempo ne chiede altrettanto. La risalita lenta, ogni gesto che rimette in piedi qualcosa dopo una chiusura, il terreno sgombro.",
           "cosaFare": "Togli una lama alla volta: scegli una sola cosa rimasta in sospeso dopo la chiusura e sistemala oggi, un oggetto da riporre, una mail da mandare, un cassetto da svuotare. Liberare spazio intorno a te aiuta la mente a rialzarsi insieme al corpo.",
           "approfondimento": null,
           "rito": null,
@@ -1507,7 +1507,7 @@
           "posizione": "Il fondamento",
           "carta": "Sei di Spade",
           "titolo": "Alla base una partenza già compiuta",
-          "risposta": "La tua questione sta su un fondo basso dove la pertica ha già fatto presa: quella spinta data dal fondale tiene su lo scafo e l'acqua davanti alla prua è liscia. La traversata, il trasloco, la barca con le spade che scivola lenta verso la sponda più calma.",
+          "risposta": "La tua questione poggia su un viaggio già cominciato, come una barca spinta dal fondo verso acque calme: la spinta data con pazienza c'è già e l'acqua davanti alla prua è liscia. La traversata, il trasloco, la barca con le spade che scivola lenta verso la sponda più calma.",
           "cosaFare": "Fai oggi un passo piccolo verso il cambiamento che hai davanti: una scatola preparata, un'informazione chiesta, un saluto dato. Non serve vedere già la sponda. Il mare si sta calmando e lasciare la tempesta alle spalle è già metà del viaggio, un remo alla volta.",
           "approfondimento": null,
           "rito": null,
@@ -1537,7 +1537,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Asso di Coppe",
           "titolo": "Accogli ciò che senti senza difese",
           "risposta": "Ricevi senza sospetto: offri la tua coppa alla grazia che scende come la colomba e lasci che l'affetto ti riempia fino all'orlo, poi anche oltre. La grazia, la sorgente delle emozioni, la coppa che trabocca sotto la colomba che scende.",
@@ -1602,9 +1602,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Vai a prendere ciò che vuoi",
-        "risposta": "Verso la cosa che desideri il movimento comincia subito, senza istruttoria: il tuo coraggio sta nel mettersi in strada a cavallo prima che il piano sia completo. L'avventura, la partenza, il viaggio, il cavallo impennato che porta lontano verso ciò che si desidera.",
-        "cosaFare": "Non aspettare il momento perfetto per muoverti: quel momento lo crea il primo passo. Scegli oggi una cosa che desideri e fai il gesto che la avvicina. La carta parla di passione che corre; perché non si perda, ogni sera controlla se la direzione è ancora quella giusta.",
+        "titolo": "A breve, conta il coraggio di partire",
+        "risposta": "Non manca molto, se la tendenza resta questa: Cavaliere di Bastoni dice che è un tempo per osare; passione e azione portano verso ciò che desideri. Per sostenere questa tendenza, parti con coraggio, ma scrivi prima la meta. Il punto è il coraggio di partire: da questo dipende la risposta.",
+        "cosaFare": "Cambia una sola abitudine questa settimana, una che dipende solo da te. Scegli una cosa ferma da tempo e dedicale mezz'ora ogni mattina. Non rifare ogni giorno le stesse mosse sperando in un esito diverso. Non aspettare che il cambiamento arrivi da fuori.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -1644,9 +1644,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Le cose stanno dove devono",
-        "risposta": "Con Cinque di Spade le carte, nella tua casa, indicano una situazione che gira a tuo favore. Racconta una misura giusta: le cose stanno dove devono e chiedono solo di essere usate. In concreto, la riuscita dipende più da te che dalla fortuna del momento.",
-        "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non farti dettare i tempi da chi aspetta. Cavaliere di Spade aspetta in fondo alla stesa: è il seguito di questo gesto, non una sorpresa.",
+        "titolo": "Punta su una confusione che si chiarisce",
+        "risposta": "Il modo è questo: proponi un incontro in un posto neutro, per un caffè e non per un processo. Lo sostiene La Luna rovesciata: dice che la confusione si sta chiarendo e ciò che faceva paura si mostra più piccolo.",
+        "cosaFare": "Cavaliere di Spade davanti a te aggiunge un gesto: vai dritto allo scopo, ma senza travolgere chi ti sta accanto. Manda un messaggio breve che riconosca la tua parte, senza chiedere niente in cambio. Non riaprire la lite su chi aveva ragione.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -1726,9 +1726,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il lavoro è fatto",
-        "risposta": "Con Il Mago le carte, nella tua casa, indicano un compimento chiaro e non una mancanza. Dice che il lavoro è stato fatto: manca solo riconoscere che è finito davvero. Qui non serve altra fatica: serve accorgersi di ciò che è già tuo.",
-        "cosaFare": "Le carte indicano un gesto preciso: è questo. Scrivi in poche righe che cosa hai imparato in questo tratto e tienile con te. Non buttarle via domani. Due di Coppe sta in fondo alla stesa: una carta piccola e dritta, che chiede solo costanza.",
+        "titolo": "Sì, conta la capacità di fare",
+        "risposta": "Sì, è il momento di andare, perché Il Mago indica che hai già gli strumenti che servono e l'idea chiede di diventare un gesto concreto. All'esito c'è Due di Coppe, cioè un'intesa a due: è lì che la cosa può arrivare.",
+        "cosaFare": "Due di Coppe all'esito aggiunge un gesto: cura il rapporto con chi è coinvolto, con un gesto reciproco. Parlane con calma a cena, dicendo che cosa cambia e che cosa resta come prima. Non rimandare la scelta solo per paura di deludere.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -1827,7 +1827,7 @@
           "significatoDelVerso": "Il salto nel vuoto."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "La Papessa",
           "verso": "dritta",
           "significatoDelVerso": "Il sapere del silenzio."
@@ -1855,20 +1855,20 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il vantaggio è alla tua portata",
-        "risposta": "In quell'amicizia, la risposta è buona e sta alla tua misura, come mostra Tre di Spade. Parla di cose che si toccano: il vantaggio c'è ed è alla tua portata. In concreto, la riuscita dipende più da te che dalla fortuna del momento.",
-        "cosaFare": "Tradotta in un gesto, la lettura dice proprio questo. Cerca chi ha già fatto questa cosa e fagli due domande precise. Non chiedere un parere generico a tutti. Dove la lettura si chiude c'è una cosa che si costruisce e non capita: Sette di Bastoni.",
+        "titolo": "Ora no, pesa un equilibrio perduto",
+        "risposta": "Per ora no: La Temperanza rovesciata dice che ci sono eccessi e fretta; il ritmo giusto si è perso. All'esito c'è Sette di Bastoni, cioè una posizione da tenere: un esito che chiede ancora un impegno. Lo conferma Tre di Spade al centro, con un dolore che ferisce.",
+        "cosaFare": "Sette di Bastoni all'esito aggiunge un gesto: difendi la tua posizione con calma, senza cedere proprio adesso. Scrivi sul calendario la data oltre la quale chiedi tu notizie, con un messaggio breve e cortese. Non leggere il silenzio come un rifiuto prima di averne le prove.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: Tre di Spade (ciò che copre), Cavaliere di Coppe (ciò che attraversa), Gli Amanti (ciò che corona), Fante di Denari (il fondamento), Nove di Denari (ciò che è dietro), Il Matto (futuro), La Papessa ([te stesso|te stessa|tu]), Due di Denari (la tua casa), La Temperanza rovesciata (speranze o timori), Sette di Bastoni (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: Tre di Spade (ciò che copre), Cavaliere di Coppe (ciò che attraversa), Gli Amanti (ciò che corona), Fante di Denari (il fondamento), Nove di Denari (ciò che è dietro), Il Matto (futuro), La Papessa (tu), Due di Denari (la tua casa), La Temperanza rovesciata (speranze o timori), Sette di Bastoni (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
           "posizione": "Ciò che copre",
           "carta": "Tre di Spade",
           "titolo": "Una luce dura sul punto che fa male",
-          "risposta": "Comanda dentro la tua domanda una regola senza sconti: trova strada quello che viene chiamato col suo nome, non ne trova quello che gira attorno al punto dove fa male. Il dolore che trafigge, la pioggia fitta, il cuore attraversato da tre lame sotto un cielo grigio.",
+          "risposta": "Comanda nella tua domanda una regola senza sconti: va avanti solo ciò che chiami col suo nome, mentre resta fermo ciò che gira attorno al punto dove fa male. Il dolore che trafigge, la pioggia fitta, il cuore attraversato da tre lame sotto un cielo grigio.",
           "cosaFare": "Evita oggi di riempire il vuoto con impegni, rumore o allegria forzata. Chiedi a una persona cara di stare con te un'ora, anche in silenzio: il cuore trafitto non ha bisogno di consigli, ha bisogno di compagnia mentre la pioggia passa.",
           "approfondimento": null,
           "rito": null,
@@ -1890,7 +1890,7 @@
           "posizione": "Ciò che corona",
           "carta": "Gli Amanti",
           "titolo": "Una decisione intera, senza parti escluse",
-          "risposta": "Il genere di bene che questa forza dà alla tua questione è interezza, non intesa: il tetto qui è una scelta in cui la testa e il sentimento firmano la stessa riga. Il bivio, la scelta coerente con ciò in cui si crede, l'armonia fra desiderio e convinzione.",
+          "risposta": "Il bene più alto che questa forza porta alla tua questione è l'interezza: una scelta in cui la testa e il sentimento dicono la stessa cosa, senza che uno dei due taccia. Il bivio, la scelta coerente con ciò in cui si crede, l'armonia fra desiderio e convinzione.",
           "cosaFare": "Concediti mezz'ora senza telefono per ascoltare che cosa dice il corpo davanti a ciascuna delle strade possibili. Dove senti apertura e non solo eccitazione, lì desiderio e convinzione vanno d'accordo: annotalo e lascia che orienti con calma il passo di domani.",
           "approfondimento": null,
           "rito": null,
@@ -1931,7 +1931,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "La Papessa",
           "titolo": "Scegli il silenzio e l'ascolto",
           "risposta": "Ti tieni fra le due colonne senza muovere un passo: non decidi ora perché sai che certe cose si capiscono solo a mente quieta, così ti fidi di quel sapere muto. Il silenzio, l'intuizione, i libri e i misteri, le risposte che maturano piano nell'attesa, senza spiegazioni.",
@@ -1996,9 +1996,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Un taglio netto fra vero e falso",
-        "risposta": "La lucidità ha la forma di una prima definizione. Dove stava un mucchio indistinto ti rimane una frase che puoi ripetere parola per parola. La verità detta in amore, la chiarezza nel legame, la dichiarazione netta che taglia ogni ambiguità.",
-        "cosaFare": "Scrivi su un foglio, in una frase sola, che cosa vuoi davvero da questo legame. La carta indica un'idea netta che taglia la confusione: quando la frase è chiara per te, diventa più facile dirla e capire se l'altro può accoglierla.",
+        "titolo": "Sì, conta una chiarezza netta",
+        "risposta": "Sì, la tendenza è favorevole: Asso di Spade dice che c'è chiarezza, un taglio netto che separa il vero dal falso. Per sostenere questa tendenza, di' le cose come stanno, con onestà e poche parole. Il punto è una chiarezza netta: da questo dipende la risposta.",
+        "cosaFare": "Scegli un momento tranquillo e dillo con una frase semplice, senza preparare discorsi. Proponi un caffè a due e di' quello che senti in poche parole. Non pretendere una risposta immediata: lascia all'altra persona il suo tempo. Non dichiararti per messaggio o davanti ad altri.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -2038,9 +2038,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Questione di settimane, non di anni",
-        "risposta": "Sul cambiamento in arrivo, la risposta è buona e sta alla tua misura, come mostra Re di Spade. È una carta della giornata, non del destino: parla di settimane e non di anni. Il buon senso basta: qui la scelta semplice è anche quella che funziona.",
-        "cosaFare": "Con questa lettura in mano, il compito è chiaro. Chiedi apertamente quello che finora hai solo sperato che ti venisse offerto. Non pretendere che lo indovinino da soli. L'Imperatore aspetta in fondo alla stesa: fare questo adesso è il modo di andarci incontro.",
+        "titolo": "Sì, conta l'ordine che protegge",
+        "risposta": "L'Imperatore risponde: sì, la tendenza è favorevole, perché è il momento dell'ordine e delle fondamenta solide; ciò che costruisci con regola dura. Lo conferma Re di Spade nel presente, con un giudizio equo. Accanto c'è Cavaliere di Spade alle spalle, con una determinazione veloce: una cosa da curare.",
+        "cosaFare": "In pratica, dai una struttura alla cosa, con tempi, compiti e una regola chiara. Re di Spade nel presente aggiunge un gesto: decidi in base ai fatti e con equità. Prepara una cosa concreta per accogliere il cambiamento: un'agenda, un posto, un orario. Non giudicare il cambiamento dal primo giorno.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -2120,9 +2120,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il terreno è buono",
-        "risposta": "Sulla decisione da prendere, le carte dicono che la cosa è fattibile adesso: lo conferma Fante di Spade. Dice che il terreno è buono: non promette clamori, ma quello che ci pianti cresce. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
-        "cosaFare": "Ecco che cosa farne adesso, stando alle carte lette. Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non farti dettare i tempi da chi aspetta. Re di Bastoni aspetta in fondo alla stesa: è il seguito di questo gesto, non una sorpresa.",
+        "titolo": "Ora no, pesa un controllo che soffoca",
+        "risposta": "Per ora no: L'Imperatore rovesciato dice che il controllo è diventato troppo stretto, oppure mancano le basi e tutto vacilla. All'esito c'è Re di Bastoni, cioè una guida che dà l'esempio: la cosa può ancora girare, se cambi qualcosa adesso.",
+        "cosaFare": "Re di Bastoni all'esito aggiunge un gesto: prendi tu la direzione e fai per primo ciò che chiedi agli altri. Prima del colloquio scrivi tre risultati concreti che puoi raccontare e ripetili davanti allo specchio. Non presentarti senza aver riletto l'annuncio e il tuo curriculum.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -2221,7 +2221,7 @@
           "significatoDelVerso": "Le coppe versate."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Re di Coppe",
           "verso": "rovesciata",
           "significatoDelVerso": "Il cuore senza governo."
@@ -2249,20 +2249,20 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Hai più di quanto pensi",
-        "risposta": "Sul lavoro che cerchi, la risposta è buona e sta alla tua misura, come mostra Tre di Spade. Dice che hai più materiale di quanto pensi: non serve procurarti altro, serve metterlo insieme. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
-        "cosaFare": "La lettura porta un compito breve e chiaro. Metti un numero su quello che stai valutando: quanto costa, quanto rende, entro quando. Non decidere a sensazione. Tre di Denari rovesciato chiude la lettura su un attrito piccolo: questo gesto lo toglie prima che cresca.",
+        "titolo": "Non adesso, pesa un equilibrio perduto",
+        "risposta": "La Temperanza rovesciata risponde: non decidere adesso, perché ci sono eccessi e fretta; il ritmo giusto si è perso. All'esito c'è Tre di Denari rovesciato, cioè una collaborazione confusa: un rischio da guardare adesso, non una meta. Lo conferma Tre di Spade al centro, con un dolore che ferisce.",
+        "cosaFare": "Prima di tutto, rallenta e togli un eccesso, uno soltanto, da questa settimana. Tre di Denari rovesciato all'esito aggiunge un gesto: chiarisci compiti e aspettative con chi lavora con te. Metti per iscritto un piano di sei mesi con spese, orari e obiettivi. Non decidere in una giornata di stanchezza.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: Tre di Spade (ciò che copre), Il Mago rovesciato (ciò che attraversa), La Forza (ciò che corona), Otto di Spade (il fondamento), La Temperanza rovesciata (ciò che è dietro), Cinque di Coppe (futuro), Re di Coppe rovesciato ([te stesso|te stessa|tu]), Due di Bastoni (la tua casa), Nove di Spade (speranze o timori), Tre di Denari rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: Tre di Spade (ciò che copre), Il Mago rovesciato (ciò che attraversa), La Forza (ciò che corona), Otto di Spade (il fondamento), La Temperanza rovesciata (ciò che è dietro), Cinque di Coppe (futuro), Re di Coppe rovesciato (tu), Due di Bastoni (la tua casa), Nove di Spade (speranze o timori), Tre di Denari rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
           "posizione": "Ciò che copre",
           "carta": "Tre di Spade",
           "titolo": "Una luce dura sul punto che fa male",
-          "risposta": "Comanda dentro la tua domanda una regola senza sconti: trova strada quello che viene chiamato col suo nome, non ne trova quello che gira attorno al punto dove fa male. La delusione professionale, la critica che ferisce, il collega che tradisce la fiducia, il progetto bocciato all'improvviso.",
+          "risposta": "Comanda nella tua domanda una regola senza sconti: va avanti solo ciò che chiami col suo nome, mentre resta fermo ciò che gira attorno al punto dove fa male. La delusione professionale, la critica che ferisce, il collega che tradisce la fiducia, il progetto bocciato all'improvviso.",
           "cosaFare": "Concedi a te una sera senza lavoro dopo il colpo ricevuto: niente mail, niente telefono di servizio, niente rimuginare sulla critica. La delusione professionale va sentita prima di essere capita: domani la puoi guardare con occhi più asciutti e decidere che cosa farne.",
           "approfondimento": null,
           "rito": null,
@@ -2325,7 +2325,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Re di Coppe rovesciato",
           "titolo": "Lasci che gli umori decidano per te",
           "risposta": "Il tuo atteggiamento usa le emozioni come leva: fai pesare il tuo malumore, concedi o ritiri la calma per ottenere ciò che vuoi. Il capo lunatico, la manipolazione emotiva sul posto di lavoro, le decisioni prese secondo l'umore del giorno.",
@@ -2390,9 +2390,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Cercare con attenzione, parlare con cura",
-        "risposta": "La capacità in esercizio è l'attenzione: guardi, domandi, metti insieme pezzi di vero che nessuno ti ha consegnato, mentre la lingua pronta vorrebbe ripeterli appena arrivano. La curiosità sull'altro, il sospetto, il controllo dei messaggi del partner, le domande poste per capire.",
-        "cosaFare": "Fai oggi una domanda diretta al partner invece di controllare il suo telefono: chiedi con calma quello che vuoi sapere e ascolta la risposta fino in fondo. La curiosità sull'altro è legittima, ma la verità si cerca guardandosi negli occhi, non frugando di nascosto.",
+        "titolo": "Prima cura una vigilanza attenta",
+        "risposta": "Il modo c'è, a una condizione: raccogli informazioni e scegli con cura le parole. Fante di Spade dice che serve vigilanza, cioè osservare e informarsi prima di parlare. Al centro c'è una vigilanza attenta: è questo che decide la risposta.",
+        "cosaFare": "Proponi una sera senza telefoni, solo voi due; fissatela oggi stesso. Parlate di una cosa sola che vorreste cambiare, a turno e senza interrompervi. Fissate insieme la data del prossimo incontro e scrivetela nel calendario. Non tenere il conto di chi ha dato di più.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -2432,9 +2432,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il lavoro è fatto",
-        "risposta": "La Giustizia risponde, sul ritorno che aspetti, con una cosa grande che si sta compiendo proprio adesso. Dice che il lavoro è stato fatto: manca solo riconoscere che è finito davvero. Quello che hai costruito regge, anche se ti sembra ancora troppo fragile.",
-        "cosaFare": "Con questa lettura in mano, il compito è chiaro. Segna il traguardo in un posto dove puoi ritrovarlo, anche solo una riga sul calendario. Non farlo passare in silenzio. L'ultima carta è La Temperanza, fra le più aperte: questo gesto ti tiene sulla sua linea.",
+        "titolo": "Sì, ma pesa il conto onesto dei fatti",
+        "risposta": "Sì, ma a una condizione: La Giustizia dice che torna indietro ciò che hai seminato; la bilancia pende verso chi agisce con onestà. Prima serve questo: metti per iscritto i fatti così come stanno, senza sconti. Davanti a te c'è La Temperanza, cioè la pazienza che accorda.",
+        "cosaFare": "La Temperanza davanti a te aggiunge un gesto: vai piano e trova una via di mezzo fra le due parti. Scrivi i fatti che ti fanno dubitare in una colonna e le supposizioni in un'altra. Non accusare prima di aver chiesto e ascoltato una spiegazione.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -2514,9 +2514,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il traguardo è già qui",
-        "risposta": "Sul lavoro che cerchi, le carte dicono che quello che chiedi ha preso forma: lo mostra Il Papa. Porta un compimento: il rischio non è fallire, è non accorgersi di avercela fatta. Non resta niente da conquistare: resta da prenderne atto e da usarlo.",
-        "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Dai una data precisa alla consegna, entro questa settimana. Non lasciarla aperta: una data vaga diventa una data mai. L'ultima carta è Tre di Coppe rovesciato: la più facile da smentire, con un gesto come questo.",
+        "titolo": "Qui serve un consulente, non le carte",
+        "risposta": "Le carte non dicono se un investimento conviene: chiedi a un consulente abilitato. Il Papa parla del modo di viverla e non dell'esito; chiede questo: chiedi il parere di una persona esperta di cui ti fidi. All'esito c'è Tre di Coppe rovesciato, cioè un gruppo da curare meglio.",
+        "cosaFare": "Tre di Coppe rovesciato all'esito aggiunge un gesto: torna alle persone che ti sostengono davvero e lascia i rapporti di facciata. Scrivi quanto puoi permetterti di perdere senza cambiare la tua vita; poi porta il foglio al consulente. Non muovere i risparmi per paura di perdere un'occasione.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -2615,7 +2615,7 @@
           "significatoDelVerso": "La luce interiore."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Due di Bastoni",
           "verso": "dritta",
           "significatoDelVerso": "Lo sguardo lontano."
@@ -2643,13 +2643,13 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "C'è un prezzo noto da pagare",
-        "risposta": "Con La Forza rovesciata le carte, nella tua casa, indicano una spinta grande che oggi incontra resistenza. C'è un prezzo e il prezzo è noto: resta da decidere se pagarlo adesso. Quello che desideri non sparisce affatto: chiede soltanto un'altra via per arrivare.",
-        "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Prenditi il tempo che serve, ma mettici una scadenza scritta. Non lasciare che l'attesa diventi una scusa comoda per fermarti. In fondo c'è La Stella: è lì che questo gesto ti accompagna, un giorno alla volta.",
+        "titolo": "Aspetta, pesa una tenuta che vacilla",
+        "risposta": "Le carte inclinano ad aspettare, per ora: La Forza rovesciata dice che dubiti della tua tenuta, oppure ti tratti con troppa durezza. All'esito c'è La Stella, cioè la fiducia ritrovata: la cosa può ancora girare, se cambi qualcosa adesso. Lo attenua Asso di Denari sopra, con un'occasione concreta.",
+        "cosaFare": "Prima di tutto, tratta te e la situazione con mitezza invece che con la stretta. La Stella all'esito aggiunge un gesto: coltiva la fiducia con un gesto piccolo ogni giorno. Visita almeno tre case simili prima di decidere sul prezzo. Non firmare una proposta d'acquisto nello stesso giorno della visita.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: La Forza rovesciata (ciò che copre), Cavaliere di Spade rovesciato (ciò che attraversa), Asso di Denari (ciò che corona), Dieci di Spade rovesciato (il fondamento), Sei di Spade rovesciato (ciò che è dietro), L'Eremita (futuro), Due di Bastoni ([te stesso|te stessa|tu]), Il Matto rovesciato (la tua casa), Regina di Bastoni rovesciata (speranze o timori), La Stella (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: La Forza rovesciata (ciò che copre), Cavaliere di Spade rovesciato (ciò che attraversa), Asso di Denari (ciò che corona), Dieci di Spade rovesciato (il fondamento), Sei di Spade rovesciato (ciò che è dietro), L'Eremita (futuro), Due di Bastoni (tu), Il Matto rovesciato (la tua casa), Regina di Bastoni rovesciata (speranze o timori), La Stella (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
@@ -2689,7 +2689,7 @@
           "posizione": "Il fondamento",
           "carta": "Dieci di Spade rovesciato",
           "titolo": "La base di un fondo già toccato",
-          "risposta": "Di terra e di ferro tolto è impastato quello che hai davanti: quella materia sta sotto la tua questione e la regge, col corpo che si tira su un gomito alla volta. La risalita lenta, ogni gesto che rimette in piedi qualcosa dopo una chiusura, il terreno sgombro.",
+          "risposta": "Alla base della tua questione c'è una ripartenza da terra dopo una chiusura completa: ti rialzi un gomito alla volta, con un movimento lento che però è tutto tuo. La risalita lenta, ogni gesto che rimette in piedi qualcosa dopo una chiusura, il terreno sgombro.",
           "cosaFare": "Rifai il letto appena ti alzi, apri le finestre, prepara una colazione vera. Sembrano niente, ma dopo una chiusura completa sono i primi mattoni della risalita: ogni gesto che compi con attenzione rimette in piedi qualcosa e ti ricorda che il movimento è tuo.",
           "approfondimento": null,
           "rito": null,
@@ -2719,7 +2719,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Due di Bastoni",
           "titolo": "Ragioni da stratega e scegli tu",
           "risposta": "Il tuo modo di stare qui è da stratega: pianifichi, misuri le distanze, tieni un bastone saldo accanto e immagini già dove portare l'altro oltre le mura. Lo sguardo oltre il confine, il globo in mano, la rotta da scegliere dall'alto delle mura.",
@@ -2784,9 +2784,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "La stessa regola per tutti",
-        "risposta": "La lucidità diventa un incarico quando qualcuno ti viene a chiedere come stanno le cose: la risposta è onesta anche dove è scomoda e il suo peso ricade su chi l'ha formulata. L'etica, il giudizio giusto, la ragione messa al servizio del bene comune, la parola che decide con onestà.",
-        "cosaFare": "Onora oggi un impegno preso con qualcuno, anche piccolo, anche se ti costa fatica. La parola mantenuta è la base dell'autorità che gli altri ti riconoscono. Se non puoi mantenerlo, dillo apertamente e spiega perché: la chiarezza vale quanto la promessa.",
+        "titolo": "Il periodo porta un giudizio equo",
+        "risposta": "La domanda è ampia, quindi sul periodo le carte vedono una cosa buona: Re di Spade dice che serve un giudizio equo, la ragione al servizio del cuore. Per sostenere questa tendenza, decidi in base ai fatti e con equità.",
+        "cosaFare": "Per una risposta precisa, rifai la domanda nominando la cosa che ti sta a cuore. Di' a un'amicizia che conta quanto tieni a lei, con un gesto concreto. Scrivi a una persona amica che senti poco e proponi di vedervi. Non tenere un rancore senza dirlo a chi riguarda.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -2826,9 +2826,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il tuo mestiere ti premia",
-        "risposta": "Cavaliere di Denari risponde, sull'incontro che cerchi, con un favore concreto e vicino su cui puoi contare. È una carta di mestiere: premia chi conosce bene ciò che fa, come fai tu. Non è una promessa di miracoli: è una base solida su cui contare.",
-        "cosaFare": "In pratica, la lettura ti chiede soltanto questo. Cerca chi ha già fatto questa cosa e fagli due domande precise. Non chiedere un parere generico a tutti. La lettura si chiude con Otto di Bastoni: cose che si vedono e si contano, se cominci.",
+        "titolo": "Sì, conta una costanza che arriva",
+        "risposta": "La risposta delle carte è sì, perché Cavaliere di Denari indica che l'andatura è lenta ma costante; chi non si ferma arriva. Davanti a te c'è Otto di Bastoni, cioè un'accelerazione improvvisa: è lì che la cosa può arrivare. Al centro c'è una costanza che arriva.",
+        "cosaFare": "Prima di tutto, avanza con metodo, un tratto fisso ogni giorno. Otto di Bastoni davanti a te aggiunge un gesto: rispondi subito alle notizie che arrivano, senza rimandare. Chiedi all'azienda un colloquio in più per chiarire compiti, orari e prospettive. Non decidere sull'entusiasmo del primo giorno.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -2908,9 +2908,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Hai più di quanto pensi",
-        "risposta": "Nella tua casa, le carte rispondono in modo favorevole: lo dice Cavaliere di Bastoni, una carta concreta. Dice che hai più materiale di quanto pensi: non serve procurarti altro, serve metterlo insieme. Non è una promessa di miracoli: è una base solida su cui contare.",
-        "cosaFare": "La mossa suggerita si fa in pochi giorni. Fai oggi il passo concreto che rimandi da tempo, anche se piccolo. Non aspettare di avere tutto chiaro. La Morte rovesciata sta in fondo: una carta di traverso, che chiede preparazione e non paura.",
+        "titolo": "Il periodo porta un cambiamento trattenuto",
+        "risposta": "In generale non ancora, anche se la domanda è ampia: La Morte rovesciata dice che stai resistendo a un cambiamento già arrivato; trattenere fa più male che lasciare. Lo attenua Cavaliere di Bastoni su di te, con il coraggio di partire.",
+        "cosaFare": "Per una risposta precisa, rifai la domanda nominando la cosa che ti sta a cuore. Organizza questa settimana una cena o una passeggiata con le persone di casa, senza telefoni a tavola. Non dare per scontato chi ti sta vicino ogni giorno.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -3009,7 +3009,7 @@
           "significatoDelVerso": "Il cuore trattenuto."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Due di Denari",
           "verso": "dritta",
           "significatoDelVerso": "Il gioco d'equilibrio."
@@ -3037,13 +3037,13 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Resta, ma passa da una porta stretta",
-        "risposta": "La Luna rovesciata risponde, sul ritorno che aspetti, che la cosa resta possibile ma chiede prima una condizione. È una carta di traverso: quello che promette resta, ma passa da una porta stretta. Quello che desideri non sparisce affatto: chiede soltanto un'altra via per arrivare.",
-        "cosaFare": "Non serve un piano intero: serve una cosa sola. Smetti di spingere per qualche giorno e guarda che cosa si muove da solo. Non forzare la porta. La Torre rovesciata sta in fondo: una carta di traverso, che chiede preparazione e non paura.",
+        "titolo": "Sì, conta una confusione che si chiarisce",
+        "risposta": "La risposta delle carte è sì, perché La Luna rovesciata indica che la confusione si sta chiarendo e ciò che faceva paura si mostra più piccolo. All'esito c'è La Torre rovesciata, cioè una scossa rimandata: un esito che chiede ancora un impegno.",
+        "cosaFare": "La Torre rovesciata all'esito aggiunge un gesto: lascia cadere ora ciò che è falso, prima che il crollo diventi più grande. Aspetta tre giorni prima di scrivere e rileggi il messaggio a mente fredda. Non fingere che quello che è successo non conti.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: La Luna rovesciata (ciò che copre), Quattro di Denari (ciò che attraversa), Il Matto (ciò che corona), Regina di Bastoni (il fondamento), Due di Bastoni rovesciato (ciò che è dietro), Asso di Coppe rovesciato (futuro), Due di Denari ([te stesso|te stessa|tu]), Re di Spade rovesciato (la tua casa), Cinque di Denari rovesciato (speranze o timori), La Torre rovesciata (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: La Luna rovesciata (ciò che copre), Quattro di Denari (ciò che attraversa), Il Matto (ciò che corona), Regina di Bastoni (il fondamento), Due di Bastoni rovesciato (ciò che è dietro), Asso di Coppe rovesciato (futuro), Due di Denari (tu), Re di Spade rovesciato (la tua casa), Cinque di Denari rovesciato (speranze o timori), La Torre rovesciata (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
@@ -3113,7 +3113,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Due di Denari",
           "titolo": "Cambi passo senza irrigidirti",
           "risposta": "Cambi priorità quando serve: ridi delle cose che si spostano, ti adatti con flessibilità, trasformi la fatica di tenere tutto in un gioco d'equilibrio. La relazione tra mille impegni, gli appuntamenti incastrati fra turni e scadenze, l'amore vissuto con leggerezza.",
@@ -3178,9 +3178,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Guarda da dove nasce la spinta",
-        "risposta": "Sotto il piede non c'è fondo e la spinta che ti porta là manca di un'origine riconosciuta: può nascere dal coraggio oppure da una fuga. La partenza resta aperta in entrambi i casi. Lo slancio che non sa dove va, l'esitazione sull'orlo del dirupo, la fuga travestita da coraggio.",
-        "cosaFare": "Scegli oggi un passo minimo verso ciò che ti attira e che continui a rimandare per timore: una telefonata, una domanda, un biglietto. Restare sull'orlo per sempre è anch'esso una scelta; un gesto piccolo ti dice se la paura era fondata.",
+        "titolo": "Scegli guardando uno slancio senza direzione",
+        "risposta": "Le carte non scelgono al posto tuo, ma danno il criterio: scarta l'opzione in cui pesa uno slancio senza direzione. Lo indica Il Matto rovesciato, con un consiglio preciso: fermati e chiediti se ti spinge il coraggio o la voglia di fuggire.",
+        "cosaFare": "Scrivi per ogni corso tre materie che seguiresti volentieri e confronta le due liste. Parla con uno studente di ciascun corso e chiedi com'è una settimana normale. Non scegliere solo in base a ciò che fanno gli amici. Non decidere guardando soltanto le voci che girano.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -3220,9 +3220,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il tuo mestiere ti premia",
-        "risposta": "Nella tua casa, le carte rispondono in modo favorevole: lo dice Otto di Spade, una carta concreta. È una carta di mestiere: premia chi conosce bene ciò che fa, come fai tu. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
-        "cosaFare": "Le carte non lasciano il consiglio nel vago: eccolo. Metti un numero su quello che stai valutando: quanto costa, quanto rende, entro quando. Non decidere a sensazione. Il Giudizio rovesciato chiude la lettura rimandando, non negando: il gesto di oggi prepara proprio quel momento.",
+        "titolo": "Non adesso, pesa un bilancio rimandato",
+        "risposta": "Le domande sono due: le carte rispondono alla prima, la seconda chiede una stesa sua. Il Giudizio rovesciato risponde: non decidere adesso, perché stai rimandando un bilancio necessario, oppure ti giudichi con troppa durezza. Lo conferma Otto di Spade nel presente, con una trappola fatta di pensieri.",
+        "cosaFare": "Per l'altra domanda fai una stesa a parte, con quella sola. In pratica, fai il bilancio che rimandi, con giustizia e senza durezza verso di te. Passa un fine settimana nella città che valuti, facendo la vita di un giorno normale. Non partire solo per scappare da qualcosa.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -3302,9 +3302,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il terreno è buono",
-        "risposta": "Dieci di Spade risponde, in quell'amicizia, con un favore concreto e vicino su cui puoi contare. Dice che il terreno è buono: non promette clamori, ma quello che ci pianti cresce. In concreto, la riuscita dipende più da te che dalla fortuna del momento.",
-        "cosaFare": "In pratica, la lettura ti chiede soltanto questo. Chiedi apertamente quello che finora hai solo sperato che ti venisse offerto. Non pretendere che lo indovinino da soli. L'ultima carta è Otto di Coppe: un risultato alla portata, se il gesto si fa adesso.",
+        "titolo": "Sì, conta una catena che si spezza",
+        "risposta": "Il Diavolo rovesciato risponde: sì, le carte sostengono questo passo, perché ti accorgi di una catena che ti tratteneva; vederla è già metà della libertà. All'esito c'è Otto di Coppe, cioè una partenza silenziosa: un esito che chiede ancora un impegno.",
+        "cosaFare": "Otto di Coppe all'esito aggiunge un gesto: allontanati da ciò che ti svuota, anche senza conoscere ancora la meta. Prenditi due settimane di distanza e osserva se ti manca o ti alleggerisce. Non sparire senza una parola: anche una chiusura merita rispetto.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -3337,7 +3337,7 @@
           "posizione": "Il lato",
           "carta": "Asso di Coppe rovesciato",
           "titolo": "Un sentire fermo dove nasce",
-          "risposta": "Il tuo sentire tenuto a chiave da dentro, prima che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l'acqua ferma resta nella coppa. La sorgente chiusa, l'acqua emotiva che ristagna se viene trattenuta, il coperchio sopra la coppa.",
+          "risposta": "Il tuo sentire resta chiuso da dentro, prima ancora che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l'acqua ferma resta nella coppa. La sorgente chiusa, l'acqua emotiva che ristagna se viene trattenuta, il coperchio sopra la coppa.",
           "cosaFare": "Fai una cosa che sai che ti commuove: riascolta una canzone, rivedi una fotografia, torna in un luogo caro. Lascia che l'emozione arrivi senza fermarla. Questa carta descrive una sorgente chiusa per timore; riaprirla con un gesto piccolo e protetto ti restituisce la fiducia di sentire.",
           "approfondimento": null,
           "rito": null,
@@ -3403,7 +3403,7 @@
           "significatoDelVerso": "La speranza ritrovata."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Re di Denari",
           "verso": "rovesciata",
           "significatoDelVerso": "Il possesso che irrigidisce."
@@ -3431,13 +3431,13 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Ti manca un'informazione",
-        "risposta": "Nove di Denari rovesciato regge la lettura e, sulla tua crescita, dice che la cosa si ripara con poco. Dice che ti manca un'informazione, non una forza: qui cercare con cura batte insistere. Non serve un esperto: serve un'ora di attenzione onesta sul punto giusto.",
-        "cosaFare": "Non serve un piano intero: serve una cosa sola. Metti per iscritto che cosa esattamente si è inceppato e dove. Non lamentartene con nessuno prima di averlo nominato bene. Re di Spade rovesciato aspetta in fondo alla stesa e si smonta appena qualcuno ci guarda davvero.",
+        "titolo": "Sì, conta un compimento pieno",
+        "risposta": "Sì, la tendenza è favorevole: Il Mondo dice che c'è pienezza e armonia; ciò che hai costruito trova il suo compimento. All'esito c'è Re di Spade rovesciato, cioè una freddezza che ferisce: un rischio da guardare adesso, non una meta.",
+        "cosaFare": "Re di Spade rovesciato all'esito aggiunge un gesto: unisci alla logica un gesto di comprensione. Scrivi su una pagina che cosa hai ottenuto quest'anno e consegnala a chi decide. Non chiedere la promozione nel mezzo di una giornata storta. Non aspettare che qualcuno si accorga del tuo lavoro senza dirlo.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: Nove di Denari rovesciato (ciò che copre), Il Matto (ciò che attraversa), Cavaliere di Denari (ciò che corona), La Forza rovesciata (il fondamento), Il Mondo (ciò che è dietro), La Stella (futuro), Re di Denari rovesciato ([te stesso|te stessa|tu]), Dieci di Denari (la tua casa), Tre di Coppe rovesciato (speranze o timori), Re di Spade rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: Nove di Denari rovesciato (ciò che copre), Il Matto (ciò che attraversa), Cavaliere di Denari (ciò che corona), La Forza rovesciata (il fondamento), Il Mondo (ciò che è dietro), La Stella (futuro), Re di Denari rovesciato (tu), Dieci di Denari (la tua casa), Tre di Coppe rovesciato (speranze o timori), Re di Spade rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
@@ -3507,7 +3507,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Re di Denari rovesciato",
           "titolo": "Stringi i beni invece di usarli",
           "risposta": "Tieni fermo ciò che possiedi: in questa faccenda le tue mani stringono le ricchezze invece di farle muovere, così ciò che hai smette di dare frutto. L'avidità, il capitale immobile, l'imprenditore che non rischia niente per paura di perdere quello che ha.",
@@ -3572,9 +3572,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il tuo percorso si compie per intero",
-        "risposta": "Arriva al punto di saldatura un cammino lungo: il guadagno è la larghezza del passo e la capacità di stare in ogni angolo del disegno senza più sentirti fuori posto. La pienezza di una relazione, l'unione compiuta, la coppia intera dopo un lungo cammino insieme.",
-        "cosaFare": "Sosta nella gioia di ciò che hai costruito in amore prima di chiederti che cosa viene dopo. Scegli oggi un'abitudine di coppia, o un momento tuo, che ti fa sentire a casa e vivilo con piena attenzione. Il cerchio compiuto si gusta da dentro, non guardando oltre.",
+        "titolo": "Sì, conta un compimento pieno",
+        "risposta": "Sì, la tendenza è favorevole: Il Mondo dice che c'è pienezza e armonia; ciò che hai costruito trova il suo compimento. Per sostenere questa tendenza, riconosci ciò che hai raggiunto e goditelo, senza correre già oltre. Il punto è un compimento pieno: da questo dipende la risposta.",
+        "cosaFare": "Proponi una sera senza telefoni, solo voi due; fissatela oggi stesso. Parlate di una cosa sola che vorreste cambiare, a turno e senza interrompervi. Fissate insieme la data del prossimo incontro e scrivetela nel calendario. Non lasciare che i silenzi parlino al posto vostro.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -3614,9 +3614,9 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Non è tolto: è rimandato",
-        "risposta": "Su cosa prova per te, le carte dicono che i tempi non sono ancora maturi: lo conferma Il Mago rovesciato. È una carta grande uscita al rovescio: non toglie quello che promette, lo rimanda. Le carte rovesciate trattengono: quello che chiedi resta, ma con un altro tempo.",
-        "cosaFare": "Quello che le carte chiedono è una cosa sola. Rimanda di una settimana la decisione che stai per prendere di fretta. Non firmare e non promettere niente sotto pressione. Dove la lettura si chiude c'è Tre di Coppe rovesciato: se ti muovi adesso, quell'intralcio non lo incontri.",
+        "titolo": "Ora no, pesa un talento lasciato fermo",
+        "risposta": "Le domande sono due: le carte rispondono alla prima, la seconda chiede una stesa sua. Il Mago rovesciato risponde: per ora no, perché le parole promettono più di quanto le mani mantengono e un talento resta fermo. Lo attenua Il Sole alle spalle, con una riuscita piena.",
+        "cosaFare": "Per l'altra domanda fai una stesa a parte, con quella sola. Prima di tutto, mantieni una sola delle cose che hai promesso, prima di prometterne altre. Fai una domanda diretta e semplice a quattr'occhi, poi ascolta la risposta senza interrompere. Non cercare la risposta nei messaggi o nei social.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -3696,9 +3696,9 @@
       "profonditaChiesta": "Breve",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Il lavoro è fatto",
-        "risposta": "Le carte, nella tua casa, rispondono con una notizia buona: Il Diavolo porta un compimento vero. Dice che il lavoro è stato fatto: manca solo riconoscere che è finito davvero. Quello che hai costruito regge, anche se ti sembra ancora troppo fragile.",
-        "cosaFare": "Quello che le carte chiedono è una cosa sola. Togli le ultime cose che hai aggiunto e guarda se non era già finito prima. Non ricominciare da capo. L'ultima carta è Dieci di Bastoni: un risultato alla portata, se il gesto si fa adesso.",
+        "titolo": "Prima affronta un legame che trattiene",
+        "risposta": "Prima c'è una difficoltà da affrontare, perché Il Diavolo indica che c'è un legame o un'abitudine che ti tiene più di quanto ammetti. All'esito c'è Dieci di Bastoni, cioè un carico troppo grande: un rischio da guardare adesso, non una meta.",
+        "cosaFare": "Dieci di Bastoni all'esito aggiunge un gesto: decidi che cosa posare e lascia almeno un compito che non è tuo. Proponi un'attività da fare insieme questa settimana, scelta da chi ha bisogno di aiuto. Non riempire il silenzio di consigli che nessuno ti ha chiesto.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
@@ -3797,7 +3797,7 @@
           "significatoDelVerso": "La struttura che protegge."
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Sei di Bastoni",
           "verso": "dritta",
           "significatoDelVerso": "La vittoria che sfila."
@@ -3825,20 +3825,20 @@
       "profonditaChiesta": "Lunga",
       "profondita": "Breve",
       "responso": {
-        "titolo": "Questione di settimane, non di anni",
-        "risposta": "Sul ritorno che aspetti, le carte dicono che la cosa è fattibile adesso: lo conferma Nove di Spade. È una carta della giornata, non del destino: parla di settimane e non di anni. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
-        "cosaFare": "Non serve un piano intero: serve una cosa sola. Cerca chi ha già fatto questa cosa e fagli due domande precise. Non chiedere un parere generico a tutti. Dove la lettura si chiude c'è Asso di Bastoni rovesciato: se ti muovi adesso, quell'intralcio non lo incontri.",
+        "titolo": "Sì, conta una scelta di cuore",
+        "risposta": "Sì, la tendenza è favorevole: Gli Amanti dicono che è una scelta di cuore e di valori, da fare con testa e sentimento insieme. All'esito c'è Asso di Bastoni rovesciato, cioè una partenza che slitta: un rischio da guardare adesso, non una meta.",
+        "cosaFare": "Asso di Bastoni rovesciato all'esito aggiunge un gesto: ritrova il motivo per cui volevi partire, poi fissa il giorno dell'inizio. Questa settimana accetta un invito o iscriviti a un'attività con persone nuove che condividono un tuo interesse. Non giudicare una persona dal primo minuto di conversazione.",
         "approfondimento": null,
         "rito": null,
         "titoloDelRito": null,
-        "daDoveViene": "Le carte uscite: Nove di Spade (ciò che copre), Cinque di Spade rovesciato (ciò che attraversa), Asso di Coppe (ciò che corona), Gli Amanti (il fondamento), Cavaliere di Bastoni (ciò che è dietro), L'Imperatore (futuro), Sei di Bastoni ([te stesso|te stessa|tu]), Regina di Denari (la tua casa), Il Papa (speranze o timori), Asso di Bastoni rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+        "daDoveViene": "Le carte uscite: Nove di Spade (ciò che copre), Cinque di Spade rovesciato (ciò che attraversa), Asso di Coppe (ciò che corona), Gli Amanti (il fondamento), Cavaliere di Bastoni (ciò che è dietro), L'Imperatore (futuro), Sei di Bastoni (tu), Regina di Denari (la tua casa), Il Papa (speranze o timori), Asso di Bastoni rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
       },
       "singole": [
         {
           "posizione": "Ciò che copre",
           "carta": "Nove di Spade",
           "titolo": "Un'aria notturna che ingrandisce ogni dettaglio",
-          "risposta": "Allunga le ombre di tutto quello che la tua domanda contiene una lampada accesa nella notte: le sagome diventano enormi, mentre i loro contorni restano identici a prima. L'ansia per il legame, i pensieri gelosi notturni, i messaggi riletti cento volte nel buio della stanza.",
+          "risposta": "Allunga le ombre di tutto ciò che riguarda la tua domanda, come una lampada accesa di notte: le sagome sembrano enormi, mentre i contorni restano identici a prima. L'ansia per il legame, i pensieri gelosi notturni, i messaggi riletti cento volte nel buio della stanza.",
           "cosaFare": "Prima di dormire lascia il telefono in un'altra stanza: i messaggi riletti cento volte al buio alimentano l'ansia per il legame invece di placarla. Se una paura insiste, rimandala al mattino e parlane con calma: alla luce del giorno ti accorgi che ha un'altra misura.",
           "approfondimento": null,
           "rito": null,
@@ -3849,7 +3849,7 @@
           "posizione": "Ciò che attraversa",
           "carta": "Cinque di Spade rovesciato",
           "titolo": "Una pace che arriva prima del riconoscimento",
-          "risposta": "Il perdono mette il legame al riparo e nello stesso gesto chiude la partita che la tua faccenda voleva aperta: le armi posate rinunciano a riscuotere la ragione. La riconciliazione dopo una lite, la mano tesa, il perdono chiesto o offerto per primo.",
+          "risposta": "Il perdono protegge il legame ma chiude la partita che volevi ancora aperta: chi posa le armi rinuncia a far valere la propria ragione, anche quando ce l'ha. La riconciliazione dopo una lite, la mano tesa, il perdono chiesto o offerto per primo.",
           "cosaFare": "Chiedi scusa oggi per la tua parte, anche piccola, senza aspettare che l'altra persona faccia lo stesso. Non è una resa: è scegliere la pace mentre potresti ancora vincere. Il perdono chiesto apre spazio anche a quello che ricevi, un poco alla volta.",
           "approfondimento": null,
           "rito": null,
@@ -3901,7 +3901,7 @@
           "daDoveViene": null
         },
         {
-          "posizione": "[Te stesso|Te stessa|Tu]",
+          "posizione": "Tu",
           "carta": "Sei di Bastoni",
           "titolo": "Accogli l'onore senza montarti la testa",
           "risposta": "Il tuo modo di stare qui è sicuro senza boria: riconosci il merito che ti viene dato, non lo sminuisci, non ci costruisci sopra un trono. La conquista ammirata dagli amici, l'orgoglio di stare insieme, la coppia che gli altri stimano.",

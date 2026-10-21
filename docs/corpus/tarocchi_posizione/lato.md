@@ -562,7 +562,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Tieni la mano sopra la tua stessa sorgente perché aprirla fa male e l'acqua che non esce si ferma sul fondo. Non c'è un legame da ricucire: c'è un sentire che non hai fatto partire.
-- 2: Il tuo sentire tenuto a chiave da dentro, prima che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l'acqua ferma resta nella coppa.
+- 2: Il tuo sentire resta chiuso da dentro, prima ancora che ci sia qualcuno a cui darlo. Il timore di soffrire rimanda un amore che non ha ancora cominciato e l'acqua ferma resta nella coppa.
 - 3: Finché rimandi di sentire, la fonte spinge e non trova una via d'uscita: non c'è un malinteso da sciogliere con qualcuno, c'è l'acqua che si è fermata dove nasce.
 
 ## Due di Coppe

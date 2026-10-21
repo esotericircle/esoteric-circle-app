@@ -385,7 +385,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Pali piantati nel terreno con una ghirlanda legata in cima: quel portale regge da sé e sta sotto la tua questione, che da prima di questa domanda ci passa in mezzo.
+- 1: Pali piantati nel terreno con una ghirlanda legata in cima: alla base della tua questione c'è una casa solida già festeggiata, che regge da sé da prima di questa domanda.
 - 2: La spesa del raccolto è già stata fatta: fiori e frutti intrecciati sopra la soglia sono stati pagati col lavoro di una stagione; su quel conto chiuso poggia quello che hai davanti.
 - 3: Il prato davanti al castello ha nutrito la ghirlanda prima che tu chiedessi: quelle radici stanno sotto la tua questione e la tengono su mentre la gente arriva fino al ponte.
 
@@ -1001,7 +1001,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La tua questione sta su un fondo basso dove la pertica ha già fatto presa: quella spinta data dal fondale tiene su lo scafo e l'acqua davanti alla prua è liscia.
+- 1: La tua questione poggia su un viaggio già cominciato, come una barca spinta dal fondo verso acque calme: la spinta data con pazienza c'è già e l'acqua davanti alla prua è liscia.
 - 2: Un imbarco fatto una volta non si disfa: la tua questione sta su quel passo compiuto e le lame infisse nella prua viaggiano a bordo con la figura incappucciata.
 - 3: Quello che hai già messo in acqua non torna in discussione: sta come punto fermo sotto la cosa, mentre il traghettatore spinge e la riva davanti resta ferma al suo posto.
 
@@ -1063,7 +1063,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Di terra e di ferro tolto è impastato quello che hai davanti: quella materia sta sotto la tua questione e la regge, col corpo che si tira su un gomito alla volta.
+- 1: Alla base della tua questione c'è una ripartenza da terra dopo una chiusura completa: ti rialzi un gomito alla volta, con un movimento lento che però è tutto tuo.
 - 2: Rialzarsi dalla sabbia è stato un atto compiuto che non si disfa: quel primo movimento fa da base a quello che hai davanti, con le lame tolte una per una.
 - 3: Toccare un fondo e averlo sentito duro sotto il piede è un sapere che non si dimentica: su quello la tua questione si appoggia, mentre il gomito regge il peso del primo gesto.
 

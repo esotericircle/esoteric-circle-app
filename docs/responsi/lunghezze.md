@@ -49,7 +49,7 @@ percio' le lunghezze nuove.
 | Tarocchi, bolla di posizione | 576 | 269 | 341 |
 | Tarocchi, cosa fare di una carta | 576 | 257 | 302 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
-| Tarocchi, paragrafo del responso principale | 384 | 254 | 286 |
+| Tarocchi, paragrafo del responso principale | 384 | 267 | 320 |
 | Tarocchi, sintesi | 192 | 22 | 28 |
 
 ## Il piu' lungo di ogni tipo, in testa
@@ -78,5 +78,5 @@ percio' le lunghezze nuove.
 - **Tarocchi, bolla di posizione** (341 caratteri): Hai lasciato andare un'occasione importante, forse per non averne compreso il valore o per...
 - **Tarocchi, cosa fare di una carta** (302 caratteri): Scegli oggi un'abilità che vuoi coltivare, come cucinare, scrivere o riparare: praticala p...
 - **Tarocchi, domanda di chiusura** (73 caratteri): Se il cielo inclina e non obbliga, qual è il primo passo che spetta a te?
-- **Tarocchi, paragrafo del responso principale** (286 caratteri): Le carte non lasciano il consiglio nel vago: eccolo. Fai la versione piccola della cosa gr...
+- **Tarocchi, paragrafo del responso principale** (320 caratteri): In pratica, mantieni una sola delle cose che hai promesso, prima di prometterne altre. Fan...
 - **Tarocchi, sintesi** (28 caratteri): L'arcobaleno della famiglia.

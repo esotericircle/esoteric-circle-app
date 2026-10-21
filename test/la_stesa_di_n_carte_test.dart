@@ -21,6 +21,8 @@ import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta.dart';
+import 'package:esoteric_circle/core/tarot/la_domanda_letta.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
@@ -205,6 +207,21 @@ void main() {
             }
             // Ne' il conto dei Maggiori usciti, che e' un fatto della stesa.
             senzaNomi = senzaNomi.replaceAll('tre Arcani Maggiori', '');
+            // **Ordine GA voce GA.06**: ne' i testi delle carte e i gesti
+            // della domanda, che hanno le loro parole (*"scrivi tre fatti
+            // concreti"* non e' il numero delle carte). Si guarda la cornice
+            // che la voce mette intorno, ed e' lei che vale per ogni stesa.
+            for (final c in LaCartaNellaRisposta.tavola.values) {
+              for (final x in [c.dice, c.via, c.tema]) {
+                senzaNomi = senzaNomi.replaceAll(x, '');
+              }
+            }
+            for (final x in [
+              ...LaDomandaLetta.di(null).azioni(topic),
+              ...LaDomandaLetta.di(null).nonFare(topic),
+            ]) {
+              senzaNomi = senzaNomi.replaceAll(x, '');
+            }
             // Ordine GA: nella stesa a una carta il responso di casa e' quello
             // della carta dal corpus, non le forme di `VoceDellaStesa`.
             if (t != TarotSpreadType.unaCarta &&

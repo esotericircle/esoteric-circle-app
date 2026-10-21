@@ -322,7 +322,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: La condanna già emessa occupa il posto in cui andava il riepilogo: la pronuncia precede i fatti, cosicché la faccenda che hai davanti resta senza il conteggio che chiedeva.
 - 2: Tira tutto verso la colpa, mentre la faccenda che hai davanti guardava a quello che c'è da riconoscere: la severità prende la scena che era della rassegna dei fatti.
-- 3: Il rinvio tiene il bilancio al coperto dallo sguardo e nello stesso gesto lo chiude fuori dalla stanza in cui la tua decisione lo stava aspettando.
+- 3: Il rinvio tiene il bilancio lontano dagli occhi e intanto lo esclude dalla decisione che stai prendendo: rimandare la resa dei conti ti impedisce di scegliere davvero.
 
 ## Il Mondo
 
@@ -484,7 +484,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Un annuncio fresco bussa alla porta proprio dove il tuo lavoro avviato chiedeva di essere portato a termine: la novità vuole essere seguita subito, appena recapitata.
 - 2: Verso l'esplorazione tira questa curiosità giovane, mentre la faccenda che hai davanti guardava al compimento: il messaggero porta terre da vedere invece della firma che aspettavi.
-- 3: Il recapito dell'annuncio porta allo scoperto un tuo riserbo: il messaggero racconta subito quello che ha visto, senza sapere quali porte erano chiuse.
+- 3: Il messaggio arriva e svela ciò che tenevi per te: chi lo porta racconta subito quello che ha visto, senza badare a ciò che era riservato.
 
 ### capovolta
 
@@ -993,7 +993,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: La riconciliazione si affaccia proprio dove il tuo punto chiedeva che la differenza restasse detta: le armi scendono prima che il torto abbia avuto un nome.
-- 2: Il perdono mette il legame al riparo e nello stesso gesto chiude la partita che la tua faccenda voleva aperta: le armi posate rinunciano a riscuotere la ragione.
+- 2: Il perdono protegge il legame ma chiude la partita che volevi ancora aperta: chi posa le armi rinuncia a far valere la propria ragione, anche quando ce l'ha.
 - 3: Questa pace fa bene al rapporto fra le due parti, mentre quello che hai chiesto riguardava un riconoscimento: la mano tesa arriva a chi si era allontanato.
 
 ## Sei di Spade
@@ -1064,7 +1064,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Il ricominciare da terra tiene occupate le tue mani con le fondamenta. La cosa che aspetti chiedeva un pezzo già pronto da consegnare subito.
 - 2: La risalita tira tutto verso un principio tuo da costruire. L'accordo in sospeso guardava quello che restava in piedi da prima e contava di appoggiarsi là.
-- 3: Un intero cominciamento da reggere si aggiunge alle cose che porti, perché di prima non resta materia da riusare. La faccenda che aspetta le tue ore ne vuole altrettante.
+- 3: Ripartire da zero si aggiunge a tutto quello che già porti, perché di prima non resta niente da riusare. La faccenda che aspetta il tuo tempo ne chiede altrettanto.
 
 ## Fante di Spade
 
