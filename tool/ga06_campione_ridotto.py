@@ -34,7 +34,33 @@ def a_passo(lista, k):
     return [lista[int(i * passo)] for i in range(k)]
 
 
-scelti = a_passo(trabocchetti, quanti_trab) + a_passo(altri, quanti_altri)
+# L'Oroscopo non ha domande: si sceglie per tradizione e per periodo (tre
+# tradizioni per quattro periodi) e, dentro ogni coppia, si fa girare il
+# dominio, cosi' il campione porta tutte e tre le tradizioni, tutti i periodi
+# (il "Da dove viene" cambia per periodo) e tutti e quattro i domini.
+if responsi and 'senzaDomanda' in responsi[0]:
+    tradizioni = sorted({r['senzaDomanda']['tradizione'] for r in responsi})
+    periodi = ['giorno', 'settimana', 'mese', 'anno']
+    domini = sorted({r['senzaDomanda']['dominio'] for r in responsi})
+    scelti = []
+    k = 0
+    for t in tradizioni:
+        for per in periodi:
+            dom = domini[k % len(domini)]
+            k += 1
+            candidati = [r for r in responsi
+                         if r['senzaDomanda']['tradizione'] == t
+                         and r['senzaDomanda']['periodo'] == per
+                         and r['senzaDomanda']['dominio'] == dom]
+            if not candidati:
+                candidati = [r for r in responsi
+                             if r['senzaDomanda']['tradizione'] == t
+                             and r['senzaDomanda']['periodo'] == per]
+            if candidati:
+                scelti.append(candidati[0])
+    scelti = scelti[:n]
+else:
+    scelti = a_passo(trabocchetti, quanti_trab) + a_passo(altri, quanti_altri)
 scelti.sort(key=lambda r: responsi.index(r))
 dati['responsi'] = scelti
 dati['quanti'] = len(scelti)
