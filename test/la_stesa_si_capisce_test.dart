@@ -637,8 +637,12 @@ void main() {
         for (final topic in TarotTopic.values) {
           final paragrafi = VoceDellaStesa.paragrafi(spread, topic);
           final consiglio = paragrafi.join('\n\n');
-          final nominate =
-              spread.cards.where((c) => consiglio.contains(c.card.name)).length;
+          // Maiuscola o minuscola: "La Luna" a inizio frase, "la Luna" dopo
+          // "nel futuro," (ordine GA voce GA.06).
+          final nominate = spread.cards
+              .where((c) =>
+                  consiglio.toLowerCase().contains(c.card.name.toLowerCase()))
+              .length;
           expect(nominate, greaterThanOrEqualTo(2),
               reason: 'col seme $seed su ${topic.name} il consiglio nomina '
                   '$nominate carte: un testo che vale per qualunque stesa la '

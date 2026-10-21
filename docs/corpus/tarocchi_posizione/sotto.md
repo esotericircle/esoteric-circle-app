@@ -35,14 +35,14 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Una partenza già scelta sta sotto la tua questione: il piede fuori dalla soglia ha chiuso le altre porte; quella porta chiusa è quello su cui tutto poggia adesso.
-- 2: Il fardello ridotto a una bisaccia sola regge quello che hai davanti: quel poco caricato sul bastone è l'appoggio della tua questione, non un suo ornamento.
+- 1: Alla base della tua questione c'è una partenza già scelta: uscendo hai chiuso altre possibilità, ma proprio quella decisione presa è ciò su cui tutto poggia adesso.
+- 2: Su una scelta di essenzialità poggia quello che hai davanti: tenere con te soltanto il necessario è diventato il sostegno della tua questione, non un dettaglio.
 - 3: Fra tutto quello che si muove, la leggerezza del passo non si rimette in gioco: è diventata il punto fermo su cui la tua domanda si appoggia, da quando il bagaglio pesante è rimasto a terra.
 
 ### capovolta
 
-- 1: Uno scatto partito senza misura ha già pagato il suo conto; è quella spesa, non il dirupo davanti, a tenere su la tua questione adesso.
-- 2: Il materiale della tua domanda è un entusiasmo impastato senza rotta: la pasta è stata scelta sull'orlo, prima del passo; su quella sostanza la cosa sta in piedi oggi.
+- 1: Alla base della tua questione c'è uno scatto partito senza misura, di cui hai già pagato le conseguenze: è quella scelta passata, non il salto davanti, a reggere tutto adesso.
+- 2: Su un entusiasmo nato senza direzione poggia la tua domanda: la scelta è stata fatta sull'orlo, prima di riflettere; oggi la cosa sta in piedi su quella spinta.
 - 3: Resta un deposito di partenze accennate e mai portate oltre il primo passo: quella scorta di slanci interrotti è sotto la tua questione e la porta su di sé.
 
 ## Il Mago
@@ -50,14 +50,14 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Un banco già apparecchiato, con bacchetta, coppa, lama e moneta a portata di mano, sta sotto la tua domanda: quello che hai davanti poggia su una capacità di eseguire che è tua da prima.
-- 2: Gli attrezzi disposti sul tavolo sono stati pagati prima che la tua domanda nascesse: è quella spesa chiusa a tenere su quello che hai davanti, mentre la mano sa dove prenderli senza guardare.
+- 2: Gli strumenti che usi li hai procurati prima che la tua domanda nascesse: su quella preparazione già fatta poggia quello che hai davanti, perché la mano sa dove trovarli.
 - 3: Rose e gigli cresciuti ai piedi del tavolo hanno messo radice nel terreno della tua questione: da lì il gesto prende alimento e su quelle radici quello che hai davanti continua a stare.
 
 ### capovolta
 
 - 1: Parole dette che non sono ancora passate per le mani: di questa materia è impastato quello che hai davanti; il banco resta apparecchiato e nessuno degli attrezzi porta un segno d'uso.
 - 2: Il cassetto richiuso sopra un talento sta ancora sotto la tua questione: quella porta serrata non si riapre da sé e quello che hai davanti poggia su di essa come su una tavola.
-- 3: Una destrezza già imparata lavora da sé mentre la bacchetta resta alzata: è quel mestiere, appreso una volta per sempre, a reggere la tua questione dal basso senza chiedere nulla.
+- 3: Sotto la tua questione lavora un'abilità imparata tempo fa e mai messa davvero alla prova: la regge senza farsi notare, mentre i gesti che hai promesso restano sospesi.
 
 ## La Papessa
 
@@ -65,11 +65,11 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sotto la tua domanda sta un sapere arrivato senza parole, di quelli che si sono posati prima che tu potessi spiegarli: quel libro mezzo nascosto nel manto regge tutto il resto.
 - 2: Un silenzio che hai già pagato in attese lunghe e in risposte trattenute tiene su quello che oggi hai davanti: la quiete fra le due colonne fa da appoggio alla tua questione.
-- 3: La tua questione è piantata in un terreno che ha già bevuto: quello che hai saputo prima di ogni ragionamento, al riparo del velo, resta la radice e tiene in piedi il resto.
+- 3: Alla base della tua questione c'è ciò che hai capito prima di ogni ragionamento, in silenzio: quella comprensione profonda tiene in piedi tutto il resto.
 
 ### capovolta
 
-- 1: Quello che hai davanti è impastato di una cosa saputa e tenuta zitta: il sapere messo sotto il manto, coperto dal ragionare, è la stoffa stessa della tua questione e la regge da dentro.
+- 1: Alla base di quello che hai davanti c'è qualcosa che sapevi e hai tenuto zitto, coperto dai ragionamenti: è questa la sostanza che regge la tua questione dall'interno.
 - 2: Hai preferito una volta la spiegazione al presentimento. Quella porta resta chiusa e su quella scelta, col libro serrato in grembo, poggia oggi la tua questione.
 - 3: Una pratica imparata da tempo lavora da sé sotto la tua questione: tirare il velo sopra quello che sapevi senza parole ti riesce senza sforzo. Quell'abilità acquisita fa da base al resto.
 
@@ -77,13 +77,13 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Un raccolto già maturato nel grano tiene su la tua questione: quello che hai davanti è cresciuto per intero prima di arrivarti; il suo peso di cosa viva sta sotto tutto il resto.
+- 1: Alla base della tua questione c'è qualcosa che è già maturato per intero prima di arrivare a te: la sua forza di cosa viva sostiene tutto il resto.
 - 2: La terra che ha già bevuto nutre dal basso quello che la tua domanda mette in gioco: una radice presa in profondità sostiene il frutto senza che le foglie debbano saperlo.
 - 3: Una cura imparata sulle cose vive regge la tua questione: il gesto che fa aprire un fiore senza strappargli i tempi è stato acquisito e ora lavora da sé sotto quello che hai in mano.
 
 ### capovolta
 
-- 1: Di generosità già spesa per intero sul giardino di fuori è impastata la tua questione: quella materia la regge; il terreno da cui è stata tratta sta sotto senza la sua parte d'acqua.
+- 1: Alla base della tua questione c'è una generosità spesa tutta verso l'esterno: regge ciò che hai davanti, ma la parte da cui veniva è rimasta senza nutrimento.
 - 2: Un'abitudine a far crescere le cose altrui, acquisita fino a riuscire senza pensarci, sta sotto la tua domanda: la mano che annaffia il giardino ha imparato a non passare dalla propria aiuola.
 - 3: Quello che hai davanti poggia su un rigoglio già prodotto: le foglie aperte verso la luce tengono su la scena; la radice che le ha fatte è rimasta all'asciutto.
 
@@ -92,264 +92,264 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Sotto la tua questione sta un seggio di pietra: una regola già posata porta tutto il carico, cosicché quanto le poggia sopra non deve essere tenuto a mano da nessuno.
-- 2: Una libertà ceduta in cambio di un confine netto è il conto chiuso su cui la tua questione sta: lo scettro pesa in mano a chi l'ha preso, dunque quel peso tiene ferma la cosa.
+- 2: Alla base della tua questione c'è una libertà ceduta in cambio di confini chiari: quella scelta ha un costo, ma è proprio lei a tenere ferma la situazione.
 - 3: Nel terreno della tua faccenda hanno già messo radice una misura e un limite dichiarati una volta sola: da lì la cosa beve l'ordine che oggi la tiene su.
 
 ### capovolta
 
 - 1: La tua questione è impastata di comando: una corazza serrata al punto di togliere il respiro è la materia stessa su cui sta, non un involucro messo attorno più tardi.
-- 2: Un ordine imposto una volta sola ha chiuso le altre vie di governo: quella porta sbarrata regge la tua questione adesso, con un trono a cui manca una gamba sotto.
-- 3: Quello che hai già imparato sul tenere fermo sostiene la tua domanda da sotto: la mano sul bracciolo non chiede più attenzione, cosicché la stretta prosegue oltre il punto in cui serviva.
+- 2: Alla base della tua questione c'è un ordine imposto che ha escluso ogni altra soluzione: regge la situazione, ma come un sostegno a cui manca un appoggio.
+- 3: Sotto la tua domanda lavora un'abitudine al controllo ormai automatica: non ci pensi più, così la stretta continua anche là dove non serve più a niente.
 
 ## Il Papa
 
 ### dritta
 
 - 1: Sotto la tua domanda c'è un insegnamento ricevuto da chi sedeva lì prima di te: una dottrina già consegnata, come due chiavi passate di mano, che ancora regge il peso di quello che hai davanti.
-- 2: Una fedeltà già pagata fa da base alla tua questione: il prezzo versato per inginocchiarsi dentro una regola comune, davanti a una mano alzata a benedire, tiene su quello che oggi è in gioco.
+- 2: Alla base della tua questione c'è una fedeltà già scelta: l'impegno preso aderendo a una regola comune sostiene ancora oggi ciò che è in gioco per te.
 - 3: La tua questione affonda in un terreno dissodato da altri: una sapienza tramandata ha già bagnato quel suolo e quello che ne sale sostiene ciò che hai per le mani.
 
 ### capovolta
 
 - 1: Della tua questione è impastato un precetto imparato a memoria da bocca d'altri: la stoffa è quella, un dover essere cucito addosso tempo fa, che sta ancora sotto quello che hai davanti.
-- 2: Una formula accettata senza discuterla ha chiuso a suo tempo le altre letture possibili: quella porta rimasta serrata è il piano su cui la tua questione poggia ancora.
+- 2: Alla base della tua questione c'è una regola accettata senza discuterla, che ha escluso altre possibilità: su quella scelta mai rivista la situazione poggia ancora.
 - 3: Hai imparato a ripetere una lezione che allora misurava bene le cose: quella capacità acquisita lavora ancora da sé sotto la tua domanda, con un metro che è rimasto quello di prima.
 
 ## Gli Amanti
 
 ### dritta
 
-- 1: Una preferenza già dichiarata fra due valori tuoi sta sotto la tua domanda: la figura in alto ha visto la mano alzarsi; quella mano alzata è l'appoggio che regge il resto.
-- 2: Sotto la tua questione c'è una radice di valori già messa a dimora: l'albero fiorito dietro le due figure affonda in quel suolo e ne beve da prima che la domanda nascesse.
-- 3: Quello che hai già imparato a distinguere, il tuo bene dal bene dell'altro, non va più conquistato: su quella competenza poggia la tua domanda, come le due figure sotto la benedizione.
+- 1: Alla base della tua domanda c'è una preferenza che hai già espresso fra due cose a cui tieni: quella scelta fatta è l'appoggio su cui poggia tutto il resto.
+- 2: Sotto la tua questione ci sono valori che hai coltivato da tempo, ben prima che la domanda nascesse: da lì viene la forza che sostiene ciò che vivi adesso.
+- 3: La tua domanda poggia su una cosa che hai già imparato, distinguere il tuo bene da quello degli altri: non devi conquistarla di nuovo, puoi contarci.
 
 ### capovolta
 
-- 1: Un credo messo a tacere è il punto che non si rimette in gioco: la benedizione è andata a una metà sola della tua scelta; su quel silenzio la questione sta in piedi oggi.
-- 2: Di due desideri tuoi, che hanno già chiesto cose diverse, è impastata la questione: non due persone venute da fuori, ma le due metà nude sotto la stessa benedizione. Quella stoffa doppia la porta.
-- 3: Sotto la tua domanda sta un accordo interiore mai firmato: la mano alzata fra le due figure si è fermata a metà strada e quel gesto incompiuto continua a fare da appoggio a tutto il resto.
+- 1: Alla base della tua domanda c'è una convinzione messa a tacere: una parte della tua scelta ha avuto spazio, l'altra no, così su quel silenzio poggia la questione di oggi.
+- 2: La tua questione nasce da due desideri tuoi che chiedono cose diverse da tempo: non due persone venute da fuori, ma due parti di te che non hai ancora messo d'accordo.
+- 3: Sotto la tua domanda c'è un accordo con te mai concluso: una decisione rimasta a metà che continua a reggere tutto il resto pur senza essere chiusa.
 
 ## Il Carro
 
 ### dritta
 
-- 1: Una riserva di spinta accumulata prima che tu chiedessi sta sotto la tua questione: il mezzo pesca da quella scorta a ogni giro di ruota e non deve chiedere permesso a nessuno.
-- 2: Il giogo che tiene insieme due bestie contrarie è l'unico pezzo della tua questione che non si rimette in gioco: è diventato fermo e tutto il resto si muove sopra di lui.
-- 3: Due animali di colore opposto, già aggiogati allo stesso timone, fanno da appoggio a quello che hai davanti: la tua questione va avanti perché quel traino regge il peso di entrambi.
+- 1: Alla base della tua questione c'è una riserva di energia accumulata prima ancora che tu chiedessi: puoi attingere da lì a ogni tratto, senza dipendere da nessuno.
+- 2: Sotto la tua domanda c'è una cosa ormai solida, la capacità di tenere insieme forze opposte: su questa base tutto il resto che ti riguarda può muoversi.
+- 3: La tua questione avanza perché poggia su un equilibrio già conquistato fra spinte di segno opposto: un accordo solido che regge il carico di entrambe e ti permette di procedere.
 
 ### capovolta
 
-- 1: Il prezzo di una corsa già compiuta tiene su quello che hai davanti: lo slancio è stato speso prima di questa domanda e il mezzo resta attaccato a due tiri che vanno ciascuno per sé.
-- 2: Sotto le ruote il suolo battuto da una partenza già data nutre ancora la tua questione: quel fondo regge il mezzo mentre i due tiri strappano verso punti diversi del campo.
-- 3: Lamiera addosso e stelle cucite sopra il capo: di questa materia è impastato quello che hai davanti; un telo già teso resta teso anche nel momento in cui il passo sbanda.
+- 1: Alla base della tua domanda c'è una corsa già fatta e pagata cara: lo slancio è stato speso prima, mentre le due spinte continuano a tirare ciascuna per sé.
+- 2: Sotto la tua questione c'è una partenza già data che la nutre ancora: quella base regge, anche se le spinte che senti tirano verso punti diversi.
+- 3: La tua questione è fatta di protezioni e ambizioni già messe in campo: quella struttura resta in piedi anche ora che il tuo percorso sbanda.
 
 ## La Giustizia
 
 ### dritta
 
-- 1: Si è accumulato sotto la tua domanda un conto esatto: ogni atto ha lasciato il suo peso sul piatto. Quel deposito di cause ed effetti non si disperde e la tua questione pesca da lì.
-- 2: Una cosa nella tua questione resta fuori discussione: la misura è stata presa e la bilancia sta ferma su quel numero. Il resto si muove, quel peso accertato tiene.
-- 3: Quello che hai seminato è già scritto nel piatto basso e da lì tiene su tutto: non la persona che ha agito, ma l'effetto posato dall'atto fa da appoggio a quello che oggi ti riguarda.
+- 1: Alla base della tua domanda c'è un conto preciso di ciò che hai fatto: ogni azione ha lasciato il suo segno, così la tua questione nasce da lì.
+- 2: Un punto della tua questione è ormai fuori discussione: la misura è stata presa e resta ferma, mentre tutto il resto intorno a quel punto può ancora muoversi.
+- 3: Sotto ciò che oggi ti riguarda ci sono gli effetti di ciò che hai seminato: non conta chi eri allora, contano le conseguenze delle tue azioni che reggono tutto il resto.
 
 ### capovolta
 
-- 1: Un prezzo è già stato messo sul piatto e il conto resta aperto al tuo nome: hai attribuito quel costo al caso, la cifra però sta sotto la tua questione e la tiene ferma.
-- 2: La tua questione è piantata su un effetto che una tua scelta ha prodotto e che porta il tuo nome: quella radice beve ancora sotto la bilancia inclinata e da lì viene quello che oggi vedi.
-- 3: Quello che oggi ti pesa è impastato di una conseguenza tua, tenuta a nome di altri. La spada resta sguainata sopra un piatto carico; di quella materia la tua questione è fatta e su quella sta.
+- 1: Alla base della tua questione c'è un prezzo già pagato che hai attribuito al caso: il conto però resta aperto a tuo nome e tiene ferma ogni cosa.
+- 2: La tua questione nasce da un effetto prodotto da una tua scelta: continua ad agire sotto la superficie, così da lì viene ciò che oggi vedi.
+- 3: Ciò che oggi ti pesa è fatto di una conseguenza tua che hai attribuito ad altri: la tua questione poggia proprio su quella responsabilità non riconosciuta.
 
 ## L'Eremita
 
 ### dritta
 
-- 1: Una riserva di silenzio messa da parte e non dispersa sta sotto la tua domanda: la lampada pesca là il lume che basta a un passo per volta, senza chiedere permesso a nessuno.
-- 2: Il peso che tiene su la tua questione è un ritiro già fatto: dal monte è stata portata giù una cosa sola, il cerchio di luce che un bastone e una lampada fanno sul sentiero.
-- 3: Di conoscenza raccolta stando in disparte è impastato quello che hai in mano: quel materiale la tiene su, piccolo come il chiarore che una lanterna apre sulla neve.
+- 1: Alla base della tua domanda c'è una riserva di calma che hai saputo custodire: da lì attingi la lucidità che basta a muoverti un tratto alla volta.
+- 2: Sotto la tua questione c'è un periodo di ritiro già vissuto: da quel tempo appartato hai riportato una comprensione semplice ma solida, che oggi ti orienta.
+- 3: Ciò che hai in mano è fatto di conoscenza raccolta stando in disparte: è poca ma vera, così regge la tua questione come un punto fermo.
 
 ### capovolta
 
-- 1: Un prezzo versato in giornate di porta chiusa sta sotto la tua questione: il conto è stato saldato in compagnia non fatta; la lampada che doveva fare strada resta girata verso il muro.
-- 2: Della stessa stoffa del raccoglimento è fatto il guscio indurito che tiene su quello che hai davanti: quella materia, provata al freddo, regge bene una lampada tenuta bassa e male una porta aperta.
-- 3: Quello che la tua domanda ha sotto è un deposito di ore passate in disparte: si è accumulato senza disperdersi; adesso quella scorta tiene su il muro meglio di quanto illumini il sentiero.
+- 1: Alla base della tua questione ci sono giorni passati a porta chiusa: il prezzo è stata la compagnia mancata, mentre ciò che doveva chiarire è rimasto rivolto all'interno.
+- 2: La tua questione poggia su un guscio che si è indurito col tempo: protegge bene la tua riservatezza, ma rende difficile aprirsi agli altri.
+- 3: Sotto la tua domanda ci sono molte ore passate in disparte: quella riserva oggi serve più a tenere distanza che a farti vedere chiaro dove andare.
 
 ## La Ruota della Fortuna
 
 ### dritta
 
-- 1: Sotto la tua domanda sta quello che molti giri hanno già depositato: il cerchio ha alzato la cosa e l'ha riabbassata senza mano che lo spingesse, cosicché quel sedimento di rotazioni la tiene su.
-- 2: L'unico elemento che nella tua questione non si rimette più in gioco è il mozzo del cerchio: attorno a quello tutto ha già girato una volta, mentre il perno fermo regge il movimento.
-- 3: Il carico della tua faccenda poggia su un cerchio che si è già voltato da sé: nessuna mano l'ha spinto, dunque quanto sta sotto è la rotazione dei raggi che ha portato qui le cose.
+- 1: Alla base della tua domanda ci sono molti cicli già vissuti: alti e bassi passati che hanno portato la questione fin qui e che oggi la sostengono.
+- 2: Nella tua questione resta fermo un punto solo, il centro attorno a cui tutto ha già girato una volta: è quel perno stabile a reggere il movimento che ti riguarda.
+- 3: La tua questione poggia su un cambiamento già avvenuto da sé, senza che nessuno lo spingesse: ciò che oggi hai davanti è il frutto di quel giro.
 
 ### capovolta
 
-- 1: Una scommessa già versata al banco del caso è la spesa su cui la tua questione poggia: il cerchio ha preso quella posta, poi ha riportato tutto al punto da cui era partito.
-- 2: Nel suolo della tua questione è piantato un movimento che si è ripetuto da sé: il cerchio ha girato storto per un dente saltato, dunque quella radice di ritorni tiene su quanto hai davanti.
-- 3: Di un moto che si è ripetuto senza presa per chi sta sul bordo è fatta la tua questione: quella sostanza girevole, già impastata di ritorni, la porta ancora adesso.
+- 1: Alla base della tua questione c'è un tentativo già fatto che non ha reso: hai messo qualcosa in gioco e tutto è tornato al punto di partenza.
+- 2: Sotto la tua questione c'è un movimento che si è già ripetuto più volte per lo stesso difetto: quei ritorni continui sostengono ciò che hai davanti.
+- 3: La tua questione è fatta di cicli ripetuti senza che tu avessi presa su di loro: quella materia, segnata da tanti ritorni, la sostiene ancora adesso.
 
 ## La Forza
 
 ### dritta
 
-- 1: Una riserva di mansuetudine messa da parte un poco alla volta sta sotto la tua questione: la mano che ha già posato il palmo sul muso della bestia pesca da quel deposito senza chiedere permesso.
-- 2: Il punto che resta fuori discussione è la calma: la belva è stata domata con la carezza invece che col pugno; quel fatto compiuto siede sotto quello che hai per le mani.
-- 3: Sotto quello che ti preme c'è un appoggio curioso: il peso dell'istinto è già stato retto a mani nude, senza laccio né catena, così quella tenuta fa da base alla tua domanda.
+- 1: Alla base della tua questione c'è una calma accumulata un poco alla volta, giorno dopo giorno: puoi attingere da quella riserva quando serve, senza chiedere permesso a nessuno.
+- 2: Un punto della tua questione è ormai acquisito: la tensione è già stata domata con dolcezza invece che con la violenza, così su questo poggia tutto il resto.
+- 3: La tua domanda poggia su una prova già superata a mani nude: hai retto un istinto forte senza costrizioni, così quella tenuta oggi ti fa da base.
 
 ### capovolta
 
-- 1: Un prezzo è già stato pagato in durezza: la carezza sul muso si è chiusa in stretta e quella presa, costata molto, regge la tua questione schiacciandola invece di sostenerla.
-- 2: La tua domanda affonda in un terreno indurito: la mitezza esercitata una volta si è fatta pugno e da quella radice secca la cosa prende ancora quello che le serve per stare in piedi.
-- 3: Di che cosa è fatto quello che hai davanti: di una tenuta ottenuta a denti stretti, materia buona lavorata male; la questione continua a posare su quella stessa stoffa.
+- 1: Alla base della tua questione c'è un prezzo già pagato in durezza: la calma si è trasformata in stretta, così quella presa oggi schiaccia invece di sostenere.
+- 2: La tua domanda nasce da un periodo in cui la mitezza si è fatta pugno: da quella rigidità la situazione prende ancora l'energia per restare in piedi.
+- 3: Ciò che hai davanti è fatto di una tenuta ottenuta a denti stretti, una buona forza usata male: la questione poggia ancora su quella base.
 
 ## L'Appeso
 
 ### dritta
 
-- 1: Un tempo fermo già speso sta sotto la tua questione: la caviglia legata al legno ha pagato la vista che adesso ti serve; quella spesa non si riprende più.
-- 2: Lo sguardo invertito, con la testa in basso e l'aureola accesa, è diventato una capacità acquisita: non si riconquista a ogni giro e fa da base alla tua questione.
-- 3: Si è accumulata una riserva di quiete nei giorni senza movimento: quella scorta, raccolta mentre le mani stavano dietro la schiena, è sotto la tua domanda e la porta.
+- 1: Alla base della tua questione c'è un periodo di attesa già vissuto: quella pausa, che allora sembrava tempo perso, ti ha dato lo sguardo che adesso ti serve.
+- 2: Sotto quello che vivi c'è una capacità che hai già imparato: fermarti e guardare le cose da un'altra prospettiva, anche quando tutti intorno spingono per agire.
+- 3: Fa da fondamento una calma accumulata nei giorni in cui non potevi muoverti: quella riserva di pazienza c'è ancora e sostiene la domanda che porti.
 
 ### capovolta
 
-- 1: Una rinuncia già offerta a nessuno ha chiuso le altre vie: resta quella sola, con la corda ferma alla caviglia; su quella chiusura la tua questione sta in piedi adesso.
-- 2: La tua questione poggia su un'attesa che ha smesso di dare frutto: quel terreno è stato scelto quando il ramo ha preso il tuo peso e adesso regge comunque ciò che hai davanti.
-- 3: Quel che sta sotto la tua domanda è una sosta diventata stallo: il corpo a testa in giù ha dato tutto quello che aveva; quel residuo fa da appoggio a quello che hai davanti.
+- 1: Alla base della tua questione c'è una rinuncia già fatta e mai servita a nessuno: ha chiuso altre possibilità e oggi tutto poggia su quella scelta.
+- 2: Sotto quello che vivi c'è un'attesa che ha smesso da tempo di dare frutti: l'hai scelta tu a suo tempo e regge ancora ciò che hai davanti.
+- 3: Fa da fondamento una pausa diventata stallo: quel tempo fermo ti ha dato tutto quello che poteva e ciò che resta è un appoggio stanco per la tua domanda.
 
 ## La Morte
 
 ### dritta
 
-- 1: Un taglio dato una volta sola fa da piano a quello che hai davanti: il campo è stato sgombrato e la tua questione sta su quello spazio aperto che nessuno rimette al suo posto.
-- 2: Passare il fiume davanti alle due torri è un mestiere che la tua questione ha già appreso: quella traversata compiuta lavora da sé e tutto quello che hai davanti si appoggia a lei.
-- 3: Resta una scorta nel campo mietuto: petali bianchi su uno stendardo portato fin qui; da quella riserva la tua questione attinge e su di essa continua a stare senza chiedere permesso.
+- 1: Alla base della tua questione c'è una chiusura già avvenuta: quel capitolo non si riapre e tutto ciò che vivi oggi poggia sullo spazio che ha lasciato.
+- 2: Sotto quello che vivi c'è un cambiamento che hai già attraversato: sai che cosa vuol dire lasciare andare e quella esperienza sostiene la domanda che porti.
+- 3: Fa da fondamento ciò che ti è rimasto dopo una fine: poche cose, ma vere, sopravvissute al cambiamento, da cui la tua questione attinge ancora forza.
 
 ### capovolta
 
-- 1: Il colpo di falce è già andato e questa è la sola parte della tua questione che non torna in discussione: la mano chiusa sopra quel taglio tiene su quello che hai davanti.
-- 2: Una corona caduta per terra, che nessuno ha raccolto, fa da appoggio a quello che hai davanti: la tua questione pesa tutta su quel metallo rimasto dov'era allora.
-- 3: Versato prima di questa domanda, il pedaggio della traversata non si riprende: su quella moneta consegnata poggia quello che la tua questione tiene fermo adesso, a riva.
+- 1: Alla base della tua questione c'è un taglio già avvenuto che non torna in discussione: la tua mano resta chiusa sopra quella fine e tutto il resto poggia lì.
+- 2: Sotto quello che vivi c'è qualcosa che hai perso e non hai mai lasciato andare davvero: la tua questione si appoggia ancora su ciò che è caduto da tempo.
+- 3: Fa da fondamento ciò che quel cambiamento ti è già costato: non si riprende indietro e su quella spesa poggia ciò che oggi stai cercando di tenere fermo.
 
 ## La Temperanza
 
 ### dritta
 
-- 1: Una dose trovata una volta per tutte sta sotto la tua questione: il travaso fra le due coppe è stato avviato e quel gesto non si disfa, il resto poggia sul suo ritmo lento.
-- 2: Mescolare con calma quello che sembrava inconciliabile ti riesce da prima di questa domanda. È una pratica già acquisita, un piede nell'acqua e uno sulla riva, che porta la tua questione.
-- 3: Si è depositata nel fondo una pazienza che non hai speso tutta: quella riserva, travasata a lungo da una coppa all'altra, non si è dispersa e sorregge quello che oggi ti sta davanti.
+- 1: Alla base della tua questione c'è un equilibrio già trovato: quella misura costruita con pazienza non si disfa e il resto poggia sul suo ritmo calmo.
+- 2: Sotto quello che vivi c'è una capacità che hai già: mettere d'accordo con calma ciò che sembrava inconciliabile, una pratica imparata da tempo che oggi ti sostiene.
+- 3: Fa da fondamento una riserva di pazienza che non hai consumato del tutto: si è accumulata piano nel tempo e adesso sostiene ciò che hai davanti.
 
 ### capovolta
 
-- 1: Una quantità nella tua questione resta fuori discussione: di una parte è stato versato troppo, dell'altra quasi niente. Quella proporzione già fissata è quello che tiene su il resto.
-- 2: Sotto quello che hai davanti sta una mistura fatta in fretta e già bevuta: il filo d'acqua fra le due coppe si era rotto. Quel miscuglio sostiene adesso la tua questione per intera.
-- 3: Hai pagato in fretta e in eccessi una dose sbagliata: quel prezzo già versato tiene su la tua questione come un appoggio storto che non cede, con le due coppe ancora nelle mani.
+- 1: Alla base della tua questione c'è una sproporzione già fissata, troppo da una parte e quasi niente dall'altra: su quello squilibrio poggia ancora oggi tutto il resto.
+- 2: Sotto quello che vivi c'è una scelta fatta in fretta e senza misura: allora l'equilibrio si era rotto e quella decisione sostiene ancora la tua questione per intero.
+- 3: Fa da fondamento il conto di un periodo di eccessi: quello che hai speso in fretta non torna indietro e regge la tua questione come un appoggio storto che non cede.
 
 ## Il Diavolo
 
 ### dritta
 
-- 1: Una comodità scelta una volta e mai disfatta sta sotto la tua questione: quel sì ha chiuso le altre porte e il collare dalla catena larga regge ancora quello che hai davanti.
-- 2: Il gusto che hai già preso non si è disperso: è rimasto come una scorta a cui la tua questione pesca senza chiedere permesso; il piedistallo di pietra sotto la figura cornuta sta fermo da prima.
-- 3: Qualcosa è stato pagato in cambio di quel piacere e il conto è chiuso: la tua questione poggia su quella moneta versata, come i due ai piedi del trono poggiano sulla catena che li tiene allacciati.
+- 1: Alla base della tua questione c'è una comodità scelta tempo fa e mai messa in discussione: quel sì ha chiuso altre possibilità e regge ancora ciò che hai davanti.
+- 2: Sotto quello che vivi c'è un piacere già provato che non si è disperso: è rimasto come una riserva a cui la tua questione attinge senza chiedere il permesso.
+- 3: Fa da fondamento un prezzo già pagato in cambio di quel piacere: il conto è chiuso e la tua questione poggia proprio su ciò che hai concesso allora.
 
 ### capovolta
 
-- 1: Un patto guardato in faccia non torna in discussione: il nome che hai dato a quel legame regge da solo quello che resta in gioco, mentre il collare sollevato pesa ancora nelle mani.
-- 2: Il conto del tempo passato con quel collare addosso è stato saldato per intero: la tua questione sta su quella spesa e la catena che pende vuota pesa meno della moneta già contata.
-- 3: Sciogliere quel nodo è stato un atto compiuto una volta sola: adesso quella scelta tiene su quello che hai davanti e la torcia rivolta al basso scalda il pavimento più del trono.
+- 1: Alla base della tua questione c'è un patto guardato in faccia, che non torna più in discussione: il nome che hai dato a quel legame sostiene da solo tutto il resto.
+- 2: Sotto quello che vivi c'è un conto già saldato: il tempo passato dentro quel legame è stato pagato per intero e ormai pesa meno di quanto temevi.
+- 3: Fa da fondamento una scelta compiuta una volta sola: quando hai deciso di allentare quella presa hai creato la base su cui oggi poggia ciò che hai davanti.
 
 ## La Torre
 
 ### dritta
 
-- 1: Una costruzione colpita in cima ha tolto dal tavolo ogni ritorno alla versione precedente: la tua questione poggia su quel crollo, perché le pietre venute giù non si rimettono in fila.
-- 2: Quello che il colpo dall'alto ha insegnato non si deve più conquistare: sotto la tua questione sta la capacità acquisita di distinguere la pietra viva dall'intonaco caduto.
-- 3: Dalle macerie è rimasto un deposito di pietre sane: quanto il colpo dall'alto non ha potuto portare giù sta ancora sotto la tua faccenda, scorta su cui la cosa pesca senza chiedere permesso.
+- 1: Alla base della tua questione c'è un crollo già avvenuto: quella costruzione non torna com'era prima e ciò che vivi oggi poggia proprio su quella caduta.
+- 2: Sotto quello che vivi c'è una lezione già imparata da una scossa passata: oggi sai distinguere ciò che è solido da ciò che regge solo in apparenza.
+- 3: Fa da fondamento una parte della tua vita che ha retto alla scossa: è solida, l'hai già messa alla prova e su di lei la questione può contare.
 
 ### capovolta
 
-- 1: L'unica cosa non più in discussione nella tua questione è un rinvio già deciso: la scossa che avrebbe smontato l'impianto sta posticipata, dunque il muro incrinato porta ancora il tetto.
-- 2: Il peso della tua faccenda sta su un muro che ha preso la crepa senza venire giù: quello che sostiene la cosa adesso è una parete puntellata, non una parete intera.
-- 3: Una spesa in puntelli e sostegni provvisori è stata versata una volta per tutte: su quel pagamento la tua questione poggia, con l'edificio in piedi per via del rinforzo comprato.
+- 1: Alla base della tua questione c'è un rinvio già deciso: la scossa che avrebbe cambiato tutto è stata spostata più avanti e intanto ciò che è incrinato regge ancora.
+- 2: Sotto quello che vivi c'è una situazione che ha preso una crepa senza crollare: ciò che oggi sostiene la tua faccenda è una parete puntellata, non una parete intera.
+- 3: Fa da fondamento lo sforzo già fatto per tenere in piedi le cose: quel lavoro di rinforzo è stato speso e la tua questione si regge proprio su di esso.
 
 ## La Stella
 
 ### dritta
 
-- 1: Una scelta fatta nel buio peggiore ha chiuso le altre strade: quella di sperare comunque. Il passo compiuto allora è il piano su cui la tua questione poggia adesso, sotto un cielo tornato chiaro.
-- 2: Hai già attraversato una tempesta e quello che ne hai imparato lavora ora da sé: la quiete che ne è rimasta non si conquista due volte e sostiene la tua domanda senza fare rumore.
-- 3: Sotto la tua questione c'è acqua già versata: due brocche inclinate sulla terra e nello stagno hanno riempito un deposito di fiducia da cui quello che hai davanti pesca ancora.
+- 1: Alla base della tua questione c'è una scelta fatta nel momento più buio, quella di sperare comunque: è su quella decisione che oggi poggia tutto il resto.
+- 2: Sotto quello che vivi c'è una tempesta già attraversata: ciò che ti ha insegnato lavora da solo e la calma che ti è rimasta sostiene la tua domanda senza rumore.
+- 3: Fa da fondamento la fiducia che hai già ritrovato una volta: quella esperienza non si perde e la tua questione ci si appoggia anche quando le forze sembrano poche.
 
 ### capovolta
 
-- 1: Il punto fermo della tua questione è una promessa fatta e mai ritirata: l'astro a otto punte è coperto da una nube, però il versamento d'acqua è già avvenuto e tiene su il resto.
-- 2: Sostiene quello che hai davanti una fiducia stanca e intatta: ha già portato peso prima di questa domanda, lo porta anche adesso, col cielo velato sopra e meno chiarore sulla pelle.
-- 3: Una quiete pagata cara, brocca per brocca, fa da fondo alla tua domanda: la nube che copre adesso non riporta indietro quello che è già stato versato sulla terra.
+- 1: Alla base della tua questione c'è un impegno preso e mai ritirato: anche se il cielo adesso è coperto, ciò che hai già dato resta e sostiene il resto.
+- 2: Sotto quello che vivi c'è la tua fiducia, stanca ma intatta: ha già sostenuto pesi prima di questa domanda e continua a farlo anche adesso, sotto un cielo velato.
+- 3: Fa da fondamento una calma conquistata con fatica, un po' alla volta: la nube di oggi non cancella ciò che hai già costruito e versato nella tua vita.
 
 ## La Luna
 
 ### dritta
 
-- 1: Sotto la tua questione c'è un'acqua già bevuta al buio: dallo stagno dove il gambero si muove è venuta su una conoscenza non spiegabile; quel suolo umido la tiene in piedi.
-- 2: Di materia notturna è impastato quello che hai davanti: il sentiero pallido fra le due torri è stato tracciato prima della tua domanda e la sostiene com'è, senza schiarirsi.
-- 3: Una cosa non si rimette in gioco: il buio su cui i due cani hanno già ululato resta dov'è. Mentre il resto della tua questione si muove, quel tratto non illuminato fa da appoggio.
+- 1: Alla base della tua questione c'è un'intuizione maturata in un periodo confuso: una conoscenza che non sai spiegare a parole ma che ancora oggi sostiene le tue scelte.
+- 2: Quello che hai davanti poggia su un'incertezza nata prima della tua domanda: un dubbio di fondo mai chiarito che la sostiene così com'è, senza diventare più limpido.
+- 3: Una cosa resta ferma alla base della tua questione: un punto oscuro del passato che non si può cambiare. Mentre il resto si muove, quella zona non chiarita ti fa comunque da appoggio.
 
 ### capovolta
 
-- 1: Riconoscere una forma gonfiata dal buio è una competenza ormai tua: è nata quando il sentiero fra le due torri si è visto per intero e oggi regge la tua questione.
-- 2: Resta il sedimento di una nebbia già attraversata: la misura vera delle cose, raccolta mentre i cani tacevano, è il deposito su cui quello che hai davanti si appoggia.
-- 3: Il conto di quelle notti è stato versato fino in fondo; quella moneta non si riprende e la tua domanda sta su di essa, non sullo stagno che si è calmato.
+- 1: Sai ormai riconoscere una paura ingigantita dalla confusione: è una capacità che hai imparato quando hai visto le cose per intero e oggi regge la tua questione.
+- 2: Alla base resta ciò che hai imparato uscendo da un periodo confuso: la misura vera delle cose, raccolta quando le paure si sono calmate, sostiene quello che hai davanti.
+- 3: Il prezzo di quel periodo di paure è già stato pagato fino in fondo e non torna indietro: la tua domanda poggia su questa esperienza, non sul timore che ormai si è calmato.
 
 ## Il Sole
 
 ### dritta
 
-- 1: Girasoli piantati dietro un muro hanno già bevuto l'acqua che serviva: le loro radici tengono su la tua questione da sotto e la testa gialla resta girata dove il calore sta.
-- 2: Di luce già salita in cima è fatto quello che hai davanti: una chiarezza versata su ogni cosa è la materia su cui la tua questione posa; lo stendardo rosso si vede per intero.
-- 3: Il muro alle spalle del bambino è stato tirato su una volta e nessuno lo rimette in discussione: quella scelta di pietra fa da base a quello che hai davanti, a mezza altezza.
+- 1: Alla base della tua questione c'è una gioia già vissuta, che ha nutrito ciò che serviva: quella riserva di fiducia la sostiene ancora e ti orienta verso ciò che ti fa bene.
+- 2: Quello che hai davanti nasce da una chiarezza già raggiunta: ciò che è stato messo in luce in passato è la base su cui poggia la tua questione, visibile per intero.
+- 3: Una scelta fatta una volta per tutte non è più in discussione: come il muretto alle spalle del bambino, quella decisione solida fa da base a quello che hai davanti.
 
 ### capovolta
 
-- 1: Una pelle che sa riconoscere il caldo l'ha imparato tempo fa e quel mestiere lavora da sé: la tua questione sta su quel sapere anche col velo teso fra te e i raggi.
-- 2: Nei mattoni scaldati da un mezzogiorno già compiuto è rimasta una riserva di tepore: da quella la tua questione attinge e su quella posa, mentre una nube sta ferma in mezzo.
-- 3: Il disco in cima al cielo è fuori discussione: è salito e da lì tiene su quello che hai davanti; dentro la tua questione si muove soltanto lo spessore del velo.
+- 1: Sai riconoscere la gioia perché l'hai già provata in passato: quella capacità lavora ancora da sola e sostiene la tua questione, anche ora che un velo ti separa dal calore.
+- 2: Da un periodo felice ti è rimasta una riserva di calore: la tua questione attinge da lì e lì poggia, anche se adesso una nube resta ferma in mezzo.
+- 3: Una cosa non è in discussione: il bene che c'è è reale e sostiene quello che hai davanti. Nella tua questione cambia soltanto quanto è spesso il velo che lo copre.
 
 ## Il Giudizio
 
 ### dritta
 
-- 1: La tua questione è piantata in un richiamo già squillato: la tromba è passata una volta sopra quello che tenevi chiuso. Da quella radice sale tutto quello che adesso sta in piedi.
-- 2: Quello che hai davanti è impastato di un bilancio già fatto: il coperchio si è alzato su quello che eri e la tua questione è fatta di quella materia, nient'altro la tiene su.
+- 1: La tua questione nasce da un richiamo che hai già sentito: una volta qualcosa ha riaperto ciò che tenevi chiuso e da quel risveglio viene tutto ciò che adesso sta in piedi.
+- 2: Quello che hai davanti poggia su un bilancio già fatto: hai già guardato in faccia chi eri e la tua questione è costruita su quella consapevolezza, nient'altro la sostiene.
 - 3: Hai risposto una volta a un richiamo e da quella risposta non si torna. Chi si è rialzato in piedi non si ricorica più e su quel passo compiuto la tua questione poggia tutta.
 
 ### capovolta
 
-- 1: Rimandare il bilancio ti riesce senza sforzo da prima di questa domanda: è un mestiere già imparato, il coperchio richiuso sopra la tromba, che tiene su la tua questione per intera.
-- 2: Si è accumulata una severità che hai rivolto solo a te: quel sedimento di conti fatti con la misura più dura, davanti al sepolcro rimasto chiuso, sostiene adesso la tua questione.
+- 1: Rimandare i bilanci è un'abitudine che hai da prima di questa domanda: l'hai imparata così bene che ormai ti riesce senza sforzo e su di essa poggia tutta la tua questione.
+- 2: Alla base c'è una severità che hai rivolto soltanto verso di te: tanti conti fatti con la misura più dura si sono accumulati e adesso sostengono la tua questione.
 - 3: Una condanna che hai pronunciato su di te resta fuori discussione mentre il resto si muove: quel verdetto fermo, col coperchio tenuto giù, fa da base alla tua questione.
 
 ## Il Mondo
 
 ### dritta
 
-- 1: La tua questione sta su un terreno percorso fino in fondo: ogni tratto attraversato ha messo radice là dove passava e la corona di foglie chiusa in cerchio tiene su quello che hai adesso.
+- 1: La tua questione poggia su un percorso fatto fino in fondo: ogni tappa che hai attraversato ha lasciato qualcosa di solido e quel ciclo compiuto sostiene ciò che hai adesso.
 - 2: Un cerchio chiuso non si riapre: il giro che hai compiuto per intero regge quello che è in gioco, con le figure dei quattro angoli ferme ognuna al suo posto.
 - 3: Quello che è stato attraversato non si rimette in gioco: resta il punto fermo sotto la tua domanda, mentre tutto il resto si muove dentro la ghirlanda d'alloro che lo circonda.
 
 ### capovolta
 
-- 1: Quasi tutto il giro è stato imparato sulla propria pelle: quella pratica tiene su la tua questione e la corona di foglie regge con una maglia ancora da intrecciare.
+- 1: Quasi tutto il percorso lo hai imparato sulla tua pelle: quell'esperienza sostiene la tua questione, anche se resta ancora un ultimo pezzo da aggiungere perché sia completa.
 - 2: Il tratto percorso non si rimette in discussione ed è l'unica cosa ferma sotto quello che hai davanti: la danza dentro il cerchio continua su quel pezzo già fatto.
-- 3: Dove il cammino ha già messo radice la tua domanda trova appoggio: il terreno regge il peso di quasi tutto il cerchio e un palmo di suolo resta senza il suo filo d'alloro.
+- 3: La tua domanda poggia su ciò che hai già costruito: quella base regge quasi tutto, ma in un punto preciso manca ancora l'ultimo elemento che la renderebbe completa.
 
 ## Asso di Bastoni
 
 ### dritta
 
-- 1: Nel suolo della tua questione sta un ramo verde appena piantato che ha già messo foglia: la cosa beve da quella linfa, cioè da un primo fuoco acceso e non ancora speso.
-- 2: La materia della tua questione è legno vivo: la sostanza grezza di una partenza che ha preso fuoco una volta porta ancora il calore dentro le fibre, dunque su quel legno la cosa sta.
+- 1: Alla base della tua questione c'è un entusiasmo nato da poco e ancora intatto: la situazione si nutre di quella prima spinta, che non hai ancora consumato.
+- 2: La tua questione è fatta di energia viva: una partenza che ha preso slancio una volta conserva ancora quel calore dentro di sé: tutto si regge su quello.
 - 3: Un fiammifero acceso ha chiuso la stagione dell'attesa: quella scintilla già data è l'atto che non si disfa, dunque la tua faccenda si appoggia su di essa.
 
 ### capovolta
 
-- 1: Quello che le dita hanno appreso sul far scoccare un fuoco non si riconquista: sotto la tua faccenda sta quell'abilità intatta, col ramo verde appoggiato al muro che nessuno ha acceso.
+- 1: Sai già come si avvia qualcosa: è un'abilità che non perdi. Sotto la tua faccenda quella capacità resta intatta, anche se per ora nessuno l'ha messa in moto.
 - 2: Sotto la tua questione si è raccolta una riserva di slancio non speso: il fuoco coperto di cenere non si è disperso, dunque la cosa pesca da quel calore tenuto al coperto.
 - 3: L'elemento che nella tua domanda resta fuori dal gioco è il desiderio: è stato acceso una volta sola, sta sotto la cenere e tiene su la cosa mentre il resto si muove.
 
@@ -357,9 +357,9 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: La tua questione è piantata su un muro alzato da altri: da quel parapetto il mondo sta già in una mano e la pietra sotto i piedi regge lo sguardo lungo.
-- 2: Di una cosa già ottenuta è impastato quello che hai davanti: il globo chiuso nel palmo. Quel possesso acquisito porta adesso la tua questione, mentre un piede resta dentro le mura.
-- 3: Una delle due aste è stata fissata alla pietra e non si stacca: quell'atto compiuto ha chiuso la strada del restare fermi, così la tua domanda poggia oggi su quel punto saldo.
+- 1: La tua questione poggia su basi costruite da altri: da quella posizione sicura hai già in mano molte possibilità e puoi permetterti di guardare lontano.
+- 2: Quello che hai davanti nasce da qualcosa che hai già ottenuto: una sicurezza conquistata che sostiene la tua questione, anche se una parte di te resta ancora dentro i confini noti.
+- 3: Una decisione presa in passato non si può più disfare: quel punto fermo ha tolto la possibilità di restare immobili e oggi la tua domanda poggia proprio lì.
 
 ### capovolta
 
@@ -371,337 +371,337 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Una spedizione già pagata sta sotto la tua questione: il carico è partito dal porto e il conto è chiuso; su quella spesa fatta la cosa si tiene, mentre l'orizzonte resta vuoto.
-- 2: Mandare quel carico lontano è stata una scelta che ha chiuso le altre: dal promontorio non si richiama una nave; quella porta chiusa è l'appoggio della tua domanda adesso.
-- 3: Sotto quello che hai davanti sta un lavoro già consegnato al mare: il peso di quella consegna, non l'attesa di oggi, è quello che tiene su la tua questione.
+- 1: Alla base della tua questione c'è un lavoro già fatto: hai preparato, hai scelto, hai lasciato partire qualcosa. Su quell'impegno ormai compiuto poggia ciò che vivi adesso.
+- 2: Tutto nasce da una decisione presa tempo fa, quella di investire energie in qualcosa che sarebbe cresciuto lontano da te: quella scelta resta il fondamento della situazione.
+- 3: Sotto ciò che hai davanti c'è la fiducia che hai già dimostrato lasciando andare un progetto per farlo crescere: è quella fiducia a sostenere tutto il resto.
 
 ### capovolta
 
-- 1: Di aspettative scritte prima della partenza è fatta la tua questione: quella misura, fissata dal promontorio, sta sotto la merce rientrata e la regge anche se il carico è un altro.
-- 2: Si è depositato un elenco di previsioni mai riviste: quella riserva di attese, compilata quando le vele erano all'orizzonte, porta su di sé quello che hai davanti oggi.
-- 3: Il carico rientrato c'è e non si discute più: quello che il mare ha riportato è il punto fermo della tua domanda, mentre il conto fra l'atteso e il ricevuto resta aperto.
+- 1: Alla base della tua questione ci sono aspettative fissate prima di sapere come sarebbe andata: quel piano iniziale regge ancora le tue valutazioni, anche se i fatti sono cambiati.
+- 2: Tutto nasce da un ritorno già avvenuto: ciò che avevi mandato lontano è rientrato diverso e quel fatto, ormai compiuto, è il fondamento da cui ripartire.
+- 3: Sotto ciò che vivi c'è una delusione passata: un risultato arrivato in forma inattesa ti ha costretto a rivedere i piani e quella revisione regge il presente.
 
 ## Quattro di Bastoni
 
 ### dritta
 
-- 1: Pali piantati nel terreno con una ghirlanda legata in cima: alla base della tua questione c'è una casa solida già festeggiata, che regge da sé da prima di questa domanda.
-- 2: La spesa del raccolto è già stata fatta: fiori e frutti intrecciati sopra la soglia sono stati pagati col lavoro di una stagione; su quel conto chiuso poggia quello che hai davanti.
-- 3: Il prato davanti al castello ha nutrito la ghirlanda prima che tu chiedessi: quelle radici stanno sotto la tua questione e la tengono su mentre la gente arriva fino al ponte.
+- 1: Alla base della tua questione c'è una stabilità già conquistata: una casa, un risultato o un legame che regge da tempo e su cui ciò che vivi può appoggiarsi.
+- 2: Tutto nasce da un periodo felice e condiviso: una festa, un obiettivo raggiunto insieme ad altri, che ti ha dato la sicurezza su cui oggi costruisci.
+- 3: Sotto ciò che hai davanti ci sono fondamenta solide, posate con fatica e già festeggiate: è grazie a quel lavoro compiuto che la situazione oggi sta in piedi.
 
 ### capovolta
 
-- 1: Di fiori già recisi e legati insieme è fatta la soglia su cui la tua questione posa: la materia c'è tutta e l'ora di passarci sotto non è ancora stata battuta.
-- 2: Alzare quel portale è stata una scelta che non si disfa: i pali sono fermi nel terreno e quello che hai davanti poggia su di loro, anche senza nessuno che li attraversi.
-- 3: Costruire una soglia è un mestiere che le mani hanno già appreso: quel sapere lavora da sé sotto la tua questione; la ghirlanda legata in cima sta dove le mani l'hanno messa.
+- 1: Alla base della tua questione c'è un risultato già compiuto e solido: il lavoro è finito da tempo, anche se non hai mai trovato il momento di riconoscerlo.
+- 2: Tutto nasce da una scelta già fatta: hai costruito qualcosa di stabile e quella costruzione regge ciò che vivi, anche se nessuno l'ha ancora inaugurata.
+- 3: Sotto ciò che hai davanti c'è un'abitudine radicata: rimandare la gioia a un momento ideale che non arriva mai, un modo di fare che oggi sostiene la situazione senza che tu lo scelga.
 
 ## Cinque di Bastoni
 
 ### dritta
 
-- 1: Sotto la tua questione sta una mischia alla pari già ingaggiata: pali incrociati in aria senza nessuno che comandi. Quell'attrito avvenuto la tiene su invece di buttarla giù.
-- 2: Hai speso fiato e muscoli in un confronto aperto dove nessuno aveva il grado per decidere: quella fatica versata nella zuffa non si riprende e adesso regge quello che hai davanti.
-- 3: La tua questione affonda in un terreno battuto da molti bastoni insieme: quel campo dove la prova è avvenuta alla pari ha già bevuto lo scontro e da quella radice tiene il resto.
+- 1: Alla base della tua questione c'è un confronto già affrontato: discussioni e rivalità del passato ti hanno messo alla prova e oggi quell'esperienza ti sostiene.
+- 2: Tutto nasce da una sfida fra pari che hai già vissuto: l'energia spesa in quel confronto non è andata persa e regge ciò che hai davanti adesso.
+- 3: Sotto ciò che vivi c'è un'abitudine al confronto acquisita nel tempo: sai discutere, misurarti e difendere un'idea: è questa capacità a sostenere tutta la situazione.
 
 ### capovolta
 
-- 1: Quello che hai davanti è impastato di molte beghe minute, tutte lasciate aperte: bastoni alzati in aria che nessuno ha calato. Di quella materia la tua questione è fatta e su quella sta.
-- 2: Hai tenuto aperti tutti i fronti invece di chiuderne uno. Quella scelta non si disfa e la mischia continuata a oltranza fa da base a quello che oggi ti riguarda.
-- 3: Stare in attrito senza mai arrivare alla resa ti riesce da sé: è una pratica acquisita nella zuffa fra pari, che porta la tua questione senza chiedere permesso a nessuno.
+- 1: Alla base della tua questione ci sono molte piccole liti lasciate aperte nel tempo: nessuna è stata chiusa davvero e su quel logorio poggia ciò che vivi oggi.
+- 2: Tutto nasce dalla scelta di tenere aperti tutti i fronti invece di chiuderne qualcuno: quella decisione, che hai preso tempo fa, continua a pesare sulla situazione di adesso.
+- 3: Sotto ciò che hai davanti c'è un'abitudine all'attrito: stare in tensione senza mai arrivare a un chiarimento ti viene ormai naturale ed è questo a reggere la questione.
 
 ## Sei di Bastoni
 
 ### dritta
 
-- 1: Un lavoro portato a termine fa da base a quello che hai davanti: l'alloro legato in cima all'asta è già lì e il cavallo cammina sopra quel peso.
-- 2: La tua questione pesca in un terreno già lavorato: un'opera finita ha messo radice lì sotto e il suolo tiene su l'alloro che il corteo è venuto a guardare.
-- 3: Una misura imparata nel reggere l'applauso sta sotto quello che hai in mano: il modo di stare in sella senza montarsi la testa è stato acquisito e lavora da sé.
+- 1: Alla base della tua questione c'è un lavoro portato a termine con impegno: quel risultato concreto è già lì e sostiene il riconoscimento che arriva adesso.
+- 2: Tutto nasce da un successo che hai già ottenuto: un'opera finita, frutto della tua fatica, che regge ciò che oggi gli altri vengono a vedere.
+- 3: Sotto ciò che hai in mano c'è una misura imparata nel tempo: sai ricevere un applauso senza montarti la testa e questa capacità sostiene tutta la situazione.
 
 ### capovolta
 
-- 1: Di lavoro finito è impastata la tua questione: quella materia, provata nel farla, la tiene su; l'alloro resta legato all'asta senza nessuno che cammini intorno.
-- 2: Un mestiere acquisito regge quello che hai davanti anche a strada vuota: la mano che ha stretto l'asta sa già il peso del carico e il verdetto di chi guarda non entra in quel conto.
-- 3: Quello che hai portato a termine fa da peso sotto la tua domanda: il cavallo cammina lo stesso, con l'alloro in cima all'asta e nessun corteo ai lati.
+- 1: Alla base della tua questione c'è un lavoro finito e solido: regge la situazione anche se nessuno gli ha ancora dato il riconoscimento che merita.
+- 2: Tutto nasce da una competenza che hai già acquisito: sai quanto vale ciò che fai e quel sapere sostiene la questione anche quando il giudizio degli altri manca.
+- 3: Sotto ciò che hai davanti c'è un risultato che hai portato a termine: va avanti da solo, anche senza pubblico e senza nessuno che lo applauda.
 
 ## Sette di Bastoni
 
 ### dritta
 
-- 1: Sotto la tua questione sta un'altura già presa: il carico lo porta quel terreno conquistato, su cui una sola asta in mano basta a tenere a distanza le altre.
-- 2: Un piede rimasto scalzo nella fretta della salita è il prezzo che la tua faccenda non si riprende: la cosa sta su quella scomodità pagata per arrivare in cima prima degli altri.
-- 3: Nel terreno della tua questione la pendenza ha messo radice: il vantaggio sta dove il punto alto è stato preso per primo, dunque la cosa beve da quella posizione già occupata.
+- 1: Alla base della tua questione c'è un vantaggio già conquistato: hai preso per tempo una posizione solida e su quella si regge ciò che difendi adesso.
+- 2: Tutto nasce da uno sforzo già fatto per arrivare dove sei: la fatica e i sacrifici di quella salita sono il prezzo pagato che oggi sostiene la situazione.
+- 3: Sotto ciò che vivi c'è una capacità che hai già dimostrato: hai saputo difendere le tue idee sotto pressione e quella prova superata ti dà ancora forza.
 
 ### capovolta
 
-- 1: La sostanza di quello che hai davanti è un fronte allargato: chi tiene l'altura ha voluto coprire ogni lato della collina con due braccia sole, dunque la cosa poggia su quella larghezza.
-- 2: Una guardia montata su ogni lato ha sbarrato la via del riposo: quella scelta già fatta regge la tua faccenda adesso, con le aste tenute tutte insieme da una presa sola.
-- 3: Quello che il braccio sa fare con un'asta sola è un mestiere vecchio: parare è diventato riflesso, cosicché la tua questione si regge su una veglia che nessuno deve più ordinare.
+- 1: Alla base della tua questione c'è la scelta di difendere tutto insieme: hai voluto coprire ogni lato con le tue sole forze e su quella fatica poggia ciò che vivi.
+- 2: Tutto nasce da una guardia montata su ogni fronte senza mai concederti riposo: quella decisione, presa tempo fa, regge ancora la situazione e ti stanca.
+- 3: Sotto ciò che hai davanti c'è un riflesso ormai automatico: difenderti è diventata un'abitudine, tanto che resti in allerta anche quando nessuno te lo chiede.
 
 ## Otto di Bastoni
 
 ### dritta
 
-- 1: Sotto la tua domanda c'è una spinta già data: le aste sono partite tutte nello stesso istante e la loro traiettoria porta adesso il peso di quello che hai davanti.
-- 2: Un solo lancio è già stato pagato con tutta la mira di prima: quel colpo speso non si riprende e il volo parallelo delle aste regge quello che ti sta a cuore.
-- 3: Le radici di quello che hai in mano stanno in un braccio che si è già mosso: le aste viaggiano senza altra spinta e quel lancio fa da suolo alla tua questione.
+- 1: Alla base della tua questione c'è una spinta già data: le cose sono partite tutte insieme e il loro slancio regge ciò che vivi adesso.
+- 2: Tutto nasce da una decisione rapida che hai già preso: quel gesto non si può richiamare indietro e il suo movimento sostiene la situazione.
+- 3: Sotto ciò che hai in mano c'è un periodo veloce già vissuto: eventi e risposte rapide hanno messo in moto tutto e quell'impulso continua da sé.
 
 ### capovolta
 
-- 1: Di un lancio dato troppo presto è impastato quello che hai davanti: le aste si sono incrociate a mezz'aria e quel groviglio compiuto porta adesso la tua questione.
-- 2: Una partenza anticipata ha chiuso la possibilità di mirare meglio: quel gesto è andato e la tua domanda poggia su una rotta già storta, con il volo che continua comunque.
-- 3: Hai preso l'abitudine alla fretta e quell'abitudine acquisita lavora da sé: sta sotto quello che hai davanti come un braccio che parte prima dell'occhio.
+- 1: Alla base della tua questione c'è una partenza troppo affrettata: le cose sono state avviate prima del tempo e quel disordine iniziale regge ancora ciò che vivi.
+- 2: Tutto nasce da una decisione che hai preso di corsa, senza mirare bene: quel gesto non si può annullare e la situazione poggia su un avvio storto.
+- 3: Sotto ciò che hai davanti c'è un'abitudine alla fretta: parti prima di aver guardato bene e quel riflesso, ormai automatico, regge la questione.
 
 ## Nove di Bastoni
 
 ### dritta
 
-- 1: Reggere sotto pressione è una capacità che la tua questione ha già acquisito: la benda sulla testa ha insegnato la guardia; quella guardia lavora da sé e fa da appoggio al resto.
-- 2: La tua domanda affonda in una fila di pali già piantati: ogni palo è entrato nel terreno con un colpo incassato; quel suolo ripetuto è quello che tiene su la cosa adesso.
-- 3: Un prezzo in forze è stato versato prima di questo tratto: la fasciatura sulla fronte ne è la ricevuta e su quella spesa, non sulla stanchezza di oggi, poggia la tua questione.
+- 1: Alla base della tua questione c'è la capacità di resistere sotto pressione, imparata nelle prove passate: oggi lavora da sola e regge tutto il resto.
+- 2: Sotto la tua domanda ci sono tutte le difficoltà già superate una dopo l'altra: ognuna ti è costata qualcosa e insieme formano l'appoggio su cui stai adesso.
+- 3: Hai già pagato in fatica il tratto che ti ha portato qui: su quello sforzo compiuto, non sulla stanchezza di oggi, poggia ciò che stai chiedendo.
 
 ### capovolta
 
-- 1: Si è accumulata una riserva di colpi vecchi: quel deposito di cicatrici, messo da parte palo dopo palo, sta sotto la tua questione e le fa da appoggio quando qualcuno bussa.
-- 2: Il peso che tiene su quello che hai davanti è una palizzata già chiusa: è stata alzata contro assalti veri; oggi la tua questione sta tutta su quel legno, chi bussa compreso.
-- 3: Chiudere il varco è stata una scelta che non si disfa: da quando il paletto è calato, chi arriva passa dalla stessa fessura; su quella fessura la tua domanda si regge.
+- 1: Alla base della tua questione ci sono vecchie ferite, accumulate una dopo l'altra: da lì nasce la diffidenza con cui oggi accogli chiunque si avvicini.
+- 2: Sotto la tua domanda c'è una difesa costruita contro attacchi veri, molto tempo fa: oggi la situazione poggia ancora su quella chiusura, anche verso chi bussa in pace.
+- 3: Hai deciso tempo fa di chiuderti per proteggerti: quella scelta non è mai stata rivista e su di lei si regge ancora quello che stai chiedendo.
 
 ## Dieci di Bastoni
 
 ### dritta
 
-- 1: Nelle braccia si è accumulata, un viaggio alla volta, una forza che non si è dispersa: su quella riserva la tua questione sta e da quella prende, col fascio stretto contro il petto.
-- 2: Il fascio è stato legato stretto e quel nodo non torna in discussione: il resto della tua questione si muove, mentre quel peso sta fermo sotto e porta tutto il resto.
-- 3: Un fascio di pali sollevato da terra e portato fin qui fa da appoggio a quello che hai davanti: la tua questione sta su quel carico, col paese in fondo che si vede già.
+- 1: Alla base della tua questione c'è una resistenza costruita a forza di portare, un impegno dopo l'altro: è una riserva vera, a cui attingi ancora oggi senza accorgertene.
+- 2: Sotto la tua domanda c'è un impegno preso tempo fa che non si rimette in discussione: tutto il resto si muove, ma quel dovere resta fermo e regge la situazione.
+- 3: Hai già portato fin qui un carico enorme: è proprio quel lavoro compiuto a sostenere quello che hai davanti, anche se la meta sembra ancora lontana.
 
 ### capovolta
 
-- 1: Il prezzo di questo trasporto è stato versato in passi, uno dietro l'altro: quella spesa chiusa tiene su la tua questione, mentre le braccia restano chiuse intorno a tutto il fascio.
-- 2: Battuto fin qui, il sentiero è il suolo in cui questo carico ha messo radice: da quel terreno la tua questione beve ancora e su quelle radici posa, a pochi passi dalle case.
-- 3: Di abitudine e di legno è impastato quello che hai davanti: la materia è quella che le braccia hanno già stretto; su quel legame di corda la tua questione poggia tutta.
+- 1: Alla base della tua questione c'è una lunga fatica già spesa per portare cose non tue: quel conto è chiuso, ma le braccia restano ancora strette attorno al fardello.
+- 2: Sotto la tua domanda c'è un'abitudine radicata: portare anche ciò che spetta ad altri. Su quell'abitudine, mai messa in discussione, poggia ancora la situazione.
+- 3: Hai fatto del senso del dovere la materia di quello che stai vivendo: la tua questione si regge su ciò che hai sempre portato, anche quando nessuno lo chiedeva.
 
 ## Fante di Bastoni
 
 ### dritta
 
-- 1: Si è messa da parte una scorta di curiosità mai spesa: quel ramo con le foglie nuove, tenuto in mano prima di partire, sostiene quello che oggi hai davanti.
-- 2: Una partenza resta fuori discussione nella tua questione: il piede è già a terra e lo sguardo è salito in cima al ramo. Quel punto fermo regge ciò che si muove intorno.
-- 3: Sotto la tua domanda sta una notizia portata fin qui da chi ancora imparava a portarla: quel messaggio consegnato con slancio fa da appoggio a quello che adesso ti sta davanti.
+- 1: Alla base della tua questione c'è una curiosità che hai conservato a lungo senza mai metterla alla prova: è quella riserva di interesse a sostenere ciò che oggi hai davanti.
+- 2: Sotto la tua domanda c'è una decisione già presa: hai scelto di provare qualcosa di nuovo e quella scelta, ormai fuori discussione, regge tutto ciò che si muove intorno.
+- 3: Hai ricevuto tempo fa una notizia o una proposta portata con entusiasmo da chi stava ancora imparando: su quel primo messaggio poggia quello che adesso ti sta davanti.
 
 ### capovolta
 
-- 1: Hai pagato molte partenze in slancio e in attenzione, una dopo l'altra, senza arrivare al frutto: quel conto di rami lasciati a metà non si riprende e tiene su la tua questione.
-- 2: La tua questione è piantata in un terreno dove ogni germoglio è stato scalzato dal successivo: quella radice corta ha già bevuto quello che c'era e regge comunque il resto.
-- 3: Quello che oggi hai davanti è impastato di cose cominciate: una pila di inizi accesi, poi posati prima del tempo. La tua questione è fatta di quella stoffa e non poggia su altro.
+- 1: Alla base della tua questione ci sono molte partenze già pagate in slancio e attenzione, nessuna arrivata a dare frutto: quel tempo speso non torna, ma regge ancora tutto.
+- 2: Sotto la tua domanda c'è una lunga serie di progetti scalzati dal successivo prima di crescere: hanno dato poco ciascuno, ma su quel poco poggia comunque il resto.
+- 3: Hai costruito ciò che oggi hai davanti con tante cose cominciate e lasciate prima del tempo: la tua questione è fatta di inizi e non poggia su altro.
 
 ## Cavaliere di Bastoni
 
 ### dritta
 
-- 1: Uno slancio è già stato speso per salire in sella: quella spesa sta sotto la tua questione e il cavallo impennato porta avanti il moto che ha ricevuto una volta.
-- 2: Di fuoco già messo in moto è fatta la tua questione: la stoffa è quella delle salamandre cucite sulla tunica, provata al galoppo; quel materiale tiene su quello che hai davanti.
-- 3: L'ardore accumulato da prima della tua domanda non si è disperso: resta una scorta da cui la cosa attinge senza permesso; il deserto davanti al cavallo è largo e la riserva tiene.
+- 1: Alla base della tua questione c'è uno slancio già speso per partire: quella decisione presa con coraggio continua a spingere in avanti tutto ciò che è venuto dopo.
+- 2: Sotto la tua domanda c'è una passione già messa alla prova sul campo, fatta di azioni compiute più che di progetti: è lei a reggere quello che hai davanti.
+- 3: Hai accumulato energia e desiderio da prima che nascesse la tua domanda: quella riserva non si è dispersa e la situazione ci attinge senza chiedere permesso.
 
 ### capovolta
 
-- 1: Una corsa lanciata senza rotta è un atto compiuto che non si riavvolge: la tua questione sta su quel terreno percorso in fretta e il cavallo tiene l'andatura che gli è stata data.
-- 2: Quello che resta sotto la tua domanda è un fondo di ardore bruciato a briglia sciolta: la riserva si è assottigliata nella corsa e il poco accumulato regge ancora la sella.
-- 3: Il prezzo di una partenza data prima della mappa è stato pagato in strada sbagliata: la tua questione poggia su quella spesa e la piuma sull'elmo è ancora al suo posto.
+- 1: Alla base della tua questione c'è una corsa partita senza direzione: è un fatto compiuto che non si può riavvolgere e la situazione mantiene ancora quel ritmo affannato.
+- 2: Sotto la tua domanda resta un fondo di energia consumata in fretta: la riserva si è assottigliata durante la corsa e quel poco che rimane tiene ancora in piedi le cose.
+- 3: Hai già pagato il prezzo di una partenza fatta prima di sapere dove andare: la tua questione poggia su quella spesa, anche se lo slancio non si è ancora spento.
 
 ## Regina di Bastoni
 
 ### dritta
 
-- 1: Sotto la tua domanda sta un calore che nessuno ha disperso: il girasole tenuto in mano ha raccolto sole per stagioni, cosicché la cosa attinge a quella provvista senza dover domandare nulla.
-- 2: L'elemento che nella tua questione nessuno rimette in discussione è un modo di stare al mondo: il seggio coi leoni è stato preso una volta, dunque quel posto regge quanto hai davanti.
-- 3: Il peso di quello che hai davanti lo porta una presenza riconosciuta da tutti: il gatto nero seduto ai piedi del seggio non si è mosso, dunque quel posto regge la cosa.
+- 1: Alla base della tua questione c'è un calore che non si è mai disperso, raccolto nel tempo come una provvista: la situazione ci attinge senza bisogno di chiedere.
+- 2: Sotto la tua domanda c'è un modo di stare al mondo che nessuno mette in discussione: la sicurezza conquistata nel tempo regge quanto hai davanti.
+- 3: Hai una presenza che gli altri riconoscono da tempo e che non ha bisogno di dimostrarsi: è su questo riconoscimento stabile che poggia la tua questione.
 
 ### capovolta
 
-- 1: Un confronto pagato con la luce di qualcun altro è la spesa chiusa su cui poggia la tua questione: il girasole si è voltato verso un fuoco non suo e quel costo regge la cosa.
-- 2: Nel suolo della tua faccenda ha messo radice un paragone: il seggio coi leoni è rimasto occupato, mentre la pianta beve da un dubbio piantato sul proprio valore.
-- 3: La tua questione è impastata di calore trattenuto: una fiamma coperta dalla mano di chi l'ha portata fin qui regge la cosa, perché quel riparo non è stato ancora aperto.
+- 1: Alla base della tua questione c'è un confronto che ti è costato caro: hai guardato a lungo il successo di qualcun altro e quel prezzo pagato regge ancora la situazione.
+- 2: Sotto la tua domanda c'è un dubbio sul tuo valore che ha messo radici: il posto che occupi è rimasto tuo, ma da quel dubbio la situazione continua a nutrirsi.
+- 3: Hai trattenuto a lungo il tuo calore per non sembrare di troppo: la tua questione poggia su quella fiamma tenuta coperta, che non hai ancora lasciato libera.
 
 ## Re di Bastoni
 
 ### dritta
 
-- 1: Sotto la tua questione sta un deposito di fuochi accesi altrove: la mano che regge l'asta fiorita piantata a terra pesca da quella riserva di cose portate a termine.
-- 2: Il punto che non torna in discussione è l'autorità già riconosciuta: il seggio con le salamandre è stato occupato per meriti veri e regge quello che hai per le mani.
-- 3: L'autorevolezza di chi ha acceso altri fuochi prima di questo porta quello che ti riguarda: la mantella con le salamandre è già addosso e quel peso indossato fa da appoggio.
+- 1: Alla base della tua questione c'è una riserva di imprese già portate a termine: la mano che oggi indica la direzione attinge da quell'esperienza accumulata nel tempo.
+- 2: Sotto la tua domanda c'è un'autorità già riconosciuta, guadagnata con meriti veri: è un punto che non torna in discussione e regge quello che hai per le mani.
+- 3: Hai già acceso altre imprese prima di questa e la tua autorevolezza viene da lì: è un ruolo che porti addosso da tempo e fa da appoggio a quello che ti riguarda.
 
 ### capovolta
 
-- 1: Un conto è già stato chiuso in fretta: ordini dati dal seggio senza aspettare risposta. Quel prezzo, versato in ascolto mancato, tiene su quello che hai davanti.
-- 2: La tua questione è piantata in un suolo scaldato troppo: l'asta fiorita è stata usata per spingere invece che per indicare e quella radice bruciata la sostiene ancora.
-- 3: Di impazienza d'alto rango è impastato quello che hai per le mani: una volontà già messa in opera, buona a partire e scarsa ad attendere; su quella materia la cosa posa.
+- 1: Alla base della tua questione ci sono decisioni prese in fretta, senza aspettare risposta: quel mancato ascolto è un conto già chiuso e sostiene ancora quello che hai davanti.
+- 2: Sotto la tua domanda c'è una guida che ha spinto invece di indicare: quel modo di comandare, troppo acceso, ha lasciato il segno e regge ancora la situazione.
+- 3: Hai costruito ciò che oggi hai per le mani con una volontà forte ma impaziente, brava a partire e poco capace di aspettare: su quella base poggia la questione.
 
 ## Asso di Coppe
 
 ### dritta
 
-- 1: Sotto la tua questione c'è una sorgente che ha già cominciato a versare: i rivoli caduti nello stagno hanno bagnato il terreno e da quell'acqua la cosa prende quello che la tiene su.
-- 2: Che il sentimento ci sia non è più in discussione: la coppa si è riempita fino al bordo prima della tua domanda; quel pieno è il punto fermo su cui tutto il resto si appoggia.
-- 3: Di acqua viva è impastato quello che hai davanti: la materia della tua questione è stata versata dall'alto dalla nube, non costruita a mano; su quella sostanza la cosa sta in piedi.
+- 1: Alla base della tua domanda c'è un sentimento che ha già cominciato a scorrere: è nato prima della questione e da lì viene ciò che oggi la sostiene.
+- 2: Sotto la tua questione c'è un affetto che non è più in discussione: il cuore si era già riempito prima che tu chiedessi; è questo il punto fermo su cui poggia il resto.
+- 3: La tua domanda poggia su qualcosa che hai ricevuto senza costruirlo con fatica: un'emozione sincera, arrivata come un dono, che continua a tenere in piedi la situazione.
 
 ### capovolta
 
-- 1: Un coperchio posato sulla sorgente è il peso che sta sotto la tua questione: è andato al suo posto prima della domanda; quello che hai davanti si tiene su quel silenzio d'acqua.
-- 2: Il prezzo di non sentire è già stato versato per intero: quella moneta, pagata goccia a goccia fuori dal bordo, non si riprende; su di essa la tua questione poggia adesso.
-- 3: Trattenere l'acqua è diventata una pratica che non chiede più fatica: si è imparata prima di questa domanda e lavora da sé; la tua questione sta su quella mano chiusa sopra la coppa.
+- 1: Alla base della tua domanda c'è un sentimento tenuto sotto chiave da prima che tutto cominciasse: la situazione di oggi si regge su quel silenzio.
+- 2: Sotto la tua questione c'è un prezzo già pagato per non soffrire: ciò che non hai lasciato uscire allora non si recupera, ma resta la base di oggi.
+- 3: La tua domanda poggia su un'abitudine ormai consolidata, quella di trattenere ciò che senti: l'hai imparata prima di questa questione e adesso lavora quasi da sola.
 
 ## Due di Coppe
 
 ### dritta
 
-- 1: Un patto siglato alla pari ha chiuso le altre vie: quelle due mani allungate insieme una volta stanno sotto la tua questione e quello che hai davanti poggia su quel sigillo.
-- 2: Reggere un calice e porgerlo alla stessa altezza è cosa che le due mani hanno già imparato: quel mestiere lavora da sé e tiene su la tua questione dal basso.
-- 3: Nelle due palme è rimasto il credito di uno scambio già fatto alla pari: la tua questione attinge da quella riserva e su di essa continua a stare, col leone alato sopra.
+- 1: Alla base della tua domanda c'è un patto stretto alla pari: quell'accordo nato dal riconoscersi a vicenda resta il punto d'appoggio di tutto il resto.
+- 2: Sotto la tua questione c'è una capacità già acquisita, quella di dare e ricevere nella stessa misura: non devi impararla di nuovo, puoi contarci.
+- 3: La tua domanda poggia su una riserva di fiducia accumulata in scambi già fatti alla pari: da quella riserva la situazione continua a prendere forza.
 
 ### capovolta
 
-- 1: Dato una volta, il sigillo non torna in discussione: dentro la tua questione si muove l'altezza dei due calici, mentre quel patto sta fermo sotto e sorregge il resto.
-- 2: Due vasi tenuti da mani diverse stanno sotto quello che hai davanti: la tua questione pesa su quello scambio avvenuto, anche quando i polsi non sono alla stessa quota.
-- 3: Il pegno è stato dato dalle due parti e nessuna lo riprende: su quel doppio impegno posa quello che hai davanti, coi calici tenuti a due altezze che non coincidono.
+- 1: Alla base della tua domanda c'è un impegno preso da entrambe le parti che non torna in discussione: ciò che oggi si muove è l'intesa quotidiana, non quel patto.
+- 2: Sotto la tua questione c'è uno scambio già avvenuto fra due parti che oggi non si capiscono: il legame regge, anche se le due posizioni non coincidono più.
+- 3: La tua domanda poggia su una promessa data da tutte e due le parti che nessuno ritira: su quella base si può chiarire il malinteso che adesso vi divide.
 
 ## Tre di Coppe
 
 ### dritta
 
-- 1: Hai scelto una volta chi tenere vicino e quella porta non si riapre su tutti gli altri: i tre calici toccati in cerchio restano l'appoggio della tua questione.
-- 2: Alzare il bicchiere con chi ti vuole bene ti riesce senza che sia da imparare di nuovo: quella capacità acquisita nel cerchio delle amicizie porta oggi la tua questione.
-- 3: Si è accumulata una riserva di compagnia che non hai dato via: brindisi ricambiati, mani toccate in cerchio. Quella scorta non si disperde e sostiene quello che oggi ti riguarda.
+- 1: Alla base della tua domanda c'è una scelta già fatta su chi tenere vicino: quel cerchio di amicizie sincere resta l'appoggio della situazione di oggi.
+- 2: Sotto la tua questione c'è una capacità che possiedi già, quella di condividere la gioia con chi ti vuole bene: non devi conquistarla, ti sostiene da sé.
+- 3: La tua domanda poggia su una riserva di affetto accumulata nel tempo, fatta di feste condivise e di aiuti ricambiati: quella scorta non si disperde e ti sostiene.
 
 ### capovolta
 
-- 1: Non si rimette in gioco, nella tua questione, l'ampiezza del cerchio: è stato allargato a molti e i bicchieri sono stati contati. Quel dato già fermo tiene su il resto.
-- 2: Sotto quello che hai davanti sta un cerchio cresciuto più delle mani che lo reggono: molti bicchieri sono stati alzati per cortesia. Quel peso fa da appoggio alla tua questione.
-- 3: Hai pagato in tempo e in presenza una compagnia larga che non ricambia alla pari: quel prezzo versato ai brindisi di facciata tiene su adesso la tua questione.
+- 1: Alla base della tua domanda c'è un giro di persone allargato oltre misura: è un dato ormai fermo, fatto di molte conoscenze e di pochi legami davvero sinceri.
+- 2: Sotto la tua questione c'è un cerchio cresciuto più di quanto tu riesca a curarlo: tante presenze tenute per cortesia, che oggi fanno da base alla situazione.
+- 3: La tua domanda poggia su tempo ed energie già spesi in compagnie che non ricambiano alla pari: quel prezzo pagato non torna indietro, ma insegna dove investire.
 
 ## Quattro di Coppe
 
 ### dritta
 
-- 1: Una sazietà raggiunta non si rimette in gioco: resta il punto fermo sotto la tua questione, con i calici posati a terra accanto alle braccia incrociate e l'albero che fa ombra sopra.
-- 2: Pienezza bevuta fino in fondo: il conto di quel sorso è stato chiuso e la tua questione sta su di esso, mentre la mano che tende un altro calice resta al margine dello sguardo.
-- 3: Il rifiuto dato una volta ha chiuso la porta a quello che arrivava: quella scelta compiuta tiene su la tua questione e le braccia restano incrociate sotto l'albero.
+- 1: Alla base della tua domanda c'è una sazietà ormai raggiunta: ciò che hai ti sembra sufficiente e su questa sensazione poggia la situazione di oggi.
+- 2: Sotto la tua questione c'è un rifiuto già dato: una proposta respinta senza esaminarla ha chiuso una possibilità che oggi pesa su tutto il resto.
+- 3: La tua domanda poggia su un'abbondanza già goduta fino in fondo: avere avuto molto ha smorzato il desiderio, così le nuove offerte restano ai margini del tuo sguardo.
 
 ### capovolta
 
-- 1: La tua domanda pesca in un torpore attraversato fino al fondo: quel fondo toccato ha messo radice e regge la curiosità di adesso, come un albero cresciuto nella stagione secca.
-- 2: Aprire le braccia è stato un gesto fatto una volta e quella porta non si richiude: la tua questione poggia su quell'apertura, col calice teso finalmente preso in mano.
-- 3: Quello che hai già sentito tornare non è più in discussione: fa da punto fermo sotto la cosa, mentre i calici a terra restano dove erano e l'albero fa la stessa ombra.
+- 1: Alla base della tua domanda c'è un periodo di torpore attraversato fino in fondo: proprio da quella stanchezza è nata la curiosità che oggi ti muove.
+- 2: Sotto la tua questione c'è un'apertura già compiuta: hai accettato almeno una volta ciò che ti veniva offerto e quel gesto continua a sostenere la situazione.
+- 3: La tua domanda poggia su un interesse che hai già sentito tornare: non è più in discussione e fa da punto fermo mentre il resto si rimette in moto.
 
 ## Cinque di Coppe
 
 ### dritta
 
-- 1: Un mantello nero indossato ha tolto dal tavolo le altre maniere di guardare: la tua questione poggia su quello sguardo scelto, rivolto alle coppe per terra invece che al ponte.
-- 2: Quello che l'occhio ha appreso guardando il terreno bagnato è un sapere acquisito: contare le coppe versate non costa più nulla, dunque la tua faccenda si appoggia su questa esattezza.
-- 3: Dietro le spalle è rimasto un deposito che nessuno ha versato: due coppe piene stanno ancora in piedi, dunque la tua questione attinge a quella riserva mai toccata.
+- 1: Alla base della tua domanda c'è un modo di guardare scelto da tempo, rivolto a ciò che si è perso: la situazione poggia su quello sguardo che esclude le alternative.
+- 2: Sotto la tua questione c'è un'abitudine ormai appresa, quella di contare con esattezza ciò che manca: non ti costa più fatica e regge tutto il resto.
+- 3: La tua domanda poggia su una riserva che il dolore non ha toccato: qualcosa di prezioso è rimasto intero, anche se adesso non lo stai guardando.
 
 ### capovolta
 
-- 1: L'unico elemento fuori discussione nella tua domanda è il conto del rimasto: le coppe ancora in piedi sono state contate, dunque quel numero tiene fermo mentre il resto si muove.
-- 2: Il carico della tua faccenda lo porta un collo che si è già girato: lo sguardo spostato dal terreno bagnato al ponte è il gesto compiuto che oggi sostiene quanto hai davanti.
-- 3: Una fatica spesa nel voltarsi è il versamento che non si riprende: la tua questione sta su quel movimento pagato, perché girare il capo verso il ponte è costato più che restare fermi.
+- 1: Alla base della tua domanda c'è un conto già fatto di ciò che è rimasto: quel numero non cambia più e resta un punto fermo mentre la situazione si muove.
+- 2: Sotto la tua questione c'è uno sguardo che si è già spostato dalla perdita a ciò che resta: quel movimento compiuto sostiene ora ciò che hai davanti.
+- 3: La tua domanda poggia sullo sforzo che hai fatto per voltare pagina: quella fatica non si perde e oggi fa da fondamento a ciò che vivi.
 
 ## Sei di Coppe
 
 ### dritta
 
-- 1: Una tenerezza data senza contare ha chiuso la strada del calcolo: il fiore porto da una mano piccola nel cortile è già passato di mano e quel dono regge la tua questione.
-- 2: Hai imparato presto a offrire senza chiedere in cambio e quella capacità acquisita lavora da sé sotto la tua domanda, come un gesto da bambini che nessuno ha corretto.
-- 3: Sotto quello che ti riguarda si è depositato un affetto antico: i vasi di fiori bianchi nel cortile del borgo sono stati riempiti tempo fa e la cosa pesca da quella scorta.
+- 1: Alla base della tua domanda c'è una tenerezza data senza calcolo: quel gesto offerto tanto tempo fa ha lasciato un segno buono e oggi regge la situazione.
+- 2: Sotto la tua questione c'è una capacità imparata presto, quella di offrire senza chiedere in cambio: lavora da sé, come un gesto semplice che nessuno ti ha mai tolto.
+- 3: La tua domanda poggia su un affetto antico che si è depositato nel tempo: ricordi buoni e legami di lunga data formano una scorta a cui la situazione attinge.
 
 ### capovolta
 
-- 1: Il punto che resta fuori discussione è un indirizzo vecchio: il cortile dei primi anni è stato tenuto come residenza attuale e quel fatto compiuto sta sotto la tua questione.
-- 2: Sostiene quello che hai davanti un peso dolce: fiori secchi conservati nei vasi, un ricordo scelto a suo tempo come appoggio che quel servizio continua a svolgere.
-- 3: Un prezzo è stato pagato al passato con moneta di adesso: la tenerezza di allora è stata ricomprata e la tua domanda poggia su quella spesa, fatta in buona fede.
+- 1: Alla base della tua domanda c'è un tempo passato che non hai mai lasciato davvero: i primi anni restano il luogo in cui il tuo pensiero abita ancora.
+- 2: Sotto la tua questione c'è un ricordo dolce scelto a suo tempo come appoggio: continua a svolgere quel compito, anche se oggi trattiene più di quanto sostiene.
+- 3: La tua domanda poggia su un prezzo pagato al passato con le energie di adesso: hai cercato di ricomprare la tenerezza di allora, in buona fede, spendendo il presente.
 
 ## Sette di Coppe
 
 ### dritta
 
-- 1: Di immagini sospese è fatta la tua questione: le coppe nella nuvola sono state riempite dal desiderio, non dal mondo; quella materia leggera porta su di sé quello che hai davanti.
-- 2: Guardare la nuvola invece del terreno è stata una scelta già fatta: da quel momento una via sola è rimasta aperta; su quella via la tua domanda si tiene in piedi.
-- 3: Si è accumulata una scorta di possibilità mai aperte: quel deposito, cresciuto coppa dopo coppa davanti alla figura di spalle, sta sotto la tua questione e la regge intera.
+- 1: Alla base della tua domanda ci sono desideri nati più dall'immaginazione che dall'esperienza: su quelle aspettative, finora mai verificate, poggia ciò che vivi adesso.
+- 2: Sotto la tua questione c'è un'abitudine già presa, sognare invece di controllare: da quella scelta viene buona parte di ciò che oggi ti trovi davanti.
+- 3: La tua domanda poggia su molte possibilità accumulate e mai esplorate fino in fondo: quel deposito di ipotesi lasciate in sospeso sostiene la situazione di oggi.
 
 ### capovolta
 
-- 1: Una coppa fra le tante non si rimette più in gioco: è stata presa dalla nuvola prima della tua domanda; mentre il resto galleggia, quel pieno scelto fa da punto fermo.
-- 2: Distinguere una promessa vera da un drappo lucido è una capacità già acquisita: è venuta dalle coppe guardate una per una e oggi tiene su quello che hai davanti senza sforzo.
-- 3: La tua questione affonda in un terreno scelto: il piede è sceso dalla nuvola e si è piantato in un suolo solo; quella terra bevuta è quello che regge la cosa adesso.
+- 1: Alla base della tua domanda c'è una scelta già fatta: fra tante possibilità ne hai presa una prima che la questione nascesse e quel punto fermo regge il resto.
+- 2: Sotto la tua questione c'è una capacità che hai già imparato, distinguere una promessa vera da una solo brillante: viene dall'esperienza e oggi sostiene ciò che vivi.
+- 3: La tua domanda poggia su un desiderio scelto con i piedi per terra: hai smesso di inseguire le fantasie e quella concretezza sostiene la situazione di adesso.
 
 ## Otto di Coppe
 
 ### dritta
 
-- 1: L'altura dove il piede è salito ha un terreno che la tua questione ha già bevuto: su quelle radici quello che hai davanti sta, mentre una fila ordinata resta in basso.
-- 2: Di una rinuncia compiuta è impastato quello che hai davanti: quella è la materia su cui la tua questione posa, coi vasi pieni ordinati alle spalle e il passo rivolto in alto.
-- 3: Voltare le spalle a una fila ordinata è stata una scelta che non si disfa: quel gesto compiuto sta sotto la tua questione e la tiene su, con la luna sopra il crinale.
+- 1: Alla base della tua domanda c'è un distacco che hai già vissuto: hai lasciato qualcosa che non ti nutriva più e quella esperienza sostiene ciò che affronti adesso.
+- 2: Sotto la tua questione c'è una rinuncia già compiuta: hai voltato le spalle a ciò che avevi accumulato per cercare altro e da lì viene la forza che hai oggi.
+- 3: La tua domanda poggia su una scelta che non si disfa: un giorno hai deciso di andare oltre ciò che era comodo ma vuoto e quel gesto tiene in piedi il presente.
 
 ### capovolta
 
-- 1: Stare su una soglia con un piede fuori è cosa che il corpo ha già appreso: quel sapere lavora da sé sotto la tua questione, coi vasi pieni rimasti alla stessa distanza.
-- 2: Nei calici rimasti dietro c'è una riserva che nessuno ha versato: da quel deposito la tua questione attinge ancora e su di esso posa, col piede fermo sullo stipite.
-- 3: Il primo passo è già stato dato e questo non torna in discussione: dentro la tua questione si muove tutto tranne quello, che sta fermo sotto come appoggio.
+- 1: Alla base della tua domanda c'è un'abitudine già presa, restare con un piede dentro e uno fuori: la conosci bene e continua a influenzare ciò che vivi.
+- 2: Sotto la tua questione c'è ciò che hai ricevuto finora e che ancora ti trattiene: da quelle sicurezze la situazione trae forza, anche mentre una parte di te vorrebbe andare.
+- 3: La tua domanda poggia su un primo movimento che hai già fatto verso il cambiamento: quello non torna in discussione, anche se tutto il resto oscilla ancora.
 
 ## Nove di Coppe
 
 ### dritta
 
-- 1: La tua questione è piantata in un desiderio detto e già esaudito: le coppe allineate sulla panca hanno bevuto quel voto e da quella radice regge tutto il resto.
-- 2: Quello che hai davanti è impastato di una sazietà raggiunta: le braccia conserte, la tavola ripulita fino in fondo. Quella sostanza piena sorregge adesso la tua questione per intera.
-- 3: Hai chiesto una cosa sola e l'hai avuta alla lettera. Quella scelta non si disfa e il contento già servito sulla panca poggia sotto la tua questione come un appoggio pieno.
+- 1: Alla base della tua domanda c'è un desiderio che hai espresso e che si è già realizzato: quella soddisfazione ottenuta sostiene tutto ciò che vivi adesso.
+- 2: Sotto la tua questione c'è un benessere che hai già raggiunto: la tranquillità di chi ha ottenuto ciò che cercava regge la situazione e le dà stabilità.
+- 3: La tua domanda poggia su un risultato già ottenuto: hai chiesto una cosa precisa e l'hai avuta, quindi questo appagamento è una base su cui puoi contare.
 
 ### capovolta
 
-- 1: Riempire le coppe fino all'orlo ti riesce da prima di questa domanda: è un mestiere imparato bene. La tua questione sta su quella bravura acquisita, non sulla sete rimasta sotto.
-- 2: Si è accumulato un deposito di piaceri già bevuti che non ti ha lasciato niente da parte: quelle coppe svuotate sulla panca non si disperdono e sorreggono quello che hai davanti.
-- 3: Una cosa nella tua questione non torna in discussione: il conto del banchetto è stato pagato e l'ordine è stato servito. Quel fatto fermo tiene su quello che ancora si muove.
+- 1: Alla base della tua domanda c'è un'abilità già acquisita, riempirti di gratificazioni: la questione poggia su quella abitudine, non sul desiderio vero che resta insoddisfatto.
+- 2: Sotto la tua questione si sono accumulati piaceri passati che non ti hanno lasciato nulla di durevole: quel deposito di soddisfazioni brevi sostiene ancora ciò che vivi.
+- 3: La tua domanda poggia su un fatto ormai chiuso: ciò che volevi l'hai già ottenuto e non torna in discussione, anche se la soddisfazione che dà è minore del previsto.
 
 ## Dieci di Coppe
 
 ### dritta
 
-- 1: Un modo di stare insieme imparato giorno per giorno sta sotto la tua questione: non si deve più conquistare e lavora da sé, come l'arco di calici che resta acceso sopra il tetto.
-- 2: Il legame tenuto fin qui non si rimette in gioco: resta l'elemento fermo sotto quello che hai davanti, mentre i bambini ballano nel prato e i due adulti guardano l'arco in cielo.
-- 3: La casa poggia su una radice d'affetto già bevuta a lungo: quel suolo tiene su la tua questione e il fiume che passa accanto al tetto non ha dovuto cambiare letto.
+- 1: Alla base della tua domanda c'è un modo di stare insieme imparato giorno dopo giorno: non devi più conquistarlo, funziona da sé e sostiene ciò che vivi.
+- 2: Sotto la tua questione c'è un legame che hai coltivato fin qui e che non torna in discussione: è il punto fermo su cui poggia la situazione.
+- 3: La tua domanda poggia su un affetto vissuto a lungo: quella base solida tiene in piedi la questione, anche quando intorno a te qualcosa cambia.
 
 ### capovolta
 
-- 1: Di un'armonia data per fatta è impastata la tua questione: quella materia tiene su il tetto; sotto lo stesso arco di calici ognuno ha preso una direzione sua.
-- 2: Un galateo di famiglia imparato da prima regge quello che hai in mano: i gesti sanno andare avanti da sé e la distanza fra le persone di casa sta sotto l'arco intatto.
-- 3: Quello che tiene su la tua questione è un tetto costruito e abitato: il peso della casa sta sotto, coi calici in cielo e ognuno che ha scelto la sua stanza.
+- 1: Alla base della tua domanda c'è un'armonia data per scontata: per molto tempo ha tenuto tutto insieme, mentre intorno a te ognuno prendeva una direzione sua.
+- 2: Sotto la tua questione c'è un insieme di abitudini e buone maniere imparate da tempo: vanno avanti da sole, ma coprono la distanza che si è creata fra le persone.
+- 3: La tua domanda poggia su una casa costruita e abitata insieme: quella base resta in piedi, anche se ognuno ormai ha scelto il suo angolo e il suo ritmo.
 
 ## Fante di Coppe
 
 ### dritta
 
-- 1: Nel fondo della tua questione ha messo radice una cosa viva già affiorata: dalla coppa tenuta in mano è spuntato un pesce, dunque quanto hai davanti beve da quell'acqua.
-- 2: La materia della tua faccenda è una sensibilità giovane: ha portato fin qui il calice senza sapere cosa ci fosse dentro, dunque l'acqua dolce raccolta regge quanto hai davanti.
-- 3: Una coppa accettata dalle mani di qualcuno ha chiuso la via del non sapere: su quel gesto compiuto la tua questione poggia, col pesce fuori dall'acqua a fissare chi lo tiene.
+- 1: Alla base della tua domanda c'è un'emozione sincera già affiorata: qualcosa di vivo è venuto alla superficie e da lì trae nutrimento ciò che vivi adesso.
+- 2: Sotto la tua questione c'è una sensibilità giovane, cresciuta senza sapere bene dove portasse: quella dolcezza raccolta nel tempo sostiene la situazione di oggi.
+- 3: La tua domanda poggia su un gesto già compiuto, aver accolto un'emozione invece di respingerla: quella scelta non si disfa e sostiene ciò che hai davanti.
 
 ### capovolta
 
-- 1: Quello che le dita hanno appreso sul coprire l'apertura di un calice è diventato abitudine: su quel riparo automatico la tua domanda si appoggia, col pesce rimasto giù nel fondo.
-- 2: Sotto la tua questione si è raccolta acqua mai versata fuori: il calice posato a bocca in su ha preso senza offrire, dunque la cosa pesca da quel pieno fermo.
-- 3: L'elemento della tua domanda che non si discute più è il pesce rimasto nel fondo: guardato una volta sola, quel riserbo sostiene la cosa mentre tutto intorno a lui cambia posto.
+- 1: Alla base della tua domanda c'è un riflesso imparato: chiuderti appena qualcosa ti tocca è diventato automatico e su quella abitudine poggia la situazione.
+- 2: Sotto la tua questione ci sono emozioni trattenute a lungo, mai espresse: quella riserva di sentimenti tenuti dentro sostiene ancora ciò che vivi.
+- 3: La tua domanda poggia su un riserbo ormai consolidato: è nato da una ferita di allora e oggi regge la situazione, anche mentre il resto cambia.
 
 ## Cavaliere di Coppe
 
 ### dritta
 
-- 1: La tua questione affonda in un terreno di cortesia: un calice è stato portato a mano fino a destinazione, il cavallo ha già coperto la strada e quel suolo la nutre.
-- 2: Di che materia è quello che hai per le mani: di un'offerta consegnata di persona. Chi aveva le ali sull'elmo si è mosso per primo e quella stoffa gentile fa da base alla cosa.
-- 3: Una proposta avanzata a braccio teso ha chiuso la strada del tenersi al coperto: quel gesto compiuto non si disfa e la tua domanda sta su quella esposizione.
+- 1: Alla base della tua domanda c'è un gesto di cortesia già compiuto: un'offerta portata fino in fondo, che oggi nutre la questione e la rende più serena.
+- 2: Sotto la tua questione c'è una proposta fatta di persona, da te o verso di te: quel primo gesto gentile sostiene ciò che vivi adesso.
+- 3: La tua domanda poggia su un'apertura già fatta: hai scelto di esporti invece di restare al coperto e quel gesto gentile non si disfa più.
 
 ### capovolta
 
-- 1: Hai imparato a dire bene le cose e quella bravura lavora da sé sotto la tua questione: il calice è rimasto teso in mano mentre il cavallo non ha mosso un passo.
-- 2: Sotto quello che ti riguarda si è accumulato un magazzino di promesse belle: ognuna detta con grazia dal dorso del cavallo, nessuna scesa fino a destinazione; la cosa posa su quel mucchio.
-- 3: Il punto fermo è la grazia del modo: il calice è stato teso con bellezza e quel gesto regge la tua domanda, mentre il passo seguente resta sospeso.
+- 1: Alla base della tua domanda c'è un'abilità già imparata, dire bene le cose: quella capacità lavora da sé, mentre i gesti concreti non sono ancora arrivati.
+- 2: Sotto la tua questione si sono accumulate promesse belle, dette con grazia e mai mantenute: la situazione poggia ancora su quel mucchio di parole.
+- 3: La tua domanda poggia sulla grazia dei modi: un'offerta presentata con eleganza regge ancora la situazione, mentre l'impegno concreto che dovrebbe seguirla resta sospeso.
 
 ## Regina di Coppe
 

@@ -418,7 +418,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "cosaFare"${profonda ?
       'Argomento: $argomento',
       // **LA CARTA CHIAVE E' QUELLA DELLA SCHERMATA**: la risposta parte da
       // lei, e la bolla che porta "LA CHIAVE" e' la stessa.
-      'Carta chiave: ${TarotReading.chiaveDi(spread).drawn.displayName}',
+      'Carta chiave: ${TarotReading.chiaveDi(spread, domandaScritta: domanda).drawn.displayName}',
       'Stesa: ${spread.cards.length} '
           '${spread.cards.length == 1 ? 'carta' : 'carte'}',
     ];

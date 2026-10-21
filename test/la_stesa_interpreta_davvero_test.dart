@@ -190,8 +190,9 @@ void main() {
     expect(
         r,
         contains('Carta chiave: '
-            '${TarotReading.chiaveDi(stesa).drawn.displayName}'),
-        reason: 'la chiave del modello e\' quella della schermata');
+            '${TarotReading.chiaveDi(stesa, domandaScritta: domanda).drawn.displayName}'),
+        reason: 'la chiave del modello e\' quella della schermata, scelta '
+            'con la domanda (ordine GA voce GA.06)');
     for (final d in stesa.cards) {
       expect(r, contains(d.displayName));
       expect(r, contains(d.meaning),

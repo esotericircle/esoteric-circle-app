@@ -1,15 +1,19 @@
 // ignore_for_file: avoid_print
 import 'dart:math';
 
+import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta.dart';
+import 'package:esoteric_circle/core/tarot/la_domanda_letta.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread_type.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
+import 'package:esoteric_circle/core/tarot/voce_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
 import 'ga06_campioni_per_i_lettori_ciechi_test.dart' as campioni;
+import 'la_carta_nella_risposta_test.dart' as carta;
 
 /// **LA RISPOSTA DI CASA VIENE DALLA CARTA CHIAVE E DALLA DOMANDA.** Ordine GA
 /// voce GA.06, 21 ottobre 2026. Il fondatore, 19 ottobre 2026: *"ogni
@@ -62,7 +66,9 @@ final RegExp _favorevole = RegExp(
     caseSensitive: false);
 
 /// Il verdetto che dice si'.
-final RegExp _si = RegExp(r'^(Sì|La risposta delle carte è sì|In generale sì)');
+final RegExp _si = RegExp(
+    r'^(Sì|La risposta delle carte è sì|In generale sì|Le carte inclinano al sì|'
+    r'Può andare)');
 
 List<String> _frasi(String p) => p
     .split(RegExp(r'(?<=[.!?])\s+'))
@@ -74,9 +80,13 @@ List<String> _frasi(String p) => p
 /// domanda sul modo risponde col gesto e nomina la carta subito dopo).
 String _verdetto(String risposta, TarotSpread s) {
   final f = _frasi(risposta);
-  final i = f.first.startsWith('Le domande sono due') && f.length > 1 ? 1 : 0;
+  final i = f.first.startsWith('Le carte rispondono alla prima') && f.length > 1
+      ? 1
+      : 0;
   final v = f[i];
-  if (!s.cards.any((c) => v.contains(c.card.name)) && i + 1 < f.length) {
+  if (!s.cards
+          .any((c) => v.toLowerCase().contains(c.card.name.toLowerCase())) &&
+      i + 1 < f.length) {
     return '$v ${f[i + 1]}';
   }
   return v;
@@ -110,28 +120,30 @@ void main() {
       final rovesciata = verso == 'capovolta';
       for (final tipo in TarotSpreadType.values) {
         for (final (domanda, gruppo, _) in domande) {
-          // La carta di dolore regge la stesa ed e' la carta chiave: le
-          // altre sono Minori, cosi' nessun Maggiore le ruba la chiave.
+          // La carta di dolore sta dove la domanda prende la risposta
+          // (ordine GA voce GA.06: l'esito per un si' o un no, il cuore per
+          // il modo), ed e' la carta chiave: le altre sono Minori, cosi'
+          // nessun Maggiore le ruba la chiave.
           final altre = TarotDeck.cards
               .where((c) => c.arcana == TarotArcana.minore && c.name != nome)
               .toList()
             ..shuffle(caso);
           final posti = tipo.posizioni;
-          final iCuore = posti.indexWhere((p) => const [
-                SpreadPosition.presente,
-                SpreadPosition.cartaSola,
-                SpreadPosition.consultante,
-                SpreadPosition.copre,
-              ].contains(p));
           var a = 0;
+          final prova = TarotSpread([
+            for (var i = 0; i < posti.length; i++)
+              DrawnCard(
+                  card: altre[a++],
+                  position: posti[i],
+                  reversed: caso.nextDouble() < 0.3),
+          ]);
+          final iChiave = prova.cards.indexOf(
+              TarotReading.chiaveDi(prova, domandaScritta: domanda).drawn);
           final s = TarotSpread([
             for (var i = 0; i < posti.length; i++)
-              i == iCuore
+              i == iChiave
                   ? _carta(nome, posti[i], rovesciata)
-                  : DrawnCard(
-                      card: altre[a++],
-                      position: posti[i],
-                      reversed: caso.nextDouble() < 0.3),
+                  : prova.cards[i],
           ]);
           final r = TarotReading.of(s, TarotTopic.of(gruppo).first,
               domandaScritta: domanda);
@@ -167,13 +179,18 @@ void main() {
         final chiave = r.chiave.drawn;
         if (!identical(chiave, s.cuore)) diverse++;
         final v = _verdetto(r.principale.risposta, s);
-        final altra = !v.contains(chiave.displayName) ||
-            s.cards.any((c) =>
-                !identical(c, chiave) &&
-                c.displayName != chiave.displayName &&
-                RegExp('(?<![A-Za-zÀ-ÿ])${RegExp.escape(c.displayName)}'
-                        r'(?![A-Za-zÀ-ÿ])')
-                    .hasMatch(v));
+        // Dentro la frase i Maggiori hanno l'articolo in minuscolo (*"la
+        // Torre"*): il nome si cerca senza badare alle maiuscole.
+        final altra =
+            !v.toLowerCase().contains(chiave.displayName.toLowerCase()) ||
+                s.cards.any((c) =>
+                    !identical(c, chiave) &&
+                    c.displayName != chiave.displayName &&
+                    RegExp(
+                            '(?<![A-Za-zÀ-ÿ])${RegExp.escape(c.displayName)}'
+                            r'(?![A-Za-zÀ-ÿ])',
+                            caseSensitive: false)
+                        .hasMatch(v));
         if (altra) {
           guasti.add('${tipo.name} seme $seme, chiave ${chiave.displayName}: '
               '"$v"');
@@ -246,7 +263,9 @@ void main() {
     // servizio, uguali per scelta: il limite sui temi sensibili e gli avvisi
     // della domanda doppia e della vaga, scritte qui alla lettera.
     const diServizio = [
-      'Le domande sono due',
+      'Le carte rispondono alla prima',
+      'Le carte aiutano',
+      'Le carte possono aiutarti',
       'Le carte non dicono',
       'Nessuna carta sostituisce',
     ];
@@ -294,5 +313,174 @@ void main() {
         '(soglia $soglia): "${ordinate.first.key}"');
     cardinaleMinimo(quante, 400, cosa: 'responsi guardati');
     expect(troppe, isEmpty, reason: troppe.take(8).join('\n'));
+  });
+
+  // --- I DIFETTI DEL LETTORE CIECO INDIPENDENTE, 21 ottobre 2026 ---
+  //
+  // Dopo la prima cura (commit 9b2d2d29) il lettore cieco indipendente ha
+  // riletto i quaranta responsi e ha dato 34, 28 e 15 su 40. Le prove qui
+  // sotto sorvegliano i difetti di sistema che ha trovato.
+
+  /// I responsi veri sulle domande del campione, in tutte le stese.
+  List<(String, TarotSpread, TarotReading)> responsi(int quanti, int seme0) => [
+        for (final tipo in TarotSpreadType.values)
+          for (var seme = 0; seme < quanti; seme++)
+            () {
+              final s = TarotSpread.draw(
+                  seed: seme0 + seme, posizioni: tipo.posizioni);
+              final (domanda, gruppo, _) =
+                  campioni.domande[seme % campioni.domande.length];
+              return (
+                domanda,
+                s,
+                TarotReading.of(s, TarotTopic.of(gruppo).first,
+                    domandaScritta: domanda)
+              );
+            }(),
+      ];
+
+  test('5. la carta chiave sta dove si legge l\'adesso o l\'esito', () {
+    // *"L'Eremita dice che e' tempo di ritiro"*, con L'Eremita nel Passato
+    // (tarocchi-2): il Maggiore piu' alto diventava la chiave in qualunque
+    // posizione, e la risposta lo leggeva al presente. E a un si' o un no
+    // risponde l'esito: *"si', la tendenza e' favorevole"* col Due di Coppe
+    // rovesciato nel Futuro (tarocchi-12).
+    final guasti = <String>[];
+    var quante = 0;
+    var dallEsito = 0;
+    for (final (domanda, s, r) in responsi(60, 9090)) {
+      quante++;
+      final chiave = r.chiave.drawn;
+      final ruolo = VoceDellaStesa.ruoloDi(chiave.position);
+      if (ruolo != RuoloDellaPosizione.ora &&
+          ruolo != RuoloDellaPosizione.esito) {
+        guasti.add('"$domanda": la chiave ${chiave.displayName} sta in '
+            '${chiave.position.name}');
+      }
+      final d = LaDomandaLetta.di(domanda);
+      if (d.forma == FormaDellaDomanda.siNo && s.approdo != null) {
+        dallEsito++;
+        if (!identical(chiave, s.approdo)) {
+          guasti.add('"$domanda": a un si\' o no risponde '
+              '${chiave.displayName} e non l\'esito '
+              '${s.approdo!.displayName}');
+        }
+      }
+    }
+    print('ORDINE GA VOCE 06: chiavi guardate $quante, risposte dall\'esito '
+        '$dallEsito, guasti ${guasti.length}');
+    cardinaleMinimo(dallEsito, 60, cosa: 'domande si\' o no con un esito');
+    expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
+  });
+
+  test('6. nessuna formula cucita nella risposta e nel cosa fare', () {
+    // Le formule che il lettore cieco indipendente ha contato: *"aggiunge un
+    // gesto"* 27 volte su 40, *"cioe'"* 24, *"la tendenza e' favorevole"*
+    // 10, *"Al centro c'e'"* 5, *"da questo dipende la risposta"* 4, *"e'
+    // li' che la cosa puo' arrivare"* 4, *"un rischio da guardare adesso,
+    // non una meta"* 4, *"Lo conferma"* e *"Lo attenua"* 4.
+    final formule = RegExp(
+        r"(aggiunge(?:ono)? un gesto|cioè|tendenza|Al centro c'è|"
+        r"da questo dipende la risposta|è questo che decide la risposta|"
+        r"è lì che la cosa può arrivare|un rischio da guardare|"
+        r"un esito che chiede ancora un impegno|Lo conferma|Lo attenua|"
+        r"Lo contrasta|Per sostenere questa|Il suo consiglio è chiaro)",
+        caseSensitive: false);
+    final guasti = <String>[];
+    var quante = 0;
+    for (final (domanda, _, r) in responsi(40, 7171)) {
+      quante++;
+      final testo = '${r.principale.risposta} ${r.principale.cosaFare}';
+      final m = formule.firstMatch(testo);
+      if (m != null) guasti.add('"$domanda": "${m[0]}" in "$testo"');
+    }
+    print('ORDINE GA VOCE 06: responsi $quante, con una formula cucita '
+        '${guasti.length}');
+    cardinaleMinimo(quante, 160, cosa: 'responsi guardati');
+    expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
+  });
+
+  test(
+      '7. il cosa fare non da\' per scontata una persona che la domanda '
+      'non nomina', () {
+    // *"Proponi una sera senza telefoni, solo voi due"* a una coppia a
+    // distanza (tarocchi-37), *"Mantieni una promessa fatta al partner"* a
+    // chi parla di un ex, *"Non partecipare alle chiacchiere sui colleghi"*
+    // a chi apre un'attivita' sua.
+    final guasti = <String>[];
+    var quante = 0;
+    for (final (domanda, _, r) in responsi(40, 8282)) {
+      quante++;
+      final nomina = domanda.toLowerCase();
+      for (final m in carta.presupposti.allMatches(r.principale.cosaFare)) {
+        final chi = m[1]!.toLowerCase();
+        final radice = chi.length > 3 ? chi.substring(0, chi.length - 1) : chi;
+        if (nomina.contains(radice)) continue;
+        guasti.add('"$domanda": "$chi" in "${r.principale.cosaFare}"');
+      }
+    }
+    print('ORDINE GA VOCE 06: cosa fare guardati $quante, con una persona '
+        'data per scontata ${guasti.length}');
+    cardinaleMinimo(quante, 160, cosa: 'cosa fare guardati');
+    expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
+  });
+
+  test('8. una carta di tono contrario al centro o all\'esito non si tace', () {
+    // *"Nove di Spade (presente, angoscia) taciuto"* (tarocchi-2), *"la
+    // carta della rottura e' taciuta"* (tarocchi-12): il verdetto puo'
+    // poggiare su una carta, ma quella che dice il contrario al centro o in
+    // fondo alla stesa si nomina.
+    final guasti = <String>[];
+    var contrarie = 0;
+    for (final (domanda, s, r) in responsi(60, 6363)) {
+      if (LaDomandaLetta.di(domanda).sensibile != null) continue;
+      final tono = LaCartaNellaRisposta.di(r.chiave.drawn).tono;
+      for (final c in [s.cuore, s.approdo]) {
+        if (c == null || identical(c, r.chiave.drawn)) continue;
+        final t = LaCartaNellaRisposta.di(c).tono;
+        final contraria = (tono == TonoDellaCarta.favorevole &&
+                t == TonoDellaCarta.sfavorevole) ||
+            (tono == TonoDellaCarta.sfavorevole &&
+                t == TonoDellaCarta.favorevole);
+        if (!contraria) continue;
+        contrarie++;
+        if (!r.principale.risposta
+            .toLowerCase()
+            .contains(c.displayName.toLowerCase())) {
+          guasti.add('"$domanda": ${c.displayName} (${c.position.name}) '
+              'taciuta: "${r.principale.risposta}"');
+        }
+      }
+    }
+    print('ORDINE GA VOCE 06: carte contrarie al centro o all\'esito '
+        '$contrarie, taciute ${guasti.length}');
+    cardinaleMinimo(contrarie, 40,
+        cosa: 'carte contrarie al centro o all\'esito');
+    expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
+  });
+
+  test('9. la domanda doppia dice qual e\' la prima', () {
+    // *"doppie (3, 34, 38) con la formula corretta, mai detto quale sia la
+    // prima"*.
+    final doppie = [
+      for (final d in campioni.domande)
+        if (LaDomandaLetta.di(d.$1).doppia) d,
+    ];
+    final guasti = <String>[];
+    var quante = 0;
+    for (final tipo in TarotSpreadType.values) {
+      for (final (domanda, gruppo, _) in doppie) {
+        final s = TarotSpread.draw(seed: 99, posizioni: tipo.posizioni);
+        final r = TarotReading.of(s, TarotTopic.of(gruppo).first,
+            domandaScritta: domanda);
+        quante++;
+        final prima = LaDomandaLetta.di(domanda).primaParte;
+        if (prima == null || !r.principale.risposta.contains(prima)) {
+          guasti.add('"$domanda": "${r.principale.risposta}"');
+        }
+      }
+    }
+    cardinaleMinimo(quante, 8, cosa: 'domande doppie guardate');
+    expect(guasti, isEmpty, reason: guasti.join('\n'));
   });
 }

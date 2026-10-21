@@ -34,81 +34,26 @@ enum FormaDellaDomanda {
 /// e' competente (medico, legale, consulente), senza promettere l'esito"*.
 enum TemaSensibile { salute, legge, denaro }
 
-/// **LE SITUAZIONI PIU' COMUNI, con il gesto concreto che le riguarda.**
-/// Ordine GA voce GA.06: il lettore cieco ha trovato il "Cosa fare adesso"
-/// scritto su pochi modelli che non guardavano la domanda (*"Metti un numero
-/// [...] quanto costa, quanto rende"* su un'operazione al ginocchio). Qui
-/// ogni situazione porta le sue azioni e le sue cose da non fare, scritte per
-/// lei; la si riconosce dalle radici delle parole (minuscole, senza accenti).
+/// **LE SITUAZIONI PIU' COMUNI.** Ordine GA voce GA.06: il lettore cieco ha
+/// trovato il "Cosa fare adesso" scritto su pochi modelli che non guardavano
+/// la domanda (*"Metti un numero [...] quanto costa, quanto rende"* su
+/// un'operazione al ginocchio). Ogni situazione ha i suoi gesti SCRITTI per
+/// tono in `gestiDellaDomanda` (il nome della situazione e' la chiave); la
+/// si riconosce dalle radici delle parole, confrontate senza accenti.
 ///
 /// L'ordine dell'elenco e' la precedenza: *"Devo lasciare il lavoro per
 /// tornare a studiare?"* e' un lavoro da lasciare prima che un ritorno.
 enum Situazione {
-  colloquio([
-    'colloqui'
-  ], [
-    'Prima del colloquio scrivi tre risultati concreti che puoi raccontare e '
-        'ripetili davanti allo specchio.',
-    'Informati sull\'azienda e prepara due domande da fare tu alla fine del '
-        'colloquio.',
-  ], [
-    'Non presentarti senza aver riletto l\'annuncio e il tuo curriculum.',
-    'Non sminuire quello che sai fare quando ti chiedono di raccontarlo.',
-  ]),
-  esame([
-    'esame',
-    'esami',
-    'concorso',
-    'interrogazion'
-  ], [
-    'Fissa ogni giorno, fino all\'esame, un blocco di ripasso con un orario '
-        'preciso.',
-    'Fai una simulazione completa della prova, col tempo misurato, entro '
-        'questa settimana.',
-  ], [
-    'Non studiare tutta la notte prima della prova.',
-    'Non rimandare a fine mese la parte che ti spaventa di più.',
-  ]),
-  promozione([
-    'promozion',
-    'aumento di stipendio',
-    'avanzamento'
-  ], [
-    'Chiedi un incontro breve con chi decide e porta due risultati misurabili '
-        'del tuo lavoro.',
-    'Scrivi su una pagina che cosa hai ottenuto quest\'anno e consegnala a chi '
-        'decide.',
-  ], [
-    'Non aspettare che qualcuno si accorga del tuo lavoro senza dirlo.',
-    'Non chiedere la promozione nel mezzo di una giornata storta.',
-  ]),
-  offerta([
-    'offerta',
-    'nuova azienda',
-    'proposta di lavoro'
-  ], [
-    'Metti su un foglio, una accanto all\'altra, le condizioni dell\'offerta e '
-        'quelle di oggi.',
-    'Chiedi all\'azienda un colloquio in più per chiarire compiti, orari e '
-        'prospettive.',
-  ], [
-    'Non firmare niente prima di aver letto con calma ogni condizione.',
-    'Non decidere sull\'entusiasmo del primo giorno.',
-  ]),
+  colloquio(['colloqui']),
+  esame(['esame', 'esami', 'concorso', 'interrogazion']),
+  promozione(['promozion', 'aumento di stipendio', 'avanzamento']),
+  offerta(['offerta', 'nuova azienda', 'proposta di lavoro']),
   lasciareIlLavoro([
     'lasciare il lavoro',
     'lasciare il mio lavoro',
     'licenziarm',
     'dimetterm',
     'dimission'
-  ], [
-    'Parla con due persone che hanno fatto lo stesso cambio e chiedi che '
-        'cosa rifarebbero.',
-    'Metti per iscritto un piano di sei mesi con spese, orari e '
-        'obiettivi.',
-  ], [
-    'Non lasciare il posto attuale prima di avere il piano scritto.',
-    'Non decidere in una giornata di stanchezza.',
   ]),
   attivita([
     'aprire',
@@ -117,41 +62,9 @@ enum Situazione {
     'negozio',
     'avviare',
     'mettermi in proprio'
-  ], [
-    'Scrivi su una pagina chi comprerebbe, a quale prezzo e perché; poi '
-        'mostrala a una persona competente.',
-    'Prova l\'idea in piccolo per un mese, con pochi clienti veri, prima di '
-        'impegnare tutto.',
-  ], [
-    'Non fare spese grandi prima di aver provato l\'idea in piccolo.',
-    'Non ascoltare solo chi ti dice quello che vuoi sentire.',
   ]),
-  progetto([
-    'progett',
-    'approvat',
-    'proposta che ho'
-  ], [
-    'Prepara una risposta breve alle due obiezioni più probabili sul '
-        'progetto.',
-    'Chiedi a chi decide quando arriva la valutazione e che cosa serve '
-        'ancora.',
-  ], [
-    'Non riscrivere il progetto da capo mentre aspetti la risposta.',
-    'Non dare per persa la cosa prima della decisione.',
-  ]),
-  capo([
-    'capo',
-    'colleg',
-    'responsabile'
-  ], [
-    'Chiedi un incontro a quattr\'occhi e porta un solo argomento, detto con '
-        'calma.',
-    'Scrivi i fatti del conflitto in tre righe, senza aggettivi, prima di '
-        'parlarne.',
-  ], [
-    'Non affrontare la questione davanti ai colleghi.',
-    'Non rispondere a caldo a un messaggio che ti ha ferito.',
-  ]),
+  progetto(['progett', 'approvat', 'proposta che ho']),
+  capo(['capo', 'colleg', 'responsabile']),
   ritorno([
     'tornerà',
     'tornare da me',
@@ -160,14 +73,6 @@ enum Situazione {
     'la mia ex',
     'il mio ex',
     'tornare insieme'
-  ], [
-    'Prima di cercare un contatto, metti per iscritto che cosa dovrebbe essere '
-        'diverso questa volta.',
-    'Aspetta tre giorni prima di scrivere e rileggi il messaggio a mente '
-        'fredda.',
-  ], [
-    'Non scrivere di notte o dopo una giornata storta.',
-    'Non fingere che quello che è successo non conti.',
   ]),
   fiducia([
     'fidarmi',
@@ -177,13 +82,6 @@ enum Situazione {
     'nasconde',
     'mi mente',
     'sincer'
-  ], [
-    'Chiedi spiegazioni con calma su un fatto preciso e ascolta la risposta '
-        'fino in fondo.',
-    'Scrivi i fatti che ti fanno dubitare in una colonna e le supposizioni in un\'altra.',
-  ], [
-    'Non controllare di nascosto il telefono dell\'altra persona.',
-    'Non accusare prima di aver chiesto e ascoltato una spiegazione.',
   ]),
   sentimenti([
     'cosa prova',
@@ -194,28 +92,15 @@ enum Situazione {
     'interesso',
     'gli piaccio',
     'le piaccio'
-  ], [
-    'Fai una domanda diretta e semplice a quattr\'occhi, poi ascolta la risposta senza interrompere.',
-    'Guarda i gesti degli ultimi giorni più delle parole: scrivi tre fatti '
-        'concreti.',
-  ], [
-    'Non cercare la risposta nei messaggi o nei social.',
-    'Non chiedere conferme a chi non c\'entra.',
   ]),
-  dichiararsi([
-    'innamorat',
-    'dirle',
-    'dirgli',
-    'dichiararmi',
-    'dichiarar'
-  ], [
-    'Scegli un momento tranquillo e dillo con una frase semplice, senza '
-        'preparare discorsi.',
-    'Proponi un caffè a due e di\' quello che senti in poche parole.',
-  ], [
-    'Non dichiararti per messaggio o davanti ad altri.',
-    'Non pretendere una risposta immediata: lascia all\'altra persona il suo tempo.',
-  ]),
+  dichiararsi(['innamorat', 'dirle', 'dirgli', 'dichiararmi', 'dichiarar']),
+  // **LA RELAZIONE A DISTANZA HA I SUOI GESTI**, ordine GA voce GA.06: il
+  // lettore cieco indipendente ha trovato *"Proponi una sera senza telefoni,
+  // solo voi due"* detto a una coppia che vive a distanza (tarocchi-37), e
+  // *"Fissate insieme la data del prossimo incontro"* detto a chi vive col
+  // marito (tarocchi-25): le due situazioni stavano in un elenco solo.
+  // PADRE: ordine GA voce GA.06, commit 9b2d2d29.
+  distanza(['a distanza', 'distanza', 'lontan']),
   coppia([
     'marito',
     'moglie',
@@ -223,17 +108,7 @@ enum Situazione {
     'fidanzat',
     'intesa',
     'relazione',
-    'distanza',
     'coppia'
-  ], [
-    'Proponi una sera senza telefoni, solo voi due; fissatela oggi stesso.',
-    'Parlate di una cosa sola che vorreste cambiare, a turno e senza '
-        'interrompervi.',
-    'Fissate insieme la data del prossimo incontro e scrivetela nel '
-        'calendario.',
-  ], [
-    'Non tenere il conto di chi ha dato di più.',
-    'Non lasciare che i silenzi parlino al posto vostro.',
   ]),
   incontro([
     'incontrer',
@@ -241,38 +116,9 @@ enum Situazione {
     'conoscer',
     'qualcuno di importante',
     'anima gemella'
-  ], [
-    'Questa settimana accetta un invito o iscriviti a un\'attività con persone nuove che condividono un tuo interesse.',
-    'Scegli un ambiente che ti piace davvero e frequentalo con regolarità.',
-  ], [
-    'Non chiuderti in casa aspettando che succeda qualcosa.',
-    'Non giudicare una persona dal primo minuto di conversazione.',
   ]),
-  pace([
-    'pace',
-    'sorell',
-    'fratell',
-    'litigat',
-    'lite'
-  ], [
-    'Manda un messaggio breve che riconosca la tua parte, senza chiedere niente '
-        'in cambio.',
-    'Proponi un incontro in un posto neutro, per un caffè e non per un '
-        'processo.',
-  ], [
-    'Non riaprire la lite su chi aveva ragione.',
-    'Non coinvolgere altri parenti nella vostra questione.',
-  ]),
-  figli([
-    'figli'
-  ], [
-    'Trova un momento a due, senza domande dirette; ascolta più di quanto parli.',
-    'Proponi un\'attività da fare insieme questa settimana, scelta da chi ha '
-        'bisogno di aiuto.',
-  ], [
-    'Non riempire il silenzio di consigli che nessuno ti ha chiesto.',
-    'Non fare paragoni con fratelli, cugini o compagni di scuola.',
-  ]),
+  pace(['pace', 'sorell', 'fratell', 'litigat', 'lite']),
+  figli(['figli']),
   genitori([
     'genitori',
     'andare a vivere',
@@ -281,14 +127,6 @@ enum Situazione {
     'papa ',
     'madre',
     'padre'
-  ], [
-    'Metti su un foglio spese, distanza e tempi di un anno vissuto per conto '
-        'tuo.',
-    'Parlane con calma a cena, dicendo che cosa cambia e che cosa resta come '
-        'prima.',
-  ], [
-    'Non annunciarlo nel mezzo di una discussione.',
-    'Non rimandare la scelta solo per paura di deludere.',
   ]),
   famigliaDiLui([
     'pranzo',
@@ -297,12 +135,6 @@ enum Situazione {
     'famiglia di lui',
     'famiglia di lei',
     'natale'
-  ], [
-    'Prepara due argomenti leggeri e decidi prima a che ora andare via.',
-    'Porta un piccolo dono e fai una domanda sincera a chi ti accoglie.',
-  ], [
-    'Non entrare in discussioni su politica o vecchie questioni di famiglia.',
-    'Non bere un bicchiere in più per allentare la tensione.',
   ]),
   trasferimento([
     'trasferir',
@@ -313,105 +145,18 @@ enum Situazione {
     'bari',
     'estero',
     'paese'
-  ], [
-    'Passa un fine settimana nella città che valuti, facendo la vita di un '
-        'giorno normale.',
-    'Scrivi tre cose che ti trattengono e tre che ti chiamano, poi confronta '
-        'le liste.',
-  ], [
-    'Non decidere senza aver visto la città in un giorno qualunque.',
-    'Non partire solo per scappare da qualcosa.',
   ]),
-  casa([
-    'casa',
-    'compro',
-    'comprare',
-    'affitto',
-    'appartamento'
-  ], [
-    'Fatti fare due conti precisi, la rata possibile e lo stato della casa, da '
-        'chi è del mestiere.',
-    'Visita almeno tre case simili prima di decidere sul prezzo.',
-  ], [
-    'Non firmare una proposta d\'acquisto nello stesso giorno della visita.',
-    'Non decidere sotto la pressione di chi vende.',
-  ]),
-  amicizia([
-    'amicizia',
-    'amic'
-  ], [
-    'Di\' a quella persona, a quattr\'occhi, che cosa ti ha ferito e guarda '
-        'come risponde.',
-    'Prenditi due settimane di distanza e osserva se ti manca o ti alleggerisce.',
-  ], [
-    'Non sparire senza una parola: anche una chiusura merita rispetto.',
-    'Non parlarne male con gli amici comuni.',
-  ]),
-  studi([
-    'corso',
-    'corsi',
-    'laurea',
-    'universit',
-    'studiare',
-    'facoltà'
-  ], [
-    'Scrivi per ogni corso tre materie che seguiresti volentieri e confronta le '
-        'due liste.',
-    'Parla con uno studente di ciascun corso e chiedi com\'è una settimana '
-        'normale.',
-  ], [
-    'Non scegliere solo in base a ciò che fanno gli amici.',
-    'Non decidere guardando soltanto le voci che girano.',
-  ]),
-  attesa([
-    'risposta',
-    'notizi',
-    'aspetto',
-    'attesa'
-  ], [
-    'Scrivi sul calendario la data oltre la quale chiedi tu notizie, con un messaggio breve e cortese.',
-    'Occupa l\'attesa con una cosa utile che dipende solo da te e che puoi finire in pochi giorni.',
-  ], [
-    'Non controllare il telefono ogni ora: l\'attesa diventa solo più lunga.',
-    'Non leggere il silenzio come un rifiuto prima di averne le prove.',
-  ]),
-  stallo([
-    'stallo',
-    'bloccat',
-    'fermo',
-    'ferma'
-  ], [
-    'Cambia una sola abitudine questa settimana, una che dipende solo da te.',
-    'Scegli una cosa ferma da tempo e dedicale mezz\'ora ogni mattina.',
-  ], [
-    'Non aspettare che il cambiamento arrivi da fuori.',
-    'Non rifare ogni giorno le stesse mosse sperando in un esito diverso.',
-  ]),
-  cambiamento([
-    'cambiamento',
-    'cambiare',
-    'cambia',
-    'svolta'
-  ], [
-    'Scrivi che cosa vuoi tenere e che cosa puoi lasciare, prima che il '
-        'cambiamento arrivi.',
-    'Prepara una cosa concreta per accogliere il cambiamento: un\'agenda, un '
-        'posto, un orario.',
-  ], [
-    'Non resistere per abitudine a ciò che sta già cambiando.',
-    'Non giudicare il cambiamento dal primo giorno.',
-  ]);
+  casa(['casa', 'compro', 'comprare', 'affitto', 'appartamento']),
+  amicizia(['amicizia', 'amic']),
+  studi(['corso', 'corsi', 'laurea', 'universit', 'studiare', 'facoltà']),
+  attesa(['risposta', 'notizi', 'aspetto', 'attesa']),
+  stallo(['stallo', 'bloccat', 'fermo', 'ferma']),
+  cambiamento(['cambiamento', 'cambiare', 'cambia', 'svolta']);
 
-  const Situazione(this.radici, this.azioni, this.nonFare);
+  const Situazione(this.radici);
 
-  /// Le radici che la riconoscono, minuscole e senza accenti.
+  /// Le radici che la riconoscono, scritte con gli accenti veri.
   final List<String> radici;
-
-  /// I gesti concreti, frasi intere all'imperativo.
-  final List<String> azioni;
-
-  /// Le cose da non fare, frasi intere che cominciano con "Non".
-  final List<String> nonFare;
 }
 
 /// **LA DOMANDA LETTA**: forma, tema sensibile, situazione, e se e' vaga o
@@ -426,6 +171,7 @@ class LaDomandaLetta {
     this.lente,
     this.vaga = false,
     this.doppia = false,
+    this.primaParte,
     this.distacco = false,
     this.timore = false,
     this.sceltaFraMuoversiERestare,
@@ -446,6 +192,10 @@ class LaDomandaLetta {
   /// La domanda ne contiene due: *"Lui mi ama ancora e trovero' lavoro?"*.
   /// Si risponde alla prima e lo si dice.
   final bool doppia;
+
+  /// Nella domanda doppia, la prima domanda come l'ha scritta la persona,
+  /// col punto di domanda: *"Lui mi ama ancora?"*.
+  final String? primaParte;
 
   /// La domanda chiede se lasciare, chiudere o andarsene.
   final bool distacco;
@@ -541,6 +291,19 @@ class LaDomandaLetta {
     'prestito',
     'debit',
     'finanziament',
+    // **COMPRARE CASA E' UNA DECISIONE DI DENARO**, ordine GA voce GA.06: il
+    // lettore cieco indipendente ha letto *"Le carte inclinano ad aspettare,
+    // per ora"* a chi chiedeva se comprare casa adesso, senza il limite e
+    // senza rimandare a chi e' competente (tarocchi-28). PADRE: ordine GA
+    // voce GA.06, commit 9b2d2d29, che riconosceva il denaro solo dal mutuo.
+    'comprare casa',
+    'compro casa',
+    'comprare la casa',
+    'comprare una casa',
+    'acquistare casa',
+    'acquistare una casa',
+    'acquisto della casa',
+    'acquisto di una casa',
   ];
   static const List<String> _distacco = [
     'lasciar',
@@ -594,10 +357,21 @@ class LaDomandaLetta {
     // seconda parte ha un verbo suo al futuro o comincia con "se".
     var n = tutta;
     var doppia = false;
+    String? primaParte;
     final m = RegExp(r' e (se |[a-z]+(ro|ra|ranno|remo) )').firstMatch(tutta);
     if (m != null && m.start > 4) {
       doppia = true;
       n = '${tutta.substring(0, m.start)} ';
+      // **LA PRIMA DOMANDA, CON LE SUE PAROLE**: il lettore cieco
+      // indipendente ha trovato che le doppie dicevano *"le carte rispondono
+      // alla prima"* senza mai dire quale fosse (tarocchi-3, 34, 38).
+      final o = RegExp(r'\s+e\s+(se\s|[a-zàèéìòù]+(rò|rà|ro|ra|ranno|remo)\s)',
+              caseSensitive: false)
+          .firstMatch('$t ');
+      if (o != null && o.start > 4) {
+        primaParte =
+            '${t.substring(0, o.start).trim().replaceAll(RegExp(r'[\s,;:.?!]+$'), '')}?';
+      }
     }
     TemaSensibile? sensibile;
     if (_haUna(tutta, _salute)) {
@@ -651,10 +425,14 @@ class LaDomandaLetta {
         n.startsWith(_senzaAccenti(' perché '))) {
       forma = FormaDellaDomanda.cosa;
     }
-    final vaga = _vaghe.any((v) => tutta.contains(_senzaAccenti(v))) ||
-        (situazione == null &&
-            lente == null &&
-            sensibile == null &&
+    // **VAGA E' SOLO LA DOMANDA CHE NON NOMINA NIENTE.** *"Come andra' il
+    // colloquio?"* contiene *"come andra'"*, ma nomina il colloquio: prima
+    // dell'ordine GA voce GA.06 (cura del 21 ottobre) bastava la formula
+    // per dirla vaga. PADRE: ordine GA voce GA.06, commit 9b2d2d29.
+    final vaga = situazione == null &&
+        lente == null &&
+        sensibile == null &&
+        (_vaghe.any((v) => tutta.contains(_senzaAccenti(v))) ||
             DomandaDellaPersona.portanti(t).length <= 3);
     // "Dimmi qualcosa" non chiede un si' o un no: chiede che cosa le carte
     // vedono.
@@ -669,15 +447,53 @@ class LaDomandaLetta {
       lente: lente,
       vaga: vaga,
       doppia: doppia,
+      primaParte: primaParte,
       distacco: _haUna(n, _distacco),
       timore: _haUna(n, _timori),
       sceltaFraMuoversiERestare: restare,
     );
   }
 
-  /// **I GESTI CONCRETI di questa domanda**: quelli del tema sensibile, poi
-  /// quelli della situazione, poi quelli della lente; [argomento] e' la lente
-  /// scelta dalla persona quando la domanda non ne nomina una.
+  /// **IL GRUPPO DEI GESTI SCRITTI di questa domanda**, la chiave di
+  /// `gestiDellaDomanda` (`la_carta_nella_risposta_scritta.dart`): la domanda
+  /// vaga ha i suoi gesti, che non nominano nessun ambito (il lettore cieco
+  /// indipendente ha trovato gesti sull'amicizia e sulla famiglia sotto
+  /// *"Che cosa mi aspetta?"*, tarocchi-29 e 31); poi la situazione; poi la
+  /// lente della domanda, o quella scelta dalla persona ([argomento]).
+  String gruppoDeiGesti(TarotTopic argomento) {
+    if (vaga) return 'vaga';
+    final s = situazione;
+    if (s != null) return s.name;
+    return switch (lente ?? argomento) {
+      TarotTopic.amoreQuadro => 'amoreQuadro',
+      TarotTopic.cosaProva => Situazione.sentimenti.name,
+      TarotTopic.ritornoAmore => Situazione.ritorno.name,
+      TarotTopic.fiducia => Situazione.fiducia.name,
+      TarotTopic.nuovoIncontro => Situazione.incontro.name,
+      TarotTopic.scegliereTraDue => 'scegliereTraDue',
+      TarotTopic.lavoroTrovare => 'lavoroTrovare',
+      TarotTopic.carriera => Situazione.promozione.name,
+      TarotTopic.denaro => 'denaro',
+      TarotTopic.affare => 'affare',
+      TarotTopic.momentoCheVivo => 'momentoCheVivo',
+      TarotTopic.bivio => 'bivio',
+      TarotTopic.cambiamento => Situazione.cambiamento.name,
+      TarotTopic.famiglia => 'famiglia',
+      TarotTopic.amicizia => 'amiciziaLente',
+      TarotTopic.progetto => 'progettoLente',
+    };
+  }
+
+  /// **I GESTI DEL TEMA SENSIBILE**: su salute, legge e denaro il "Cosa fare"
+  /// rimanda a chi e' competente, e nessun gesto di una carta lo accompagna.
+  /// Le altre domande hanno i gesti SCRITTI per la loro situazione e per il
+  /// tono del verdetto (`gestiDellaDomanda`, [gruppoDeiGesti]). LAPIDE: qui
+  /// vivevano i gesti delle situazioni e delle lenti, due per situazione e
+  /// senza tono, scritti dalla prima cura dell'ordine GA voce GA.06 (commit
+  /// 9b2d2d29): *"Proponi una sera senza telefoni, solo voi due"* detto a una
+  /// coppia a distanza, *"Passa un fine settimana nella citta' che valuti"*
+  /// a chi non nominava una citta' (lettore cieco indipendente, tarocchi-37 e
+  /// 34). [argomento] resta per la firma.
   List<String> azioni(TarotTopic argomento) => switch (sensibile) {
         TemaSensibile.salute => const [
             'Scrivi le domande da fare al medico, una per riga; portale con te alla prossima visita.',
@@ -702,7 +518,7 @@ class LaDomandaLetta {
             'Scrivi quanto puoi permetterti di perdere senza cambiare la tua '
                 'vita; poi porta il foglio al consulente.',
           ],
-        null => situazione?.azioni ?? _azioniDellaLente(lente ?? argomento),
+        null => const [],
       };
 
   /// **LE COSE DA NON FARE di questa domanda**, nello stesso ordine.
@@ -711,130 +527,21 @@ class LaDomandaLetta {
             'Non prendere decisioni sulla salute in base alle carte: le carte '
                 'non sostituiscono una visita.',
             'Non cambiare cure o tempi senza il parere del medico che ti segue.',
+            'Non decidere nulla prima di aver sentito il tuo medico.',
           ],
         TemaSensibile.legge => const [
             'Non prendere decisioni legali in base alle carte: decide chi '
                 'conosce la legge.',
             'Non parlare della causa con la controparte senza il tuo '
                 'avvocato.',
+            'Non decidere nulla prima di aver sentito il tuo avvocato.',
           ],
         TemaSensibile.denaro => const [
             'Non investire in base alle carte: le carte non leggono i mercati.',
-            'Non muovere i risparmi per paura di perdere un\'occasione.',
+            'Non prendere decisioni sui risparmi senza un parere scritto di '
+                'chi è abilitato.',
+            'Non decidere nulla prima di aver sentito un consulente abilitato.',
           ],
-        null => situazione?.nonFare ?? _nonFareDellaLente(lente ?? argomento),
-      };
-
-  static List<String> _azioniDellaLente(TarotTopic t) => switch (t) {
-        TarotTopic.amoreQuadro => const [
-            'Scrivi che cosa cerchi davvero in un legame e tienilo come '
-                'bussola nelle scelte.',
-            'Dedica questa settimana una sera intera a ciò che conta nella tua '
-                'vita affettiva.',
-          ],
-        TarotTopic.cosaProva => Situazione.sentimenti.azioni,
-        TarotTopic.ritornoAmore => Situazione.ritorno.azioni,
-        TarotTopic.fiducia => Situazione.fiducia.azioni,
-        TarotTopic.nuovoIncontro => Situazione.incontro.azioni,
-        TarotTopic.scegliereTraDue => const [
-            'Scrivi per ciascuna delle due persone che cosa ti fa stare bene e '
-                'che cosa no.',
-            'Immagina di aver già scelto e osserva quale delle due ti dà '
-                'sollievo.',
-          ],
-        TarotTopic.lavoroTrovare => const [
-            'Manda oggi una candidatura mirata o un messaggio a chi può '
-                'presentarti.',
-            'Aggiorna il curriculum con i risultati concreti degli ultimi due anni, uno per riga.',
-          ],
-        TarotTopic.carriera => Situazione.promozione.azioni,
-        TarotTopic.denaro => const [
-            'Metti in ordine i conti di casa, cioè bollette, scadenze e ricevute, in un\'ora sola.',
-            'Scrivi che cosa vuoi davvero ottenere col denaro e perché ti '
-                'importa.',
-            'Fai l\'elenco delle spese fisse del mese e segna quella che puoi '
-                'ridurre per prima.',
-          ],
-        TarotTopic.affare => const [
-            'Leggi ogni clausola con calma e fatti spiegare quelle che non '
-                'capisci.',
-            'Chiedi un giorno in più prima di dare la risposta.',
-          ],
-        TarotTopic.momentoCheVivo => const [
-            'Scegli una cosa sola su cui concentrarti questa settimana e scrivila dove la vedi ogni mattina.',
-            'Prenditi un\'ora per mettere in ordine le priorità del mese.',
-          ],
-        TarotTopic.bivio => const [
-            'Scrivi per ogni opzione che cosa guadagni e che cosa perdi.',
-            'Immagina di aver già scelto e osserva quale delle due ti dà '
-                'sollievo.',
-          ],
-        TarotTopic.cambiamento => Situazione.cambiamento.azioni,
-        TarotTopic.famiglia => const [
-            'Organizza questa settimana una cena o una passeggiata con le persone di casa, senza telefoni a tavola.',
-            'Telefona a un familiare che senti poco e chiedi come sta davvero, senza fretta di chiudere.',
-          ],
-        TarotTopic.amicizia => const [
-            'Scrivi a una persona amica che senti poco e proponi di vedervi.',
-            'Di\' a un\'amicizia che conta quanto tieni a lei, con un gesto '
-                'concreto.',
-          ],
-        TarotTopic.progetto => const [
-            'Scrivi il primo obiettivo del progetto, fissane la data e mettila dove la vedi ogni giorno.',
-            'Mostra il progetto a una persona competente e chiedi un parere '
-                'sincero.',
-          ],
-      };
-
-  static List<String> _nonFareDellaLente(TarotTopic t) => switch (t) {
-        TarotTopic.amoreQuadro => const [
-            'Non accontentarti di attenzioni a metà.',
-            'Non decidere del tuo cuore per paura di restare senza.',
-          ],
-        TarotTopic.cosaProva => Situazione.sentimenti.nonFare,
-        TarotTopic.ritornoAmore => Situazione.ritorno.nonFare,
-        TarotTopic.fiducia => Situazione.fiducia.nonFare,
-        TarotTopic.nuovoIncontro => Situazione.incontro.nonFare,
-        TarotTopic.scegliereTraDue => const [
-            'Non tenere aperte due porte per paura di scegliere.',
-            'Non lasciare che decida il senso di colpa.',
-          ],
-        TarotTopic.lavoroTrovare => const [
-            'Non mandare lo stesso messaggio a tutte le aziende.',
-            'Non aspettare il momento perfetto per candidarti: non arriva da solo.',
-          ],
-        TarotTopic.carriera => Situazione.promozione.nonFare,
-        TarotTopic.denaro => const [
-            'Non prendere decisioni economiche importanti in base alle carte.',
-            'Non fare acquisti grandi per consolarti.',
-            'Non prestare denaro per senso di colpa o per non dire di no.',
-          ],
-        TarotTopic.affare => const [
-            'Non firmare niente sotto pressione, neppure se ti dicono che '
-                'l\'offerta scade.',
-            'Non decidere prima di aver letto tutto, comprese le righe in '
-                'piccolo.',
-          ],
-        TarotTopic.momentoCheVivo => const [
-            'Non disperdere le energie in dieci direzioni.',
-            'Non rimandare ancora la cosa che sai di dover fare.',
-          ],
-        TarotTopic.bivio => const [
-            'Non lasciare che a decidere sia la paura di sbagliare.',
-            'Non chiedere il parere di tutti: alla fine scegli comunque tu.',
-          ],
-        TarotTopic.cambiamento => Situazione.cambiamento.nonFare,
-        TarotTopic.famiglia => const [
-            'Non riaprire a tavola vecchie liti che nessuno ha voglia di affrontare.',
-            'Non dare per scontato chi ti sta vicino ogni giorno.',
-          ],
-        TarotTopic.amicizia => const [
-            'Non tenere un rancore senza dirlo a chi riguarda.',
-            'Non misurare l\'amicizia sul numero dei messaggi.',
-          ],
-        TarotTopic.progetto => const [
-            'Non aspettare che tutto sia perfetto per cominciare.',
-            'Non disperdere l\'idea in troppe direzioni nello stesso momento.',
-          ],
+        null => const [],
       };
 }

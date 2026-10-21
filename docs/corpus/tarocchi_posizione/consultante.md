@@ -100,7 +100,7 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 
 ### capovolta
 
-- 1: Quello che tenevi in crescita non fiorisce perché la terra da cui veniva su sei tu e l'acqua che spargi su ogni altra cosa dalla tua parte viva non passa.
+- 1: Quello che stavi facendo crescere non fiorisce perché la sorgente sei tu: la cura che dai a ogni altra cosa non torna verso la tua parte creativa.
 - 2: La tua capacità di far nascere sta ferma e i semi che hai messo non si aprono: la gentilezza che spendi fuori non passa da te e senza quel passaggio niente esce.
 - 3: Dentro di te una pianta non apre: l'acqua la porti a tutto tranne che alla tua radice, così la parte che genera è a secco e niente sboccia.
 
@@ -543,8 +543,8 @@ scambi che si ripetono identici su tutte e tre le posizioni provate.
 ### dritta
 
 - 1: Gli altri aspettano la tua mossa per muoversi, perché hai già percorso il tratto che a loro manca. Ciò che dici pesa per le cose portate a termine, più che per il tono.
-- 2: In mano hai un bastone che ha messo foglie, segno di una guida con radici nel mestiere. Dirigi persone che fanno un lavoro che conosci da dentro, perché l'hai fatto tu prima di dirigerlo.
-- 3: Chi lavora con te ti chiede da che parte andare e la tua risposta è un passo, non una spiegazione. Stai dove sta chi prende la direzione di un'impresa e ne risponde davanti a tutti.
+- 2: Guidi una situazione che conosci da dentro, perché l'hai vissuta in prima persona prima di prenderne la direzione: la tua autorità viene dall'esperienza, non dal ruolo.
+- 3: Quando c'è da scegliere dove andare, la tua risposta è un'azione, non una spiegazione: sei nel punto di chi prende la direzione di qualcosa e ne risponde apertamente.
 
 ### capovolta
 

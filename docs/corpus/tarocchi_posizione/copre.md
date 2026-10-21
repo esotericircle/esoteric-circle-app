@@ -37,14 +37,14 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Nella tua domanda circola un'aria di primo mattino, leggera perché dentro non c'è ancora niente di apparecchiato: la cosa respira come chi parte con le mani libere e un passo solo da vedere.
-- 2: Pretende le mani vuote la forza che lavora sulla tua domanda: non ammette bagagli, garanzie in tasca, strade già viste fino in fondo. Alla cosa basta il passo iniziale per stare in piedi.
+- 2: La forza che lavora sulla tua domanda ti chiede di non portarti dietro garanzie né piani completi: per andare avanti ti basta vedere il primo movimento da fare.
 - 3: Cade sulla cosa che hai in mano una luce stretta: accende il tratto sotto il piede e lascia buio il resto della strada, perché di tutto si vede quanto basta a muoverla di un passo.
 
 ### capovolta
 
 - 1: Attraversa la tua domanda una spinta che corre verso l'orlo senza dichiarare la propria origine: può nascere dal coraggio oppure da qualcosa che nessuno ha guardato. Il verso del movimento resta identico.
-- 2: Dentro la tua domanda vale una regola che non chiede le credenziali dell'impulso: trova strada quello che parte adesso, non ne trova quello che vuole prima sapere da dove nasce la fretta.
-- 3: Il criterio che assegna valore dentro la tua domanda guarda la prontezza e non la provenienza. Vale il passo immediato. La differenza fra slancio e fuga non entra in nessun conto.
+- 2: Sulla tua domanda pesa un clima che premia chi parte subito e non chiede da dove nasca la fretta: così l'impulso passa avanti alla riflessione.
+- 3: In questa faccenda conta di più muoversi presto che sapere perché ci si muove: nessuno ti chiede se è slancio vero o voglia di scappare.
 
 ## Il Mago
 
@@ -52,7 +52,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: L'aria intorno alla tua domanda è quella di un banco già apparecchiato: ogni strumento che serve sta a distanza di braccio e la temperatura che la cosa trova è quella del fare.
 - 2: Una pretesa precisa lavora sulla tua domanda: che l'intenzione passi in atto adesso, con la mano e la parola nello stesso gesto. La forza non ammette che la materia resti pensiero.
-- 3: In questa luce la tua domanda si vede dal lato dei mezzi: tutto quello che occorre per muoverla risulta visibile e in ordine. L'ombra cade sul rinvio.
+- 3: Sotto questa forza la tua domanda mostra soprattutto i mezzi a disposizione: tutto quello che serve per muoverla è già pronto, mentre rimandare perde ormai ogni giustificazione.
 
 ### capovolta
 
@@ -70,8 +70,8 @@ somiglianza di Jaccard sopra 0,6.
 
 ### capovolta
 
-- 1: Questa tua faccenda pretende una quiete che il clamore non le concede. Al posto di un sapere già compiuto arriva un argomento che non basta a dirla: la cosa resta sotto, intera, non pronunciata.
-- 2: La regola che qui vale senza essere scritta dà strada soltanto a quello che si può argomentare. Dentro la tua domanda il sapere senza prove non trova passaggio; sotto il clamore resta per intero.
+- 1: Questa faccenda avrebbe bisogno di quiete ma intorno c'è troppo rumore: al posto di ciò che sai già arrivano argomenti che non bastano, così la verità resta sotto.
+- 2: Sulla tua domanda vale una regola non scritta che dà spazio solo a ciò che si può dimostrare: quello che senti senza prove resta coperto dal rumore delle discussioni.
 - 3: Il tono sulla tua faccenda è alzato: si parla per prove e per risposte pronte. Sotto quel registro una parte sa in un sussurro che il clamore ricopre senza riuscire a spegnerlo.
 
 ## L'Imperatrice
@@ -80,13 +80,13 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Un tepore fertile lavora sulla tua questione: quello che vi sta dentro trova terra grassa, acqua, tempo lento; ingrossa prima di prendere una forma riconoscibile.
 - 2: Questa forza pretende dalla tua questione i tempi della gestazione: ammette nutrimento, ammette attesa lunga, non ammette strappi. Quello che vive là dentro cresce alla velocità che ha.
-- 3: Nella luce di questa forza la tua questione si vede dal lato del corpo: risaltano il volume, la polpa, il colore pieno; restano in ombra i contorni netti e le date.
+- 3: Sotto questa forza la tua questione mostra soprattutto ciò che è vivo e concreto: risalta quanto sta crescendo, mentre date e confini precisi restano in secondo piano.
 
 ### capovolta
 
 - 1: La linfa della tua questione corre tutta verso fuori: alimenta i rami fino alla punta e lascia asciutto il punto da cui i rami partono. Il generare continua a spese della sorgente.
 - 2: Dentro la tua questione vale adesso una regola muta: si nutre quello che si vede, non quello che fa crescere. Il fuori riceve la sua razione piena; la radice non è compresa nel conto.
-- 3: Qui il valore si decide sul fiore: dentro la tua questione quello che si mostra prende tutto il prezzo, mentre il punto che lo alimenta non entra nemmeno fra le cose contate.
+- 3: In questa faccenda conta solo ciò che si vede fiorire: la tua attenzione va tutta ai risultati esterni, mentre ciò che li alimenta non viene nemmeno considerato.
 
 ## L'Imperatore
 
@@ -120,183 +120,183 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Una forza apre nella tua domanda un bivio che chiama in causa i tuoi valori e non il desiderio di passaggio: accosta il sentimento al criterio e li fa pronunciare sullo stesso atto.
-- 2: Il registro dentro la tua domanda è quello del giuramento: là si parla al livello delle cose che non si rimangiano, dove l'attrazione da sola non ha l'autorità per chiudere niente.
-- 3: Si respira dentro la tua domanda un'aria da soglia, calda e vincolante insieme: quello che vi entra deve dichiararsi per intero, il desiderio come il credere, prima di valere qualcosa.
+- 1: Al cuore della tua domanda c'è una scelta d'amore o di valori: non basta che ti attiri, deve anche somigliarti, perché qui testa e cuore devono dire la stessa cosa.
+- 2: Sulla tua questione grava un impegno serio, di quelli che non si ritirano: l'attrazione da sola non basta a decidere, serve che anche ciò in cui credi sia d'accordo.
+- 3: Questa situazione ti chiede di esporti per intero: desiderio e convinzioni devono uscire allo scoperto insieme, perché una decisione presa a metà qui non regge.
 
 ### capovolta
 
-- 1: Chiede due voti e ne trova uno la forza che agisce sulla tua domanda: il desiderio parla, il credere sta zitto, così nessuna delle due parti riesce a persuadere l'altra dentro la cosa.
-- 2: Una luce parziale sta sulla tua domanda. Accende la parte che desidera e lascia buia quella che crede; entrambe appartengono a te. Visibile è metà soltanto del bivio.
-- 3: Gira dentro la tua domanda un andirivieni fra quello che credi e quello che vuoi: entrambi gli estremi sono tuoi, nessuno dei due è arrivato da fuori e il movimento non si chiude.
+- 1: Al cuore della tua domanda c'è un disaccordo interiore: il desiderio parla forte, ciò in cui credi tace, così nessuna delle due parti riesce a convincere l'altra.
+- 2: Sulla tua questione vedi bene solo metà del bivio: la parte che desidera è in piena vista, quella che crede resta in disparte, eppure appartengono entrambe a te.
+- 3: Dentro la tua domanda oscilli fra ciò che credi e ciò che vuoi: sono due spinte tue, nessuna arriva da fuori, ma finché non si accordano il movimento non si ferma.
 
 ## Il Carro
 
 ### dritta
 
-- 1: Una forza di governo lavora sulla tua domanda e aggioga al medesimo tiro due spinte di verso contrario: le mette al traino della stessa strada, con la direzione decisa prima.
-- 2: Il tono che la cosa sta suonando è quello delle redini in pugno: fermo, continuo, privo di strappi. Dentro la tua domanda la padronanza suona più forte dell'azzardo.
-- 3: Sopra la tua domanda sta l'aria di una corsa condotta: il vento viene preso di petto e le due bestie contrarie respirano alla stessa andatura. Il clima è di dominio, non di fortuna.
+- 1: Al cuore della tua domanda c'è una volontà che governa: due spinte contrarie lavorano per la stessa meta, perché la direzione da prendere l'hai già decisa tu con chiarezza.
+- 2: Su questa questione prevale in questo periodo la tua padronanza: un andamento fermo e continuo, senza strappi, dove conta molto più la mano che guida che la fortuna del momento.
+- 3: La tua domanda ha il clima di una corsa ben condotta: affronti le difficoltà di petto, mentre le forze opposte che senti procedono allo stesso ritmo sotto il tuo controllo.
 
 ### capovolta
 
-- 1: La pretesa che lavora su quello che chiedi riguarda il governo: il tiro è doppio, le due bestie sono entrambe tue e la forza esige una mano sola sulle redini.
-- 2: Sulla tua domanda cade una luce obliqua da cocchio che sbanda: si vedono bene le due spinte tirate in versi opposti, mentre la direzione comune resta fuori dal fascio.
-- 3: Attraverso la tua domanda passa un movimento a zig zag: la spinta è intera e cambia verso a ogni scossa, perché a tirare sono due e la decisione è vacante.
+- 1: Al cuore della tua domanda c'è un problema di guida: le due spinte che senti sono entrambe tue, ma tirano ciascuna per sé finché non le prendi in mano con decisione.
+- 2: Sulla tua questione si vedono bene le spinte che tirano in versi opposti, mentre resta fuori vista la direzione comune verso cui dovresti portarle con decisione.
+- 3: La tua domanda procede a zig zag: l'energia c'è tutta, ma cambia verso a ogni scossa perché ti manca una decisione chiara su dove andare.
 
 ## La Giustizia
 
 ### dritta
 
-- 1: Dentro la tua domanda la corrente va in un verso solo: ogni effetto risale alla mano da cui parte. Quanto si mette dentro è quanto ritorna, senza sconti e senza aggiunte di comodo.
-- 2: Il valore della tua faccenda si decide su una pesata: conta quanto una cosa corrisponde a quello che produce, non quanto era buona l'intenzione. Davanti a questa misura le attenuanti pesano come l'aria.
-- 3: Un'aria limpida sta sopra la tua domanda: dentro ci si vede come in una partita riaperta, dove ogni riga ha un nome e una misura; le righe scomode non restano in ombra.
+- 1: Al cuore della tua domanda c'è una regola semplice: ogni effetto torna a chi lo ha causato, senza sconti né aggiunte, quindi ciò che metti è ciò che ritorna.
+- 2: Nella tua questione conta ciò che le azioni producono davvero, non quanto erano buone le intenzioni: davanti a questa misura anche le tue giustificazioni migliori valgono poco.
+- 3: Sulla tua domanda c'è un'aria limpida: ogni fatto ha un nome e una misura, quindi anche gli aspetti più scomodi vengono fuori invece di restare nascosti alla vista.
 
 ### capovolta
 
-- 1: Perché questa tua faccenda possa pareggiare, una forza pretende che la paternità di quello che pende sia detta per nome: non ammette il caso come autore; con l'intestazione in bianco la partita resta dov'è.
-- 2: Una partita aperta sta a tuo nome dentro questa faccenda, mentre la sua causa viene assegnata fuori. La forza al lavoro qui non cancella la riga: la mantiene leggibile finché il nome combacia con l'atto.
-- 3: La luce su questa cosa cade proprio dove la responsabilità viene spostata altrove: illumina la mano da cui la cosa parte e lascia in ombra le spiegazioni comode, mentre la riga a tuo nome resta aperta.
+- 1: Al cuore della tua domanda c'è una responsabilità da chiamare per nome: finché attribuisci al caso ciò che è rimasto in sospeso, la questione non può tornare in pari.
+- 2: Nella tua questione c'è un conto aperto a tuo nome, mentre la causa viene cercata altrove: resta lì, ben visibile, finché non riconosci l'atto come tuo.
+- 3: Sulla tua domanda la chiarezza cade proprio dove la responsabilità viene spostata su altri: mostra da dove la cosa è partita e toglie forza alle spiegazioni comode.
 
 ## L'Eremita
 
 ### dritta
 
-- 1: Una forza sottrae rumore alla tua questione e riduce il cerchio illuminato a un passo per volta. Non spegne niente: stringe la luce; quello che rimane nel cerchio si vede meglio di prima.
-- 2: Il registro della tua questione adesso è basso: si nomina poco, si cammina piano, mentre il silenzio che la riempie fa esattamente il lavoro che altrove fanno le parole.
-- 3: Tira un'aria rarefatta, d'altura, dentro la tua questione: suoni spenti, distanze lunghe, un cerchio di luce che arriva fin dove va il piede e non un dito più lontano.
+- 1: Al cuore della tua domanda c'è un bisogno di silenzio: meno rumore intorno ti permette di vedere bene un tratto alla volta, così ciò che resta in vista diventa più chiaro di prima.
+- 2: La tua questione si muove adesso a bassa intensità: si parla poco, si procede piano, mentre il silenzio fa per te il lavoro che altrove fanno le parole.
+- 3: Sulla tua domanda c'è un clima raccolto e appartato: pochi stimoli, tempi lunghi, un'attenzione che arriva fin dove ti serve per il prossimo gesto e non oltre.
 
 ### capovolta
 
-- 1: Questa forza chiede alla tua questione una porta sempre più stretta: ammette il dentro; vuole che ogni cosa passi per quella soglia. Il raccoglimento diventa la condizione di tutto il resto.
+- 1: Al cuore della tua questione c'è una chiusura che si stringe: lasci entrare solo ciò che passa dai tuoi pensieri, così il raccoglimento diventa la condizione di tutto il resto.
 - 2: La lanterna, dentro la tua questione, illumina soltanto l'interno: si vedono i pensieri messi in fila, resta nel buio il tratto di strada che riporta verso gli altri.
-- 3: Scorre tutto verso il centro della tua questione: ogni cosa entra, nessuna esce, cosicché il raccoglimento si fa più fitto mentre la strada verso fuori perde passaggio.
+- 3: Nella tua questione tutto si raccoglie verso l'interno: le cose entrano e nessuna esce, così la chiusura si fa più fitta mentre la via verso gli altri ti si restringe.
 
 ## La Ruota della Fortuna
 
 ### dritta
 
-- 1: Il giro che è in moto cambia quello che si vede: una parte della tua questione entra in luce mentre un'altra scivola in ombra; nessuna mano dentro la cosa sta girando la lampada.
-- 2: Quello che conta nella tua domanda lo sta decidendo il punto del cerchio in cui la cosa si trova: lo stesso dato vale molto in salita e quasi niente in discesa, senza che il merito cambi.
-- 3: Suona sulla tua questione una nota periodica, di quelle che tornano: il registro non appartiene a chi decide, appartiene a quello che ricomincia da sé senza chiedere il permesso.
+- 1: Al cuore della tua questione c'è un giro in corso che cambia ciò che vedi: alcuni aspetti tornano in primo piano, altri passano in secondo, senza che nessuno lo decida.
+- 2: Nella tua domanda conta molto il momento del ciclo: la stessa cosa vale molto quando la situazione sale e poco quando scende, anche se il suo valore non cambia.
+- 3: Sulla tua questione torna un ritmo che conosci già: non dipende da chi decide, ma da ciò che ricomincia da sé quando arriva il suo momento, come le stagioni.
 
 ### capovolta
 
-- 1: Una corrente circolare attraversa la tua domanda e la riporta ogni volta nel medesimo punto: il movimento c'è per intero, mentre il tratto percorso resta quello di prima.
-- 2: Il giro in corso sta scavando sempre lo stesso solco dentro la tua domanda: ogni passaggio ripete il precedente e la parte che si consuma è la medesima.
-- 3: Sulla tua questione sta un'aria senza appigli: quello che si muove non offre un bordo da afferrare, cosicché la spinta passa accanto senza lasciare presa a nessuno.
+- 1: Al cuore della tua domanda c'è un movimento circolare che ti riporta sempre allo stesso punto: l'energia si spende tutta, ma la situazione resta quella di prima.
+- 2: Nella tua questione si ripete lo stesso schema: ogni giro ricalca il precedente e ti consuma sempre nello stesso punto, senza mai farti avanzare di un tratto.
+- 3: Sulla tua questione manca un appiglio: ciò che si muove non ti offre niente da afferrare, così la spinta ti passa accanto senza che tu riesca a sfruttarla.
 
 ## La Forza
 
 ### dritta
 
-- 1: Sulla tua domanda agisce una dolcezza che non cede: tratta quello che si agita dentro la faccenda come si fa con un animale grande, con la mano quieta ferma sul collo.
-- 2: Il timbro di questa cosa è mite e inflessibile insieme: nessun colpo, nessun grido; quello che ringhia dentro la faccenda dentro la tua faccenda si acquieta perché nessuno lo sfida.
-- 3: Passa dentro la tua domanda una spinta mansueta che non strappa niente: muove la cosa con la lentezza di una carezza; dove la stretta avrebbe spezzato, la calma piega.
+- 1: Al cuore della tua domanda c'è una dolcezza che non cede: tratta ciò che si agita nella situazione con calma ferma, come chi avvicina un animale grande senza paura.
+- 2: Il tono della tua questione è mite e deciso insieme: niente scatti né grida, perché ciò che si agita si calma proprio quando nessuno lo sfida.
+- 3: Nella tua domanda agisce una spinta paziente che non costringe niente: muove le cose con lentezza, piegando con la calma ciò che la violenza avrebbe spezzato.
 
 ### capovolta
 
 - 1: Nell'aria di questa faccenda c'è un irrigidimento: la tua questione viene affrontata a denti stretti, come se governare quello che si agita volesse muscoli al posto della pazienza.
-- 2: Dentro la tua domanda vale solo quello che si impone di polso: la mitezza non viene contata fra i modi efficaci; la mano quieta qui somiglia a una resa.
-- 3: Questa spinta vuole la tua faccenda domata di braccio: chiede prova di tenuta a ogni passaggio e non riconosce la calma come una maniera di comandare.
+- 2: Nella tua domanda sembra valere solo ciò che si impone di prepotenza: la mitezza non viene considerata efficace e la tua calma viene scambiata per resa.
+- 3: Questa situazione vuole tutto domato a colpi di braccio: pretende da te prove di tenuta a ogni momento e non riconosce la calma come un modo di guidare.
 
 ## L'Appeso
 
 ### dritta
 
-- 1: Dentro la tua domanda governa adesso una regola invertita: trova strada quello che sta fermo a testa in giù, non ne trova il movimento che serve soltanto a dare prova di sé.
-- 2: Il valore, dentro la tua domanda, si assegna all'incontrario. Conta quello che si scorge dal lato opposto; il gesto svelto non fa punteggio in questo modo di contare.
-- 3: Sta rigirando la cosa che hai in mano una sospensione che la lascia a mezza altezza senza concludere niente: lavora proprio così, mostrando dal basso la faccia che prima stava in cima.
+- 1: Sulla tua domanda pesa adesso un tempo di attesa: le cose non si muovono e forzarle serve a poco, mentre guardarle da un'altra angolazione ti mostra ciò che prima non vedevi.
+- 2: Il clima della tua questione premia chi sa fermarsi: in questa fase conta più capire che agire e una pausa accettata vale più di un gesto fatto per sentirti in movimento.
+- 3: Una sospensione avvolge la faccenda che hai in mano: niente si conclude per ora, ma proprio questa pausa te la fa vedere da un lato che prima ti sfuggiva.
 
 ### capovolta
 
-- 1: Il tono dentro la tua domanda è quello di una rinuncia dichiarata nobile. Il sacrificio si fregia di un nome alto senza un richiedente né un destinatario; la sosta ha smesso di insegnare.
-- 2: Sta immobile l'aria dentro la tua domanda e sa di sosta che non produce più niente. La privazione continua a chiamarsi nobile, però nessuno l'ha chiesta e nessuno la riceve.
-- 3: Chiede alla rinuncia il nome di chi la riceve la forza che lavora sulla tua domanda; quel nome non c'è. Senza destinatario il sacrificio resta una parola e la sosta non rende niente.
+- 1: Sulla tua domanda grava un'attesa che non insegna più nulla: si continua a rinunciare in nome di qualcosa di nobile, ma quel sacrificio non serve a nessuno.
+- 2: Il clima della tua questione è immobile: la pausa ha smesso di portare frutti, eppure viene ancora chiamata pazienza, mentre somiglia sempre di più a uno stallo.
+- 3: Ciò che domina la faccenda è una rinuncia senza destinatario: chiediti a chi serve davvero il tuo sacrificio, perché se non serve a nessuno è solo un modo per non muoverti.
 
 ## La Morte
 
 ### dritta
 
-- 1: La regola che governa adesso la tua domanda dice che si fa posto: quello che è al suo termine lascia il campo e quello che nasce trova terra sgombra. Il passaggio non chiede permesso.
-- 2: Dentro la tua domanda il valore si sposta: le cose giunte alla fine contano ogni ora meno, il germoglio ancora minuscolo conta ogni ora di più. La bilancia si muove verso chi comincia.
-- 3: Una falce lavora sulla tua domanda e miete quello che è al suo termine: taglia netto, sgombra il campo, apre terra nuova. Il gesto è di passaggio, non di rovina.
+- 1: Sulla tua domanda agisce adesso una chiusura necessaria: ciò che ha esaurito il suo tempo lascia il campo e ciò che deve nascere trova finalmente spazio libero.
+- 2: Il clima della tua questione è quello di un cambio di stagione: le cose arrivate alla fine contano ogni giorno meno, mentre ciò che comincia conta ogni giorno di più.
+- 3: Ciò che domina la tua faccenda è un taglio netto: quello che è finito viene tolto di mezzo senza chiedere il permesso, non per distruggere ma per fare posto.
 
 ### capovolta
 
-- 1: Il tono dentro la tua domanda è quello di una stoffa tesa fra due mani: da un lato il cambio che procede, dall'altro la stretta che non si apre. Si sente lo sforzo, non lo strappo.
-- 2: Sulla tua domanda sta un'aria immobile da stanza serrata mentre fuori la stagione sta girando: dentro il clima è quello di prima e il passaggio bussa al vetro.
-- 3: Chiede la mano aperta la forza di distacco che lavora sulla tua domanda: il cambio è in atto e procede comunque, mentre a consumare le energie è la stretta ferma su una cosa finita.
+- 1: Sulla tua domanda grava una tensione fra due forze: da una parte il cambiamento che va avanti comunque, dall'altra una stretta che non vuole aprirsi su ciò che è finito.
+- 2: Nella tua questione c'è l'aria ferma di una stanza chiusa mentre fuori la stagione cambia: dentro tutto resta come prima e il nuovo bussa senza poter entrare.
+- 3: Ciò che domina la tua faccenda è la fatica di trattenere: il cambiamento è già in atto e ti consuma soprattutto la stretta su una cosa che ha finito il suo tempo.
 
 ## La Temperanza
 
 ### dritta
 
-- 1: Sulla tua domanda sta un'aria tiepida, lontana dai due estremi: in quella temperatura le parti che sembravano inconciliabili si sciolgono una nell'altra invece di stare accanto senza mescolarsi.
-- 2: La regola non scritta di questo momento premia la dose giusta: dentro la tua domanda il doppio non vale il doppio; quello che entra fuori misura guasta la mescola invece di rafforzarla.
-- 3: Il valore nella tua faccenda si misura in proporzioni: conta di più la goccia che completa la mescola che il secchio versato tutto insieme. Quello che è troppo perde pregio proprio perché è troppo.
+- 1: Sulla tua domanda agisce adesso la misura: le parti che sembravano inconciliabili si avvicinano piano e con calma, a patto che nessuna venga forzata o messa da parte.
+- 2: Nella tua questione vale la regola della dose giusta: fare il doppio non porta il doppio e ciò che arriva fuori misura rovina l'equilibrio invece di rafforzarlo.
+- 3: Ciò che domina la tua faccenda in questi giorni è la proporzione: conta di più la piccola correzione fatta al momento giusto che il grande sforzo fatto tutto insieme.
 
 ### capovolta
 
-- 1: Dentro questa tua faccenda il passaggio va in una direzione sola: una parte versa tutto e l'altra non restituisce niente. Le due sostanze stanno nello stesso vaso senza entrare una nell'altra.
-- 2: Il tono sulla tua domanda salta fra due estremi: prima a pieno volume, poi muto. La faccenda parla a scatti invece di stare su una nota sola; fra uno scatto e l'altro la misura si perde.
-- 3: Questa tua faccenda chiede un versamento lento per comporsi; quello che le arriva tutto insieme non le serve. La fretta le consegna quantità al posto della proporzione, così la mescola resta due liquidi affiancati.
+- 1: Sulla tua domanda agisce uno scambio a senso unico: una parte dà tutto e l'altra non restituisce niente, così le due esigenze stanno vicine senza riuscire ad accordarsi.
+- 2: Nella tua questione il tono salta da un estremo all'altro, prima tutto insieme e poi niente: fra uno scatto e l'altro la misura si perde e la cosa procede a strappi.
+- 3: Ciò che domina la tua faccenda è la fretta: le arriva tutto in una volta, mentre per comporsi avrebbe bisogno di un ritmo lento e di dosi piccole.
 
 ## Il Diavolo
 
 ### dritta
 
-- 1: Nella tua questione vale adesso un patto non detto: quello che dà piacere subito ha diritto di passare davanti; il prezzo si nomina più tardi, oppure non si nomina affatto.
-- 2: Il valore qui si decide sull'intensità: dentro la tua questione conta tanto quello che accende e non conta niente quello che chiede tempo. Il desiderio fa da unità di conto.
-- 3: Stringe un nodo che la tua questione non riconosce come nodo, perché è intrecciato con qualcosa di desiderato: il giro si chiude proprio nei momenti in cui si gode.
+- 1: Sulla tua domanda agisce un patto non detto: ciò che dà piacere subito passa davanti a tutto, mentre il prezzo viene rimandato o non viene mai nominato.
+- 2: Nella tua questione conta soprattutto l'intensità in questo periodo: vale molto ciò che accende subito il desiderio e quasi niente ciò che chiede tempo, pazienza o rinuncia.
+- 3: Ciò che domina la tua faccenda è un legame che non riconosci come tale, perché è intrecciato a qualcosa che desideri: la presa si stringe proprio nei momenti di piacere.
 
 ### capovolta
 
-- 1: Suona diverso il registro della tua questione: quello che si diceva a mezze parole adesso prende il suo nome per intero; da nominato, quel patto comanda molto meno di prima.
-- 2: L'aria dentro la tua questione si allarga: il buio di cui il legame ha bisogno si dirada, mentre la cosa desiderata resta desiderabile senza più dettare le condizioni.
-- 3: Chiede chiarezza, questa forza, non rinuncia: alla tua questione serve che il patto stia visibile per intero, col prezzo scritto accanto alla cosa che vale la pena di volere.
+- 1: Sulla tua domanda cambia il tono: ciò che si diceva a mezza bocca adesso viene chiamato per nome e un patto, una volta nominato, comanda molto meno di prima.
+- 2: Nella tua questione l'aria si fa più libera: il segreto di cui quel legame aveva bisogno si dirada e ciò che desideri resta desiderabile senza più dettare le condizioni.
+- 3: Ciò che domina la tua faccenda è il bisogno di chiarezza, non di rinuncia: serve vedere il patto per intero, con il suo prezzo scritto accanto a ciò che vale la pena volere.
 
 ## La Torre
 
 ### dritta
 
-- 1: Nessuna costruzione senza fondo passa la regola che governa la tua questione adesso: quello che era alzato sul vuoto si apre di schianto, quello che ha una base dentro rimane dov'è.
-- 2: Sulla tua domanda suona un fragore secco, una nota che interrompe a metà frase: il registro non è quello del discorso lungo, è quello del colpo che entra in un istante.
-- 3: Questa forza esige dalla tua domanda che niente stia su per sola apparenza: pretende un fondo verificabile sotto ogni parte; quello che non lo ha resta scoperto nell'istante in cui cede.
+- 1: Sulla tua domanda agisce adesso una regola severa: ciò che era costruito senza fondamenta crolla di colpo, mentre ciò che ha basi vere resta in piedi.
+- 2: Nella tua questione arriva un colpo secco che interrompe tutto a metà: non è il momento dei lunghi discorsi, ma di una verità che entra in un istante.
+- 3: Ciò che domina la tua faccenda è la richiesta di basi vere: niente può reggere solo per apparenza e ciò che non ha fondamento si rivela nel momento in cui cede.
 
 ### capovolta
 
-- 1: Prende valore, dentro la tua questione, quello che sembra intero: una facciata senza segni conta più di una crepa dichiarata, mentre la crepa continua il suo lavoro senza comparire in nessuna somma.
-- 2: Un'aria sospesa sta sulla tua domanda, come un temporale che non scarica: la pressione resta tutta dentro e il momento dello sfogo slitta di giorno in giorno.
-- 3: La luce in cui la tua questione si guarda illumina l'intonaco e lascia nel buio la giuntura dietro: si vede quello che è stato rifinito, non il punto dove il muro sta cedendo.
+- 1: Sulla tua domanda agisce l'apparenza: una facciata senza segni conta più di una crepa dichiarata, mentre la crepa continua il suo lavoro senza che nessuno la nomini.
+- 2: Nella tua questione c'è un'aria sospesa, come un temporale che non scoppia: la tensione resta tutta dentro e il momento del chiarimento slitta di giorno in giorno.
+- 3: Ciò che domina la tua faccenda è lo sguardo che si ferma alla superficie: si vede ciò che è stato rifinito, non il punto in cui le cose stanno cedendo.
 
 ## La Stella
 
 ### dritta
 
-- 1: Una chiarità alta cade sulla tua domanda da molto lontano: non scalda niente, rende però visibile il profilo della cosa; quello che sta nel buio prende contorno.
-- 2: L'aria qui è tersa come quella che segue un temporale: dentro la tua faccenda la temperatura si abbassa, i colori tornano netti, respirare costa meno di prima.
-- 3: Suona basso il registro di questa cosa: niente grida né enfasi, soltanto un filo d'acqua versato di continuo che mantiene umida la terra della tua faccenda.
+- 1: Sulla tua domanda scende una chiarezza calma, che arriva da lontano: non risolve tutto, ma rende visibili i contorni di ciò che prima restava nel buio.
+- 2: Nella tua questione si respira l'aria limpida che viene dopo un temporale: la tensione cala, le cose tornano nitide e affrontarle costa meno fatica di prima.
+- 3: Ciò che domina la tua faccenda è una fiducia quieta, senza grida né entusiasmi: un sostegno costante e discreto che mantiene viva la speranza giorno dopo giorno.
 
 ### capovolta
 
-- 1: Una velatura si distende fra la tua domanda e il punto alto che la rischiara: la sorgente resta accesa, quello che arriva in basso è un chiarore senza bordi né direzione.
-- 2: Scorre più sottile il filo d'acqua che attraversa la tua faccenda: il versamento continua, la terra però ne riceve appena quanto le basta per non screpolarsi.
-- 3: Comanda nella tua domanda una regola di economia: l'ispirazione viene concessa a sorsi; quello che chiederebbe slancio pieno non trova strada e si accontenta.
+- 1: Sulla tua domanda si stende un velo: la fonte di speranza resta accesa, ma ciò che arriva fino a te è un chiarore debole, senza una direzione precisa.
+- 2: Nella tua questione la fiducia scorre più sottile del solito: non si interrompe, ma arriva appena quanto basta per andare avanti, senza dare vero slancio.
+- 3: Ciò che domina la tua faccenda è il risparmio: l'ispirazione arriva a piccoli sorsi e ciò che chiederebbe uno slancio pieno si accontenta di meno.
 
 ## La Luna
 
 ### dritta
 
 - 1: Sulla tua domanda sta una luce notturna che sbaglia le misure: quello che accende lo mostra più grande del vero; quello che lascia in ombra sembra non esistere affatto.
-- 2: Passa dentro la tua domanda una corrente che sale dal fondo e spinge a riva figure antiche insieme a sagome senza nome, mescolate così bene che l'una non si distingue dall'altra.
-- 3: Vale adesso dentro la tua domanda una regola da notte: trova strada quello che procede al tatto, non ne trova quello che pretende la vista intera prima di muovere il piede.
+- 2: Dentro la tua domanda salgono vecchie paure insieme a impressioni nuove senza nome, mescolate così bene che non riesci a distinguere quali vengono dai fatti e quali dal timore.
+- 3: Vale adesso sulla tua domanda una regola semplice: avanza chi procede con cautela e intuito, mentre chi pretende di vedere tutto chiaro prima di muoversi resta fermo.
 
 ### capovolta
 
-- 1: Riprendono quota le proporzioni esatte nel conto che la tua domanda sta facendo: quello che al buio valeva tutto rientra nella propria taglia e il resto torna a contare qualcosa.
+- 1: Sulla tua domanda tornano le proporzioni giuste: quello che nella confusione sembrava decisivo riprende la sua misura reale e le altre cose tornano a contare per quello che valgono.
 - 2: Una luce che sale sta misurando a una a una le sagome dentro la tua domanda e restituisce a ciascuna la dimensione vera: l'enorme diventa piccolo, il minaccioso diventa un contorno.
-- 3: Scende di un tono il registro dentro la tua domanda: quello che si diceva a strappi nel buio ora si dice piano; le parole tornano della taglia delle cose che nominano.
+- 3: Intorno alla tua domanda i toni si calmano: quello che prima veniva detto con ansia ora si può dire con calma e le parole tornano a descrivere le cose per come sono.
 
 ## Il Sole
 
@@ -304,13 +304,13 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: A mezzogiorno pieno la tua domanda si vede in ogni sua parte: il chiarore arriva dall'alto, cade dentro gli angoli e lascia fuori le zone grigie. Quello che c'è risulta per quello che è.
 - 2: Una corrente calda passa dentro la tua domanda e fa fiorire quanto tocca: le cose si aprono verso l'alto, come un campo a stagione piena. Il calore viene da fuori e scalda tutta la faccenda.
-- 3: Premia quanto si mostra la regola in vigore sulla tua domanda: cresce quello che sta in piena luce, mentre quello che chiede nascondimento non trova strada. Il chiaro qui è la condizione.
+- 3: Sulla tua domanda vale una regola chiara: cresce ciò che mostri apertamente, mentre ciò che tieni nascosto non trova spazio. Qui la trasparenza è la condizione di tutto.
 
 ### capovolta
 
-- 1: Dentro la tua domanda il valore si misura su quanto si sente: il chiarore è intero sopra ogni cosa mentre il calore arriva filtrato, quindi una faccenda piena viene contata per metà.
+- 1: Sulla tua domanda conta quanto senti, non quanto c'è: le cose buone sono tutte presenti ma ti arrivano filtrate, così una situazione piena ti sembra valere la metà.
 - 2: Lavora sulla tua domanda una nube sottile che non spegne la luce ma la separa dalla pelle: il bagliore resta intatto sopra la faccenda e quello che manca è il passaggio del tepore.
-- 3: Suona in sordina la tua domanda: la nota è quella di una giornata limpida con il volume abbassato di molto. La gioia sta nella partitura e non nell'ascolto.
+- 3: La tua domanda suona in sordina: la situazione è serena ma la vivi col volume abbassato. La gioia c'è sulla carta, non ancora in quello che provi.
 
 ## Il Giudizio
 
@@ -337,7 +337,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Il valore, dentro la tua questione, si decide su un pezzo piccolo: quello che combacia conta poco adesso, mentre il solo segmento che non entra al suo posto si prende l'attenzione intera.
-- 2: Lavora su una sutura, questa forza: insiste sul punto in cui due capi della tua questione non combaciano, mentre il resto del giro le resta indifferente.
+- 2: Questa forza insiste sul punto in cui due parti della tua questione non combaciano ancora, mentre il resto, già sistemato, non le interessa più.
 - 3: Ha il tono di una cosa sospesa su un dettaglio: dentro la tua questione tutto suona compiuto tranne una nota; quella sola nota decide come si sente il resto.
 
 ## Asso di Bastoni
@@ -345,7 +345,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Un calore ancora senza forma sta accendendo il primo punto della tua questione: non dispone mezzi né traccia rotte, scalda il principio e basta; tutto il resto viene dopo di lui.
-- 2: Questa forza chiede alla tua domanda di restare ancora informe: pretende materia vergine su cui scoccare, mentre dove una forma è già decisa trova la superficie chiusa.
+- 2: Questa spinta funziona dove la tua domanda è ancora aperta e senza forma: ha bisogno di qualcosa di nuovo da avviare, mentre su ciò che è già deciso non trova presa.
 - 3: Attraversa la tua domanda una spinta verticale e corta, del tipo che parte prima di sapere dove va: la direzione conta meno dell'accendersi; il movimento nasce in questo istante.
 
 ### capovolta
@@ -365,344 +365,344 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: In questa faccenda vale una regola non detta: finché nessuna rotta viene nominata, tutte restano disegnabili sul foglio, così la tua domanda conserva ogni direzione e nessuna.
-- 2: Riempie la cosa che hai in mano un'aria di soglia: il passo è pronto, il piede però resta sulla pietra d'ingresso mentre lo sguardo misura un orizzonte che nessuno nomina.
+- 2: Sulla tua faccenda c'è un'aria di attesa: tutto è predisposto per partire, eppure non ti muovi mentre guardi un orizzonte a cui nessuno dà un nome.
 - 3: Questa spinta mantiene la tua faccenda affacciata sul bordo: le apre la mappa davanti, non le mette il dito sopra nessuna strada e lascia il globo a mezz'aria.
 
 ## Tre di Bastoni
 
 ### dritta
 
-- 1: Nella tua domanda si respira l'aria che viene dopo una partenza: dentro non resta più niente da caricare e lo sguardo conta più delle mani, perché quello che vale è già in viaggio.
-- 2: Esige distanza la forza che lavora sulla tua domanda: pretende che la cosa stia fuori dal raggio delle mani, dove nessun gesto la tocca; ammette soltanto quello che rientra da lontano.
-- 3: Cade sulla tua domanda una luce da promontorio: illumina la linea dove il mare finisce e lascia in ombra il primo piano, così della cosa si scorge quello che rientra, non quello che si fabbrica.
+- 1: Il cuore della tua questione è un'attesa fiduciosa: hai già fatto la tua parte e ciò che hai avviato sta lavorando lontano da te, verso un risultato che si avvicina.
+- 2: Adesso la situazione dipende meno dalle tue mani e più dal tempo: quello che conta è già partito e chiede soltanto di essere seguito con pazienza e sguardo lungo.
+- 3: Su tutta la tua domanda domina un clima di espansione: le iniziative che hai lanciato si allargano oltre il tuo raggio e tornano indietro con i loro tempi, non con i tuoi.
 
 ### capovolta
 
-- 1: Una corrente di ritorno attraversa la tua domanda e riporta dentro quello che era uscito, cambiato di forma: rientrano le stesse navi con un carico che non assomiglia a quello partito.
-- 2: Dentro la tua domanda comanda la regola del porto: conta quello che si legge sul carico appena sbarcato, non la lista compilata il giorno in cui la cosa è partita.
-- 3: Si sposta il criterio che dà valore dentro la tua domanda: dalla lista della partenza alla stiva che rientra adesso, perché quello che vale sta nelle casse e non nei nomi scritti sopra.
+- 1: Ciò che domina la tua questione è un ritorno diverso dall'attesa: qualcosa che avevi avviato rientra, ma con un contenuto che non corrisponde a quello che immaginavi.
+- 2: Adesso conta ciò che è arrivato davvero, non ciò che avevi previsto: la tua domanda si decide guardando il risultato concreto invece del piano scritto all'inizio.
+- 3: Sulla situazione pesa il confronto fra attese e realtà: la risposta è arrivata e va valutata per quello che contiene, non per la distanza dal tuo progetto iniziale.
 
 ## Quattro di Bastoni
 
 ### dritta
 
-- 1: Intorno alla tua domanda l'aria è quella di un cortile apparecchiato sotto quattro pali fioriti: tiepida, di mezza festa, con la casa alle spalle ferma al suo posto.
-- 2: La forza in azione pretende un riconoscimento: chiede che l'opera già in piedi dentro la tua domanda venga chiamata soglia e festeggiata, invece di finire subito sotto il lavoro seguente.
-- 3: Sulla tua domanda cadono le lanterne appese: illuminano il traguardo condiviso e la gente dentro il cerchio, mentre lasciano in ombra l'elenco di quanto resta da fare.
+- 1: Il cuore della tua questione è una stabilità raggiunta: ciò che hai costruito regge e il momento chiede di riconoscerlo e di festeggiarlo con chi ti sta vicino.
+- 2: Su tutta la situazione domina un clima sereno, di festa condivisa: le fondamenta tengono e ti viene chiesto di godere del risultato prima di pensare al prossimo.
+- 3: Adesso conta riconoscere ciò che c'è: una base solida, un obiettivo raggiunto, persone con cui condividerlo, invece di guardare subito a quanto ti resta da fare.
 
 ### capovolta
 
-- 1: Dentro la tua domanda il movimento arriva fino alla soglia e lì si arresta: il traguardo è intero sotto i piedi e il brindisi slitta di giorno in giorno. Manca l'ultimo metro.
-- 2: Vale adesso una regola che rimanda: dentro la tua domanda passa quello che produce e resta fuori quello che celebra, come una casa nuova in cui l'ingresso non si fa.
-- 3: Il criterio al lavoro dentro la tua domanda dà valore al passo seguente e pochissimo al traguardo appena eretto: la festa vale come una pausa rinviabile.
+- 1: Il cuore della tua questione è una festa rimandata: il risultato c'è ed è completo, ma continui a non concederti il momento per riconoscerlo e viverlo davvero.
+- 2: Su tutta la situazione domina l'abitudine di passare subito al compito successivo: ciò che hai raggiunto resta in sospeso e la soddisfazione non arriva mai del tutto.
+- 3: Adesso tutto sembra pronto tranne il momento di celebrarlo: come una casa nuova in cui non hai ancora messo piede, ciò che hai costruito aspetta che tu lo abiti.
 
 ## Cinque di Bastoni
 
 ### dritta
 
-- 1: Dentro la tua domanda si muovono spinte di pari forza, incrociate in tutte le direzioni: il movimento c'è e non ha un verso unico, perché ogni parte preme con la stessa misura delle altre.
-- 2: Questa tua faccenda pretende adesso che tutte le sue parti stiano in campo insieme; a nessuna concede il turno da sola. Il confronto le misura una contro l'altra, non ne toglie qualcuna di mezzo.
-- 3: Una mischia allenata lavora sulla tua domanda: alza il chiasso, mette ogni parte contro un'altra alla pari e non fa cadere sangue. Il suo lavoro è provare le forze, non assegnare il campo.
+- 1: Il cuore della tua questione è un confronto acceso: posizioni diverse si scontrano con la stessa forza e nessuna prevale, ma proprio questo ti costringe a chiarire le tue ragioni.
+- 2: Su tutta la situazione domina un clima di competizione vivace: ognuno vuole dire la sua e il confronto, se resta leale, ti aiuta a capire quanto valgono le tue idee.
+- 3: Adesso tutte le parti in gioco chiedono spazio nello stesso momento: è una gara fra pari, rumorosa ma senza cattiveria, in cui ti misuri e cresci.
 
 ### capovolta
 
-- 1: Sulla tua domanda sta un'aria di attrito vecchio: tiepida, senza fiamma aperta, con piccoli punti che tornano ad accendersi negli stessi posti. Quello che brucia sotto scalda più di quanto illumini.
-- 2: Una luce fumosa avvolge questa tua faccenda: il fumo degli attriti minori confonde i contorni, così quello che conta e quello che non conta hanno lo stesso profilo.
-- 3: La regola non scritta di questo momento vuole ogni fronte aperto: dentro la tua domanda niente si lascia cadere, nemmeno quello che ha smesso di contare. La contesa si alimenta da sé.
+- 1: Il cuore della tua questione è un attrito che stanca: tante piccole tensioni ti consumano energia, mentre il conflitto che conta davvero resta coperto e non viene mai affrontato.
+- 2: Su tutta la situazione domina una confusione di polemiche minori: le questioni importanti e quelle inutili sembrano uguali e tu fatichi a distinguerle.
+- 3: Adesso nessun fronte viene chiuso, nemmeno quelli che non contano più: la contesa si alimenta da sola e ti toglie forze senza portarti da nessuna parte.
 
 ## Sei di Bastoni
 
 ### dritta
 
-- 1: Sulla tua questione tira un'aria di piazza: quello che vi sta dentro si trova all'aperto, chiamato per nome, al passo largo di un corteo che procede lento.
-- 2: Pretende una cosa sola dalla tua questione: che stia in piedi all'aperto. Ammette il merito detto per nome, ammette l'alloro; non ammette che la cosa resti dietro una tenda mentre il suo nome passa.
-- 3: Una luce frontale cade sulla tua questione e illumina la parte riuscita: in pieno sole stanno il merito e l'onore, mentre il conto delle fatiche resta fuori dal cono.
+- 1: Il cuore della tua questione è un riconoscimento meritato: ciò che hai fatto esce dall'ombra e viene visto e apprezzato apertamente da chi ti sta intorno.
+- 2: Su tutta la situazione domina un clima di stima pubblica: il tuo valore non resta più sottinteso, qualcuno lo dice apertamente davanti agli altri nella misura giusta rispetto al lavoro fatto.
+- 3: Adesso conta che ciò che hai costruito stia sotto gli occhi di tutti: il merito si compie nel momento in cui qualcuno lo nomina e lo onora.
 
 ### capovolta
 
-- 1: Corre in un verso solo, dentro questa cosa: il lavoro va verso fuori senza che niente rientri col tuo nome scritto sopra. La corrente trascina i frutti e lascia ferma la dichiarazione.
-- 2: Dentro la tua questione vale una regola silenziosa: esiste quello che viene nominato. Il merito che nessuno dice non figura nel bilancio, pur restando intero dove sta.
-- 3: Qui il valore si decide fuori dalla cosa: dentro la tua questione prende prezzo quello che ha un testimone, mentre quello che è buono per conto suo resta senza quotazione.
+- 1: Il cuore della tua questione è un merito che nessuno nomina: hai fatto la tua parte, ma il riconoscimento tarda e nel silenzio nasce il dubbio su quanto vali.
+- 2: Su tutta la situazione domina l'idea che valga soltanto ciò che gli altri dichiarano: il tuo contributo resta intero, ma senza nessuno che lo confermi.
+- 3: Adesso il giudizio sul tuo valore sembra dipendere da fuori: ciò che hai fatto è buono per conto suo, ma senza un testimone ti pare che non conti.
 
 ## Sette di Bastoni
 
 ### dritta
 
-- 1: Sulla tua questione tira un'aria di contesa aperta: più mani puntano al medesimo punto nello stesso momento, mentre quel punto appartiene già a chi lo guarda dall'alto.
-- 2: Una pressione dal basso sale verso il rialzo dove la cosa sta: la spinta arriva da più lati insieme e il terreno alto risulta già occupato dalla tua parte.
-- 3: Dentro la tua domanda il valore lo decide la quota: quello che si dice da sopra conta più di quello che si grida da sotto e il numero di chi reclama non la sposta.
+- 1: Il cuore della tua questione è una posizione da difendere: hai qualcosa che vale, altri lo contestano o lo vogliono: il vantaggio resta comunque dalla tua parte.
+- 2: Su tutta la situazione domina una pressione che arriva da più lati: richieste, critiche, obiezioni. Tu però parti da una posizione più solida di chi ti contesta.
+- 3: Adesso conta tenere il punto: chi spinge contro di te è più numeroso ma non più forte, ciò che dici con calma pesa più di ciò che altri gridano.
 
 ### capovolta
 
-- 1: Questa forza pretende dalla tua questione una guardia su ogni lato nello stesso istante: chiede presenza dove qualcuno si avvicina e la chiede identica dove non c'è nessuno.
-- 2: Ogni avvicinamento vale come un fronte, per la regola non detta che la tua questione segue adesso: trova strada la difesa, mentre il riconoscimento di chi arriva disarmato non ne trova.
-- 3: Una distribuzione uguale dello sforzo tocca ogni lato della tua questione: la riserva si assottiglia alla medesima velocità sui lati caldi e su quelli dove non accade niente.
+- 1: Il cuore della tua questione è una difesa allargata a troppi fronti: tieni la guardia su ogni lato, anche dove nessuno si avvicina, così le forze si disperdono.
+- 2: Su tutta la situazione domina la sensazione di essere sotto attacco: ogni richiesta ti sembra una minaccia e anche chi arriva con buone intenzioni trova la porta chiusa.
+- 3: Adesso il tuo sforzo è distribuito in parti uguali su ogni lato, sia dove la pressione è reale sia dove non succede niente: così l'energia si esaurisce in fretta.
 
 ## Otto di Bastoni
 
 ### dritta
 
-- 1: Attraversa la tua domanda una corrente rapida tutta nello stesso verso: parecchie cose viaggiano insieme per aria, nessuna mano le accompagna, la distanza si assottiglia.
-- 2: Chiede questa corsa che la tua faccenda stia al passo: ammette quello che parte subito e non ammette il rinvio di un solo passaggio, nemmeno di mezza giornata.
-- 3: Il registro di questa cosa è concitato: tutto parla in fretta, le frasi si accavallano, niente dentro la tua domanda ammette una pausa lunga o un silenzio.
+- 1: Il cuore della tua questione è un'accelerazione: molte cose si muovono insieme e in fretta, notizie e risposte si susseguono e il tempo per pensare si accorcia.
+- 2: Su tutta la situazione domina un ritmo rapido che non ammette rinvii: ciò che parte subito trova spazio, ciò che aspetti di decidere rischia di restare indietro.
+- 3: Adesso tutto parla in fretta: messaggi, chiamate, occasioni che arrivano insieme. La tua domanda non concede lunghe pause e ti chiede prontezza.
 
 ### capovolta
 
-- 1: Dentro questa tua faccenda la corrente si sfrangia: le cose corrono ancora, ciascuna però su una linea sua, così quello che dovrebbe presentarsi insieme si presenta a spizzichi.
-- 2: Qui comanda una regola di scarto: ogni cosa dentro la tua domanda si muove in fretta e nessuna rispetta il proprio turno; la rapidità resta intera, l'ordine dei passaggi no.
-- 3: L'aria della tua faccenda è quella di un ingorgo: tutto spinge insieme verso lo stesso varco stretto; la fretta si moltiplica mentre il passo si accavalla.
+- 1: Il cuore della tua questione è un ritmo scomposto: le cose corrono ancora, ma ognuna per conto suo, così ciò che dovrebbe arrivare insieme arriva a pezzi.
+- 2: Su tutta la situazione domina una fretta disordinata: ogni cosa si muove veloce, ma nessuna rispetta il suo turno e l'ordine ti sfugge.
+- 3: Adesso la tua faccenda somiglia a un ingorgo: tutto spinge insieme verso la stessa uscita e più aumenta la fretta, più ti blocchi.
 
 ## Nove di Bastoni
 
 ### dritta
 
-- 1: Una stanchezza vecchia sta lavorando dentro la tua domanda insieme alla vicinanza del termine: consuma le forze e accorcia la distanza con lo stesso movimento, senza chiedere il permesso.
-- 2: Il tono dentro la tua domanda è quello di una sentinella all'ultimo turno: poche parole, fiato corto, nessuna enfasi. La cosa parla come chi ha già speso quasi tutto quello che aveva.
-- 3: L'aria dentro la tua domanda è quella delle ore prima del cambio di guardia: densa di fatica accumulata e già tagliata dalla vicinanza di un termine che si vede a occhio nudo.
+- 1: Sulla tua domanda agisce una stanchezza accumulata nel tempo, ma insieme c'è la vicinanza della fine: le forze calano proprio mentre manca sempre meno.
+- 2: Il clima della tua questione è quello di chi ha resistito a lungo: poche energie, molta determinazione e la sensazione di aver già dato quasi tutto.
+- 3: Questa forza ti chiede di reggere ancora un poco: la tua domanda è vicina a una conclusione, ma la fatica accumulata rende pesante anche l'ultimo sforzo.
 
 ### capovolta
 
-- 1: Pretende credenziali da chiunque si avvicini la forza che agisce sulla tua domanda, senza fare eccezioni: la mano tesa viene esaminata come una mossa, perché i colpi di prima dettano l'esame.
-- 2: Colora da nemico chiunque entri nel campo la luce di cicatrici vecchie che sta sulla tua domanda: si vede l'arma, non si vede la mano che bussa soltanto.
-- 3: Scorre dentro la tua domanda una corrente che viene dai colpi di prima e arriva addosso a chi si fa avanti adesso: il vecchio presta il suo colore a ogni arrivo nuovo.
+- 1: Sulla tua domanda agisce una forza che chiede prove a chiunque si avvicini: anche una mano tesa viene esaminata come una minaccia, perché comandano le ferite di prima.
+- 2: Vecchie cicatrici colorano il clima della tua questione: chiunque entri viene visto come un possibile nemico e si nota l'arma, mai la mano che bussa.
+- 3: Dentro la tua domanda passa una corrente che viene dai colpi di ieri e ricade su chi si fa avanti oggi: il passato dà il suo colore a ogni arrivo nuovo.
 
 ## Dieci di Bastoni
 
 ### dritta
 
-- 1: Una forza di accumulo lavora sulla tua domanda e mette tutto nel medesimo fascio: aggiunge un pezzo alla volta alle stesse braccia, fino alla curva della schiena.
-- 2: Il tono dentro la tua domanda è quello del respiro corto di chi cammina col fascio alto davanti agli occhi: nota bassa, passo breve, la strada visibile per un metro.
-- 3: Sta sopra quello che chiedi l'aria densa di un trasloco che non finisce: ogni cosa della faccenda chiede posto addosso a te e il numero dei pezzi è la misura del clima.
+- 1: Una forza che accumula lavora sulla tua domanda: aggiunge un impegno alla volta sulle stesse spalle, finché la fatica diventa il tono di ogni giornata.
+- 2: Respiro corto e giornate piene: il clima della tua questione è quello di chi porta troppo e non trova spazio per guardare più avanti.
+- 3: Ogni parte della faccenda chiede di essere portata da te: sulla tua domanda pesa il numero delle cose da reggere più di ciascuna presa da sola.
 
 ### capovolta
 
 - 1: La forza in azione esige una cernita dentro la tua domanda: pretende che ogni fascio dichiari il proprietario, perché buona parte di quanto viaggia sulle tue spalle ha un altro nome scritto sopra.
-- 2: Mostra una luce radente, dentro quello che chiedi, la cucitura del carico: si vede quale peso di altri viaggia attaccato per abitudine, mentre il tuo sta sotto, più piccolo di quanto pareva.
-- 3: Verso il basso spinge dentro la tua domanda una pressione che non è tutta tua: metà del carico arriva da fuori per consuetudine e il senso del dovere lo cuce addosso.
+- 2: Questa forza mostra con chiarezza, dentro quello che chiedi, quali pesi sono di altri e viaggiano con te solo per abitudine: il tuo carico vero è più piccolo di quanto sembrava.
+- 3: Sulla tua domanda grava una pressione che non è tutta tua: buona parte del carico arriva da fuori per consuetudine e il senso del dovere te lo tiene addosso.
 
 ## Fante di Bastoni
 
 ### dritta
 
 - 1: Il valore dentro questa tua faccenda lo decide la novità: quello che si guarda per la prima volta vale molto, quello che si conosce già perde prezzo in fretta, anche quando è solido.
-- 2: Suona sulla tua domanda il registro di un annuncio portato di corsa: frasi brevi, fiato corto, entusiasmo che precede la verifica. La faccenda si racconta come chi ha appena visto una cosa nuova.
-- 3: Una corrente giovane attraversa la tua domanda: va a vedere, torna a riferire, riparte. Non segue una rotta e non le serve: la muove la curiosità che apre una porta dopo l'altra.
+- 2: Sulla tua domanda agisce l'entusiasmo di chi ha appena scoperto qualcosa: si parla in fretta e la voglia di raccontare arriva prima della verifica.
+- 3: Una curiosità giovane muove la tua domanda: va a vedere, torna a raccontare, riparte verso la novità successiva senza seguire un piano preciso.
 
 ### capovolta
 
-- 1: Questa tua faccenda pretende un bersaglio nuovo a ogni giro e non concede a niente un secondo giorno. L'interesse non le manca: le manca che resti sullo stesso punto il tempo di scaldarlo.
-- 2: Una forza accende e sposta: appena un punto di questa tua faccenda prende calore, la fiamma passa al punto accanto. Il fuoco qui è abbondante e non è due volte lo stesso fuoco.
-- 3: Dentro la tua domanda l'aria è di primo giorno a ripetizione: ogni cosa ha l'odore dell'avvio, nessuna quello del passo successivo. Il principio si rinnova al posto di continuare.
+- 1: Sulla tua domanda agisce un interesse che cerca sempre un obiettivo nuovo: non manca l'entusiasmo, manca la costanza di restare sulla stessa cosa abbastanza a lungo.
+- 2: Questa forza accende e sposta: appena una parte della tua faccenda prende calore, l'attenzione passa subito alla successiva, così nessuna riceve la cura che servirebbe.
+- 3: Il clima della tua questione è quello di un primo giorno che si ripete: tutto sa di avvio, niente arriva al momento in cui si continua e si costruisce.
 
 ## Cavaliere di Bastoni
 
 ### dritta
 
 - 1: Mette in sella la tua questione e la lancia al galoppo verso la cosa che vuole: questa forza scalda il corpo prima di consultare la testa, poi parte senza chiedere il permesso.
-- 2: Ha il timbro di uno squillo in partenza: dentro la tua questione tutto suona caldo e impaziente, col fiato corto di una cavalcata già iniziata da qualche miglio.
-- 3: Dentro la tua questione tira un'aria calda di partenza: polvere alzata, sella tiepida, briglie corte, un desiderio che fa da sprone al posto del calcolo.
+- 2: Sulla tua questione agisce un'impazienza calda, come quella di chi è già partito da un pezzo: tutto suona urgente e il desiderio corre più veloce del calcolo.
+- 3: Il clima della tua questione è quello di una partenza imminente: il desiderio fa da sprone al posto del ragionamento e la voglia di muoverti è più forte di ogni dubbio.
 
 ### capovolta
 
-- 1: Vuole combustibile dalla tua questione e nient'altro: ammette qualunque direzione, ammette tutte insieme; quello che esige è che si corra, adesso e senza soste.
+- 1: Sulla tua questione agisce una spinta che chiede soltanto di correre: accetta qualunque direzione, anche tutte insieme, purché ci si muova subito e senza pause.
 - 2: Nella luce di questa corsa si vedono bene gli scatti e male i confini: la tua questione mostra tutta l'energia disponibile, mentre il punto verso cui si spende resta illeggibile.
-- 3: Si muove a strappi la corrente che attraversa la tua questione: parte forte da ogni punto e cambia verso prima di arrivare, cosicché il calore si spende intero nel tragitto.
+- 3: Il clima della tua questione procede a strappi: ogni iniziativa parte forte e cambia verso prima di arrivare, così l'energia si consuma tutta durante il tragitto.
 
 ## Regina di Bastoni
 
 ### dritta
 
-- 1: La luce che sta sulla tua questione è calda e ha un corpo da cui viene: scalda quello che le si avvicina; quello che resta lontano la vede senza riceverne calore.
+- 1: Sulla tua questione agisce un calore che viene da una presenza precisa: scalda chi si avvicina, mentre chi resta lontano lo vede senza riceverne.
 - 2: Dentro la tua questione prende valore la presenza intera di chi parla: una parola detta senza riserve conta più di una dimostrazione impeccabile, mentre la tiepidezza non conta niente.
-- 3: Suona sulla tua domanda un registro caldo e sicuro, che non ha bisogno di alzarsi per essere sentito: la nota è ferma al centro e chi ascolta si avvicina per conto proprio.
+- 3: Il clima della tua domanda è sicuro e caldo, senza bisogno di alzare il tono: chi ascolta si avvicina da sé, attirato dalla calma più che dalla forza.
 
 ### capovolta
 
 - 1: Una corrente verso l'esterno attraversa la tua domanda: lo sguardo corre a un altro fuoco per vedere quanto scalda, mentre il centro da cui partiva il calore resta senza nessuno che lo guardi.
-- 2: Un confronto in corso sta mettendo due fiamme accanto e abbassando quella vicina: la forza non spegne niente, sposta la stima da un fuoco all'altro mentre la tua questione resta ferma lì.
-- 3: Sulla tua domanda sta un'aria di paragone: ogni calore viene messo accanto a un altro prima di valere qualcosa, cosicché la temperatura propria si legge soltanto di riflesso.
+- 2: Sulla tua questione agisce un confronto in corso: due persone vengono messe una accanto all'altra e la stima si sposta dall'una all'altra, mentre il tuo valore resta lo stesso.
+- 3: Il clima della tua domanda è fatto di paragoni: ogni qualità viene misurata accanto a quella di un altro prima di valere qualcosa, così il tuo valore lo vedi solo di riflesso.
 
 ## Re di Bastoni
 
 ### dritta
 
 - 1: Sulla tua domanda lavora un comando adulto: apre il varco per primo, lo lascia aperto dietro di sé, poi permette alla cosa di percorrerlo con le proprie gambe.
-- 2: Pretende questa autorità che la tua faccenda abbia un nome scritto in fondo: ammette la decisione presa davanti a tutti, non ammette che la cosa proceda senza nessuno che la firmi.
-- 3: Il timbro di questa cosa è generoso: chi parla dentro la tua domanda ha l'età del mestiere, indica una direzione sola e la indica senza alzare il tono di una nota.
+- 2: Questa autorità pretende che la tua faccenda abbia qualcuno che ne risponde: ammette decisioni prese apertamente, non che le cose vadano avanti senza una guida.
+- 3: Il clima della tua domanda è generoso e maturo: chi guida conosce il mestiere e indica una direzione sola con calma e senza imporsi a nessuno.
 
 ### capovolta
 
 - 1: Un'aria di ordine impartito riempie la tua faccenda: dentro la cosa che chiedi si parla in una direzione sola, dall'alto verso il basso; il ritorno non viene raccolto da nessuno.
-- 2: In questa cosa comanda uno solo: quello che viene deciso vale immediatamente e la tua domanda non prevede un secondo giro di parole prima del passaggio seguente.
+- 2: In questa situazione decide uno solo: ciò che viene stabilito vale subito e la tua domanda non prevede un secondo momento di confronto prima di andare avanti.
 - 3: Questa autorità decide in solitudine dentro la tua domanda: sceglie in fretta, impartisce, passa alla cosa seguente senza fermarsi a sentire l'effetto della prima.
 
 ## Asso di Coppe
 
 ### dritta
 
-- 1: Dentro la tua domanda la regola non detta è quella della fonte: trova strada quello che si lascia riempire, non ne trova quello che calcola la propria capienza prima di aprirsi.
-- 2: Dà valore, dentro la tua domanda, soltanto la quantità che passa il bordo. Conta l'acqua che si versa addosso al resto; quella che rimane dentro non fa numero.
-- 3: Una sorgente interna sta riempiendo la tua domanda più di quanto il suo contenitore prenda: l'acqua sale dal fondo senza che nessuno l'abbia versata e passa il bordo da ogni lato.
+- 1: Al cuore della tua domanda c'è un sentimento nuovo che nasce spontaneamente: qui conta ciò che lasci arrivare, non ciò che calcoli prima di aprirti.
+- 2: Sulla tua questione prevale un clima di apertura e di dolcezza: ciò che senti è più grande di quanto riesci a contenere e cerca di uscire.
+- 3: Questa situazione ti chiede di accogliere un'emozione sincera senza difenderti: il valore sta in ciò che lasci scorrere verso gli altri, non in ciò che trattieni.
 
 ### capovolta
 
-- 1: Il tono dentro la tua domanda è quello sommesso di chi parla a bassa intensità con il pieno nel petto: la materia c'è tutta, la sua uscita è chiusa dal lato interno.
-- 2: Nella tua domanda l'aria è quella densa che precede un temporale che non scoppia: tutto quello che dovrebbe scorrere resta fermo nel proprio recipiente, sigillato da dentro.
-- 3: Pretende uno sbocco e lo trova sigillato la forza che lavora sulla tua domanda. Il contenuto è intero, l'acqua ristagna, il sigillo opera dal lato di dentro.
+- 1: Al cuore della tua domanda c'è un sentimento che provi davvero e tieni chiuso dentro: la forza c'è tutta, ma sei tu a non lasciarla uscire.
+- 2: Sulla tua questione pesa un'aria trattenuta, come prima di un temporale che non scoppia: le emozioni ci sono ma nessuno le dice, a cominciare da te.
+- 3: Questa situazione chiede uno sbocco a ciò che senti e lo trova chiuso dall'interno: è la paura di soffrire a impedirti di aprire davvero il cuore.
 
 ## Due di Coppe
 
 ### dritta
 
-- 1: La regola dentro la tua domanda vuole due parti alla pari: passa ciò che si scambia, resta fermo ciò che va in una direzione sola. Il patto nasce mentre i due si riconoscono.
-- 2: Dentro la tua domanda ogni cosa si misura in due: pesa quanto viene riconosciuto da entrambi i lati, mentre quanto una parte sola dichiara resta senza misura.
-- 3: Una forza di reciprocità lavora sulla tua domanda e stringe il nodo: avvicina due calici alzati alla stessa altezza, poi sigilla lo scambio che vale da una parte e dall'altra.
+- 1: Al cuore della tua domanda c'è uno scambio alla pari: va avanti ciò che viene dato e ricevuto da entrambe le parti, non ciò che una sola decide.
+- 2: Sulla tua questione prevale la reciprocità: conta ciò che viene riconosciuto da tutte e due le parti, mentre quello che afferma una parte soltanto vale poco.
+- 3: Questa situazione ti mette davanti a un riconoscimento reciproco: tu e l'altra parte vi scegliete alla pari, così nasce un patto che dà forza a tutte e due.
 
 ### capovolta
 
-- 1: Suona stonato di un semitono la tua domanda: le due parti si vogliono bene nella misura di prima e le parole arrivano storte. La nota giusta esiste e cade fuori tempo.
-- 2: Fra le due parti della tua domanda corre un'aria raffreddata di fresco: il legame sta intero sotto, mentre fra il detto e l'inteso passa uno spiffero. Il clima è di malinteso.
-- 3: Pretende ascolto da entrambi i lati la forza che lavora sulla tua domanda: il legame è intatto sotto e il guasto sta nel tratto fra quanto uno intende e quanto l'altro sente.
+- 1: Al cuore della tua domanda c'è un malinteso: il legame regge come prima, ma le parole arrivano storte e ciascuno capisce una cosa diversa da quella detta.
+- 2: Sulla tua questione si è raffreddato il clima fra due parti: la stima sotto resta intera, mentre fra ciò che si dice e ciò che si intende passa un equivoco.
+- 3: Questa situazione chiede ascolto da entrambi i lati: il problema non è il sentimento, è la distanza fra quello che tu intendi e quello che l'altra parte sente.
 
 ## Tre di Coppe
 
 ### dritta
 
-- 1: Una luce di festa cade sulla tua faccenda: ciò che si fa a più mani si vede bene, ciò che si serba per sé resta in penombra.
-- 2: La regola non scritta di adesso vuole che ogni cosa passi di mano: dentro la tua domanda quello che si divide raddoppia, mentre quello che resta in una mano sola non prende corpo.
-- 3: Il valore nella tua domanda si conta in mani, non in grandezza: un pezzo piccolo diviso in tre pesa più di uno grande messo da parte. Il brindisi vale più del motivo.
+- 1: Al cuore della tua domanda c'è una gioia da condividere: ciò che fai insieme agli altri prende forza, mentre ciò che tieni per te resta piccolo.
+- 2: Sulla tua questione prevale un clima di festa e di amicizia: quello che passa di mano in mano cresce, perché la contentezza divisa con altri raddoppia.
+- 3: Questa situazione ti invita a contare sulle persone vicine: qui vale più con chi festeggi che il motivo della festa, perché il sostegno reciproco fa la differenza.
 
 ### capovolta
 
-- 1: Il tono su questa tua faccenda è allegro a volume alto e non arriva in fondo: le risate coprono più spazio del motivo che le chiama, mentre sotto la nota resta sottile.
-- 2: Una corrente larga fa girare in fretta la tua domanda, di mano in mano: il giro passa su molti punti e non si fissa su nessuno il tempo di scaldarlo.
-- 3: Questa tua faccenda chiede numero per stare in piedi: pretende presenze, applausi, cerchi larghi. Quello che ottiene in quantità lo perde in spessore, perché un legame sottile non basta a riempirla.
+- 1: Al cuore della tua domanda c'è una compagnia rumorosa ma poco profonda: le occasioni sociali sono molte, mentre i legami che ti sostengono davvero ricevono poca cura.
+- 2: Sulla tua questione gira molta gente ma resta poca sostanza: la tua attenzione si disperde su tante presenze e finisce per non scaldare davvero nessuna di loro.
+- 3: Questa situazione ti chiede di scegliere la qualità dei legami invece del numero: applausi e cerchi larghi riempiono le giornate, ma ti lasciano ben poco nutrimento.
 
 ## Quattro di Coppe
 
 ### dritta
 
-- 1: Vale adesso dentro la tua questione una regola di sazietà: entra soltanto quello che manca; e niente, al momento, risulta mancante. Il resto sfila accanto senza essere registrato.
-- 2: Il valore qui si decide sull'appetito: dentro la tua questione conta quello che si desidera, non quello che si offre. Una cosa buona senza fame addosso prende prezzo zero.
-- 3: Abbassa l'appetito, questa forza, mentre lascia intatto il resto: la tua questione continua a ricevere e a non vedere, perché il punto su cui lavora è la fame, non quello che viene teso.
+- 1: Al cuore della tua domanda c'è una sazietà che spegne l'interesse: ti sembra di avere già abbastanza, così quello che ti viene offerto passa accanto senza che tu lo guardi.
+- 2: Sulla tua questione prevale la noia: conta solo ciò che desideri già, mentre una proposta buona, se non trova appetito, sembra non valere niente per te.
+- 3: Questa situazione ti chiede di ritrovare la curiosità: le occasioni continuano ad arrivare, ma il punto è la tua voglia di guardarle, che adesso si è spenta.
 
 ### capovolta
 
-- 1: Suona più acuto il registro della tua questione: dove tutto risultava piatto adesso corrono scarti di curiosità; la nota bassa del torpore si assottiglia fin quasi a sparire.
-- 2: L'aria dentro la tua questione si muove di nuovo: il tepore chiuso del troppo pieno si apre, mentre quello che stava accanto senza essere notato entra finalmente nel campo.
-- 3: Serve fame a questa forza, non cose nuove: alla tua questione chiede che l'appetito si riapra, perché quello che si offre accanto sta già lì e non si sposta.
+- 1: Al cuore della tua domanda c'è una curiosità che si riaccende: dove tutto sembrava piatto tornano interesse e voglia di fare, mentre il torpore perde forza.
+- 2: Sulla tua questione l'aria torna a muoversi: ciò che ti stava accanto senza che lo notassi entra finalmente nel tuo campo visivo e comincia a interessarti.
+- 3: Questa situazione ti chiede di riaprire l'appetito più che di cercare cose nuove: ciò che ti viene offerto è già lì e aspetta solo il tuo sguardo.
 
 ## Cinque di Coppe
 
 ### dritta
 
-- 1: La regola non detta che governa la tua questione adesso ammette nel conto soltanto quello che è andato perduto: le coppe versate trovano parola, quelle ancora in piedi non ne trovano.
-- 2: Suona sulla tua questione una nota bassa, di quelle che guardano indietro: il registro è del rimpianto e non del pianto acuto, cosicché tutto quello che accade passa da quel tono.
-- 3: Questa forza esige dalla tua questione che la perdita sia nominata prima di ogni altra cosa: non ammette conti consolatori, pretende il nome esatto di quello che si è versato per terra.
+- 1: Al cuore della tua domanda c'è una perdita che occupa tutta l'attenzione: conti ciò che è andato perduto, mentre ciò che è rimasto in piedi non trova spazio.
+- 2: Sulla tua questione prevale un tono basso di rimpianto: non un dolore acuto, ma uno sguardo rivolto indietro che colora ogni cosa che accade adesso.
+- 3: Questa situazione ti chiede di dare un nome preciso a ciò che hai perso prima di ogni altra cosa: il dolore è vero e va riconosciuto, senza consolazioni affrettate.
 
 ### capovolta
 
-- 1: Dentro la tua questione il valore si sta spostando su quello che è rimasto in piedi: la parte versata conserva il suo nome, mentre la parte intera comincia a contare quanto quella.
-- 2: Un'aria più larga sta sulla tua questione, di quelle che vengono dopo la pioggia: il freddo resta nelle ossa della cosa, mentre il respiro torna lungo.
-- 3: La luce sulla tua questione si sta girando e prende quello che stava dietro le spalle: quello che era in ombra entra nel visibile, mentre quello che era illuminato non sparisce.
+- 1: Al cuore della tua domanda c'è un'attenzione che si sposta: ciò che hai perso conserva il suo valore, ma ciò che è rimasto comincia a contare altrettanto.
+- 2: Sulla tua questione si respira l'aria che viene dopo la pioggia: la tristezza non è sparita del tutto, però il respiro torna lungo e regolare.
+- 3: Questa situazione ti porta a voltarti verso ciò che non hai perso: le risorse rimaste tornano visibili, mentre il dolore passato smette di occupare tutto lo spazio.
 
 ## Sei di Coppe
 
 ### dritta
 
-- 1: Un tepore senza età riempie la cosa che hai in mano: la temperatura è quella delle prime amicizie, dove dare non chiede il resto e la dolcezza non sembra una ingenuità.
-- 2: Suona semplice il timbro di questa tua faccenda: parole corte, gesti piccoli, l'accento di chi offre un fiore con la mano aperta senza domandare quanto valga.
-- 3: Conta nella tua domanda l'affetto gratuito: vale quello che qualcuno dà per niente, mentre il calcolo di quanto spetta a ciascuno non ha corso in questa materia.
+- 1: Al cuore della tua domanda c'è un calore antico, quello delle prime amicizie: qui si dà senza contare e la gentilezza non viene scambiata per ingenuità.
+- 2: Sulla tua questione prevale un tono semplice e affettuoso: gesti piccoli, parole sincere, la generosità di chi offre qualcosa senza chiedere quanto valga.
+- 3: Questa situazione ti chiede di dare valore all'affetto gratuito: conta ciò che qualcuno offre senza secondi fini, mentre il calcolo di quanto spetta a ciascuno resta fuori.
 
 ### capovolta
 
-- 1: Scorre a ritroso la corrente di questa faccenda: la tua domanda viene chiamata indietro verso una stagione dolce e ogni movimento prende il verso della memoria.
-- 2: La luce della tua faccenda cade su quello che è lontano nel tempo: i contorni di adesso restano sfumati mentre una stagione antica si vede nitida fino al dettaglio minimo.
-- 3: Chiede questa dolcezza che la cosa che hai in mano somigli a un'età precisa: ammette quello che ha il sapore di allora e non ammette la forma nuova, nemmeno quando è più comoda.
+- 1: Al cuore della tua domanda c'è un richiamo verso il passato: ogni scelta tende a guardare indietro, a una stagione dolce che ti sembra migliore di adesso.
+- 2: Sulla tua questione il passato si vede nitido e il presente resta sfocato: i ricordi di un tempo lontano occupano più posto di ciò che accade oggi.
+- 3: Questa situazione ti mette davanti a una nostalgia che vuole tutto come allora: accetti ciò che ha il sapore di un tempo e rifiuti le soluzioni nuove, anche quando sarebbero migliori.
 
 ## Sette di Coppe
 
 ### dritta
 
-- 1: Sulla tua domanda cade una luce da sogno che indora ogni possibilità allo stesso modo: tutte brillano uguali, nessuna mostra il fondo, così il numero conta più del contenuto.
-- 2: Passa dentro la tua domanda una corrente che moltiplica invece di scegliere: appena una figura si ferma, accanto se ne alza un'altra; il campo si riempie di promesse ancora intatte.
-- 3: Comanda dentro la tua domanda la regola della vetrina: trova strada quello che si mostra, non ne trova quello che chiede di essere aperto e verificato prima di valere qualcosa.
+- 1: Al cuore della tua domanda ci sono molte possibilità che brillano tutte allo stesso modo: nessuna ha ancora mostrato che cosa contiene davvero, così rischi di scegliere per l'apparenza.
+- 2: Sulla tua questione domina la fantasia: appena un'ipotesi prende forma ne compare un'altra più attraente, così le promesse si moltiplicano senza che nessuna venga messa alla prova.
+- 3: Questa situazione premia ciò che si mostra bene più di ciò che vale: le offerte ti sembrano tutte buone finché non le apri una per una per vedere che cosa c'è dentro.
 
 ### capovolta
 
-- 1: Il criterio attivo dentro la tua domanda non conta più le possibilità, le sceglie. Una sola prende tutto il valore che c'è; le altre scendono a niente senza clamore.
-- 2: Stringe il campo su una figura sola la messa a fuoco che lavora dentro la tua domanda: cancella le altre dal bordo e fa della rinuncia il prezzo compreso nella nitidezza.
-- 3: Niente più elenchi di possibilità dentro la tua domanda: il registro si è fatto asciutto come quello di chi ha scelto, con una cosa sola nominata per nome e il resto in silenzio.
+- 1: Al cuore della tua domanda c'è una scelta: fra molte possibilità ne riconosci una come tua, mentre le altre perdono valore senza rumore e smettono di distrarti.
+- 2: Sulla tua questione domina la chiarezza: metti a fuoco ciò che vuoi davvero e accetti che rinunciare al resto sia il prezzo di questa nitidezza.
+- 3: Questa situazione ha smesso di fare elenchi di possibilità: ti parla con la sobrietà di chi ha scelto, con una cosa sola chiamata per nome e il resto lasciato da parte.
 
 ## Otto di Coppe
 
 ### dritta
 
-- 1: La luce che cade sulla tua domanda arriva di spalle: schiarisce il sentiero in salita e lascia in ombra le cose ordinate dietro, piene e senza più nutrimento.
-- 2: Scorre lenta dentro la tua domanda una corrente nel verso dell'uscita: tira via dal pieno che non nutre, in silenzio, senza salutare nessuno. Il sentimento sa la direzione prima della testa.
-- 3: Vale dentro la tua domanda una regola di partenza senza annuncio: passa quello che va verso un senso più vero, mentre perde strada quello che pretende spiegazioni al tavolo.
+- 1: Al cuore della tua domanda c'è il bisogno di andare oltre: ciò che hai intorno è ancora in ordine ma non ti nutre più e il tuo sguardo è già rivolto altrove.
+- 2: Sulla tua questione domina una spinta lenta e silenziosa verso l'uscita: ti allontana da ciò che non ti dà più senso, senza litigi, perché il cuore conosce la direzione prima della testa.
+- 3: Questa situazione ti mostra una regola semplice: va avanti ciò che porta verso un senso più vero, mentre perde forza ciò che pretende spiegazioni o giustificazioni per restare.
 
 ### capovolta
 
-- 1: Dentro la tua domanda il peso oscilla fra due misure uguali: quello che chiama fuori vale quanto quello che chiama dentro, quindi il conteggio non si chiude e il piede resta sullo scalino.
-- 2: Una forza di esitazione lavora sulla tua domanda stando sulla porta: apre di un dito, richiude di un dito, lascia il corpo a metà fra la stanza e la strada.
-- 3: Il tono della tua domanda è quello di un addio provato in silenzio e mai detto: la frase sta pronta sulla soglia e il passo non la segue.
+- 1: Al cuore della tua domanda c'è un equilibrio fermo: ciò che ti chiama fuori vale quanto ciò che ti trattiene, così la decisione resta aperta e tu non ti muovi.
+- 2: Sulla tua questione domina l'esitazione: apri una possibilità di andare e subito la richiudi, restando a metà fra ciò che conosci e ciò che ti attira.
+- 3: Questa situazione ha il tono di un addio che hai pensato molte volte senza mai dirlo: le parole sono pronte da tempo, ma la decisione non arriva.
 
 ## Nove di Coppe
 
 ### dritta
 
-- 1: Sta sopra questa tua faccenda un'aria sazia: è la temperatura di un desiderio con la sua cosa davanti. Dentro quell'aria niente spinge e niente manca; il piacere qui non ha bisogno di spiegazioni.
-- 2: Una contentezza intera siede dentro la tua domanda come a tavola apparecchiata: non costruisce e non promette, gode la cosa che ha nominato, una per sé, senza spartirla.
-- 3: La luce sulla tua faccenda cade sul pieno e non sul vuoto: illumina ciò che c'è, come si guardano i propri beni messi in fila; ciò che manca resta fuori dal chiaro.
+- 1: Al cuore della tua domanda c'è un appagamento reale: ciò che desideravi è qui davanti a te e per ora nulla manca, quindi puoi goderlo senza bisogno di giustificarti.
+- 2: Sulla tua questione domina una contentezza piena: non chiede altro e non promette altro, ti fa godere ciò che hai ottenuto con la serenità di chi sa apprezzarlo.
+- 3: Questa situazione mette in risalto ciò che hai e non ciò che manca: come quando guardi i risultati raggiunti messi in fila e ne riconosci il valore.
 
 ### capovolta
 
-- 1: La regola non scritta di questo momento fa passare ciò che piace subito e lascia fuori ciò che nutre piano: nella tua domanda la sazietà si rinnova, la fame vera resta intatta.
-- 2: Il valore nella tua faccenda si fissa sul primo istante: una cosa vale quanto piace appena la si prende, mentre ciò che renderebbe più a fondo non entra nel conto.
-- 3: Suona su questa tua faccenda una nota contenta che si ripete: un brindisi rifatto senza l'occasione che lo giustifica. Il suono riempie la superficie e sotto non ha spessore: va replicato per restare.
+- 1: Al cuore della tua domanda c'è una preferenza per ciò che piace subito: i piaceri rapidi trovano spazio, mentre ciò che ti nutre davvero resta in disparte.
+- 2: Sulla tua questione domina la misura dell'istante: una cosa sembra valere quanto ti piace nel momento in cui la ottieni, mentre ciò che darebbe di più non entra nel conto.
+- 3: Questa situazione ti somiglia a un brindisi ripetuto senza motivo: riempie la superficie di allegria, ma sotto manca la sostanza e va rinnovato di continuo.
 
 ## Dieci di Coppe
 
 ### dritta
 
-- 1: Una luce larga, da arcobaleno, cade sulla tua questione: in pieno risalto sta quello che è sentito in comune, mentre quello che riguarda una sola persona resta ai bordi del cono.
-- 2: Scorre fra le parti della tua questione un affetto che le rende solidali: quello che tocca una tocca anche le altre, cosicché il bene di una sola non resta privato.
-- 3: Vale adesso dentro la tua questione una regola di appartenenza: trova strada quello che può essere sentito insieme, mentre quello che si gode da soli perde sapore.
+- 1: Al cuore della tua domanda c'è ciò che si vive insieme: in primo piano stanno gli affetti che condividi, mentre ciò che riguarda una persona sola passa in secondo piano.
+- 2: Sulla tua questione domina un affetto che rende solidali le persone coinvolte: ciò che tocca una tocca anche le altre, così il tuo bene diventa il bene di tutti.
+- 3: Questa situazione ti chiede di sentirti parte di qualcosa: va avanti ciò che si può condividere con chi ti è vicino, mentre ciò che si gode in solitudine perde sapore.
 
 ### capovolta
 
-- 1: Il valore qui si conta per parti separate: dentro la tua questione ogni ramo degli affetti stima il proprio bene a modo suo; il bene comune non trova più un metro condiviso.
-- 2: Divide i versi senza sciogliere il gruppo: questa forza manda ogni affetto della tua questione in una direzione diversa, mentre il legame che li raccoglie resta dove è.
-- 3: Ha il suono delle parole dette a parte: dentro la tua questione ciascun affetto conduce il proprio discorso sottotono; messi insieme, quei discorsi non si incontrano in nessun punto.
+- 1: Al cuore della tua domanda c'è una divisione: ciascuna delle persone coinvolte valuta il bene a modo suo, così nessuno trova più una misura comune con te o con gli altri.
+- 2: Sulla tua questione domina una spinta che porta ciascuno in una direzione diversa: il tuo gruppo resta unito sulla carta, ma nei fatti ognuno va per conto suo.
+- 3: Questa situazione ha il suono di discorsi fatti in disparte: intorno a te ciascuno dice la sua sottovoce e quei discorsi, messi insieme, non si incontrano mai.
 
 ## Fante di Coppe
 
 ### dritta
 
-- 1: Una delicatezza senza mestiere sta facendo affiorare qualcosa di vivo dentro la tua questione: non riempie la coppa fino al bordo, mette dentro una presenza piccola che si muove.
-- 2: Questa forza chiede alla tua questione di restare piccola ancora un poco: pretende tempo prima di diventare una proposta; non ammette che la si giudichi come se fosse già cresciuta.
-- 3: Attraversa la tua domanda un movimento che viene da sotto e sale piano, come il pesce che risale dentro un bicchiere: la direzione punta alla superficie; il passo è quello di una cosa giovane.
+- 1: Al cuore della tua domanda c'è qualcosa di nuovo e delicato che sta emergendo: non riempie ancora tutto lo spazio, ma porta una presenza viva che ti chiede attenzione.
+- 2: Sulla tua questione domina una sensibilità giovane che chiede tempo: prima di diventare una proposta ha bisogno di crescere e non va giudicata come se fosse già matura.
+- 3: Questa situazione ti porta qualcosa che sale dal profondo verso la superficie, piano: un'emozione si fa avanti con la timidezza delle cose appena nate e cerca il modo di farsi vedere.
 
 ### capovolta
 
-- 1: Sulla tua questione suona un registro sottile, di quelli che si incrinano al primo colpo: la nota è giusta e la cassa è troppo nuova per contenerla senza screpolarsi.
-- 2: La luce in cui la tua domanda si guarda ingrandisce ogni urto: un gesto distratto appare enorme perché nessuna prova precedente sta accanto a lui per dargli una scala.
-- 3: Dentro la tua questione vale una regola di ritiro: quello che si mostra scoperto riceve il colpo, perciò il gesto rientra a metà strada e la coppa resta vicina al petto.
+- 1: Al cuore della tua domanda c'è una sensibilità che si incrina al primo urto: la tua emozione è sincera, ma non ha ancora l'esperienza per reggere senza ferirsi.
+- 2: Sulla tua questione domina un modo di vedere che ingrandisce ogni offesa: un gesto distratto ti sembra enorme, perché manca l'esperienza per dargli la giusta misura.
+- 3: Questa situazione segue una regola di ritiro: ciò che mostri rischia di essere colpito, così ogni tuo gesto di apertura si ferma a metà e il cuore resta chiuso.
 
 ## Cavaliere di Coppe
 
 ### dritta
 
-- 1: Una cortesia in movimento lavora sulla tua domanda: tratta la cosa con il passo lento del corteggiamento e le tende qualcosa a mano aperta, senza fretta di sapere.
-- 2: Si parla per offerte invece che per pretese dentro la tua faccenda: il tono della questione è galante, con la grazia di chi porge una coppa colma.
-- 3: Chiede questa spinta che la cosa che hai in mano venga trattata con riguardo: ammette il gesto fatto bene, la parola scelta, il tempo dato; non ammette la mano sbrigativa.
+- 1: Al cuore della tua domanda c'è una gentilezza in movimento: la questione viene trattata con calma e garbo, come chi porge qualcosa senza fretta di sapere la risposta.
+- 2: Sulla tua questione domina un tono di offerta più che di pretesa: le cose si chiedono con grazia e si porgono con cura, come chi tende una coppa colma.
+- 3: Questa situazione ti chiede di trattare le cose con riguardo: funziona il gesto fatto bene, la parola scelta, il tempo concesso; non funzionano i modi sbrigativi.
 
 ### capovolta
 
-- 1: Dentro questa tua faccenda comanda la regola del bel dire: quello che viene dichiarato basta da solo e nessuno chiede che al detto corrisponda una cosa fatta.
-- 2: Qui prende valore la parola fiorita: dentro la tua domanda una frase ben girata conta più del gesto che la seguirebbe, mentre quello che dura non riceve nessun credito.
-- 3: L'aria della tua faccenda è tiepida e profumata: tutto suona gentile, niente mette radici, le dichiarazioni si moltiplicano senza lasciare un segno.
+- 1: Al cuore della tua domanda c'è il bel parlare: ciò che viene dichiarato sembra bastare da solo e nessuno chiede che alle parole seguano i fatti.
+- 2: Sulla tua questione domina la parola elegante: una frase ben costruita conta più del gesto che dovrebbe seguirla, mentre ciò che dura non riceve attenzione.
+- 3: Questa situazione ti avvolge in un'aria piacevole ma inconsistente: tutto suona gentile, niente si concretizza e le promesse si moltiplicano senza lasciare traccia.
 
 ## Regina di Coppe
 
@@ -855,7 +855,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Una corrente verso l'esterno attraversa la tua questione e sposta fuori la parte che garantiva l'autonomia: quello che era riserva diventa mostra, un pezzo alla volta.
-- 2: Un bisogno di essere visti sta convertendo in apparenza quello che era rendita: la forza non ruba niente, cambia la destinazione di ogni cosa che nella tua questione stava da parte.
+- 2: Un bisogno di mostrarsi sta trasformando in apparenza ciò che era sostanza: nella tua questione le risorse messe da parte vengono spese per apparire, non per durare.
 - 3: Sulla tua domanda sta un'aria da vetrina: ogni parte viene guardata da fuori prima di essere usata, cosicché il valore proprio si conta sugli occhi che lo notano.
 
 ## Dieci di Denari
@@ -962,7 +962,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sulla tua domanda sta una luce da temporale che non concede ombre: il taglio al centro è illuminato per intero, mentre nessun angolo della cosa resta fuori da quella chiarezza.
 - 2: Passa dentro la tua domanda un colpo che va da parte a parte e non si ferma a metà: entra da un lato ed esce dall'altro, lasciando la cosa aperta esattamente al centro.
-- 3: Comanda nella tua domanda una regola senza sconti: va avanti solo ciò che chiami col suo nome, mentre resta fermo ciò che gira attorno al punto dove fa male.
+- 3: Per ora vale nella tua questione una regola semplice: si muove soltanto ciò che chiami con il suo nome, mentre resta fermo ciò che gira attorno al punto che fa male.
 
 ### capovolta
 

@@ -536,7 +536,7 @@ scrive l'Architetto.
 
 - 1: L'approccio autoritario che ignora il dialogo tende a creare distanza e resistenza, impedendo una collaborazione efficace. La tua capacità di leadership rischia di non trovare pieno riconoscimento se non integri l'ascolto e la comprensione.
 - 2: Se continui a spingere senza ascoltare, la tua guida tende a travolgere invece di accendere: nei prossimi passi l'impazienza rischia di farti perdere chi ti segue.
-- 3: Un comando troppo rigido o troppo impulsivo tende a creare resistenza intorno a te: unire l'ascolto alla fermezza è ciò che può riportare la squadra dalla tua parte.
+- 3: Un comando troppo rigido o troppo impulsivo tende a creare resistenza intorno a te: unire l'ascolto alla fermezza è ciò che può riportare le persone dalla tua parte.
 
 ## Asso di Coppe
 

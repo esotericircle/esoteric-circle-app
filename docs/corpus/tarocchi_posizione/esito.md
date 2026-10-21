@@ -344,7 +344,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Il nodo consegnato è un richiamo che continui a non raccogliere, oppure una severità rivolta a te che non costruisce niente. Si scioglie dove ti ascolti invece di accusarti.
+- 1: L'esito è un richiamo che continui a non ascoltare, oppure una severità verso di te che non costruisce niente. Le cose si sbloccano quando ti ascolti invece di accusarti.
 - 2: Si va verso un bilancio rimandato: sai che va fatto e lo sposti ancora un poco. Il risveglio non nasce dalla condanna di quello che eri, nasce dal perdono che ti concedi.
 - 3: Ti blocca il giudice troppo duro che porti dentro. La rinascita è in mano all'ascolto, non alla pena: guarda la tua storia come chi comprende prima di decidere, non come chi punisce.
 
@@ -513,7 +513,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Il materiale che stai mettendo insieme è una fila di faccende aperte a metà: ciascuna cede l'ora che le toccava a quella dopo, così di maturo nel mucchio non ne resta.
-- 2: Paghi ogni inizio con l'inizio che gli va davanti: la strada ti chiede poco alla partenza e molto alla durata, restituendo slanci freschi al posto di opere finite.
+- 2: Ogni nuovo inizio ti costa quello che avevi cominciato prima: la situazione chiede poco per partire e molto per durare, così ti restano slanci freschi invece di cose finite.
 - 3: La figura che si va componendo è un ricambio continuo: il tuo ardore di adesso lascia il campo al successivo e la faccenda di prima rimane alla crescita che aveva, col frutto rimandato.
 
 ## Cavaliere di Bastoni
@@ -556,7 +556,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La cosa prende la forma di un comando che non ascolta: spingi, decidi, tiri avanti chi ti segue senza chiedere come sta. Il nodo non è la rotta, è l'ascolto che manca.
 - 2: Questo tratto consegna un'autorità impaziente. Il punto in cui arriva è quello in cui accendere gli altri diventa travolgerli. Il nodo si scioglie nel momento in cui chiedi, invece di ordinare.
-- 3: Qui si arriva a una guida che brucia chi sta dietro: troppa fretta nel decidere, poca orecchia per chi lavora con te. È la piega del capo che tira, non di quello che accende.
+- 3: Qui la strada ti porta a una guida che brucia chi le sta dietro: troppa fretta nel decidere, poca attenzione per chi è coinvolto. È la piega di chi trascina, non di chi accende.
 
 ## Asso di Coppe
 
@@ -568,8 +568,8 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Sotto si accumula un sentire mai detto a nessuno: lo tieni a chiave da prima che qualcuno potesse farti male. L'acqua trattenuta diventa stagno: la chiave l'hai girata prima della ferita.
-- 2: Questa strada ha un conto semplice: ti risparmia una pena non ancora avvenuta e ti chiede la gioia che non senti. Nessuna parola di troppo ha incrinato il sentimento: la serratura sta dalla tua parte.
+- 1: Si va verso un sentimento mai detto che si accumula dentro: lo tieni chiuso da prima che qualcuno potesse ferirti, così l'affetto trattenuto rischia di ristagnare.
+- 2: Questo esito ha un conto chiaro: chiudersi ti evita un dolore non ancora avvenuto, ma ti toglie la gioia che potresti provare; nessun malinteso c'entra, la chiusura è tua.
 - 3: Ti resta in mano una domanda sola: aprire oppure restare al sicuro. Non c'è un malinteso da sciogliere né l'umore di altri addosso a te, c'è un amore rimandato per non soffrire.
 
 ## Due di Coppe
@@ -582,9 +582,9 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Lo scambio fra te e un altro si risolve in una ricucitura: la parola intesa male ha storto la misura del dare, il bene sotto è rimasto intero da una parte e dall'altra.
-- 2: Il nodo che l'insieme ti consegna è una domanda sola: chi apre bocca per primo su quell'equivoco, tu oppure l'altro. L'affetto reciproco non è in discussione, la misura dello scambio sì.
-- 3: Sotto il malinteso il materiale per ricucire è già tutto in terra: fra te e un altro niente si è consumato, si è soltanto scompensato. Una frase detta per intero rimette pari lo scambio.
+- 1: Lo scambio fra te e l'altra parte va verso una ricucitura: la parola fraintesa ha squilibrato il dare e l'avere, ma il bene sotto è rimasto intero da entrambi i lati.
+- 2: Alla fine resta una domanda sola: chi parla per primo di quell'equivoco, tu o l'altra persona. L'affetto reciproco non è in discussione, l'equilibrio dello scambio sì.
+- 3: Sotto il malinteso c'è già tutto ciò che serve per ricucire: fra te e l'altra parte niente si è rotto, si è soltanto sbilanciato. Una frase detta per intero rimette pari lo scambio.
 
 ## Tre di Coppe
 
@@ -598,13 +598,13 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: Il profilo che si compone è un cerchio troppo largo: molte presenze, pochi legami veri, qualche eccesso di troppo. Si prepara uno sfoltimento: chi resta è chi ti nutre davvero.
 - 2: Si va verso amicizie da riordinare: brindisi di facciata, compagnie che ti disperdono invece di sostenerti. Pochi legami sinceri pesano più di molti presenti per abitudine.
-- 3: Quello che va curato qui è il tavolo attorno a cui ti siedi. Il nodo che l'esito ti consegna è uno: dividerti fra tutti fino a svuotarti, oppure scegliere chi conta e sedere al caldo.
+- 3: Ciò che va curato qui è la cerchia di persone intorno a te: puoi dividerti fra tutti fino a svuotarti, oppure scegliere chi conta e restare accanto a chi ti scalda.
 
 ## Quattro di Coppe
 
 ### dritta
 
-- 1: La china di questa storia porta a un rifiuto da pieno: una cosa buona resta tesa accanto a te e non la raccogli, perché la sazietà conta più di quello che viene offerto.
+- 1: Si arriva a un rifiuto nato dalla sazietà: una cosa buona resta tesa accanto a te e non la prendi, perché ti sembra di avere già abbastanza.
 - 2: Ha l'ultima parola la sazietà, non il timore né l'eccesso di scelte: il gusto non si accende e l'offerta tesa a un palmo da te resta dove sta.
 - 3: Questa strada finisce dove tu dici basta così: le coppe già piene fanno da misura, l'offerta accanto resta intera e il no arriva prima di ogni assaggio.
 
@@ -626,20 +626,20 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La strada si risolve in un dolore che allenta la presa, la pace fatta a fatica con una perdita: il tuo sguardo si stacca da terra e torna a contare ciò che resta.
 - 2: Qui si va verso l'accettazione, piano. Quello che era andato smette di occupare tutto il campo: il perdono, anche verso di te, pesa meno del rancore tenuto in piedi.
-- 3: Il peso si sposta su una tua ferita vecchia che si chiude: nessuna rinascita da capo, solo un corpo che si rialza dopo la piega e una speranza che rientra a passi piccoli.
+- 3: Si va verso una tua ferita vecchia che si richiude: nessuna rinascita da zero, piuttosto ti rialzi dopo la caduta mentre la speranza rientra a poco a poco.
 
 ## Sei di Coppe
 
 ### dritta
 
 - 1: La strada sbocca in una tenerezza antica: un ricordo caro, un affetto di molti anni che torna a scaldare, il bene che il passato ti ha lasciato in dono.
-- 2: Qui si passa la porta della dolcezza del ricordo. Un volto di allora, un luogo della tua infanzia, una bontà semplice che riaffiora. La piega è quella dell'affetto sincero, senza calcolo.
+- 2: Si arriva alla dolcezza del ricordo: un volto di allora, un luogo della tua infanzia, una bontà semplice che riaffiora con un affetto sincero e senza calcolo.
 - 3: Arriva un dono da lontano nel tempo: ciò che hai amato nei primi anni torna a bussare con gentilezza e il tono lo dà un cuore nutrito da una memoria buona.
 
 ### capovolta
 
 - 1: La via finisce dentro un passato che ti trattiene: la memoria diventa casa, il presente resta fuori e un tempo finito viene tenuto in braccio troppo a lungo.
-- 2: Il tratto inclina allo sguardo indietro. Onorare quello che è stato è giusto, abitarci è un'altra cosa. Il punto in cui arriva ti chiede di restituire al passato il suo posto, che è dietro.
+- 2: Questo esito inclina verso il passato: onorare ciò che è stato è giusto, ma abitarci è un'altra cosa, perché il suo posto è dietro di te.
 - 3: Qui si arriva a una nostalgia che pesa. Quello che è stato dolce chiede di essere lasciato dov'è, perché la tua vita sta altrove, adesso, non soltanto nella memoria.
 
 ## Sette di Coppe
@@ -647,7 +647,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### dritta
 
 - 1: Davanti a te non c'è un bivio ma una fila di offerte e una parte non contiene ciò che mostra: resta da scegliere coi piedi a terra, dopo aver guardato dentro a ognuna.
-- 2: Il problema non è il sogno, è il numero: si compone un affollamento di possibilità in cui il desiderio gonfia le cose e la misura te la dà solo il terreno.
+- 2: Il problema non è sognare, è il numero dei sogni: si forma un affollamento di possibilità in cui il desiderio ingrandisce tutto e solo i fatti ti danno la misura vera.
 - 3: Troppe strade accese nella testa, nessuna verificata. Il passaggio davanti a te chiede di scoperchiare le promesse una per una invece di fidarti di come brillano da lontano.
 
 ### capovolta
@@ -666,7 +666,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Il punto in cui una cosa smette e un'altra comincia lo hai sotto il piede: stai sulla porta e non entri né esci, con gli occhi aperti e il resto che non si stacca.
+- 1: Sei nel punto esatto in cui una fase finisce e un'altra potrebbe cominciare: resti sulla porta senza entrare né uscire, con gli occhi aperti e il cuore ancora legato a ciò che c'è.
 - 2: Ti resta da decidere una cosa precisa: se lasciare ciò che è tuo o tenerlo. Il piede sta a mezz'aria perché lo vedi intero, il bene che ha dato e il silenzio di adesso.
 - 3: Dentro il distacco è quasi compiuto e fuori la tua vita sta dove stava: si inclina ogni cosa verso l'andarsene e ti lascia col piede sollevato, non con gli occhi chiusi.
 
@@ -708,7 +708,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Nel terreno c'è un'offerta non fatta: quello che senti è pronto e resta fermo fra le tue mani. Non ti riempie l'emozione di un altro: è la tua che non esce dal riparo.
+- 1: Si arriva a un sentimento pronto ma trattenuto: ciò che provi è maturo e resta fra le tue mani, perché la paura di un nuovo colpo non lo lascia uscire.
 - 2: La cosa tende a fermarsi davanti a una soglia: murare quello che provi oppure porgerlo. Da una parte un sentire al sicuro e zitto, dall'altra una mano aperta col suo rischio.
 - 3: Il conto del riparo è doppio: nessuno ti tocca dove fa male e nessuno arriva dove abiti davvero. La strada chiede la stessa delicatezza, tenuta fuori invece che sotto chiave.
 
