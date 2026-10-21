@@ -38,7 +38,7 @@ Ordine GA voce GA.06. Predicati in minuscolo, senza punto: vedi le regole dello 
 
 > tono: favorevole; tema: una costanza che arriva
 - risposta_ora: mostra un avanzare lento ma metodico verso la meta, quindi la questione va bene se continui con la stessa regolarità
-- risposta_esito: porta a un risultato sicuro raggiunto con costanza, perché la lentezza metodica evita errori e arriva fino in fondo
+- risposta_esito: indica un risultato che si raggiunge con costanza, perché la lentezza metodica evita errori e può arrivare fino in fondo
 - nota_ora: mostra un metodo paziente che avanza con regolarità
 - nota_passato: ricorda un impegno portato avanti con affidabilità
 - nota_esito: indica una meta raggiunta grazie alla costanza

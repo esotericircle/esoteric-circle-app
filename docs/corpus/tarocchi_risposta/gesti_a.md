@@ -93,8 +93,8 @@ Ordine GA voce GA.06. Frasi intere col punto; le cose da non fare cominciano con
 - azione_1: Verifica con calma se il ruolo attuale ti permette davvero di crescere come vorresti.
 - azione_2: Annota i tuoi risultati degli ultimi mesi e valuta se esistono altre possibilità di crescita.
 - azione_3: Parla con una persona di fiducia fuori dal lavoro e chiedi un parere sincero.
-- azione_4: Valuta un percorso diverso da quello che desideri e confrontalo con l'attuale.
-- non_1: Non forzare adesso una richiesta che rischia di essere respinta.
+- azione_4: Chiediti se il ruolo che desideri è quello che ti serve davvero e annota perché.
+- non_1: Non forzare una richiesta prima di avere i fatti dalla tua parte.
 - non_2: Non misurare il tuo valore su una sola risposta.
 - non_3: Non prendere decisioni sul tuo futuro professionale in un giorno di scoraggiamento.
 
@@ -160,7 +160,7 @@ Ordine GA voce GA.06. Frasi intere col punto; le cose da non fare cominciano con
 - azione_4: Parla con una persona di fiducia e ascolta come vede la tua situazione.
 - non_1: Non lasciare il lavoro prima di aver verificato come coprire le spese.
 - non_2: Non decidere sotto la spinta di un solo episodio.
-- non_3: Non prendere decisioni definitive per reazione a una giornata difficile.
+- non_3: Non prendere una decisione definitiva sull'onda di un solo momento.
 
 ## attivita
 
@@ -201,7 +201,7 @@ Ordine GA voce GA.06. Frasi intere col punto; le cose da non fare cominciano con
 - azione_1: Prepara una risposta breve alle due obiezioni più probabili sul tuo progetto.
 - azione_2: Chiedi a chi decide quando arriva la valutazione e che cosa serve ancora.
 - azione_3: Intanto raccogli esempi e dati che sostengono il progetto e tienili pronti da mostrare.
-- azione_4: Aggiorna la scheda del progetto con date e responsabilità chiare.
+- azione_4: Metti per iscritto date e responsabilità del progetto così da averle chiare.
 - non_1: Non riscrivere il progetto da capo mentre aspetti la risposta.
 - non_2: Non dare la cosa per persa prima della decisione.
 - non_3: Non aggiungere nuove richieste senza che qualcuno le abbia chiesto.
@@ -339,7 +339,7 @@ Ordine GA voce GA.06. Frasi intere col punto; le cose da non fare cominciano con
 - azione_1: Osserva per qualche settimana se i fatti confermano le parole, senza interpretare ogni segnale.
 - azione_2: Chiedi con delicatezza che cosa l'altra persona desidera e ascolta senza anticipare la risposta.
 - azione_3: Chiarisci per iscritto che cosa vuoi tu da questa situazione.
-- azione_4: Dai tempo alla conoscenza e nota come ti senti dopo ogni incontro.
+- azione_4: Lascia maturare le cose senza accelerarle e nota come ti senti quando ci pensi.
 - non_1: Non dare significato a ogni silenzio o ritardo nelle risposte.
 - non_2: Non anticipare i sentimenti altrui prima di averne parlato.
 - non_3: Non forzare una risposta con domande insistenti.

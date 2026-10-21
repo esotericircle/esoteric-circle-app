@@ -452,7 +452,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 - 1: La forza in campo sta dalla tua parte e proprio per questo in molti la contendono. Il terreno alto è già tuo: tenerlo chiede fegato sotto pressione, non l'ultimo sforzo di chi è allo stremo.
 - 2: Qui si va verso una posizione difesa in vantaggio. Chi spinge da sotto è più numeroso, non più forte di te: reggere adesso conta più di qualunque passo in avanti.
-- 3: Il punto di arrivo somiglia a una collina presidiata: hai qualcosa che vale e ora la vogliono anche altri. Il percorso ripaga chi non lascia il campo per stanchezza di discutere.
+- 3: Il punto di arrivo somiglia a una collina presidiata: tieni una posizione che vale e che merita tutta l'attenzione. Il percorso ripaga chi non lascia il campo per stanchezza di discutere.
 
 ### capovolta
 
@@ -1143,5 +1143,5 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Sulla scena comanda la tua ragione ed è esatta: decidi per altri col criterio giusto, ma chi sta dentro quel criterio non lo conti. Resta una persona che non hai guardato.
-- 2: Sei al punto in cui avere ragione può finire per costare un rapporto. Il tuo ragionamento regge e nessuno lo smonta, ma alla logica manca un posto per chi la riceve.
+- 2: Qui il rischio è giudicare con una freddezza che allontana chi ti ascolta. Il tuo ragionamento regge e nessuno lo smonta, ma alla logica manca un posto per chi la riceve.
 - 3: La china è quella di un rigore che ha perso i nomi: applichi bene la regola e dimentichi chi ci sta sotto. Il saldo: discussioni vinte e legami più freddi.

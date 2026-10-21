@@ -180,11 +180,25 @@ class TarotReading {
     final lente =
         sua == null ? topic : DomandaDellaPersona.lenteDedotta(sua) ?? topic;
     final domanda = sua ?? domandaDi(spread, topic);
+    // I gesti che il responso principale di casa dice gia' non si ripetono
+    // nelle singole.
+    final dettoDalPrincipale =
+        VoceDellaStesa.responsoDiCasa(spread, lente, domandaScritta: sua);
+    final usati = <String>{
+      ...dettoDalPrincipale.cosaFare.split(RegExp(r'(?<=[.!?])\s+')),
+      // Anche la risposta: la frase che il principale ha gia' detto sulla
+      // carta chiave non si ripete nella sua singola.
+      ...dettoDalPrincipale.risposta.split(RegExp(r'(?<=[.!?])\s+')),
+      LeSingoleSullaDomanda.segnoDelPrincipale,
+    };
     final posizioni = [
       for (var i = 0; i < spread.cards.length; i++)
         PosizioneLetta.of(spread.cards[i], topic, spread,
             uscita: uscite != null && i < uscite.length ? uscite[i] : 0,
-            domanda: LaDomandaLetta.di(sua),
+            // Senza una domanda scritta nessun gesto sulla situazione: la
+            // carta si legge dal corpus della sua posizione.
+            domanda: sua == null ? null : LaDomandaLetta.di(sua),
+            usati: usati,
             posto: i,
             base: spread.cards.first.card.name.codeUnits
                 .fold<int>(0, (a, b) => a + b)),
@@ -546,7 +560,11 @@ class PosizioneLetta {
 
   static PosizioneLetta of(
       DrawnCard drawn, TarotTopic topic, TarotSpread spread,
-      {int uscita = 0, LaDomandaLetta? domanda, int posto = 0, int base = 0}) {
+      {int uscita = 0,
+      LaDomandaLetta? domanda,
+      Set<String>? usati,
+      int posto = 0,
+      int base = 0}) {
     // **LAPIDE: "testo: drawn.meaning".** Fino all'ordine EQ voce 04 qui
     // c'era il significato del verso, uguale nel passato, nel presente e
     // nel futuro e per qualunque domanda. Dall'ordine FI, aggiunta A3: lo
@@ -561,7 +579,7 @@ class PosizioneLetta {
     final responso = domanda == null
         ? LeCarteNellaPosizione.responsoDi(drawn, topic.group, uscita: uscita)
         : LeSingoleSullaDomanda.di(drawn, domanda, topic,
-            uscita: uscita, posto: posto, base: base);
+            uscita: uscita, posto: posto, base: base, usati: usati);
     return PosizioneLetta(
       drawn: drawn,
       // **L'APERTURA VARIA, ordine DF voce 02.** Era la lente dell'argomento,

@@ -725,7 +725,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Ti lasci condurre dagli umori: in questa faccenda il mare intorno al tuo trono decide per te, un giorno calmo, il giorno dopo in tempesta.
-- 2: Il tuo atteggiamento rischia di usare le emozioni come leva: il malumore pesa sugli altri e la calma si concede o si ritira.
+- 2: Il rischio è che l'umore guidi tutte le scelte: quando è basso pesa su chi ti sta vicino e la calma diventa incostante.
 - 3: Perdi il governo del cuore proprio quando gli altri si aspettano che tu lo tenga: sbalzi, silenzi, scatti prendono il posto della guida che sapresti dare.
 
 ## Asso di Denari

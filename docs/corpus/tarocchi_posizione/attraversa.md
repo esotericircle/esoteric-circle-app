@@ -694,7 +694,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Ti mette alla prova una proposta gentile che porta allo scoperto un sentimento che preferivi tenere riservato, proprio mentre volevi restare ancora sul vago.
 - 2: La sfida è che un invito garbato rende piacevole il momento, mentre la questione che hai posto chiede impegni chiari e non soltanto belle maniere.
-- 3: Proprio quando ti serviva una parola sul futuro, il richiamo della bellezza porta il tuo sentimento verso ciò che ti affascina adesso e rimanda le decisioni.
+- 3: Proprio quando servirebbe una scelta chiara sul futuro, il tuo sentimento si lascia attrarre da ciò che lo affascina adesso e rimanda ogni decisione più importante.
 
 ### capovolta
 

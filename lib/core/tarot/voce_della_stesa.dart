@@ -241,9 +241,9 @@ abstract final class VoceDellaStesa {
   /// quale sia la prima"* (tarocchi-3, 34, 38).
   static String avvisoDoppia(String? primaParte) => primaParte == null
       ? avvisoDoppiaSenzaTesto
-      : 'Le carte rispondono alla prima domanda, «$primaParte».';
+      : 'Le carte leggono la prima domanda, «$primaParte».';
 
-  static const String avvisoDoppiaSenzaTesto = 'Le carte rispondono alla prima '
+  static const String avvisoDoppiaSenzaTesto = 'Le carte leggono la prima '
       'domanda, la seconda chiede una stesa sua.';
 
   /// **E NEL "COSA FARE"**, per la domanda doppia e per la vaga.
@@ -349,6 +349,21 @@ abstract final class VoceDellaStesa {
           ? _testi(c)['risposta_esito']!
           : _testi(c)['risposta_ora']!;
 
+  /// **"La carta" detto della carta [c]**: "gli Amanti" e' plurale e i suoi
+  /// testi vanno al plurale (*"la carta indicano"* era un errore di accordo).
+  static String laCarta(DrawnCard c) =>
+      c.card.name == 'Gli Amanti' ? 'gli Amanti' : 'la carta';
+
+  /// Il testo lungo della carta [c] quando risponde (un predicato): quello
+  /// dell'esito se la sua posizione e' un esito, quello dell'adesso altrimenti.
+  static String rispostaDelRuolo(DrawnCard c) => _risposta(c);
+
+  /// La nota del ruolo della carta [c] nella sua posizione (un predicato).
+  static String notaDelRuolo(DrawnCard c) => _nota(c);
+
+  /// La stessa frase con la prima lettera maiuscola.
+  static String conMaiuscola(String s) => _maiuscola(s);
+
   static String _nota(DrawnCard c) =>
       _testi(c)['nota_${ruoloDi(c.position).name}']!;
 
@@ -359,6 +374,19 @@ abstract final class VoceDellaStesa {
   // --- IL VERDETTO ---
 
   static String _tema(DrawnCard c) => LaCartaNellaRisposta.di(c).tema;
+
+  /// Il titolo di una risposta senza verdetto, in tre forme scelte dalla carta
+  /// (quarto giro: *"Senza verdetto, conta..."* in sette stese su dodici).
+  static String _titoloSenzaVerdetto(
+      DrawnCard carta, TonoDellaCarta tono, String tema) {
+    final prefisso = [
+      'Senza verdetto,',
+      'Nessun verdetto,',
+      'Niente verdetto,'
+    ][carta.card.name.codeUnits.fold<int>(0, (a, b) => a + b) % 3];
+    return '$prefisso ${tono == TonoDellaCarta.favorevole ? 'conta' : 'pesa'} '
+        '$tema';
+  }
 
   /// **LE APERTURE DI UNA RISPOSTA SENZA VERDETTO.** Terzo giro dell'ordine GA
   /// voce GA.06: a *"Lui mi ama ancora?"* o a *"Arrivera' presto la
@@ -398,6 +426,7 @@ abstract final class VoceDellaStesa {
       Situazione.promozione => [
           'Sulla promozione le carte non danno un verdetto',
           'Un sì alla promozione le carte non lo pronunciano',
+          'Per la promozione le carte non decidono al posto tuo',
         ],
       Situazione.offerta => [
           'Se accettare le carte non lo decidono',
@@ -571,10 +600,7 @@ abstract final class VoceDellaStesa {
         // cosa le carte mostrano.
         return _Verdetto(
           aperture: _apertureSenzaVerdetto(d),
-          titolo: switch (tono) {
-            TonoDellaCarta.favorevole => 'Senza verdetto, conta $tema',
-            _ => 'Senza verdetto, pesa $tema',
-          },
+          titolo: _titoloSenzaVerdetto(carta, tono, tema),
         );
       case FormaDellaDomanda.siNo:
         return switch (tono) {
@@ -662,7 +688,10 @@ abstract final class VoceDellaStesa {
       case FormaDellaDomanda.quando:
         return switch (tono) {
           TonoDellaCarta.favorevole => _Verdetto(
-              aperture: ['Non manca molto', 'In tempi brevi, se nulla cambia'],
+              aperture: [
+                'Se arriva, arriva in fretta',
+                'Quando arriva, arriva presto',
+              ],
               titolo: 'A breve, conta $tema',
             ),
           TonoDellaCarta.condizionato => _Verdetto(
@@ -686,10 +715,7 @@ abstract final class VoceDellaStesa {
             'Cosa prova l\'altra persona le carte non lo dicono',
             'I sentimenti altrui le carte non li pronunciano',
           ],
-          titolo: switch (tono) {
-            TonoDellaCarta.favorevole => 'Senza verdetto, conta $tema',
-            _ => 'Senza verdetto, pesa $tema',
-          },
+          titolo: _titoloSenzaVerdetto(carta, tono, tema),
         );
       case FormaDellaDomanda.cosa:
         final sentimenti = d.situazione == Situazione.sentimenti ||
@@ -971,7 +997,9 @@ abstract final class VoceDellaStesa {
       'È un modo di vivere la questione, non un\'indicazione sul suo esito.',
       'Parla di come affronti la questione, non del suo esito.',
       'È uno spunto sul tuo stato d\'animo, non sul risultato.',
-    ][carta.card.name.codeUnits.fold<int>(0, (a, b) => a + b) % 3];
+    ][spread.cards.fold<int>(0,
+            (a, c) => a + c.card.name.codeUnits.fold<int>(0, (x, y) => x + y)) %
+        3];
     return '${_maiuscola(dove)}, $nome mostra ${_tema(carta)}. $coda';
   }
 
@@ -1023,16 +1051,6 @@ abstract final class VoceDellaStesa {
       ];
     }
 
-    final gruppo = d.gruppoDeiGesti(topic);
-    final scritti = gestiDellaDomanda['$gruppo|${tono.name}']!;
-    final azioniScritte = inOrdine([
-      scritti['azione_1']!,
-      scritti['azione_2']!,
-      scritti['azione_3']!,
-      scritti['azione_4']!,
-    ]);
-    final nonScritti =
-        inOrdine([scritti['non_1']!, scritti['non_2']!, scritti['non_3']!]);
     // **UN VERDETTO SOLO DA UNA CARTA CHE LO DICE**, e solo se il resto della
     // stesa non lo contraddice con due carte di tono opposto.
     final opposte = spread.cards.where((c) {
@@ -1043,7 +1061,25 @@ abstract final class VoceDellaStesa {
           (tono == TonoDellaCarta.sfavorevole &&
               t == TonoDellaCarta.favorevole);
     }).length;
-    final diretto = LaCartaNellaRisposta.daVerdetto(carta) && opposte < 2;
+    final diretto = (LaCartaNellaRisposta.daVerdetto(carta) ||
+            (d.forma == FormaDellaDomanda.quando &&
+                LaCartaNellaRisposta.diTempo(carta))) &&
+        opposte < 2;
+    // **UNA STESA MISTA NON DA' GESTI DI UN SOLO TONO**: con due o piu' carte
+    // di tono opposto alla chiave i gesti sono quelli prudenti (quarto giro:
+    // *"Valuta un percorso diverso da quello che desideri"* con due carte
+    // favorevoli ignorate).
+    final tonoGesti = opposte >= 2 ? TonoDellaCarta.condizionato : tono;
+    final gruppo = d.gruppoDeiGesti(topic);
+    final scritti = gestiDellaDomanda['$gruppo|${tonoGesti.name}']!;
+    final azioniScritte = inOrdine([
+      scritti['azione_1']!,
+      scritti['azione_2']!,
+      scritti['azione_3']!,
+      scritti['azione_4']!,
+    ]);
+    final nonScritti =
+        inOrdine([scritti['non_1']!, scritti['non_2']!, scritti['non_3']!]);
     final v = _verdetto(d, carta, topic, azioniScritte, diretto: diretto);
 
     // --- LA RISPOSTA ---
@@ -1087,7 +1123,7 @@ abstract final class VoceDellaStesa {
             for (final a in aperture) '$a: $soggetto $breve.',
           ];
           postiRisposta.add(_Posto(
-              filo.scegli([true, false, false, false])
+              (filo.scegli([true, false, false, false]) && opposte < 2)
                   ? [...lunghe, ...brevi]
                   : [...brevi, ...lunghe],
               obbligatorio: true));
@@ -1135,7 +1171,7 @@ abstract final class VoceDellaStesa {
                 mescola(['Sullo sfondo, ', 'In generale, ', 'Nel complesso, '])
               ),
             ]))
-              '${apertura.first}la carta ${_testi(carta)['nota_$ruolo']}.',
+              '${apertura.first}${laCarta(carta)} ${_testi(carta)['nota_$ruolo']}.',
           ];
           // **NON SI DICE DUE VOLTE LA STESSA COSA**: una lettura che ripete
           // una parola portante della prima frase (*"tensioni"*, *"tenuta"*)
@@ -1148,9 +1184,9 @@ abstract final class VoceDellaStesa {
             postiRisposta.add(_Posto([l]));
           }
           postiRisposta.add(const _Posto([
-            'Una carta sola va letta insieme alla tua domanda.',
-            'Una carta sola va letta insieme alla domanda che hai posto e al '
-                'momento che stai vivendo.',
+            'Una sola carta dà un orientamento, non un destino.',
+            'È una lettura breve: una sola carta dà un orientamento e non '
+                'un destino già scritto.',
           ], diRiserva: true));
         }
         final altre = _altre(spread, carta);
@@ -1207,11 +1243,23 @@ abstract final class VoceDellaStesa {
                       'Le altre carte confermano la direzione.',
                       'Il resto della stesa va nella stessa direzione.',
                     ]
-                  : [
-                      'Il resto della stesa è più sfumato.',
-                      'Le altre carte non vanno tutte nella stessa direzione.',
-                      'Le altre carte pesano in modo diverso.',
-                    ]),
+                  : opposte >= 2
+                      // Con due o piu' carte di tono opposto si dice che ci
+                      // sono (quarto giro: due carte favorevoli ignorate).
+                      ? [
+                          'La stesa porta anche carte di tono opposto, quindi '
+                              'il quadro resta aperto.',
+                          'Nella stesa ci sono anche carte di segno opposto: '
+                              'il quadro resta aperto.',
+                          'La stesa è mista: il quadro resta aperto.',
+                          'Il quadro resta aperto.',
+                        ]
+                      : [
+                          'Il resto della stesa è più sfumato.',
+                          'Le altre carte non vanno tutte nella stessa '
+                              'direzione.',
+                          'Le altre carte pesano in modo diverso.',
+                        ]),
               diRiserva: true));
         }
       }

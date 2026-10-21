@@ -158,7 +158,7 @@ Ordine GA voce GA.06. Predicati in minuscolo, senza punto: vedi le regole dello 
 
 > tono: favorevole; tema: un'accelerazione improvvisa
 - risposta_ora: mostra che la situazione si è messa in moto tutta insieme e che notizie o risposte attese possono arrivare in fretta
-- risposta_esito: porta a sviluppi rapidi, perché ciò che era fermo riprende velocità e chiede risposte pronte da parte tua
+- risposta_esito: indica sviluppi che possono essere rapidi, perché ciò che era fermo può riprendere velocità e chiedere risposte pronte
 - nota_ora: annuncia eventi che accelerano e messaggi che si susseguono
 - nota_passato: segue un periodo veloce che ha messo in moto la situazione
 - nota_esito: sblocca con un movimento rapido ciò che era sospeso

@@ -107,7 +107,7 @@ void main() {
         .split(RegExp(r'(?<=[.!?])\s+'))
         .where((x) => x.trim().isNotEmpty)
         .toList();
-    final i = f.first.startsWith('Le carte rispondono alla prima') && f.length > 1 ? 1 : 0;
+    final i = f.first.startsWith('Le carte leggono la prima') && f.length > 1 ? 1 : 0;
     if (!s.cards.any(
             (c) => f[i].toLowerCase().contains(c.card.name.toLowerCase())) &&
         i + 1 < f.length) {

@@ -910,7 +910,7 @@ lo schedario `schedario_registri.md`, fra 60 e 220 caratteri ciascuno.
 ### capovolta
 
 - amore: In amore la carta racconta di affetto misurato con i beni e di possesso che irrigidisce.
-- lavoro: Per un lavoro o un progetto mostra avidità e risorse ferme per paura di perdere tutto.
+- lavoro: Per un lavoro o un progetto mostra chiusura e risorse ferme per paura di perdere tutto.
 - vita: Nella vita la carta descrive un possesso che irrigidisce, con beni che possiedono chi li ha.
 
 ## Asso di Spade

@@ -175,7 +175,7 @@ Ordine GA voce GA.06. Predicati in minuscolo, senza punto: vedi le regole dello 
 - risposta_esito: porta verso discussioni vinte e legami persi, perché la ragione senza cuore irrigidisce e allontana chi sta vicino
 - nota_ora: mostra una freddezza che prevale sulla compassione
 - nota_passato: ricorda un rigore applicato senza ascoltare nessuno
-- nota_esito: indica una durezza che rischia di isolare
+- nota_esito: indica una durezza, tua o altrui, che isola
 - nota_ostacolo: mette alla prova con una logica senza compassione
 - nota_influenza: porta rigidità e giudizi dati senza empatia
 - nota_ambiente: descrive persone vicine autoritarie che applicano le regole senza ascolto

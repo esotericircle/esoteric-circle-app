@@ -91,7 +91,6 @@ class LaCartaNellaRisposta {
     'Asso di Bastoni|dritta',
     'Tre di Bastoni|dritta',
     'Sei di Bastoni|dritta',
-    'Otto di Bastoni|dritta',
     'Asso di Coppe|dritta',
     'Due di Coppe|dritta',
     'Nove di Coppe|dritta',
@@ -116,6 +115,18 @@ class LaCartaNellaRisposta {
     'Due di Coppe|capovolta',
     'Sette di Denari|capovolta',
   };
+
+  /// **LE CARTE CHE DICONO UN TEMPO.** L'Otto di Bastoni, nella tradizione,
+  /// dice rapidita' e notizie, non approvazione: a *"Devo accettare
+  /// l'offerta?"* non da' un si' (quarto giro del lettore cieco). A *"quando"*
+  /// puo' rispondere: se arriva, arriva in fretta.
+  static const Set<String> carteDiTempo = {
+    'Otto di Bastoni|dritta',
+    'Tre di Bastoni|dritta',
+  };
+
+  /// Se la carta [d] puo' dire un tempo (vedi [carteDiTempo]).
+  static bool diTempo(DrawnCard d) => carteDiTempo.contains(chiaveDi(d));
 
   /// Se la carta [d] puo' sostenere un si' o un no (vedi [carteDaVerdetto]).
   static bool daVerdetto(DrawnCard d) => carteDaVerdetto.contains(chiaveDi(d));
