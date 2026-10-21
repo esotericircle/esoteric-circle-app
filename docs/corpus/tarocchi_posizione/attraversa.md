@@ -55,7 +55,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Ti intralcia l'abitudine di annunciare al posto di fare: il talento è tutto tuo ma resta chiuso, mentre l'impegno che avevi preso chiedeva una cosa consegnata davvero.
-- 2: Viene allo scoperto lo scarto fra quello che dici e quello che fai, proprio nel punto in cui un accordo nascondeva la parte di lavoro non ancora svolta.
+- 2: Può emergere uno scarto fra ciò che si promette e ciò che si fa, proprio là dove il tuo accordo nasconde la parte di lavoro ancora da svolgere.
 - 3: Una promessa in più da mantenere si somma a quelle che reggi già, perché la parola data cresce al posto del dono, che resta piegato dove lo hai posato.
 
 ## La Papessa

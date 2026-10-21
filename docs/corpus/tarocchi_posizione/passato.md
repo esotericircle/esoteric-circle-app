@@ -242,7 +242,7 @@ scrive l'Architetto.
 
 - 1: Una mancanza di misura ha segnato le tue azioni, portando ad eccessi o a una fretta che ha messo distanza fra te e il tuo equilibrio interiore. Hai perso il ritmo che ti guidava.
 - 2: Troppo, troppo in fretta: in quel periodo hai perso il ritmo giusto, tra eccessi e corse, mentre due parti di te smettevano a poco a poco di parlarsi tra loro.
-- 3: Quando la coppa traboccava da una parte sola, allora, non hai rallentato per ridosare: lo squilibrio di quella stagione ha lasciato tracce in ciò che porti oggi.
+- 3: Quando la coppa traboccava da una parte sola, allora, non hai rallentato per dosare: lo squilibrio di quella stagione ha lasciato tracce in ciò che porti oggi.
 
 ## Il Diavolo
 

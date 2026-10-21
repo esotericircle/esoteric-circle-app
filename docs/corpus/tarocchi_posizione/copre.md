@@ -962,7 +962,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Sulla tua domanda sta una luce da temporale che non concede ombre: il taglio al centro è illuminato per intero, mentre nessun angolo della cosa resta fuori da quella chiarezza.
 - 2: Passa dentro la tua domanda un colpo che va da parte a parte e non si ferma a metà: entra da un lato ed esce dall'altro, lasciando la cosa aperta esattamente al centro.
-- 3: Per ora vale nella tua questione una regola semplice: si muove soltanto ciò che chiami con il suo nome, mentre resta fermo ciò che gira attorno al punto che fa male.
+- 3: Per ora vale nella tua questione una regola semplice: si muove soltanto ciò che dici apertamente, mentre resta fermo ciò che eviti di nominare per paura di soffrire ancora di più.
 
 ### capovolta
 

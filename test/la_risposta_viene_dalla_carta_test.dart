@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:esoteric_circle/core/tarot/la_carta_nella_risposta.dart';
 import 'package:esoteric_circle/core/tarot/la_domanda_letta.dart';
+import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
@@ -482,5 +483,181 @@ void main() {
     }
     cardinaleMinimo(quante, 8, cosa: 'domande doppie guardate');
     expect(guasti, isEmpty, reason: guasti.join('\n'));
+  });
+
+  test('10. un si\' o un no solo da una carta che lo dice', () {
+    // Terzo giro del lettore cieco indipendente: *"si', ma con una riserva"*
+    // dal Dieci di Bastoni rovesciato per una promozione, *"per ora la
+    // risposta e' si'"* dal Re di Coppe per un incontro, *"le carte
+    // consigliano di no"* dal Re di Spade rovesciato contro tre carte
+    // favorevoli. Una carta di carattere, di attesa o di tenuta non dice se
+    // un evento avviene: il responso dice che cosa le carte mostrano.
+    final verdetto = RegExp(
+        r'^(Le carte (inclinano|propendono per|vanno verso) (al|il) (sì|no)|'
+        r'Sì,|Il (sì|no) è la direzione|Tutto fa pensare al sì|'
+        r'Per ora non è il momento|Così com.è adesso, no|Può andare|'
+        r'Possibile, se|Dipende da una condizione)');
+    // Le carte che il lettore ha citato: nessuna puo' dare un si' o un no.
+    const dicarattere = {
+      'Dieci di Bastoni|capovolta',
+      'Re di Coppe|dritta',
+      'Sette di Bastoni|dritta',
+      'Regina di Denari|dritta',
+      'Re di Spade|capovolta',
+    };
+    final guasti = <String>[];
+    var guardati = 0;
+    var neutri = 0;
+    for (final (domanda, s, r) in responsi(60, 5151)) {
+      final d = LaDomandaLetta.di(domanda);
+      if (d.forma != FormaDellaDomanda.siNo ||
+          d.sensibile != null ||
+          d.distacco ||
+          d.timore ||
+          d.vaga) {
+        continue;
+      }
+      guardati++;
+      final risposta = r.principale.risposta;
+      final frasi = _frasi(risposta);
+      final i = frasi.first.startsWith('Le carte rispondono alla prima') &&
+              frasi.length > 1
+          ? 1
+          : 0;
+      final prima = frasi[i];
+      final chiave = LaCartaNellaRisposta.chiaveDi(r.chiave.drawn);
+      if (RegExp(r'la risposta (delle carte )?è (sì|no)', caseSensitive: false)
+          .hasMatch(prima)) {
+        // Un futuro dato per certo: *"Per ora la risposta è sì"* (tarocchi-5).
+        guasti.add('"$domanda": un verdetto dato per certo: "$prima"');
+      }
+      if (verdetto.hasMatch(prima)) {
+        if (dicarattere.contains(chiave) ||
+            !LaCartaNellaRisposta.daVerdetto(r.chiave.drawn)) {
+          guasti.add('"$domanda", chiave $chiave: "$prima"');
+        }
+      } else {
+        neutri++;
+        // Ogni apertura senza verdetto dice che le carte non lo danno
+        // (`le carte non`) o che non e' un si' o un no.
+        if (!prima.contains('sì o un no') &&
+            !prima.contains('le carte non') &&
+            !prima.contains('Le carte non')) {
+          guasti.add('"$domanda", chiave $chiave: ne\' un verdetto ne\' '
+              'l\'avviso che non c\'e\': "$prima"');
+        }
+      }
+    }
+    print('ORDINE GA VOCE 06: si\' o no guardati $guardati, senza verdetto '
+        '$neutri, guasti ${guasti.length}');
+    cardinaleMinimo(guardati, 100, cosa: 'domande si\' o no guardate');
+    cardinaleMinimo(neutri, 20, cosa: 'risposte senza verdetto');
+    expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
+  });
+
+  test('11. le carte singole parlano della domanda e non dell\'argomento', () {
+    // Terzo giro: a chi chiedeva dei risparmi in borsa il Papa diceva
+    // *"Cerca un mentore"* (argomento scelto: Lavoro). Su salute, legge e
+    // denaro il "Cosa fare" della singola rimanda a chi e' competente e il
+    // registro e' quello della vita; una situazione riconosciuta sceglie il
+    // gruppo, qualunque argomento fosse stato scelto.
+    final guasti = <String>[];
+    var sensibili = 0;
+    var dalLavoro = 0;
+    final competente = RegExp(
+        r'(medico|avvocato|professionista|consulente|competente|abilitato)');
+    for (final tipo in TarotSpreadType.values) {
+      for (var seme = 0; seme < 30; seme++) {
+        final s =
+            TarotSpread.draw(seed: 7070 + seme, posizioni: tipo.posizioni);
+        for (final (domanda, argomento) in const [
+          (
+            'Conviene investire i miei risparmi in borsa adesso?',
+            TarotTopic.carriera
+          ),
+          ('Vincerò la causa contro il mio ex socio?', TarotTopic.amoreQuadro),
+          (
+            'Dopo l\'operazione al ginocchio guarirò in fretta?',
+            TarotTopic.denaro
+          ),
+          (
+            'Riuscirò a ottenere la promozione che aspetto?',
+            TarotTopic.momentoCheVivo
+          ),
+        ]) {
+          if (s.cards.length < 2) continue;
+          final r = TarotReading.of(s, argomento, domandaScritta: domanda);
+          final d = LaDomandaLetta.di(domanda);
+          for (var i = 0; i < r.posizioni.length; i++) {
+            final p = r.posizioni[i];
+            final c = p.responso!.cosaFare;
+            final parole = c.split(' ').length;
+            if (d.sensibile != null) {
+              sensibili++;
+              if (!competente.hasMatch(c) || parole < 40 || parole > 50) {
+                guasti.add('"$domanda", ${p.drawn.displayName}: $parole '
+                    'parole, "$c"');
+              }
+              if (c.contains('mentore') || c.contains('carriera')) {
+                guasti.add('"$domanda": un gesto del lavoro in "$c"');
+              }
+            } else {
+              dalLavoro++;
+              // La promozione e' lavoro anche con l'argomento della vita.
+              final atteso = LeCarteNellaPosizione.cosaFareDi(
+                  p.drawn, TarotTopicGroup.lavoro);
+              if (c != atteso) {
+                guasti.add('"$domanda", ${p.drawn.displayName}: "$c"');
+              }
+            }
+          }
+        }
+      }
+    }
+    print('ORDINE GA VOCE 06: singole su temi sensibili $sensibili, '
+        'sulla promozione $dalLavoro, guasti ${guasti.length}');
+    cardinaleMinimo(sensibili, 200, cosa: 'singole su temi sensibili');
+    cardinaleMinimo(dalLavoro, 100, cosa: 'singole sulla promozione');
+    expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
+  });
+
+  test('12. la stesa a una carta non dice due volte la stessa cosa', () {
+    // *"tiene a bada le tensioni"* e *"regge anche le tensioni"* a una frase
+    // di distanza (tarocchi-9, terzo giro): la seconda lettura della carta
+    // sola non ripete nessuna parola portante della prima.
+    final comuni = {'questione', 'domanda', 'momento', 'anche', 'ancora'};
+    final guasti = <String>[];
+    var quante = 0;
+    for (var seme = 0; seme < 150; seme++) {
+      final s = TarotSpread.draw(seed: 9100 + seme, posizioni: [
+        SpreadPosition.cartaSola,
+      ]);
+      final (domanda, gruppo, _) =
+          campioni.domande[seme % campioni.domande.length];
+      final r = TarotReading.of(s, TarotTopic.of(gruppo).first,
+          domandaScritta: domanda);
+      if (LaDomandaLetta.di(domanda).sensibile != null) continue;
+      final frasi = _frasi(r.principale.risposta);
+      final i = frasi.indexWhere((f) =>
+          f.contains(': ') && f.toLowerCase().contains('sola carta uscita'));
+      if (i < 0 || i + 1 >= frasi.length) continue;
+      final seconda = frasi[i + 1];
+      if (!seconda.toLowerCase().contains('la carta ')) continue;
+      quante++;
+      Set<String> portanti(String t) => {
+            for (final m
+                in RegExp(r'[a-zàèéìòù]{6,}').allMatches(t.toLowerCase()))
+              if (!comuni.contains(m[0])) m[0]!
+          };
+      final prima = portanti(frasi[i].split(': ').last);
+      final doppie = portanti(seconda).where(prima.contains).toList();
+      if (doppie.isNotEmpty) {
+        guasti.add('"$domanda": $doppie in "${r.principale.risposta}"');
+      }
+    }
+    print('ORDINE GA VOCE 06: carte sole con due letture $quante, che '
+        'ripetono una parola ${guasti.length}');
+    cardinaleMinimo(quante, 40, cosa: 'carte sole con due letture');
+    expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
   });
 }

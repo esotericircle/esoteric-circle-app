@@ -851,7 +851,7 @@ somiglianza di Jaccard sopra 0,6.
 ### capovolta
 
 - 1: Un periodo di spese per mostrarti sta esaurendosi: quella veste costosa indossata per farti vedere nel giardino perde lucentezza e il bisogno di apparire si allontana.
-- 2: Hai appena lasciato un tempo in cui l'indipendenza vacillava sotto spese eccessive: quella libertà consumata a pezzi si allontana dietro di te e smette di preoccuparti.
+- 2: Hai appena lasciato un tempo in cui l'indipendenza vacillava sotto spese pesanti: quella libertà consumata a pezzi si allontana dietro di te e smette di preoccuparti.
 - 3: Dietro di te si dissolve la stagione del lusso esibito e della solitudine dorata: quel falcone incappucciato sul guanto si fa lontano mentre la vanità perde presa.
 
 ## Dieci di Denari

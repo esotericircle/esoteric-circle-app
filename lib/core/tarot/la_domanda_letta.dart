@@ -94,13 +94,26 @@ enum Situazione {
     'le piaccio'
   ]),
   dichiararsi(['innamorat', 'dirle', 'dirgli', 'dichiararmi', 'dichiarar']),
+  // **ANDARE A VIVERE DA SOLI VIENE PRIMA DELLA DISTANZA**: *"E' giusto andare
+  // a vivere lontano dai miei genitori?"* leggeva "lontan" e riceveva i gesti
+  // di una coppia a distanza (*"Fissate una sera senza telefoni, voi due"*).
+  // Le domande sul rapporto con i genitori, senza il trasloco, non sono qui:
+  // vanno alla lente della famiglia. PADRE: ordine GA voce GA.06, commit
+  // 9b2d2d29 (l'elenco delle radici, scritto senza provarlo sulle domande).
+  genitori([
+    'andare a vivere',
+    'vivere da sol',
+    'uscire di casa',
+    'lasciare casa dei',
+    'casa dei miei'
+  ]),
   // **LA RELAZIONE A DISTANZA HA I SUOI GESTI**, ordine GA voce GA.06: il
   // lettore cieco indipendente ha trovato *"Proponi una sera senza telefoni,
   // solo voi due"* detto a una coppia che vive a distanza (tarocchi-37), e
   // *"Fissate insieme la data del prossimo incontro"* detto a chi vive col
   // marito (tarocchi-25): le due situazioni stavano in un elenco solo.
   // PADRE: ordine GA voce GA.06, commit 9b2d2d29.
-  distanza(['a distanza', 'distanza', 'lontan']),
+  distanza(['a distanza', 'distanza']),
   coppia([
     'marito',
     'moglie',
@@ -119,15 +132,6 @@ enum Situazione {
   ]),
   pace(['pace', 'sorell', 'fratell', 'litigat', 'lite']),
   figli(['figli']),
-  genitori([
-    'genitori',
-    'andare a vivere',
-    'vivere da sol',
-    'mamma',
-    'papa ',
-    'madre',
-    'padre'
-  ]),
   famigliaDiLui([
     'pranzo',
     'cena',
@@ -484,6 +488,42 @@ class LaDomandaLetta {
     };
   }
 
+  /// **IL GRUPPO CON CUI SI LEGGONO LE CARTE SINGOLE.** Ordine GA voce GA.06,
+  /// terzo giro: il lettore cieco ha trovato le singole *"scritte sul tema
+  /// della lente e non sulla domanda"*: a chi chiede dei risparmi in borsa
+  /// "Il Papa" diceva *"Cerca un mentore"*, perche' l'argomento scelto era
+  /// del gruppo Lavoro. Il gruppo viene dalla domanda quando la domanda lo
+  /// dice (la situazione riconosciuta), e dall'argomento scelto quando non
+  /// lo dice. Su salute, legge e denaro il registro e' quello della vita,
+  /// mai quello del lavoro o dell'amore. PADRE: ordine FI voce 20 (i
+  /// registri per gruppo dell'argomento scelto, mai per domanda).
+  TarotTopicGroup gruppoDelleSingole(TarotTopic argomento) {
+    if (sensibile != null) return TarotTopicGroup.vita;
+    final s = situazione;
+    if (s != null) {
+      return switch (s) {
+        Situazione.sentimenti ||
+        Situazione.ritorno ||
+        Situazione.fiducia ||
+        Situazione.dichiararsi ||
+        Situazione.distanza ||
+        Situazione.coppia ||
+        Situazione.incontro =>
+          TarotTopicGroup.amore,
+        Situazione.colloquio ||
+        Situazione.promozione ||
+        Situazione.offerta ||
+        Situazione.lasciareIlLavoro ||
+        Situazione.attivita ||
+        Situazione.progetto ||
+        Situazione.capo =>
+          TarotTopicGroup.lavoro,
+        _ => TarotTopicGroup.vita,
+      };
+    }
+    return (lente ?? argomento).group;
+  }
+
   /// **I GESTI DEL TEMA SENSIBILE**: su salute, legge e denaro il "Cosa fare"
   /// rimanda a chi e' competente, e nessun gesto di una carta lo accompagna.
   /// Le altre domande hanno i gesti SCRITTI per la loro situazione e per il
@@ -504,10 +544,10 @@ class LaDomandaLetta {
           ],
         TemaSensibile.legge => const [
             'Raccogli i documenti in ordine cronologico e fissa un incontro '
-                'con il tuo avvocato.',
-            'Chiedi al tuo legale una stima onesta dei tempi, dei costi e dei '
+                'con un avvocato.',
+            'Chiedi a un avvocato una stima onesta dei tempi, dei costi e dei '
                 'rischi.',
-            'Scrivi una cronologia dei fatti, con le date, da consegnare al tuo '
+            'Scrivi una cronologia dei fatti, con le date, da consegnare a un '
                 'avvocato.',
           ],
         TemaSensibile.denaro => const [
@@ -526,15 +566,16 @@ class LaDomandaLetta {
         TemaSensibile.salute => const [
             'Non prendere decisioni sulla salute in base alle carte: le carte '
                 'non sostituiscono una visita.',
-            'Non cambiare cure o tempi senza il parere del medico che ti segue.',
-            'Non decidere nulla prima di aver sentito il tuo medico.',
+            'Non cambiare cure o tempi senza il parere di un medico.',
+            'Non decidere nulla prima di aver sentito un medico.',
           ],
         TemaSensibile.legge => const [
             'Non prendere decisioni legali in base alle carte: decide chi '
                 'conosce la legge.',
-            'Non parlare della causa con la controparte senza il tuo '
-                'avvocato.',
-            'Non decidere nulla prima di aver sentito il tuo avvocato.',
+            'Non parlare della vicenda con la controparte senza un parere '
+                'competente.',
+            'Non firmare niente prima che un professionista abbia letto i '
+                'documenti.',
           ],
         TemaSensibile.denaro => const [
             'Non investire in base alle carte: le carte non leggono i mercati.',

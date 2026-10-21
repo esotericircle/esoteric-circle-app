@@ -197,7 +197,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: Alla base della tua questione c'è un prezzo già pagato in durezza: la calma si è trasformata in stretta, così quella presa oggi schiaccia invece di sostenere.
 - 2: La tua domanda nasce da un periodo in cui la mitezza si è fatta pugno: da quella rigidità la situazione prende ancora l'energia per restare in piedi.
-- 3: Ciò che hai davanti è fatto di una tenuta ottenuta a denti stretti, una buona forza usata male: la questione poggia ancora su quella base.
+- 3: Ciò che hai davanti è fatto di una tenuta ottenuta a denti stretti, una forza che regge consumandoti: la questione poggia ancora su quella base.
 
 ## L'Appeso
 
@@ -875,7 +875,7 @@ somiglianza di Jaccard sopra 0,6.
 
 ### dritta
 
-- 1: Quello che hai già imparato su questa cosa non si deve più conquistare: la moneta è stata girata fra le dita fino a conoscerla; quella conoscenza regge la tua domanda.
+- 1: Quello che hai già imparato su questa cosa non si deve più conquistare: l'hai guardata da ogni lato con pazienza, fino a conoscerla bene; quella conoscenza regge la tua domanda.
 - 2: Di materia concreta è fatta la tua questione: non un'idea, ma un oggetto preso in mano sopra un campo già arato; quella sostanza porta su di sé quello che hai davanti.
 - 3: Mettere le due mani su una cosa sola è stata una scelta che ha chiuso le altre: da allora l'attenzione sta lì e su quella scelta la tua domanda si regge.
 
@@ -1031,7 +1031,7 @@ somiglianza di Jaccard sopra 0,6.
 
 - 1: La tua questione è piantata in un fango di pensieri: le lame sono state infilate nel terreno una per una, la corda è stata allacciata larga e quella radice la tiene su.
 - 2: Di che cosa è fatto quello che hai davanti: di un limite creduto. Il recinto è stato costruito con poche lame piantate di fuori e quella materia leggera porta tutto il peso.
-- 3: Una convinzione presa per vera ha chiuso le altre letture: da lì non si passa. Quel verdetto già dato è il piano su cui sta la tua domanda, col castello a guardare.
+- 3: Una convinzione presa per vera ha chiuso le altre letture: da lì non si passa. Quel giudizio già dato è la base su cui poggia la tua domanda e nessuno la discute.
 
 ### capovolta
 

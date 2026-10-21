@@ -2,6 +2,7 @@ import 'domanda_della_persona.dart';
 import 'la_domanda_letta.dart';
 import 'la_lettura_dal_modello.dart';
 import 'le_carte_nella_posizione.dart';
+import 'le_singole_sulla_domanda.dart';
 import 'tarot_card.dart';
 import 'tarot_spread.dart';
 import '../../features/horoscope/answer_depth.dart';
@@ -182,7 +183,11 @@ class TarotReading {
     final posizioni = [
       for (var i = 0; i < spread.cards.length; i++)
         PosizioneLetta.of(spread.cards[i], topic, spread,
-            uscita: uscite != null && i < uscite.length ? uscite[i] : 0),
+            uscita: uscite != null && i < uscite.length ? uscite[i] : 0,
+            domanda: LaDomandaLetta.di(sua),
+            posto: i,
+            base: spread.cards.first.card.name.codeUnits
+                .fold<int>(0, (a, b) => a + b)),
     ];
     final chiave = chiaveDi(spread, domandaScritta: sua);
     return TarotReading(
@@ -541,7 +546,7 @@ class PosizioneLetta {
 
   static PosizioneLetta of(
       DrawnCard drawn, TarotTopic topic, TarotSpread spread,
-      {int uscita = 0}) {
+      {int uscita = 0, LaDomandaLetta? domanda, int posto = 0, int base = 0}) {
     // **LAPIDE: "testo: drawn.meaning".** Fino all'ordine EQ voce 04 qui
     // c'era il significato del verso, uguale nel passato, nel presente e
     // nel futuro e per qualunque domanda. Dall'ordine FI, aggiunta A3: lo
@@ -550,8 +555,13 @@ class PosizioneLetta {
     // GA: quando il modello rispondeva, il testo della carta era il suo.
     // Dall'ordine GA ("Carte dal corpus") la carta viene SEMPRE dal corpus,
     // in ogni stesa e in ogni piano.
-    final responso =
-        LeCarteNellaPosizione.responsoDi(drawn, topic.group, uscita: uscita);
+    // **DAL TERZO GIRO DELL'ORDINE GA VOCE GA.06 la carta singola si legge
+    // sulla domanda**: il gruppo viene dalla domanda, e su salute, legge e
+    // denaro il "Cosa fare" non da' nessun gesto (`LeSingoleSullaDomanda`).
+    final responso = domanda == null
+        ? LeCarteNellaPosizione.responsoDi(drawn, topic.group, uscita: uscita)
+        : LeSingoleSullaDomanda.di(drawn, domanda, topic,
+            uscita: uscita, posto: posto, base: base);
     return PosizioneLetta(
       drawn: drawn,
       // **L'APERTURA VARIA, ordine DF voce 02.** Era la lente dell'argomento,

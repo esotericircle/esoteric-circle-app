@@ -61,7 +61,8 @@ PAROLE_DELLA_NOTA = (7, 11)
 # domanda, senza formule che lo presentino.
 PAROLE_DEL_GESTO_DELLA_CARTA = (10, 16)
 TONI = ('favorevole', 'condizionato', 'sfavorevole')
-CHIAVI_DEI_GESTI = ('azione_1', 'azione_2', 'azione_3', 'non_1', 'non_2')
+CHIAVI_DEI_GESTI = ('azione_1', 'azione_2', 'azione_3', 'azione_4', 'non_1',
+                    'non_2', 'non_3')
 PAROLE_DELL_AZIONE = (10, 18)
 PAROLE_DEL_NON = (7, 13)
 

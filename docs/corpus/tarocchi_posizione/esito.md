@@ -246,7 +246,7 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 
 ### capovolta
 
-- 1: Un congedo rimandato con le mani tiene la scena: la cosa è conclusa nei fatti e tu continui a tenerla in piedi. È una fine a cui stai negando il permesso.
+- 1: Un congedo rimandato tiene la scena: se la cosa è ormai finita nei fatti rischia di restare in piedi soltanto per abitudine. Può essere una fine a cui stai negando il permesso.
 - 2: La piega è quella della presa che non si apre: ciò a cui ti aggrappi ha già smesso di esistere ed è la tua resistenza a farlo durare. Trattenere pesa più che lasciare.
 - 3: Quanto stai difendendo non è un bene perduto da rimpiangere: è una cosa finita che tieni al suo posto per abitudine. La situazione prende la forma di quell'ostinazione, finché la mano non si apre.
 
@@ -1143,5 +1143,5 @@ di essi la voce nuova da' un cardine che prima non esisteva.
 ### capovolta
 
 - 1: Sulla scena comanda la tua ragione ed è esatta: decidi per altri col criterio giusto, ma chi sta dentro quel criterio non lo conti. Resta una persona che non hai guardato.
-- 2: Sei al punto in cui un argomento vinto comincia a costare una persona. Il tuo ragionamento regge e nessuno lo smonta, ma alla logica manca un posto per chi la riceve.
+- 2: Sei al punto in cui avere ragione può finire per costare un rapporto. Il tuo ragionamento regge e nessuno lo smonta, ma alla logica manca un posto per chi la riceve.
 - 3: La china è quella di un rigore che ha perso i nomi: applichi bene la regola e dimentichi chi ci sta sotto. Il saldo: discussioni vinte e legami più freddi.

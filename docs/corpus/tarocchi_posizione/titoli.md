@@ -546,7 +546,7 @@ parti degli scrittori si rimettono qui con
 - cartaSola: Trattenere costa più che lasciare
 - consultante: Fai forza contro una fine già avvenuta
 - lato: Le dita chiuse su un guscio vuoto
-- esito: Una fine a cui neghi il permesso
+- esito: Una fine che chiede di essere accolta
 - copre: Il cambio procede, la stretta resiste
 - attraversa: La mano chiusa occupa lo spazio del nuovo
 - corona: Il meglio è vedere la tua presa
@@ -1822,7 +1822,7 @@ parti degli scrittori si rimettono qui con
 - lato: Il garbo del gesto conta
 - esito: Verso un gesto galante, non un patto
 - copre: Un'aria di cortesia sulla questione
-- attraversa: Un corteggiamento fuori tempo per l'impegno
+- attraversa: Una cortesia che non è ancora un impegno
 - corona: Il meglio è un cuore offerto bene
 - sotto: Alla base un'offerta già consegnata
 - dietro: Una stagione di corteggiamento si allontana
@@ -1920,7 +1920,7 @@ parti degli scrittori si rimettono qui con
 - corona: Il meglio è smascherare la leva
 - sotto: Alla base un governo appreso e trascurato
 - dietro: Una stagione di burrasche si allontana
-- seStesso: Lasci che gli umori decidano per te
+- seStesso: Gli umori rischiano di decidere per te
 - laCasa: Intorno a te un porto senza capitano
 - speranzeOTimori: Temi gli sbalzi, speri la guida
 
@@ -2452,7 +2452,7 @@ parti degli scrittori si rimettono qui con
 - corona: Vedere la stretta senza scioglierla
 - sotto: Un raccolto chiuso nel magazzino
 - dietro: Il cancello del giardino torna ad aprirsi
-- seStesso: Stringi i beni invece di usarli
+- seStesso: Il rischio è tenere tutto fermo
 - laCasa: Intorno a te chi possiede comanda
 - speranzeOTimori: La paura di una prigione dorata
 

@@ -69,6 +69,57 @@ class LaCartaNellaRisposta {
   /// pretende tutte le centocinquantasei carte-verso.
   static LaCartaNellaRisposta di(DrawnCard d) => tavola[chiaveDi(d)]!;
 
+  /// **LE CARTE CHE POSSONO DARE UN SI' O UN NO.** Ordine GA voce GA.06, terzo
+  /// giro: il lettore cieco indipendente ha trovato un *"si', ma con una
+  /// riserva"* dal Dieci di Bastoni rovesciato per una promozione, un *"per
+  /// ora la risposta e' si'"* dal Re di Coppe per un incontro, un *"le carte
+  /// consigliano di no"* dal Re di Spade rovesciato contro tre carte
+  /// favorevoli. Un tono non e' un verdetto: una carta che parla di un
+  /// carattere, di un'attesa, di una tenuta o di uno stato d'animo non dice
+  /// se un evento avviene. Qui stanno solo le carte il cui significato
+  /// documentato e' un esito (una riuscita, un compimento, una perdita, un
+  /// crollo), con il tono univoco: per tutte le altre il responso dice che
+  /// cosa le carte mostrano e non un si' o un no. PADRE: ordine GA voce
+  /// GA.06, commit 9b2d2d29 (il tono diventava verdetto per ogni carta).
+  static const Set<String> carteDaVerdetto = {
+    // Si': l'esito e' una riuscita o un avvio.
+    'Il Carro|dritta',
+    'La Ruota della Fortuna|dritta',
+    'La Stella|dritta',
+    'Il Sole|dritta',
+    'Il Mondo|dritta',
+    'Asso di Bastoni|dritta',
+    'Tre di Bastoni|dritta',
+    'Sei di Bastoni|dritta',
+    'Otto di Bastoni|dritta',
+    'Asso di Coppe|dritta',
+    'Due di Coppe|dritta',
+    'Nove di Coppe|dritta',
+    'Dieci di Coppe|dritta',
+    'Asso di Denari|dritta',
+    'Tre di Denari|dritta',
+    'Nove di Denari|dritta',
+    'Dieci di Denari|dritta',
+    'Quattro di Bastoni|dritta',
+    'Tre di Coppe|dritta',
+    'Asso di Spade|dritta',
+    'Otto di Spade|capovolta',
+    'Il Diavolo|capovolta',
+    // No: l'esito e' una perdita, un crollo, una fine.
+    'La Torre|dritta',
+    'Cinque di Coppe|dritta',
+    'Tre di Spade|dritta',
+    'Cinque di Spade|dritta',
+    'Dieci di Spade|dritta',
+    'Cinque di Denari|dritta',
+    'Dieci di Coppe|capovolta',
+    'Due di Coppe|capovolta',
+    'Sette di Denari|capovolta',
+  };
+
+  /// Se la carta [d] puo' sostenere un si' o un no (vedi [carteDaVerdetto]).
+  static bool daVerdetto(DrawnCard d) => carteDaVerdetto.contains(chiaveDi(d));
+
   /// **LE CENTOCINQUANTASEI CARTE-VERSO**, scritte da Code il 21 ottobre
   /// 2026 leggendo il significato di ciascuna in `tarot_card.dart`.
   static const Map<String, LaCartaNellaRisposta> tavola = {
@@ -173,7 +224,7 @@ class LaCartaNellaRisposta {
     'Dieci di Bastoni|dritta':
         LaCartaNellaRisposta(_s, 'un carico troppo grande'),
     'Dieci di Bastoni|capovolta':
-        LaCartaNellaRisposta(_c, 'un fardello da restituire'),
+        LaCartaNellaRisposta(_c, 'un carico da posare'),
     'Fante di Bastoni|dritta':
         LaCartaNellaRisposta(_f, 'un\'idea giovane da provare'),
     'Fante di Bastoni|capovolta':

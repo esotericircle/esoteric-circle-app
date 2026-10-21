@@ -118,7 +118,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Al suo meglio questa forza tiene in piedi l'accordo fra quello in cui credi e quello che ti muove: il massimo in gioco è una decisione che non lascia fuori nessuna delle due parti.
-- 2: Il bene più alto che questa forza porta alla tua questione è l'interezza: una scelta in cui la testa e il sentimento dicono la stessa cosa, senza che uno dei due taccia.
+- 2: Il meglio che questa forza può dare alla tua questione è una scelta intera: quella in cui la testa e il sentimento dicono la stessa cosa, senza che uno dei due taccia.
 - 3: Ciò che di meglio puoi ottenere è una decisione misurata su ciò che hai di più tuo, i valori che reggono la tua vita, invece che sul gusto di un momento.
 
 ### capovolta
@@ -888,7 +888,7 @@ somiglianza di Jaccard sopra 0,6.
 ### dritta
 
 - 1: Il massimo in gioco è fatto di una cosa ripetuta: lo stesso passo, alla stessa ora, su tutta la lunghezza della tua questione, senza un giorno saltato e senza strappi.
-- 2: Al suo meglio questa forza copre tutta la distanza che la tua domanda ha davanti e non ne accorcia il tempo: la costanza regge il tratto intero, la fretta non la sa dare.
+- 2: Al suo meglio questa forza porta la tua domanda fino in fondo con ordine e pazienza, senza accorciare il suo percorso: la costanza regge il tratto intero, la fretta non la sa dare.
 - 3: Quello che resta in piedi, quando questa forza rende tutto, è l'affidabilità: chi guarda il tuo caso sa in anticipo quale passo aspettarsi; nulla di quel passo cambia.
 
 ### capovolta
