@@ -5,6 +5,7 @@ import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/horoscope/astro_tradition.dart';
 import 'package:esoteric_circle/core/horoscope/i_segni_delle_tradizioni.dart';
+import 'package:esoteric_circle/core/horoscope/la_ruota_di_oggi.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -211,7 +212,15 @@ Future<void> _toccaLaTradizione(WidgetTester tester, AstroTradition t) async {
 }
 
 void main() {
-  setUp(() => LaSuoneria.spentaPerLeProve = false);
+  setUp(() {
+    LaSuoneria.spentaPerLeProve = false;
+    // **ORDINE GB VOCE 02**: la ruota vista una volta al giorno tiene una
+    // memoria di sessione statica (`LaRuotaDiOggi.vistaOggiSubito`), e
+    // senza dimenticarla una prova che apre la scena con la data vera (il
+    // `now` di oggi) troverebbe la ruota "gia' vista" per colpa di una
+    // prova precedente nello stesso file, non per il proprio codice.
+    LaRuotaDiOggi.dimentica();
+  });
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
 
   group('la geometria misurata', () {

@@ -45,6 +45,7 @@ void main() {
   group('LaRuotaDiOggi', () {
     setUp(() {
       SharedPreferences.setMockInitialValues({});
+      LaRuotaDiOggi.dimentica();
     });
 
     test('un giorno mai segnato non e\' visto', () async {
@@ -69,6 +70,50 @@ void main() {
       expect(await LaRuotaDiOggi.vistaOggi(oggi), isFalse,
           reason: 'il giorno civile e\' cambiato: il filmato deve tornare a '
               'vedersi per intero, non restare saltato per sempre');
+    });
+  });
+
+  // **LA DECISIONE SINCRONA, quella che la schermata usa davvero. Ordine GB
+  // voce 02.** Nessun `await` davanti: una sessione appena partita non ha
+  // mai letto il disco e deve rispondere "non vista", sempre, altrimenti
+  // l'apertura del video si sposta di un giro e le prove della scena
+  // (FXA.08, FU.15) che misurano quel giro al centesimo di secondo cadono.
+  group('LaRuotaDiOggi.vistaOggiSubito, la decisione sincrona', () {
+    setUp(() {
+      SharedPreferences.setMockInitialValues({});
+      LaRuotaDiOggi.dimentica();
+    });
+
+    test('una sessione appena partita non ha mai vista subito, anche se '
+        'il disco direbbe di si\'', () async {
+      final oggi = DateTime(2026, 10, 22);
+      await LaRuotaDiOggi.segna(oggi); // scrive sul disco di una sessione...
+      LaRuotaDiOggi.dimentica(); // ...e questa sessione non l'ha ancora letto
+      expect(LaRuotaDiOggi.vistaOggiSubito(oggi), isFalse,
+          reason: 'senza aver scaldato la memoria di questa sessione, la '
+              'decisione sincrona deve restare prudente: si vede il '
+              'filmato, come quando il disco non risponde');
+    });
+
+    test('segna() scalda la memoria sul colpo, senza aspettare il disco',
+        () {
+      final oggi = DateTime(2026, 10, 22);
+      // Senza await: la riga che conta e' quella prima del primo await di
+      // segna(), e deve girare comunque.
+      // ignore: unawaited_futures
+      LaRuotaDiOggi.segna(oggi);
+      expect(LaRuotaDiOggi.vistaOggiSubito(oggi), isTrue,
+          reason: 'segna() deve scaldare la memoria di sessione subito, '
+              'non solo dopo che il disco ha scritto');
+    });
+
+    test('vistaOggiSubito non mente su un giorno diverso da quello '
+        'scaldato', () {
+      final ieri = DateTime(2026, 10, 21);
+      final oggi = DateTime(2026, 10, 22);
+      // ignore: unawaited_futures
+      LaRuotaDiOggi.segna(ieri);
+      expect(LaRuotaDiOggi.vistaOggiSubito(oggi), isFalse);
     });
   });
 

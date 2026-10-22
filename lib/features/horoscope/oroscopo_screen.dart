@@ -1295,18 +1295,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     super.didChangeDependencies();
     // Una volta sola per apertura: la regia lo sa da se'.
     //
-    // **LA RUOTA SI VEDE UNA VOLTA AL GIORNO.** Ordine GB voce 02, 22
-    // ottobre 2026: chi ha gia' visto il filmato della ruota oggi riapre la
-    // scena gia' ferma, senza nemmeno aprire il file del video.
-    unawaited(LaRuotaDiOggi.vistaOggi(_date).then((vista) {
-      if (!mounted) return;
-      if (vista) {
-        _regia.fermaSubito();
-      } else {
-        unawaited(_regia.avvia(context));
-        unawaited(LaRuotaDiOggi.segna(_date));
-      }
-    }));
+    // **LA RUOTA SI VEDE UNA VOLTA AL GIORNO, DECISO SUL COLPO. Ordine GB
+    // voce 02, 22 ottobre 2026.** La decisione e' sincrona
+    // (`vistaOggiSubito`, scaldata da `segna` la prima volta che la ruota
+    // si vede in questa sessione): un `await` qui davanti ad `avvia()`
+    // sposterebbe l'avvio del video di un giro, ed e' proprio cio' che
+    // FXA.08 e FU.15 misurano al centesimo di secondo.
+    if (LaRuotaDiOggi.vistaOggiSubito(_date)) {
+      _regia.fermaSubito();
+    } else {
+      unawaited(_regia.avvia(context));
+      unawaited(LaRuotaDiOggi.segna(_date));
+    }
   }
 
   @override
