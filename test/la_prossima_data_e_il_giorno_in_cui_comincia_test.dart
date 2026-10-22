@@ -29,11 +29,17 @@ import 'package:flutter_test/flutter_test.dart';
 /// prima ora in cui l'evento e' attivo cada nel giorno che la data dice.
 void main() {
   /// Gli eventi della Luna, che cominciano a qualunque ora del giorno.
+  ///
+  /// **SENZA LUNA PIENA E LUNA NUOVA, ordine GB voce 11, 22 ottobre 2026.**
+  /// Da questa voce quelle due non dicono piu' il giorno in cui la
+  /// finestra d'illuminazione si apre: dicono il picco esatto (la stessa
+  /// fonte del Respiro della Luna), che puo' cadere uno o due giorni dopo
+  /// l'apertura della finestra che questa prova misura. La regola "il
+  /// giorno in cui comincia" resta vera per gli altri quattro, che non
+  /// hanno un secondo picco da dire.
   const dellaLuna = <String>{
     EventiDelCielo.lunaNelTuoSegno,
     EventiDelCielo.lunaNelSegnoOpposto,
-    EventiDelCielo.lunaPiena,
-    EventiDelCielo.lunaNuova,
     EventiDelCielo.primoQuarto,
     EventiDelCielo.ultimoQuarto,
   };

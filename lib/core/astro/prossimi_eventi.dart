@@ -1,3 +1,4 @@
+import '../lunario/il_motore_lunare.dart';
 import '../sigilli/eventi_del_cielo.dart';
 import 'natal_chart.dart';
 import 'zodiac.dart';
@@ -15,6 +16,13 @@ class EventoInArrivo {
   final String evento;
 
   /// Il giorno in cui comincia, a mezzanotte locale.
+  ///
+  /// **ECCEZIONE, ordine GB voce 11, 22 ottobre 2026**: per
+  /// [EventiDelCielo.lunaPiena] e [EventiDelCielo.lunaNuova] non e' il
+  /// giorno in cui la finestra si apre, e' il giorno del picco esatto (la
+  /// stessa fonte, [IlMotoreLunare], che usa gia' il Respiro della Luna):
+  /// il Calendario degli eventi e il Respiro devono dire la stessa data
+  /// per lo stesso evento, mai due lette diverse.
   final DateTime quando;
 
   /// Quanti giorni mancano: zero vuol dire oggi.
@@ -176,6 +184,43 @@ class ProssimiEventi {
       if (trovati.length == _quantiPossibili(carta: carta, segno: segno)) {
         break;
       }
+    }
+
+    // **LUNA PIENA E LUNA NUOVA DICONO IL PICCO ESATTO. Ordine GB voce 11,
+    // 22 ottobre 2026.** Il rapporto dell'ordine GA, punto 4: il Calendario
+    // mostrava il giorno in cui la finestra d'illuminazione si apre, il
+    // Respiro della Luna il picco esatto della stessa Luna piena o nuova
+    // (IlMotoreLunare.lunePieneFra/luneNuoveFra): due letture dello stesso
+    // evento. Qui si corregge SOLO la data, nel punto in cui gia' si scrive
+    // `quando`: la scansione e la sua soglia di attivita' restano quelle di
+    // sempre, perche' e' ancora lei a trovare QUALE evento e IN CHE
+    // FINESTRA cercare il picco.
+    for (final evento in const [
+      EventiDelCielo.lunaPiena,
+      EventiDelCielo.lunaNuova,
+    ]) {
+      final trovato = trovati[evento];
+      if (trovato == null) continue;
+      final finestra = trovato.quando;
+      final picchi = evento == EventiDelCielo.lunaPiena
+          ? IlMotoreLunare.lunePieneFra(
+              finestra.subtract(const Duration(days: 3)),
+              finestra.add(const Duration(days: 3)))
+          : IlMotoreLunare.luneNuoveFra(
+              finestra.subtract(const Duration(days: 3)),
+              finestra.add(const Duration(days: 3)));
+      // Senza un picco nella finestra la data di prima resta: non si
+      // inventa un numero che il motore esatto non ha dato.
+      if (picchi.isEmpty) continue;
+      final picco = picchi.first;
+      final giornoDelPicco = DateTime(picco.year, picco.month, picco.day);
+      final fra = giornoDelPicco.difference(oggi).inDays;
+      trovati[evento] = EventoInArrivo(
+        evento: evento,
+        quando: giornoDelPicco,
+        fraQuantiGiorni: fra < 0 ? 0 : fra,
+        personale: trovato.personale,
+      );
     }
 
     final elenco = trovati.values.toList()
