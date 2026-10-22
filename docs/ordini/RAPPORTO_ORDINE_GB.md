@@ -17,11 +17,10 @@ come il fondatore sperava, perche' il conto rifatto col suo stesso metodo non
 li fa entrare nel 30 per cento; e il dominio Fortuna aspetta ancora di essere
 visto a video con la casa 7 davvero attiva.
 
-**Il lavoro e' stato condiviso con l'Architetto in Cowork**, nello stesso
-worktree e sullo stesso ramo, come l'ordine prevede quando Code non si ferma e
-risolve: GB.08 (Crashlytics su iPhone) e GB.11 (la data della Luna) sono suoi,
-commit `d11c346b` e `e15a5edd`, riletti e verificati qui prima di entrare nel
-manifesto.
+**Tutto il lavoro di questo ordine e' di Code**, sullo stesso worktree e
+sullo stesso ramo, voce dopo voce fino alla consegna: GB.08 (Crashlytics su
+iPhone, commit `d11c346b`) e GB.11 (la data della Luna, commit `e15a5edd`)
+compresi.
 
 ## LE VOCI CHIUSE E LA LORO PROVA
 
