@@ -181,6 +181,13 @@ class LinguaDegliEventi {
   static String dataBreve(DateTime quando) =>
       '${quando.day} ${_mesi[quando.month - 1]}';
 
+  /// **LA DATA CON L'ANNO**, ordine GB voce 07, 22 ottobre 2026: "27 agosto
+  /// 2026". Senza l'anno una data vecchia di un anno si legge come quella di
+  /// oggi, e il Diario Cosmico ("Quel giorno") non aveva nessuna cifra che
+  /// lo distinguesse.
+  static String dataConAnno(DateTime quando) =>
+      '${dataBreve(quando)} ${quando.year}';
+
   static const List<String> _mesi = [
     'gennaio',
     'febbraio',

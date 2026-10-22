@@ -37,6 +37,8 @@ import '../../design_system/components/miniatura_intera.dart';
 import '../tarot/tarot_card_art.dart';
 import '../../core/ricordi/conti_delle_arti.dart';
 import '../../core/ricordi/registro_dei_ricordi.dart';
+import '../../services/app_services.dart';
+import '../maestri/chat/maestro_chat_screen.dart';
 import '../../core/ricordi/riassunti_del_tempo.dart';
 import '../../core/ricordi/ricordo_custodito.dart';
 import '../../core/ricordi/vista_dei_ricordi.dart';
@@ -834,7 +836,8 @@ class _RigaDellaVoce extends StatelessWidget {
     }
     // Le conversazioni si riaprono AL PUNTO del turno: la chat ci arriva col
     // suo identificativo, non con una posizione.
-    Navigator.of(context).push(RicordoApertoScreen.rottaDelTurno(voce));
+    Navigator.of(context)
+        .push(RicordoApertoScreen.rottaDelTurno(context, voce));
   }
 }
 
@@ -922,15 +925,30 @@ class RicordoApertoScreen extends StatelessWidget {
         (_) => MaestroScope(child: _LaVoceCheTorna(voce: voce)),
       );
 
-  /// **LA CONVERSAZIONE SI RIAPRE AL PUNTO DEL TURNO, non in cima.**
+  /// **LA CONVERSAZIONE SI RIAPRE AL PUNTO DEL TURNO, non in cima, E DAVVERO.
+  /// Ordine GB voce 07, 22 ottobre 2026.** Il rapporto dell'ordine GA, punto
+  /// 7: *"il Diario si riapre in 'Quel giorno' senza la chat; non ha
+  /// l'anno"*. Prima questa rotta apriva una schermata a parte, con solo il
+  /// titolo e il riferimento del turno: non la conversazione vera, e senza
+  /// nessuna data. Adesso apre la chat reale del Maestro
+  /// ([MaestroChatScreen]), con `apriConversazioneId` che carica i
+  /// messaggi veri (lo stesso meccanismo del menu delle conversazioni
+  /// passate) e `apriConversazioneQuando` che mostra la data con l'anno.
   ///
   /// La rotta porta l'identificativo del turno e non la sua posizione: aprire
   /// per posizione vorrebbe dire mostrare un turno diverso appena la
   /// cronologia cambia di una riga.
-  static Route<void> rottaDelTurno(VoceDelRicordo voce) =>
-      PassaggioDelCerchio.rotta<void>(
-        (_) => MaestroScope(child: _ConversazioneRiaperta(voce: voce)),
-      );
+  static Route<void> rottaDelTurno(BuildContext context, VoceDelRicordo voce) {
+    final maestro = Maestro.fromId(voce.maestro) ?? Maestro.medora;
+    final chiave = voce.chiaveDelDiario ?? voce.riferimento;
+    return MaestroChatScreen.route(
+      maestro: maestro,
+      services: context.read<AppServices>(),
+      apriConversazioneId:
+          chiave == null ? null : RegistroDeiRicordi.idDellaConversazione(chiave),
+      apriConversazioneQuando: voce.quando,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -973,44 +991,6 @@ class RicordoApertoScreen extends StatelessWidget {
                 stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textPrimary)),
             if (voce != null) _LaStellaELaRiga(voce: voce!, nota: nota),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// La conversazione riaperta al punto del turno toccato.
-class _ConversazioneRiaperta extends StatelessWidget {
-  const _ConversazioneRiaperta({required this.voce});
-
-  final VoceDelRicordo voce;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    return Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
-      appBar: AppBar(
-        backgroundColor: palette.deepest.withValues(alpha: 0.4),
-        title: Text('Quel giorno', style: TypographyTokens.titoloScheda()),
-      ),
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(SpacingTokens.lg),
-          children: [
-            ParagrafiDiLettura(
-                testo: voce.titolo,
-                key: const Key('turno_riaperto_titolo'),
-                stile: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textPrimary)),
-            const SizedBox(height: SpacingTokens.md),
-            Text(
-              'Turno ${voce.riferimento}',
-              key: const Key('turno_riaperto_riferimento'),
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: ColorTokens.textSecondary),
-            ),
           ],
         ),
       ),

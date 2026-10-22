@@ -76,6 +76,7 @@ class MaestroChatController extends ChangeNotifier {
     this.segnaNeiRicordi,
     this.conversazioneNuova = false,
     this.leConversazioniDelDiario,
+    this.apriConversazioneIniziale,
   })  : _ai = ai,
         _demo = demo ?? AppFlags.isDemo,
         _attesaMinima = attesaMinima,
@@ -101,6 +102,21 @@ class MaestroChatController extends ChangeNotifier {
   /// responso, e la conversazione di prima sotto la domanda confondeva, parola
   /// del fondatore. Quella di prima non si perde: resta fra le passate.
   final bool conversazioneNuova;
+
+  /// **LA CONVERSAZIONE DI QUEL GIORNO, DAL DIARIO. Ordine GB voce 07, 22
+  /// ottobre 2026.** Il rapporto dell'ordine GA, punto 7: *"il Diario si
+  /// riapre in 'Quel giorno' senza la chat"*. Con un identificativo non
+  /// nullo, [init] chiama [apriLaConversazione] come ULTIMO passo, dopo il
+  /// proprio caricamento: chiamarla da fuori, prima che [init] finisca,
+  /// perdeva la gara con [conversazioneNuova], che alla fine di [init]
+  /// sovrascrive `_conversazione` e vuota i messaggi.
+  final String? apriConversazioneIniziale;
+
+  /// **VERO DOPO CHE [apriConversazioneIniziale] E' STATA CARICATA.** La
+  /// schermata lo legge una volta, dopo [notifyListeners], per mostrare la
+  /// striscia della data: prima non c'era modo di sapere da fuori quando
+  /// quel caricamento, interno a [init], fosse finito.
+  bool conversazioneInizialeAperta = false;
 
   /// **LE CONVERSAZIONI DEL MENU' VENGONO DAL DIARIO. Ordine FE voce
   /// 22.16.** Una porta sola per il menu' e per il Diario Cosmico: chi
@@ -745,6 +761,16 @@ class MaestroChatController extends ChangeNotifier {
       // banco (giro ex07a) ogni apertura della chat costava una chiamata,
       // anche a chi non tocca mai. Le risposte nuove lo preparano quando
       // arrivano; una risposta di prima dell'ordine lo chiede al tocco.
+    }
+    // **ULTIMO PASSO, DOPO CHE TUTTO IL RESTO DI INIT E' GIA' SUCCESSO.**
+    // Ordine GB voce 07: chiamata da qui, [apriLaConversazione] non perde
+    // mai la gara con `conversazioneNuova` qui sopra, che altrimenti
+    // arriverebbe dopo e svuoterebbe i messaggi appena caricati.
+    final id = apriConversazioneIniziale;
+    if (id != null) {
+      await apriLaConversazione(id);
+      conversazioneInizialeAperta = true;
+      notifyListeners();
     }
   }
 

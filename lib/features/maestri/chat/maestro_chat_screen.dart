@@ -1,3 +1,4 @@
+import '../../../core/astro/lingua_degli_eventi.dart';
 import '../../../core/cerchio/l_arte_di_adesso.dart';
 import '../../../core/chat/il_filo_del_consulto.dart';
 import '../../../core/sigilli/diario_del_cammino.dart';
@@ -79,9 +80,25 @@ class MaestroChatScreen extends StatefulWidget {
     this.initialUserMessage,
     this.dettatura,
     this.fabbricaDellaScena,
+    this.apriConversazioneId,
+    this.apriConversazioneQuando,
   });
 
   final Maestro maestro;
+
+  /// **LA CONVERSAZIONE DI QUEL GIORNO, DAL DIARIO. Ordine GB voce 07, 22
+  /// ottobre 2026.** Il rapporto dell'ordine GA, punto 7: *"il Diario si
+  /// riapre in 'Quel giorno' senza la chat; non ha l'anno"*. Con questo
+  /// identificativo non nullo, appena la chat e' pronta si apre la
+  /// conversazione vera (stesso meccanismo del menu delle conversazioni
+  /// passate, [MaestroChatController.apriLaConversazione]) e, se
+  /// [apriConversazioneQuando] e' noto, una striscia dice la data con
+  /// l'anno: senza quella riga una conversazione di un anno fa si legge come
+  /// quella di oggi.
+  final String? apriConversazioneId;
+
+  /// Il giorno di [apriConversazioneId], per la striscia della data.
+  final DateTime? apriConversazioneQuando;
 
   /// La finta del lettore video della scena d'apertura, per le prove
   /// headless (FW.04).
@@ -118,6 +135,8 @@ class MaestroChatScreen extends StatefulWidget {
     String? initialTheme,
     String? initialUserMessage,
     Dettatura? dettatura,
+    String? apriConversazioneId,
+    DateTime? apriConversazioneQuando,
   }) {
     // La rotta porta la sua arte per la presenza, ordine EY voce 08.
     return LArteDiAdesso.segna(
@@ -137,6 +156,10 @@ class MaestroChatScreen extends StatefulWidget {
                     // chat con i maestri, deve aprirsi da capo, una chat vuota
                     // nuova"*. Le conversazioni di prima stanno nel menu'.
                     conversazioneNuova: true,
+                    // **LA CONVERSAZIONE DI QUEL GIORNO, ordine GB voce 07.**
+                    // Passata al controllore e non chiamata da fuori: solo
+                    // lui sa quando il proprio caricamento e' finito.
+                    apriConversazioneIniziale: apriConversazioneId,
                     // **LE CONVERSAZIONI DEL MENU' VENGONO DAL DIARIO. Ordine
                     // FE voce 22.16**: la stessa lettura del Diario Cosmico,
                     // le ultime sei con questo Maestro (una puo' essere
@@ -198,6 +221,8 @@ class MaestroChatScreen extends StatefulWidget {
                       initialTheme: initialTheme,
                       initialUserMessage: initialUserMessage,
                       dettatura: dettatura,
+                      apriConversazioneId: apriConversazioneId,
+                      apriConversazioneQuando: apriConversazioneQuando,
                     ),
                   ),
                 )),
@@ -309,6 +334,41 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     _regiaDellaChat = RegiaDellaScena(
         widget.fabbricaDellaScena ?? () => LettoreDiScena.vero(scena.video))
       ..addListener(_quandoLaScenaDellaChatCambia);
+    // **LA STRISCIA DELLA DATA, ordine GB voce 07.** Il controllore apre la
+    // conversazione di quel giorno da solo, come ULTIMO passo di `init()`
+    // (nessuna gara con `conversazioneNuova`): questo ascolto aspetta la
+    // sua bandiera `conversazioneInizialeAperta` per mostrare la data con
+    // l'anno, invece di aprire la conversazione da qui.
+    if (widget.apriConversazioneId != null) {
+      context
+          .read<MaestroChatController>()
+          .addListener(_quandoLaConversazioneInizialeCambia);
+    }
+  }
+
+  bool _strisciaDellaDataMostrata = false;
+
+  void _quandoLaConversazioneInizialeCambia() {
+    if (!mounted) return;
+    final controller = context.read<MaestroChatController>();
+    final quando = widget.apriConversazioneQuando;
+    if (!controller.conversazioneInizialeAperta ||
+        _strisciaDellaDataMostrata ||
+        quando == null) {
+      return;
+    }
+    _strisciaDellaDataMostrata = true;
+    controller.removeListener(_quandoLaConversazioneInizialeCambia);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      // La striscia dice la data con l'anno: senza l'anno una
+      // conversazione di un anno fa si legge come quella di oggi.
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        key: const Key('conversazione_di_quel_giorno'),
+        content: Text('Hai riaperto la conversazione del '
+            '${LinguaDegliEventi.dataConAnno(quando)}'),
+      ));
+    });
   }
 
   /// **LA SCENA DELLA CHAT E' FERMA**, ordine FX voce FXA.08: c'e' gia'
@@ -355,6 +415,11 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     _regiaDellaChat
       ..removeListener(_quandoLaScenaDellaChatCambia)
       ..dispose();
+    if (widget.apriConversazioneId != null && !_strisciaDellaDataMostrata) {
+      context
+          .read<MaestroChatController>()
+          .removeListener(_quandoLaConversazioneInizialeCambia);
+    }
     super.dispose();
   }
 

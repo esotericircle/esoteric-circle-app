@@ -334,6 +334,12 @@ void main() {
     // dell'utente venga ripetuta [...] e magari aggiungere cosa ha risposto
     // il maestro precedente". Lo stesso consulto della FE.14, testi veri dal
     // banco del filo, col filo toccato e aperto.
+    //
+    // **CALÌGO RISPONDE DAVVERO, ordine GB voce 05, 22 ottobre 2026.** La
+    // carta filtra per Maestro: compare solo nella chat di un Maestro che fa
+    // parte del consulto. Qui Calìgo ne diventa parte come in FE.14 (la
+    // persona gli pone la stessa domanda), non per il solo fatto che un
+    // consulto esista da qualche parte con un altro Maestro.
     IlFiloDelConsulto.dimentica();
     IlFiloDelConsulto.annota(
         maestro: Maestro.medora,
@@ -343,7 +349,16 @@ void main() {
         maestro: Maestro.caligo,
         ai: _VoceConUnTesto(_rispostaDiCaligo),
         apriIlMenu: false);
-    await passa(tester, 4);
+    final campo = find.descendant(
+        of: find.byType(ChatComposer), matching: find.byType(TextField));
+    await tester.enterText(campo, _domanda);
+    await passa(tester, 2);
+    await tester.testTextInput.receiveAction(TextInputAction.send);
+    for (var i = 0; i < 12; i++) {
+      await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 300)));
+      await passa(tester, 10);
+    }
     expect(find.byKey(const Key('filo_in_cima_chiusa')), findsOneWidget);
     await tester.tap(find.byKey(const Key('filo_in_cima')));
     await passa(tester, 6);
