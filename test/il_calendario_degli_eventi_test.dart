@@ -130,8 +130,19 @@ void main() {
 
     // E gli eventi di tutti ci sono lo stesso: la Luna piena arriva per
     // chiunque, anche per chi non ha dato la sua nascita.
-    expect(find.byKey(const Key('evento_${EventiDelCielo.lunaPiena}')),
-        findsOneWidget,
+    //
+    // **LA LISTA E' PIGRA: si scorre.** Dall'ordine GB voce 11 la Luna piena
+    // porta la data del suo picco esatto, non piu' quella del giorno in cui
+    // la finestra si apre: nella cronologia puo' scendere sotto la piega, e
+    // cercarla senza scorrere misurerebbe la finestra visibile, non se
+    // l'evento c'e'.
+    final lunaPiena =
+        find.byKey(const Key('evento_${EventiDelCielo.lunaPiena}'));
+    for (var giro = 0; giro < 12 && lunaPiena.evaluate().isEmpty; giro++) {
+      await tester.dragFrom(const Offset(180, 500), const Offset(0, -280));
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+    expect(lunaPiena, findsOneWidget,
         reason: 'senza identita\' sparisce anche la Luna piena, che non '
             'dipende da chi sei');
   });

@@ -205,6 +205,13 @@ PROVA: `test/la_consegna_parte_senza_la_prova_di_crashlytics_test.dart`
 MISURA: il flag `kProvaCrashlyticsAttiva` e' spento in questa consegna (0,
 non 1); la guardia cade se qualcuno lo accende per distrazione
 
+**Difetto trovato e curato al cancello, padre GB.08.** La chiave
+`diagnosi.prova_crashlytics_inviata`, scritta da `ProvaCrashlytics`, non era
+dichiarata in `CioCheETuo` (ordine BZ): la guardia
+`test/niente_resta_di_te_test.dart` l'ha trovata scoperta sul commit
+consegnato. Aggiunta all'elenco `restano` con la sua ragione (e' un segno
+dell'installazione, non della persona), commit di questa stessa consegna.
+
 ASPETTA: **PASSO MANUALE DEL FONDATORE** (numerato nel rapporto): accendere il flag a mano, fare una build, installarla su TestFlight, aprire l'app una volta sull'iPhone, guardare Crashlytics dopo qualche minuto, poi rispegnere il flag.
 
 ## VOCE GB.09
@@ -277,6 +284,16 @@ Verificato sul Realme (767f596c, app in release, FZ.09/GA.09, 22 ottobre
 2026): nessun difetto trovato. Osservazione segnata: il Respiro della Luna
 mostra solo il conto alla rovescia, non la data in chiaro; differenza di
 presentazione, non errore di data.
+
+**Difetto trovato e curato al cancello, padre GB.11.** Portare la Luna
+piena e la Luna nuova alla data del picco esatto (sopra) le sposta piu'
+avanti nella cronologia del Calendario rispetto alla vecchia data
+(l'apertura della finestra): `test/il_calendario_degli_eventi_test.dart`,
+voce "senza identita' non c'e' un vicolo cieco", cercava la Luna piena
+senza scorrere e non la trovava piu' (sotto la piega della lista pigra).
+Curato aggiungendo lo stesso scorrimento che la voce gemella della stessa
+prova gia' usa: la Luna piena c'e' ancora, solo piu' in basso. Commit di
+questa stessa consegna.
 
 ## VOCE GB.12
 

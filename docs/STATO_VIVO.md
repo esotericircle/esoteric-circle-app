@@ -7892,6 +7892,21 @@ misura era gia' stata presa dal vivo sul Realme con l'app installata, ma
 resta aperta perche' nessuna nuova conferma e' stata presa sulla build
 finale di questa consegna dopo le voci successive.
 
+**Due difetti trovati e curati al cancello finale, con il padre (Regola
+C).** Il primo push di questa consegna e' caduto su tre rossi: la mancata
+registrazione del rapporto (curata registrandolo) e due difetti veri,
+causati non da questa voce di chiusura ma da voci precedenti dello stesso
+ordine. **Padre GB.08**: `ProvaCrashlytics` scrive
+`diagnosi.prova_crashlytics_inviata`, mai dichiarata in `CioCheETuo`
+(ordine BZ), e `test/niente_resta_di_te_test.dart` l'ha trovata scoperta;
+curato aggiungendola all'elenco `restano` con la ragione scritta (e' un
+segno dell'installazione, non della persona). **Padre GB.11**: portare la
+Luna piena e la Luna nuova alla data del picco esatto le sposta piu' avanti
+nella cronologia del Calendario, e `test/il_calendario_degli_eventi_test.dart`
+(voce "senza identita' non c'e' un vicolo cieco") cercava la Luna piena
+senza scorrere; curato aggiungendo lo stesso scorrimento della voce
+gemella. Nessuno dei due e' un difetto visto dalla persona che usa l'app.
+
 **Le due cose che pesano di piu'**:
 - **GB.04, i numeri delle stese restano quelli di oggi.** Il fondatore
   sperava di tornare a 6 stese per l'Adepto e 10 per l'Illuminato,

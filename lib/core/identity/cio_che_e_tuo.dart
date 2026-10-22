@@ -179,6 +179,13 @@ class CioCheETuo {
         'qualcuno aveva scelto per necessità.',
     'app_check_debug_token': 'il gettone di prova di App Check, che appartiene '
         'alla macchina e non alla persona.',
+    // **ORDINE GB VOCE 08, 22 ottobre 2026.** Dice solo che QUESTA
+    // installazione ha gia' mandato la prova di Crashlytics una volta: non
+    // parla della persona, parla del telefono, e resta spenta dietro
+    // `kProvaCrashlyticsAttiva` in ogni consegna ordinaria.
+    'diagnosi.prova_crashlytics_inviata': 'il segno che questa installazione '
+        'ha già mandato la prova di Crashlytics una volta (ordine GB voce '
+        '08), e appartiene al telefono, non alla persona.',
   };
 
   /// Vero se quella chiave appartiene alla persona.

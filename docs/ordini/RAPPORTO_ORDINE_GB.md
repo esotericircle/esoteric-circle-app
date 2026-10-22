@@ -125,6 +125,35 @@ stanno per intero in `docs/ordini/ORDINE_GB_MANIFESTO.md`. Qui il riassunto:
 | GB.12 | **chiusa** | `test/language_rule_test.dart`, `CLAUDE.md` |
 | GB.13 | aperta | questo rapporto |
 
+## DUE DIFETTI TROVATI E CURATI AL CANCELLO FINALE, CON IL PADRE (REGOLA C)
+
+Il primo push di questa consegna (commit `6e221134`) e' caduto sul cancello
+di GitHub su tre rossi: uno era la mancata registrazione di questo stesso
+rapporto (curata registrandolo, si veda in cima), gli altri due sono difetti
+veri, trovati dalle guardie che proteggono zone toccate da voci precedenti
+di questo stesso ordine, non da questa voce di chiusura:
+
+1. **Padre: GB.08.** `ProvaCrashlytics` scrive la chiave
+   `diagnosi.prova_crashlytics_inviata`, mai dichiarata in `CioCheETuo`
+   (ordine BZ): la guardia `test/niente_resta_di_te_test.dart` l'ha trovata
+   scoperta. Curato aggiungendola all'elenco `restano` di
+   `lib/core/identity/cio_che_e_tuo.dart`, con la ragione scritta (e' un
+   segno dell'installazione, non della persona).
+2. **Padre: GB.11.** Portare la Luna piena e la Luna nuova alla data del
+   picco esatto le sposta piu' avanti nella cronologia del Calendario: la
+   voce "senza identita' non c'e' un vicolo cieco" di
+   `test/il_calendario_degli_eventi_test.dart` cercava la Luna piena senza
+   scorrere e non la trovava piu', sotto la piega della lista pigra. Curato
+   aggiungendo lo stesso scorrimento che la voce gemella della stessa prova
+   gia' usa.
+
+Nessuno dei due e' un difetto dell'app vista dalla persona: il primo e' un
+buco nella copertura della cancellazione dei dati (reale, ma su una chiave
+tecnica che non e' mai stata della persona), il secondo e' una prova che
+assumeva una posizione nella lista che la correzione della data ha
+spostato. Entrambi misurati rossi prima della cura (il cancello di GitHub
+per il primo giro, `flutter test` in locale per confermarli), verdi dopo.
+
 ## GB.04, I NUMERI DEI PIANI PRIMA E DOPO
 
 **Prima (committato, ordine GA):** `STESA` uniforme, 1950 gettoni "per ogni
