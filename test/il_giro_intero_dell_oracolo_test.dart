@@ -215,7 +215,12 @@ void main() {
     }
     await scatta(tester, '03_scena_ferma_e_domanda');
 
-    // SCELTA DELLA DOMANDA: un argomento, le sue dieci domande.
+    // SCELTA DELLA DOMANDA: un argomento, le sue dieci domande. La domanda
+    // sta sotto il tavolo (GC.09): si porta in vista prima di toccarla.
+    await Scrollable.ensureVisible(
+        tester.element(find.byKey(const Key('oracolo_tema_lavoro'))),
+        alignment: 0.3);
+    await passa(tester, 1);
     await tester.tap(find.byKey(const Key('oracolo_tema_lavoro')));
     await passa(tester, 3);
     expect(find.byKey(const Key('oracolo_tema_aperto')), findsOneWidget);

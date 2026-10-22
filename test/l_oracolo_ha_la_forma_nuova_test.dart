@@ -410,11 +410,13 @@ void main() {
           find.descendant(
               of: principale, matching: find.byType(RiquadroArancione)),
           findsOneWidget);
-      // Ogni carta ha il suo riquadro, senza titolo e senza fonte.
+      // **DALL'ORDINE GC VOCE GC.15** la carta singola ha il titolo e un
+      // paragrafo, "Il suo messaggio per te", senza riquadro. LAPIDE: "ogni
+      // carta ha il suo riquadro" (GA.05).
       for (final r in const ['custode', 'cuore', 'intelletto']) {
         expect(find.byKey(Key('oracolo_carta_singola_${r}_cosa_fare')),
-            findsOneWidget,
-            reason: 'la carta $r non ha il suo "Cosa fare adesso"');
+            findsNothing,
+            reason: 'la carta $r ha ancora il suo "Cosa fare adesso"');
         expect(
             find.byKey(Key('oracolo_carta_singola_${r}_titolo')), findsNothing);
         expect(find.byKey(Key('oracolo_carta_singola_${r}_rito')), findsNothing,

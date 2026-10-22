@@ -412,6 +412,9 @@ void main() {
     // GB: tredici voci, contate coi titoli "## VOCE GB." del manifesto il 22
     // ottobre 2026.
     'GB': 13,
+    // GC: venti voci, contate coi titoli "## VOCE GC." del manifesto il 22
+    // ottobre 2026; le cinque dell'aggiunta GBA sono diventate GC.01-GC.05.
+    'GC': 20,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

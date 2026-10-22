@@ -27,6 +27,7 @@ import 'package:esoteric_circle/features/angels/oracolo/la_geometria_dell_altare
 import 'package:esoteric_circle/features/angels/oracolo/oracolo_degli_angeli_screen.dart';
 import 'package:esoteric_circle/features/respiro_della_luna/i_comandi_dipinti.dart';
 import 'package:esoteric_circle/features/scene/la_scena_in_video.dart';
+import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
 import 'package:esoteric_circle/features/tarot/stesa_fan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -309,12 +310,18 @@ void main() {
       await Scrollable.ensureVisible(tester.element(pulsante), alignment: 0.5);
       await tester.pump();
       await tester.tap(pulsante);
-      // Le lettere salgono 2,4 s; poi la prima carta si gira in 0,5 s. Il
-      // momento giusto si cerca, non si indovina: la carta e' di taglio
-      // quando la sua larghezza a schermo scende sotto un quinto di quella
-      // piatta.
+      // Le lettere salgono 2,4 s, poi Medora riflette (GC.13) e solo dopo
+      // la prima carta si gira (GC.14). Il momento giusto si cerca, non si
+      // indovina: si aspetta che la riflessione finisca, poi la carta e' di
+      // taglio quando la sua larghezza a schermo scende sotto un quinto di
+      // quella piatta.
       for (var i = 0; i < 22; i++) {
         await tester.pump(const Duration(milliseconds: 100));
+      }
+      for (var i = 0;
+          i < 200 && find.byType(AttesaDiMedora).evaluate().isNotEmpty;
+          i++) {
+        await tester.pump(const Duration(milliseconds: 50));
       }
       final piatta =
           tester.getRect(find.byKey(const Key('oracolo_dorso_0'))).width;
@@ -423,6 +430,8 @@ void main() {
           '(${lunga ? 'Lunga' : 'Breve'}), e i messaggi delle carte stanno '
           'nelle loro bolle', (tester) async {
         await _monta(tester, tier: tier);
+        // GC.19: la Lunga si sceglie nel selettore; all'apertura e' Breve.
+        if (lunga) await scegliLaLunga(tester);
         await consultaLOracolo(tester, 'Devo cambiare lavoro?');
         final principale = find.byKey(const Key('oracolo_responso_principale'));
         int quanti(Type t) => find

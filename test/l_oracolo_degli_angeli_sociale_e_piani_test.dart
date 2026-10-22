@@ -351,18 +351,26 @@ void main() {
       final prezzo = ListinoDegliEos.prezzo(
           ListinoDegliEos.cartaDegliAngeliDaDonare.costo);
       expect(find.textContaining('Mandala in dono, $prezzo'), findsNWidgets(3));
+      // GC.16: il cosmo dietro l'Oracolo non si ferma mai, e la prova
+      // avanza a fotogrammi contati invece di pumpAndSettle.
       final primo = dono.first;
       await _alCentro(tester, primo);
       // Prima del gesto non e' partito niente.
       expect(m.sociale.chieste.where((c) => c.$1 == 'mandaUnDono'), isEmpty);
       await tester.tap(primo);
-      await tester.pumpAndSettle();
+      for (var i = 0; i < 15; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
       await tester.tap(find.byKey(const Key('oracolo_dono_a_u-stella')));
-      await tester.pumpAndSettle();
+      for (var i = 0; i < 15; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
       expect(find.byKey(const Key('conferma_spesa')), findsOneWidget,
           reason: 'il dono costa Eos: la conferma unica della spesa');
       await tester.tap(find.byKey(const Key('conferma_spesa_procedi')));
-      await tester.pumpAndSettle();
+      for (var i = 0; i < 15; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
       final mandato =
           m.sociale.chieste.singleWhere((c) => c.$1 == 'mandaUnDono').$2;
       print('FU.09 MISURA dono: $mandato');

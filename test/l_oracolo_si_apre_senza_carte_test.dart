@@ -203,9 +203,13 @@ void main() {
   // nessun evento dell'app lo chiude prima della sua fine: solo il tocco o lo
   // scorrimento della persona (FU.15, GB.02).
   test('il lettore vero dell\'Oracolo suona il filmato fino alla fine', () {
+    // Si guarda il codice, non i commenti: la lapide del taglio di prima
+    // racconta il `finoA` che c'era, e non e' codice.
     final schermata =
         File('lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart')
-            .readAsStringSync()
+            .readAsLinesSync()
+            .where((riga) => !riga.trimLeft().startsWith('//'))
+            .join(' ')
             .replaceAll(RegExp(r'\s+'), ' ');
     expect(schermata,
         contains('LettoreDiScena.vero(GeometriaDellAltare.filmato))'),

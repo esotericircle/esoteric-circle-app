@@ -625,6 +625,26 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     }
   }
 
+  /// **LA GIRATA RIDISEGNA SOLO IL TAVOLO**, ordine GC voce GC.01, 22
+  /// ottobre 2026. Il fondatore: *"La stesa a 10 carte, al click su pulsante
+  /// \"leggi le carte\" rallenta tantissimo, va a scatti"*. Misurato sul
+  /// Realme col banco della Croce Celtica e i tempi di ogni fotogramma
+  /// (`docs/collaudo/GC/gc01_la_croce_celtica.md`): a ogni carta girata un
+  /// fotogramma da 130 a 190 millisecondi, quasi tutto di costruzione,
+  /// perche' ogni girata e ogni fioritura chiamavano `setState` e
+  /// ricostruivano l'intera schermata, col responso e le sue dieci bolle gia'
+  /// montati sotto. PADRE: ordine FL voce 05 (la sequenza del tavolo, una
+  /// carta alla volta, con `setState`). Lo stato della girata e della
+  /// fioritura lo legge soltanto il tavolo: cambiarlo avvisa questo segnale,
+  /// che sta nella stessa fusione delle animazioni del tavolo, e si ridisegna
+  /// solo il tavolo.
+  final ValueNotifier<int> _ilTavoloCambia = ValueNotifier(0);
+
+  void _cambiaIlTavolo(VoidCallback cambio) {
+    cambio();
+    _ilTavoloCambia.value++;
+  }
+
   Future<void> _laSequenzaDelTavolo() async {
     if (!mounted || _sequenzaFatta) return;
     if (_reduceMotion) {
@@ -639,7 +659,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       _sensi.momento(context, MomentoSensoriale.flip);
       await _giro.forward(from: 0);
       if (!mounted) return;
-      setState(() => _carteGirate = i + 1);
+      _cambiaIlTavolo(() => _carteGirate = i + 1);
       _giro.value = 0;
       unawaited(_fiorisci(i));
       await _attendi(const Duration(milliseconds: 160));
@@ -648,7 +668,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (!mounted) return;
     await _alzo.forward(from: 0);
     if (!mounted) return;
-    setState(() => _sequenzaFatta = true);
+    _cambiaIlTavolo(() => _sequenzaFatta = true);
   }
 
   /// Quanto e' girata la carta del posto [i] sul tavolo.
@@ -1092,6 +1112,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _taglio.dispose();
     _mescola.dispose();
     _volo.dispose();
+    _ilTavoloCambia.dispose();
     super.dispose();
   }
 
@@ -1565,7 +1586,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _sensi.momento(context, MomentoSensoriale.reveal,
         solenne: spec.solenne, conSuono: false);
     if (_reduceMotion) return;
-    setState(() {
+    // GC.01: la fioritura e' del tavolo, e ridisegna solo lui.
+    _cambiaIlTavolo(() {
       _revealSlot = slot;
       _revealSpec = spec;
     });
@@ -1573,7 +1595,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     await _reveal.forward(from: 0);
     if (!mounted) return;
     // Finita la fioritura non resta nulla sopra la carta.
-    setState(() {
+    _cambiaIlTavolo(() {
       _revealSlot = null;
       _revealSpec = null;
     });
@@ -1820,8 +1842,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             // e carte insieme al resto della lista.
             child: RepaintBoundary(
                 child: AnimatedBuilder(
-              animation:
-                  Listenable.merge([_giro, _alzo, _reveal, _tilt, _filo]),
+              animation: Listenable.merge(
+                  [_giro, _alzo, _reveal, _tilt, _filo, _ilTavoloCambia]),
               builder: (context, _) => TavoloDiMedora(
                 key: const Key('stesa_slots'),
                 posti: _setup.tipo.tavolo,
