@@ -91,6 +91,22 @@ void main() {
               'finisce a $barra: in mezzo ci sono '
               '${(pienaDa - barra).toStringAsFixed(1)} punti di cosmo senza '
               'velo, la fascia azzurra');
+      // **IL VIDEO CONTINUA SOTTO LA BARRA**, ordine GC voce GC.02, 22
+      // ottobre 2026. Il fondatore: *"La barra in alto del titolo deve
+      // essere semitrasparente in modo da fare vedere il video animazione
+      // sotto"*. L'immagine e il filmato della scena si dipingono dal bordo
+      // alto dello schermo, sotto il velo della barra, e la barra resta
+      // semitrasparente (R12). Cade se la scena torna a cominciare sotto la
+      // barra o se la barra torna piena.
+      final dipinta =
+          tester.getRect(find.byKey(const Key('tavolo_sfumatura'))).top;
+      expect(dipinta, lessThanOrEqualTo(0.5),
+          reason: 'la scena comincia a $dipinta, sotto la barra: il video '
+              'non passa sotto il velo');
+      final velo =
+          tester.widget<AppBar>(find.byType(AppBar)).backgroundColor!.a;
+      expect(velo, lessThanOrEqualTo(0.6),
+          reason: 'la barra del titolo della Stesa e\' tornata piena');
       // La testa di Medora nel filmato comincia otto pixel e mezzo sotto il
       // taglio: sotto la barra, intera.
       expect(scena + 8.5 * s, greaterThanOrEqualTo(barra),

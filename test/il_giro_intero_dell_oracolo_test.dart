@@ -192,7 +192,18 @@ void main() {
     lettore.comincia();
     await passa(tester, 3);
     expect(find.byKey(const Key('lettore_finto_oracolo')), findsOneWidget);
-    expect(find.byKey(const Key('oracolo_domanda')), findsNothing,
+    // **LA DOMANDA STA SOTTO IL TAVOLO** (GC.09), montata e trasparente
+    // finche' il filmato gira. LAPIDE: "findsNothing", quando stava sopra la
+    // scena.
+    expect(
+        tester
+            .widget<AnimatedOpacity>(find
+                .ancestor(
+                    of: find.byKey(const Key('oracolo_domanda')),
+                    matching: find.byType(AnimatedOpacity))
+                .first)
+            .opacity,
+        0,
         reason: 'a video in corso sopra la scena c\'e\' solo il video');
     await scatta(tester, '02_video_in_corso');
     lettore.finisci();

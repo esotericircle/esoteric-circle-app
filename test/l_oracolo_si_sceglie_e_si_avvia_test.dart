@@ -346,9 +346,14 @@ void main() {
           '${misura.dipinto.toStringAsFixed(1)}');
       expect((misura.cattura - misura.vuoto).abs(), lessThan(12),
           reason: 'sotto la carta che si gira non c\'e\' l\'altare vuoto');
-      expect((misura.cattura - misura.dipinto).abs(), greaterThan(30),
-          reason: 'sotto la carta che si gira si vede il dorso del video');
-      expect(find.byType(AltareVuoto), findsOneWidget);
+      // **IL TAVOLO VUOTO STA NEL FILMATO**, GC Aggiunta, 22 ottobre 2026:
+      // l'ultimo fotogramma del v2 non ha piu' i dorsi dipinti, e sull'altare
+      // e' uguale al primo, sgombro. LAPIDE, FY.17: "sotto la carta che si
+      // gira si vede il dorso del video" (oltre 30 livelli dal dorso dipinto)
+      // e la toppa `AltareVuoto`.
+      expect((misura.dipinto - misura.vuoto).abs(), lessThan(12),
+          reason: 'l\'ultimo fotogramma del filmato porta ancora i dorsi '
+              'dipinti sull\'altare');
     });
   });
 

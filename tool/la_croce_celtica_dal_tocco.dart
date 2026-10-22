@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 /// **LE STESE DAL TOCCO DI "LEGGI LE CARTE", PER MISURARE IL CRASH.** Ordine
@@ -35,6 +36,18 @@ import 'package:provider/provider.dart';
 /// ```
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  // **I TEMPI DI OGNI FOTOGRAMMA LUNGO**, nel registro del telefono: quanto
+  // ha costruito l'interfaccia e quanto ha disegnato, per ogni fotogramma
+  // oltre i 50 millisecondi. `FrameTiming` c'e' anche in rilascio.
+  SchedulerBinding.instance.addTimingsCallback((tempi) {
+    for (final t in tempi) {
+      if (t.totalSpan.inMilliseconds < 50) continue;
+      // ignore: avoid_print
+      print('GC01 fotogramma lungo: totale ${t.totalSpan.inMilliseconds} ms, '
+          'costruzione ${t.buildDuration.inMilliseconds} ms, disegno '
+          '${t.rasterDuration.inMilliseconds} ms');
+    }
+  });
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => MaestroController()),

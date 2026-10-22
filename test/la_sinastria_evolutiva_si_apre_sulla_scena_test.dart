@@ -186,8 +186,12 @@ void main() {
     expect(r.width, 390, reason: 'la scena non e\' larga quanto lo schermo');
     // La scena e' la prima cosa sotto la barra del titolo (che qui, senza
     // la barra di stato, e' alta kToolbarHeight).
-    expect(r.top, lessThanOrEqualTo(kToolbarHeight + 0.5),
-        reason: 'la scena non comincia sotto la barra del titolo');
+    // **E DAL BORDO ALTO, SOTTO IL VELO DELLA BARRA**, ordine GC voce
+    // GC.02: la scena passa sotto la barra semitrasparente (R12). LAPIDE:
+    // "lessThanOrEqualTo(kToolbarHeight + 0.5)", la scena sotto la barra.
+    expect(r.top, lessThanOrEqualTo(0.5),
+        reason: 'la scena comincia a ${r.top}, sotto la barra del titolo: il '
+            'video non passa sotto il velo');
     expect(r.height, greaterThan(500), reason: 'la scena non e\' intera');
 
     // Sotto la scena, a scena ferma, la scelta della persona: si vede e si

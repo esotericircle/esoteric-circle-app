@@ -461,7 +461,10 @@ void main() {
       await Scrollable.ensureVisible(tester.element(tendina), alignment: 0.2);
       await tester.pump();
       await tester.tap(tendina);
-      await tester.pump(const Duration(milliseconds: 400));
+      // Il menu si apre in piu' fotogrammi: si tocca la voce a menu aperto.
+      for (var i = 0; i < 6; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
       await tester.tap(find.text('Lunga').last);
       await tester.pump(const Duration(milliseconds: 400));
       await consultaLOracolo(tester, 'Devo cambiare casa?');
