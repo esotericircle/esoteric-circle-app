@@ -7826,6 +7826,106 @@ Stato al 21 ottobre 2026 (sera), sul ramo canonico `claude/esoteric-circle-maste
 
 **Difetti noti e decisioni che restano al fondatore** (elenco completo nel rapporto). Le Rune restano l'arte piu' debole (vedi GA.06). Crashlytics su iPhone non riceve niente da settembre. Nel Viaggio dello Sciamano: il segno senza rete consuma il tetto del giorno, il titolo del segno copre l'animale, il tocco "Scendi", l'ombra del Serpente (immagine), Volpe/Orso/Tartaruga che guardano di lato nei video nuovi. Le funzioni del Respiro restano esportate nel server (un deploy completo le pubblicherebbe): toglierle dall'esportazione e' una scelta sua. Le virgole nei versetti di Martini. Le due date della Luna (Calendario degli eventi contro Respiro/Collana, guardia DS.08). La carta "Hai chiesto a..." che non filtra per Maestro. Il limite delle domande ai Maestri senza uscita. Il Diario senza anno. Il dominio "Fortuna" che legge relazioni e occasioni.
 
+## L'ORDINE GB, L'OROSCOPO SI APRE SENZA CONGELARSI, TUTTI I FILMATI SI SALTANO, LE STESE RICALCOLATE E LE CURE DEL RAPPORTO GA (22 ottobre 2026)
+
+**In corso, sul ramo canonico `claude/esoteric-circle-master-order-e798aj`.**
+Testo dell'ordine alla lettera: `docs/ordini/ORDINE_GB_TESTO.md`. Manifesto:
+`docs/ordini/ORDINE_GB_MANIFESTO.md` (tredici voci, GB.01 a GB.13), con
+DOMANDA, PROVA e MISURA per ogni voce che ne ha una. Rapporto:
+`docs/ordini/RAPPORTO_ORDINE_GB.md` (non ancora registrato con
+`tool/i_rapporti_consegnati.py`, in attesa del verde e della verifica finale).
+**Zero voci CHIUSE, undici APERTE IN ATTESA DI VERIFICA, una PREMESSA CADUTA
+(GB.01), un DIVIETO dichiarato senza lavoro (GB.10)**: sono due stati nuovi
+che nessun manifesto precedente aveva, aggiunti perche' nessuno dei cinque
+esistenti (CHIUSA, APERTA, DA FARE) diceva il vero su una voce la cui
+premessa era falsa o su una voce che l'ordine vieta di toccare.
+
+**Perche' zero voci chiuse.** La regola del 24 settembre 2026 resta: una voce
+prodotta e agganciata ma non guardata a video sul codice finale non e'
+chiusa. In quest'ordine, a differenza di GA, **nessuna voce che tocca
+qualcosa a schermo e' stata guardata con la simulazione da persona (FZ.09) o
+quella del bambino (GA.09)**, perche' l'ordine R3 non prevede una build per i
+tester a questa consegna: il codice e' provato con guardie automatiche,
+verdi, ma non ancora con gli occhi sul Realme. L'unica eccezione e' GB.03
+(la caccia agli altri blocchi), dove la misura stessa e' stata presa dal
+vivo sul Realme con l'app installata, ma resta comunque aperta perche' non
+e' la simulazione da persona o del bambino che l'ordine chiede per ogni
+funzione toccata.
+
+**Le due cose che pesano di piu'**:
+- **GB.04, i numeri delle stese restano quelli di oggi.** Il fondatore
+  sperava di tornare a 6 stese per l'Adepto e 10 per l'Illuminato,
+  proponendo di contare al prezzo vero solo la Croce Celtica e le altre
+  stese a non piu' di quattro carte. Il conto rifatto con questo stesso
+  metodo (`tool/i_limiti_degli_annuali.py`, misurato sul testo vero di
+  `LaLetturaDellaStesa`, nessuna chiamata al modello) dice che sei stese
+  all'Adepto costano il 30,8 per cento mensile e il 31,2 annuale, dieci
+  all'Illuminato il 31,3 e il 31,6: sopra il tetto del 30 per cento in ogni
+  ciclo. Il numero sicuro per entrambi i cicli resta quello di oggi, 3, 3 e
+  5. Per 6 e 10 serve un prezzo diverso dei piani, non un conto diverso: la
+  decisione resta al fondatore (passo manuale numerato nel rapporto).
+- **GB.09, il dominio Fortuna non parla piu' di relazioni.** Trovato un
+  difetto vero (non solo nei dodici corpora `docs/corpus/eu/oroscopo_eu_*.md`,
+  gia' puliti dall'ordine GA.07, ma nel corpus statico separato
+  `docs/corpus/oroscopo.md` e nel file generato
+  `lib/core/horoscope/horoscope_data.dart`, dominio 3): la settima casa
+  teneva ancora il taglio romantico della tradizione. Corretto a mano sul
+  file generato (il generatore `tool/_gen_oroscopo.py` produce oggi
+  un'uscita diversa solo per la forma delle liste, non per il contenuto:
+  rigenerarlo avrebbe prodotto un diff di centinaia di righe per un cambio
+  di sei; il difetto del generatore resta per una voce futura, segnalato
+  nel rapporto e nelle migliorie proposte).
+
+**Le altre voci, in breve**: GB.02, ogni scena si salta anche scorrendo
+(`IlToccoCheSalta` risponde ora anche a `onVerticalDragStart` e
+`onHorizontalDragStart`) e la ruota dell'Oroscopo si vede per intero una
+volta al giorno civile (`LaRuotaDiOggi`, decisione sincrona scaldata da
+`segna()`: una regressione sul cancello di GitHub, dodici prove della scena
+rosse perche' un `await` davanti all'avvio del video spostava l'apertura di
+un fotogramma, trovata e corretta nello stesso giro di lavoro, commit
+`60a82d00`). GB.03, nessun altro blocco trovato su dodici funzioni attive
+misurate sul Realme. GB.05, la carta "Hai chiesto a..." mostra la scheda solo
+nella chat di un Maestro davvero coinvolto nel consulto. GB.06, il messaggio
+del limite delle domande ha lo stesso pulsante per i tre Maestri, che apre
+l'invito gia' usato dalla schermata Chiedi col prezzo letto dal server.
+GB.07, "Quel giorno" dal Diario riapre la conversazione vera (non un
+riassunto a parte) e una striscia dice la data con l'anno. GB.08, una prova
+di Crashlytics su iPhone dietro un flag spento (`kProvaCrashlyticsAttiva`),
+da accendere a mano per la prossima build di TestFlight. GB.10, nessun file
+del Respiro della Luna o della Collana toccato, come il fondatore ha chiesto.
+GB.11, il Calendario degli eventi dice adesso lo stesso giorno del picco
+esatto che il Respiro della Luna usa gia' per la Luna piena e la Luna nuova
+(26 ottobre e 9 novembre, non piu' 24 ottobre e 7 novembre), stessa fonte
+`IlMotoreLunare`, senza toccare il Respiro. GB.12, la virgola dei versetti di
+Martini (gia' insegnata alle guardie dall'ordine GA.04) entra in CLAUDE.md
+con le parole del fondatore. GB.13, la consegna stessa: manifesto, guardia,
+rapporto, registro delle guardie e questa voce di STATO_VIVO.
+
+**Guardie nuove di quest'ordine**: `gb09_la_fortuna_non_parla_di_relazioni`,
+`gb11_una_sola_data_per_la_luna`, `ordine_gb_guard` (i tre con cardinale
+proprio o che non scoprono insiemi di file, contate nel registro). Le altre
+prove nuove (`ogni_scena_si_salta_anche_scorrendo`,
+`la_ruota_si_vede_una_volta_al_giorno`,
+`gb04_la_misura_della_richiesta_segue_il_codice_vero`, l'estensione di
+`il_filo_in_cima`, `gb06_il_limite_ha_una_uscita`,
+`gb07_quel_giorno_riapre_la_conversazione`,
+`la_consegna_parte_senza_la_prova_di_crashlytics`) misurano un valore vero e
+non sono guardie per la definizione del registro, ma sono nate rosse per la
+Regola A, col rosso di ognuna documentato nel rapporto. Registro
+`docs/guardie.md` aggiornato da 880 a **883** guardie.
+
+**Difetti noti e decisioni che restano al fondatore** (elenco completo nel
+rapporto). Se il fondatore vuole davvero 6 e 10 stese per Adepto e
+Illuminato, serve rivedere il prezzo dei piani (GB.04). La prova di
+Crashlytics su iPhone aspetta il passo manuale (accendere il flag, fare la
+build, installarla su TestFlight, guardare Crashlytics dopo qualche minuto,
+poi rispegnere il flag, GB.08). Il generatore `tool/_gen_oroscopo.py` non
+produce piu' un'uscita identica byte per byte a quella committata, e resta
+da riallineare a `dart format` perche' chi tocca il corpus dell'Oroscopo non
+sia costretto a editare `horoscope_data.dart` a mano (GB.09). Nessuna
+funzione toccata e' stata vista con la simulazione da persona o del bambino
+sul Realme: resta da fare prima di poter chiudere una sola di queste voci.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
