@@ -64,7 +64,18 @@ enum BudgetDelGiorno {
   ),
 
   /// I confronti di Sinastria con un VIP.
-  sinastrie(uno: 'sinastria', molti: 'sinastrie', femminile: true);
+  sinastrie(uno: 'sinastria', molti: 'sinastrie', femminile: true),
+
+  /// **Le consultazioni dell'Oracolo degli Angeli**, ordine GC, 22 ottobre
+  /// 2026. Il fondatore, sul Realme: *"Hai già pensato a inserire una frase
+  /// breve con il contatore delle stese rimaste oggi?"* La Stesa la diceva
+  /// gia', l'Oracolo no: contava le consultazioni (FU.10, GC.17) e taceva il
+  /// conto fino al foglio del limite.
+  oracoli(
+    uno: 'consultazione dell’Oracolo',
+    molti: 'consultazioni dell’Oracolo',
+    femminile: true,
+  );
 
   const BudgetDelGiorno({
     required this.uno,
@@ -89,6 +100,7 @@ enum BudgetDelGiorno {
         BudgetDelGiorno.stese => borsa.limiteStese(tier),
         BudgetDelGiorno.steseDaDieci => borsa.limiteStesaDaDieci(tier),
         BudgetDelGiorno.sinastrie => borsa.limiteSinastrie(tier),
+        BudgetDelGiorno.oracoli => borsa.limiteOracoli(tier),
       };
 
   /// Quanti ne restano oggi, oppure nullo quando non c'e' un tetto.
@@ -101,6 +113,7 @@ enum BudgetDelGiorno {
         BudgetDelGiorno.stese => borsa.steseRimaste(tier),
         BudgetDelGiorno.steseDaDieci => borsa.steseDaDieciRimaste(tier),
         BudgetDelGiorno.sinastrie => borsa.sinastrieRimaste(tier),
+        BudgetDelGiorno.oracoli => borsa.oracoliRimasti(tier),
       };
 
   /// **LA RIGA CHE DICE QUANTO RESTA, e nulla quando non c'e' niente da dire.**

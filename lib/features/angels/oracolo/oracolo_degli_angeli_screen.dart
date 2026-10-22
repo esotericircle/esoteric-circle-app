@@ -10,6 +10,7 @@ import '../../../core/angels/guardian_angels.dart';
 import '../../../core/assets/family_image.dart';
 import '../../../core/cerchio/il_cerchio_sociale.dart';
 import '../../../core/condivisione/premio_della_condivisione.dart';
+import '../../../core/entitlement/budget_del_giorno.dart';
 import '../../../core/entitlement/entitlement_service.dart';
 import '../../../core/entitlement/listino_degli_eos.dart';
 import '../../../core/entitlement/plan_catalog.dart';
@@ -35,6 +36,7 @@ import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/components/la_singola_che_si_apre.dart';
 import '../../../design_system/components/la_conferma_della_spesa.dart';
 import '../../../design_system/components/il_responso_interpretato.dart';
+import '../../../design_system/components/riga_del_residuo.dart';
 import '../../../design_system/components/segno_della_provenienza.dart';
 import '../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../design_system/theme/maestro_palette.dart';
@@ -988,6 +990,15 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                           .copyWith(color: ColorTokens.textSecondary),
                     ),
                   ],
+                  // **QUANTE CONSULTAZIONI RESTANO OGGI**, sotto il pulsante
+                  // che ne consuma una (il fondatore, 22 ottobre 2026:
+                  // "Probabilmente è meglio inserirla sopra o sotto il
+                  // pulsante di avvio della lettura"). La stessa riga delle
+                  // stese nella Stesa; tace dove il conto non e' acceso.
+                  const RigaDelResiduo(
+                    budget: BudgetDelGiorno.oracoli,
+                    allineamento: MainAxisAlignment.center,
+                  ),
                   const SizedBox(height: SpacingTokens.lg),
                 ],
                 SizedBox(key: _inizioDellaRisposta, height: SpacingTokens.lg),

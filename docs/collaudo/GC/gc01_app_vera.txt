@@ -1,0 +1,5 @@
+GC.01 sull'app vera, 22 ottobre 2026 alle 23:52, build 2316 (commit 0049fb7f), account di collaudo in Illuminato attivato in demo dalla pagina dei piani.
+Dal tocco su Leggi le carte, 30 secondi:
+vera10: PSS da 474 a picco 490 MB; grafica da 210 a picco 224 MB; fotogrammi 1824, oltre 33 ms 44, oltre 100 ms 2, il piu lungo 200 ms
+Processo vivo dopo 30 secondi (pid 32746), righe FATAL, ANR, lowmemorykiller, Out of memory nel registro: 0
+La stesa a dieci e' una al giorno e non si ricompra: una sola misura possibile oggi.

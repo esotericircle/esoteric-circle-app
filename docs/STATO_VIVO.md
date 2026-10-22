@@ -8020,11 +8020,18 @@ consulto dal vivo).
 partito dalla testa `55323422` (verde). Testo dell'ordine alla lettera:
 `docs/ordini/ORDINE_GC_TESTO.md`. Manifesto: `docs/ordini/ORDINE_GC_MANIFESTO.md`
 (venti voci, GC.01 a GC.20). Rapporto: `docs/ordini/RAPPORTO_ORDINE_GC.md`.
-**Sedici voci CHIUSE, quattro APERTE IN ATTESA DI VERIFICA**: GC.01 (la
-stesa a dieci sull'app vera, serve un account Adepto sul telefono di
-collaudo), GC.12 e GC.14 (il volo della carta, la sosta sulle carte in
-piedi e il foglio coi cartigli, da vedere sul Realme con la consultazione di
-domani), GC.20 (il verde di GitHub). Le voci GC.01-GC.05 sono le cinque
+**Diciannove voci CHIUSE, una APERTA IN ATTESA DI VERIFICA**: GC.20, la
+consegna, che si chiude col verde di GitHub e la build ai tester chiesta dal
+fondatore (*"Alla fine dell'ordine, tutte le voci nessuna eccezione,
+consegna nuova build"*). GC.01 e' chiusa col banco per decisione del
+fondatore e misurata anche sull'app vera, con l'Illuminato attivato in demo
+dalla pagina dei piani (`docs/collaudo/GC/gc01_app_vera.txt`); GC.12 e GC.14
+sono state viste sul Realme la stessa sera. **Nella demo l'Illuminato si
+attiva dalla pagina dei piani senza pagare, ma non resta dopo una
+reinstallazione dell'app**: dopo ogni `adb install -r` va riattivato.
+Aggiunta dal fondatore durante il collaudo: il contatore delle consultazioni
+dell'Oracolo (`BudgetDelGiorno.oracoli`) sotto "Avvia la lettura", come le
+stese nella Stesa. Le voci GC.01-GC.05 sono le cinque
 della vecchia "ORDINE GB AGGIUNTA", eseguite qui: nessuna GBA era stata
 eseguita.
 

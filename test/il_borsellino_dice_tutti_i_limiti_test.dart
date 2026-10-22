@@ -51,6 +51,8 @@ void main() {
       // contare le stese, e la riga dice "stese" (o "stesa" a una rimasta).
       'stes',
       'sinastri',
+      // Ordine GC: le consultazioni dell'Oracolo degli Angeli.
+      'oracol',
     ]) {
       // Senza maiuscole: dall'ordine BG voce 02 le righe del piano che non
       // porta una cosa iniziano col nome della cosa ("Approfondimenti: non

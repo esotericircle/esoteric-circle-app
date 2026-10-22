@@ -132,3 +132,27 @@ chiamata al modello): `docs/collaudo/GC/anteprime/stesa_tre_carte.jpg`,
 `oracolo_una_carta_breve.jpg`, `oracolo_una_carta_lunga.jpg`,
 `oracolo_tre_carte_lunga.jpg`. I quadratini al posto di due righe della bolla
 sono il carattere che manca nell'ambiente di prova, non nell'app.
+
+## Il terzo giro, con l'Illuminato in demo (23:30-23:55)
+
+Il fondatore, in chat: *"perché non passi tu ad illuminato e così sei a
+posto?"*. Attivato dalla pagina dei piani ("Scegli l'Illuminato", poi
+"Attiva in Demo": nella demo il pagamento non e' integrato), confermato dal
+Borsellino (21 domande, 5 stese, 1 stesa a dieci carte). L'attivazione in
+demo non resta dopo una reinstallazione dell'app: la build 2316 l'aveva
+persa, e la consultazione di questo giro e' stata letta dal corpus del
+Viandante.
+
+| Opzione | Esito | Cattura |
+|---|---|---|
+| Affido della domanda | il tavolo resta tutto in vista sopra il ventaglio (cura D1) | `r3_02_affido_tre_carte_e_cambio.jpg` |
+| Tre carte scelte | le tre carte sul tavolo, a schermo insieme al ventaglio | `r3_02_affido_tre_carte_e_cambio.jpg` |
+| Cambio da tre a una carta a meta' scelta | le carte tornano nel mazzo e la frase lo dice: "Hai cambiato stesa: le carte scelte tornano nel mazzo, sceglierne una" | `r3_02_affido_tre_carte_e_cambio.jpg` |
+| Volo della carta del momento | dal ventaglio al centro del tavolo in 0,63 secondi, tavolo a schermo | `r3_01_volo_della_carta.jpg` |
+| Lettura a una carta | riflessione con le righe nuove ("Medora ascolta che cosa porta l'angelo della tua carta"), girata, carta in piedi con "La carta del momento" per circa tre secondi, responso | `r3_03_lettura_a_una_carta.jpg` |
+| Tocco sulla carta in piedi | il foglio col numero 19 e il nome Leuviah nei cartigli (cura D4) | `r3_04_carta_in_piedi_e_foglio.jpg` |
+| Croce Celtica sull'app vera | dieci carte, lettura completa, app viva, nessuna chiusura | `r3_05_croce_celtica_app_vera.jpg`, `docs/collaudo/GC/gc01_app_vera.txt` |
+
+Le decisioni 6 e 12 del piano (tornare indietro a meta' girata, rete spenta a
+meta' lettura) restano non provate sul telefono: chiedono una lettura in
+piu' e le letture del giorno erano finite.

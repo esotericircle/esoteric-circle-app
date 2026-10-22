@@ -42,6 +42,10 @@ void main() {
     // schermata del verdetto il numero arriva a consumo avvenuto.
     BudgetDelGiorno.sinastrie:
         'lib/features/synastry/sinastria_gallery_screen.dart',
+    // Ordine GC: le consultazioni dell'Oracolo, sopra il ventaglio, come le
+    // stese nella Stesa.
+    BudgetDelGiorno.oracoli:
+        'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart',
   };
 
   test('ogni budget ha una schermata che lo dichiara', () {

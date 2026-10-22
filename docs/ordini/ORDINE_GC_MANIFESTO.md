@@ -12,14 +12,17 @@ Realme sono in `docs/collaudo/GC/le_opzioni.md` e
 rossi.
 
 GC.01 e' chiusa con la misura del banco per decisione del fondatore (22
-ottobre 2026, in chat: "Chiudi col banco"). Restano aperte tre voci: GC.12 e GC.14 aspettano di essere viste
+ottobre 2026, in chat: "Chiudi col banco") e poi misurata anche sull'app
+vera, col piano Illuminato attivato in demo come il fondatore ha suggerito.
+GC.12 e GC.14 sono state viste sul Realme la stessa sera. Resta aperta una
+voce. Prima della correzione serale restavano aperte GC.12 e GC.14 aspettano di essere viste
 sul Realme con una consultazione nuova, dopo le cure trovate nella
 simulazione; GC.20, la consegna, si chiude col verde di GitHub sul commit
 finale.
 
 VOCI_TOTALI: 20
-VOCI_CHIUSE: 17
-VOCI_APERTE: 3
+VOCI_CHIUSE: 19
+VOCI_APERTE: 1
 VOCI_DA_FARE: 0
 VOCI_PREMESSA_CADUTA: 0
 VOCI_DIVIETO: 0
@@ -42,8 +45,14 @@ DOMANDA: "La stesa a 10 carte, al click su pulsante \"leggi le carte\" rallenta 
 PROVA: `docs/collaudo/GC/gc01_la_croce_celtica.md`
 MISURA: stesa a dieci, PSS di picco da 280 a 220 MB, memoria grafica da 140 a 96 MB, fotogrammi oltre 100 ms da 16 a 3, il piu' lungo da 300 a 200 ms, fotogrammi disegnati nelle finestre della girata da 51-61 a 98-106 ogni due secondi; ricostruzioni della schermata intera mentre le dieci carte si girano da 13 a 1 (`test/gc_la_stesa_di_tarocchi_test.dart`, soglia 3); stese da una, tre e quattro carte, nessuna delle quattro grandezze peggiora
 
-Resta detto: il banco sostituisce la schermata di partenza, non il resto
-dell'app in memoria, e la chiusura vista dal fondatore non si e' riprodotta.
+Il fondatore poi, in chat: *"perché non passi tu ad illuminato e così sei a
+posto?"*. Con l'Illuminato attivato in demo la Croce Celtica e' stata letta
+sull'app vera (build 2316): processo vivo, nessuna chiusura, memoria da 474 a
+490 MB, 2 fotogrammi oltre 100 ms, il piu' lungo 200
+(`docs/collaudo/GC/gc01_app_vera.txt`, cattura
+`docs/collaudo/GC/simulazioni/catture/r3_05_croce_celtica_app_vera.jpg`). Una
+sola volta e non cinque: la stesa a dieci e' una al giorno e non si
+ricompra.
 
 ## VOCE GC.02
 
@@ -167,17 +176,15 @@ MISURA: tendine aperte dopo la scelta da 1 a 0, sul Realme e a video; simbolo de
 
 ## VOCE GC.12
 
-**APERTA IN ATTESA DI VERIFICA.** La carta toccata vola dal suo posto nel
+**CHIUSA.** La carta toccata vola dal suo posto nel
 ventaglio al suo posto sul tavolo, col suono `carta.mp3` della Stesa, una
 volta per volo. Sul Realme la carta arriva al suo posto, ma nel primo giro
 il tavolo usciva dallo schermo mentre si sceglieva (difetto D1, padre GC.09):
 curato portando in fondo alla finestra il solo ventaglio.
 
 DOMANDA: "La stessa Carta che tocco deve volare dal mazzo alla sua posizione sul tavolo e ci deve essere il suo suono, quello usato dalla stesa dei tarocchi."
-PROVA: `test/gc_l_oracolo_degli_angeli_test.dart`
-MISURA: carta in volo che parte dal dorso toccato e arriva al suo posto 3 su 3, suoni per volo 1 (innesto senza suono: 0, rossa)
-
-ASPETTA: la registrazione del volo sul Realme con una consultazione nuova (passo manuale 2 del rapporto): il Viandante aveva gia' usato quella del giorno e il giorno lo decide il server.
+PROVA: `docs/collaudo/GC/simulazioni/catture/r3_01_volo_della_carta.jpg`
+MISURA: carta in volo che parte dal dorso toccato e arriva al suo posto 3 su 3 a video (innesto senza suono: rossa); sul Realme il volo dura 0,63 secondi (da 4,10 a 4,73 nella registrazione) e il tavolo resta a schermo per tutto il volo, dove prima della cura D1 usciva dallo schermo
 
 ## VOCE GC.13
 
@@ -194,7 +201,7 @@ MISURA: sequenza invio, riflessione, suono, girata nell'ordine; suoni della rive
 
 ## VOCE GC.14
 
-**APERTA IN ATTESA DI VERIFICA.** Le carte si girano una alla volta col loro
+**CHIUSA.** Le carte si girano una alla volta col loro
 suono, poi si alzano ingrandite con "Fare", "Sentire", "Capire" o "La carta
 del momento"; il tocco su una carta in piedi apre il foglio della carta
 (`LaCartaDellAngeloAperta`). Due difetti visti sul Realme e curati: le carte
@@ -202,10 +209,8 @@ in piedi restavano in vista meno di mezzo secondo (D3) e il foglio mostrava
 la carta coi cartigli vuoti (D4), padre GC.14 di quest'ordine.
 
 DOMANDA: "le carte si girano sul tavolo una alla volta con effetto sonoro e subito dopo si alzano in verticale ingrandendosi. Per la stesa a 3 sopra ogni carta c'è scritto \"fare\", \"sentire\", \"capire\", mentre per la stesa a 1 carta \"la carta del momento\". Se faccio click su una carta in verticale ottengo una schermata popup con la descrizione della carta angelo."
-PROVA: `docs/collaudo/GC/simulazioni/catture/o_08_alzata.jpg`
-MISURA: scritte giuste 3 su 3 e 1 su 1, suoni della girata uno per carta girata, foglio che si apre sull'angelo toccato (`test/gc_l_oracolo_degli_angeli_test.dart`); sosta sulle carte in piedi da meno di 0,5 a 2,5 secondi
-
-ASPETTA: vedere sul Realme, con una consultazione nuova, la sosta sulle carte in piedi e il foglio col numero e il nome (passo manuale 2 del rapporto).
+PROVA: `docs/collaudo/GC/simulazioni/catture/r3_04_carta_in_piedi_e_foglio.jpg`
+MISURA: scritte giuste 3 su 3 e 1 su 1 (`test/gc_l_oracolo_degli_angeli_test.dart`); sosta sulle carte in piedi da meno di 0,5 a circa 3 secondi sul Realme (`docs/collaudo/GC/simulazioni/catture/r3_03_lettura_a_una_carta.jpg`, un fotogramma al secondo); cartigli scritti nel foglio da 0 a 2 (il numero 19 e il nome Leuviah)
 
 ## VOCE GC.15
 
@@ -281,4 +286,4 @@ DOMANDA: "Consegna solo col verde di GitHub (verde.yml)."
 PROVA: `docs/ordini/RAPPORTO_ORDINE_GC.md`
 MISURA: voci del manifesto 20 su 20; guardie nuove 4, viste rosse 4; innesti della Regola A 23, rossi 23
 
-ASPETTA: il verde di GitHub sul commit consegnato.
+ASPETTA: il verde di GitHub sul commit consegnato e la build ai tester, che il fondatore ha chiesto in chat la stessa sera: *"Alla fine dell'ordine, tutte le voci nessuna eccezione, consegna nuova build"*.

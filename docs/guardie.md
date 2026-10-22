@@ -1220,7 +1220,7 @@ le altre.
 | `ogni_pietra_porta_la_sua_runa_test.dart` | ogni pietra incisa e' quella della sua runa, e non cambia senza che qualcuno la riguardi | 2, 4 | proprio, dichiarato | 20/09/2026, EA | 1 |
 | `ogni_arte_dichiara_la_fonte_test.dart` | ogni arte dichiara la fonte | 4 | non scopre insiemi di file | 06/09/2026, CS | 3 |
 | `ogni_arte_entra_nel_cammino_test.dart` | ogni arte entra nel cammino | 1, 2 | non scopre insiemi di file | 03/09/2026, CP | 3 |
-| `ogni_budget_dichiara_il_suo_residuo_test.dart` | ogni budget dichiara il suo residuo | 1, 2 | dalla porta comune | CO | 2 |
+| `ogni_budget_dichiara_il_suo_residuo_test.dart` | ogni budget dichiara il suo residuo | 1, 2 | dalla porta comune | CO; 22/10/2026, ordine GC (rossa con la riga delle consultazioni dell'Oracolo tolta, `docs/collaudo/GC/regola_a.txt`) | 2 |
 | `ogni_categoria_misura_qualcosa_test.dart` | ogni categoria misura qualcosa, e il numero si legge | 1, 2 | proprio, dichiarato | 08/09/2026, CX | 1 |
 | `ogni_condivisione_dichiara_gli_eos_test.dart` | ogni condivisione dichiara gli eos | 1, 2 | dalla porta comune | mai; 04/10/2026, FC.02, rossa nella prova dell'oroscopo prima della lapide (il file dell'amico tolto) | 2 |
 | `ogni_freccia_mantiene_test.dart` | ogni freccia mantiene | 1, 2 | proprio, dichiarato | 31/08/2026, CG | 3 |
