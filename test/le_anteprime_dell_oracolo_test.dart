@@ -66,7 +66,11 @@ class _Ferma implements LettoreDiScena {
 void main() {
   final radice = GlobalKey();
 
-  setUp(() => SharedPreferences.setMockInitialValues({}));
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+    // GC.16: il cosmo dietro l'Oracolo ascolta i sensori.
+    silenziaISensoriDelCosmo();
+  });
 
   Future<void> passa(WidgetTester tester, [int volte = 8]) async {
     for (var i = 0; i < volte; i++) {

@@ -19,6 +19,22 @@ import 'package:provider/provider.dart';
 /// regia, non l'estetica: che ogni scena esista, che i gesti valgano solo
 /// quando devono e che con Riduci Movimento tutto arrivi fermo allo stato
 /// finale.
+/// **DOVE STA MEDORA NELLA SCENA**, ordine GC voce GC.03: sulla scena ferma
+/// (Riduci Movimento, nessun filmato, il salto) Medora e' dipinta dal
+/// fotogramma di arrivo e non piu' dalla posa scontornata. Il fotogramma
+/// coincide col tavolo fermo a un decimo di pixel, quindi il suo posto e'
+/// quello della geometria (`GeometriaDelTavolo.medora`), misurato a partire
+/// dalla scena. La posa, quando c'e', sta nello stesso rettangolo.
+Rect medoraNellaScena(WidgetTester tester) {
+  final posa = find.byKey(const Key('tavolo_medora'));
+  if (posa.evaluate().isNotEmpty) return tester.getRect(posa);
+  expect(find.byKey(const Key('tavolo_fotogramma_di_arrivo')), findsOneWidget,
+      reason: 'sulla scena ferma non c\'e\' ne\' la posa ne\' il '
+          'fotogramma di arrivo');
+  final scena = tester.getRect(find.byKey(const Key('stesa_slots')));
+  return GeometriaDelTavolo.medora(scena.width).shift(scena.topLeft);
+}
+
 void main() {
   /// Monta la schermata con tutti i controller che il cosmo richiede.
   Future<void> pump(
@@ -279,7 +295,7 @@ void main() {
       final schermo =
           tester.view.physicalSize.height / tester.view.devicePixelRatio;
       // Medora sta nella scena del tavolo dall'ordine FL voce 01.
-      final medora = tester.getRect(find.byKey(const Key('tavolo_medora')));
+      final medora = medoraNellaScena(tester);
       final ventaglio = tester.getRect(find.byKey(const Key('stesa_fan')));
       expect(medora.top, lessThan(schermo));
       expect(ventaglio.bottom, lessThan(schermo),
@@ -311,7 +327,7 @@ void main() {
       // testa resta intera sotto la barra del titolo.
       await pump(tester, reduceMotion: true);
       await tester.pump();
-      final medora = tester.getRect(find.byKey(const Key('tavolo_medora')));
+      final medora = medoraNellaScena(tester);
       final scena = tester.getRect(find.byKey(const Key('stesa_slots')));
       final w = scena.width;
       final vita = scena.top +
@@ -339,7 +355,7 @@ void main() {
       // testa resta intera sotto la barra del titolo.
       await pump(tester, reduceMotion: true, revealAll: true);
       await tester.pump();
-      final medora = tester.getRect(find.byKey(const Key('tavolo_medora')));
+      final medora = medoraNellaScena(tester);
       final scena = tester.getRect(find.byKey(const Key('stesa_slots')));
       final w = scena.width;
       final vita = scena.top +

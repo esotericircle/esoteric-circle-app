@@ -438,8 +438,16 @@ void main() {
       await pumpScreen(tester);
       expect(tester.takeException(), isNull);
       // Medora in scena, dietro il tavolo (ordine FL voce 01; LAPIDE:
-      // "medora_stage", il ritratto MedoraStage).
-      expect(find.byKey(const Key('tavolo_medora')), findsOneWidget);
+      // "medora_stage", il ritratto MedoraStage). Dall'ordine GC voce GC.03,
+      // sulla posa dell'invito Medora e' il fotogramma d'arrivo del filmato,
+      // non piu' la posa scontornata: si cerca l'una o l'altro.
+      expect(
+          find.byKey(const Key('tavolo_medora')).evaluate().length +
+              find
+                  .byKey(const Key('tavolo_fotogramma_di_arrivo'))
+                  .evaluate()
+                  .length,
+          1);
       // Sotto ogni carta: la posizione, poi il nome grande in chiaro.
       final spread = TarotSpread.draw(seed: 2);
       for (final drawn in spread.cards) {

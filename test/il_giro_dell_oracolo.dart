@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// **LA RISPOSTA FINTA DEL MODELLO, NELLA FORMA NUOVA.** Ordine GA voci
@@ -43,6 +44,27 @@ String jsonFintoDellOracolo(Map<String, Object?> campi,
 /// scelgono le tre carte dal mazzo coperto col ventaglio della Stesa, poi il
 /// pulsante dipinto avvia la lettura. Le prove che montano l'Oracolo passano
 /// tutte da qui, cosi' il giro e' uno solo.
+
+/// **I SENSORI DEL COSMO, FINTI**, ordine GC voce GC.16: dietro l'Oracolo
+/// adesso c'e' il cosmo della Stesa (`CosmosBackground`), che con la sua
+/// parallasse ascolta l'accelerometro e il giroscopio. In una prova non c'e'
+/// nessuna piattaforma che li dia: come fanno le prove della Stesa, i canali
+/// rispondono vuoti.
+void silenziaISensoriDelCosmo() {
+  final m = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+  m.setMockMethodCallHandler(
+      const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
+      (call) async => null);
+  for (final nome in const [
+    'dev.fluttercommunity.plus/sensors/accelerometer',
+    'dev.fluttercommunity.plus/sensors/user_accel',
+    'dev.fluttercommunity.plus/sensors/gyroscope',
+    'dev.fluttercommunity.plus/sensors/magnetometer',
+  ]) {
+    m.setMockStreamHandler(
+        EventChannel(nome), MockStreamHandler.inline(onListen: (a, e) {}));
+  }
+}
 
 /// **LA LUNGA SI SCEGLIE**, ordine GC voce GC.19: all'apertura la
 /// profondita' e' Breve, e chi ha il piano sceglie la Lunga nel selettore,

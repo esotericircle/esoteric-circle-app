@@ -146,7 +146,11 @@ List<String> _carteInVista(WidgetTester tester) {
 }
 
 void main() {
-  setUp(() => LaSuoneria.spentaPerLeProve = true);
+  setUp(() {
+    LaSuoneria.spentaPerLeProve = true;
+    // GC.16: il cosmo dietro l'Oracolo ascolta i sensori.
+    silenziaISensoriDelCosmo();
+  });
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
 
   testWidgets(

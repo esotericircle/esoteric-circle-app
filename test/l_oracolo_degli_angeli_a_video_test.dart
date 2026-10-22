@@ -145,7 +145,11 @@ Future<void> _alCentro(WidgetTester tester, Finder f) async {
 }
 
 void main() {
-  setUp(() => LaSuoneria.spentaPerLeProve = false);
+  setUp(() {
+    LaSuoneria.spentaPerLeProve = false;
+    // GC.16: il cosmo dietro l'Oracolo ascolta i sensori.
+    silenziaISensoriDelCosmo();
+  });
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
 
   testWidgets(

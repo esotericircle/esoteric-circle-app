@@ -22,6 +22,7 @@ import 'package:esoteric_circle/features/angels/oracolo/oracolo_degli_angeli_scr
 import 'package:esoteric_circle/features/respiro_della_luna/i_comandi_dipinti.dart';
 import 'package:esoteric_circle/features/scene/la_scena_in_video.dart';
 import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
+import 'package:esoteric_circle/features/tarot/stesa_fan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -116,7 +117,11 @@ bool _spento(WidgetTester tester, String chiave) =>
     tester.widget<PulsanteDipinto>(find.byKey(Key(chiave))).onTap == null;
 
 void main() {
-  setUp(() => LaSuoneria.spentaPerLeProve = false);
+  setUp(() {
+    LaSuoneria.spentaPerLeProve = false;
+    // GC.16: il cosmo dietro l'Oracolo ascolta i sensori.
+    silenziaISensoriDelCosmo();
+  });
   tearDown(() {
     LaSuoneria.spentaPerLeProve = null;
     PaletteSensoriale.spia = null;
@@ -193,6 +198,47 @@ void main() {
     });
   });
 
+  group('il tavolo resta in vista mentre si scelgono le carte', () {
+    // Il fondatore, 22 ottobre 2026 alle 21:30, sul Realme: "quando l'utente
+    // sceglie le carte, sia visibile anche il piano dove vanno a poggiare le
+    // carte scelte". La finestra e' quella vera del Realme sotto la fascia
+    // dell'app: 360 punti per 690 (1080 per 2158 pixel a densita' 3, meno
+    // la fascia col cammino e gli Eos). Dopo l'affido, il posto delle carte
+    // sull'altare sta sotto la barra del titolo e il ventaglio sta tutto
+    // dentro la finestra.
+    for (final finestra in const [Size(360, 690), Size(390, 760)]) {
+      testWidgets('a ${finestra.width.toInt()} per ${finestra.height.toInt()}',
+          (tester) async {
+        await _monta(tester);
+        tester.view.physicalSize = finestra * 3;
+        tester.view.devicePixelRatio = 3;
+        for (var i = 0; i < 6; i++) {
+          await tester.pump(const Duration(milliseconds: 100));
+        }
+        await affidaLaDomanda(tester, 'Devo cambiare lavoro?');
+        for (var i = 0; i < 12; i++) {
+          await tester.pump(const Duration(milliseconds: 100));
+        }
+        final barra = tester.getRect(find.byType(AppBar)).bottom;
+        final scena = tester.getRect(find.byKey(const Key('oracolo_scena')));
+        final posto = GeometriaDellAltare.sullAltare(0, scena.width)
+            .shift(scena.topLeft);
+        final ventaglio = tester.getRect(find.byType(StesaFan));
+        print('Il tavolo in vista, ${finestra.width.toInt()} per '
+            '${finestra.height.toInt()}: posto delle carte da '
+            '${posto.top.toStringAsFixed(0)} a '
+            '${posto.bottom.toStringAsFixed(0)}, barra fino a '
+            '${barra.toStringAsFixed(0)}, ventaglio da '
+            '${ventaglio.top.toStringAsFixed(0)} a '
+            '${ventaglio.bottom.toStringAsFixed(0)}');
+        expect(posto.top, greaterThanOrEqualTo(barra),
+            reason: 'il posto delle carte sta sotto la barra del titolo');
+        expect(ventaglio.bottom, lessThanOrEqualTo(finestra.height),
+            reason: 'il ventaglio esce dalla finestra');
+      });
+    }
+  });
+
   group('GC.10 il video sale di dieci pixel del telefono', () {
     for (final rapporto in const [1.0, 3.0]) {
       testWidgets('a densita\' $rapporto la scena sale di 10 pixel fisici',
@@ -200,7 +246,11 @@ void main() {
         await _monta(tester, rapporto: rapporto);
         final fotogramma =
             tester.getRect(find.byKey(const Key('oracolo_fotogramma'))).top;
-        final attesa = -GeometriaDellAltare.pixelDaAlzare / rapporto;
+        // I dieci pixel del fondatore ("1 del telefono"), scritti qui come
+        // numero: letti dalla costante, la prova seguiva la costante anche
+        // quando la costante era zero (Regola A, vista cieca con l'innesto).
+        const pixelDelFondatore = 10;
+        final attesa = -pixelDelFondatore / rapporto;
         print('GC.10: densita\' $rapporto, la scena comincia a '
             '${fotogramma.toStringAsFixed(3)} punti (attesi '
             '${attesa.toStringAsFixed(3)})');
@@ -223,8 +273,8 @@ void main() {
       await tester.pump();
       expect(find.byKey(const Key('oracolo_proposte')), findsNothing,
           reason: 'scelta la domanda la tendina resta aperta');
-      final campo = tester.widget<TextField>(
-          find.byKey(const Key('oracolo_campo_domanda')));
+      final campo = tester
+          .widget<TextField>(find.byKey(const Key('oracolo_campo_domanda')));
       expect(campo.controller!.text, isNotEmpty);
       final icona = tester
           .widget<Icon>(find.byKey(const Key('oracolo_simbolo_dell_invio')));
@@ -262,8 +312,10 @@ void main() {
     });
   });
 
-  group('GC.13 e GC.14 riflessione, suono, carte che si girano e si alzano', () {
-    testWidgets('la sequenza dopo l\'invio, i suoni, le scritte e la carta che '
+  group('GC.13 e GC.14 riflessione, suono, carte che si girano e si alzano',
+      () {
+    testWidgets(
+        'la sequenza dopo l\'invio, i suoni, le scritte e la carta che '
         'si apre', (tester) async {
       await _monta(tester, suono: true);
       await affidaLaDomanda(tester, 'Devo partire?');
@@ -310,7 +362,8 @@ void main() {
       await tester.pump(const Duration(milliseconds: 600));
       expect(find.byKey(const Key('oracolo_carta_aperta')), findsOneWidget,
           reason: 'la carta in piedi non si apre');
-      expect(find.byKey(const Key('oracolo_carta_aperta_nome')), findsOneWidget);
+      expect(
+          find.byKey(const Key('oracolo_carta_aperta_nome')), findsOneWidget);
     });
   });
 
@@ -322,8 +375,8 @@ void main() {
       for (final a in AngelCatalog.all) {
         for (final r in RuoloDellAngelo.values) {
           final c = CartaDellOracolo(ruolo: r, angelo: a, portatore: a);
-          final s = LaLetturaDellOracolo.responsoDellaCarta(
-              corpusDellOracolo, c, 0)!;
+          final s =
+              LaLetturaDellOracolo.responsoDellaCarta(corpusDellOracolo, c, 0)!;
           carte++;
           if (!s.singola || s.cosaFare.isNotEmpty || s.paragrafi.length != 1) {
             guasti.add('Oracolo, ${a.name} ${r.name}: ${s.paragrafi.length} '
@@ -335,7 +388,8 @@ void main() {
       expect(guasti, isEmpty, reason: guasti.take(6).join('\n'));
     });
 
-    testWidgets('prima le carte uscite, poi il colpo d\'occhio, poi il titolo; '
+    testWidgets(
+        'prima le carte uscite, poi il colpo d\'occhio, poi il titolo; '
         'la bolla senza "Cosa fare adesso"', (tester) async {
       await _monta(tester);
       await consultaLOracolo(tester, 'Devo cambiare casa?');
@@ -399,11 +453,13 @@ void main() {
           reason: 'la stesa a una carta non chiede la sua lettura');
       expect(esito.richieste.single,
           contains(LaLetturaDellOracolo.etichettaDellaCartaDelMomento));
-      expect(tester.widget<Text>(find.byKey(const Key('oracolo_parola_1'))).data,
+      expect(
+          tester.widget<Text>(find.byKey(const Key('oracolo_parola_1'))).data,
           'LA CARTA DEL MOMENTO');
       expect(
           tester
-              .widget<Text>(find.byKey(const Key('oracolo_quante_nel_responso')))
+              .widget<Text>(
+                  find.byKey(const Key('oracolo_quante_nel_responso')))
               .data,
           'STESA A UNA CARTA');
       expect(find.byKey(const Key('oracolo_gradino_1')), findsOneWidget);
@@ -414,17 +470,15 @@ void main() {
     test('la stesa a una carta conta come una consultazione', () {
       // Nel codice la consultazione si registra prima della scelta fra una
       // carta e tre, una volta sola, senza condizioni sul numero di carte.
-      final s = File(
-              'lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart')
-          .readAsStringSync();
+      final s =
+          File('lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart')
+              .readAsStringSync();
       final avvio = s.substring(s.indexOf('Future<void> _avviaLaLettura()'),
           s.indexOf('Future<void> _leCarteSiGiranoESiAlzano'));
       expect('registraOracolo('.allMatches(avvio).length, 1);
-      final riga = avvio
-          .split('\n')
-          .firstWhere((r) => r.contains('registraOracolo('));
-      expect(riga.trim(),
-          '_forse<QuestionAllowance>()?.registraOracolo(tier);',
+      final riga =
+          avvio.split('\n').firstWhere((r) => r.contains('registraOracolo('));
+      expect(riga.trim(), '_forse<QuestionAllowance>()?.registraOracolo(tier);',
           reason: 'la consultazione non si registra per ogni stesa');
     });
   });
@@ -474,7 +528,8 @@ void main() {
           findsOneWidget,
           reason: 'la Lunga non ha "Il salmo propiziatorio"');
       for (final r in RuoloDellAngelo.values) {
-        expect(find.byKey(Key('oracolo_carta_singola_${r.name}_approfondimento')),
+        expect(
+            find.byKey(Key('oracolo_carta_singola_${r.name}_approfondimento')),
             findsNothing,
             reason: 'la carta ${r.name} ha ricevuto la Lunga');
       }

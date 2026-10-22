@@ -76,6 +76,7 @@ void main() {
 
   setUp(() {
     LaSuoneria.spentaPerLeProve = true;
+    silenziaISensoriDelCosmo();
     binding.defaultBinaryMessenger.setMockMethodCallHandler(
         const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
         (call) async => null);

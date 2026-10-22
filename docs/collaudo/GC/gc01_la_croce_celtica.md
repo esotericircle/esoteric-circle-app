@@ -57,7 +57,7 @@ processo fresco): PSS da 184 a 264 MB, grafica da 73 a 127 MB, 14 fotogrammi
 oltre 100 millisecondi, il piu' lungo 300.
 
 In nessuna delle misure, prima o dopo, l'app si e' chiusa: il Realme ha 7,6 GB
-di RAM, e la chiusura che il fondatore ha visto non si riproduce sul banco
+di RAM e la chiusura che il fondatore ha visto non si riproduce sul banco
 (che non ha in memoria il resto dell'app, la casa, la musica, le schermate
 aperte prima). La memoria grafica della stesa a dieci scende di 43 MB al
 picco e di 57 MB rispetto al processo di prima.
@@ -79,3 +79,42 @@ Banco di dopo, stesa a dieci, fotogrammi a finestre di due secondi dal tocco:
 
 Gli scatti stanno tutti nei dieci secondi in cui le dieci carte si girano una
 alla volta e poi si alzano: circa un fotogramma da 200 millisecondi per carta.
+
+## La seconda causa, trovata coi tempi di ogni fotogramma
+
+La memoria era curata, gli scatti no. Coi tempi di ogni fotogramma del banco
+(`FrameTiming`: costruzione e disegno separati) ogni carta girata costava un
+fotogramma da 130 a 190 millisecondi **di costruzione**, non di disegno: la
+girata, la fioritura e l'alzata cambiavano lo stato con `setState` sulla
+schermata intera e a ogni carta Flutter ricostruiva tutto, col responso
+lungo sotto il tavolo. PADRE: ordine FL voce 05 (la girata delle carte sul
+tavolo con `setState`), aggravato da GA.03 (il responso diventato lungo sotto
+il tavolo, che si ricostruiva con lui).
+
+La cura (`_ilTavoloCambia` in `stesa_tre_carte_screen.dart`): le carte girate,
+la sequenza finita e la carta che fiorisce cambiano un `ValueNotifier` che
+ascolta solo il tavolo, nello stesso `Listenable.merge` delle animazioni della
+girata. La schermata intera non si ricostruisce piu' mentre le carte si
+girano. La prova `test/gc_la_stesa_di_tarocchi_test.dart` (gruppo "GC.01 la
+girata ridisegna solo il tavolo") conta le ricostruzioni della schermata
+mentre le dieci carte si girano e si alzano: col codice di prima rimesso a
+mano (innesto della Regola A) 13, dopo la cura 1; la soglia sta a 3.
+
+## Le misure finali, con le due cure
+
+Stesso banco, stesso ordine, stesso telefono. Fra parentesi il codice di prima
+(commit `55323422`).
+
+| Stesa | PSS di picco | Grafica di picco | Fotogrammi oltre 100 ms | Il piu' lungo |
+|---|---|---|---|---|
+| tre carte | 208 MB (222) | 88 MB (94) | 0 (0) | 86 ms (98) |
+| quattro carte | 206 MB (246) | 91 MB (107) | 1 (1) | 134 ms (200) |
+| dieci carte | 220 MB (280) | 96 MB (140) | 3 (16) | 200 ms (300) |
+| una carta | 214 MB (267) | 96 MB (140) | 0 (0) | 82 ms (82) |
+
+Nelle finestre di due secondi in cui le dieci carte si girano, i fotogrammi
+disegnati passano da 51-61 a 98-106. Le stese da una, tre e quattro carte non
+peggiorano in nessuna delle quattro grandezze. In nessuna misura l'app si e'
+chiusa: la chiusura vista dal fondatore resta da riprovare sull'app vera con
+un account che apra la stesa a dieci (passo manuale del fondatore nel
+rapporto).

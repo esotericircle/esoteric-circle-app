@@ -339,8 +339,7 @@ class TarotSetupPanel extends StatelessWidget {
                       etichetta: (t) => t.label,
                       gruppo: (t) => t.group.label,
                       bloccata: (_) => false,
-                      onSelect: (t) =>
-                          onChanged(setup.conLaDomandaScelta(t)),
+                      onSelect: (t) => onChanged(setup.conLaDomandaScelta(t)),
                       onLocked: (_) {},
                     ),
                   ),
@@ -363,8 +362,7 @@ class TarotSetupPanel extends StatelessWidget {
                     child: _DomandaScritta(
                       testo: setup.domandaLibera,
                       palette: palette,
-                      onChanged: (t) =>
-                          onChanged(setup.conLaDomandaScritta(t)),
+                      onChanged: (t) => onChanged(setup.conLaDomandaScritta(t)),
                     ),
                   ),
                   // Il tipo di stesa: da qui viene anche il titolo in alto.
@@ -509,7 +507,13 @@ class TendinaSelettore<T> extends StatelessWidget {
     this.inRilievo = false,
     this.perche,
     this.vuota = false,
+    this.compatta = false,
   });
+
+  /// **LA BOLLA BASSA**: meno aria sopra e sotto, per le schermate dove il
+  /// tavolo deve restare in vista mentre si scelgono le carte (l'Oracolo
+  /// degli Angeli, il fondatore il 22 ottobre 2026). La Stesa resta com'e'.
+  final bool compatta;
 
   /// **NESSUNA SCELTA**, ordine GC voce GC.04: la tendina mostra che non c'e'
   /// una voce scelta ([testoDelVuoto], in corsivo e senza l'oro della
@@ -683,7 +687,8 @@ class TendinaSelettore<T> extends StatelessWidget {
       },
       itemBuilder: (context) => items,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+        padding:
+            EdgeInsets.symmetric(horizontal: 10, vertical: compatta ? 3 : 7),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
           color: palette.deepest.withValues(alpha: inRilievo ? 0.65 : 0.45),
@@ -706,7 +711,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                     color: inRilievo ? palette.glow : ColorTokens.textSecondary,
                     fontWeight: inRilievo ? FontWeight.w700 : null,
                     letterSpacing: 0.8)),
-            const SizedBox(height: 2),
+            SizedBox(height: compatta ? 0 : 2),
             Row(
               children: [
                 Expanded(

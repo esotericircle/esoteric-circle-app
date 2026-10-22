@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/angels/angel_catalog.dart';
-import '../../../core/assets/family_image.dart';
 import '../../../design_system/components/segno_della_provenienza.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
+import 'oracolo_degli_angeli_screen.dart' show LaCartaDellAngelo;
 
 /// **LA CARTA DELL'ANGELO, APERTA AL TOCCO.** Ordine GC voce GC.14, 22
 /// ottobre 2026. Il fondatore: *"Se faccio click su una carta in verticale
@@ -124,14 +124,13 @@ class LaCartaDellAngeloAperta extends StatelessWidget {
                 constraints: const BoxConstraints(maxWidth: 240),
                 child: AspectRatio(
                   aspectRatio: 2 / 3,
+                  // **LA CARTA COL SUO NUMERO E IL SUO NOME** (simulazione
+                  // da persona dell'ordine GC): la stessa carta del tavolo,
+                  // coi cartigli scritti in Flutter. L'arte da sola ha i
+                  // cartigli vuoti, e sul Realme il foglio li mostrava cosi'.
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-                    child: Image.asset(
-                      FamilyImage.full(AssetFamily.angeli, angelo.artStem),
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => Icon(Icons.auto_awesome,
-                          color: palette.goldSoft, size: 48),
-                    ),
+                    child: LaCartaDellAngelo(angelo: angelo, palette: palette),
                   ),
                 ),
               ),
@@ -149,7 +148,9 @@ class LaCartaDellAngeloAperta extends StatelessWidget {
             if (porta != null) ...[
               const SizedBox(height: SpacingTokens.md),
               SegnoDellaProvenienza(
-                  provenienza: porta.da, palette: palette, dettaglio: porta.fonte),
+                  provenienza: porta.da,
+                  palette: palette,
+                  dettaglio: porta.fonte),
               const SizedBox(height: SpacingTokens.xxs),
               Text(porta.testo,
                   style: TypographyTokens.corpo().copyWith(height: 1.45)),

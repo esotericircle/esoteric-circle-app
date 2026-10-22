@@ -1749,6 +1749,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                           palette: palette,
                           riduciMovimento: _reduceMotion,
                           rotazione: _giroDellAttesa,
+                          carte: _setup.tipo.carte,
                         ),
                       ),
                     ),

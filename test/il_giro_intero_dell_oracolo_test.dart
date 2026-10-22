@@ -15,6 +15,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/angels/oracolo/la_geometria_dell_altare.dart';
 import 'package:esoteric_circle/features/angels/oracolo/oracolo_degli_angeli_screen.dart';
 import 'package:esoteric_circle/features/scene/la_scena_in_video.dart';
+import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -96,7 +97,11 @@ void main() {
   final radice = GlobalKey();
   final scattate = <String>[];
 
-  setUp(() => LaSuoneria.spentaPerLeProve = true);
+  setUp(() {
+    LaSuoneria.spentaPerLeProve = true;
+    // GC.16: il cosmo dietro l'Oracolo ascolta i sensori.
+    silenziaISensoriDelCosmo();
+  });
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
 
   Future<void> passa(WidgetTester tester, [int volte = 6]) async {
@@ -262,6 +267,19 @@ void main() {
     expect(find.byKey(const Key('oracolo_lettere_di_luce')), findsOneWidget);
     await scatta(tester, '09_la_domanda_sale');
     await passa(tester, 10);
+    // GC.13: dopo le lettere Medora riflette, e le carte si girano solo
+    // dopo. Si aspetta che la riflessione cominci e che finisca.
+    for (var i = 0;
+        i < 200 && find.byType(AttesaDiMedora).evaluate().isEmpty;
+        i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    await scatta(tester, '09b_medora_riflette');
+    for (var i = 0;
+        i < 400 && find.byType(AttesaDiMedora).evaluate().isNotEmpty;
+        i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
     final piatta =
         tester.getRect(find.byKey(const Key('oracolo_dorso_0'))).width;
     var larga = piatta;
@@ -286,13 +304,23 @@ void main() {
           for (final r in const ['custode', 'cuore', 'intelletto'])
             find.byKey(Key('oracolo_carta_$r')).evaluate().length,
         ].every((n) => n == 1);
-    for (var i = 0; i < 40 && !girate(); i++) {
+    // Si girano una alla volta (GC.14): tre girate da mezzo secondo.
+    for (var i = 0; i < 120 && !girate(); i++) {
       await tester.pump(const Duration(milliseconds: 50));
     }
     expect(girate(), isTrue, reason: 'le tre carte non si sono girate');
     await scatta(tester, '11_le_carte_girate');
 
-    // RISPOSTA: la lettura scorre da se' alla risposta.
+    // RISPOSTA: dopo le carte che si alzano (GC.14) la lettura scorre da
+    // se' alla risposta. Si aspetta il responso, non un numero di secondi.
+    for (var i = 0;
+        i < 200 &&
+            find.byKey(const Key('oracolo_responso_principale'))
+                .evaluate()
+                .isEmpty;
+        i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     await passa(tester, 10);
     expect(chiamate, hasLength(1));
     // GA.03: il responso principale nella forma nuova, col riquadro "Cosa
@@ -331,6 +359,8 @@ void main() {
     await scatta(tester, '16_il_ritorno');
     print('FY.21 MISURA passi del giro con la loro asserzione: '
         '${scattate.length} (${scattate.join(', ')})');
-    expect(scattate, hasLength(16));
+    // Sedici passi dell'ordine FY e uno dell'ordine GC: dopo l'invio Medora
+    // riflette (GC.13, passo 09b) prima che le carte si girino.
+    expect(scattate, hasLength(17));
   });
 }

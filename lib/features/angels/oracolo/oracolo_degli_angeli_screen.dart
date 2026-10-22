@@ -147,6 +147,10 @@ class OracoloDegliAngeliScreen extends StatefulWidget {
   /// pieno.
   static const double veloDellaBarra = AppTheme.veloDellaBarra;
 
+  /// Quanto restano in vista le carte alzate, con le loro scritte, prima che
+  /// la pagina scenda al responso (GC.14, simulazione da persona).
+  static const Duration sostaSulleCarteAlzate = Duration(milliseconds: 2500);
+
   /// **CHI E' L'ANGELO E CHE COSA PORTA** (FY.18), le righe della bolla di
   /// una carta, lette dalle prove senza montare la schermata.
   static String chiEDi(Angel a) => _LaBollaDellaCarta.chiE(a);
@@ -573,6 +577,12 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     if (!mounted) return;
     await _leCarteSiGiranoESiAlzano(riduci);
     if (!mounted) return;
+    // **LE CARTE IN PIEDI SI LEGGONO** (simulazione da persona dell'ordine
+    // GC): sul Realme le carte alzate, con "Fare", "Sentire" e "Capire",
+    // restavano in vista meno di mezzo secondo prima che la pagina scendesse
+    // al responso, e nessuno faceva in tempo a leggerle ne' a toccarne una.
+    await Future<void>.delayed(OracoloDegliAngeliScreen.sostaSulleCarteAlzate);
+    if (!mounted) return;
     setState(() => _fase = _Fase.risposta);
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'oracolo_angeli'));
     _scorriAllaRisposta();
@@ -731,8 +741,8 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
       return null;
     }
     final w = scena.size.width;
-    final r = GeometriaDellAltare.sullAltare(posto, w)
-        .shift(Offset(0, -_suDelVideo));
+    final r =
+        GeometriaDellAltare.sullAltare(posto, w).shift(Offset(0, -_suDelVideo));
     final alto = pila.globalToLocal(scena.localToGlobal(r.topLeft));
     return alto & r.size;
   }
@@ -822,8 +832,8 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                             borderRadius: BorderRadius.circular(6),
                             boxShadow: [
                               BoxShadow(
-                                  color: palette.goldSoft.withValues(
-                                      alpha: 0.45 * sin(t * pi)),
+                                  color: palette.goldSoft
+                                      .withValues(alpha: 0.45 * sin(t * pi)),
                                   blurRadius: 18,
                                   spreadRadius: 2),
                             ],
@@ -845,6 +855,8 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                     palette: palette,
                     riduciMovimento: _riduciMovimento,
                     rotazione: _consultazioni,
+                    carte: _carte.length,
+                    angeli: true,
                   ),
                 ),
               // **LA CARD DA CONDIVIDERE**, fuori schermo e solo mentre si
@@ -887,8 +899,15 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
         // dissolvenza.
         IlRestoDopoLaScena(
           scenaFerma: _sceneFerma,
+          // **COMPATTO, PERCHE' IL TAVOLO RESTI IN VISTA** (il fondatore,
+          // 22 ottobre 2026 alle 21:30): "diminuire lo spazio tra i
+          // selettori di domanda, carte e profondita' e riquadro delle carte
+          // da scegliere e possibilmente ridurre l'altezza di ogni selettore
+          // bolla in modo che quando l'utente sceglie le carte, sia visibile
+          // anche il piano dove vanno a poggiare le carte scelte".
           child: Padding(
-            padding: const EdgeInsets.all(SpacingTokens.md),
+            padding: const EdgeInsets.fromLTRB(SpacingTokens.md,
+                SpacingTokens.xs, SpacingTokens.md, SpacingTokens.md),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -905,7 +924,7 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                     affidata: _affidata,
                     onAffida: _affida,
                   ),
-                  const SizedBox(height: SpacingTokens.sm),
+                  const SizedBox(height: SpacingTokens.xs),
                   _LeOpzioni(
                     palette: palette,
                     quante: _quante,
@@ -916,11 +935,11 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                     onLocked: () => _invitoAlPiano(
                         RigaDelPiano.oracoloLunga, 'La risposta lunga'),
                   ),
-                  const SizedBox(height: SpacingTokens.sm),
+                  const SizedBox(height: SpacingTokens.xs),
                   AnimatedBuilder(
                     animation: Listenable.merge([_taglio, _mescola]),
                     builder: (context, _) => _IlMazzoCoperto(
-                      key: _ilMazzo,
+                      chiaveDelVentaglio: _ilMazzo,
                       palette: palette,
                       attivo: attivo,
                       affidata: _affidata.isNotEmpty,
@@ -1047,7 +1066,9 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     return SizedBox(
       key: const Key('oracolo_scena'),
       width: w,
-      height: h - su,
+      // Fino al bordo del piano: il basamento sotto non si vede, e la
+      // domanda comincia subito sotto il tavolo.
+      height: GeometriaDellAltare.altezzaVisibile(w) - su,
       child: ClipRect(
         child: OverflowBox(
           alignment: Alignment.topCenter,
@@ -1226,9 +1247,8 @@ class _CartaSullAltare extends StatelessWidget {
                 unaSola: c?.delMomento ?? false),
             a)!;
         final siGira = c != null && !c.coperta && !chiusa;
-        final t = !siGira
-            ? 0.0
-            : (girata ? 1.0 : (staGirando ? giro.value : 0.0));
+        final t =
+            !siGira ? 0.0 : (girata ? 1.0 : (staGirando ? giro.value : 0.0));
         final faccia = t > 0.5;
         final cartaDisegnata = Transform(
           alignment: Alignment.bottomCenter,
@@ -1236,7 +1256,8 @@ class _CartaSullAltare extends StatelessWidget {
               giro: faccia ? t - 1 : t, alzata: a),
           child: faccia
               ? LaCartaDellAngelo(
-                  key: Key('oracolo_carta_${c!.delMomento ? 'momento' : c.ruolo.name}'),
+                  key: Key(
+                      'oracolo_carta_${c!.delMomento ? 'momento' : c.ruolo.name}'),
                   angelo: c.angelo,
                   palette: palette,
                 )
@@ -1273,12 +1294,10 @@ class _CartaSullAltare extends StatelessWidget {
                             key: Key('oracolo_parola_$posto'),
                             textAlign: TextAlign.center,
                             maxLines: 1,
-                            style: stileDellaParola.copyWith(
-                                color: palette.goldSoft,
-                                shadows: [
-                                  Shadow(
-                                      color: palette.deepest, blurRadius: 6),
-                                ])),
+                            style: stileDellaParola
+                                .copyWith(color: palette.goldSoft, shadows: [
+                              Shadow(color: palette.deepest, blurRadius: 6),
+                            ])),
                       ),
                     ),
                   ),
@@ -1472,7 +1491,8 @@ class _LaDomandaState extends State<_LaDomanda> {
     final tema = _tema;
     return Container(
       key: const Key('oracolo_domanda'),
-      padding: const EdgeInsets.all(SpacingTokens.sm),
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.sm, vertical: SpacingTokens.xs),
       decoration: BoxDecoration(
         color: palette.deepest.withValues(alpha: 0.78),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
@@ -1633,9 +1653,8 @@ class _LeOpzioni extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, vincoli) {
       final larga = vincoli.maxWidth >= 300;
-      final w = larga
-          ? (vincoli.maxWidth - SpacingTokens.xs) / 2
-          : vincoli.maxWidth;
+      final w =
+          larga ? (vincoli.maxWidth - SpacingTokens.xs) / 2 : vincoli.maxWidth;
       return Wrap(
         key: const Key('oracolo_opzioni'),
         spacing: SpacingTokens.xs,
@@ -1645,8 +1664,11 @@ class _LeOpzioni extends StatelessWidget {
             width: w,
             child: TendinaSelettore<int>(
               chiave: const Key('oracolo_quante_carte'),
+              compatta: true,
               titolo: 'Quante carte',
-              inRilievo: true,
+              // Nessun rilievo: il colore del Maestro marca la domanda, la
+              // scelta che cambia il responso (ordine BV voce 05), e qui la
+              // domanda sta nel suo riquadro (simulazione dell'ordine GC).
               corrente: quante,
               voci: stese,
               palette: palette,
@@ -1660,13 +1682,15 @@ class _LeOpzioni extends StatelessWidget {
             width: w,
             child: TendinaSelettore<AnswerDepth>(
               chiave: const Key('oracolo_profondita'),
+              compatta: true,
               titolo: 'Profondità',
               corrente: profondita,
               voci: AnswerDepth.shown,
               palette: palette,
               etichetta: (d) => d.label,
               bloccata: (d) =>
-                  d.premium && !PlanCatalog.apre(RigaDelPiano.oracoloLunga, piano),
+                  d.premium &&
+                  !PlanCatalog.apre(RigaDelPiano.oracoloLunga, piano),
               perche: (d) =>
                   PlanCatalog.dalPiano(
                       (p) => PlanCatalog.apre(RigaDelPiano.oracoloLunga, p)) ??
@@ -1693,7 +1717,7 @@ class _LeOpzioni extends StatelessWidget {
 /// domanda e' affidata, e la riga sopra dice quale carta si sceglie.
 class _IlMazzoCoperto extends StatelessWidget {
   const _IlMazzoCoperto({
-    super.key,
+    required this.chiaveDelVentaglio,
     required this.palette,
     required this.attivo,
     required this.affidata,
@@ -1712,6 +1736,12 @@ class _IlMazzoCoperto extends StatelessWidget {
     this.rigaDelCambio,
   });
 
+  /// **IL VENTAGLIO IN FONDO ALLA FINESTRA, IL TAVOLO IN VISTA SOPRA**
+  /// (simulazione da persona dell'ordine GC): lo scorrimento dopo l'affido
+  /// porta in fondo alla finestra il solo ventaglio, non il riquadro intero.
+  /// Col riquadro intero, gesti compresi, il tavolo usciva dallo schermo e la
+  /// carta toccata volava dove la persona non la vedeva (GC.12).
+  final Key chiaveDelVentaglio;
   final MaestroPalette palette;
   final bool attivo;
   final bool affidata;
@@ -1757,7 +1787,8 @@ class _IlMazzoCoperto extends StatelessWidget {
     final completo = scelti >= quante;
     return Container(
       key: const Key('oracolo_mazzo_coperto'),
-      padding: const EdgeInsets.all(SpacingTokens.sm),
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.sm, vertical: SpacingTokens.xs),
       decoration: BoxDecoration(
         color: palette.deepest.withValues(alpha: 0.45),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
@@ -1791,6 +1822,7 @@ class _IlMazzoCoperto extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   StesaFan(
+                    key: chiaveDelVentaglio,
                     palette: palette,
                     taken: presi,
                     onPick: (_) {},
@@ -2106,7 +2138,8 @@ class _IlResponso extends StatelessWidget {
               // (GA.05, GC.05, GC.15): la bolla resta, con chi e' l'angelo,
               // il suo coro, il rito e il dono, ma il suo messaggio non si
               // ripete sotto il responso principale.
-              responso: carte.length == 1 ? null : _responsoDellaBolla(carte[i]),
+              responso:
+                  carte.length == 1 ? null : _responsoDellaBolla(carte[i]),
               parolaChiave: LaRispostaDaiDoni.dono(corpus, carte[i].angelo),
               rito: corpus[LOraDegliAngeli.chiaveDelRito(carte[i].angelo)],
               variante: variante,
@@ -2170,8 +2203,8 @@ class _LeCarteUscite extends StatelessWidget {
                             ? 'Col tuo piano resta chiusa'
                             : carte[i].angelo.name),
                     key: Key('oracolo_uscita_$i'),
-                    style: TypographyTokens.titoloScheda().copyWith(
-                        color: ColorTokens.textPrimary, height: 1.2)),
+                    style: TypographyTokens.titoloScheda()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.2)),
               ],
             ),
           ),

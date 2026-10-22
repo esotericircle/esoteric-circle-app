@@ -8014,6 +8014,79 @@ spesa (che non serviva, si veda sopra); resta da chiudere solo GB.05
 (serve il reset naturale del limite o il si' del fondatore a un nuovo
 consulto dal vivo).
 
+## L'ORDINE GC, I CINQUE DIFETTI DELLA STESA DI TAROCCHI, LE CORREZIONI DELL'ORACOLO DEGLI ANGELI, IL LIVELLO VISIVO DEI DUE RESPONSI E LA PROFONDITÀ LUNGA (22 ottobre 2026)
+
+**In consegna sul ramo canonico `claude/esoteric-circle-master-order-e798aj`**,
+partito dalla testa `55323422` (verde). Testo dell'ordine alla lettera:
+`docs/ordini/ORDINE_GC_TESTO.md`. Manifesto: `docs/ordini/ORDINE_GC_MANIFESTO.md`
+(venti voci, GC.01 a GC.20). Rapporto: `docs/ordini/RAPPORTO_ORDINE_GC.md`.
+**Sedici voci CHIUSE, quattro APERTE IN ATTESA DI VERIFICA**: GC.01 (la
+stesa a dieci sull'app vera, serve un account Adepto sul telefono di
+collaudo), GC.12 e GC.14 (il volo della carta, la sosta sulle carte in
+piedi e il foglio coi cartigli, da vedere sul Realme con la consultazione di
+domani), GC.20 (il verde di GitHub). Le voci GC.01-GC.05 sono le cinque
+della vecchia "ORDINE GB AGGIUNTA", eseguite qui: nessuna GBA era stata
+eseguita.
+
+**Cosa e' cambiato nell'app.**
+- **Stesa di Tarocchi**: la carta si decodifica alla misura in cui si vede
+  (`TarotCardArt.gradinoPer`, tre gradini) e la girata ridisegna solo il
+  tavolo (`_ilTavoloCambia`): stesa a dieci sul Realme, PSS di picco da 280
+  a 220 MB, fotogrammi oltre 100 ms da 16 a 3
+  (`docs/collaudo/GC/gc01_la_croce_celtica.md`). La scena parte dal bordo
+  alto sotto la barra semitrasparente (anche la Sinastria Evolutiva). Il
+  salto del filmato si ferma sul fotogramma 189, lo stesso della fine
+  naturale (`stesa_ultimo_fotogramma_v1.webp`). La domanda scelta e quella
+  scritta non stanno mai insieme (tendina vuota "Nessuna, tocca per
+  sceglierne una"). La singola carta e' titolo e un paragrafo, senza
+  riquadro (`ResponsoInterpretato.comeSingola`). Sopra il titolo le piste
+  dei semi coi simboli dipinti (`LeBarreDeiSemi`), ogni carta con la sua
+  parola chiave e il paragrafo che si apre al tocco (`LaSingolaCheSiApre`).
+- **Oracolo degli Angeli**: filmato v2 (10 secondi, tavolo vuoto alla fine)
+  suonato per intero, il v1 tolto dal ramo; niente carta ne' messaggio
+  all'apertura (l'angelo dell'ora solo dopo la lettura); sotto il tavolo la
+  domanda, Quante carte (una o tre) con la Profondita', il ventaglio della
+  Stesa coi gesti, il pulsante; scena alzata di dieci pixel del telefono e
+  tagliata sul bordo del piano, bolle piu' basse (richiesta del fondatore
+  delle 21:30 durante il collaudo: il tavolo resta in vista mentre si
+  scelgono le carte); freccia di invio; la carta toccata vola al suo posto
+  col suono della Stesa; riflessione di Medora e suono della rivelazione;
+  le carte si girano una alla volta, si alzano con Fare, Sentire, Capire o
+  La carta del momento e si aprono nel foglio della carta
+  (`LaCartaDellAngeloAperta`); responso come nella Stesa con la scala di
+  luce dipinta (`LaScalaDelResponso`) e i segni dipinti dei cori; cosmo
+  dietro tutta la schermata; stesa a una carta che conta come
+  consultazione; Lunga a scelta dall'Iniziato, due paragrafi solo sul
+  principale col riquadro "Il salmo propiziatorio".
+- **Asset**: quattordici simboli dipinti del fondatore in
+  `assets/img/simboli/` (quattro semi, Arcani Maggiori, nove cori), il
+  filmato `medora_scala_di_luce_v2.mp4` coi suoi fotogrammi primo e ultimo,
+  il fotogramma d'arrivo della Stesa. Tutti prodotti, agganciati e visti a
+  video sul Realme.
+- **Regole permanenti in CLAUDE.md**: il livello visivo prima del testo in
+  ogni responso (GC.06, GC.18), la singola carta senza riquadro (GC.05,
+  GC.15), la Lunga solo sul responso principale (GC.19), la freccia di invio
+  nel selettore della domanda (GC.11).
+
+**Guardie**: quattro nuove (`gc_la_stesa_di_tarocchi`,
+`gc_l_oracolo_degli_angeli`, `ogni_responso_apre_col_colpo_d_occhio`,
+`ordine_gc_guard`), il registro sale a **887**; ventitré innesti della
+Regola A, uno alla volta, tutti rossi (`docs/collaudo/GC/regola_a.txt`), con
+la prova GC.10 vista cieca e rifatta sulla grandezza giusta.
+
+**Collaudo sul Realme** (FZ.09 e GA.09): `docs/collaudo/GC/le_opzioni.md`,
+catture in `docs/collaudo/GC/simulazioni/catture/`. Sei difetti trovati,
+cinque curati (il tavolo fuori schermo mentre si sceglie, la riflessione
+che parlava di tre carte e della carta del Presente anche dove non ci sono,
+le carte in piedi visibili meno di mezzo secondo, il foglio coi cartigli
+vuoti, il rilievo azzurro sul selettore sbagliato); il sesto, una frase
+ripetuta nell'assaggio dell'Oracolo per Nithhaiah, e' il corpus di GA.06 ed
+e' proposto fra le migliorie. **Una sola chiamata a pagamento**, la Stesa a
+una carta, col si' del fondatore (stima 0,002 euro). L'account di collaudo
+ha ricevuto 10 Eos dal traguardo "Le tre carte" aperto da se' (da 145 a
+155). Sul telefono c'e' di nuovo l'app vera al posto del banco della
+misura.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

@@ -148,7 +148,11 @@ List<int> _angeliSotto(List<int> dorsi) {
 }
 
 void main() {
-  setUp(() => LaSuoneria.spentaPerLeProve = true);
+  setUp(() {
+    LaSuoneria.spentaPerLeProve = true;
+    // GC.16: il cosmo dietro l'Oracolo ascolta i sensori.
+    silenziaISensoriDelCosmo();
+  });
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
 
   group('FY.14 via la nascita prestata e la domanda per un amico', () {
@@ -319,7 +323,12 @@ void main() {
         await tester.pump(const Duration(milliseconds: 100));
       }
       for (var i = 0;
-          i < 200 && find.byType(AttesaDiMedora).evaluate().isNotEmpty;
+          i < 200 && find.byType(AttesaDiMedora).evaluate().isEmpty;
+          i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
+      for (var i = 0;
+          i < 400 && find.byType(AttesaDiMedora).evaluate().isNotEmpty;
           i++) {
         await tester.pump(const Duration(milliseconds: 50));
       }
@@ -361,6 +370,12 @@ void main() {
       expect((misura.dipinto - misura.vuoto).abs(), lessThan(12),
           reason: 'l\'ultimo fotogramma del filmato porta ancora i dorsi '
               'dipinti sull\'altare');
+      // Le altre due carte si girano e poi si alzano (GC.14): la prova lascia
+      // finire la sequenza, che ha le sue pause fra una carta e l'altra e la
+      // sosta sulle carte alzate.
+      for (var i = 0; i < 80; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
     });
   });
 
@@ -467,6 +482,15 @@ void main() {
           final bolla = find.byKey(Key('oracolo_bolla_${c.ruolo.name}'));
           await tester.ensureVisible(bolla);
           await tester.pump();
+          // GC.18: il messaggio della carta e' chiuso all'apertura e si apre
+          // al tocco, come farebbe chi lo legge.
+          final apri =
+              find.byKey(Key('oracolo_carta_singola_${c.ruolo.name}_apri'));
+          // A meta' finestra: in cima la barra del titolo prende il tocco.
+          await Scrollable.ensureVisible(tester.element(apri), alignment: 0.5);
+          await tester.pump();
+          await tester.tap(apri);
+          await tester.pump(const Duration(milliseconds: 400));
           expect(_testoSotto(tester, bolla), contains(atteso));
         }
       });

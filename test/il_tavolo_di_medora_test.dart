@@ -28,6 +28,22 @@ import 'cardinale_minimo.dart';
 /// chiave "illuminata da sotto, non e' piu' grande". Le anteprime le mostrano
 /// (docs/preview/FL/); questa guardia misura cio' che le anteprime fanno
 /// vedere, perche' un'anteprima si guarda una volta e una prova ogni giorno.
+/// **DOVE STA MEDORA NELLA SCENA**, ordine GC voce GC.03: sulla scena ferma
+/// (Riduci Movimento, nessun filmato, il salto) Medora e' dipinta dal
+/// fotogramma di arrivo e non piu' dalla posa scontornata. Il fotogramma
+/// coincide col tavolo fermo a un decimo di pixel, quindi il suo posto e'
+/// quello della geometria (`GeometriaDelTavolo.medora`), misurato a partire
+/// dalla scena. La posa, quando c'e', sta nello stesso rettangolo.
+Rect medoraNellaScena(WidgetTester tester) {
+  final posa = find.byKey(const Key('tavolo_medora'));
+  if (posa.evaluate().isNotEmpty) return tester.getRect(posa);
+  expect(find.byKey(const Key('tavolo_fotogramma_di_arrivo')), findsOneWidget,
+      reason: 'sulla scena ferma non c\'e\' ne\' la posa ne\' il '
+          'fotogramma di arrivo');
+  final scena = tester.getRect(find.byKey(const Key('stesa_slots')));
+  return GeometriaDelTavolo.medora(scena.width).shift(scena.topLeft);
+}
+
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -170,7 +186,7 @@ void main() {
         'il pulsante', (tester) async {
       await monta(tester);
       final y = [
-        tester.getRect(find.byKey(const Key('tavolo_medora'))).top,
+        medoraNellaScena(tester).top,
         tester.getRect(find.byType(StesaFan)).top,
         tester.getRect(find.byKey(const Key('stesa_inizia'))).top,
       ];

@@ -57,7 +57,16 @@ class AttesaDiMedora extends StatefulWidget {
     this.riduciMovimento = false,
     this.rotazione = 0,
     this.fattoDelCielo,
+    this.carte = 3,
+    this.angeli = false,
   });
+
+  /// Quante carte ci sono sul tavolo: le righe le nominano giuste.
+  final int carte;
+
+  /// Vero nell'Oracolo degli Angeli, dove le carte sono angeli coi loro
+  /// ruoli (Fare, Sentire, Capire) e non le posizioni di una stesa.
+  final bool angeli;
 
   final MaestroPalette palette;
 
@@ -94,6 +103,54 @@ class AttesaDiMedora extends StatefulWidget {
     'Medora tiene la tua stesa sotto gli occhi, senza fretta.',
   ];
 
+  /// **LE RIGHE GIUSTE PER IL TAVOLO VERO** (simulazione da persona
+  /// dell'ordine GC, sul Realme): le [righe] parlano di tre carte e della
+  /// carta del Presente, e si leggevano uguali sopra la stesa a una carta e
+  /// sopra l'Oracolo degli Angeli, che non ha una carta del Presente. PADRE:
+  /// ordine P sezione B (le righe nate quando le stese erano solo a tre
+  /// carte), aggravato dall'ordine GA voce 01 (le stese a una, quattro e
+  /// dieci carte) e dall'ordine GC voce 13 (la stessa attesa nell'Oracolo).
+  static List<String> righePer({int carte = 3, bool angeli = false}) {
+    if (angeli) {
+      return carte == 1
+          ? const [
+              'Medora osserva la carta del momento.',
+              'Medora ascolta che cosa porta l\'angelo della tua carta.',
+              'Medora guarda come la carta risponde alla tua domanda.',
+              'Medora tiene la tua carta sotto gli occhi, senza fretta.',
+            ]
+          : const [
+              'Medora osserva le tre carte degli angeli insieme.',
+              'Medora cerca il filo fra le carte di Fare, Sentire e Capire.',
+              'Medora ascolta la carta del tuo Angelo Custode.',
+              'Medora guarda come le tre carte rispondono alla tua domanda.',
+              'Medora tiene la tua stesa sotto gli occhi, senza fretta.',
+            ];
+    }
+    return switch (carte) {
+      1 => const [
+          'Medora osserva la carta uscita.',
+          'Medora guarda in che verso è uscita la carta.',
+          'Medora legge la carta contro la tua domanda.',
+          'Medora tiene la tua carta sotto gli occhi, senza fretta.',
+        ],
+      3 => righe,
+      _ => [
+          'Medora osserva le ${_inLettere(carte)} carte insieme.',
+          'Medora cerca il filo che lega le ${_inLettere(carte)} carte.',
+          'Medora segue le carte posizione per posizione.',
+          'Medora guarda in che verso sono uscite le carte.',
+          'Medora tiene la tua stesa sotto gli occhi, senza fretta.',
+        ],
+    };
+  }
+
+  static String _inLettere(int n) => switch (n) {
+        4 => 'quattro',
+        10 => 'dieci',
+        _ => '$n',
+      };
+
   /// I tempi, letti da [TempiDellAttesa] e non riscritti.
   static Duration get durataMinima => TempiDellAttesa.durataMinima;
   static Duration get durataMinimaRidotta =>
@@ -117,9 +174,10 @@ class _AttesaDiMedoraState extends State<AttesaDiMedora>
   AnimationController? _giro;
 
   Timer? _passo;
-  late int _corrente = AttesaDiMedora.righe.isEmpty
-      ? 0
-      : widget.rotazione % AttesaDiMedora.righe.length;
+  List<String> get _righe =>
+      AttesaDiMedora.righePer(carte: widget.carte, angeli: widget.angeli);
+
+  late int _corrente = _righe.isEmpty ? 0 : widget.rotazione % _righe.length;
 
   @override
   void initState() {
@@ -135,7 +193,7 @@ class _AttesaDiMedoraState extends State<AttesaDiMedora>
     // toglie mai.
     _passo = Timer.periodic(AttesaDiMedora.durataRiga, (_) {
       if (!mounted) return;
-      setState(() => _corrente = (_corrente + 1) % AttesaDiMedora.righe.length);
+      setState(() => _corrente = (_corrente + 1) % _righe.length);
     });
   }
 
@@ -149,7 +207,7 @@ class _AttesaDiMedoraState extends State<AttesaDiMedora>
   @override
   Widget build(BuildContext context) {
     final palette = widget.palette;
-    final riga = AttesaDiMedora.righe[_corrente % AttesaDiMedora.righe.length];
+    final riga = _righe[_corrente % _righe.length];
     // NON si posiziona da se'. Chi la monta la mette dove va: qui c'era un
     // `Positioned.fill`, e infilandola dentro la dissolvenza Flutter si trovava
     // un dato di posizione senza uno Stack a cui darlo.

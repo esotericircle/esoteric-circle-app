@@ -51,6 +51,18 @@ abstract final class GeometriaDellAltare {
   static double altezza(double larghezza) =>
       fotogramma.height * scala(larghezza);
 
+  /// **LA SCENA FINISCE SUL BORDO DEL PIANO**, il fondatore il 22 ottobre
+  /// 2026 alle 21:30, sul Realme: *"Devi alzare il selettore delle Domande
+  /// subito sotto il piano dove atterrano le carte"*. Il bordo d'oro del piano
+  /// sta alla riga 1717 del fotogramma (misurato riga per riga sull'ultimo
+  /// fotogramma del v2: luminanza 105 alla 1717, sotto il basamento nero fino
+  /// alla 1920); la scena si taglia alla 1725, col bordo intero. Le carte
+  /// posate e quelle in piedi poggiano alla riga [basso], 1685, sopra il
+  /// taglio.
+  static const double bordoDelPiano = 1725;
+  static double altezzaVisibile(double larghezza) =>
+      bordoDelPiano * scala(larghezza);
+
   /// **I TRE DORSI SULL'ALTARE**, misurati a occhio sull'ultimo fotogramma
   /// (`oracolo_ultimo_fotogramma_v1.jpg`, il v1 dove le carte restavano
   /// posate; nel v2 si posano negli stessi tre posti prima di evaporare)
@@ -108,11 +120,8 @@ abstract final class GeometriaDellAltare {
   /// carta in volo.
   static Rect sullAltare(int i, double larghezzaSchermo) {
     final s = scala(larghezzaSchermo);
-    return Rect.fromLTWH(
-        (centriInBasso[i] - larghezzaInBasso / 2) * s,
-        (basso - altezzaVista) * s,
-        larghezzaInBasso * s,
-        altezzaVista * s);
+    return Rect.fromLTWH((centriInBasso[i] - larghezzaInBasso / 2) * s,
+        (basso - altezzaVista) * s, larghezzaInBasso * s, altezzaVista * s);
   }
 
   /// **LA CARTA IN PIEDI, INGRANDITA** (GC.14), nelle misure dello schermo:
@@ -125,7 +134,8 @@ abstract final class GeometriaDellAltare {
 
   static Rect inPiedi(int i, double larghezzaSchermo, {bool unaSola = false}) {
     final s = scala(larghezzaSchermo);
-    final w = larghezzaSchermo * (unaSola ? larghezzaDellaSola : larghezzaInPiedi);
+    final w =
+        larghezzaSchermo * (unaSola ? larghezzaDellaSola : larghezzaInPiedi);
     final h = w * 1.5;
     return Rect.fromLTWH(centriInBasso[i] * s - w / 2, basso * s - h, w, h);
   }

@@ -250,7 +250,11 @@ List<String> _testiSotto(WidgetTester tester, Finder radice) => [
     ];
 
 void main() {
-  setUp(() => LaSuoneria.spentaPerLeProve = false);
+  setUp(() {
+    LaSuoneria.spentaPerLeProve = false;
+    // GC.16: il cosmo dietro l'Oracolo ascolta i sensori.
+    silenziaISensoriDelCosmo();
+  });
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
 
   group('FU.09 la card condivisibile', () {

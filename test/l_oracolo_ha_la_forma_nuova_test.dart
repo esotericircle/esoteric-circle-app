@@ -136,7 +136,11 @@ Future<void> _monta(WidgetTester tester, Tier tier) async {
 }
 
 void main() {
-  setUp(() => LaSuoneria.spentaPerLeProve = true);
+  setUp(() {
+    LaSuoneria.spentaPerLeProve = true;
+    // GC.16: il cosmo dietro l'Oracolo ascolta i sensori.
+    silenziaISensoriDelCosmo();
+  });
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
 
   group('il corpus nella misura nuova', () {

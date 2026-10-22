@@ -11,6 +11,7 @@ import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread_type.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
 import 'package:esoteric_circle/features/tarot/le_barre_dei_semi.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
@@ -89,8 +90,8 @@ void main() {
       expect(TarotCardArt.gradinoPer(333).miniatura, isTrue);
       expect(TarotCardArt.gradinoPer(334),
           (miniatura: false, decodifica: TarotCardArt.latoMedio));
-      expect(TarotCardArt.gradinoPer(900),
-          (miniatura: false, decodifica: null));
+      expect(
+          TarotCardArt.gradinoPer(900), (miniatura: false, decodifica: null));
     });
 
     // **LA SOGLIA, RICAVATA DALLA MISURA SUL REALME**
@@ -142,6 +143,114 @@ void main() {
                 'grandi: ${mega.toStringAsFixed(1)} MB');
       });
     }
+  });
+
+  group('GC.01 la girata ridisegna solo il tavolo', () {
+    // **LA SOGLIA, RICAVATA DALLA MISURA SUL REALME**
+    // (`docs/collaudo/GC/gc01_la_croce_celtica.md`): coi tempi di ogni
+    // fotogramma, ogni carta girata costava un fotogramma da 130 a 190
+    // millisecondi di costruzione, perche' la girata e la fioritura
+    // ricostruivano l'intera schermata, col responso sotto. La prova conta
+    // quante volte la schermata intera si ricostruisce mentre le dieci carte
+    // si girano e si alzano: col codice di prima rimesso a mano 13 (Regola A,
+    // `docs/collaudo/GC/regola_a.txt`), dopo la cura 1. La soglia sta a tre,
+    // il margine per l'arrivo del responso e la fine della riflessione.
+    const sogliaDiRicostruzioni = 3;
+
+    testWidgets(
+        'mentre le dieci carte si girano la schermata intera si ricostruisce '
+        'al massimo $sogliaDiRicostruzioni volte', (tester) async {
+      tester.view.physicalSize = const Size(402, 6000);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(_ospite(StesaTreCarteScreen(
+        seed: 2,
+        skipIntro: true,
+        topic: TarotTopic.momentoCheVivo,
+        tipo: TarotSpreadType.dieciCarte,
+        chiamata: (i, r, c) async =>
+            throw StateError('GC.01: nessuna chiamata al modello'),
+      )));
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 500));
+      }
+      for (var indice = 34; indice < 44; indice++) {
+        final carta = find.byKey(Key('stesa_fan_$indice'));
+        final r = tester.getRect(carta);
+        await tester.tapAt(Offset(r.left + 6, r.center.dy));
+        await tester.pump();
+        await tester.pump(const Duration(seconds: 2));
+      }
+      final pulsante = find.byKey(const Key('stesa_inizia'));
+      expect(tester.widget<FilledButton>(pulsante).onPressed, isNotNull,
+          reason: 'scelte le dieci carte, "Leggi le Carte" non si accende');
+      await tester.tap(pulsante, warnIfMissed: false);
+      // Il responso arriva dopo il filo e la riflessione di Medora.
+      for (var i = 0;
+          i < 300 &&
+              find.byKey(const Key('stesa_blocco_carte')).evaluate().isEmpty;
+          i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      expect(find.byKey(const Key('stesa_blocco_carte')), findsOneWidget);
+      var ricostruzioni = 0;
+      debugOnRebuildDirtyWidget = (element, primaVolta) {
+        if (element.widget is StesaTreCarteScreen) ricostruzioni++;
+      };
+      addTearDown(() => debugOnRebuildDirtyWidget = null);
+      // Dieci girate da mezzo secondo, una pausa, l'alzata.
+      for (var i = 0; i < 140; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      debugOnRebuildDirtyWidget = null;
+      print('GC.01: ricostruzioni della schermata intera mentre le dieci '
+          'carte si girano e si alzano: $ricostruzioni');
+      expect(ricostruzioni, lessThanOrEqualTo(sogliaDiRicostruzioni),
+          reason: 'la girata torna a ricostruire l\'intera schermata '
+              '($ricostruzioni volte): sul Realme sono i fotogrammi da 200 ms');
+    });
+  });
+
+  group('la riflessione di Medora nomina le carte vere', () {
+    // Simulazione da persona dell'ordine GC, sul Realme: sopra la stesa a una
+    // carta Medora "cerca il filo che lega le tre carte" e "pesa la carta del
+    // Presente contro le altre due"; nell'Oracolo la carta del Presente non
+    // esiste. Ogni riga che nomina un numero di carte nomina quello vero.
+    const numeri = {1: 'una', 3: 'tre', 4: 'quattro', 10: 'dieci'};
+    final guardate = <String>[];
+    void controlla(String nome, List<String> righe, int carte,
+        {bool angeli = false}) {
+      expect(righe.length, greaterThanOrEqualTo(3), reason: nome);
+      for (final riga in righe) {
+        final parole = riga.toLowerCase().split(RegExp(r'[^a-z]+'));
+        for (final e in numeri.entries) {
+          if (e.key == carte || e.key == 1) continue;
+          expect(parole.contains(e.value), isFalse,
+              reason: '$nome: la riga "$riga" parla di ${e.value} carte');
+        }
+        if (carte != 3 || angeli) {
+          expect(
+              riga.contains('altre due') || riga.contains('Presente'), isFalse,
+              reason: '$nome: la riga "$riga" non vale qui');
+        }
+        guardate.add(riga);
+      }
+    }
+
+    test('ogni stesa dei Tarocchi e l\'Oracolo a una e a tre carte', () {
+      for (final tipo in TarotSpreadType.values) {
+        controlla('Tarocchi, ${tipo.name}',
+            AttesaDiMedora.righePer(carte: tipo.carte), tipo.carte);
+      }
+      for (final carte in const [1, 3]) {
+        controlla('Oracolo, $carte',
+            AttesaDiMedora.righePer(carte: carte, angeli: true), carte,
+            angeli: true);
+      }
+      cardinaleMinimo(guardate.length, 20,
+          cosa: 'righe della riflessione guardate',
+          perche: 'quattro stese e due Oracoli, almeno quattro righe l\'uno');
+    });
   });
 
   group('GC.04 la domanda scelta e la domanda scritta non si confondono', () {
@@ -215,13 +324,15 @@ void main() {
   });
 
   group('GC.05 la singola carta ha il titolo e un solo paragrafo', () {
-    test('in ogni stesa ogni carta e\' titolo e un paragrafo, il principale '
+    test(
+        'in ogni stesa ogni carta e\' titolo e un paragrafo, il principale '
         'ha il riquadro', () {
       final guasti = <String>[];
       var carte = 0;
       for (final tipo in TarotSpreadType.values) {
         for (var seme = 0; seme < 4; seme++) {
-          final s = TarotSpread.draw(seed: seme * 7 + 1, posizioni: tipo.posizioni);
+          final s =
+              TarotSpread.draw(seed: seme * 7 + 1, posizioni: tipo.posizioni);
           final r = TarotReading.of(s, TarotTopic.momentoCheVivo,
               nomeDellaStesa: tipo.nome);
           if (r.principale.singola || r.principale.cosaFare.trim().isEmpty) {
@@ -261,7 +372,8 @@ void main() {
       expect(conti[TarotSeme.coppe], 2);
       expect(conti[TarotSeme.bastoni], 0);
       expect(LeBarreDeiSemi.contaIMaggiori(carte), 1);
-      expect(LeBarreDeiSemi.pienezza(carte, TarotSeme.coppe), closeTo(2 / 3, 1e-9));
+      expect(LeBarreDeiSemi.pienezza(carte, TarotSeme.coppe),
+          closeTo(2 / 3, 1e-9));
       // La stesa a una carta: il suo elemento acceso, gli altri spenti.
       final sola = [d('Re di Spade')];
       expect(LeBarreDeiSemi.pienezza(sola, TarotSeme.spade), 1);
