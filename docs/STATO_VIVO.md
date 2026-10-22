@@ -7842,7 +7842,7 @@ aggiunti perche' nessuno dei cinque esistenti (CHIUSA, APERTA, DA FARE)
 diceva il vero su una voce la cui premessa era falsa o su una voce che
 l'ordine vieta di toccare.
 
-**La simulazione da persona (FZ.09) e quella del bambino (GA.09), e un
+**La simulazione da persona (FZ.09) e quella del bambino (GA.09), con un
 incidente sulla regola SPESE, da conoscere per intero.** L'ordine R3 non
 prevede una build per i tester a questa consegna, ma le sei funzioni
 toccate a schermo (GB.02, GB.05, GB.06, GB.07, GB.09, GB.11) dovevano
@@ -7873,7 +7873,7 @@ rifatto da capo la parte di GB.05, GB.06 e GB.07, con le catture della
 sessione contaminata rimosse. In questo rifacimento **zero nuove domande
 vere sono state effettivamente inviate al modello**: il limite condiviso
 delle tre domande al giorno era gia' esaurito dal primo giro nello stesso
-giorno civile, e un tentativo di riscattare una domanda con gli Eos di
+giorno civile e un tentativo di riscattare una domanda con gli Eos di
 collaudo e' stato bloccato dal classificatore di sicurezza della sessione
 come transazione del mondo reale, rispettato senza aggirarlo. Nessun difetto
 dell'app trovato in nessuno dei due giri. Esito per voce: GB.02, GB.06,
@@ -7898,12 +7898,12 @@ registrazione del rapporto (curata registrandolo) e due difetti veri,
 causati non da questa voce di chiusura ma da voci precedenti dello stesso
 ordine. **Padre GB.08**: `ProvaCrashlytics` scrive
 `diagnosi.prova_crashlytics_inviata`, mai dichiarata in `CioCheETuo`
-(ordine BZ), e `test/niente_resta_di_te_test.dart` l'ha trovata scoperta;
+(ordine BZ); `test/niente_resta_di_te_test.dart` l'ha trovata scoperta,
 curato aggiungendola all'elenco `restano` con la ragione scritta (e' un
 segno dell'installazione, non della persona). **Padre GB.11**: portare la
 Luna piena e la Luna nuova alla data del picco esatto le sposta piu' avanti
-nella cronologia del Calendario, e `test/il_calendario_degli_eventi_test.dart`
-(voce "senza identita' non c'e' un vicolo cieco") cercava la Luna piena
+nella cronologia del Calendario: la voce "senza identita' non c'e' un
+vicolo cieco" di `test/il_calendario_degli_eventi_test.dart` cercava la Luna piena
 senza scorrere; curato aggiungendo lo stesso scorrimento della voce
 gemella. Nessuno dei due e' un difetto visto dalla persona che usa l'app.
 

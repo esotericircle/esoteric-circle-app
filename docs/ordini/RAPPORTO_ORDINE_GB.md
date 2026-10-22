@@ -1,6 +1,10 @@
 # RAPPORTO DELL'ORDINE GB, L'OROSCOPO SI APRE SENZA CONGELARSI, TUTTI I FILMATI SI SALTANO, LE STESE RICALCOLATE E LE CURE DEL RAPPORTO GA
 
-22 ottobre 2026. Testo dell'ordine: `docs/ordini/ORDINE_GB_TESTO.md`. Manifesto:
+22 ottobre 2026. **Impronta corretta a mano una volta, prima che Mauro
+vedesse questo rapporto**: la prima registrazione (commit `629d7958`)
+portava tre virgole prima di "e" nel corpo, in violazione della regola di
+CLAUDE.md; corrette nello stesso giro di lavoro che le ha trovate, nessun
+altro cambio di contenuto. Testo dell'ordine: `docs/ordini/ORDINE_GB_TESTO.md`. Manifesto:
 `docs/ordini/ORDINE_GB_MANIFESTO.md`, 13 voci: **5 chiuse, 6 aperte in attesa
 di verifica, 0 da fare, 1 premessa caduta, 1 divieto**. Ramo
 `claude/esoteric-circle-master-order-e798aj`.
@@ -11,13 +15,13 @@ simulazione da persona e del bambino, FZ.09/GA.09) e GB.12 (regola di
 codice e documento, nessun video richiesto). Sei restano aperte: GB.03 e
 GB.04 per ragioni che non toccano la simulazione (si veda sotto), GB.08 per
 un passo manuale del fondatore, GB.09 perche' la regola SPESE blocca la
-generazione della lettura, e **GB.05 perche' la verifica dal vivo non e'
+generazione della lettura; **GB.05 perche' la verifica dal vivo non e'
 riuscita in questo giro** (il limite giornaliero delle domande ai Maestri
 era gia' esaurito e il riscatto con gli Eos di collaudo e' stato bloccato
 dal classificatore di sicurezza della sessione): resta APERTA IN ATTESA DI
 VERIFICA, non e' un difetto dell'app.
 
-**Un punto che Mauro deve conoscere, e che va riportato per intero.** Il
+**Un punto che Mauro deve conoscere e che va riportato per intero.** Il
 primo giro della simulazione (prima di questa versione del rapporto) aveva
 scritto domande vere a Medora, Aura e Calìgo per vedere dal vivo le
 schermate di GB.05 e GB.06, generando tre vere chiamate a pagamento verso
@@ -33,7 +37,7 @@ conseguenza: (a) la parte di simulazione che toccava GB.05, GB.06 e GB.07 e'
 stata rifatta da capo il 22 ottobre 2026, con le vecchie catture
 contaminate rimosse; nel rifacimento **zero nuove domande vere sono state
 inviate al modello** (il limite era gia' esaurito dal giro precedente nello
-stesso giorno civile, e un tentativo di riscatto con gli Eos e' stato
+stesso giorno civile e un tentativo di riscatto con gli Eos e' stato
 bloccato dal classificatore di sicurezza, rispettato senza aggirarlo); (b)
 CLAUDE.md porta ora un'eccezione permanente alla regola SPESE (sezione
 SPESE, punto 3), che autorizza un consulto vero e singolo scritto da un

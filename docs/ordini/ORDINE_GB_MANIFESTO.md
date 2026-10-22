@@ -126,7 +126,7 @@ PROVA (collaudo): `docs/collaudo/GB/le_opzioni.md` (sezione 2), `docs/collaudo/G
 
 ASPETTA: la verifica dal vivo sul Realme non e' riuscita in questo giro di
 simulazione (22 ottobre 2026, sotto l'eccezione SPESE dell'ordine GB): il
-limite condiviso delle tre domande al giorno era gia' esaurito, e un
+limite condiviso delle tre domande al giorno era gia' esaurito e un
 tentativo di riscattare una domanda in piu' con gli Eos di collaudo e'
 stato bloccato dal classificatore di sicurezza della sessione come
 transazione del mondo reale (rispettato, nessun addebito). Riaprendo dal

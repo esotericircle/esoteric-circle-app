@@ -185,7 +185,7 @@ class CioCheETuo {
     // `kProvaCrashlyticsAttiva` in ogni consegna ordinaria.
     'diagnosi.prova_crashlytics_inviata': 'il segno che questa installazione '
         'ha già mandato la prova di Crashlytics una volta (ordine GB voce '
-        '08), e appartiene al telefono, non alla persona.',
+        '08); appartiene al telefono, non alla persona.',
   };
 
   /// Vero se quella chiave appartiene alla persona.
