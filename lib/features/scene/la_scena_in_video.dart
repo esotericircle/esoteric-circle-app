@@ -291,6 +291,18 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
   /// Il video, da mettere nel riquadro della scena.
   Widget disegna() => _lettore?.disegna() ?? const SizedBox.shrink();
 
+  /// **LA SCENA PARTE GIA' FERMA, SENZA APRIRE NESSUN VIDEO.** Ordine GB
+  /// voce 02: chi ha gia' visto il filmato (per esempio la ruota
+  /// dell'Oroscopo, una volta al giorno) non deve aspettarne nemmeno
+  /// l'apertura del file. Stessa guardia di [avvia]: chiamata una volta
+  /// sola, e se la scena era gia' partita non fa nulla.
+  void fermaSubito() {
+    if (_avviata) return;
+    _avviata = true;
+    _ferma = true;
+    notifyListeners();
+  }
+
   /// Parte una volta sola: chiamata da `didChangeDependencies`, perche' legge
   /// Riduci Movimento e la grafica dal contesto.
   Future<void> avvia(BuildContext context) async {
@@ -394,9 +406,16 @@ class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
 /// vale anche come scelta**. Finito o saltato il video, il velo sparisce e
 /// la schermata risponde come sempre.
 ///
+/// **E ANCHE LO SCORRIMENTO, ordine GB voce 02, 22 ottobre 2026.** Il
+/// fondatore: *"si saltano al semplice tap o con scrolling"*. Lo stesso velo
+/// che prende il tocco secco prende anche l'inizio di un trascinamento, in
+/// qualunque verso: chi arriva su una scena e scorre d'istinto, senza
+/// fermarsi a cercare un bottone, salta lo stesso.
+///
 /// Ogni scena dell'app passa da qui: la guardia
 /// `test/ogni_scena_si_salta_col_tocco_test.dart` cade col nome della scena
-/// che non ci passa.
+/// che non ci passa, e `test/ogni_scena_si_salta_anche_scorrendo_test.dart`
+/// prova che il velo risponde anche al dito che scorre.
 class IlToccoCheSalta extends StatelessWidget {
   const IlToccoCheSalta({
     super.key,
@@ -420,6 +439,11 @@ class IlToccoCheSalta extends StatelessWidget {
               key: const Key('il_tocco_che_salta'),
               behavior: HitTestBehavior.opaque,
               onTap: onSalta,
+              // Un solo dito, un solo verso alla volta: niente scala (quella
+              // vuole due dita) e niente conflitto con lo swipe orizzontale,
+              // che qui basta a saltare comunque.
+              onVerticalDragStart: (_) => onSalta(),
+              onHorizontalDragStart: (_) => onSalta(),
             ),
           ),
       ],

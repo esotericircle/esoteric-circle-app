@@ -59,6 +59,7 @@ import '../../core/horoscope/la_lettura_vedica.dart';
 import '../../core/horoscope/l_annuale.dart';
 import '../../core/horoscope/l_anno_delle_tradizioni.dart';
 import '../../core/horoscope/la_lunga_di_oggi.dart';
+import '../../core/horoscope/la_ruota_di_oggi.dart';
 import '../../core/horoscope/il_capodanno_lunare.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/horoscope/i_testi_eu.dart';
@@ -1293,7 +1294,19 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Una volta sola per apertura: la regia lo sa da se'.
-    unawaited(_regia.avvia(context));
+    //
+    // **LA RUOTA SI VEDE UNA VOLTA AL GIORNO.** Ordine GB voce 02, 22
+    // ottobre 2026: chi ha gia' visto il filmato della ruota oggi riapre la
+    // scena gia' ferma, senza nemmeno aprire il file del video.
+    unawaited(LaRuotaDiOggi.vistaOggi(_date).then((vista) {
+      if (!mounted) return;
+      if (vista) {
+        _regia.fermaSubito();
+      } else {
+        unawaited(_regia.avvia(context));
+        unawaited(LaRuotaDiOggi.segna(_date));
+      }
+    }));
   }
 
   @override
