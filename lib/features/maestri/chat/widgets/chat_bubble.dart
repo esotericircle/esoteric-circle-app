@@ -4,11 +4,15 @@ import 'package:provider/provider.dart';
 import '../../../../core/chat/chat_message.dart';
 import '../../../../core/chat/immersive_intents.dart';
 import '../../../../core/chat/testo_del_responso.dart';
+import '../../../../core/entitlement/entitlement_service.dart';
+import '../../../../core/entitlement/plan_catalog.dart';
+import '../../../../core/entitlement/tier.dart';
 import '../../../../core/maestro/consiglio_finale.dart';
 import '../../../../core/maestro/frase_di_ripiego.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../../core/quality/quality_tier.dart';
+import '../../../pricing/upgrade_invite.dart';
 import '../../../../design_system/components/collasso.dart';
 import '../../../../design_system/components/testo_che_si_scrive.dart';
 import '../../../../design_system/components/user_avatar.dart';
@@ -354,6 +358,19 @@ class _ChatBubbleState extends State<ChatBubble> {
                           onTap: () => onOpenIntent?.call(message.intentId!),
                         ),
                       ],
+                      // **IL MESSAGGIO DEL LIMITE HA UNA USCITA. Ordine GB
+                      // voce 05/06, 22 ottobre 2026.** Il rapporto
+                      // dell'ordine GA, punto 6: "il messaggio non ha
+                      // pulsante ne' il prezzo (80 Eos) ne' un invito ai
+                      // piani, e ogni Maestro dice una frase diversa". La
+                      // frase resta diversa per Maestro ([FraseDelLimite]),
+                      // la stessa uscita vive qui in un punto solo: stessa
+                      // struttura per i tre Maestri.
+                      if (message.tipoEffettivo ==
+                          TipoDiMessaggio.limiteRaggiunto) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        _LimiteRaggiuntoButton(palette: palette),
+                      ],
                       // IL SEGUITO, FRA IL CORPO E IL CONSIGLIO.
                       //
                       // E' il posto che il vincolo del consiglio decide: la bolla e'
@@ -610,6 +627,89 @@ class _ChatBubbleState extends State<ChatBubble> {
           const SizedBox(width: SpacingTokens.xs),
           Flexible(child: bolla),
         ],
+      ),
+    );
+  }
+}
+
+/// **IL PULSANTE DELL'USCITA, SOTTO IL MESSAGGIO DEL LIMITE.** Ordine GB
+/// voce 06, 22 ottobre 2026: lo stesso invito di `showUpgradeInvite`
+/// (quello che la schermata Chiedi apre da sempre), il prezzo del riscatto
+/// letto dal server attraverso [corredoDelRiscatto], mai scritto a mano.
+/// Senza un prezzo dal server (nessun `QuestionAllowance` nell'albero, o il
+/// server non ha ancora risposto) il pulsante non compare: meglio niente
+/// che un prezzo falso.
+class _LimiteRaggiuntoButton extends StatelessWidget {
+  const _LimiteRaggiuntoButton({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final riscatto = corredoDelRiscatto(
+      context,
+      budget: 'domande',
+      cosaUna: 'una domanda in più',
+    );
+    if (riscatto.label == null) return const SizedBox.shrink();
+    Tier? piano;
+    try {
+      piano = context.read<EntitlementService>().tier;
+    } catch (errore) {
+      piano = null;
+    }
+    final dopo = switch (piano) {
+      Tier.free => Tier.tier1,
+      Tier.tier1 => Tier.tier2,
+      Tier.tier2 => Tier.tier3,
+      Tier.tier3 => null,
+      null => null,
+    };
+    final quanteDopo = dopo == null
+        ? null
+        : PlanCatalog.limiteGiornaliero(PlanCatalog.rigaDomande, dopo);
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        enableFeedback: false,
+        key: const Key('limite_raggiunto_uscita'),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        onTap: () => showUpgradeInvite(
+          context,
+          title: 'Hai posto le tue domande di oggi',
+          message: quanteDopo == null
+              ? 'Puoi riscattarne una con gli Eos, oppure tornare domani: '
+                  'le domande ai Maestri ripartono ogni giorno.'
+              : 'Puoi riscattarne una con gli Eos, oppure salire di '
+                  'cammino: le domande ai Maestri diventano $quanteDopo al '
+                  'giorno.',
+          riscattoLabel: riscatto.label,
+          onRiscatta: riscatto.azione,
+        ),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            gradient: LinearGradient(colors: [
+              palette.primary.withValues(alpha: 0.7),
+              palette.surfaceElevated.withValues(alpha: 0.7),
+            ]),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.auto_awesome, size: 16, color: palette.goldSoft),
+              const SizedBox(width: SpacingTokens.sm),
+              Flexible(
+                child: Text(riscatto.label!,
+                    style: TypographyTokens.titoloScheda()
+                        .copyWith(color: palette.goldSoft)),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
