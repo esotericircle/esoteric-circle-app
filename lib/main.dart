@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'app.dart';
 import 'core/chat/i_responsi_di_oggi.dart';
 import 'core/diagnosi/briciole.dart';
+import 'core/diagnosi/prova_crashlytics.dart';
 import 'core/sensi/lo_schermo_protetto.dart';
 import 'core/l10n/la_lingua_del_cerchio.dart';
 import 'services/push/la_push_in_arrivo.dart';
@@ -97,6 +98,10 @@ Future<void> main() async {
         FirebaseCrashlytics.instance
             .recordError(errore, traccia, reason: cosa, fatal: false));
     Briciole.lascia('crashlytics_armato');
+    // **LA PROVA DEL CANALE, ordine GB voce 08.** Spenta per ogni consegna
+    // ordinaria (kProvaCrashlyticsAttiva): si accende a mano solo per la
+    // build con cui il fondatore vuole provare Crashlytics su TestFlight.
+    unawaited(ProvaCrashlytics.invia());
   }
 
   // **UNA FESTA PER APERTURA, e l'apertura comincia qui.** Ordine AU voce 06:
