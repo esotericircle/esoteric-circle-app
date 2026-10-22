@@ -177,6 +177,18 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * ha tre stese in entrambi i cicli, come nella matrice dell'app
    * (lib/core/entitlement/plan_catalog.dart) e nel conto
    * (tool/i_limiti_degli_annuali.py, STESE e STESE_ANNUALE).
+   *
+   * **ANCORA UNO, TRE, TRE E CINQUE, ordine GB voce 04, 22 ottobre 2026.**
+   * Il fondatore ha chiesto di tornare a sei e dieci, proponendo di contare
+   * al prezzo vero solo la stesa a dieci carte e le altre a non piu' di
+   * quattro. Il conto rifatto con questo metodo (tool/
+   * i_limiti_degli_annuali.py, STESA_PICCOLA e STESA_DIECI, misurate sul
+   * testo vero della richiesta al modello) trova che anche cosi' sei stese
+   * all'Adepto costano il 30,8 per cento mensile e il 31,2 annuale, dieci
+   * all'Illuminato il 31,3 e il 31,6: sopra il tetto in ogni ciclo. Il
+   * numero sicuro per entrambi i cicli resta quello di oggi. Per avere sei
+   * e dieci serve un prezzo diverso dei piani, non un altro conto: lo dice
+   * il rapporto dell'ordine GB.
    */
   stese: [1, 3, 3, 5],
   /**
