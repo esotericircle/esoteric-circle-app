@@ -377,10 +377,10 @@ P: Prova un orario nuovo, una strada diversa, un metodo alternativo, perché cam
 P: Mettere ordine libera spazio anche per la buona sorte, così sistema la scrivania prima di cominciare le attività della giornata.
 
 ### Fortuna, casa 7
-T: Fortuna in coppia | L'incontro che apre | Alleati inattesi
-P: Accetta l'aiuto o il consiglio di chi ti sta accanto, perché la buona occasione passa attraverso un'altra persona.
-P: Presentati con apertura a chi incroci sulla tua strada, perché un incontro casuale può trasformarsi in un'alleanza utile.
-P: Collaborare porta più fortuna che agire in solitudine, così proponi a qualcuno di unire le forze per un piccolo obiettivo comune.
+T: L'alleato giusto | Il socio che serve | La mossa in squadra
+P: Accetta il consiglio di chi lavora o collabora con te, perché la buona occasione passa attraverso un'alleanza.
+P: Presentati con apertura a chi incroci per un progetto o un affare, perché un contatto nuovo può trasformarsi in un'alleanza utile.
+P: Collaborare porta più fortuna che agire in solitudine, così proponi a un collega o a un socio di unire le forze per un obiettivo comune.
 
 ### Fortuna, casa 8
 T: L'intuito profondo | Ciò che si rivela | Fortuna condivisa

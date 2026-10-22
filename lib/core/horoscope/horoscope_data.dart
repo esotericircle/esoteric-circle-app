@@ -146,7 +146,7 @@ class HoroscopeData {
         'Il dettaglio che cambia',
         'Ordine che porta bene'
       ],
-      ['Fortuna in coppia', 'L\'incontro che apre', 'Alleati inattesi'],
+      ['L\'alleato giusto', 'Il socio che serve', 'La mossa in squadra'],
       ['L\'intuito profondo', 'Ciò che si rivela', 'Fortuna condivisa'],
       ['La fortuna viaggia', 'Una porta lontana', 'Coincidenze parlanti'],
       ['Fortuna nel lavoro', 'L\'occasione visibile', 'Salire di un gradino'],
@@ -374,9 +374,9 @@ class HoroscopeData {
         'Mettere ordine libera spazio anche per la buona sorte, così sistema la scrivania prima di cominciare le attività della giornata.'
       ],
       [
-        'Accetta l\'aiuto o il consiglio di chi ti sta accanto, perché la buona occasione passa attraverso un\'altra persona.',
-        'Presentati con apertura a chi incroci sulla tua strada, perché un incontro casuale può trasformarsi in un\'alleanza utile.',
-        'Collaborare porta più fortuna che agire in solitudine, così proponi a qualcuno di unire le forze per un piccolo obiettivo comune.'
+        'Accetta il consiglio di chi lavora o collabora con te, perché la buona occasione passa attraverso un\'alleanza.',
+        'Presentati con apertura a chi incroci per un progetto o un affare, perché un contatto nuovo può trasformarsi in un\'alleanza utile.',
+        'Collaborare porta più fortuna che agire in solitudine, così proponi a un collega o a un socio di unire le forze per un obiettivo comune.'
       ],
       [
         'Fidati di una sensazione forte anche se non sai spiegarla del tutto, perché il tuo intuito scava in profondità.',
