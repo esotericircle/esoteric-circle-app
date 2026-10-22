@@ -243,22 +243,58 @@ class TarotCardArt extends StatelessWidget {
   /// L'arte del mazzo scaricato, dal telefono (`IMazziScaricati.arteDi`).
   final ImageProvider? arte;
 
+  /// **LA CARTA SI DECODIFICA ALLA MISURA IN CUI SI VEDE**, ordine GC voce
+  /// GC.01, 22 ottobre 2026. Il fondatore: *"La stesa a 10 carte, al click
+  /// su pulsante \"leggi le carte\" rallenta tantissimo, va a scatti e poi
+  /// manda in crash l'app che si chiude da sola."* Misurato sul Realme
+  /// (`docs/collaudo/GC/gc01_la_croce_celtica.md`): ogni carta si decodificava
+  /// dall'arte piena, 853 per 1280 pixel, anche quando a schermo era larga
+  /// cinquanta punti; dieci carte insieme portavano la memoria grafica da 73
+  /// a 127 MB e tredici fotogrammi oltre i 130 millisecondi, fino a 300. PADRE:
+  /// ordine FL voce 05 (le carte sul tavolo e in piedi, `Image.asset` della
+  /// piena) e ordine CO voce 06 (la carta dentro la bolla, cinquantaquattro
+  /// punti con l'arte piena).
+  ///
+  /// Adesso la misura vera in pixel ([pixel], larghezza per densita')
+  /// sceglie fra tre gradini, e mai un numero diverso a ogni fotogramma (una
+  /// carta che si ingrandisce non deve decodificarsi di nuovo a ogni passo):
+  /// la miniatura gia' nel bundle (333 per 500) fino a [latoDellaMiniatura];
+  /// l'arte piena decodificata a [latoMedio] fino a quella misura; l'arte
+  /// piena intera oltre, cioe' solo per la carta ingrandita.
+  static const double latoDellaMiniatura = 333;
+  static const int latoMedio = 640;
+
+  /// Quale arte e a quale misura, per una carta larga [pixel] pixel veri.
+  static ({bool miniatura, int? decodifica}) gradinoPer(double pixel) {
+    if (pixel <= latoDellaMiniatura) {
+      return (miniatura: true, decodifica: null);
+    }
+    if (pixel <= latoMedio) return (miniatura: false, decodifica: latoMedio);
+    return (miniatura: false, decodifica: null);
+  }
+
+  Widget _arteDiCasa(double pixel, Widget errore) {
+    final g = gradinoPer(pixel);
+    // `fill` e non `cover`: la carta ha la proporzione dell'arte (2 a 3,
+    // [TarotFrame.aspect]), e la guardia `miniature_intere` vuole che nessuna
+    // carta si adatti al riempimento tagliandosi.
+    return Image.asset(
+      g.miniatura ? card.thumbPath : card.fullPath,
+      fit: BoxFit.fill,
+      cacheWidth: g.decodifica,
+      // Passando da un gradino all'altro resta la carta di prima finche'
+      // quella nuova non e' pronta: nessun lampo vuoto.
+      gaplessPlayback: true,
+      errorBuilder: (_, __, ___) => errore,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final arteDelMazzo = arte;
     final m = arteDelMazzo == null ? TarotDeckStyle.predefinito : mazzo;
     final errore = _PaintedCard(card: card, palette: palette);
-    final art = arteDelMazzo == null
-        ? Image.asset(
-            card.fullPath,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => errore,
-          )
-        : Image(
-            image: arteDelMazzo,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => errore,
-          );
+    final densita = MediaQuery.maybeDevicePixelRatioOf(context) ?? 1;
 
     final carta = LayoutBuilder(
       builder: (context, constraints) {
@@ -266,6 +302,16 @@ class TarotCardArt extends StatelessWidget {
         final h = constraints.hasBoundedHeight
             ? constraints.maxHeight
             : w / TarotFrame.aspect;
+        final art = arteDelMazzo == null
+            ? _arteDiCasa(w * densita, errore)
+            // Anche i mazzi scaricati sono composti sulla carta di 853 per
+            // 1280 (`TarotDeckStyle`, le targhe in frazioni di quella
+            // carta): riempire non taglia niente.
+            : Image(
+                image: arteDelMazzo,
+                fit: BoxFit.fill,
+                errorBuilder: (_, __, ___) => errore,
+              );
         Rect px(Rect n) =>
             Rect.fromLTRB(n.left * w, n.top * h, n.right * w, n.bottom * h);
 

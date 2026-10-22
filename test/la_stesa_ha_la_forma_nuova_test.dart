@@ -315,8 +315,8 @@ void main() {
 
     for (final tipo in TarotSpreadType.values) {
       testWidgets(
-          '${tipo.name}: il responso principale, le carte col loro riquadro e '
-          'un "Da dove viene" solo', (tester) async {
+          '${tipo.name}: il responso principale, le carte col titolo e un '
+          'paragrafo (GC.05) e un "Da dove viene" solo', (tester) async {
         silenzia();
         for (final f in const [
           ['Cinzel', 'assets/fonts/Cinzel-variable.ttf'],
@@ -382,19 +382,23 @@ void main() {
           expect(find.text('LE CARTE, UNA ALLA VOLTA'), findsNothing);
         } else {
           expect(find.byType(BollaDellaPosizione), findsNWidgets(tipo.carte));
+          // **RISCRITTA DALL'ORDINE GC**, voce GC.05: la carta singola ha il
+          // titolo e un solo paragrafo, senza riquadro. LAPIDE: "manca il
+          // riquadro" per ogni carta, e i riquadri "Cosa fare adesso" uno per
+          // carta piu' quello del principale.
           for (var i = 0; i < stesa.cards.length; i++) {
             final d = stesa.cards[i];
             expect(find.byKey(Key('carta_${d.position.name}_cosa_fare')),
-                findsWidgets,
-                reason: '${d.position.name}: manca il riquadro');
+                findsNothing,
+                reason: '${d.position.name}: la carta singola ha il riquadro');
             expect(find.byKey(Key('carta_${d.position.name}_titolo')),
                 findsWidgets,
                 reason: '${d.position.name}: manca il titolo');
           }
-          // Il riquadro "Cosa fare adesso": uno per carta e quello del
-          // responso principale.
+          // Il riquadro "Cosa fare adesso" e' solo quello del responso
+          // principale.
           expect(find.text(LaFormaDelResponso.titoloDelConsiglio),
-              findsNWidgets(tipo.carte + 1));
+              findsOneWidget);
         }
         expect(tester.takeException(), isNull);
       });

@@ -18,15 +18,21 @@ import '../../../core/entitlement/tier.dart';
 import '../../../core/identity/birth_identity.dart';
 import '../../../core/identity/profile_controller.dart';
 import '../../../core/maestro/maestro.dart';
+import '../../../core/quality/quality_tier.dart';
+import '../../../core/sensi/catalogo_suoni.dart';
+import '../../../core/sensi/palette_sensoriale.dart';
 import '../../../core/oracolo_angeli/i_ruoli_e_l_estrazione.dart';
 import '../../../core/oracolo_angeli/il_corpus_dell_oracolo.g.dart';
 import '../../../core/oracolo_angeli/l_ora_degli_angeli.dart';
 import '../../../core/oracolo_angeli/la_lettura_dell_oracolo.dart';
+import '../../../core/oracolo_angeli/la_risposta_dai_doni.dart';
 import '../../../core/oracolo_angeli/le_domande_dell_oracolo.dart';
 import '../../../core/responsi/la_forma_del_responso.dart';
 import '../../../design_system/theme/app_theme.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/components/borsellino.dart';
+import '../../../design_system/components/cosmos_background.dart';
+import '../../../design_system/components/la_singola_che_si_apre.dart';
 import '../../../design_system/components/la_conferma_della_spesa.dart';
 import '../../../design_system/components/il_responso_interpretato.dart';
 import '../../../design_system/components/segno_della_provenienza.dart';
@@ -38,6 +44,7 @@ import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../account/dati_di_nascita_screen.dart';
+import '../../horoscope/answer_depth.dart';
 import '../../maestri/chat/chat_openers.dart';
 import '../../maestri/rotta_arte.dart';
 import '../../maestri/widgets/foglio_delle_fonti.dart';
@@ -45,11 +52,17 @@ import '../../pricing/upgrade_invite.dart';
 import '../../respiro_della_luna/i_comandi_dipinti.dart';
 import '../../ricordi/azioni_del_responso.dart';
 import '../../scene/la_scena_in_video.dart';
+import '../../sigilli/celebrazione.dart';
 import '../../sigilli/regia_del_cammino.dart';
+import '../../tarot/attesa_di_medora.dart';
 import '../../tarot/stesa_choreography.dart';
 import '../../tarot/stesa_fan.dart';
+import '../../tarot/stesa_senses.dart';
 import '../../tarot/tarot_card_art.dart';
+import '../../tarot/tarot_selectors.dart';
+import 'la_carta_dell_angelo_aperta.dart';
 import 'la_geometria_dell_altare.dart';
+import 'la_scala_del_responso.dart';
 import 'oracolo_share_card.dart';
 
 /// **L'ORACOLO DEGLI ANGELI.** Ordine FU, voci FU.02, FU.03, FU.04, FU.06,
@@ -87,7 +100,8 @@ import 'oracolo_share_card.dart';
 ///   voce FU.02: i tre dorsi non stanno piu' sull'altare all'apertura ma
 ///   compaiono uno alla volta quando la persona li sceglie dal ventaglio; il
 ///   video si ferma prima che le carte alate scendano dalla scala e sfuma
-///   sulla scena ferma, dove l'altare e' vuoto ([AltareVuoto]); la carta
+///   sulla scena ferma, dove l'altare e' vuoto (`AltareVuoto`, tolto
+///   dall'ordine GC: l'ultimo fotogramma del v2 e' gia' vuoto); la carta
 ///   dipinta dell'angelo dell'ora non sta piu' sotto la scena.
 /// - **GA.03, GA.04 e GA.05, LA FORMA NUOVA DEL RESPONSO.** Il responso
 ///   principale e' un `IlResponsoInterpretato` dell'Oracolo: il titolo, la
@@ -154,9 +168,12 @@ class OracoloDegliAngeliScreen extends StatefulWidget {
 
 /// Le fasi di una consultazione.
 ///
-/// **LA SCELTA** (FY.15): affidata la domanda, la persona sceglie le tre
-/// carte dal mazzo coperto; la lettura parte solo dal pulsante (FY.16).
-enum _Fase { domanda, scelta, saleLaDomanda, siGirano, risposta }
+/// **LA PREPARAZIONE** (GC.09): all'apertura la persona vede insieme la
+/// domanda, la scelta fra una carta e tre, il ventaglio e il pulsante; la
+/// lettura parte solo dal pulsante (FY.16). Dopo il pulsante la domanda sale
+/// lungo la scala (FU.02), Medora riflette (GC.13), le carte si girano una
+/// alla volta e si alzano (GC.14), e arriva il responso.
+enum _Fase { domanda, saleLaDomanda, riflette, siGirano, risposta }
 
 class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     with TickerProviderStateMixin {
@@ -169,6 +186,14 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   // is unsafe"). Prima li toccava il dorso sull'altare, a ogni apertura.
   late final AnimationController _lettere;
   late final AnimationController _giro;
+
+  /// **IL VOLO, IL TAGLIO, LA MISCHIA E L'ALZATA DELLA STESA** (GC.09,
+  /// GC.12, GC.14): le stesse durate della Stesa di Tarocchi
+  /// (`StesaTiming`), e per l'alzata gli stessi 750 millisecondi.
+  late final AnimationController _volo;
+  late final AnimationController _taglio;
+  late final AnimationController _mescola;
+  late final AnimationController _alzo;
   final _domanda = TextEditingController();
   final _scorrimento = ScrollController();
   final _inizioDellaRisposta = GlobalKey();
@@ -176,18 +201,57 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   late final DateTime _quando = DateTime.now();
 
   _Fase _fase = _Fase.domanda;
+
+  /// **LA DOMANDA AFFIDATA**: quella che il pulsante rotondo ha affidato.
+  /// Vuota finche' la persona non la affida; torna vuota se dopo la
+  /// cambia, e allora il ventaglio e il pulsante si spengono finche' non la
+  /// affida di nuovo (GC.09, la regola piu' semplice: il ventaglio si
+  /// accende quando c'e' una domanda affidata).
   String _affidata = '';
   List<CartaDellOracolo> _carte = const [];
   RispostaDellOracolo? _risposta;
   int _consultazioni = 0;
-  Timer? _orologio;
   bool _avviata = false;
 
   /// **IL MAZZO COPERTO** della consultazione (FY.15): i 72 in ordine
-  /// mescolato, e i dorsi scelti dalla persona, uno per posizione.
-  List<int> _mazzo = const [];
+  /// mescolato, gia' sotto gli occhi all'apertura (GC.09), e gli angeli
+  /// scelti dalla persona, uno per posto, per NUMERO e non per posizione nel
+  /// ventaglio: Mischia e Taglia riordinano il mazzo senza cambiare le carte
+  /// gia' scelte.
+  late List<int> _mazzo = EstrazioneDellOracolo.mescola(_caso);
   final List<int> _scelti = [];
   final _ilMazzo = GlobalKey();
+
+  /// **UNA CARTA O TRE** (GC.09, GC.17): all'apertura la stesa a tre carte,
+  /// quella che gia' esisteva (FU.03).
+  int _quante = 3;
+
+  /// **LA PROFONDITA'** (GC.19): all'apertura Breve.
+  AnswerDepth _profondita = AnswerDepth.breve;
+
+  /// La frase breve che dice perche' le carte scelte sono tornate nel mazzo
+  /// (GC.09): la persona ha cambiato stesa a meta' scelta.
+  String? _rigaDelCambio;
+
+  /// **LA CARTA IN VOLO** (GC.12): il posto sull'altare dove sta arrivando, e
+  /// il riquadro sullo schermo del dorso toccato, da dove parte.
+  int? _inVolo;
+  Rect? _partenzaDelVolo;
+
+  /// Il punto del mazzo dove passa il taglio, come nella Stesa.
+  int _taglioIndice = 36;
+  int _tagliFatti = 0;
+
+  /// **LE CARTE GIRATE FINORA** (GC.14): si girano una alla volta.
+  int _carteGirate = 0;
+
+  /// I sensi della Stesa: la vibrazione e i suoni delle carte, col suo
+  /// interruttore (GC.12, GC.13, GC.14).
+  final SensiDellaStesa _sensi = SensiDellaStesa();
+  bool _silenzio = false;
+
+  final _laPila = GlobalKey();
+  final _laScenaInVista = GlobalKey();
 
   /// L'ASSAGGIO DEL VIANDANTE (FU.10): la consultazione a video scopre solo
   /// la carta del Custode.
@@ -201,36 +265,46 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
 
   DateTime _ora() => widget.adesso?.call() ?? DateTime.now();
 
+  /// Riduci Movimento o la grafica alleggerita, come nella Stesa.
+  bool get _riduciMovimento {
+    final tierBasso =
+        _forse<QualityTierController>(osserva: true)?.tier == QualityTier.low;
+    return MediaQuery.of(context).disableAnimations || tierBasso;
+  }
+
   @override
   void initState() {
     super.initState();
     _lettere = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 2400));
     _giro = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1500));
-    // GA.08: il filmato vero si ferma prima che le carte scendano dalla
-    // scala (`GeometriaDellAltare.finoAlleCarte`, misurato sui fotogrammi).
+        vsync: this, duration: const Duration(milliseconds: 520));
+    _volo = AnimationController(vsync: this, duration: StesaTiming.volo);
+    _taglio = AnimationController(vsync: this, duration: StesaTiming.taglio);
+    _mescola =
+        AnimationController(vsync: this, duration: StesaTiming.mescolamento);
+    _alzo = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 750));
+    // **IL FILMATO DURA PER INTERO** (GC.07, GC Aggiunta): il v2 finisce
+    // col tavolo vuoto, e nessun taglio lo ferma prima della sua fine.
+    // LAPIDE, GA.08: `finoA: GeometriaDellAltare.finoAlleCarte`, 400 ms.
     _regia = RegiaDellaScena(widget.fabbricaDellaScena ??
-        () => LettoreDiScena.vero(GeometriaDellAltare.filmato,
-            finoA: GeometriaDellAltare.finoAlleCarte))
+        () => LettoreDiScena.vero(GeometriaDellAltare.filmato))
       ..addListener(_ridisegna);
-    _domanda.addListener(_ridisegna);
-    _programmaLOra();
+    _domanda.addListener(_seCambiaLaDomanda);
   }
 
   void _ridisegna() {
     if (mounted) setState(() {});
   }
 
-  /// L'angelo dell'ora cambia da se' ogni venti minuti (FU.08): la schermata
-  /// si ridisegna all'istante del cambio.
-  void _programmaLOra() {
-    _orologio?.cancel();
-    final adesso = _ora();
-    final attesa = LOraDegliAngeli.prossimoCambio(adesso).difference(adesso);
-    _orologio = Timer(attesa + const Duration(seconds: 1), () {
-      _ridisegna();
-      _programmaLOra();
+  /// La domanda cambiata dopo l'affido non e' piu' affidata (GC.09).
+  void _seCambiaLaDomanda() {
+    if (!mounted) return;
+    setState(() {
+      if (_affidata.isNotEmpty && _domanda.text.trim() != _affidata) {
+        _affidata = '';
+      }
     });
   }
 
@@ -244,12 +318,15 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
 
   @override
   void dispose() {
-    _orologio?.cancel();
     _regia
       ..removeListener(_ridisegna)
       ..dispose();
     _lettere.dispose();
     _giro.dispose();
+    _volo.dispose();
+    _taglio.dispose();
+    _mescola.dispose();
+    _alzo.dispose();
     _domanda.dispose();
     _scorrimento.dispose();
     super.dispose();
@@ -273,10 +350,32 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
 
   bool get _sceneFerma => _regia.ferma;
 
-  /// **AFFIDARE LA DOMANDA** (FY.15): la domanda resta affidata e la persona
-  /// passa a scegliere le sue tre carte dal mazzo coperto. Le consultazioni
-  /// del giorno si contano qui, prima della scelta, cosi' nessuno sceglie le
-  /// carte per poi trovare la porta chiusa (FU.10).
+  /// **I POSTI SULL'ALTARE** della stesa scelta: i tre di FU.03, oppure il
+  /// posto unico al centro della stesa a una carta (GC.17).
+  List<int> get _posti => _quante == 1 ? const [1] : const [0, 1, 2];
+
+  /// **IL VENTAGLIO SI PUO' TOCCARE** (GC.09): c'e' una domanda affidata,
+  /// mancano carte, e nessun gesto del mazzo e' in corso.
+  bool get _ventaglioAttivo =>
+      _fase == _Fase.domanda &&
+      _affidata.isNotEmpty &&
+      _scelti.length < _quante &&
+      _inVolo == null &&
+      !_taglio.isAnimating &&
+      !_mescola.isAnimating;
+
+  /// **AVVIA LA LETTURA SI ACCENDE** (GC.09) quando la domanda e' affidata e
+  /// il numero di carte scelto e' completo.
+  bool get _siPuoAvviare =>
+      _fase == _Fase.domanda &&
+      _affidata.isNotEmpty &&
+      _scelti.length == _quante &&
+      _inVolo == null;
+
+  /// **AFFIDARE LA DOMANDA** (FY.15): la domanda resta affidata e il ventaglio
+  /// si accende. Le consultazioni del giorno si contano qui, prima della
+  /// scelta, cosi' nessuno sceglie le carte per poi trovare la porta chiusa
+  /// (FU.10).
   ///
   /// **LAPIDE, ordine FV aggiunta voce FVA.01, 15 ottobre 2026.** Qui una
   /// domanda delicata non estraeva carte e riceveva la risposta di cura col
@@ -290,21 +389,16 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     if (domanda.isEmpty || _fase != _Fase.domanda) return;
     FocusManager.instance.primaryFocus?.unfocus();
     if (!await _lePorteSonoAperte()) return;
-    setState(() {
-      _affidata = domanda;
-      _mazzo = EstrazioneDellOracolo.mescola(_caso);
-      _scelti.clear();
-      _carte = const [];
-      _risposta = null;
-      _fase = _Fase.scelta;
-    });
+    if (!mounted) return;
+    setState(() => _affidata = domanda);
     _scorriAlMazzo();
   }
 
   /// **LE CONSULTAZIONI DEL GIORNO** (FU.10): finite, l'invito con le due
   /// strade, una consultazione in piu' a Eos o salire di piano. Finche' il
   /// server non porta il budget nel listino non si conta niente
-  /// (`QuestionAllowance.contaGliOracoli`).
+  /// (`QuestionAllowance.contaGliOracoli`). La stesa a una carta conta come
+  /// quella a tre (GC.17, il fondatore: *"conta come consultazione"*).
   Future<bool> _lePorteSonoAperte() async {
     final tier = _tier;
     final borsa = _forse<QuestionAllowance>();
@@ -313,44 +407,119 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     return mounted && borsa.puoiConsultareGliAngeli(tier);
   }
 
-  /// **UN DORSO SCELTO** (FY.15): il primo e' la carta del Custode, il
-  /// secondo del Cuore, il terzo dell'Intelletto. Il dorso scelto si posa
-  /// sull'altare, nella sua posizione.
-  void _scegli(int indice) {
-    if (_fase != _Fase.scelta ||
-        _scelti.length >= RuoloDellAngelo.values.length ||
-        _scelti.contains(indice)) {
-      return;
-    }
-    setState(() => _scelti.add(indice));
+  /// **UNA CARTA O TRE** (GC.09): cambiare a meta' scelta rimette nel mazzo
+  /// le carte gia' scelte, e lo dice.
+  void _cambiaQuante(int quante) {
+    if (quante == _quante || _fase != _Fase.domanda) return;
+    setState(() {
+      _quante = quante;
+      _rigaDelCambio = _scelti.isEmpty
+          ? null
+          : 'Hai cambiato stesa: le carte scelte tornano nel mazzo, '
+              'scegline ${quante == 1 ? 'una' : 'tre'}.';
+      _scelti.clear();
+    });
   }
 
-  /// **AVVIARE LA LETTURA** (FY.16), solo dal pulsante e solo con le tre
-  /// carte scelte: la domanda sale lungo la scala, la lettura parte insieme
-  /// alle lettere e i dorsi si girano.
-  Future<void> _avviaLaLettura() async {
-    if (_fase != _Fase.scelta ||
-        _scelti.length < RuoloDellAngelo.values.length) {
-      return;
+  /// **UN DORSO SCELTO** (FY.15, GC.12): e' quel dorso, il dorso toccato, a
+  /// volare dal suo posto nel ventaglio al suo posto sull'altare, col suono
+  /// della carta della Stesa. Nella stesa a tre il primo e' la carta del
+  /// Custode, il secondo del Cuore, il terzo dell'Intelletto; nella stesa a
+  /// una la carta del momento, al centro.
+  Future<void> _scegli(int indice, Rect? partenza) async {
+    if (!_ventaglioAttivo || indice < 0 || indice >= _mazzo.length) return;
+    final numero = _mazzo[indice];
+    if (_scelti.contains(numero)) return;
+    final posto = _posti[_scelti.length];
+    // **IL SUONO DEL VOLO** (GC.12): la Stesa al volo vibra soltanto, e il
+    // suono che usa per la carta e' `carta.mp3` (`SuonoDelCerchio.carta`,
+    // quello che sente quando la carta si posa e si gira): lo stesso file,
+    // nessun suono nuovo. Parte solo col Suono acceso e col telefono che lo
+    // permette (`PaletteSensoriale.suona`), senza prendere il fuoco audio.
+    _sensi.momento(context, MomentoSensoriale.volo);
+    if (!_sensi.muto) {
+      unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.carta));
     }
+    setState(() {
+      _rigaDelCambio = null;
+      _scelti.add(numero);
+      _inVolo = posto;
+      _partenzaDelVolo = partenza;
+    });
+    if (!_riduciMovimento && partenza != null) {
+      await _volo.forward(from: 0);
+      if (!mounted) return;
+    }
+    setState(() {
+      _inVolo = null;
+      _partenzaDelVolo = null;
+    });
+  }
+
+  /// **IL TAGLIO** (GC.09), lo stesso gesto della Stesa: il mazzo si divide
+  /// nel punto del taglio e la seconda meta' passa sopra.
+  Future<void> _taglia() async {
+    if (!_ventaglioAttivo) return;
+    _sensi.momento(context, MomentoSensoriale.taglio);
+    const scostamenti = [0, 5, -4, 8, -7];
+    setState(() {
+      _tagliFatti++;
+      _taglioIndice = 36 + scostamenti[_tagliFatti % scostamenti.length];
+    });
+    if (!_riduciMovimento) await _taglio.forward(from: 0);
+    if (!mounted) return;
+    _taglio.value = 0;
+    setState(() => _mazzo = [
+          ..._mazzo.sublist(_taglioIndice),
+          ..._mazzo.sublist(0, _taglioIndice),
+        ]);
+  }
+
+  /// **LA MISCHIA** (GC.09), lo stesso gesto della Stesa.
+  Future<void> _mischia() async {
+    if (!_ventaglioAttivo) return;
+    _sensi.momento(context, MomentoSensoriale.mescolamento);
+    if (!_riduciMovimento) await _mescola.forward(from: 0);
+    if (!mounted) return;
+    _mescola.value = 0;
+    setState(() => _mazzo = EstrazioneDellOracolo.mescola(_caso));
+  }
+
+  /// **AVVIARE LA LETTURA** (FY.16, GC.13, GC.14), solo dal pulsante e solo
+  /// con la domanda affidata e le carte scelte: la domanda sale lungo la
+  /// scala, Medora riflette mentre la lettura arriva, l'effetto della
+  /// rivelazione, poi le carte si girano una alla volta e si alzano.
+  Future<void> _avviaLaLettura() async {
+    if (!_siPuoAvviare) return;
     if (!await _lePorteSonoAperte()) return;
+    if (!mounted) return;
     final tier = _tier;
     final domanda = _affidata;
-    final carte = EstrazioneDellOracolo.dalleScelte(
-        _triade, [for (final i in _scelti) _mazzo[i]]);
+    final carte = _quante == 1
+        ? EstrazioneDellOracolo.dallaScelta(_scelti.first)
+        : EstrazioneDellOracolo.dalleScelte(_triade, List<int>.of(_scelti));
     final variante = _consultazioni;
     // **L'ASSAGGIO DEL VIANDANTE** (FU.10): la carta del Custode dal corpus,
     // senza modello; Cuore e Intelletto restano col lucchetto e l'invito.
+    // Nella stesa a una carta l'unica carta si scopre intera, e la lettura
+    // e' quella del corpus (la riga "Solo il Custode" della matrice).
     final assaggio = !PlanCatalog.apre(RigaDelPiano.oracoloTreCarte, tier);
+    // **LA LUNGA SCELTA NEL SELETTORE** (GC.19): solo per chi ha il piano.
+    final profonda = _profondita == AnswerDepth.profonda &&
+        PlanCatalog.apre(RigaDelPiano.oracoloLunga, tier);
+    // GC.17: una carta o tre, e' una consultazione.
     _forse<QuestionAllowance>()?.registraOracolo(tier);
+    final riduci = _riduciMovimento;
     setState(() {
       _carte = carte;
       _risposta = null;
       _fase = _Fase.saleLaDomanda;
       _consultazioni++;
-      _assaggio = assaggio;
+      _assaggio = assaggio && _quante == 3;
+      _carteGirate = 0;
     });
     _giro.value = 0;
+    _alzo.value = 0;
     // La scena torna in vista: la domanda sale lungo la scala.
     if (_scorrimento.hasClients) {
       unawaited(_scorrimento.animateTo(0,
@@ -370,39 +539,89 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             carte: carte,
             corpus: _corpus,
             variante: variante,
-            // LA LUNGA E' DELL'INIZIATO dall'ordine GA voce GA.05 (prima
-            // dell'Adepto, FU.06 e FU.10), letta dalla matrice.
-            profonda: PlanCatalog.apre(RigaDelPiano.oracoloLunga, tier),
+            profonda: profonda,
             chiamata: widget.chiamata,
           );
-    await _lettere.forward(from: 0);
+    if (riduci) {
+      _lettere.value = 1;
+    } else {
+      await _lettere.forward(from: 0);
+    }
     if (!mounted) return;
-    setState(() => _fase = _Fase.siGirano);
-    await _giro.forward(from: 0);
-    final risposta = await lettura;
+    // **MEDORA RIFLETTE** (GC.13): l'animazione di riflessione della Stesa
+    // (`AttesaDiMedora`), che dura finche' serve a preparare il responso e
+    // non si taglia: il tocco la lascia correre. Chi riflette lo dichiara
+    // prima, come la Stesa (ordine BV voce 02), cosi' nessuna festa le si
+    // apre sopra.
+    RiflessioniInCorso.entra(() => mounted && _fase == _Fase.riflette);
+    setState(() => _fase = _Fase.riflette);
+    final esiti = await Future.wait<Object?>([
+      Future<void>.delayed(AttesaDiMedora.minimaPer(riduciMovimento: riduci)),
+      lettura,
+    ]);
     if (!mounted) return;
+    final risposta = esiti[1] as RispostaDellOracolo;
+    // **L'EFFETTO DOPO LA RIFLESSIONE** (GC.13): `rivelazione.mp3`, il suono
+    // della rivelazione che la Stesa ha nel suo catalogo dei momenti
+    // (`MomentoSensoriale.reveal`), una volta.
+    _sensi.momento(context, MomentoSensoriale.reveal);
     setState(() {
       _risposta = risposta;
-      _fase = _Fase.risposta;
+      _fase = _Fase.siGirano;
     });
+    await Future<void>.delayed(AttesaDiMedora.dissolvenza);
+    if (!mounted) return;
+    await _leCarteSiGiranoESiAlzano(riduci);
+    if (!mounted) return;
+    setState(() => _fase = _Fase.risposta);
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'oracolo_angeli'));
     _scorriAllaRisposta();
   }
 
+  /// **LE CARTE SI GIRANO UNA ALLA VOLTA, POI SI ALZANO** (GC.14), con la
+  /// sequenza della Stesa (`_laSequenzaDelTavolo`): ogni carta col suo
+  /// suono, un respiro, poi tutte in piedi ingrandite.
+  Future<void> _leCarteSiGiranoESiAlzano(bool riduci) async {
+    if (riduci) {
+      setState(() => _carteGirate = _carte.length);
+      _alzo.value = 1;
+      return;
+    }
+    for (var i = 0; i < _carte.length; i++) {
+      if (!mounted) return;
+      final c = _carte[i];
+      final siGira = !c.coperta && !(_assaggio && i > 0);
+      if (siGira) {
+        _sensi.momento(context, MomentoSensoriale.flip);
+        await _giro.forward(from: 0);
+        if (!mounted) return;
+      }
+      setState(() => _carteGirate = i + 1);
+      _giro.value = 0;
+      await Future<void>.delayed(const Duration(milliseconds: 160));
+    }
+    await Future<void>.delayed(const Duration(seconds: 1));
+    if (!mounted) return;
+    await _alzo.forward(from: 0);
+  }
+
   /// **UNA NUOVA CONSULTAZIONE** nella stessa apertura: il video non riparte,
-  /// le carte tornano dorsi in dissolvenza e la persona affida la domanda
-  /// nuova (FU.02).
+  /// le carte tornano nel mazzo e la persona affida la domanda nuova (FU.02).
   void _nuovaDomanda() {
     _giro.value = 0;
     _lettere.value = 0;
+    _alzo.value = 0;
     _domanda.clear();
     setState(() {
       _fase = _Fase.domanda;
+      _affidata = '';
       _risposta = null;
       _carte = const [];
-      _mazzo = const [];
+      _mazzo = EstrazioneDellOracolo.mescola(_caso);
       _scelti.clear();
       _assaggio = false;
+      _carteGirate = 0;
+      _rigaDelCambio = null;
     });
     _scorrimento.animateTo(0,
         duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
@@ -480,7 +699,7 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   }
 
   /// Il mazzo coperto in vista, in fondo alla finestra: sopra resta
-  /// l'altare, dove si posano i dorsi scelti.
+  /// l'altare, dove volano i dorsi scelti.
   void _scorriAlMazzo() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final c = _ilMazzo.currentContext;
@@ -503,6 +722,28 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     });
   }
 
+  /// **DOVE ARRIVA LA CARTA IN VOLO** (GC.12): il riquadro del suo posto
+  /// sull'altare, nelle coordinate della pila della schermata.
+  Rect? _arrivoSullAltare(int posto) {
+    final scena = _laScenaInVista.currentContext?.findRenderObject();
+    final pila = _laPila.currentContext?.findRenderObject();
+    if (scena is! RenderBox || pila is! RenderBox || !scena.hasSize) {
+      return null;
+    }
+    final w = scena.size.width;
+    final r = GeometriaDellAltare.sullAltare(posto, w)
+        .shift(Offset(0, -_suDelVideo));
+    final alto = pila.globalToLocal(scena.localToGlobal(r.topLeft));
+    return alto & r.size;
+  }
+
+  /// **IL VIDEO SALE DI DIECI PIXEL DEL TELEFONO** (GC.10): dieci pixel
+  /// fisici, convertiti in punti col rapporto di pixel del dispositivo. Sul
+  /// Realme (densita' 3) sono 3,33 punti.
+  double get _suDelVideo =>
+      GeometriaDellAltare.pixelDaAlzare /
+      MediaQuery.devicePixelRatioOf(context);
+
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
@@ -511,7 +752,11 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
       inCorso: _regia.inCorso,
       onSalta: _regia.salta,
       child: Scaffold(
-        backgroundColor: palette.deepest,
+        // **LO SFONDO E' COSMICO** (GC.16): era `palette.deepest`, un blu
+        // pieno sotto la scena e dietro il responso. Adesso il cosmo della
+        // Stesa di Tarocchi (`CosmosBackground`) sta dietro tutta la
+        // schermata, la scena compresa, che lo copre col suo fotogramma.
+        backgroundColor: Colors.transparent,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           key: const Key('oracolo_barra'),
@@ -544,35 +789,92 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             const AngoloDellaBarra(),
           ],
         ),
-        body: Stack(
-          children: [
-            Positioned.fill(child: _ilCorpo(palette)),
-            // **LA CARD DA CONDIVIDERE**, fuori schermo e solo mentre si
-            // condivide (FU.09): le tre carte e il titolo, mai la domanda,
-            // mai i tre angeli della persona, che direbbero la nascita.
-            if (_renderCard && _risposta != null)
-              Positioned(
-                left: -3000,
-                top: 0,
-                child: RepaintBoundary(
-                  key: _cardKey,
-                  child: OracoloShareCard(
-                    carte: _carte,
-                    titolo: OracoloShareCard.titoloPerLaCard(
-                        _risposta!.titolo, _affidata),
+        body: CosmosBackground(
+          key: const Key('oracolo_sfondo'),
+          seed: 7,
+          showZodiac: false,
+          paletteOverride: palette,
+          child: Stack(
+            key: _laPila,
+            children: [
+              Positioned.fill(child: _ilCorpo(palette)),
+              // **LA CARTA CHE VOLA** (GC.12): il dorso toccato, dal suo
+              // posto nel ventaglio al suo posto sull'altare.
+              if (_inVolo != null && _partenzaDelVolo != null)
+                AnimatedBuilder(
+                  animation: _volo,
+                  builder: (context, _) {
+                    final pila = _laPila.currentContext?.findRenderObject();
+                    final arrivo = _arrivoSullAltare(_inVolo!);
+                    if (pila is! RenderBox || arrivo == null) {
+                      return const SizedBox.shrink();
+                    }
+                    final p = _partenzaDelVolo!;
+                    final da = pila.globalToLocal(p.topLeft) & p.size;
+                    final t = Curves.easeInOutCubic.transform(_volo.value);
+                    final r = Rect.lerp(da, arrivo, t)!;
+                    return Positioned.fromRect(
+                      key: const Key('oracolo_carta_in_volo'),
+                      rect: r,
+                      child: IgnorePointer(
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: palette.goldSoft.withValues(
+                                      alpha: 0.45 * sin(t * pi)),
+                                  blurRadius: 18,
+                                  spreadRadius: 2),
+                            ],
+                          ),
+                          child: Image.asset(GeometriaDellAltare.dorso,
+                              fit: BoxFit.fill,
+                              filterQuality: FilterQuality.medium),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              // **MEDORA RIFLETTE** (GC.13): l'attesa della Stesa, sopra la
+              // scena.
+              if (_fase == _Fase.riflette)
+                Positioned.fill(
+                  child: AttesaDiMedora(
+                    key: const Key('oracolo_riflessione'),
                     palette: palette,
-                    scoperte:
-                        _assaggio ? const {RuoloDellAngelo.custode} : null,
+                    riduciMovimento: _riduciMovimento,
+                    rotazione: _consultazioni,
                   ),
                 ),
-              ),
-          ],
+              // **LA CARD DA CONDIVIDERE**, fuori schermo e solo mentre si
+              // condivide (FU.09): le tre carte e il titolo, mai la domanda,
+              // mai i tre angeli della persona, che direbbero la nascita.
+              if (_renderCard && _risposta != null)
+                Positioned(
+                  left: -3000,
+                  top: 0,
+                  child: RepaintBoundary(
+                    key: _cardKey,
+                    child: OracoloShareCard(
+                      carte: _carte,
+                      titolo: OracoloShareCard.titoloPerLaCard(
+                          _risposta!.titolo, _affidata),
+                      palette: palette,
+                      scoperte:
+                          _assaggio ? const {RuoloDellAngelo.custode} : null,
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _ilCorpo(MaestroPalette palette) {
+    final attivo = _ventaglioAttivo;
     return ListView(
       controller: _scorrimento,
       padding: EdgeInsets.zero,
@@ -580,10 +882,9 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
         LayoutBuilder(
           builder: (context, vincoli) => _laScena(vincoli.maxWidth, palette),
         ),
-        // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce FXA.08:
-        // l'angelo dell'ora stava sotto la scena anche a video in corso.
-        // Adesso tutto cio' che sta sotto la scena aspetta la scena ferma
-        // e compare in dissolvenza.
+        // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce FXA.08: tutto
+        // cio' che sta sotto la scena aspetta la scena ferma e compare in
+        // dissolvenza.
         IlRestoDopoLaScena(
           scenaFerma: _sceneFerma,
           child: Padding(
@@ -591,23 +892,85 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (_fase == _Fase.scelta) ...[
-                  _IlMazzoCoperto(
-                    key: _ilMazzo,
+                // **L'ORDINE SOTTO IL TAVOLO** (GC.09): la domanda, la scelta
+                // fra una carta e tre (con la profondita', GC.19), il
+                // ventaglio coi suoi gesti e il pulsante, in quest'ordine,
+                // tutti in vista all'apertura. LAPIDE: la domanda in
+                // sovrimpressione sulla scena, in alto, e il mazzo che
+                // compariva solo dopo averla affidata (ordine FY).
+                if (_fase == _Fase.domanda) ...[
+                  _LaDomanda(
                     palette: palette,
-                    domanda: _affidata,
-                    scelti: _scelti,
-                    onScegli: _scegli,
-                    onAvvia: _avviaLaLettura,
+                    controllo: _domanda,
+                    affidata: _affidata,
+                    onAffida: _affida,
                   ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  _LeOpzioni(
+                    palette: palette,
+                    quante: _quante,
+                    profondita: _profondita,
+                    piano: _tier,
+                    onQuante: _cambiaQuante,
+                    onProfondita: (d) => setState(() => _profondita = d),
+                    onLocked: () => _invitoAlPiano(
+                        RigaDelPiano.oracoloLunga, 'La risposta lunga'),
+                  ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  AnimatedBuilder(
+                    animation: Listenable.merge([_taglio, _mescola]),
+                    builder: (context, _) => _IlMazzoCoperto(
+                      key: _ilMazzo,
+                      palette: palette,
+                      attivo: attivo,
+                      affidata: _affidata.isNotEmpty,
+                      quante: _quante,
+                      scelti: _scelti.length,
+                      presi: {
+                        for (var i = 0; i < _mazzo.length; i++)
+                          if (_scelti.contains(_mazzo[i])) i,
+                      },
+                      taglio: _taglio.value,
+                      mescolamento: _mescola.value,
+                      taglioIndice: _taglioIndice,
+                      silenzio: _silenzio,
+                      riduciMovimento: _riduciMovimento,
+                      rigaDelCambio: _rigaDelCambio,
+                      onScegli: (i, r) => unawaited(_scegli(i, r)),
+                      onTaglia: () => unawaited(_taglia()),
+                      onMischia: () => unawaited(_mischia()),
+                      onSilenzio: () => setState(() {
+                        _silenzio = !_silenzio;
+                        _sensi.silenzio = _silenzio;
+                      }),
+                    ),
+                  ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  Center(
+                    child: PulsanteDipinto(
+                      key: const Key('oracolo_avvia_la_lettura'),
+                      testo: 'Avvia la lettura',
+                      onTap: _siPuoAvviare
+                          ? () => unawaited(_avviaLaLettura())
+                          : null,
+                    ),
+                  ),
+                  if (!_siPuoAvviare) ...[
+                    const SizedBox(height: SpacingTokens.xxs),
+                    Text(
+                      _affidata.isEmpty
+                          ? 'Affida la domanda col pulsante rotondo, poi '
+                              'scegli ${_quante == 1 ? 'la tua carta' : 'le tre carte'}.'
+                          : 'Scegli ${_quante == 1 ? 'la tua carta' : 'le tre carte'} '
+                              'dal ventaglio, poi avvia la lettura.',
+                      key: const Key('oracolo_come_si_avvia'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textSecondary),
+                    ),
+                  ],
                   const SizedBox(height: SpacingTokens.lg),
                 ],
-                _LAngeloDellOra(
-                  palette: palette,
-                  adesso: _ora(),
-                  triade: _triade,
-                  corpus: _corpus,
-                ),
                 SizedBox(key: _inizioDellaRisposta, height: SpacingTokens.lg),
                 if (_fase == _Fase.risposta && _risposta != null) ...[
                   _IlResponso(
@@ -618,6 +981,7 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                     variante: _consultazioni - 1,
                     quando: _quando,
                     assaggio: _assaggio,
+                    riduciMovimento: _riduciMovimento,
                     onCondividi: _onShare,
                     onInvito: _invitoAlPiano,
                   ),
@@ -646,6 +1010,17 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                       onTap: _nuovaDomanda,
                     ),
                   ),
+                  // **L'ANGELO DELL'ORA DOPO LA LETTURA** (GC.08): all'apertura
+                  // non si vede nessun messaggio; l'angelo dell'ora e il
+                  // messaggio del giorno (FU.08) arrivano solo a lettura
+                  // fatta, in fondo.
+                  const SizedBox(height: SpacingTokens.lg),
+                  _LAngeloDellOra(
+                    palette: palette,
+                    adesso: _ora(),
+                    triade: _triade,
+                    corpus: _corpus,
+                  ),
                 ],
                 const SizedBox(height: SpacingTokens.xxl),
               ],
@@ -658,216 +1033,260 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
 
   /// **LA SCENA**: il fotogramma a tutta larghezza, il video sopra finche'
   /// gira, l'altare vuoto quando la scena e' ferma, i dorsi che la persona
-  /// sceglie (GA.08: nessuno all'apertura), le lettere di luce, e la domanda
-  /// sopra la scena.
+  /// sceglie (GA.08: nessuno all'apertura), le lettere di luce, e le carte
+  /// che si girano e si alzano (GC.14).
+  ///
+  /// **SALE DI DIECI PIXEL** (GC.10): il fotogramma, il video e tutto cio'
+  /// che ci sta sopra salgono insieme di [_suDelVideo] punti, dietro la barra
+  /// semitrasparente; la scena e' alta altrettanto di meno, cosi' cio' che
+  /// sta sotto sale con lei.
   Widget _laScena(double w, MaestroPalette palette) {
     final h = GeometriaDellAltare.altezza(w);
-    final cima = MediaQuery.paddingOf(context).top + kToolbarHeight;
+    final su = _suDelVideo;
+    final scelti = _scelti.length;
     return SizedBox(
       key: const Key('oracolo_scena'),
       width: w,
-      height: h,
-      child: Stack(
-        clipBehavior: Clip.hardEdge,
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              _sceneFerma
-                  ? GeometriaDellAltare.ultimoFotogramma
-                  : GeometriaDellAltare.primoFotogramma,
-              key: const Key('oracolo_fotogramma'),
-              fit: GeometriaDellAltare.taglio,
-              filterQuality: FilterQuality.medium,
+      height: h - su,
+      child: ClipRect(
+        child: OverflowBox(
+          alignment: Alignment.topCenter,
+          minHeight: h,
+          maxHeight: h,
+          child: Transform.translate(
+            offset: Offset(0, -su),
+            child: SizedBox(
+              key: _laScenaInVista,
+              width: w,
+              height: h,
+              child: Stack(
+                clipBehavior: Clip.hardEdge,
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      _sceneFerma
+                          ? GeometriaDellAltare.ultimoFotogramma
+                          : GeometriaDellAltare.primoFotogramma,
+                      key: const Key('oracolo_fotogramma'),
+                      fit: GeometriaDellAltare.taglio,
+                      filterQuality: FilterQuality.medium,
+                    ),
+                  ),
+                  if (_regia.filmatoInScena)
+                    Positioned.fill(
+                      child: IlFilmatoCheSfuma(
+                        key: const Key('oracolo_filmato'),
+                        // **IL SALTO E LA FINE ARRIVANO ALLO STESSO
+                        // FOTOGRAMMA** (GC.07): sotto il filmato sta il suo
+                        // ultimo fotogramma, col tavolo vuoto del v2; il
+                        // salto sfuma su di lui, e a filmato finito la
+                        // dissolvenza passa fra due immagini uguali.
+                        saltato: _regia.saltata || _sceneFerma,
+                        child: _regia.disegna(),
+                      ),
+                    ),
+                  // LAPIDE, FY.17: `AltareVuoto`, la fascia dell'altare dal
+                  // primo fotogramma sopra l'ultimo, che nel v1 portava i tre
+                  // dorsi dipinti. L'ultimo fotogramma del v2 ha l'altare
+                  // vuoto (GC Aggiunta): la toppa non serve piu'.
+                  if (_sceneFerma)
+                    for (var k = 0; k < _posti.length; k++)
+                      // **GA.08**: all'apertura e a ogni domanda nuova
+                      // l'altare e' vuoto; mentre si sceglie stanno solo i
+                      // dorsi gia' arrivati, poi le carte della lettura.
+                      if (_fase == _Fase.domanda
+                          ? k < scelti && _inVolo != _posti[k]
+                          : k < _carte.length)
+                        _CartaSullAltare(
+                          posto: _posti[k],
+                          larghezza: w,
+                          carta: _fase == _Fase.domanda ? null : _carte[k],
+                          // L'assaggio del Viandante gira solo il Custode.
+                          chiusa: _assaggio && k > 0,
+                          girata: k < _carteGirate,
+                          staGirando:
+                              k == _carteGirate && _fase == _Fase.siGirano,
+                          giro: _giro,
+                          alzo: _alzo,
+                          parola: _fase == _Fase.domanda
+                              ? null
+                              : LaScalaDelResponso.parolaDi(_carte[k]),
+                          palette: palette,
+                          onApri: _fase == _Fase.risposta
+                              ? () => _apriLaCarta(_carte[k])
+                              : null,
+                        ),
+                  if (_fase == _Fase.saleLaDomanda)
+                    Positioned.fill(
+                      child: IgnorePointer(
+                        child: CustomPaint(
+                          key: const Key('oracolo_lettere_di_luce'),
+                          painter: _LettereDiLuce(
+                            testo: _affidata,
+                            progresso: _lettere,
+                            scala: GeometriaDellAltare.scala(w),
+                            colore: palette.goldSoft,
+                            scalaDelTesto: MediaQuery.textScalerOf(context),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
-          if (_regia.filmatoInScena)
-            Positioned.fill(
-              child: IlFilmatoCheSfuma(
-                key: const Key('oracolo_filmato'),
-                // **GA.08, LA DISSOLVENZA DEL FOTOGRAMMA.** Anche a video
-                // finito il filmato sfuma sulla scena ferma: il filmato vero
-                // si ferma prima che le carte scendano dalla scala
-                // (`GeometriaDellAltare.finoAlleCarte`), e il suo ultimo
-                // fotogramma dipinto porta i tre dorsi sull'altare. Sotto
-                // resta l'ultimo fotogramma con l'altare vuoto.
-                saltato: _regia.saltata || _sceneFerma,
-                child: _regia.disegna(),
-              ),
-            ),
-          // **SOTTO LE CARTE L'ALTARE VUOTO** (FY.17): a scena ferma la fascia
-          // dell'altare viene dal primo fotogramma, dove l'altare e' ancora
-          // sgombro. Le carte che si girano non lasciano piu' vedere i dorsi
-          // dipinti nel video.
-          if (_sceneFerma)
-            const Positioned.fill(
-              child: IgnorePointer(child: AltareVuoto()),
-            ),
-          if (_sceneFerma)
-            for (var i = 0; i < 3; i++)
-              // **GA.08**: all'apertura e a ogni domanda nuova l'altare e'
-              // vuoto; mentre si sceglie stanno solo i dorsi scelti, poi le
-              // tre carte.
-              if (_fase != _Fase.domanda &&
-                  (_fase != _Fase.scelta || i < _scelti.length))
-                _CartaSullAltare(
-                  indice: i,
-                  larghezza: w,
-                  appare: !_regia.filmatoInScena ||
-                      _regia.saltata ||
-                      _fase == _Fase.scelta,
-                  carta: _carte.length == 3 ? _carte[i] : null,
-                  // L'assaggio del Viandante gira solo il Custode (FU.10).
-                  chiusa: _assaggio && i > 0,
-                  giro: _giro,
-                  palette: palette,
-                ),
-          if (_fase == _Fase.saleLaDomanda)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: CustomPaint(
-                  key: const Key('oracolo_lettere_di_luce'),
-                  painter: _LettereDiLuce(
-                    testo: _affidata,
-                    progresso: _lettere,
-                    scala: GeometriaDellAltare.scala(w),
-                    colore: palette.goldSoft,
-                    scalaDelTesto: MediaQuery.textScalerOf(context),
-                  ),
-                ),
-              ),
-            ),
-          if (_sceneFerma && _fase == _Fase.domanda)
-            Positioned(
-              left: SpacingTokens.md,
-              right: SpacingTokens.md,
-              top: cima + SpacingTokens.xs,
-              child: LaScenaFermaCheAppare(
-                appare: true,
-                child: _LaDomanda(
-                  palette: palette,
-                  controllo: _domanda,
-                  onAffida: _affida,
-                ),
-              ),
-            ),
-        ],
+        ),
       ),
     );
   }
-}
 
-/// **L'ALTARE VUOTO**, ordine FY voce FY.17, 16 ottobre 2026. Il fondatore:
-/// "Le carte si girano con sotto le carte coperte del video".
-///
-/// L'ultimo fotogramma porta i tre dorsi dipinti sull'altare; una carta che
-/// si gira in prospettiva si stringe e li lasciava vedere sotto. Qui la
-/// fascia dell'altare viene dal primo fotogramma, dove l'altare e' sgombro e
-/// identico (scarto medio fuori dalle carte sotto 3 livelli su 255 ai lati e
-/// sotto 12 sopra, misurato in `docs/collaudo/FY/oracolo/fy17_altare.txt`),
-/// sfumata in alto e in basso: niente cucitura, niente dorsi dipinti.
-class AltareVuoto extends StatelessWidget {
-  const AltareVuoto({super.key});
-
-  /// La fascia in pixel del fotogramma: i dorsi dipinti stanno fra 1535 e
-  /// 1685 (`GeometriaDellAltare`), la fascia li copre con margine e sfuma
-  /// in [sfumatura] pixel per lato.
-  static const double cima = 1505;
-  static const double fondo = 1715;
-  static const double sfumatura = 16;
-
-  @override
-  Widget build(BuildContext context) {
-    final h = GeometriaDellAltare.fotogramma.height;
-    return ShaderMask(
-      key: const Key('oracolo_altare_vuoto'),
-      blendMode: BlendMode.dstIn,
-      shaderCallback: (r) => LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: const [
-          Color(0x00FFFFFF),
-          Color(0x00FFFFFF),
-          Color(0xFFFFFFFF),
-          Color(0xFFFFFFFF),
-          Color(0x00FFFFFF),
-          Color(0x00FFFFFF),
-        ],
-        stops: [
-          0,
-          (cima - sfumatura) / h,
-          cima / h,
-          fondo / h,
-          (fondo + sfumatura) / h,
-          1,
-        ],
-      ).createShader(r),
-      child: Image.asset(
-        GeometriaDellAltare.primoFotogramma,
-        fit: GeometriaDellAltare.taglio,
-        filterQuality: FilterQuality.medium,
-      ),
+  /// **LA CARTA IN PIEDI SI APRE** (GC.14): il foglio con la descrizione
+  /// dell'angelo, dai dati gia' presenti.
+  Future<void> _apriLaCarta(CartaDellOracolo c) {
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    return LaCartaDellAngeloAperta.apri(
+      context,
+      angelo: c.angelo,
+      parola: LaScalaDelResponso.parolaDi(c),
+      chiE: _LaBollaDellaCarta.chiE(c.angelo),
+      cosaPorta: _LaBollaDellaCarta.cosaPorta(c.angelo),
+      messaggio: LaLetturaDellOracolo.messaggioDellaCarta(
+          _corpus, c, _consultazioni - 1),
+      palette: palette,
     );
   }
 }
 
 /// **UNA CARTA SULL'ALTARE**: il dorso posato in prospettiva esattamente
 /// dove sta nel fotogramma, che si gira nella carta vera.
+///
+/// **SI GIRA, SI ALZA E SI TOCCA** (GC.14). Il fondatore: *"Dopo
+/// l'animazione di riflessione, le carte si girano sul tavolo una alla volta
+/// con effetto sonoro e subito dopo si alzano in verticale ingrandendosi. Per
+/// la stesa a 3 sopra ogni carta c'è scritto \"fare\", \"sentire\",
+/// \"capire\", mentre per la stesa a 1 carta \"la carta del momento\". Se
+/// faccio click su una carta in verticale ottengo una schermata popup con la
+/// descrizione della carta angelo."* La carta si gira quando e' il suo turno
+/// ([staGirando]); poi, con [alzo], passa dalla posa sull'altare alla posa in
+/// piedi (`GeometriaDellAltare.inPiedi`), piu' grande, e sopra compare la sua
+/// [parola] con la grafica della scritta della Stesa. In piedi, il tocco la
+/// apre ([onApri]).
 class _CartaSullAltare extends StatelessWidget {
   const _CartaSullAltare({
-    required this.indice,
+    required this.posto,
     required this.larghezza,
-    required this.appare,
     required this.carta,
     required this.giro,
+    required this.alzo,
     required this.palette,
+    this.girata = false,
+    this.staGirando = false,
     this.chiusa = false,
+    this.parola,
+    this.onApri,
   });
 
   /// Chiusa dal piano: resta dorso, come la carta coperta (FU.10).
   final bool chiusa;
 
-  final int indice;
+  /// Il posto sull'altare: 0, 1 o 2; la carta del momento sta all'1.
+  final int posto;
   final double larghezza;
-  final bool appare;
+
+  /// La carta della lettura; nulla mentre si sceglie, ed e' un dorso.
   final CartaDellOracolo? carta;
   final Animation<double> giro;
+  final Animation<double> alzo;
   final MaestroPalette palette;
+
+  /// Gia' girata, o girandosi adesso.
+  final bool girata;
+  final bool staGirando;
+
+  /// La scritta sopra la carta in piedi.
+  final String? parola;
+
+  final VoidCallback? onApri;
+
+  /// Lo stile della scritta: quello della scritta della Stesa sotto le sue
+  /// carte in piedi (`_Slot._stileDellEtichettaAlta`).
+  static TextStyle get stileDellaParola =>
+      TypographyTokens.etichetta().copyWith(letterSpacing: 0.6, height: 1.1);
 
   @override
   Widget build(BuildContext context) {
-    final r = GeometriaDellAltare.cartaDritta(indice, larghezza);
-    return Positioned.fromRect(
-      rect: r,
-      child: LaScenaFermaCheAppare(
-        appare: appare,
-        child: AnimatedBuilder(
-          animation: giro,
-          builder: (context, _) {
-            final c = carta;
-            // Le tre carte si girano una dopo l'altra, ognuna in un terzo
-            // del tempo; la carta coperta (Intelletto senza ora) non si gira.
-            final t = c == null || c.coperta || chiusa
-                ? 0.0
-                : ((giro.value * 3) - indice).clamp(0.0, 1.0);
-            final faccia = t > 0.5;
-            return Transform(
-              alignment: Alignment.bottomCenter,
-              transform:
-                  GeometriaDellAltare.posa(larghezza, giro: faccia ? t - 1 : t),
-              child: faccia
-                  ? LaCartaDellAngelo(
-                      key: Key('oracolo_carta_${c!.ruolo.name}'),
-                      angelo: c.angelo,
-                      palette: palette,
-                    )
-                  : Image.asset(GeometriaDellAltare.dorso,
-                      key: Key('oracolo_dorso_$indice'),
-                      fit: BoxFit.fill,
-                      filterQuality: FilterQuality.medium),
-            );
-          },
-        ),
-      ),
+    return AnimatedBuilder(
+      animation: Listenable.merge([giro, alzo]),
+      builder: (context, _) {
+        final c = carta;
+        final a = Curves.easeInOutCubic.transform(alzo.value);
+        final r = Rect.lerp(
+            GeometriaDellAltare.cartaDritta(posto, larghezza),
+            GeometriaDellAltare.inPiedi(posto, larghezza,
+                unaSola: c?.delMomento ?? false),
+            a)!;
+        final siGira = c != null && !c.coperta && !chiusa;
+        final t = !siGira
+            ? 0.0
+            : (girata ? 1.0 : (staGirando ? giro.value : 0.0));
+        final faccia = t > 0.5;
+        final cartaDisegnata = Transform(
+          alignment: Alignment.bottomCenter,
+          transform: GeometriaDellAltare.posa(larghezza,
+              giro: faccia ? t - 1 : t, alzata: a),
+          child: faccia
+              ? LaCartaDellAngelo(
+                  key: Key('oracolo_carta_${c!.delMomento ? 'momento' : c.ruolo.name}'),
+                  angelo: c.angelo,
+                  palette: palette,
+                )
+              : Image.asset(GeometriaDellAltare.dorso,
+                  key: Key('oracolo_dorso_$posto'),
+                  fit: BoxFit.fill,
+                  filterQuality: FilterQuality.medium),
+        );
+        return Positioned.fromRect(
+          rect: r,
+          child: LaScenaFermaCheAppare(
+            appare: true,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Positioned.fill(
+                  child: GestureDetector(
+                    key: Key('oracolo_in_piedi_$posto'),
+                    behavior: HitTestBehavior.opaque,
+                    onTap: a >= 1 ? onApri : null,
+                    child: cartaDisegnata,
+                  ),
+                ),
+                if (parola != null && a > 0)
+                  Positioned(
+                    left: -SpacingTokens.lg,
+                    right: -SpacingTokens.lg,
+                    bottom: r.height + SpacingTokens.xxs,
+                    child: Opacity(
+                      opacity: a,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(parola!.toUpperCase(),
+                            key: Key('oracolo_parola_$posto'),
+                            textAlign: TextAlign.center,
+                            maxLines: 1,
+                            style: stileDellaParola.copyWith(
+                                color: palette.goldSoft,
+                                shadows: [
+                                  Shadow(
+                                      color: palette.deepest, blurRadius: 6),
+                                ])),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -893,12 +1312,22 @@ class LaCartaDellAngelo extends StatelessWidget {
       final h = vincoli.hasBoundedHeight ? vincoli.maxHeight : w * 1.5;
       Rect px(Rect n) =>
           Rect.fromLTRB(n.left * w, n.top * h, n.right * w, n.bottom * h);
+      // **ALLA MISURA IN CUI SI VEDE**, ordine GC voci GC.01 e GC.16: la
+      // stessa regola delle carte dei Tarocchi (`TarotCardArt.gradinoPer`),
+      // la miniatura del bundle per le carte piccole, l'arte piena
+      // decodificata alla misura media o intera solo quando serve.
+      final gradino = TarotCardArt.gradinoPer(
+          w * (MediaQuery.maybeDevicePixelRatioOf(context) ?? 1));
       return Stack(
         fit: StackFit.expand,
         children: [
           Image.asset(
-            FamilyImage.full(AssetFamily.angeli, angelo.artStem),
+            gradino.miniatura
+                ? FamilyImage.thumb(AssetFamily.angeli, angelo.artStem)
+                : FamilyImage.full(AssetFamily.angeli, angelo.artStem),
             fit: BoxFit.fill,
+            cacheWidth: gradino.decodifica,
+            gaplessPlayback: true,
             filterQuality: FilterQuality.medium,
           ),
           if (w > SpacingTokens.xxl)
@@ -983,39 +1412,63 @@ class _LettereDiLuce extends CustomPainter {
       vecchio.testo != testo || vecchio.colore != colore;
 }
 
-/// **LA DOMANDA**, sopra la scena: scritta o scelta fra quelle proposte.
+/// **LA DOMANDA**, subito sotto il tavolo (GC.09): scritta o scelta fra
+/// quelle proposte.
 ///
 /// Ordine FY voce FY.13: dieci domande per argomento, nella voce di Medora.
 /// Gli argomenti e il pulsante che affida sono i pezzi dipinti del ramo
 /// (R8); le proposte sono righe da leggere, in un riquadro che scorre da
-/// solo, cosi' dieci domande non coprono la scena intera.
+/// solo, cosi' dieci domande non coprono la schermata.
+///
+/// **LA TENDINA SI CHIUDE E IL PULSANTE HA LA FRECCIA DI INVIO** (GC.11). Il
+/// fondatore: *"nel selettore della domanda, quando la domanda viene scelta,
+/// la tendina con le domande sparisce. Cambia il simbolo del pulsante
+/// rotondo con il simbolo di \"invio\" ovvero la freccia che curva di enter
+/// della tastiera."* Toccata una proposta, la tendina si chiude e resta la
+/// domanda scelta nel campo; il pulsante rotondo che affida mostra
+/// `Icons.keyboard_return_rounded`, la freccia del tasto Invio, dal set di
+/// icone gia' in uso. LAPIDE: `Icons.auto_awesome_rounded`, e la tendina
+/// che restava aperta finche' non si ritoccava il tema.
+///
+/// **VALE L'ULTIMA DOMANDA** (GC.04): qui le due vie scrivono nello stesso
+/// campo, quindi ne resta sempre una sola. Scegliere una proposta sostituisce
+/// cio' che era scritto; scrivere dopo la scelta la cambia.
 class _LaDomanda extends StatefulWidget {
   const _LaDomanda({
     required this.palette,
     required this.controllo,
+    required this.affidata,
     required this.onAffida,
   });
 
   final MaestroPalette palette;
   final TextEditingController controllo;
+
+  /// La domanda gia' affidata, o vuota.
+  final String affidata;
   final VoidCallback onAffida;
 
   /// Quanto e' alto al massimo il riquadro delle proposte.
   static const double altezzaDelleProposte = 176;
+
+  /// **IL SIMBOLO DEL PULSANTE CHE AFFIDA** (GC.11).
+  static const IconData simboloDellInvio = Icons.keyboard_return_rounded;
 
   @override
   State<_LaDomanda> createState() => _LaDomandaState();
 }
 
 class _LaDomandaState extends State<_LaDomanda> {
-  /// Nessun tema aperto all'inizio: il pannello resta basso e lascia il
-  /// volto di Medora alla scena. Le proposte si aprono toccando un tema.
+  /// Nessun tema aperto all'inizio: il pannello resta basso. Le proposte si
+  /// aprono toccando un tema e si chiudono scegliendone una (GC.11).
   TemaDellOracolo? _tema;
 
   @override
   Widget build(BuildContext context) {
     final palette = widget.palette;
     final vuota = widget.controllo.text.trim().isEmpty;
+    final affidata = widget.affidata.isNotEmpty &&
+        widget.controllo.text.trim() == widget.affidata;
     final tema = _tema;
     return Container(
       key: const Key('oracolo_domanda'),
@@ -1023,12 +1476,21 @@ class _LaDomandaState extends State<_LaDomanda> {
       decoration: BoxDecoration(
         color: palette.deepest.withValues(alpha: 0.78),
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-        border: Border.all(color: palette.goldSoft.withValues(alpha: 0.4)),
+        border: Border.all(
+            color: affidata
+                ? palette.glow
+                : palette.goldSoft.withValues(alpha: 0.4),
+            width: affidata ? 1.5 : 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(affidata ? 'LA TUA DOMANDA È AFFIDATA' : 'LA TUA DOMANDA',
+              key: const Key('oracolo_domanda_stato'),
+              style: TypographyTokens.etichetta().copyWith(
+                  color: affidata ? palette.glow : palette.goldSoft,
+                  letterSpacing: 1.2)),
           Row(
             children: [
               Expanded(
@@ -1050,14 +1512,15 @@ class _LaDomandaState extends State<_LaDomanda> {
               ),
               const SizedBox(width: SpacingTokens.xxs),
               Opacity(
-                opacity: vuota ? 0.45 : 1,
+                opacity: vuota || affidata ? 0.45 : 1,
                 child: PulsanteTondoDipinto(
                   key: const Key('oracolo_affida'),
                   etichetta: 'Affida la domanda',
                   lato: 44,
-                  onTap: vuota ? null : widget.onAffida,
-                  figlio:
-                      Icon(Icons.auto_awesome_rounded, color: palette.goldSoft),
+                  onTap: vuota || affidata ? null : widget.onAffida,
+                  figlio: Icon(_LaDomanda.simboloDellInvio,
+                      key: const Key('oracolo_simbolo_dell_invio'),
+                      color: palette.goldSoft),
                 ),
               ),
             ],
@@ -1108,6 +1571,8 @@ class _LaDomandaState extends State<_LaDomanda> {
                         widget.controllo.text = d;
                         widget.controllo.selection =
                             TextSelection.collapsed(offset: d.length);
+                        // GC.11: scelta la domanda, la tendina si chiude.
+                        setState(() => _tema = null);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -1129,87 +1594,261 @@ class _LaDomandaState extends State<_LaDomanda> {
   }
 }
 
+/// **UNA CARTA O TRE, E LA PROFONDITA'** (GC.09, GC.17, GC.19), subito sotto
+/// la domanda, con le stesse tendine della Stesa di Tarocchi
+/// (`TendinaSelettore`): non un controllo nuovo.
+///
+/// La profondita': il fondatore, 22 ottobre 2026 alle 16:26, *"nel selettore
+/// delle opzioni dell'oracolo degli angeli, vorrei l'opzione \"profondità\"
+/// come nella stesa tarocchi. Ovviamente sarà esclusiva solo per gli utenti
+/// premium a pagamento"*. Il cancello e' lo stesso della Stesa: la matrice
+/// dei piani (`PlanCatalog.apre`), con la riga della Lunga dell'Oracolo
+/// (`RigaDelPiano.oracoloLunga`, dall'Iniziato); per chi non ha il piano la
+/// Lunga resta in vista col lucchetto e il suo tocco apre l'invito ai piani.
+class _LeOpzioni extends StatelessWidget {
+  const _LeOpzioni({
+    required this.palette,
+    required this.quante,
+    required this.profondita,
+    required this.piano,
+    required this.onQuante,
+    required this.onProfondita,
+    required this.onLocked,
+  });
+
+  final MaestroPalette palette;
+  final int quante;
+  final AnswerDepth profondita;
+  final Tier piano;
+  final ValueChanged<int> onQuante;
+  final ValueChanged<AnswerDepth> onProfondita;
+  final VoidCallback onLocked;
+
+  /// Le due stese dell'Oracolo.
+  static const List<int> stese = [1, 3];
+
+  static String nomeDellaStesa(int n) => n == 1 ? 'Una carta' : 'Tre carte';
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, vincoli) {
+      final larga = vincoli.maxWidth >= 300;
+      final w = larga
+          ? (vincoli.maxWidth - SpacingTokens.xs) / 2
+          : vincoli.maxWidth;
+      return Wrap(
+        key: const Key('oracolo_opzioni'),
+        spacing: SpacingTokens.xs,
+        runSpacing: SpacingTokens.xs,
+        children: [
+          SizedBox(
+            width: w,
+            child: TendinaSelettore<int>(
+              chiave: const Key('oracolo_quante_carte'),
+              titolo: 'Quante carte',
+              inRilievo: true,
+              corrente: quante,
+              voci: stese,
+              palette: palette,
+              etichetta: nomeDellaStesa,
+              bloccata: (_) => false,
+              onSelect: onQuante,
+              onLocked: (_) {},
+            ),
+          ),
+          SizedBox(
+            width: w,
+            child: TendinaSelettore<AnswerDepth>(
+              chiave: const Key('oracolo_profondita'),
+              titolo: 'Profondità',
+              corrente: profondita,
+              voci: AnswerDepth.shown,
+              palette: palette,
+              etichetta: (d) => d.label,
+              bloccata: (d) =>
+                  d.premium && !PlanCatalog.apre(RigaDelPiano.oracoloLunga, piano),
+              perche: (d) =>
+                  PlanCatalog.dalPiano(
+                      (p) => PlanCatalog.apre(RigaDelPiano.oracoloLunga, p)) ??
+                  'Coming soon',
+              onSelect: onProfondita,
+              onLocked: (_) => onLocked(),
+            ),
+          ),
+        ],
+      );
+    });
+  }
+}
+
 /// **IL MAZZO COPERTO**, ordine FY voce FY.15, 16 ottobre 2026. Il
 /// fondatore: "Non si possono scegliere le carte".
 ///
 /// Lo stesso gesto della Stesa (`StesaFan`): l'arco dei dorsi si sfoglia
-/// col dito e un tocco sceglie la carta, qui coi 72 dorsi degli Angeli. La
-/// riga sopra dice quale carta si sceglie e chi la porta; scelte le tre, il
-/// pulsante dipinto avvia la lettura (FY.16): prima e' spento, e nulla parte
-/// da solo.
+/// col dito e un tocco sceglie la carta, qui coi 72 dorsi degli Angeli.
+///
+/// **SEMPRE IN VISTA, SPENTO FINCHE' LA DOMANDA NON E' AFFIDATA** (GC.09):
+/// all'apertura il riquadro e' grigio, coi gesti Taglia, Mischia e Suono
+/// della Stesa (`GestoDelMazzo`, lo stesso pezzo); si accende quando la
+/// domanda e' affidata, e la riga sopra dice quale carta si sceglie.
 class _IlMazzoCoperto extends StatelessWidget {
   const _IlMazzoCoperto({
     super.key,
     required this.palette,
-    required this.domanda,
+    required this.attivo,
+    required this.affidata,
+    required this.quante,
     required this.scelti,
+    required this.presi,
+    required this.taglio,
+    required this.mescolamento,
+    required this.taglioIndice,
+    required this.silenzio,
+    required this.riduciMovimento,
     required this.onScegli,
-    required this.onAvvia,
+    required this.onTaglia,
+    required this.onMischia,
+    required this.onSilenzio,
+    this.rigaDelCambio,
   });
 
   final MaestroPalette palette;
-  final String domanda;
-  final List<int> scelti;
-  final ValueChanged<int> onScegli;
-  final VoidCallback onAvvia;
+  final bool attivo;
+  final bool affidata;
+  final int quante;
+  final int scelti;
+  final Set<int> presi;
+  final double taglio;
+  final double mescolamento;
+  final int taglioIndice;
+  final bool silenzio;
+  final bool riduciMovimento;
+  final String? rigaDelCambio;
+  final void Function(int indice, Rect? riquadro) onScegli;
+  final VoidCallback onTaglia;
+  final VoidCallback onMischia;
+  final VoidCallback onSilenzio;
 
   static const List<String> _ordinali = ['prima', 'seconda', 'terza'];
 
   /// La riga che guida la scelta, detta prima del gesto.
-  static String guida(int quante) {
+  static String guida(int quante, int scelti, {bool affidata = true}) {
+    if (!affidata) {
+      return 'Il mazzo si apre quando affidi la tua domanda.';
+    }
+    if (quante == 1) {
+      return scelti >= 1
+          ? 'La tua carta è sull\'altare. Quando vuoi, avvia la lettura.'
+          : 'Scegli la tua carta, la carta del momento: sfoglia il mazzo '
+              'col dito e tocca un dorso.';
+    }
     const ruoli = RuoloDellAngelo.values;
-    if (quante >= ruoli.length) {
+    if (scelti >= ruoli.length) {
       return 'Le tre carte sono sull\'altare. Quando vuoi, avvia la lettura.';
     }
-    final r = ruoli[quante];
-    return 'Scegli la ${_ordinali[quante]} carta, '
+    final r = ruoli[scelti];
+    return 'Scegli la ${_ordinali[scelti]} carta, '
         '${r.posizione.toLowerCase()}: la porta il tuo ${r.nome}. Sfoglia '
         'il mazzo col dito e tocca un dorso.';
   }
 
   @override
   Widget build(BuildContext context) {
-    final tutte = scelti.length >= RuoloDellAngelo.values.length;
-    return Column(
+    final completo = scelti >= quante;
+    return Container(
       key: const Key('oracolo_mazzo_coperto'),
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text('La tua domanda: $domanda',
-            key: const Key('oracolo_domanda_affidata'),
-            textAlign: TextAlign.center,
-            style: TypographyTokens.didascalia().copyWith(
-                color: ColorTokens.textSecondary, fontStyle: FontStyle.italic)),
-        const SizedBox(height: SpacingTokens.xs),
-        Text(guida(scelti.length),
-            key: const Key('oracolo_guida_della_scelta'),
-            textAlign: TextAlign.center,
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textPrimary)),
-        const SizedBox(height: SpacingTokens.xs),
-        StesaFan(
-          palette: palette,
-          taken: scelti.toSet(),
-          onPick: onScegli,
-          // Scelte le tre, il ventaglio non prende piu' tocchi.
-          scene: tutte ? StesaScene.completa : StesaScene.riposo,
-          ingresso: 1,
-          respiro: 0,
-          taglio: 0,
-          mescolamento: 0,
-          taglioIndice: 0,
-          reduceMotion: MediaQuery.disableAnimationsOf(context),
-          carte: 72,
-          dorso: GeometriaDellAltare.dorso,
-        ),
-        const SizedBox(height: SpacingTokens.sm),
-        Center(
-          child: PulsanteDipinto(
-            key: const Key('oracolo_avvia_la_lettura'),
-            testo: 'Avvia la lettura',
-            onTap: tutte ? onAvvia : null,
+      padding: const EdgeInsets.all(SpacingTokens.sm),
+      decoration: BoxDecoration(
+        color: palette.deepest.withValues(alpha: 0.45),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+        border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(guida(quante, scelti, affidata: affidata),
+              key: const Key('oracolo_guida_della_scelta'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textPrimary)),
+          if (rigaDelCambio != null) ...[
+            const SizedBox(height: SpacingTokens.xxs),
+            Text(rigaDelCambio!,
+                key: const Key('oracolo_riga_del_cambio'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: palette.goldSoft)),
+          ],
+          const SizedBox(height: SpacingTokens.xs),
+          // **GRIGIO FINCHE' NON SI PUO' SCEGLIERE** (GC.09): il ventaglio e i
+          // gesti restano in vista, velati, e non prendono tocchi.
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 250),
+            opacity: affidata ? 1 : 0.4,
+            child: IgnorePointer(
+              ignoring: !affidata,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  StesaFan(
+                    palette: palette,
+                    taken: presi,
+                    onPick: (_) {},
+                    onPickDa: (i, r) => onScegli(i, r),
+                    // Scelte le carte, o a mazzo spento, il ventaglio non
+                    // prende piu' tocchi.
+                    scene: attivo && !completo
+                        ? StesaScene.riposo
+                        : StesaScene.completa,
+                    ingresso: 1,
+                    respiro: 0,
+                    taglio: taglio,
+                    mescolamento: mescolamento,
+                    taglioIndice: taglioIndice,
+                    reduceMotion: riduciMovimento,
+                    carte: 72,
+                    dorso: GeometriaDellAltare.dorso,
+                  ),
+                  const SizedBox(height: SpacingTokens.sm),
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: SpacingTokens.sm,
+                    runSpacing: SpacingTokens.sm,
+                    children: [
+                      GestoDelMazzo(
+                        key: const Key('oracolo_taglia'),
+                        icona: Icons.content_cut_rounded,
+                        label: 'Taglia',
+                        palette: palette,
+                        attivo: attivo,
+                        onTap: onTaglia,
+                      ),
+                      GestoDelMazzo(
+                        key: const Key('oracolo_mischia'),
+                        icona: Icons.casino_rounded,
+                        label: 'Mischia',
+                        palette: palette,
+                        attivo: attivo,
+                        onTap: onMischia,
+                      ),
+                      GestoDelMazzo(
+                        key: const Key('oracolo_silenzio'),
+                        icona: silenzio
+                            ? Icons.volume_off_rounded
+                            : Icons.volume_up_rounded,
+                        label: silenzio ? 'Muto' : 'Suono',
+                        palette: palette,
+                        attivo: affidata,
+                        onTap: onSilenzio,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -1316,7 +1955,11 @@ class _IlResponso extends StatelessWidget {
     required this.onCondividi,
     required this.onInvito,
     this.assaggio = false,
+    this.riduciMovimento = false,
   });
+
+  /// Riduci Movimento o grafica alleggerita: il colpo d'occhio e' fermo.
+  final bool riduciMovimento;
 
   final MaestroPalette palette;
   final RispostaDellOracolo risposta;
@@ -1388,6 +2031,28 @@ class _IlResponso extends StatelessWidget {
       key: const Key('oracolo_responso'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        // **COME NELLA STESA: PRIMA LE CARTE USCITE** (GC.15). Il fondatore:
+        // *"come per la stesa di tarocchi, il responso all'inizio scrive le
+        // carte uscite e poi i riquadri delle risposte"*. In cima il numero
+        // di carte scelto (GC.17), poi le carte uscite, poi il colpo
+        // d'occhio della scala di luce (GC.18), poi il titolo e i paragrafi.
+        Text(carte.length == 1 ? 'STESA A UNA CARTA' : 'STESA A TRE CARTE',
+            key: const Key('oracolo_quante_nel_responso'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.etichetta()
+                .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
+        const SizedBox(height: SpacingTokens.xs),
+        _LeCarteUscite(carte: carte, assaggio: assaggio, palette: palette),
+        const SizedBox(height: SpacingTokens.md),
+        LaScalaDelResponso(
+          carte: carte,
+          palette: palette,
+          chiuse: assaggio
+              ? const {RuoloDellAngelo.cuore, RuoloDellAngelo.intelletto}
+              : const {},
+          ferma: riduciMovimento,
+        ),
+        const SizedBox(height: SpacingTokens.md),
         KeyedSubtree(
           key: const Key('oracolo_responso_principale'),
           child: IlResponsoInterpretato(
@@ -1437,7 +2102,12 @@ class _IlResponso extends StatelessWidget {
               carta: carte[i],
               messaggio: LaLetturaDellOracolo.messaggioDellaCarta(
                   corpus, carte[i], variante),
-              responso: _responsoDellaBolla(carte[i]),
+              // **NELLA STESA A UNA CARTA IL RESPONSO E' QUELLO DELLA CARTA**
+              // (GA.05, GC.05, GC.15): la bolla resta, con chi e' l'angelo,
+              // il suo coro, il rito e il dono, ma il suo messaggio non si
+              // ripete sotto il responso principale.
+              responso: carte.length == 1 ? null : _responsoDellaBolla(carte[i]),
+              parolaChiave: LaRispostaDaiDoni.dono(corpus, carte[i].angelo),
               rito: corpus[LOraDegliAngeli.chiaveDelRito(carte[i].angelo)],
               variante: variante,
             ),
@@ -1456,6 +2126,55 @@ class _IlResponso extends StatelessWidget {
           aperturaDellaChat: ChatOpeners.oracoloAngeli(carte.first.angelo.name,
               carte.first.ruolo.posizione.toLowerCase(), r.titolo),
         ),
+      ],
+    );
+  }
+}
+
+/// **LE CARTE USCITE**, in cima al responso come nella Stesa (GC.15): la
+/// parola del posto e il nome dell'angelo, una riga per carta. La carta
+/// chiusa dall'assaggio e la carta coperta lo dicono.
+class _LeCarteUscite extends StatelessWidget {
+  const _LeCarteUscite({
+    required this.carte,
+    required this.assaggio,
+    required this.palette,
+  });
+
+  final List<CartaDellOracolo> carte;
+  final bool assaggio;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      key: const Key('oracolo_carte_uscite'),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (var i = 0; i < carte.length; i++)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: SpacingTokens.xs,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                Text(LaScalaDelResponso.parolaDi(carte[i]).toUpperCase(),
+                    style: TypographyTokens.etichetta().copyWith(
+                        color: palette.goldSoft.withValues(alpha: 0.8),
+                        letterSpacing: 1.2)),
+                Text(
+                    carte[i].coperta
+                        ? 'Carta coperta'
+                        : (assaggio && i > 0
+                            ? 'Col tuo piano resta chiusa'
+                            : carte[i].angelo.name),
+                    key: Key('oracolo_uscita_$i'),
+                    style: TypographyTokens.titoloScheda().copyWith(
+                        color: ColorTokens.textPrimary, height: 1.2)),
+              ],
+            ),
+          ),
       ],
     );
   }
@@ -1642,7 +2361,12 @@ class _LaBollaDellaCarta extends StatelessWidget {
     required this.responso,
     required this.rito,
     required this.variante,
+    this.parolaChiave = '',
   });
+
+  /// **LA PAROLA CHIAVE DELL'ANGELO** (GC.18): il suo dono, dal corpus dei
+  /// doni (`LaRispostaDaiDoni.dono`), accanto al segno del coro.
+  final String parolaChiave;
 
   final MaestroPalette palette;
   final CartaDellOracolo carta;
@@ -1656,10 +2380,25 @@ class _LaBollaDellaCarta extends StatelessWidget {
   final List<String>? rito;
   final int variante;
 
-  String get _chiLaPorta => carta.portatore == null
-      ? 'La porta il tuo ${carta.ruolo.nome}, che si rivela con l\'ora di '
-          'nascita'
-      : 'La porta il tuo ${carta.ruolo.nome}, ${carta.portatore!.name}';
+  String get _chiLaPorta => carta.delMomento
+      // GC.17: la carta del momento non ha ruolo e non la porta nessuno.
+      ? 'L\'hai scelta tu dal mazzo dei 72'
+      : carta.portatore == null
+          ? 'La porta il tuo ${carta.ruolo.nome}, che si rivela con l\'ora di '
+              'nascita'
+          : 'La porta il tuo ${carta.ruolo.nome}, ${carta.portatore!.name}';
+
+  /// **IL SEGNO DEL CORO** (GC.18): uno dei nove segni dipinti dal fondatore
+  /// (`assets/img/simboli/`, ordine GC). Il catalogo chiama "Potenze" il
+  /// coro che il file chiama "potesta", e scrive "Virtu'" con l'apostrofo.
+  static String segnoDelCoro(Angel a) {
+    final nome = switch (a.choir.name) {
+      'Potenze' => 'potesta',
+      "Virtu'" => 'virtu',
+      final altro => altro.toLowerCase(),
+    };
+    return 'assets/img/simboli/sig_coro_${nome}_v1.webp';
+  }
 
   /// **CHI E'**, in una riga: il numero, il nome, il coro e chi lo regge.
   /// Il nome del coro col suo articolo ("degli Angeli", "dei Troni") e con
@@ -1715,12 +2454,32 @@ class _LaBollaDellaCarta extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  ClipOval(
-                    child: Image.asset(carta.ruolo.medaglione,
-                        width: SpacingTokens.xxl,
-                        height: SpacingTokens.xxl,
-                        fit: BoxFit.contain),
-                  ),
+                  // **IL SIMBOLO DELLA CARTA** (GC.15): il medaglione del suo
+                  // ruolo, quello sopra la carta nella cattura 07 del
+                  // fondatore. La carta del momento non ha ruolo (GC.17): il
+                  // suo simbolo e' quello dell'Oracolo che l'app ha gia', il
+                  // segno della funzione nel catalogo delle arti
+                  // (`ArtCatalog`, voce `angels_oracle`), in un cerchio d'oro.
+                  if (carta.delMomento)
+                    Container(
+                      key: const Key('oracolo_simbolo_del_momento'),
+                      width: SpacingTokens.xxl,
+                      height: SpacingTokens.xxl,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: palette.deepest,
+                        border: Border.all(color: palette.gold, width: 2),
+                      ),
+                      child: Icon(Icons.auto_stories_rounded,
+                          color: palette.goldSoft),
+                    )
+                  else
+                    ClipOval(
+                      child: Image.asset(carta.ruolo.medaglione,
+                          width: SpacingTokens.xxl,
+                          height: SpacingTokens.xxl,
+                          fit: BoxFit.contain),
+                    ),
                   const SizedBox(height: SpacingTokens.xs),
                   SizedBox(
                     width: lato,
@@ -1738,7 +2497,10 @@ class _LaBollaDellaCarta extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(carta.ruolo.posizione.toUpperCase(),
+                    Text(
+                        carta.delMomento
+                            ? 'LA CARTA DEL MOMENTO'
+                            : carta.ruolo.posizione.toUpperCase(),
                         style: TypographyTokens.etichetta()
                             .copyWith(color: palette.goldSoft)),
                     const SizedBox(height: SpacingTokens.xxs),
@@ -1755,6 +2517,46 @@ class _LaBollaDellaCarta extends StatelessWidget {
             ],
           ),
           if (!carta.coperta) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            // **IL CORO COME PICCOLO SEGNO, CON UNA PAROLA CHIAVE** (GC.18):
+            // il segno dipinto del coro e il dono dell'angelo. Senza il file,
+            // un cerchio nel colore dell'oro.
+            Row(
+              key: Key('oracolo_coro_${carta.ruolo.name}'),
+              children: [
+                SizedBox(
+                  width: 34,
+                  height: 34,
+                  child: Image.asset(segnoDelCoro(carta.angelo),
+                      fit: BoxFit.contain,
+                      filterQuality: FilterQuality.medium,
+                      errorBuilder: (_, __, ___) => DecoratedBox(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: palette.gold.withValues(alpha: 0.6)))),
+                ),
+                const SizedBox(width: SpacingTokens.xs),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          'CORO DEI ${carta.angelo.choir.name.replaceAll("u'", 'ù').toUpperCase()}',
+                          style: TypographyTokens.etichetta().copyWith(
+                              color: palette.goldSoft, letterSpacing: 1.1)),
+                      if (parolaChiave.trim().isNotEmpty)
+                        Text(
+                            '${parolaChiave.trim()[0].toUpperCase()}'
+                            '${parolaChiave.trim().substring(1)}',
+                            key: Key('oracolo_parola_chiave_'
+                                '${carta.ruolo.name}'),
+                            style: TypographyTokens.titoloScheda().copyWith(
+                                color: ColorTokens.textPrimary, height: 1.2)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: SpacingTokens.sm),
             Column(
               key: Key('oracolo_chi_e_${carta.ruolo.name}'),
@@ -1795,22 +2597,21 @@ class _LaBollaDellaCarta extends StatelessWidget {
                     .copyWith(color: ColorTokens.textPrimary)),
           ] else if (responso case final r?) ...[
             const SizedBox(height: SpacingTokens.sm),
-            Text('Il suo messaggio per te',
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft)),
-            const SizedBox(height: SpacingTokens.xxs),
+            // **IL SUO MESSAGGIO PER TE: UN PARAGRAFO, CHIUSO ALL'APERTURA**
+            // (GC.15, GC.18): il titolo "Il suo messaggio per te" in vista e
+            // il paragrafo, intero, che si apre al tocco (strato 3 delle
+            // Linee Guida V14). Niente riquadro "Cosa fare adesso" nella
+            // carta singola (GC.05). Il nome dell'angelo e' gia' il titolo,
+            // nella testata.
             KeyedSubtree(
               key: Key('oracolo_messaggio_${carta.ruolo.name}'),
-              child: IlResponsoInterpretato(
+              child: LaSingolaCheSiApre(
                 responso: r,
+                parolaChiave: '',
+                etichetta: 'Il suo messaggio per te',
                 chiave: 'oracolo_carta_singola_${carta.ruolo.name}',
                 palette: palette,
-                // Il nome dell'angelo e' gia' il titolo, nella testata.
                 mostraIlTitolo: false,
-                stileDelTitolo: TypographyTokens.titoloScheda()
-                    .copyWith(color: ColorTokens.textPrimary),
-                stile: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textPrimary),
               ),
             ),
           ],

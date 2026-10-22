@@ -140,6 +140,15 @@ void main() {
       expect(bolla, findsOneWidget,
           reason: 'la bolla di ${posizione.name} non c\'e\': la prova non sta '
               'guardando la scena giusta');
+      // **IL PARAGRAFO DELLA BOLLA SI APRE AL TOCCO**, ordine GC voce
+      // GC.06: si apre prima di leggerlo, come farebbe chi lo legge.
+      final apriLaBolla = find.byKey(Key('carta_${posizione.name}_apri'));
+      if (apriLaBolla.evaluate().isNotEmpty) {
+        await tester.ensureVisible(apriLaBolla);
+        await tester.pump();
+        await tester.tap(apriLaBolla);
+        await tester.pump(const Duration(milliseconds: 400));
+      }
       // I testi lunghi della bolla: la descrizione e', fra questi, quella che
       // l'ingrandimento deve mostrare IDENTICA. Non si concatenano, perche' la
       // bolla della carta chiave porta anche il perche', che e' un'altra cosa.

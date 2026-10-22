@@ -68,14 +68,26 @@ class CartaDellOracolo {
     required this.ruolo,
     required this.angelo,
     required this.portatore,
+    this.delMomento = false,
   });
 
   final RuoloDellAngelo ruolo;
   final Angel angelo;
   final Angel? portatore;
 
-  /// La carta si scopre solo se si conosce chi la porta.
-  bool get coperta => portatore == null;
+  /// **LA CARTA DEL MOMENTO**, ordine GC voce GC.17, 22 ottobre 2026. Il
+  /// fondatore: *"la Carta singola corrisponde a una stesa a 1 carta e la
+  /// sceglie l'utente"*. Vera per l'unica carta della stesa a una carta: un
+  /// angelo qualunque dei 72, scelto dalla persona, senza il ruolo di
+  /// Custode, Cuore o Intelletto e senza un angelo della persona che la porti.
+  /// [ruolo] resta il Custode solo come porta del corpus: il messaggio e il
+  /// consiglio della carta sono quelli del "cosa fare", che e' cio' che una
+  /// carta sola risponde; a schermo non si nomina nessun ruolo.
+  final bool delMomento;
+
+  /// La carta si scopre solo se si conosce chi la porta. La carta del
+  /// momento non ha portatore e si scopre sempre.
+  bool get coperta => !delMomento && portatore == null;
 }
 
 /// **L'ESTRAZIONE**, sul telefono: tre angeli diversi a caso fra i 72, uno
@@ -102,6 +114,17 @@ abstract final class EstrazioneDellOracolo {
   /// posizione nel mazzo, e la carta che esce e' quella che sta li'.
   static List<int> mescola(Random caso) =>
       [for (var n = 1; n <= 72; n++) n]..shuffle(caso);
+
+  /// **LA STESA A UNA CARTA**, ordine GC voce GC.17: la carta del momento,
+  /// l'angelo del dorso che la persona ha toccato.
+  static List<CartaDellOracolo> dallaScelta(int numero) => [
+        CartaDellOracolo(
+          ruolo: RuoloDellAngelo.custode,
+          angelo: AngelCatalog.byNumber(numero),
+          portatore: null,
+          delMomento: true,
+        ),
+      ];
 
   /// **LE CARTE SCELTE DALLA PERSONA**, ordine FY voce FY.15: una per
   /// posizione, nell'ordine dei ruoli (il primo dorso scelto e' la carta del

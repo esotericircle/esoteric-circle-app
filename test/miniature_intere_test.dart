@@ -119,7 +119,14 @@ void main() {
     // passano da `FamilyImage` con `BoxFit.contain`, il medaglione e' intero;
     // la scena dell'altare riempie lo schermo col taglio dichiarato nella sua
     // geometria (`GeometriaDellAltare.taglio`), perche' non e' una miniatura.
-    expect(punti.length, 14,
+    // **SEDICI DALL'ORDINE GC**, 22 ottobre 2026. `tarot_card_art.dart`
+    // entra fra i punti perche' adesso sceglie la miniatura del bundle per
+    // le carte piccole (voce GC.01, `thumbPath`): l'arte riempie la carta
+    // con `BoxFit.fill`, e la carta ha la stessa proporzione dell'arte (2 a
+    // 3), quindi non si taglia niente. `la_carta_dell_angelo_aperta.dart` e'
+    // il foglio della carta dell'Oracolo aperta al tocco (voce GC.14): la
+    // carta sta intera, con `BoxFit.contain`.
+    expect(punti.length, 16,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');

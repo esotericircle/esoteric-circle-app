@@ -256,7 +256,13 @@ void main() {
         if (f.evaluate().isNotEmpty) larga = tester.getRect(f).width;
       }
     }
-    expect(find.byType(AltareVuoto), findsOneWidget);
+    // LAPIDE, FY.17: `AltareVuoto`, la toppa sui dorsi dipinti del v1. Col
+    // filmato v2 (GC Aggiunta) l'ultimo fotogramma ha gia' l'altare vuoto.
+    expect(
+        (tester.widget<Image>(find.byKey(const Key('oracolo_fotogramma')))
+                .image as AssetImage)
+            .assetName,
+        GeometriaDellAltare.ultimoFotogramma);
     await scatta(tester, '10_carta_di_taglio_sull_altare_vuoto');
     // Le tre carte girate sull'altare, prima che la lettura scorra alla
     // risposta.

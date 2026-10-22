@@ -416,6 +416,8 @@ void main() {
         'l\'Iniziato: tre carte e una chiamata Lunga, senza lucchetto (GA.05; '
         'prima: Breve, con la Lunga col lucchetto)', (tester) async {
       final m = await _monta(tester, tier: Tier.tier1);
+      // GC.19: la Lunga si sceglie nel selettore; all'apertura e' Breve.
+      await scegliLaLunga(tester);
       await _affida(tester);
       expect(m.chiamate, hasLength(1));
       expect(m.chiamate.single.$2.contains('approfondimento'), isTrue,
@@ -428,6 +430,8 @@ void main() {
 
     testWidgets('l\'Adepto: la Lunga, senza lucchetto', (tester) async {
       final m = await _monta(tester, tier: Tier.tier2);
+      // GC.19: la Lunga si sceglie nel selettore; all'apertura e' Breve.
+      await scegliLaLunga(tester);
       await _affida(tester);
       expect(m.chiamate.single.$2.contains('approfondimento'), isTrue);
       expect(find.byKey(const Key('oracolo_lucchetto_lunga')), findsNothing);

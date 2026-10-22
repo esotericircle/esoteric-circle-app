@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import '../../core/tarot/tarot_card.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
 import 'stesa_choreography.dart';
 import 'tarot_card_art.dart';
 
@@ -36,7 +38,16 @@ class StesaFan extends StatefulWidget {
     this.reduceMotion = false,
     this.carte = 78,
     this.dorso,
+    this.onPickDa,
   });
+
+  /// **DA DOVE PARTE LA CARTA TOCCATA**, ordine GC voce GC.12, 22 ottobre
+  /// 2026. Il fondatore, sull'Oracolo degli Angeli: *"La stessa Carta che
+  /// tocco deve volare dal mazzo alla sua posizione sul tavolo"*. Oltre
+  /// all'indice, il riquadro del dorso toccato nelle coordinate dello schermo,
+  /// cosi' chi lo fa volare parte da li' e non da un punto approssimato.
+  /// Chiamato prima di [onPick].
+  final void Function(int indice, Rect riquadro)? onPickDa;
 
   /// **IL DORSO DEL MAZZO**, ordine FY voce FY.15: l'Oracolo degli Angeli
   /// usa lo stesso ventaglio, lo stesso gesto, col dorso dei 72 Angeli.
@@ -327,6 +338,9 @@ class _StesaFanState extends State<StesaFan> {
               attivo: widget.scene.accettaGesti,
               dorso: widget.dorso,
               onTap: () => widget.onPick(indice),
+              onTapDa: widget.onPickDa == null
+                  ? null
+                  : (riquadro) => widget.onPickDa!(indice, riquadro),
             ),
           ),
         ),
@@ -407,6 +421,7 @@ class _FanCard extends StatelessWidget {
     required this.attivo,
     required this.onTap,
     this.dorso,
+    this.onTapDa,
   });
 
   final MaestroPalette palette;
@@ -418,16 +433,87 @@ class _FanCard extends StatelessWidget {
 
   final VoidCallback onTap;
 
+  /// Il riquadro di questo dorso sullo schermo, al tocco (GC.12).
+  final ValueChanged<Rect>? onTapDa;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: taken || !attivo ? null : onTap,
+      onTap: taken || !attivo
+          ? null
+          : () {
+              final scatola = context.findRenderObject();
+              if (onTapDa != null && scatola is RenderBox && scatola.hasSize) {
+                onTapDa!(scatola.localToGlobal(Offset.zero) & scatola.size);
+              }
+              onTap();
+            },
       child: AnimatedOpacity(
         opacity: taken ? 0.2 : 1.0,
         duration: const Duration(milliseconds: 250),
         child: AspectRatio(
           aspectRatio: TarotFrame.aspect,
           child: CardBack(palette: palette, dorso: dorso),
+        ),
+      ),
+    );
+  }
+}
+
+/// **UN GESTO SUL MAZZO: TAGLIA, MISCHIA O SUONO.**
+///
+/// Resta sempre in campo, anche quando il telefono ha l'accelerometro: lo
+/// scuotimento e' un di piu', mai l'unica strada per mescolare. **Un pezzo
+/// solo per due mazzi**, ordine GC voce GC.09, 22 ottobre 2026: era il
+/// `_GestoMazzo` privato della Stesa di Tarocchi, e l'Oracolo degli Angeli
+/// lo riusa sotto il suo ventaglio invece di scriverne un secondo.
+class GestoDelMazzo extends StatelessWidget {
+  const GestoDelMazzo({
+    super.key,
+    required this.icona,
+    required this.label,
+    required this.palette,
+    required this.attivo,
+    required this.onTap,
+  });
+
+  final IconData icona;
+  final String label;
+  final MaestroPalette palette;
+  final bool attivo;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      enabled: attivo,
+      label: label,
+      child: GestureDetector(
+        onTap: attivo ? onTap : null,
+        child: AnimatedOpacity(
+          opacity: attivo ? 1 : 0.4,
+          duration: const Duration(milliseconds: 200),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+              color: palette.surfaceElevated.withValues(alpha: 0.6),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icona, size: 15, color: palette.goldSoft),
+                const SizedBox(width: 6),
+                // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+                Flexible(
+                    child: Text(label,
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: palette.goldSoft))),
+              ],
+            ),
+          ),
         ),
       ),
     );

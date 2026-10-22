@@ -374,8 +374,15 @@ void main() {
       }
     });
 
-    testWidgets('A3 e GA.05: le bolle per carta col loro titolo e riquadro',
-        (tester) async {
+    // **RISCRITTA DALL'ORDINE GC**, voci GC.05 e GC.06, 22 ottobre 2026. Il
+    // fondatore: *"Il responso delle singole carte deve avere solo un
+    // paragrafo Senza il secondo con riquadro."* LAPIDE: "le bolle per carta
+    // col loro titolo e riquadro", col pezzo `cosa_fare` e il titolo "Cosa
+    // fare adesso" dentro ogni bolla (GA.05). Adesso la bolla porta la
+    // parola chiave, il titolo e un paragrafo solo, chiuso finche' non si
+    // tocca.
+    testWidgets('A3, GA.05 e GC.05: le bolle per carta col titolo e un '
+        'paragrafo, senza riquadro', (tester) async {
       await monta(tester);
       final stesa = tester
           .state<StesaTreCarteScreenState>(find.byType(StesaTreCarteScreen))
@@ -388,7 +395,22 @@ void main() {
         final dentro = testoSotto(tester, bolla);
         expect(dentro, contains(d.displayName));
         expect(dentro, contains(d.position.etichetta.toUpperCase()));
-        for (final pezzo in const ['titolo', 'risposta', 'cosa_fare']) {
+        // Chiusa all'apertura: la parola chiave e il titolo, nessun
+        // paragrafo (GC.06, strato 3).
+        expect(
+            find.descendant(
+                of: bolla,
+                matching: find.byKey(Key('carta_${d.position.name}_risposta'))),
+            findsNothing,
+            reason: '${d.position.name}: il paragrafo e\' aperto '
+                'all\'apertura');
+        final apri = find.descendant(
+            of: bolla, matching: find.byKey(Key('carta_${d.position.name}_apri')));
+        await tester.ensureVisible(apri);
+        await tester.pump();
+        await tester.tap(apri);
+        await tester.pump(const Duration(milliseconds: 400));
+        for (final pezzo in const ['parola', 'titolo', 'risposta']) {
           expect(
               find.descendant(
                   of: bolla,
@@ -399,10 +421,17 @@ void main() {
         expect(
             find.descendant(
                 of: bolla,
+                matching: find.byKey(Key('carta_${d.position.name}_cosa_fare'))),
+            findsNothing,
+            reason: '${d.position.name}: la carta singola ha ancora il '
+                'riquadro "Cosa fare adesso"');
+        expect(
+            find.descendant(
+                of: bolla,
                 matching: find.text(LaFormaDelResponso.titoloDelConsiglio)),
-            findsOneWidget,
-            reason: '${d.position.name}: il riquadro della carta non si '
-                'intitola "Cosa fare adesso"');
+            findsNothing,
+            reason: '${d.position.name}: la carta singola ha ancora il '
+                'riquadro "Cosa fare adesso"');
       }
     });
   });

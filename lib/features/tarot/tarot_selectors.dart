@@ -28,6 +28,7 @@ class TarotSetup {
     this.topic = TarotTopic.predefinito,
     this.includeReversed = true,
     this.domandaLibera = '',
+    this.argomentoScelto = true,
   });
 
   /// Quale stesa si sta facendo. Da qui viene anche il titolo in alto.
@@ -62,6 +63,49 @@ class TarotSetup {
   /// un responso che ripete la domanda con parole diverse e non ne tiene
   /// conto e' peggio di un responso che non la nomina affatto.
   final String domandaLibera;
+
+  /// **VALE L'ULTIMA DOMANDA, L'ALTRA TORNA VUOTA**, ordine GC voce GC.04,
+  /// 22 ottobre 2026. Il fondatore: *"se scelgo una domanda da quelle
+  /// suggerite e scrivo anche la domanda, l'ultima è quella che conta e
+  /// l'altra deve essere annullata tornando vuoto il campo, così da non
+  /// confondere."* Falso mentre la persona ha una domanda scritta: allora
+  /// la tendina "Scegli la tua domanda" e' vuota e [topic] resta solo il
+  /// ricordo della scelta di prima, che torna se il testo scritto si
+  /// cancella tutto (cosi' resta sempre una domanda sola). Scegliere una
+  /// domanda suggerita lo rimette vero e svuota il campo scritto
+  /// ([conLaDomandaScelta], [conLaDomandaScritta]).
+  final bool argomentoScelto;
+
+  /// **LA PERSONA SCEGLIE UNA DOMANDA SUGGERITA** (GC.04): il testo scritto
+  /// si cancella.
+  TarotSetup conLaDomandaScelta(TarotTopic scelta) => TarotSetup(
+        tipo: tipo,
+        key: key,
+        deck: deck,
+        depth: depth,
+        topic: scelta,
+        includeReversed: includeReversed,
+      );
+
+  /// **LA PERSONA SCRIVE LA SUA DOMANDA** (GC.04): la scelta si annulla e la
+  /// tendina torna vuota. Cancellato tutto il testo, torna la scelta di
+  /// prima: resta sempre una domanda sola, mai due e mai nessuna.
+  TarotSetup conLaDomandaScritta(String testo) => TarotSetup(
+        tipo: tipo,
+        key: key,
+        deck: deck,
+        depth: depth,
+        topic: topic,
+        includeReversed: includeReversed,
+        domandaLibera: testo,
+        argomentoScelto: testo.trim().isEmpty,
+      );
+
+  /// **L'ARGOMENTO CHE ENTRA NELLA LETTURA** (GC.04): quello scelto, o con
+  /// una domanda scritta l'argomento di partenza, mai la scelta annullata:
+  /// chi ha scritto la sua domanda non deve ritrovarsi letta sotto una voce
+  /// che ha tolto.
+  TarotTopic get argomento => argomentoScelto ? topic : TarotTopic.predefinito;
 
   /// La domanda scritta a mano, ripulita, o nulla se non ce n'e' una.
   String? get domandaScritta {
@@ -100,6 +144,7 @@ class TarotSetup {
         topic: topic ?? this.topic,
         includeReversed: includeReversed ?? this.includeReversed,
         domandaLibera: domandaLibera ?? this.domandaLibera,
+        argomentoScelto: argomentoScelto,
       );
 }
 
@@ -287,12 +332,15 @@ class TarotSetupPanel extends StatelessWidget {
                       titolo: 'Scegli la tua domanda',
                       inRilievo: true,
                       corrente: setup.topic,
+                      // GC.04: con una domanda scritta la scelta e' vuota.
+                      vuota: !setup.argomentoScelto,
                       voci: TarotTopic.values,
                       palette: palette,
                       etichetta: (t) => t.label,
                       gruppo: (t) => t.group.label,
                       bloccata: (_) => false,
-                      onSelect: (t) => onChanged(setup.copyWith(topic: t)),
+                      onSelect: (t) =>
+                          onChanged(setup.conLaDomandaScelta(t)),
                       onLocked: (_) {},
                     ),
                   ),
@@ -316,7 +364,7 @@ class TarotSetupPanel extends StatelessWidget {
                       testo: setup.domandaLibera,
                       palette: palette,
                       onChanged: (t) =>
-                          onChanged(setup.copyWith(domandaLibera: t)),
+                          onChanged(setup.conLaDomandaScritta(t)),
                     ),
                   ),
                   // Il tipo di stesa: da qui viene anche il titolo in alto.
@@ -460,7 +508,18 @@ class TendinaSelettore<T> extends StatelessWidget {
     this.gruppo,
     this.inRilievo = false,
     this.perche,
+    this.vuota = false,
   });
+
+  /// **NESSUNA SCELTA**, ordine GC voce GC.04: la tendina mostra che non c'e'
+  /// una voce scelta ([testoDelVuoto], in corsivo e senza l'oro della
+  /// scelta) e nell'elenco nessuna voce porta la spunta. [corrente] resta
+  /// solo come ricordo.
+  final bool vuota;
+
+  /// La riga della tendina vuota: dice che non c'e' una scelta e come farne
+  /// una.
+  static const String testoDelVuoto = 'Nessuna, tocca per sceglierne una';
 
   /// La chiave del bottone, per i test.
   final Key chiave;
@@ -518,7 +577,7 @@ class TendinaSelettore<T> extends StatelessWidget {
           children: [
             SizedBox(
               width: 20,
-              child: v == corrente
+              child: !vuota && v == corrente
                   ? Icon(Icons.check_rounded, size: 14, color: palette.goldSoft)
                   : null,
             ),
@@ -531,7 +590,7 @@ class TendinaSelettore<T> extends StatelessWidget {
                       style: TypographyTokens.didascalia().copyWith(
                         color: bloccato
                             ? ColorTokens.textSecondary
-                            : (v == corrente
+                            : (!vuota && v == corrente
                                 ? palette.goldSoft
                                 : ColorTokens.textPrimary),
                       )),
@@ -651,15 +710,23 @@ class TendinaSelettore<T> extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text(etichetta(corrente),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: palette.goldSoft)),
+                  child: vuota
+                      ? Text(testoDelVuoto,
+                          key: const Key('tendina_vuota'),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TypographyTokens.didascalia().copyWith(
+                              color: ColorTokens.textSecondary,
+                              fontStyle: FontStyle.italic))
+                      : Text(etichetta(corrente),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: palette.goldSoft)),
                 ),
                 // Il lucchetto sul chip solo se la voce MOSTRATA e'
                 // bloccata.
-                if (bloccata(corrente))
+                if (!vuota && bloccata(corrente))
                   Icon(Icons.lock_rounded,
                       size: 12, color: palette.goldSoft.withValues(alpha: 0.7)),
                 Icon(Icons.arrow_drop_down_rounded,
@@ -750,6 +817,21 @@ class _DomandaScritta extends StatefulWidget {
 class _DomandaScrittaState extends State<_DomandaScritta> {
   late final TextEditingController _controllore =
       TextEditingController(text: widget.testo);
+
+  /// **IL CAMPO SI SVUOTA QUANDO LA PERSONA SCEGLIE**, ordine GC voce GC.04:
+  /// il testo del padre si riscrive qui solo quando e' diverso da quello del
+  /// campo, cioe' quando non e' la persona a scriverlo (la scelta di una
+  /// domanda suggerita lo porta a vuoto). Mentre si scrive i due coincidono
+  /// e il cursore resta dov'e'.
+  @override
+  void didUpdateWidget(covariant _DomandaScritta vecchio) {
+    super.didUpdateWidget(vecchio);
+    if (widget.testo != _controllore.text) {
+      _controllore.value = TextEditingValue(
+          text: widget.testo,
+          selection: TextSelection.collapsed(offset: widget.testo.length));
+    }
+  }
 
   @override
   void dispose() {

@@ -161,7 +161,17 @@ void main() {
     expect(find.byKey(const Key('finta_del_filmato_oracolo')), findsOneWidget);
     expect(find.byKey(const Key('oracolo_dorso_0')), findsNothing,
         reason: 'col video in corso i dorsi sono nel video');
-    expect(find.byKey(const Key('oracolo_domanda')), findsNothing,
+    // **LA DOMANDA STA SOTTO IL TAVOLO** (GC.09): e' montata nella lista
+    // e aspetta la scena ferma dentro `IlRestoDopoLaScena`, trasparente.
+    // LAPIDE: "findsNothing", quando la domanda stava sopra la scena.
+    double opacitaDellaDomanda() => tester
+        .widget<AnimatedOpacity>(find
+            .ancestor(
+                of: find.byKey(const Key('oracolo_domanda')),
+                matching: find.byType(AnimatedOpacity))
+            .first)
+        .opacity;
+    expect(opacitaDellaDomanda(), 0,
         reason: 'la domanda compare a scena ferma');
     await tester.tapAt(const Offset(195, 600));
     for (var i = 0; i < 6; i++) {
@@ -173,7 +183,7 @@ void main() {
       expect(find.byKey(Key('oracolo_dorso_$i')), findsNothing,
           reason: 'GA.08: il dorso $i e\' in vista prima della scelta');
     }
-    expect(find.byKey(const Key('oracolo_domanda')), findsOneWidget);
+    expect(opacitaDellaDomanda(), 1);
     expect(find.byKey(const Key('il_tocco_che_salta')), findsNothing);
   });
 
@@ -196,7 +206,12 @@ void main() {
     await tester.pump(const Duration(milliseconds: 600));
     expect(find.byKey(const Key('oracolo_lettere_di_luce')), findsOneWidget,
         reason: 'la domanda non sale lungo la scala');
-    for (var i = 0; i < 50; i++) {
+    // Dopo le lettere la riflessione di Medora (GC.13) e le carte che si
+    // girano una alla volta e si alzano (GC.14): si aspetta il responso.
+    for (var i = 0;
+        i < 400 &&
+            find.byKey(const Key('oracolo_responso')).evaluate().isEmpty;
+        i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
     expect(richieste, hasLength(1), reason: 'una chiamata sola');
@@ -264,9 +279,16 @@ void main() {
     expect(find.textContaining('112'), findsNothing);
   });
 
-  testWidgets('l\'angelo dell\'ora e il messaggio del giorno si vedono subito',
-      (tester) async {
+  // **RISCRITTA DALL'ORDINE GC**, voce GC.08, 22 ottobre 2026. Il
+  // fondatore: *"all'apertura non si deve vedere la carta o messaggio del
+  // momento"*. LAPIDE: "l'angelo dell'ora e il messaggio del giorno si
+  // vedono subito". Adesso arrivano solo a lettura fatta, in fondo.
+  testWidgets('l\'angelo dell\'ora e il messaggio del giorno arrivano dopo '
+      'la lettura, non all\'apertura', (tester) async {
     await _monta(tester, lettori: [_Finta(fallira: true)]);
+    expect(find.byKey(const Key('oracolo_angelo_dell_ora')), findsNothing,
+        reason: 'all\'apertura si vede il messaggio del momento');
+    await consultaLOracolo(tester, 'Devo cambiare lavoro?');
     await tester
         .ensureVisible(find.byKey(const Key('oracolo_angelo_dell_ora')));
     // Alle 10:05 governa l'angelo 31 (minuto 605: 605 / 20 = 30, piu' uno).

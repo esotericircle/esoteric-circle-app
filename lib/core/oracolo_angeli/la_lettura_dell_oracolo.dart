@@ -128,8 +128,8 @@ abstract final class LaLetturaDellOracolo {
   // risposta diretta stanno in `LaFormaDelResponso.perIlModello`.
   static const String _istruzioneFissa = '''
 Sei Medora, Maestra del Cerchio: voce calda, colta, concreta. Dai del tu a chi ti consulta, in italiano, con gli accenti veri.
-Ricevi una domanda e tre carte dell'Oracolo degli Angeli, una per ruolo: Angelo Custode (cosa fare), Angelo del Cuore (cosa sentire), Angelo dell'Intelletto (cosa capire). Ogni carta porta il suo messaggio già scritto.
-Scrivi i campi titolo, risposta, cosaFare e, quando lo schema lo chiede, approfondimento. La risposta lega la domanda alle tre carte uscite; cosaFare parte dalla carta del Custode.
+Ricevi una domanda e le carte dell'Oracolo degli Angeli: tre, una per ruolo (Angelo Custode, cosa fare; Angelo del Cuore, cosa sentire; Angelo dell'Intelletto, cosa capire), oppure una sola, la carta del momento, senza ruolo. Ogni carta porta il suo messaggio già scritto.
+Scrivi i campi titolo, risposta, cosaFare e, quando lo schema lo chiede, approfondimento. La risposta lega la domanda alle carte uscite; cosaFare parte dalla carta del Custode, o dalla carta del momento quando la carta è una sola.
 Regole che non si rompono:
 - Niente salute, malattia, guarigione, fertilità, gravidanza, medicine o cure del corpo.
 - Nessuna promessa di esito: niente vittorie, ricchezze, successi garantiti, ritorni sicuri, protezioni.
@@ -153,11 +153,18 @@ Regole che non si rompono:
       // La carta coperta non va al modello: non c'e' un angelo da leggere.
       if (c.coperta) continue;
       final messaggio = messaggioDellaCarta(corpus, c, variante);
-      righe.add('${c.ruolo.nome.toUpperCase()} (${c.ruolo.posizione}): '
-          '${c.angelo.name}. Messaggio: $messaggio');
+      // GC.17: la carta del momento non ha ruolo, e non lo si nomina.
+      righe.add(c.delMomento
+          ? '$etichettaDellaCartaDelMomento: ${c.angelo.name}. '
+              'Messaggio: $messaggio'
+          : '${c.ruolo.nome.toUpperCase()} (${c.ruolo.posizione}): '
+              '${c.angelo.name}. Messaggio: $messaggio');
     }
     return righe.join('\n');
   }
+
+  /// **COME LA RICHIESTA NOMINA LA CARTA DEL MOMENTO** (GC.17).
+  static const String etichettaDellaCartaDelMomento = 'LA CARTA DEL MOMENTO';
 
   static String _misura() =>
       'da ${LaFormaDelResponso.minimo} a ${LaFormaDelResponso.massimo} parole';
@@ -209,19 +216,24 @@ Regole che non si rompono:
     return v[variante % v.length];
   }
 
-  /// **LA CARTA SINGOLA NELLA FORMA NUOVA**, ordine GA voce GA.05: sempre
-  /// breve, il nome dell'angelo per titolo, il messaggio e il consiglio, e
-  /// nessun "Da dove viene" (chiude la consultazione una volta sola). Nullo
-  /// per la carta coperta.
+  /// **LA CARTA SINGOLA: IL TITOLO E UN SOLO PARAGRAFO**, ordine GC voce
+  /// GC.15, 22 ottobre 2026. Il fondatore: *"I riquadri delle singole carte
+  /// riportano carta, simbolo e titolo e 1 paragrafo intitolato come adesso
+  /// \"il suo messaggio per te\""*. Il nome dell'angelo per titolo e il suo
+  /// messaggio, nella forma della singola (`ResponsoInterpretato.singola`):
+  /// niente riquadro "Cosa fare adesso" e niente "Da dove viene" (chiude la
+  /// consultazione una volta sola). E' il punto unico in cui la carta
+  /// dell'Oracolo prende la sua forma. Nullo per la carta coperta. LAPIDE,
+  /// GA.05: il messaggio e sotto il consiglio della carta nel riquadro.
   static ResponsoInterpretato? responsoDellaCarta(
       Map<String, List<String>> corpus, CartaDellOracolo c, int variante) {
-    final consiglio = consiglioDellaCarta(corpus, c, variante);
-    if (consiglio == null) return null;
+    if (c.coperta) return null;
     return ResponsoInterpretato(
       arte: ArteInterpretata.oracolo,
       titolo: c.angelo.name,
       risposta: messaggioDellaCarta(corpus, c, variante),
-      cosaFare: consiglio,
+      cosaFare: '',
+      singola: true,
     );
   }
 

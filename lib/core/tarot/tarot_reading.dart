@@ -576,10 +576,17 @@ class PosizioneLetta {
     // **DAL TERZO GIRO DELL'ORDINE GA VOCE GA.06 la carta singola si legge
     // sulla domanda**: il gruppo viene dalla domanda, e su salute, legge e
     // denaro il "Cosa fare" non da' nessun gesto (`LeSingoleSullaDomanda`).
-    final responso = domanda == null
-        ? LeCarteNellaPosizione.responsoDi(drawn, topic.group, uscita: uscita)
-        : LeSingoleSullaDomanda.di(drawn, domanda, topic,
-            uscita: uscita, posto: posto, base: base, usati: usati);
+    // **LA SINGOLA CARTA HA IL TITOLO E UN SOLO PARAGRAFO**, ordine GC voce
+    // GC.05, 22 ottobre 2026: qui, nel punto unico da cui passa ogni carta di
+    // ogni stesa, il responso della carta prende la forma della singola
+    // (`ResponsoInterpretato.comeSingola`). Il riquadro "Cosa fare adesso"
+    // resta del solo responso principale.
+    final responso = (domanda == null
+            ? LeCarteNellaPosizione.responsoDi(drawn, topic.group,
+                uscita: uscita)
+            : LeSingoleSullaDomanda.di(drawn, domanda, topic,
+                uscita: uscita, posto: posto, base: base, usati: usati))
+        .comeSingola();
     return PosizioneLetta(
       drawn: drawn,
       // **L'APERTURA VARIA, ordine DF voce 02.** Era la lente dell'argomento,

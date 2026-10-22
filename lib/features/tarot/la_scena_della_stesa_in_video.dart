@@ -57,6 +57,22 @@ class ScenaDellaStesaInVideo {
   /// Le misure del filmato, in pixel.
   static const Size misura = Size(720, 1280);
 
+  /// **IL FOTOGRAMMA DI ARRIVO, UNO SOLO**, ordine GC voce GC.03, 22 ottobre
+  /// 2026. Il fondatore: *"Quando faccio click per skippare il video
+  /// introduttivo, la scena si deve fermare allo stesso frame con Medora che
+  /// ha una mano al cuore e l'altra che indica il tavolo."* E' l'ultimo
+  /// fotogramma del filmato (il 189 di 190), estratto dal file stesso con
+  /// `tool/gli_asset_dell_ordine_gc.py`, alla sua misura: dove il filmato si
+  /// ferma da solo e dove arriva il salto, e la scena ferma di Riduci
+  /// Movimento. LAPIDE: il salto sfumava sulla posa
+  /// `GeometriaDelTavolo.posaDellInvito`, scontornata dall'ultimo fotogramma
+  /// del filmato v1, con la mano tesa di lato; il v2 della frenata (ordine
+  /// FS aggiunta) finisce con la mano che indica il tavolo, e la posa non era
+  /// stata rifatta. PADRE: ordine FS aggiunta, voce della frenata (14 ottobre
+  /// 2026).
+  static const String ultimoFotogramma =
+      'assets/img/tavolo/stesa_ultimo_fotogramma_v1.webp';
+
   /// Quanto dura: 190 fotogrammi a 24 al secondo, 7,917 secondi (i 142
   /// fotogrammi originali fino al 141 e i 48 della frenata fino al 166).
   static const int fotogrammi = 190;

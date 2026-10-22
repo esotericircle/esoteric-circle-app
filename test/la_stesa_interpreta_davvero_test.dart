@@ -149,11 +149,15 @@ void main() {
             colpe.add('seme $seme, ${p.drawn.displayName}: e\' il significato '
                 'uguale per tutte le posizioni');
           }
+          // **DALL'ORDINE GC VOCE GC.05** la carta singola ha il titolo del
+          // corpus e un paragrafo solo: niente "Cosa fare". LAPIDE: "il
+          // titolo o il cosa fare non sono quelli del corpus".
           final r = p.responso!;
           if (r.titolo != LeCarteNellaPosizione.titoloDi(p.drawn) ||
-              r.cosaFare != LeCarteNellaPosizione.cosaFareDi(p.drawn, g)) {
-            colpe.add('seme $seme, ${p.drawn.displayName}: il titolo o il '
-                'cosa fare non sono quelli del corpus');
+              !r.singola ||
+              r.cosaFare.isNotEmpty) {
+            colpe.add('seme $seme, ${p.drawn.displayName}: il titolo non e\' '
+                'quello del corpus, o la carta ha ancora il riquadro');
           }
           if (r.lungo) {
             colpe.add('seme $seme, ${p.drawn.displayName}: una carta e\' '
@@ -697,6 +701,17 @@ void main() {
     await premi(tester);
     for (var i = 0; i < 30; i++) {
       await tester.pump(const Duration(milliseconds: 500));
+    }
+    // **LE BOLLE SI APRONO AL TOCCO**, ordine GC voce GC.06: il paragrafo
+    // della carta e' chiuso all'apertura. Si aprono tutte, come farebbe chi
+    // le legge, prima di guardarne il testo.
+    for (final d in stesa.cards) {
+      final apri = find.byKey(Key('carta_${d.position.name}_apri'));
+      if (apri.evaluate().isEmpty) continue;
+      await tester.ensureVisible(apri);
+      await tester.pump();
+      await tester.tap(apri);
+      await tester.pump(const Duration(milliseconds: 400));
     }
     return stesa;
   }

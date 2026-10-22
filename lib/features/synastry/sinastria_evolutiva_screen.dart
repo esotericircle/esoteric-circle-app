@@ -546,17 +546,22 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
                         responso: perIlDiario,
                         quando: _quando,
                       ),
-                    Builder(
-                      builder: (corpo) => Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.paddingOf(corpo).top),
-                        child: LoStudioDiMedora(
-                          key: const Key('sinastria_evolutiva_scena'),
-                          posa: _posaDiMedora,
-                          filmato: _filmatoInScena,
-                          filmatoSaltato: _filmatoSaltato,
-                        ),
-                      ),
+                    // **LA SCENA PARTE DAL BORDO ALTO E PASSA SOTTO LA
+                    // BARRA**, ordine GC voce GC.02, 22 ottobre 2026: il
+                    // fondatore, sulla Stesa, *"La barra in alto del titolo
+                    // deve essere semitrasparente in modo da fare vedere il
+                    // video animazione sotto"*, regola permanente R12. LAPIDE:
+                    // la scena cominciava sotto la barra (un margine alto
+                    // quanto la barra di stato e la barra del titolo) e la
+                    // barra copriva solo il cosmo. In cima allo studio c'e'
+                    // l'arco della finestra: la testa di Medora comincia al
+                    // pixel 403 dell'immagine, a 360 punti circa cinquanta
+                    // punti sotto la barra, intera.
+                    LoStudioDiMedora(
+                      key: const Key('sinastria_evolutiva_scena'),
+                      posa: _posaDiMedora,
+                      filmato: _filmatoInScena,
+                      filmatoSaltato: _filmatoSaltato,
                     ),
                     // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce
                     // FXA.08: la coppia, i legami e i capitoli aspettano la

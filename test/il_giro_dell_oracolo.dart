@@ -44,19 +44,48 @@ String jsonFintoDellOracolo(Map<String, Object?> campi,
 /// pulsante dipinto avvia la lettura. Le prove che montano l'Oracolo passano
 /// tutte da qui, cosi' il giro e' uno solo.
 
+/// **LA LUNGA SI SCEGLIE**, ordine GC voce GC.19: all'apertura la
+/// profondita' e' Breve, e chi ha il piano sceglie la Lunga nel selettore,
+/// come nella Stesa di Tarocchi.
+Future<void> scegliLaLunga(WidgetTester tester) async {
+  final tendina = find.byKey(const Key('oracolo_profondita'));
+  await Scrollable.ensureVisible(tester.element(tendina), alignment: 0.2);
+  await tester.pump();
+  await tester.tap(tendina);
+  await tester.pump(const Duration(milliseconds: 400));
+  await tester.tap(find.text('Lunga').last);
+  await tester.pump(const Duration(milliseconds: 400));
+}
+
 /// I dorsi che si toccano, nell'ordine: Custode, Cuore, Intelletto. Stanno
 /// nella finestra iniziale del ventaglio (il centro e' a meta' dei 72).
 const List<int> dorsiDelGiro = [33, 36, 39];
 
-/// Scrive la domanda e la affida: si apre il mazzo coperto.
+/// Scrive la domanda e la affida: il mazzo coperto si accende.
+///
+/// **LA DOMANDA STA SOTTO IL TAVOLO**, ordine GC voce GC.09: il riquadro e'
+/// nella lista, e prima di toccarne il pulsante si porta in vista.
 Future<void> affidaLaDomanda(WidgetTester tester, String domanda) async {
-  await tester.enterText(
-      find.byKey(const Key('oracolo_campo_domanda')), domanda);
+  final campo = find.byKey(const Key('oracolo_campo_domanda'));
+  await Scrollable.ensureVisible(tester.element(campo), alignment: 0.5);
+  await tester.pump();
+  await tester.enterText(campo, domanda);
   await tester.pump();
   await tester.tap(find.byKey(const Key('oracolo_affida')));
   for (var i = 0; i < 8; i++) {
     await tester.pump(const Duration(milliseconds: 100));
   }
+}
+
+/// **UNA CARTA O TRE** (GC.09, GC.17): sceglie la stesa nella tendina.
+Future<void> scegliQuanteCarte(WidgetTester tester, int quante) async {
+  final tendina = find.byKey(const Key('oracolo_quante_carte'));
+  await Scrollable.ensureVisible(tester.element(tendina), alignment: 0.2);
+  await tester.pump();
+  await tester.tap(tendina);
+  await tester.pump(const Duration(milliseconds: 400));
+  await tester.tap(find.text(quante == 1 ? 'Una carta' : 'Tre carte').last);
+  await tester.pump(const Duration(milliseconds: 400));
 }
 
 /// Tocca un dorso del ventaglio sul suo lembo sinistro: il dorso accanto,
@@ -82,7 +111,10 @@ Future<void> toccaIlDorso(WidgetTester tester, int indice) async {
     r = tester.getRect(dorso);
   }
   await tester.tapAt(Offset(r.left + 12, r.center.dy));
-  await tester.pump(const Duration(milliseconds: 300));
+  // Il dorso toccato vola sull'altare (GC.12): 620 millisecondi.
+  for (var i = 0; i < 8; i++) {
+    await tester.pump(const Duration(milliseconds: 100));
+  }
 }
 
 /// Sceglie le tre carte dal mazzo coperto.
@@ -94,13 +126,20 @@ Future<void> scegliLeTreCarte(WidgetTester tester,
 }
 
 /// Tocca il pulsante dipinto e lascia andare la lettura fino al responso:
-/// le lettere (2,4 s), il giro delle carte (1,5 s) e lo scorrimento.
+/// le lettere (2,4 s), la riflessione di Medora (GC.13), le carte che si
+/// girano una alla volta e si alzano (GC.14) e lo scorrimento. Si aspetta il
+/// responso, non un numero di secondi scritto qui.
 Future<void> avviaLaLettura(WidgetTester tester) async {
   final pulsante = find.byKey(const Key('oracolo_avvia_la_lettura'));
   await Scrollable.ensureVisible(tester.element(pulsante), alignment: 0.5);
   await tester.pump();
   await tester.tap(pulsante);
-  for (var i = 0; i < 50; i++) {
+  for (var i = 0;
+      i < 400 && find.byKey(const Key('oracolo_responso')).evaluate().isEmpty;
+      i++) {
+    await tester.pump(const Duration(milliseconds: 100));
+  }
+  for (var i = 0; i < 10; i++) {
     await tester.pump(const Duration(milliseconds: 100));
   }
 }

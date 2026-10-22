@@ -384,6 +384,8 @@ void main() {
         '"Il salmo propiziatorio", e il "Da dove viene" in corsivo una volta '
         'sola, in fondo', (tester) async {
       await _monta(tester, Tier.tier1);
+      // GC.19: la Lunga si sceglie nel selettore; all'apertura e' Breve.
+      await scegliLaLunga(tester);
       await consultaLOracolo(tester, 'Devo cambiare lavoro?');
       final principale = find.byKey(const Key('oracolo_responso_principale'));
       expect(principale, findsOneWidget);

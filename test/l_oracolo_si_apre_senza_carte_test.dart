@@ -158,8 +158,16 @@ void main() {
     print('GA.08 MISURA carte in vista all\'apertura (scena ferma): '
         '${viste.length} $viste');
     expect(viste, isEmpty);
-    // L'ultimo fotogramma porta i tre dorsi dipinti: l'altare vuoto li copre.
-    expect(find.byType(AltareVuoto), findsOneWidget);
+    // **IL TAVOLO E' VUOTO NEL FOTOGRAMMA STESSO** (GC Aggiunta): la scena
+    // ferma e' l'ultimo fotogramma del filmato v2, con l'altare sgombro.
+    // LAPIDE, FY.17 e GA.08: "l'ultimo fotogramma porta i tre dorsi
+    // dipinti: l'altare vuoto li copre" (`AltareVuoto`).
+    expect(
+        (tester.widget<Image>(find.byKey(const Key('oracolo_fotogramma')))
+                .image as AssetImage)
+            .assetName,
+        GeometriaDellAltare.ultimoFotogramma);
+    expect(GeometriaDellAltare.ultimoFotogramma, contains('_v2'));
     expect(
         find.descendant(
             of: find.byKey(const Key('oracolo_angelo_dell_ora')),
@@ -187,26 +195,54 @@ void main() {
     expect(viste, isEmpty);
   });
 
-  test(
-      'il filmato vero si ferma e sfuma prima che le carte compaiano nel '
-      'fotogramma', () {
-    const passoDelLettore = Duration(milliseconds: 100);
-    final fine = GeometriaDellAltare.finoAlleCarte +
-        passoDelLettore +
-        IlFilmatoCheSfuma.dissolvenza;
-    print('GA.08 MISURA la dissolvenza finisce a ${fine.inMilliseconds} ms; '
-        'la prima carta nel filmato a '
-        '${GeometriaDellAltare.primaCartaNelFilmato.inMilliseconds} ms');
-    expect(fine, lessThanOrEqualTo(GeometriaDellAltare.primaCartaNelFilmato));
+  // **IL FILMATO DURA PER INTERO**, ordine GC voce GC.07 e GC Aggiunta, 22
+  // ottobre 2026. Il fondatore: *"il video introduttivo dura meno di un
+  // secondo"*. LAPIDE, GA.08: "il filmato vero si ferma e sfuma prima che le
+  // carte compaiano nel fotogramma", il lettore con `finoA` a 400 ms. Col v2
+  // il tavolo resta vuoto alla fine e il lettore vero non ha nessun taglio;
+  // nessun evento dell'app lo chiude prima della sua fine: solo il tocco o lo
+  // scorrimento della persona (FU.15, GB.02).
+  test('il lettore vero dell\'Oracolo suona il filmato fino alla fine', () {
     final schermata =
         File('lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart')
             .readAsStringSync()
             .replaceAll(RegExp(r'\s+'), ' ');
-    expect(
-        schermata,
-        contains('LettoreDiScena.vero(GeometriaDellAltare.filmato, '
-            'finoA: GeometriaDellAltare.finoAlleCarte)'),
-        reason: 'il lettore vero dell\'Oracolo non si ferma prima delle carte');
+    expect(schermata,
+        contains('LettoreDiScena.vero(GeometriaDellAltare.filmato))'),
+        reason: 'il lettore vero dell\'Oracolo si ferma prima della fine');
+    expect(schermata, isNot(contains('finoA:')),
+        reason: 'il filmato dell\'Oracolo torna a fermarsi a un istante '
+            'scritto nel codice');
+    expect(GeometriaDellAltare.filmato, endsWith('_v2.mp4'));
+    expect(File(GeometriaDellAltare.filmato).existsSync(), isTrue);
+  });
+
+  testWidgets(
+      'nessun evento dell\'app chiude il filmato prima dei suoi dieci secondi',
+      (tester) async {
+    final lettore = _Lettore();
+    await _monta(tester, lettore);
+    lettore.comincia();
+    final filmato = find.byKey(const Key('oracolo_filmato'));
+    var passati = Duration.zero;
+    const passo = Duration(milliseconds: 250);
+    while (passati + passo <
+        GeometriaDellAltare.durataDelFilmato - passo) {
+      await tester.pump(passo);
+      passati += passo;
+      expect(tester.widget<IlFilmatoCheSfuma>(filmato).saltato, isFalse,
+          reason: 'a ${passati.inMilliseconds} ms il filmato si chiude senza '
+              'un tocco');
+    }
+    print('GC.07 MISURA il filmato resta in scena senza tocchi per '
+        '${passati.inMilliseconds} ms su '
+        '${GeometriaDellAltare.durataDelFilmato.inMilliseconds}');
+    lettore.finisci();
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    expect(tester.widget<IlFilmatoCheSfuma>(filmato).saltato, isTrue,
+        reason: 'finito il filmato, la scena ferma non arriva');
   });
 
   testWidgets(

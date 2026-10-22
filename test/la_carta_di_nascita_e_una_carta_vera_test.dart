@@ -195,14 +195,33 @@ void main() {
     expect(laCarta, findsOneWidget,
         reason: 'a rivelazione finita la carta girata non c e');
     expect(tester.widget<TarotCardArt>(laCarta).card, carta);
+    // **LA NITIDEZZA, NON IL NOME DEL FILE**, ordine GC voce GC.01: la carta
+    // si decodifica alla misura in cui si vede (`TarotCardArt.gradinoPer`),
+    // dalla miniatura del bundle quando e' piccola. Cio' che il fondatore
+    // vede e' la carta nitida: l'arte scelta ha almeno i pixel veri con cui
+    // la carta e' disegnata. LAPIDE: "la carta girata non apre la sua arte a
+    // piena risoluzione", che pretendeva la piena a ogni misura.
     final arte = find.descendant(
         of: laCarta,
-        matching: find.byWidgetPredicate((w) =>
-            w is Image &&
-            w.image is AssetImage &&
-            (w.image as AssetImage).assetName == carta.fullPath));
-    expect(arte, findsOneWidget,
-        reason: 'la carta girata non apre la sua arte a piena risoluzione');
+        matching: find.byWidgetPredicate((w) {
+          if (w is! Image) return false;
+          final immagine = w.image is ResizeImage
+              ? (w.image as ResizeImage).imageProvider
+              : w.image;
+          return immagine is AssetImage &&
+              (immagine.assetName == carta.fullPath ||
+                  immagine.assetName == carta.thumbPath);
+        }));
+    expect(arte, findsOneWidget, reason: 'la carta girata non apre la sua arte');
+    final img = tester.widget<Image>(arte);
+    final pixelVeri =
+        tester.getSize(laCarta).width * tester.view.devicePixelRatio;
+    final larghezzaDellArte = img.image is ResizeImage
+        ? (img.image as ResizeImage).width!
+        : ((img.image as AssetImage).assetName == carta.thumbPath ? 333 : 853);
+    expect(larghezzaDellArte, greaterThanOrEqualTo(pixelVeri.floor()),
+        reason: 'la carta girata e\' disegnata a ${pixelVeri.round()} pixel '
+            'con un\'arte larga $larghezzaDellArte: si vede sfocata');
     // **REGOLA I dell'ordine DC voce 14**: almeno il settanta per cento.
     final scena =
         tester.getRect(find.byKey(const Key('rivelazione_carta_di_nascita')));

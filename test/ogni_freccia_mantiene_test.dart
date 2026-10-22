@@ -75,6 +75,13 @@ void main() {
             'freccia lo apre IN POSTO col salmo, il momento e il testo di '
             'Caligo, e diventa expand_less quando e\' aperto. Rivela testo '
             'gia\' scritto, non chiede niente a nessuno.',
+    'lib/design_system/components/la_singola_che_si_apre.dart':
+        'la singola carta chiusa all\'apertura, ordine GC voci GC.06 e GC.18 '
+            '(strato 3 delle Linee Guida V14): InkWell con chiave '
+            '<chiave>_apri sotto la parola chiave e il titolo, apre IN POSTO '
+            'il paragrafo intero della carta, e diventa expand_less con '
+            '"Chiudi" quando e\' aperto. Rivela testo gia\' scritto, non '
+            'chiede niente a nessuno.',
     'lib/features/ricordi/ricordi_screen.dart':
         'il gruppo del giorno nei Ricordi, ordine CG voce 02: sopra le tre '
             'voci uguali la riga si chiude col suo conto, per esempio '

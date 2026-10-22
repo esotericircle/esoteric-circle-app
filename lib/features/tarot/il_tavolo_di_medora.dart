@@ -290,7 +290,29 @@ class TavoloDiMedora extends StatelessWidget {
     this.filmato,
     this.filmatoSaltato = false,
     this.scenaFerma = true,
+    this.cieloSopra = 0,
+    this.fotogrammaDiArrivo = false,
   });
+
+  /// **LA SCENA FERMA E' L'ULTIMO FOTOGRAMMA DEL FILMATO**, ordine GC voce
+  /// GC.03: vero dopo il salto, e senza filmato (Riduci Movimento, o un
+  /// filmato che non si carica). Allora sotto il filmato, nello stesso
+  /// riquadro, sta [ScenaDellaStesaInVideo.ultimoFotogramma]: il filmato che
+  /// sfuma lascia vedere la stessa immagine su cui si ferma quando finisce da
+  /// solo, e la posa scontornata di Medora non si posa piu' sopra.
+  final bool fotogrammaDiArrivo;
+
+  /// **LA SCENA CONTINUA SOTTO LA BARRA DEL TITOLO**, ordine GC voce GC.02,
+  /// 22 ottobre 2026. Il fondatore: *"La barra in alto del titolo deve essere
+  /// semitrasparente in modo da fare vedere il video animazione sotto"*.
+  /// Quanti punti sopra il riquadro della scena l'immagine e il filmato
+  /// continuano a dipingersi, fino al bordo alto dello schermo: e' la volta
+  /// dell'arco che [GeometriaDelTavolo.taglioInAlto] toglieva, e c'e' davvero
+  /// nello sfondo (418 pixel) e nel filmato (dal pixel
+  /// [ScenaDellaStesaInVideo.sopra]). Medora, il piano e le carte restano
+  /// dove sono: cambia solo cio' che si vede sotto il velo della barra.
+  /// Zero, la scena comincia al suo riquadro come prima.
+  final double cieloSopra;
 
   final List<PostoSulTavolo> posti;
 
@@ -350,6 +372,14 @@ class TavoloDiMedora extends StatelessWidget {
       final h = GeometriaDelTavolo.omografia(w);
       final sulPiano = GeometriaDelTavolo.carteSulPiano(posti, w);
       final fila = GeometriaDelTavolo.fila(posti, w);
+      // **IL CIELO SOPRA, GC.02**: non oltre la volta che il filmato ha
+      // davvero sopra il taglio (lo sfondo ne ha di piu'), e lo sfondo e il
+      // filmato si dipingono da li'.
+      final cielo = cieloSopra.clamp(
+          0.0,
+          (GeometriaDelTavolo.taglioInAlto - ScenaDellaStesaInVideo.sopra) *
+              s);
+      final dipinta = alta + cielo;
       return SizedBox(
         width: w,
         height: alta,
@@ -357,19 +387,22 @@ class TavoloDiMedora extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             // LO SFONDO, tagliato in alto e in basso: sotto il drappo il
-            // pavimento e la gamba del tavolo non si vedono.
+            // pavimento e la gamba del tavolo non si vedono. Col cielo sopra
+            // (GC.02) comincia piu' in alto del riquadro, fuori dalla scena,
+            // e la sfumatura in alto non serve piu': il bordo sta dietro la
+            // barra di stato, al margine dello schermo.
             Positioned(
               left: 0,
-              top: 0,
+              top: -cielo,
               width: w,
-              height: alta,
+              height: dipinta,
               child: ShaderMask(
                 key: const Key('tavolo_sfumatura'),
                 blendMode: BlendMode.dstIn,
-                shaderCallback: (r) => const LinearGradient(
+                shaderCallback: (r) => LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
+                  colors: const [
                     Color(0x00FFFFFF),
                     Color(0xFFFFFFFF),
                     Color(0xFFFFFFFF),
@@ -377,14 +410,19 @@ class TavoloDiMedora extends StatelessWidget {
                   ],
                   stops: [
                     0,
-                    GeometriaDelTavolo.sfumaturaInAlto /
-                        GeometriaDelTavolo.altoDelTaglio,
-                    (GeometriaDelTavolo.inizioDellaSfumatura -
-                            GeometriaDelTavolo.taglioInAlto) /
-                        GeometriaDelTavolo.altoDelTaglio,
-                    (GeometriaDelTavolo.fineDellaSfumatura -
-                            GeometriaDelTavolo.taglioInAlto) /
-                        GeometriaDelTavolo.altoDelTaglio,
+                    cielo > 0
+                        ? 0
+                        : GeometriaDelTavolo.sfumaturaInAlto * s / dipinta,
+                    (cielo +
+                            (GeometriaDelTavolo.inizioDellaSfumatura -
+                                    GeometriaDelTavolo.taglioInAlto) *
+                                s) /
+                        dipinta,
+                    (cielo +
+                            (GeometriaDelTavolo.fineDellaSfumatura -
+                                    GeometriaDelTavolo.taglioInAlto) *
+                                s) /
+                        dipinta,
                   ],
                 ).createShader(r),
                 child: ClipRect(
@@ -399,8 +437,8 @@ class TavoloDiMedora extends StatelessWidget {
                           minHeight: GeometriaDelTavolo.immagine.height * s,
                           maxHeight: GeometriaDelTavolo.immagine.height * s,
                           child: Transform.translate(
-                            offset:
-                                Offset(0, -GeometriaDelTavolo.taglioInAlto * s),
+                            offset: Offset(
+                                0, cielo - GeometriaDelTavolo.taglioInAlto * s),
                             child: Image.asset(GeometriaDelTavolo.sfondo,
                                 key: const Key('tavolo_sfondo'),
                                 fit: BoxFit.fill,
@@ -408,6 +446,39 @@ class TavoloDiMedora extends StatelessWidget {
                           ),
                         ),
                       ),
+                      // **IL FOTOGRAMMA DI ARRIVO** (GC.03), nello stesso
+                      // riquadro del filmato e con la stessa tecnica.
+                      if (fotogrammaDiArrivo)
+                        Positioned.fill(
+                          child: OverflowBox(
+                            alignment: Alignment.topLeft,
+                            minWidth: w,
+                            maxWidth: w,
+                            minHeight: (ScenaDellaStesaInVideo.sotto -
+                                    ScenaDellaStesaInVideo.sopra) *
+                                s,
+                            maxHeight: (ScenaDellaStesaInVideo.sotto -
+                                    ScenaDellaStesaInVideo.sopra) *
+                                s,
+                            child: Transform.translate(
+                              offset: Offset(
+                                  0,
+                                  cielo +
+                                      (ScenaDellaStesaInVideo.sopra -
+                                              GeometriaDelTavolo.taglioInAlto) *
+                                          s),
+                              child: Image.asset(
+                                  ScenaDellaStesaInVideo.ultimoFotogramma,
+                                  key: const Key('tavolo_fotogramma_di_arrivo'),
+                                  width: w,
+                                  height: (ScenaDellaStesaInVideo.sotto -
+                                          ScenaDellaStesaInVideo.sopra) *
+                                      s,
+                                  fit: BoxFit.fill,
+                                  filterQuality: FilterQuality.medium),
+                            ),
+                          ),
+                        ),
                       // IL VIDEO DELLA SCENA, sopra lo sfondo e dentro la
                       // stessa sfumatura: il velluto del filmato sfuma nel
                       // cosmo come quello fermo. Ordine FS aggiunta.
@@ -442,9 +513,10 @@ class TavoloDiMedora extends StatelessWidget {
                             child: Transform.translate(
                               offset: Offset(
                                   0,
-                                  (ScenaDellaStesaInVideo.sopra -
-                                          GeometriaDelTavolo.taglioInAlto) *
-                                      s),
+                                  cielo +
+                                      (ScenaDellaStesaInVideo.sopra -
+                                              GeometriaDelTavolo.taglioInAlto) *
+                                          s),
                               child: SizedBox(
                                 key: const Key('tavolo_filmato'),
                                 width: w,
@@ -463,8 +535,9 @@ class TavoloDiMedora extends StatelessWidget {
               ),
             ),
             // MEDORA FERMA, con la vita sul bordo lontano del velluto. Col
-            // filmato in scena Medora e' nel filmato.
-            if (filmato == null || filmatoSaltato)
+            // filmato in scena Medora e' nel filmato; col fotogramma di
+            // arrivo (GC.03) e' nel fotogramma.
+            if ((filmato == null || filmatoSaltato) && !fotogrammaDiArrivo)
               Positioned.fromRect(
                 rect: medora,
                 child: LaScenaFermaCheAppare(

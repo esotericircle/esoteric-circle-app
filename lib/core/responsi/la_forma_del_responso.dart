@@ -172,7 +172,33 @@ class ResponsoInterpretato {
     this.approfondimento,
     this.rito,
     this.daDoveViene,
+    this.singola = false,
   });
+
+  /// **LA SINGOLA CARTA HA IL TITOLO E UN SOLO PARAGRAFO**, ordine GC voci
+  /// GC.05 e GC.15, 22 ottobre 2026. Il fondatore: *"il responso da 2
+  /// paragrafi, uno semplice e uno con riquadro vale solo per la risposta
+  /// principale e non per le singole carte. Il responso delle singole carte
+  /// deve avere solo un paragrafo Senza il secondo con riquadro."*; e poco
+  /// dopo: *"la singola Carta ha titolo e non ha il secondo paragrafo con
+  /// riquadro"*. Vero, la forma e' quella della carta singola: il titolo e
+  /// [risposta], senza [cosaFare], senza la Lunga. Vale per le carte dei
+  /// Tarocchi (GC.05) e per quelle dell'Oracolo degli Angeli (GC.15); le
+  /// singole rune restano come le voleva GA.05. LAPIDE, GA.05: la carta
+  /// singola portava anche il riquadro "Cosa fare adesso".
+  final bool singola;
+
+  /// **LA STESSA CARTA NELLA FORMA DELLA SINGOLA** (GC.05): il punto unico
+  /// in cui un responso composto per una carta perde il riquadro. Nessun
+  /// testo si tronca: il paragrafo resta intero, il riquadro non si mostra.
+  ResponsoInterpretato comeSingola() => ResponsoInterpretato(
+        arte: arte,
+        titolo: titolo,
+        risposta: risposta,
+        cosaFare: '',
+        daDoveViene: daDoveViene,
+        singola: true,
+      );
 
   final ArteInterpretata arte;
   final String titolo;
@@ -197,7 +223,7 @@ class ResponsoInterpretato {
   /// I paragrafi che si contano, nell'ordine in cui si leggono.
   List<String> get paragrafi => [
         risposta,
-        cosaFare,
+        if (!singola) cosaFare,
         if (approfondimento != null) approfondimento!,
         if (rito != null) rito!,
       ];
@@ -224,6 +250,15 @@ class ResponsoInterpretato {
     }
 
     misura('la risposta', risposta);
+    if (singola) {
+      // GC.05: la singola carta non ha il riquadro ne' la Lunga.
+      if (cosaFare.trim().isNotEmpty) {
+        fuori.add('$chi: la singola carta ha il riquadro '
+            '"${LaFormaDelResponso.titoloDelConsiglio}"');
+      }
+      if (lungo) fuori.add('$chi: la singola carta ha i paragrafi della Lunga');
+      return fuori;
+    }
     misura('il riquadro "${LaFormaDelResponso.titoloDelConsiglio}"', cosaFare);
     if (lungo) {
       misura('l\'approfondimento', approfondimento);

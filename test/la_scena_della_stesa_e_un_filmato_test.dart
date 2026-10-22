@@ -253,7 +253,12 @@ void main() {
     expect(finta.aperture, 0,
         reason: 'con Riduci Movimento il filmato si apre');
     expect(find.byKey(const Key('finta_del_filmato')), findsNothing);
-    expect(_posa(tester), GeometriaDelTavolo.posaDellInvito);
+    // **GC.03**: la scena ferma e' l'ultimo fotogramma del filmato, lo
+    // stesso dove il filmato si ferma da solo; la posa scontornata non
+    // si posa piu' sopra. LAPIDE: `_posa(tester) == posaDellInvito`.
+    expect(find.byKey(const Key('tavolo_fotogramma_di_arrivo')),
+        findsOneWidget);
+    expect(_posa(tester), isNull);
   });
 
   testWidgets('se il filmato non si carica la scena e\' ferma, con l\'invito',
@@ -262,7 +267,12 @@ void main() {
     await _monta(tester, lettori: [finta]);
     expect(finta.avvii, 0);
     expect(find.byKey(const Key('finta_del_filmato')), findsNothing);
-    expect(_posa(tester), GeometriaDelTavolo.posaDellInvito);
+    // **GC.03**: la scena ferma e' l'ultimo fotogramma del filmato, lo
+    // stesso dove il filmato si ferma da solo; la posa scontornata non
+    // si posa piu' sopra. LAPIDE: `_posa(tester) == posaDellInvito`.
+    expect(find.byKey(const Key('tavolo_fotogramma_di_arrivo')),
+        findsOneWidget);
+    expect(_posa(tester), isNull);
   });
 
   testWidgets('a suoni spenti nell\'app il filmato e\' muto', (tester) async {
@@ -342,8 +352,15 @@ void main() {
     expect(velo, findsNothing,
         reason: 'saltato il video, il velo deve sparire: dopo il tocco la '
             'schermata risponde come sempre');
-    expect(_posa(tester), GeometriaDelTavolo.posaDellInvito,
-        reason: 'saltato il video, la scena ferma e\' l\'ultima posa');
+    // **GC.03**: saltato il video, sotto il filmato che sfuma c'e' il suo
+    // ultimo fotogramma, Medora con la mano al cuore e l'altra che indica il
+    // tavolo. LAPIDE: "la scena ferma e' l'ultima posa" (posaDellInvito).
+    expect(find.byKey(const Key('tavolo_fotogramma_di_arrivo')),
+        findsOneWidget,
+        reason: 'saltato il video, la scena ferma non e\' l\'ultimo '
+            'fotogramma del filmato');
+    expect(_posa(tester), isNull,
+        reason: 'saltato il video, la posa scontornata si posa ancora sopra');
     expect(finta.avvii, 1, reason: 'il video saltato e\' ripartito');
   });
 }

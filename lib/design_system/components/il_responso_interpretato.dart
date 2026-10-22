@@ -112,12 +112,16 @@ class IlResponsoInterpretato extends StatelessWidget {
       aggiungi(testo(indice, responso.risposta, 'risposta'));
     }
     indice++;
-    if (indice < visibili) {
-      aggiungi(riquadro(LaFormaDelResponso.titoloDelConsiglio,
-          testo(indice, responso.cosaFare, 'cosa_fare'), 'cosa_fare',
-          arancione: false));
+    // **LA SINGOLA CARTA NON HA IL RIQUADRO**, ordine GC voce GC.05: il
+    // titolo e un paragrafo ([ResponsoInterpretato.singola]).
+    if (!responso.singola) {
+      if (indice < visibili) {
+        aggiungi(riquadro(LaFormaDelResponso.titoloDelConsiglio,
+            testo(indice, responso.cosaFare, 'cosa_fare'), 'cosa_fare',
+            arancione: false));
+      }
+      indice++;
     }
-    indice++;
     if (responso.approfondimento != null) {
       if (indice < visibili) {
         aggiungi(testo(indice, responso.approfondimento!, 'approfondimento'));

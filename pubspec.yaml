@@ -335,11 +335,17 @@ flutter:
     # del video e i tre medaglioni dei ruoli (Custode, Cuore, Intelletto),
     # convertiti in WebP da tool/gli_asset_dell_ordine_fu.py.
     - assets/img/oracolo_angeli/
-    # IL VIDEO DELLA SCALA DI GIACOBBE, voce FU.02: medora_scala_di_luce_v1.mp4,
-    # 720 per 1280, 8 secondi, ricompresso in H.264 a qualita' costante 26 con
-    # l'audio (voce FU.12), impronta SHA-256
-    # 836f8d690565c0d715effa16ced7fd2c0458f76adeeda15c48ba5ede180a1f0f.
+    # IL VIDEO DELLA SCALA DI GIACOBBE, voce FU.02, rifatto per l'ordine GC
+    # (GC Aggiunta, il tavolo che resta vuoto): medora_scala_di_luce_v2.mp4,
+    # 720 per 1280, 10 secondi, ricompresso in H.264 a qualita' costante 26
+    # con l'audio (voce FU.12) da tool/gli_asset_dell_ordine_gc.py, impronta
+    # SHA-256 99ec7f2a99ff9e924fee1c91d88f6ad5cdb101fadb8443f2f0428b57475fb6c1.
     - brand_assets/oracolo_angeli/
+    # I SIMBOLI DIPINTI DEL LIVELLO VISIVO DEI RESPONSI, ordine GC voci GC.06
+    # e GC.18, 22 ottobre 2026: i quattro semi dei Tarocchi, il segno degli
+    # Arcani Maggiori e i nove segni dei cori angelici, 512 per 512 con la
+    # trasparenza, convertiti in WebP da tool/gli_asset_dell_ordine_gc.py.
+    - assets/img/simboli/
     # LA SCENA DELL'OROSCOPO, voce FU.13: la ruota accesa e spenta, le due
     # pose di Medora, il primo e l'ultimo fotogramma.
     - assets/img/oroscopo_scena/

@@ -43,6 +43,8 @@ import '../../core/tarot/le_fonti_dei_tarocchi.dart';
 import '../../design_system/components/cosmos_background.dart';
 import 'il_tavolo_di_medora.dart';
 import 'la_scena_della_stesa_in_video.dart';
+import 'le_barre_dei_semi.dart';
+import '../../design_system/components/la_singola_che_si_apre.dart';
 import '../../core/sensi/la_suoneria.dart';
 import '../../core/settings/settings_controller.dart';
 import 'attesa_di_medora.dart';
@@ -215,7 +217,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
 
   /// La firma della stesa: il tipo e la domanda (ordine FI voce 27).
   String get _firma => LaStesaConservata.firma(_setup.tipo,
-      domandaScritta: _setup.domandaScritta, argomento: _setup.topic);
+      domandaScritta: _setup.domandaScritta, argomento: _setup.argomento);
 
   /// **LA STESA COMPIUTA SU QUESTA DOMANDA TORNA.** Finche' nessuna carta e'
   /// stata presa, se oggi su questa domanda c'e' gia' una stesa compiuta le
@@ -731,7 +733,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// il riquadro la ripeteva a video, **e il motore non la vedeva mai**.
   /// Misurato: su una domanda di cinque parole portanti, nel testo del
   /// responso ne arrivavano zero.
-  TarotReading get _reading => TarotReading.of(_spread, _setup.topic,
+  TarotReading get _reading => TarotReading.of(_spread, _setup.argomento,
       depth: _setup.depth,
       fattoDelCielo: _fattoDelCielo,
       domandaScritta: _setup.domandaScritta,
@@ -1203,8 +1205,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     _letturaInArrivo = LaLetturaDellaStesa.leggi(
       spread: _spread,
       domanda: sua ?? _setup.topic.label,
-      argomento: _setup.topic.label,
-      gruppo: _setup.topic.group,
+      argomento: _setup.argomento.label,
+      gruppo: _setup.argomento.group,
       forma: LaMarcaDelGenere.formaCorrente,
       chiave: _setup.key,
       chiamata: widget.chiamata,
@@ -1776,7 +1778,12 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// margini: lo sfondo non si ferma a sedici punti dal bordo. E' alta fino
   /// al bordo davanti del tavolo; il drappo scende sotto il selettore e ci
   /// sfuma dietro (ordine FL voce 02: "subito sotto il tavolo il selettore").
-  Widget _laScena(MaestroPalette palette) {
+  ///
+  /// **[cieloSopra] E' IL MARGINE FRA IL BORDO ALTO DELLO SCHERMO E LA
+  /// SCENA**, ordine GC voce GC.02: lo sfondo e il filmato continuano a
+  /// dipingersi li', sotto il velo della barra del titolo, mentre Medora e le
+  /// carte restano al loro posto ([TavoloDiMedora.cieloSopra]).
+  Widget _laScena(MaestroPalette palette, {double cieloSopra = 0}) {
     return LayoutBuilder(builder: (context, vincoli) {
       final w = vincoli.maxWidth + 2 * SpacingTokens.lg;
       final s = GeometriaDelTavolo.scala(w);
@@ -1830,9 +1837,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 faccia: (carta) =>
                     FacciaDellaCarta(drawn: carta, palette: palette),
                 posa: _posaDiMedora,
+                // GC.03: dopo il salto e senza filmato, l'ultimo fotogramma.
+                fotogrammaDiArrivo:
+                    _posaDiMedora == GeometriaDelTavolo.posaDellInvito,
                 filmato: _filmatoInScena,
                 filmatoSaltato: _filmatoSaltato,
                 scenaFerma: _scenaFerma,
+                cieloSopra: cieloSopra,
               ),
             )),
           ),
@@ -1985,7 +1996,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // della stesa, il ventaglio, i comandi e i suggerimenti stavano sotto la
     // scena e coprivano la meta' bassa del filmato mentre girava. Adesso
     // aspettano la scena ferma e compaiono in dissolvenza.
-    final scena = _laScena(palette);
+    // **IL VIDEO CONTINUA SOTTO LA BARRA, ordine GC voce GC.02.** Il
+    // fondatore, 22 ottobre 2026: *"La barra in alto del titolo deve essere
+    // semitrasparente in modo da fare vedere il video animazione sotto"*.
+    // La scena resta dov'e' (Medora sotto la barra, intera), e la volta che
+    // il taglio toglieva si dipinge nel margine alto della lista, dietro il
+    // velo, fino al bordo dello schermo.
+    final margineAlto = sottoLaBarra -
+        GeometriaDelTavolo.sfumaturaInAlto *
+            GeometriaDelTavolo.scala(MediaQuery.sizeOf(context).width);
+    final scena = _laScena(palette, cieloSopra: margineAlto);
     return ListView(
       key: const Key('stesa_list'),
       controller: _scorrimento,
@@ -2001,12 +2021,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // (`GeometriaDelTavolo.sfumaturaInAlto`), cosi' l'immagine e' piena dal
       // bordo della barra in giu'.
       padding: EdgeInsets.fromLTRB(
-          SpacingTokens.lg,
-          sottoLaBarra -
-              GeometriaDelTavolo.sfumaturaInAlto *
-                  GeometriaDelTavolo.scala(MediaQuery.sizeOf(context).width),
-          SpacingTokens.lg,
-          SpacingTokens.lg),
+          SpacingTokens.lg, margineAlto, SpacingTokens.lg, SpacingTokens.lg),
       children: IlRestoDopoLaScena.attorno(scenaFerma: _scenaFerma, scena: {
         scena
       }, [
@@ -2234,7 +2249,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             spacing: SpacingTokens.sm,
             runSpacing: SpacingTokens.sm,
             children: [
-              _GestoMazzo(
+              GestoDelMazzo(
                 key: const Key('stesa_taglia'),
                 icona: Icons.content_cut_rounded,
                 label: 'Taglia',
@@ -2242,7 +2257,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                 attivo: _scene.accettaGesti,
                 onTap: _taglia,
               ),
-              _GestoMazzo(
+              GestoDelMazzo(
                 key: const Key('stesa_mischia'),
                 icona: Icons.casino_rounded,
                 label: 'Mischia',
@@ -2252,7 +2267,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               ),
               // Un solo interruttore per suono e vibrazione: chi zittisce
               // l'app non si aspetta di sentirla ancora vibrare in mano.
-              _GestoMazzo(
+              GestoDelMazzo(
                 key: const Key('stesa_silenzio'),
                 icona: _silenzio
                     ? Icons.volume_off_rounded
@@ -2338,8 +2353,60 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           ],
           const SizedBox(height: SpacingTokens.md),
         ],
-        // **IL TITOLO E LA DOMANDA, sopra le tre carte.**
-        // Ordine DF voci 04.5 e 04.6, 11 settembre 2026.
+        // Le carte: quelle del responso, e quelle del momento fra l'ultima
+        // scelta e la riflessione, che e' lo stesso blocco (ordine BZ voce
+        // 07). Sotto, la spaziatura che le stacca da Medora quando sono sole.
+        // **QUI LA SCHERMATA SEMBRAVA CAMBIARE, ordine CQ voce 6.09.**
+        //
+        // Parole del fondatore: *appena inserisco la terza carta, si apre
+        // una nuova schermata con le 3 carte e il bottone*. **Non si apriva
+        // nessuna schermata**: alla terza carta `_complete` diventa vero e
+        // sparivano in blocco il pannello, gli slot, il blocco delle carte,
+        // il ventaglio e il prompt, mentre Medora saliva da centosettanta a
+        // trecento. Di tutta la pagina restavano un ritratto grande e un
+        // pulsante, e a chi guarda quello e' un'altra schermata.
+        //
+        // Adesso le tre carte scelte restano sotto i loro slot, e il
+        // pulsante sta sotto di loro: **la pagina e' la stessa di un attimo
+        // prima, con una carta in piu' e un pulsante acceso.**
+        // **QUI C'ERA IL SECONDO MONTAGGIO DEGLI SLOT E DELLE CARTE, ed e'
+        // lui che riordinava la pagina.** Ordine DD voce 08, 10 settembre
+        // 2026.
+        //
+        // La voce CQ 6.09 aveva rimesso a video cio' che spariva alla terza
+        // carta, e lo aveva rimesso **qui sotto**, dopo il pulsante. Il
+        // risultato: gli stessi pezzi, in un ordine diverso, con la pagina
+        // che saliva di quattrocentotrenta punti. Adesso il blocco di sopra
+        // resta fino al responso e questo non serve piu': **un pezzo solo,
+        // in un posto solo.**
+        // Le carte del responso sono in piedi sul tavolo, nella scena in cima
+        // (ordine FL voce 05): qui sotto restano il loro testo e il responso.
+        if (_responsoInScena) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          // IL BLOCCO DELLE CARTE A PIENA LARGHEZZA, ordine P voce 10.
+          _BloccoDelleCarte(
+            key: const Key('stesa_blocco_carte'),
+            carte: _spread.cards,
+            palette: palette,
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          // **IL COLPO D'OCCHIO PRIMA DEL TESTO**, ordine GC voce GC.06, 22
+          // ottobre 2026: gli elementi delle carte uscite, le piste dei
+          // quattro semi e il segno degli Arcani Maggiori (`LeBarreDeiSemi`),
+          // fra le carte e il titolo. Fermo con Riduci Movimento o la grafica
+          // alleggerita.
+          LeBarreDeiSemi(
+            carte: _spread.cards,
+            palette: palette,
+            fermo: _reduceMotion,
+          ),
+          const SizedBox(height: SpacingTokens.md),
+        ],
+        // **IL TITOLO E LA DOMANDA, dopo le carte e dopo il colpo d'occhio.**
+        // Ordine DF voci 04.5 e 04.6, 11 settembre 2026. LAPIDE: "sopra le
+        // tre carte". Ordine GC voce GC.06, 22 ottobre 2026: l'ordine del
+        // responso e' le carte uscite, il colpo d'occhio, il titolo, i
+        // paragrafi.
         if (_responsoInScena) ...[
           // **IL TITOLO C'E' SEMPRE E NON HA UN PUNTO DENTRO.** Il fondatore
           // ha misurato che il titolo grande col significato della carta del
@@ -2394,43 +2461,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           ],
           const SizedBox(height: SpacingTokens.md),
         ],
-        // Le carte: quelle del responso, e quelle del momento fra l'ultima
-        // scelta e la riflessione, che e' lo stesso blocco (ordine BZ voce
-        // 07). Sotto, la spaziatura che le stacca da Medora quando sono sole.
-        // **QUI LA SCHERMATA SEMBRAVA CAMBIARE, ordine CQ voce 6.09.**
-        //
-        // Parole del fondatore: *appena inserisco la terza carta, si apre
-        // una nuova schermata con le 3 carte e il bottone*. **Non si apriva
-        // nessuna schermata**: alla terza carta `_complete` diventa vero e
-        // sparivano in blocco il pannello, gli slot, il blocco delle carte,
-        // il ventaglio e il prompt, mentre Medora saliva da centosettanta a
-        // trecento. Di tutta la pagina restavano un ritratto grande e un
-        // pulsante, e a chi guarda quello e' un'altra schermata.
-        //
-        // Adesso le tre carte scelte restano sotto i loro slot, e il
-        // pulsante sta sotto di loro: **la pagina e' la stessa di un attimo
-        // prima, con una carta in piu' e un pulsante acceso.**
-        // **QUI C'ERA IL SECONDO MONTAGGIO DEGLI SLOT E DELLE CARTE, ed e'
-        // lui che riordinava la pagina.** Ordine DD voce 08, 10 settembre
-        // 2026.
-        //
-        // La voce CQ 6.09 aveva rimesso a video cio' che spariva alla terza
-        // carta, e lo aveva rimesso **qui sotto**, dopo il pulsante. Il
-        // risultato: gli stessi pezzi, in un ordine diverso, con la pagina
-        // che saliva di quattrocentotrenta punti. Adesso il blocco di sopra
-        // resta fino al responso e questo non serve piu': **un pezzo solo,
-        // in un posto solo.**
-        // Le carte del responso sono in piedi sul tavolo, nella scena in cima
-        // (ordine FL voce 05): qui sotto restano il loro testo e il responso.
         if (_responsoInScena) ...[
-          const SizedBox(height: SpacingTokens.sm),
-          // IL BLOCCO DELLE CARTE A PIENA LARGHEZZA, ordine P voce 10.
-          _BloccoDelleCarte(
-            key: const Key('stesa_blocco_carte'),
-            carte: _spread.cards,
-            palette: palette,
-          ),
-          const SizedBox(height: SpacingTokens.lg),
           // **LA DOMANDA SCRITTA A MANO, RIPETUTA SOPRA IL RESPONSO.**
           // Ordine CO voce 05, 3 settembre 2026.
           //
@@ -3641,19 +3672,18 @@ class BollaDellaPosizione extends StatelessWidget {
           const SizedBox(height: SpacingTokens.xs),
           // **ANCHE LE ALTRE BOLLE SALGONO, ordine BU voce 01**: "anche le
           // altre bolle hanno il font piccolo".
-          // **IL RESPONSO BREVE DELLA CARTA, ordine GA voce GA.05**: il suo
-          // titolo, il paragrafo e il riquadro "Cosa fare adesso", dal
-          // corpus. LAPIDE: un paragrafo solo, senza titolo e senza riquadro,
-          // dall'ordine EQ voce 04 all'ordine GA.
+          // **IL RESPONSO DELLA CARTA, ordine GC voci GC.05 e GC.06**: la
+          // parola chiave grande (la sintesi del verso uscito, dal corpus),
+          // il titolo e un solo paragrafo, senza il riquadro "Cosa fare
+          // adesso" (GC.05); il paragrafo resta chiuso all'apertura e si apre
+          // al tocco (GC.06, strato 3 delle Linee Guida V14). LAPIDE, GA.05:
+          // il titolo, il paragrafo e il riquadro "Cosa fare adesso", aperti.
           if (letta.responso != null)
-            IlResponsoInterpretato(
+            LaSingolaCheSiApre(
               responso: letta.responso!,
+              parolaChiave: letta.drawn.summary,
               chiave: 'carta_${letta.drawn.position.name}',
               palette: palette,
-              stileDelTitolo: TypographyTokens.titoloScheda()
-                  .copyWith(color: palette.goldSoft, height: 1.25),
-              stile: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textPrimary),
             )
           else
             ParagrafiDiLettura(
@@ -3693,62 +3723,6 @@ class BollaDellaPosizione extends StatelessWidget {
   }
 }
 
-/// Un gesto sul mazzo: taglia o mischia.
-///
-/// Resta sempre in campo, anche quando il telefono ha l'accelerometro: lo
-/// scuotimento e' un di piu', mai l'unica strada per mescolare.
-class _GestoMazzo extends StatelessWidget {
-  const _GestoMazzo({
-    super.key,
-    required this.icona,
-    required this.label,
-    required this.palette,
-    required this.attivo,
-    required this.onTap,
-  });
-
-  final IconData icona;
-  final String label;
-  final MaestroPalette palette;
-  final bool attivo;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      button: true,
-      enabled: attivo,
-      label: label,
-      child: GestureDetector(
-        onTap: attivo ? onTap : null,
-        child: AnimatedOpacity(
-          opacity: attivo ? 1 : 0.4,
-          duration: const Duration(milliseconds: 200),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-              color: palette.surfaceElevated.withValues(alpha: 0.6),
-              border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(icona, size: 15, color: palette.goldSoft),
-                const SizedBox(width: 6),
-                // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
-                Flexible(
-                    child: Text(label,
-                        style: TypographyTokens.didascalia()
-                            .copyWith(color: palette.goldSoft))),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 /// La carta che si stacca dal ventaglio e vola nel suo slot.
 ///
