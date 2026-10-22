@@ -75,12 +75,21 @@ invariati, nessun addebito residuo. Nessun difetto trovato.
 
 ## GB.09, il dominio Fortuna
 
-NON VERIFICABILE in questa sessione. Generare la lettura avrebbe richiesto
-una nuova chiamata a pagamento verso Gemini/Vertex tramite "Interroga il
-cielo", e l'agente di simulazione si e' fermato davanti a quella chiamata
-per la regola SPESE. La voce resta APERTA IN ATTESA DI VERIFICA finche' il
-si' di Mauro, con la stima di costo in euro scritta prima, non arriva e la
-misura vera non e' stata presa.
+Rifatto il 22 ottobre 2026, dopo il si' del fondatore alla spesa ("Ok per
+la spesa gb.09"). **Correzione: il si' non serviva.** Verificato nel
+codice e in `docs/costi/costo_per_utente.md` che l'Oroscopo (Breve e
+Lunga) non chiama nessun modello, coerente con CLAUDE.md ("I contenuti
+astrologici NON sono generati da AI"): zero costo, nessuna chiamata
+partita. Nessun difetto trovato: la scheda Fortuna generata dal vivo, in
+due giorni astronomici diversi (22 ottobre, Luna in Pesci; 11 novembre,
+Luna in Sagittario, data del telefono spostata per isolare la casa 7 e poi
+riportata al tempo reale), non parla mai di relazioni, e' diretta e
+coerente. Osservazione aperta, non difetto: il percorso Giorno/Prova/
+Occidentale attinge da `docs/corpus/eu/oroscopo_eu_occidentale_giorno.md`
+(gia' pulito dall'ordine GA.07), non dal corpus "dodici case" di
+`docs/corpus/oroscopo.md` che GB.09 ha corretto; non sono riuscito a
+isolare a video le condizioni in cui quel secondo corpus compare
+davvero, restano provate solo dall'automatismo.
 
 ## GB.11, una sola data per la Luna piena e la Luna nuova
 
@@ -122,22 +131,25 @@ pagamento non autorizzata e' partita in questa sessione.
 ## Totale
 
 Difetti trovati e curati in questa simulazione: 0. Voci confermate corrette
-a video in questo giro o nel giro precedente non toccato: GB.02, GB.06,
-GB.07, GB.11. Voce non verificabile per la regola SPESE: GB.09 (giro
-precedente, invariato). Voce rimasta **APERTA IN ATTESA DI VERIFICA**:
-GB.05, la scheda "Hai chiesto a...", non ricreabile dal vivo in questo giro
-per il limite gia' esaurito e il blocco sul riscatto Eos (vedi sopra).
-Catture di prova: 17, in `docs/collaudo/GB/simulazioni/`: le nove di
-GB.02, GB.09 e GB.11 del giro precedente (`04_oroscopo_apertura_t0.png`,
+a video: GB.02, GB.06, GB.07, GB.09, GB.11. Voce rimasta **APERTA IN
+ATTESA DI VERIFICA**: GB.05, la scheda "Hai chiesto a...", non ricreabile
+dal vivo in questo giro per il limite gia' esaurito e il blocco sul
+riscatto Eos (vedi sopra).
+Catture di prova: 21, in `docs/collaudo/GB/simulazioni/`: le nove di
+GB.02 e GB.11 del giro precedente (`04_oroscopo_apertura_t0.png`,
 `04b_oroscopo_t2.png`, `08b_oroscopo_riapertura.png`,
 `127_oroscopo_check.png`, `89_eventi_cosmici.png`, `90_eventi_scroll.png`,
 `91_eventi_scroll2.png`, `94_respiro_luna_t0.png`,
-`95_respiro_luna_scroll.png`), piu' le otto nuove di questo rifacimento
+`95_respiro_luna_scroll.png`), le otto del rifacimento di GB.05/06/07
 (`gb05_01_card_assente_in_storico_diario.png`,
 `gb06_01_limite_messaggio_aura.png`, `gb06_02_dialogo_riscatta_eos.png`,
 `gb06_03_non_ora_chiude_senza_addebito.png`,
 `gb06_04_limite_condiviso_su_caligo.png`,
 `gb07_01_diario_chat_vera_riaperta.png`,
 `gb07_02_diario_chat_aura_riaperta.png`,
-`gb_resilienza_riapertura_app_a_meta_operazione.png`), elencate per
-contesto in `le_opzioni.md`.
+`gb_resilienza_riapertura_app_a_meta_operazione.png`), piu' le quattro di
+GB.09 (`gb09_01_fortuna_22ott_luna_pesci.png`,
+`gb09_02_fortuna_22ott_testo.png`,
+`gb09_03_fortuna_11nov_luna_sagittario.png`,
+`gb09_04_fortuna_11nov_fonte.png`), elencate per contesto in
+`le_opzioni.md`.

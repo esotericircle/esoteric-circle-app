@@ -7839,17 +7839,36 @@ DOMANDA, PROVA e MISURA per ogni voce che ne ha una. Rapporto:
 `docs/ordini/RAPPORTO_ORDINE_GB.md` (registrato con
 `tool/i_rapporti_consegnati.py`, verde di GitHub arrivato: **consegna
 chiusa**, R3, nessuna build per i tester).
-**Sei voci CHIUSE (GB.02, GB.06, GB.07, GB.11, GB.12, GB.13), cinque APERTE
-IN ATTESA DI VERIFICA (GB.03, GB.04, GB.05, GB.08, GB.09), una PREMESSA
-CADUTA (GB.01), un DIVIETO dichiarato senza lavoro (GB.10)**: PREMESSA CADUTA
-e DIVIETO sono due stati nuovi che nessun manifesto precedente aveva,
-aggiunti perche' nessuno dei cinque esistenti (CHIUSA, APERTA, DA FARE)
-diceva il vero su una voce la cui premessa era falsa o su una voce che
-l'ordine vieta di toccare. **GB.13, la consegna stessa, si e' chiusa col
-verde di GitHub** sul terzo push di questa consegna, commit `f1712ca3`
-(`refs/verde/f1712ca39bb96f27fc7b17dd8d3a18917df3f999`): i primi due push
-(`6e221134`, `629d7958`) erano caduti, il primo su due difetti veri trovati
-dalle guardie (si veda sotto), il secondo su una virgola prima di "e".
+**Sette voci CHIUSE (GB.02, GB.06, GB.07, GB.09, GB.11, GB.12, GB.13),
+quattro APERTE IN ATTESA DI VERIFICA (GB.03, GB.04, GB.05, GB.08), una
+PREMESSA CADUTA (GB.01), un DIVIETO dichiarato senza lavoro (GB.10)**:
+PREMESSA CADUTA e DIVIETO sono due stati nuovi che nessun manifesto
+precedente aveva, aggiunti perche' nessuno dei cinque esistenti (CHIUSA,
+APERTA, DA FARE) diceva il vero su una voce la cui premessa era falsa o su
+una voce che l'ordine vieta di toccare. **GB.13, la consegna stessa, si e'
+chiusa col verde di GitHub** sul terzo push di questa consegna, commit
+`f1712ca3` (`refs/verde/f1712ca39bb96f27fc7b17dd8d3a18917df3f999`): i primi
+due push (`6e221134`, `629d7958`) erano caduti, il primo su due difetti
+veri trovati dalle guardie (si veda sotto), il secondo su una virgola
+prima di "e".
+
+**GB.09 si e' chiusa dopo il verde**, lo stesso giorno. Il fondatore ha
+dato il si' alla spesa per generare la lettura della Fortuna ("Ok per la
+spesa gb.09"), ma verificato prima di spendere, in
+`docs/costi/costo_per_utente.md`, che l'Oroscopo (Breve e Lunga) non
+chiama nessun modello: **il si' non serviva**, zero costo reale, coerente
+con CLAUDE.md ("I contenuti astrologici NON sono generati da AI"). La
+scheda Fortuna letta dal vivo sul Realme in due giorni astronomici diversi
+(22 ottobre, Luna in Pesci; 11 novembre, data del telefono di collaudo
+spostata per isolare un secondo cielo vero e poi riportata al tempo reale,
+Luna in Sagittario) non parla mai di relazioni. Osservazione aperta per un
+ordine futuro, non un difetto: il percorso Giorno/Prova/Occidentale
+attinge da `docs/corpus/eu/oroscopo_eu_occidentale_giorno.md` (gia' pulito
+dall'ordine GA.07), non dal corpus "dodici case" di `docs/corpus/oroscopo.md`
+che GB.09 ha corretto (casa 7 della Fortuna); le condizioni in cui quel
+secondo corpus compare davvero a schermo non sono state isolate a video,
+restano provate solo dall'automatismo
+`test/gb09_la_fortuna_non_parla_di_relazioni_test.dart`.
 
 **La simulazione da persona (FZ.09) e quella del bambino (GA.09), con un
 incidente sulla regola SPESE, da conoscere per intero.** L'ordine R3 non
@@ -7916,7 +7935,9 @@ vicolo cieco" di `test/il_calendario_degli_eventi_test.dart` cercava la Luna pie
 senza scorrere; curato aggiungendo lo stesso scorrimento della voce
 gemella. Nessuno dei due e' un difetto visto dalla persona che usa l'app.
 
-**Le due cose che pesano di piu'**:
+**Le due cose che pesavano di piu' alla consegna del verde** (GB.09 si e'
+chiusa dopo, si veda sopra; GB.04 resta aperta, in attesa della decisione
+del fondatore):
 - **GB.04, i numeri delle stese restano quelli di oggi.** Il fondatore
   sperava di tornare a 6 stese per l'Adepto e 10 per l'Illuminato,
   proponendo di contare al prezzo vero solo la Croce Celtica e le altre
@@ -7988,9 +8009,10 @@ produce piu' un'uscita identica byte per byte a quella committata, e resta
 da riallineare a `dart format` perche' chi tocca il corpus dell'Oroscopo non
 sia costretto a editare `horoscope_data.dart` a mano (GB.09). La simulazione
 da persona e del bambino sul Realme e' stata fatta su tutte le sei funzioni
-toccate (vedi sopra): resta da chiudere solo GB.05 (serve il reset naturale
-del limite o il si' del fondatore a un nuovo consulto dal vivo) e GB.09
-(serve il si' del fondatore alla spesa per generare la lettura).
+toccate (vedi sopra): GB.09 si e' chiusa dopo il si' del fondatore alla
+spesa (che non serviva, si veda sopra); resta da chiudere solo GB.05
+(serve il reset naturale del limite o il si' del fondatore a un nuovo
+consulto dal vivo).
 
 ## Regole ferree
 

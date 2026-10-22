@@ -48,9 +48,25 @@ Rifatto il 22 ottobre 2026, riusando lo stesso consulto vero individuato per GB.
 
 ## 5. L'Oroscopo, il dominio Fortuna (GB.09)
 
+Rifatto il 22 ottobre 2026, col si' esplicito del fondatore alla spesa
+("Ok per la spesa gb.09"). Prima di toccare "Interroga il cielo" ho
+verificato nel codice (`docs/costi/costo_per_utente.md`, riga 78-81) che
+l'Oroscopo **non chiama nessun modello**: "Breve e Lunga escono dal
+corpus", coerente con CLAUDE.md ("I contenuti astrologici NON sono
+generati da AI, l'AI interpreta e personalizza soltanto") e con la
+funzione `Horoscope.letturaDelGiorno`, che compone titolo e prima parte
+da un corpus statico. **Il si' del fondatore non serviva**: nessuna
+chiamata a pagamento e' partita, confermato osservando il server (nessun
+tempo di attesa da rete AI, risposta istantanea) e la documentazione di
+costo del progetto stessa. Segnalato per intero nel rapporto.
+
+Opzioni previste e provate:
+
 - **Apertura dell'Oroscopo Universale, tab "Prova" (l'account di collaudo non ha dati di nascita), periodo Giorno.** Nessun testo di dominio (Generale, Amore, Carriera, Fortuna) e' visibile: la schermata mostra solo i selettori di periodo e tradizione e il pulsante "Interroga il cielo", perche' la lettura non e' stata ancora generata per questo account oggi.
-- **Toccare "Interroga il cielo" per generare la lettura e vedere la scheda Fortuna.** NON PROVATO. Il tocco avvierebbe una nuova chiamata a pagamento verso Gemini/Vertex per generare il testo delle quattro schede. La regola SPESE di CLAUDE.md vieta qualunque chiamata a pagamento senza il si' esplicito di Mauro, dato in chat per quella singola occasione, con la stima del costo in euro scritta prima; questo si' non e' stato chiesto ne' dato in questa sessione. **Voce NON VERIFICABILE in questa sessione.**
-- **Cambiare periodo (Settimana, Mese) o giorno.** Non raggiungibile per lo stesso motivo: Settimana e Mese sono comunque bloccati da lucchetto per questo account (si vede "Settimana 🔒" e "Mese 🔒" nella schermata), quindi non sarebbero comunque stati provabili con questo account anche spendendo.
+- **Toccare "Interroga il cielo" per generare la lettura e vedere la scheda Fortuna.** Va bene, a costo zero. Compare un traguardo ("Il cielo di domani", +10 Eos) e poi le quattro schede (Generale, Amore, Carriera, Fortuna), ognuna con titolo, misura "N su 5", grafico delle ore, testo diretto e "Cosa fare adesso". La scheda Fortuna del 22 ottobre: titolo "Allenare lo sguardo buono", testo "Giornata difficile per la fortuna, a scatti, fatta di piccoli contrattempi che si sommano...", "Da dove viene: Oggi la Luna è in Pesci e fa attrito con il tuo segno...". **Nessuna parola di relazione o di coppia**, diretto e coerente con la domanda (com'e' la giornata per la fortuna).
+- **Isolare la casa 7 specifica che GB.09 ha corretto in `docs/corpus/oroscopo.md`.** Provato e non riuscito. "Da dove viene" rivela che questo percorso (Giorno, Prova, Occidentale) attinge da `docs/corpus/eu/oroscopo_eu_occidentale_giorno.md` (un corpus diverso, gia' ripulito dall'ordine GA.07), non dal corpus "dodici case" di `docs/corpus/oroscopo.md` che GB.09 ha corretto. Ho spostato la data del telefono di collaudo (FZ.09 lo permette) all'11 novembre 2026, il giorno astronomico vero in cui la Luna transita in Sagittario (casa 7 per Gemelli, calcolato con `IlSegnoDelCielo.dellaLuna`), e ho rifatto la domanda: stesso risultato, scheda Fortuna ancora dal corpus "eu" ("Giornata un po' faticosa per la fortuna delle cose prestate...", "Oggi la Luna è in Sagittario..."), ancora senza parole di relazione. Il corpus "dodici case" con la casa 7 corretta non si e' mai mostrato a video in questo giro: resta provato dall'automatismo (`test/gb09_la_fortuna_non_parla_di_relazioni_test.dart`, che legge `HoroscopeData.titoliDelGiorno`/`.primeDelGiorno` generati proprio da quel corpus), ma non ho isolato le condizioni in cui compare davvero a schermo. Segnalato come domanda aperta per un ordine futuro, non come difetto: la lettura vista, da qualunque corpus venga, non ha mai parlato di relazioni nei due giorni provati.
+- **Data del telefono di collaudo riportata al tempo reale** subito dopo la prova (22 ottobre 2026, confermato con `adb shell date`).
+- **Cambiare periodo (Settimana, Mese) o giorno.** Non raggiungibile: Settimana e Mese sono bloccati da lucchetto per questo account (si vede "Settimana 🔒" e "Mese 🔒" nella schermata).
 
 ## 6. Il Calendario degli eventi e il Respiro della Luna, la stessa data (GB.11)
 

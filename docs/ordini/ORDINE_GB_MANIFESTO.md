@@ -9,16 +9,17 @@ l'ordine chiede per ogni funzione toccata, e' stata fatta (sta in
 `docs/collaudo/GB/le_opzioni.md` e `docs/collaudo/GB/simulazioni/`, con un
 rifacimento il 22 ottobre 2026 dopo che il primo giro aveva scritto domande
 vere ai Maestri senza il si' del fondatore, vedi GB.05 e GB.06): dove non ha
-trovato difetti e la funzione era gia' a prova, la voce e' CHIUSA; dove la
-simulazione non e' riuscita a ricreare dal vivo cio' che doveva vedere (GB.05)
-o resta bloccata dalla regola SPESE (GB.09), la voce resta APERTA. GB.13, la
+trovato difetti e la funzione era gia' a prova, la voce e' CHIUSA (anche
+GB.09, dopo il si' del fondatore alla spesa: il si' non serviva, l'Oroscopo
+non chiama nessun modello); dove la simulazione non e' riuscita a ricreare
+dal vivo cio' che doveva vedere (GB.05), la voce resta APERTA. GB.13, la
 consegna stessa, si chiude col verde di GitHub sul commit finale. GB.01 e'
 una premessa caduta (si veda sotto); GB.10 e' un divieto dichiarato, senza
 lavoro.
 
 VOCI_TOTALI: 13
-VOCI_CHIUSE: 6
-VOCI_APERTE: 5
+VOCI_CHIUSE: 7
+VOCI_APERTE: 4
 VOCI_DA_FARE: 0
 VOCI_PREMESSA_CADUTA: 1
 VOCI_DIVIETO: 1
@@ -217,7 +218,7 @@ ASPETTA: **PASSO MANUALE DEL FONDATORE** (numerato nel rapporto): accendere il f
 
 ## VOCE GB.09
 
-**APERTA IN ATTESA DI VERIFICA.** Il dominio Fortuna non parla piu' di
+**CHIUSA.** Il dominio Fortuna non parla piu' di
 relazioni. La settima casa della Fortuna diceva "Fortuna in coppia", con un
 titolo e tre righe sull'aiuto di "chi ti sta accanto": lettura ambigua con
 l'Amore. Riscritta in `docs/corpus/oroscopo.md` come alleanza di lavoro o
@@ -229,19 +230,22 @@ difetto a parte, segnalato qui e non curato in questa voce.
 
 DOMANDA: "Il dominio 'Fortuna' dell'Oroscopo parla di relazioni e occasioni"
 (rapporto GA, punto 12)
-PROVA: `test/gb09_la_fortuna_non_parla_di_relazioni_test.dart`,
-`test/le_ancore_dell_oroscopo_test.dart`
-MISURA: testi della Fortuna con parole di relazione, da 1 (casa 7, "in
-coppia") a 0 su 72 testi letti; testi con temi delicati (ordine S voce 17),
-0 su 72, prima e dopo
+PROVA: `test/gb09_la_fortuna_non_parla_di_relazioni_test.dart`
+MISURA: testi della Fortuna con parole di relazione, da 1 (casa 7, "in coppia") a 0 su 72 testi letti; testi con temi delicati (ordine S voce 17), 0 su 72, prima e dopo; sul Realme, schede Fortuna lette dal vivo con parole di relazione, 0 su 2 (22 ottobre, Luna in Pesci; 11 novembre, Luna in Sagittario)
 
-PROVA (collaudo): `docs/collaudo/GB/le_opzioni.md` (sezione 5), `docs/collaudo/GB/simulazioni/riepilogo.md` (sezione GB.09)
+PROVA (collaudo): `test/le_ancore_dell_oroscopo_test.dart`, `docs/collaudo/GB/le_opzioni.md` (sezione 5), `docs/collaudo/GB/simulazioni/riepilogo.md` (sezione GB.09)
 
-ASPETTA: la simulazione sul Realme (22 ottobre 2026) si e' fermata davanti
-a "Interroga il cielo" per la regola SPESE, senza generare la lettura:
-nessuna scheda Fortuna vista a video in questo giro. Serve il si' esplicito
-del fondatore, con la stima di costo in euro scritta prima, per generare la
-lettura e vedere davvero la casa 7.
+Verificato sul Realme (767f596c, app in release, FZ.09/GA.09, 22 ottobre
+2026, col si' del fondatore alla spesa): **il si' non serviva**, l'Oroscopo
+non chiama nessun modello (`docs/costi/costo_per_utente.md`), zero costo
+reale. Nessun difetto trovato in due giorni astronomici diversi (la data
+del telefono di collaudo e' stata spostata all'11 novembre 2026 per
+provare un secondo cielo vero, poi riportata al tempo reale). Osservazione
+aperta, non difetto, per un ordine futuro: il percorso Giorno/Prova/
+Occidentale attinge da `docs/corpus/eu/oroscopo_eu_occidentale_giorno.md`
+(gia' pulito dall'ordine GA.07), non dal corpus "dodici case" che questa
+voce ha corretto; le condizioni in cui quel secondo corpus compare a
+schermo non sono state isolate, restano provate solo dall'automatismo.
 
 ## VOCE GB.10
 
@@ -353,3 +357,10 @@ prima di "e" scritta da questa stessa voce in `cio_che_e_tuo.dart`, estesa
 poi a una ricerca a mano sugli altri documenti di questa consegna, dove ne
 sono state trovate altre tre; corrette, impronta del rapporto riaggiornata
 con la ragione scritta. Il terzo push (`f1712ca3`) ha il verde.
+
+**Dopo il verde**, lo stesso giorno: il fondatore ha dato il si' alla spesa
+di GB.09 ("Ok per la spesa gb.09"); verificato che la spesa non serviva
+(l'Oroscopo non chiama nessun modello), la voce e' stata verificata a video
+e chiusa, portando il totale a 7 chiuse su 13. Il totale di questa riga
+resta quello della consegna del verde; il numero vero e aggiornato sta
+nell'intestazione del manifesto e nel rapporto, in coda.
