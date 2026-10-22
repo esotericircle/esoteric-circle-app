@@ -8035,6 +8035,24 @@ stese nella Stesa. Le voci GC.01-GC.05 sono le cinque
 della vecchia "ORDINE GB AGGIUNTA", eseguite qui: nessuna GBA era stata
 eseguita.
 
+**L'aggiunta GCA, 23 ottobre 2026**: undici decisioni che il fondatore ha
+delegato a Code (testo in `docs/ordini/ORDINE_GC_AGGIUNTA_TESTO.md`, voci
+GCA.01-GCA.12 nel manifesto, decisioni e ragioni in coda al rapporto), tutte
+chiuse. Lavoro sul codice fatto dentro GC: il Maestro data la Luna piena e
+nuova nel giorno del picco come il Calendario (GCA.02, padre EV); il Diario
+scrive l'anno sopra i mesi e le date in lettere con l'anno (GCA.05); il
+riscatto del confronto fra i Maestri non dice piu' "di sinastria" (GCA.03 e
+GCA.11, padre BG.05, guardia nuova, registro a 888). Decisioni senza codice:
+ripiego sul corpus dell'Oracolo accettato (GCA.01); limiti delle domande
+3, 12, 17, 21 (GCA.04, con un difetto annotato per l'ordine del pagamento:
+il server non conosce il ciclo annuale, padre FE.20); Crashlytics resta al
+passo del fondatore di GB.08 (GCA.06); versetti di Martini letterali
+(GCA.07); Fortuna a posto (GCA.08); compatibilita' a tre livelli gia' tolta
+(GCA.09); velo della striscia dell'identita' a 0,92 (GCA.10); "Riscatta ...
+· N Eos" resta (GCA.11). **GB.05 verificata dal vivo** con una domanda vera
+a Medora e un confronto, sotto l'eccezione dell'ordine GB, dichiarata nel
+rapporto.
+
 **Cosa e' cambiato nell'app.**
 - **Stesa di Tarocchi**: la carta si decodifica alla misura in cui si vede
   (`TarotCardArt.gradinoPer`, tre gradini) e la girata ridisegna solo il

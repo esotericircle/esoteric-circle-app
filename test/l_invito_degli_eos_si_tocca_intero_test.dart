@@ -60,7 +60,7 @@ void main() {
                           'Puoi riscattare un confronto con gli Eos, oppure '
                           'col Cerchio la stessa domanda arriva anche agli altri '
                           'due Maestri, qui dentro, ognuno con la sua lente.',
-                      riscattoLabel: 'Riscatta un confronto di sinastria · 150 '
+                      riscattoLabel: 'Riscatta un confronto fra i Maestri · 150 '
                           'Eos (te ne mancano 120)',
                     ),
                     child: const Text('apri'),

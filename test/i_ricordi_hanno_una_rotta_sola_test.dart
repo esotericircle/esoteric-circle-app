@@ -158,6 +158,11 @@ void main() {
     expect(find.byKey(const Key('ricordi_anno')), findsOneWidget,
         reason: 'si apre sull\'anno, che e\' il colpo d\'occhio');
     expect(find.byKey(const Key('ricordi_mese_8')), findsOneWidget);
+    // GCA.05: l'anno scritto sopra le dodici caselle.
+    expect(
+        tester.widget<Text>(find.byKey(const Key('ricordi_anno_scritto'))).data,
+        '2026',
+        reason: 'il Diario mostra i mesi senza dire di quale anno');
 
     await tester.tap(find.byKey(const Key('ricordi_mese_8')));
     await tester.pumpAndSettle();
@@ -263,6 +268,13 @@ void main() {
             .testo,
         'Uruz ti chiede di non trattenere la forza che hai.',
         reason: 'il ricordo torna nella sua forma originale, col suo testo');
+    // GCA.05: la data in lettere, con l'anno, come nel resto dell'app.
+    expect(
+        tester
+            .widget<Text>(find.byKey(const Key('ricordo_aperto_quando')))
+            .data,
+        matches(RegExp(r'^\d{1,2} [a-z]+ \d{4}$')),
+        reason: 'la data del ricordo non e\' in lettere con l\'anno');
     expect(find.byKey(const Key('ricordo_aperto_quando')), findsOneWidget,
         reason: 'un ricordo senza il giorno in cui e\' nato e\' una carta '
             'senza data');

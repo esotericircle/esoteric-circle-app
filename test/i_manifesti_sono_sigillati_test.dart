@@ -414,7 +414,9 @@ void main() {
     'GB': 13,
     // GC: venti voci, contate coi titoli "## VOCE GC." del manifesto il 22
     // ottobre 2026; le cinque dell'aggiunta GBA sono diventate GC.01-GC.05.
-    'GC': 20,
+    // Trentadue dal 23 ottobre 2026: le dodici dell'aggiunta GCA (le undici
+    // decisioni delegate dal fondatore e il rapporto), titoli "## VOCE GCA.".
+    'GC': 32,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

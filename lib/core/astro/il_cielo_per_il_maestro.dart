@@ -6,6 +6,7 @@ import 'moon_phase.dart';
 import 'natal_chart.dart';
 import 'transiti_del_giorno.dart';
 import 'il_segno_del_cielo.dart';
+import '../lunario/il_motore_lunare.dart';
 
 /// **IL CIELO DI QUALUNQUE GIORNO, PER IL MAESTRO.** Ordine EV voce 03, il
 /// fondatore: *"Medora in chat deve sapere qual è la situazione astrale oggi
@@ -150,6 +151,23 @@ abstract final class IlCieloPerIlMaestro {
     final giorni = fine.difference(inizio).inDays.clamp(0, giorniMassimi);
     fine = DateTime(inizio.year, inizio.month, inizio.day + giorni);
     final eventi = <String>[];
+    // **LA LUNA PIENA E LA NUOVA NEL GIORNO DEL PICCO**, ordine GC
+    // aggiunta voce GCA.02: la stessa data che GB.11 ha messo nel Calendario
+    // degli eventi, nel Respiro e nella Collana (`IlMotoreLunare`). Prima
+    // l'evento cadeva nel primo giorno in cui il nome della fase, letto alle
+    // 12 UTC, diventava "Luna piena": il nome comincia dodici ore prima del
+    // picco, e il Maestro poteva dire un giorno diverso da quello che il
+    // Calendario mostrava. PADRE: ordine EV (commit `d2e773ec`, il cielo di
+    // un periodo per il Maestro), che GB.11 non ha raggiunto.
+    final fineDelPicco = DateTime(fine.year, fine.month, fine.day + 1);
+    final picchi = <String, String>{
+      for (final t in IlMotoreLunare.luneNuoveFra(
+          DateTime(inizio.year, inizio.month, inizio.day + 1), fineDelPicco))
+        _data(t): 'Luna nuova',
+      for (final t in IlMotoreLunare.lunePieneFra(
+          DateTime(inizio.year, inizio.month, inizio.day + 1), fineDelPicco))
+        _data(t): 'Luna piena',
+    };
     var ieri = _stato(inizio);
     for (var i = 1; i <= giorni; i++) {
       final g = DateTime(inizio.year, inizio.month, inizio.day + i);
@@ -164,9 +182,9 @@ abstract final class IlCieloPerIlMaestro {
               '${oggi.retrogradi[c]! ? 'diventa retrogrado' : 'torna diretto'}');
         }
       }
-      if (oggi.fase != ieri.fase &&
-          (oggi.fase == 'Luna nuova' || oggi.fase == 'Luna piena')) {
-        eventi.add('${_data(g)}: ${oggi.fase} in ${oggi.segnoDellaLuna}');
+      final fase = picchi[_data(g)];
+      if (fase != null) {
+        eventi.add('${_data(g)}: $fase in ${oggi.segnoDellaLuna}');
       }
       final e = MotoreDelleEclissi.annoVerificato(g.year)
           ? MotoreDelleEclissi.nelGiornoDi(g)

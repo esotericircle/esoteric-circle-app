@@ -86,6 +86,15 @@ ManifestoLetto leggiManifesto(String nomeDelFile, String testo) {
       voci.addAll(numeriIn(r.split('|')[1]));
     } else if (RegExp('^\\*\\*$s\\.\\d').hasMatch(r)) {
       voci.addAll(numeriIn(r.split(',').first));
+    } else {
+      // **LE VOCI DELL'AGGIUNTA COL LORO NOME**, ordine GC aggiunta, 23
+      // ottobre 2026: il fondatore ha chiesto che le voci entrassero nel
+      // manifesto come GCA.01-GCA.12, non rinumerate dentro GC come FZA e
+      // FXA. Si contano solo i titoli "## VOCE <sigla>A.nn", col prefisso
+      // "A" perche' non si confondano con le voci dell'ordine.
+      final aggiunta =
+          RegExp('^#{1,6}\\s+VOCE\\s+${s}A\\.(\\d+)\\s*\$').firstMatch(r);
+      if (aggiunta != null) voci.add('A${aggiunta.group(1)}');
     }
   }
 

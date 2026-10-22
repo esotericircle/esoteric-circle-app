@@ -27,6 +27,7 @@ import 'package:flutter/material.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/tier.dart';
+import '../../core/astro/lingua_degli_eventi.dart';
 import '../../core/ricordi/lettura_del_mese.dart';
 import 'package:provider/provider.dart';
 
@@ -412,25 +413,43 @@ class _LAnno extends StatelessWidget {
     final mesi = vista.iDodiciMesi;
     final massimo =
         mesi.fold<int>(0, (m, r) => r.quanteVoci > m ? r.quanteVoci : m);
-    return GridView.count(
-      key: const Key('ricordi_anno'),
-      crossAxisCount: 3,
-      padding: const EdgeInsets.all(SpacingTokens.md),
-      mainAxisSpacing: SpacingTokens.sm,
-      crossAxisSpacing: SpacingTokens.sm,
+    // **L'ANNO SCRITTO SOPRA I MESI**, ordine GC aggiunta voce GCA.05: le
+    // dodici caselle dicevano "Gen ... Dic" senza l'anno, e dal 1 gennaio
+    // chi apre il Diario non sapeva di quale anno erano i mesi che vedeva.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (var i = 0; i < 12; i++)
-          _CasellaDelMese(
-            key: Key('ricordi_mese_${i + 1}'),
-            nome: _mesi[i],
-            riassunto: mesi[i],
-            peso: mesi[i].pesoContro(massimo),
-            palette: palette,
-            onTap: mesi[i].vuoto
-                ? null
-                : () => vista.scendiA(LivelloDeiRicordi.mese,
-                    quando: DateTime(vista.dove.year, i + 1, 1)),
-          ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(
+              SpacingTokens.md, SpacingTokens.sm, SpacingTokens.md, 0),
+          child: Text('${vista.dove.year}',
+              key: const Key('ricordi_anno_scritto'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.titoloScheda()
+                  .copyWith(color: palette.goldSoft)),
+        ),
+        Expanded(
+            child: GridView.count(
+          key: const Key('ricordi_anno'),
+          crossAxisCount: 3,
+          padding: const EdgeInsets.all(SpacingTokens.md),
+          mainAxisSpacing: SpacingTokens.sm,
+          crossAxisSpacing: SpacingTokens.sm,
+          children: [
+            for (var i = 0; i < 12; i++)
+              _CasellaDelMese(
+                key: Key('ricordi_mese_${i + 1}'),
+                nome: _mesi[i],
+                riassunto: mesi[i],
+                peso: mesi[i].pesoContro(massimo),
+                palette: palette,
+                onTap: mesi[i].vuoto
+                    ? null
+                    : () => vista.scendiA(LivelloDeiRicordi.mese,
+                        quando: DateTime(vista.dove.year, i + 1, 1)),
+              ),
+          ],
+        )),
       ],
     );
   }
@@ -944,8 +963,9 @@ class RicordoApertoScreen extends StatelessWidget {
     return MaestroChatScreen.route(
       maestro: maestro,
       services: context.read<AppServices>(),
-      apriConversazioneId:
-          chiave == null ? null : RegistroDeiRicordi.idDellaConversazione(chiave),
+      apriConversazioneId: chiave == null
+          ? null
+          : RegistroDeiRicordi.idDellaConversazione(chiave),
       apriConversazioneQuando: voce.quando,
     );
   }
@@ -976,8 +996,7 @@ class RicordoApertoScreen extends StatelessWidget {
             if (ArtworkDelRicordo.di(custodito).isNotEmpty)
               _ArteDelRicordoAperto(custodito: custodito, palette: palette),
             Text(
-              '${custodito.quando.day}/${custodito.quando.month}/'
-              '${custodito.quando.year}',
+              LinguaDegliEventi.dataConAnno(custodito.quando),
               key: const Key('ricordo_aperto_quando'),
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary),
@@ -1252,15 +1271,13 @@ class _CartaCustodita extends StatelessWidget {
                   style: TypographyTokens.titoloScheda()),
               const SizedBox(height: SpacingTokens.xs),
               Text(
-                '${custodito.quando.day}/${custodito.quando.month}/'
-                '${custodito.quando.year}',
+                LinguaDegliEventi.dataConAnno(custodito.quando),
                 style: TypographyTokens.etichetta()
                     .copyWith(color: ColorTokens.textSecondary),
               ),
             ] else ...[
               Text(
-                '${custodito.quando.day}/${custodito.quando.month}/'
-                '${custodito.quando.year}',
+                LinguaDegliEventi.dataConAnno(custodito.quando),
                 style: TypographyTokens.etichetta()
                     .copyWith(color: ColorTokens.textSecondary),
               ),

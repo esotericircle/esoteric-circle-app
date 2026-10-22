@@ -17,6 +17,9 @@ void main() {
   final manifesto = File('docs/ordini/ORDINE_GC_MANIFESTO.md');
   final voci = [
     for (var i = 1; i <= 20; i++) 'GC.${i.toString().padLeft(2, '0')}',
+    // L'aggiunta GCA, 23 ottobre 2026: undici decisioni delegate e il
+    // rapporto.
+    for (var i = 1; i <= 12; i++) 'GCA.${i.toString().padLeft(2, '0')}',
   ];
 
   int marcatore(String testo, String nome) {

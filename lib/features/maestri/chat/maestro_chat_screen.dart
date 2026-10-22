@@ -519,7 +519,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       final riscatto = corredoDelRiscatto(
         context,
         budget: 'confronti',
-        cosaUna: 'un confronto di sinastria',
+        cosaUna: 'un confronto fra i Maestri',
       );
       await showUpgradeInvite(
         context,

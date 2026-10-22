@@ -20,8 +20,8 @@ sul Realme con una consultazione nuova, dopo le cure trovate nella
 simulazione; GC.20, la consegna, si chiude col verde di GitHub sul commit
 finale.
 
-VOCI_TOTALI: 20
-VOCI_CHIUSE: 19
+VOCI_TOTALI: 32
+VOCI_CHIUSE: 31
 VOCI_APERTE: 1
 VOCI_DA_FARE: 0
 VOCI_PREMESSA_CADUTA: 0
@@ -287,3 +287,201 @@ PROVA: `docs/ordini/RAPPORTO_ORDINE_GC.md`
 MISURA: voci del manifesto 20 su 20; guardie nuove 4, viste rosse 4; innesti della Regola A 23, rossi 23
 
 ASPETTA: il verde di GitHub sul commit consegnato e la build ai tester, che il fondatore ha chiesto in chat la stessa sera: *"Alla fine dell'ordine, tutte le voci nessuna eccezione, consegna nuova build"*.
+
+## VOCE GCA.01
+
+**CHIUSA.** Decisione: si accetta il ripiego sul corpus; i tetti non si
+alzano e l'istruzione non si allarga. Il tetto di 420 caratteri misurato da
+FVA.02 non esiste piu': dall'ordine GA i paragrafi si misurano in parole (da
+40 a 50, `LaFormaDelResponso.minimo` e `massimo`), regola permanente del
+fondatore, e una risposta fuori misura si scarta intera e parla il corpus,
+mai una troncata (GA.07). Il filtro delle parole vietate resta com'e',
+`guari` compreso: legge per sottostringa e scarta anche un "guarire" detto in
+senso figurato, ma il caso opposto, una promessa di guarigione mostrata,
+costa piu' di un responso dal corpus, che e' scritto a mano e corretto. Il
+30 per cento e' stato misurato coi tetti di allora: misurarlo di nuovo con la
+forma GA chiede venti consultazioni vere (circa 0,004 euro), che non partono
+senza il si' del fondatore; proposto fra le migliorie, non serve alla
+decisione.
+
+DOMANDA: "FU.04, cioè alzare i tetti, allargare il prompt o accettare il ripiego sul corpus nel 30 per cento dei casi"
+PROVA: `docs/collaudo/FV/fva02_venti_consultazioni.txt`
+MISURA: risposte del modello mostrate 14 su 20 coi tetti in caratteri di FVA.02; tetti in caratteri nel codice di oggi da 4 (titolo, riquadro, due approfondimenti) a 1 (il titolo, 80); filtro delle parole vietate invariato, 0 parole tolte; chiamate a pagamento per questa decisione 0
+
+## VOCE GCA.02
+
+**CHIUSA.** Decisione: la data del picco esatto (`IlMotoreLunare`) e' la data
+definitiva della Luna piena e della Luna nuova in ogni punto dell'app.
+Verificati i punti che le mostrano: Calendario degli eventi, Passaporto,
+Collana, Respiro, avvisi del Respiro, promemoria del Lunario e Calendario
+Lunare usano gia' il picco. Restava fuori il cielo di un periodo che il
+Maestro legge (`lib/core/astro/il_cielo_per_il_maestro.dart:166`), che datava
+la Luna al primo giorno in cui il nome della fase cambiava, dodici ore prima
+del picco: curato in questo ordine, perche' e' lo stesso difetto di GB.11 e
+il Maestro non puo' dire un giorno diverso dal Calendario. PADRE: ordine EV
+(commit `d2e773ec`). Restano con un motore proprio, che per costruzione da'
+lo stesso istante, la settimana dell'Oroscopo
+(`lib/core/horoscope/la_settimana_del_cielo.dart:330`, bisezione al mezzo
+minuto), l'invito del Maestro (`lib/core/maestro/consiglio_finale.dart:111`,
+un conto in giorni) e il Pellegrinaggio
+(`lib/core/cerchio/i_tempi_dei_giochi.dart:80`): non mostrano una data
+diversa, non si toccano. Primo e ultimo quarto restano al giorno in cui
+cominciano (DS.08), come GB.11 li ha lasciati.
+
+DOMANDA: "la data della Luna (GB.11 ha portato alla data del picco esatto)"
+PROVA: `test/gca02_il_maestro_data_la_luna_al_picco_test.dart`
+MISURA: in un anno di eventi del Maestro, lune piene e nuove fuori dal giorno del picco da 4 su 25 a 0 su 25 (Regola A, `docs/collaudo/GC/regola_a.txt`, riga 25)
+
+## VOCE GCA.03
+
+**CHIUSA.** Decisione: la carta "Hai chiesto a ..." resta com'e' dopo GB.05.
+La verifica dal vivo l'ha fatta Code il 23 ottobre 2026 sul Realme, con
+l'Illuminato attivato in demo, una domanda vera a Medora e il confronto con
+gli altri due Maestri (eccezione permanente dell'ordine GB per la
+simulazione, CLAUDE.md, SPESE punto 3). Nella chat di Medora la carta dice
+"Hai chiesto a Medora: «Devo cambiare lavoro entro fine anno?» / I pareri di
+Medora, Calìgo e Aura. Tocca per leggerli". GB.05 e' verificata. Nella stessa
+prova un difetto trovato e curato: il riscatto del confronto diceva "Riscatta
+un confronto di sinastria" sul budget dei confronti fra i Maestri (PADRE:
+ordine BG voce 05, commit `36a2131a`), ora "un confronto fra i Maestri", con
+una guardia nuova (`test/ogni_riscatto_dice_la_cosa_giusta_test.dart`).
+
+DOMANDA: "la carta 'Hai chiesto a ...'"
+PROVA: `docs/collaudo/GC/simulazioni/catture/gca03_consulto_e_carta_hai_chiesto_a.jpg`
+MISURA: carte "Hai chiesto a" viste dal vivo dopo un consulto vero da 0 (GB.05, tentativo fallito) a 1, coi tre pareri; domande vere scritte ai Maestri 1 (Medora) e confronti 1 (Calìgo, Aura e la sintesi)
+
+## VOCE GCA.04
+
+**CHIUSA.** Decisione: i limiti restano 3, 12, 17 e 21 domande al giorno
+(Viandante, Iniziato, Adepto, Illuminato, `functions/src/budget.ts:114` e
+`lib/core/entitlement/plan_catalog.dart:874`; non 18 e 22 come il testo
+dell'aggiunta riporta dal 14 ottobre: l'ordine FE voce 20 li ha portati a 17
+e 21). L'illimitato resta vietato. L'uscita di GB.06 resta. Al caso peggiore
+il mensile sta sotto il 30 per cento del netto (Iniziato 26,8, Adepto 29,6,
+Illuminato 30,0). Un difetto trovato: per l'annuale i piani promettono 11, 14
+e 18 domande (il conto del costo e la card), ma il server non conosce il
+ciclo e darebbe 12, 17 e 21, cioe' il 32,1, il 33,0 e il 32,1 per cento del
+netto. PADRE: ordine FE voce 20 (commit `a2da1bb9`), che ha scritto i tetti
+annuali nel conto e nella card senza un tetto annuale nel server. Non si cura
+in questo ordine: il ciclo dell'abbonamento arriva al server solo col
+pagamento vero, che nella demo non e' integrato (oggi nessuno ha un annuale),
+e il server lo pubblica il fondatore (R3). Si scrive per l'ordine che
+integra il pagamento.
+
+DOMANDA: "il limite delle domande ai Maestri (GB.06 ha dato un'uscita)"
+PROVA: `docs/costi/i_limiti_degli_annuali.txt`
+MISURA: tetti giornalieri invariati 3, 12, 17, 21; quota del netto del mensile al caso peggiore 26,8, 29,6 e 30,0 per cento; dell'annuale col tetto del server 32,1, 33,0 e 32,1 per cento (conto rifatto con `tool/i_limiti_degli_annuali.py` e i tetti del server)
+
+## VOCE GCA.05
+
+**CHIUSA.** Decisione: il Diario dice l'anno. Sopra le dodici caselle del
+livello anno c'e' l'anno scritto (era solo "Gen ... Dic", e dal 1 gennaio
+non si capiva di quale anno fossero i mesi); la data della voce aperta e
+delle carte custodite passa da "22/10/2026" alla forma in lettere dell'app,
+"22 ottobre 2026" (`LinguaDegliEventi.dataConAnno`, la stessa di GB.07). La
+navigazione fra gli anni (rivedere l'ottobre 2026 nel 2027) non c'e' ancora:
+e' un controllo nuovo, proposto fra le migliorie.
+
+DOMANDA: "il Diario senza anno"
+PROVA: `test/i_ricordi_hanno_una_rotta_sola_test.dart`
+MISURA: anni scritti sul livello anno da 0 a 1; date del Diario in lettere con l'anno da 0 su 3 punti a 3 su 3 (Regola A, riga 26)
+
+## VOCE GCA.06
+
+**CHIUSA.** Decisione: sul codice non resta niente. L'interruttore
+`kProvaCrashlyticsAttiva` e' spento (`lib/core/diagnosi/prova_crashlytics.dart:28`),
+l'invio di prova e' una volta sola e solo su iPhone, la guardia
+`la_consegna_parte_senza_la_prova_di_crashlytics` impedisce di consegnare con
+l'interruttore acceso, i simboli dSYM si caricano su Codemagic
+(`codemagic.yaml:363`). Resta al fondatore il passo di GB.08: accendere
+l'interruttore, fare una build iOS, installarla da TestFlight, aprire l'app,
+guardare Crashlytics, spegnere. GB.08 resta aperta per quel passo.
+
+DOMANDA: "Crashlytics su iPhone"
+PROVA: `test/la_consegna_parte_senza_la_prova_di_crashlytics_test.dart`
+MISURA: lavori sul codice rimasti 0; passi del fondatore 1 (quello di GB.08); interruttore acceso nel ramo 0
+
+## VOCE GCA.07
+
+**CHIUSA.** Decisione: i versetti di Martini restano letterali, con la loro
+virgola: sono una citazione di un testo altrui del 1842, e cambiarli vuol
+dire riscrivere la Scrittura. I precedenti delle 48 ancore dell'Oroscopo
+(BD.07) e delle 36 frasi della Sinastria (CA) erano testi di casa. La deroga
+c'e' gia' dall'ordine GA e il fondatore l'ha confermata in GB.12 (*"confermo
+eccezione"*): `test/language_rule_test.dart` toglie solo il testo fra « »
+delle righe `salmi_martini` di `i_riti_propiziatori_dati.dart` prima di
+cercare la virgola, e guarda tutto il resto di lib come sempre. Nessun lavoro
+nuovo.
+
+DOMANDA: "i versetti di Martini con la virgola prima di 'e'"
+PROVA: `test/language_rule_test.dart`
+MISURA: righe della raccolta `salmi_martini` sotto la deroga almeno 72; testi di casa fuori dalla deroga con la virgola prima di "e" 0
+
+## VOCE GCA.08
+
+**CHIUSA.** Decisione: sul dominio Fortuna non resta niente da fare. GB.09
+ha tolto la relazione dalla settima casa del corpus delle dodici case; il
+corpus del percorso Giorno (`docs/corpus/eu/oroscopo_eu_occidentale_giorno.md`,
+sezione Fortuna, righe 1356-1776) non nomina amore, partner, coppia o
+sentimenti; l'unica parola vicina e' "relazioni" in senso generale (riga
+1672, "Scegliere con misura protegge anche le relazioni"), che non parla di
+coppia e resta.
+
+DOMANDA: "il dominio Fortuna (GB.09 è chiusa)"
+PROVA: `test/gb09_la_fortuna_non_parla_di_relazioni_test.dart`
+MISURA: frasi del dominio Fortuna con parole di relazione romantica, nei due corpus, 0; costo 0 (l'Oroscopo non chiama il modello)
+
+## VOCE GCA.09
+
+**CHIUSA.** Decisione: la compatibilita' a tre livelli resta tolta e non si
+costruisce. La premessa dell'aggiunta ("ancora nella matrice di
+plan_catalog.dart") e' superata: la riga e' gia' uscita con FU.16 (lapidi a
+`lib/core/entitlement/plan_catalog.dart:477` e `:1161`) e la guardia
+`la_compatibilita_a_tre_livelli_non_si_promette` legge ogni stringa di lib.
+Nessun codice realizza i tre livelli; la Sinastria evolutiva legge due cieli
+veri in cinque capitoli, ed e' quella che il listino vende.
+
+DOMANDA: "la compatibilità a tre livelli esclusiva dell'Illuminato, ancora nella matrice di plan_catalog.dart"
+PROVA: `test/la_compatibilita_a_tre_livelli_non_si_promette_test.dart`
+MISURA: righe della matrice con la compatibilita' a tre livelli 0 (da FU.16); promesse nelle stringhe di lib 0
+
+## VOCE GCA.10
+
+**CHIUSA.** Decisione: il 92 per cento resta. Non e' una larghezza: e'
+l'opacita' del velo dietro la striscia dell'identita' (volto, Online, Eos),
+`lib/features/shell/barra_dell_identita.dart:78`, `velo = 0.92`, voluta
+dall'ordine EU voce 19 perche' i contatori si leggano sul testo che scorre
+sotto (contrasto peggiore da 4,6 a 9,3). La regola delle barre del titolo
+semitrasparenti (FY.20, velo 0,6) vale per le barre che portano un titolo; la
+striscia non ne porta. La sorveglia `test/i_contatori_si_leggono_sempre_test.dart`
+(velo almeno 0,9 e contrasto almeno 4,5 su 24 coppie).
+
+DOMANDA: "la striscia dell'identità al 92 per cento"
+PROVA: `test/i_contatori_si_leggono_sempre_test.dart`
+MISURA: velo invariato a 0,92; contrasto peggiore dei contatori 9,3 su 24 coppie, soglia 4,5
+
+## VOCE GCA.11
+
+**CHIUSA.** Decisione: resta "Riscatta ... · N Eos". "Continua con N Eos" non
+dice che cosa si compra ne' che si spendono Eos, e la stessa frase serve otto
+budget (domande, confronti, approfondimenti, gettate, sinastrie, stese,
+consultazioni dell'Oracolo); "Continua con" nell'app vuol dire gia' un'altra
+cosa (continuare con un Maestro, con Google, con Apple). La frase nasce in un
+punto solo, `corredoDelRiscatto` (`lib/features/pricing/upgrade_invite.dart:196`),
+e il prezzo si legge dal server (`prezzoDelRiscatto`, legge BG.04). Curato il
+nome sbagliato del confronto (GCA.03) con la guardia che lo sorveglia.
+
+DOMANDA: "la frase letterale 'Continua con N Eos' al posto di 'Riscatta una domanda in più · N Eos'"
+PROVA: `test/ogni_riscatto_dice_la_cosa_giusta_test.dart`
+MISURA: punti che compongono la frase del riscatto 1; riscatti col nome di un altro budget da 1 su 6 a 0 su 6
+
+## VOCE GCA.12
+
+**CHIUSA.** Le undici decisioni stanno nel rapporto
+(`docs/ordini/RAPPORTO_ORDINE_GC.md`, righe in coda "Aggiunta del 23 ottobre
+2026") e nel manifesto come GCA.01-GCA.12, coi marcatori aggiornati. Nessuna
+decisione resta in attesa del fondatore.
+
+DOMANDA: "Le undici decisioni si scrivono nel rapporto dell'ordine GC"
+PROVA: `docs/ordini/RAPPORTO_ORDINE_GC.md`
+MISURA: decisioni scritte 11 su 11, in attesa 0
