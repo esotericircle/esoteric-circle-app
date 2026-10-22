@@ -27,10 +27,23 @@ class IlFiloInCima extends StatefulWidget {
   final Maestro maestro;
 
   /// Vero quando la scheda va mostrata nella chat di [maestro]: c'e' un
-  /// consulto in corso e un altro Maestro ne fa parte.
-  static bool siMostra(SchedaDeiPuntiFermi? s, Maestro maestro) =>
-      s != null &&
-      (s.daMaestro != maestro || s.pareri.any((p) => p.maestro != maestro));
+  /// consulto in corso, [maestro] ne fa parte (gli e' stata posta la
+  /// domanda o ha gia' detto il suo parere) e c'e' almeno un altro Maestro
+  /// da ricordare.
+  ///
+  /// **SOLO NELLA CHAT GIUSTA. Ordine GB voce 05, 22 ottobre 2026.** Prima
+  /// la condizione guardava solo se ESISTEVA un altro Maestro nel consulto,
+  /// non se [maestro] vi avesse mai preso parte: nella chat di Aura
+  /// compariva "Hai chiesto a Calìgo" anche quando il consulto era tutto e
+  /// solo di Calìgo, e Aura non lo aveva mai toccato. Padre: rapporto
+  /// dell'ordine GA, punto 5 ("la carta non filtra per Maestro").
+  static bool siMostra(SchedaDeiPuntiFermi? s, Maestro maestro) {
+    if (s == null) return false;
+    final neFaParte =
+        s.daMaestro == maestro || s.pareri.any((p) => p.maestro == maestro);
+    if (!neFaParte) return false;
+    return s.daMaestro != maestro || s.pareri.any((p) => p.maestro != maestro);
+  }
 
   @override
   State<IlFiloInCima> createState() => _IlFiloInCimaState();
