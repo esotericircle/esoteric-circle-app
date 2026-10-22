@@ -7784,7 +7784,15 @@ consegnata (regola R3 dell'ordine). Sul Realme resta la release del commit
 `1437df7e` con la persona (e). Registro delle guardie a **839** (163, 288,
 388).
 
-## L'ORDINE GA, RESPONSI DIRETTI, STESE CONTATE PER STESA E CACCIA AI DIFETTI ANCHE SU IPHONE (19 e 20 ottobre 2026), QUASI CONSEGNATO
+## L'ORDINE GA, RESPONSI DIRETTI, STESE CONTATE PER STESA E CACCIA AI DIFETTI ANCHE SU IPHONE (19-22 ottobre 2026), CONSEGNATO SU ANDROID
+
+**Consegnata il 22 ottobre 2026, commit `e3301b70`.** Build 2315 caricata su Firebase App Distribution con `tool/consegna.py`, prova di accensione sul Realme 767f596c (processo vivo, primo fotogramma disegnato, nessun FATAL EXCEPTION), release `1vvr6603ravvo`, distribuita a `cloud@esotericircle.app`, **1 invito accettato** (verificato rileggendo la release, non sul solo 200 OK). Registro `docs/versione_distribuita.json` aggiornato da 2314 a 2315. Cancello di GitHub verde sul commit consegnato (`refs/verde/284702fe878c72f3c0cddd225635de235bdd72eb`, il commit subito prima di quello del registro).
+
+**Un difetto vero trovato e curato in `tool/consegna.py` durante questa consegna**: la prova di accensione cercava "FATAL EXCEPTION" nel log, ma la riga con cui adbd registra il comando shell lanciato contiene quelle stesse parole dentro di se' (il comando passato a `grep` compare nel suo stesso log), e il filtro la ripescava come un crash vero. Verificato col grep sul telefono, prima e dopo: la consegna del 22 ottobre e' caduta una volta su questo falso positivo con l'app viva e nessun crash reale; corretta escludendo le righe "adbd service requested" dal filtro (commit `284702fe`).
+
+**iPhone, TestFlight via Codemagic: non lanciata da qui.** Il repo non ha accesso alle API di Codemagic (vedi guardie e memoria): la build `ios-testflight` o parte da sola su un webhook del ramo canonico, o il fondatore la lancia dalla sua dashboard Codemagic. Resta da confermare con lui.
+
+Stato precedente, per la cronaca:
 
 Stato al 21 ottobre 2026 (sera), sul ramo canonico `claude/esoteric-circle-master-order-e798aj`, commit `fa70b264`. Testo dell'ordine alla lettera: `docs/ordini/ORDINE_GA_TESTO.md` (sedici voci, GA.01 a GA.16). Manifesto scritto e guardato: `docs/ordini/ORDINE_GA_MANIFESTO.md`, con DOMANDA, PROVA e MISURA per ogni voce. Rapporto: `docs/ordini/RAPPORTO_ORDINE_GA.md` (non ancora registrato con `tool/i_rapporti_consegnati.py`, in attesa del verde e della verifica finale). **Due voci CHIUSE (GA.07 e GA.12), quattordici APERTE IN ATTESA DI VERIFICA, zero DA FARE**: ognuna delle aperte dice nel manifesto cosa aspetta (una cattura sul telefono col codice finale, un piano diverso dal Viandante, una decisione del fondatore).
 
