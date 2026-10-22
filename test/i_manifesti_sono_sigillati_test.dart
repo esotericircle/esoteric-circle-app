@@ -409,6 +409,9 @@ void main() {
     // simulazione, il riquadro che non taglia le gambe), un titolo per voce.
     'FZ': 15,
     'GA': 16,
+    // GB: tredici voci, contate coi titoli "## VOCE GB." del manifesto il 22
+    // ottobre 2026.
+    'GB': 13,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
