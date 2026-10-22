@@ -29,18 +29,18 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | `arcano_alba_titolo` | prima del gesto | lib/features/rituals/arcano_dell_alba_screen.dart:362 | titoloScheda | 20 | 600 | #F4F1E8 | #0E1832 | **15.55** | 3.0 | si' |
 | `arcano_alba_richiamo` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:445 | cerimoniale | 28 | 600 | #D4AF37 | #111C3A | **7.98** | 3.0 | si' |
 | `arcano_alba_invito`, Scegli fra i ventidue arcani co... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:452 | lettura | 20 | 400 | #F4F1E8 | #0B1328 | **16.34** | 4.5 | si' |
-| `arcano_alba_faccia`, XII | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:600 | display a misura | 3 | 600 | #F0D77B | #5C5962 | **4.81** | 4.5 | si' |
-| `arcano_alba_faccia`, L'APPESO | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:600 | display a misura | 4 | 600 | #F0D77B | #060939 | **13.30** | 4.5 | si' |
+| `arcano_alba_faccia`, XII | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:600 | display a misura | 3 | 600 | #F0D77B | #372817 | **9.95** | 4.5 | si' |
+| `arcano_alba_faccia`, L'APPESO | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:600 | display a misura | 4 | 600 | #F0D77B | #050839 | **13.37** | 4.5 | si' |
 | `alba_riga_dono` | a rito compiuto | lib/design_system/components/riga_del_dono.dart:54 | corpo o didascalia | 16 | 400 | #5A94FF | #0A1125 | **6.35** | 4.5 | si' |
-| `arcano_alba_titolo_risposta` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:773 | cerimoniale | 28 | 600 | #F0D77B | #080E20 | **13.45** | 3.0 | si' |
-| `arcano_alba_carta` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:785 | titoloScheda | 18 | 600 | #F0D77B | #080E1F | **13.46** | 4.5 | si' |
+| `arcano_alba_titolo_risposta` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:775 | cerimoniale | 28 | 600 | #F0D77B | #080E20 | **13.45** | 3.0 | si' |
+| `arcano_alba_carta` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:787 | titoloScheda | 18 | 600 | #F0D77B | #080E1F | **13.46** | 4.5 | si' |
 | `arcano_alba_etichetta_parola` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #F0D77B | #0C1126 | **13.09** | 4.5 | si' |
-| `arcano_alba_parola` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:806 | cerimonialeGrande | 34 | 700 | #F0D77B | #0F142A | **12.75** | 3.0 | si' |
-| `arcano_alba_uso_della_parola`, Tienila a mente quando devi sce... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:815 | lettura | 20 | 400 | #D9D7D1 | #10152C | **12.48** | 4.5 | si' |
+| `arcano_alba_parola` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:808 | cerimonialeGrande | 34 | 700 | #F0D77B | #0F142A | **12.75** | 3.0 | si' |
+| `arcano_alba_uso_della_parola`, Tienila a mente quando devi sce... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:817 | lettura | 20 | 400 | #D9D7D1 | #10152C | **12.48** | 4.5 | si' |
 | `arcano_alba_etichetta_gesto` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #F0D77B | #090E1F | **13.44** | 4.5 | si' |
-| `arcano_alba_dono`, Fai in segreto una cosa utile p... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:675 | lettura | 20 | 400 | #F4F1E8 | #080D1E | **17.11** | 4.5 | si' |
+| `arcano_alba_dono`, Fai in segreto una cosa utile p... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:677 | lettura | 20 | 400 | #F4F1E8 | #080D1E | **17.11** | 4.5 | si' |
 | `arcano_alba_etichetta_perche` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #F0D77B | #070C1C | **13.64** | 4.5 | si' |
-| `arcano_alba_perche`, Fare bene senza pubblico ti mos... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:689 | lettura | 20 | 400 | #D8D6D0 | #080D1E | **13.25** | 4.5 | si' |
+| `arcano_alba_perche`, Fare bene senza pubblico ti mos... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:691 | lettura | 20 | 400 | #D8D6D0 | #080D1E | **13.25** | 4.5 | si' |
 | `arcano_alba_pannello`, Condividi | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:502 | display a misura | 16 | 600 | #F0D77B | #090E20 | **13.43** | 4.5 | si' |
 | `arcano_alba_pannello`, Segna nel Diario | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:502 | display a misura | 16 | 600 | #F0D77B | #0A0F20 | **13.35** | 4.5 | si' |
 | `arcano_alba_pannello`, Parlane con Medora | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:502 | display a misura | 16 | 600 | #F4F1E8 | #2E4CA6 | **6.89** | 4.5 | si' |

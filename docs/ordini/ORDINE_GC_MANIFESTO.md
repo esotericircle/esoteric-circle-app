@@ -11,22 +11,24 @@ Realme sono in `docs/collaudo/GC/le_opzioni.md` e
 `docs/collaudo/GC/regola_a.txt`: ventitré innesti, uno alla volta, tutti
 rossi.
 
-Restano aperte quattro voci: GC.01 aspetta la prova sull'app vera con un
-account che apra la stesa a dieci; GC.12 e GC.14 aspettano di essere viste
+GC.01 e' chiusa con la misura del banco per decisione del fondatore (22
+ottobre 2026, in chat: "Chiudi col banco"). Restano aperte tre voci: GC.12 e GC.14 aspettano di essere viste
 sul Realme con una consultazione nuova, dopo le cure trovate nella
 simulazione; GC.20, la consegna, si chiude col verde di GitHub sul commit
 finale.
 
 VOCI_TOTALI: 20
-VOCI_CHIUSE: 16
-VOCI_APERTE: 4
+VOCI_CHIUSE: 17
+VOCI_APERTE: 3
 VOCI_DA_FARE: 0
 VOCI_PREMESSA_CADUTA: 0
 VOCI_DIVIETO: 0
 
 ## VOCE GC.01
 
-**APERTA IN ATTESA DI VERIFICA.** Due cause trovate con la misura sul Realme
+**CHIUSA.** Chiusa con la misura del banco in rilascio sul Realme per
+decisione del fondatore, 22 ottobre 2026, alla domanda se dare un account
+Adepto al telefono di collaudo: *"Chiudi col banco"*. Due cause trovate con la misura sul Realme
 e curate alla radice. Prima: ogni carta dei Tarocchi si decodificava
 dall'arte piena (853 per 1280) anche larga cinquanta punti; ora si decodifica
 alla misura in cui si vede, in tre gradini (`TarotCardArt.gradinoPer`). PADRE:
@@ -40,7 +42,8 @@ DOMANDA: "La stesa a 10 carte, al click su pulsante \"leggi le carte\" rallenta 
 PROVA: `docs/collaudo/GC/gc01_la_croce_celtica.md`
 MISURA: stesa a dieci, PSS di picco da 280 a 220 MB, memoria grafica da 140 a 96 MB, fotogrammi oltre 100 ms da 16 a 3, il piu' lungo da 300 a 200 ms, fotogrammi disegnati nelle finestre della girata da 51-61 a 98-106 ogni due secondi; ricostruzioni della schermata intera mentre le dieci carte si girano da 13 a 1 (`test/gc_la_stesa_di_tarocchi_test.dart`, soglia 3); stese da una, tre e quattro carte, nessuna delle quattro grandezze peggiora
 
-ASPETTA: la prova sull'app vera, cinque volte di fila, con un account Adepto o Illuminato sul telefono di collaudo (passo manuale 1 del rapporto): il banco sostituisce la schermata di partenza, non il resto dell'app in memoria.
+Resta detto: il banco sostituisce la schermata di partenza, non il resto
+dell'app in memoria, e la chiusura vista dal fondatore non si e' riprodotta.
 
 ## VOCE GC.02
 

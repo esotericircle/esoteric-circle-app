@@ -2573,10 +2573,13 @@ class _LaBollaDellaCarta extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Il coro in didascalia e non in maiuscoletto: nella bolla stretta
+                      // "CORO DEI DOMINAZIONI" andava a capo, e un'etichetta in
+                      // maiuscoletto sta su una riga (guardia etichette_e_lettura).
                       Text(
-                          'CORO DEI ${carta.angelo.choir.name.replaceAll("u'", 'ù').toUpperCase()}',
-                          style: TypographyTokens.etichetta().copyWith(
-                              color: palette.goldSoft, letterSpacing: 1.1)),
+                          'Coro dei ${carta.angelo.choir.name.replaceAll("u'", 'ù')}',
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: palette.goldSoft)),
                       if (parolaChiave.trim().isNotEmpty)
                         Text(
                             '${parolaChiave.trim()[0].toUpperCase()}'

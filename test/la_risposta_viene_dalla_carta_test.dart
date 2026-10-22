@@ -592,7 +592,16 @@ void main() {
           final d = LaDomandaLetta.di(domanda);
           for (var i = 0; i < r.posizioni.length; i++) {
             final p = r.posizioni[i];
-            final c = p.responso!.cosaFare;
+            // **DALL'ORDINE GC VOCE GC.05** la singola carta e' titolo e un
+            // paragrafo, senza "Cosa fare" (il fondatore: "la singola Carta
+            // ha titolo e non ha il secondo paragrafo con riquadro"): il
+            // gesto e il rimando a chi e' competente stanno nel "Cosa fare"
+            // del responso principale, ed e' li' che questa prova li cerca.
+            if (p.responso!.cosaFare.isNotEmpty) {
+              guasti.add('"$domanda", ${p.drawn.displayName}: la singola '
+                  'ha ancora un "Cosa fare"');
+            }
+            final c = r.principale.cosaFare;
             final parole = c.split(' ').length;
             if (d.sensibile != null) {
               sensibili++;

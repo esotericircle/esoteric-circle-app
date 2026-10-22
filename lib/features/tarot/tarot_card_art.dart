@@ -225,7 +225,14 @@ class TarotCardArt extends StatelessWidget {
     this.borderRadius = 6,
     this.mazzo = TarotDeckStyle.predefinito,
     this.arte,
+    this.artePiena = false,
   });
+
+  /// **L'ARTE PIENA, SEMPRE**: per la carta sola e grande (il dono del Rito
+  /// dell'Alba), dove la memoria non conta e la carta resta com'era prima
+  /// dell'ordine GC. La scelta alla misura ([gradinoPer]) serve alle stese,
+  /// dove le carte sono tante e piccole.
+  final bool artePiena;
 
   final TarotCard card;
   final MaestroPalette palette;
@@ -274,7 +281,9 @@ class TarotCardArt extends StatelessWidget {
   }
 
   Widget _arteDiCasa(double pixel, Widget errore) {
-    final g = gradinoPer(pixel);
+    final g = artePiena
+        ? (miniatura: false, decodifica: null)
+        : gradinoPer(pixel);
     // `fill` e non `cover`: la carta ha la proporzione dell'arte (2 a 3,
     // [TarotFrame.aspect]), e la guardia `miniature_intere` vuole che nessuna
     // carta si adatti al riempimento tagliandosi.

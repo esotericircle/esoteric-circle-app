@@ -601,6 +601,8 @@ class _Faccia extends StatelessWidget {
         card: responso.carta,
         palette: palette,
         reversed: responso.stato.rovescio,
+        // Una carta sola e grande: l'arte piena, come prima dell'ordine GC.
+        artePiena: true,
       );
 }
 

@@ -7,6 +7,7 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../../design_system/typography/paragrafi_di_lettura.dart';
 import 'oracolo_degli_angeli_screen.dart' show LaCartaDellAngelo;
 
 /// **LA CARTA DELL'ANGELO, APERTA AL TOCCO.** Ordine GC voce GC.14, 22
@@ -160,9 +161,10 @@ class LaCartaDellAngeloAperta extends StatelessWidget {
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 1.6)),
             const SizedBox(height: SpacingTokens.xxs),
-            Text(messaggio,
+            ParagrafiDiLettura(
                 key: const Key('oracolo_carta_aperta_messaggio'),
-                style: TypographyTokens.lettura()
+                testo: messaggio,
+                stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textPrimary)),
             const SizedBox(height: SpacingTokens.lg),
             Center(

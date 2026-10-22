@@ -126,7 +126,11 @@ void main() {
     // 3), quindi non si taglia niente. `la_carta_dell_angelo_aperta.dart` e'
     // il foglio della carta dell'Oracolo aperta al tocco (voce GC.14): la
     // carta sta intera, con `BoxFit.contain`.
-    expect(punti.length, 16,
+    // **QUINDICI, ANCORA DALL'ORDINE GC**, la sera stessa: sul Realme il
+    // foglio mostrava la carta coi cartigli vuoti, e adesso usa la stessa
+    // carta del tavolo (`LaCartaDellAngelo`, gia' fra i punti), quindi
+    // `la_carta_dell_angelo_aperta.dart` non apre piu' l'arte da se'.
+    expect(punti.length, 15,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');

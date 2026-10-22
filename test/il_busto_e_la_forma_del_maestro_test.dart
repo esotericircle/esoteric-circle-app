@@ -181,7 +181,16 @@ void main() {
       'busto della porta unica', (tester) async {
     await pompa(tester, const StesaTreCarteScreen(seed: 7));
     await tester.pump(const Duration(seconds: 3));
-    expect(find.byKey(const Key('tavolo_medora')), findsOneWidget,
+    // Dall'ordine GC voce GC.03 Medora, sulla posa dell'invito, e' il
+    // fotogramma d'arrivo del filmato, non piu' la posa scontornata: dietro
+    // il tavolo c'e' l'una o l'altro.
+    expect(
+        find.byKey(const Key('tavolo_medora')).evaluate().length +
+            find
+                .byKey(const Key('tavolo_fotogramma_di_arrivo'))
+                .evaluate()
+                .length,
+        1,
         reason: 'Nella Stesa Medora non sta piu\' dietro il tavolo.');
     expect(find.byType(BustoDelMaestro), findsNothing,
         reason: 'Nella Stesa e\' tornato il busto ritagliato della porta '
