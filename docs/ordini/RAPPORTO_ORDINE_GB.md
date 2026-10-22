@@ -275,3 +275,5 @@ questo rapporto.
   (il prezzo, prima del gesto), copia riusata dalla schermata Chiedi per
   coerenza. Se il fondatore preferisce la frase letterale, e' un cambio di
   una riga.
+
+**Aggiunta del 22 ottobre 2026, ordine GB.** GB.13 e' CHIUSA, prova `docs/ordini/RAPPORTO_ORDINE_GB.md`: il verde di GitHub e' arrivato sul terzo push di questa consegna, commit `f1712ca3` (`refs/verde/f1712ca39bb96f27fc7b17dd8d3a18917df3f999`), dopo aver curato due difetti veri del primo push (padre GB.08, padre GB.11, sopra) e una virgola prima di "e" scritta da questa stessa voce nel secondo push. Voci finali: 6 chiuse (GB.02, GB.06, GB.07, GB.11, GB.12, GB.13), 5 aperte (GB.03, GB.04, GB.05, GB.08, GB.09), 1 premessa caduta (GB.01), 1 divieto (GB.10).

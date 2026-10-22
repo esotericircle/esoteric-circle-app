@@ -7828,19 +7828,28 @@ Stato al 21 ottobre 2026 (sera), sul ramo canonico `claude/esoteric-circle-maste
 
 ## L'ORDINE GB, L'OROSCOPO SI APRE SENZA CONGELARSI, TUTTI I FILMATI SI SALTANO, LE STESE RICALCOLATE E LE CURE DEL RAPPORTO GA (22 ottobre 2026)
 
-**In corso, sul ramo canonico `claude/esoteric-circle-master-order-e798aj`.**
+**Consegnato (GB.13 chiusa col verde di GitHub), sul ramo canonico
+`claude/esoteric-circle-master-order-e798aj`. Cinque voci restano aperte in
+attesa di decisioni o autorizzazioni del fondatore (si veda sotto): la
+consegna non le aspetta, perche' R3 non prevede una build per i tester e
+nessuna di loro blocca il cancello.**
 Testo dell'ordine alla lettera: `docs/ordini/ORDINE_GB_TESTO.md`. Manifesto:
 `docs/ordini/ORDINE_GB_MANIFESTO.md` (tredici voci, GB.01 a GB.13), con
 DOMANDA, PROVA e MISURA per ogni voce che ne ha una. Rapporto:
-`docs/ordini/RAPPORTO_ORDINE_GB.md` (non ancora registrato con
-`tool/i_rapporti_consegnati.py`, in attesa del verde e della verifica finale).
-**Cinque voci CHIUSE (GB.02, GB.06, GB.07, GB.11, GB.12), sei APERTE IN
-ATTESA DI VERIFICA (GB.03, GB.04, GB.05, GB.08, GB.09, GB.13), una PREMESSA
+`docs/ordini/RAPPORTO_ORDINE_GB.md` (registrato con
+`tool/i_rapporti_consegnati.py`, verde di GitHub arrivato: **consegna
+chiusa**, R3, nessuna build per i tester).
+**Sei voci CHIUSE (GB.02, GB.06, GB.07, GB.11, GB.12, GB.13), cinque APERTE
+IN ATTESA DI VERIFICA (GB.03, GB.04, GB.05, GB.08, GB.09), una PREMESSA
 CADUTA (GB.01), un DIVIETO dichiarato senza lavoro (GB.10)**: PREMESSA CADUTA
 e DIVIETO sono due stati nuovi che nessun manifesto precedente aveva,
 aggiunti perche' nessuno dei cinque esistenti (CHIUSA, APERTA, DA FARE)
 diceva il vero su una voce la cui premessa era falsa o su una voce che
-l'ordine vieta di toccare.
+l'ordine vieta di toccare. **GB.13, la consegna stessa, si e' chiusa col
+verde di GitHub** sul terzo push di questa consegna, commit `f1712ca3`
+(`refs/verde/f1712ca39bb96f27fc7b17dd8d3a18917df3f999`): i primi due push
+(`6e221134`, `629d7958`) erano caduti, il primo su due difetti veri trovati
+dalle guardie (si veda sotto), il secondo su una virgola prima di "e".
 
 **La simulazione da persona (FZ.09) e quella del bambino (GA.09), con un
 incidente sulla regola SPESE, da conoscere per intero.** L'ordine R3 non

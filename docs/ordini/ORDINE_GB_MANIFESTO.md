@@ -11,13 +11,14 @@ rifacimento il 22 ottobre 2026 dopo che il primo giro aveva scritto domande
 vere ai Maestri senza il si' del fondatore, vedi GB.05 e GB.06): dove non ha
 trovato difetti e la funzione era gia' a prova, la voce e' CHIUSA; dove la
 simulazione non e' riuscita a ricreare dal vivo cio' che doveva vedere (GB.05)
-o resta bloccata dalla regola SPESE (GB.09), la voce resta APERTA. GB.01 e'
+o resta bloccata dalla regola SPESE (GB.09), la voce resta APERTA. GB.13, la
+consegna stessa, si chiude col verde di GitHub sul commit finale. GB.01 e'
 una premessa caduta (si veda sotto); GB.10 e' un divieto dichiarato, senza
 lavoro.
 
 VOCI_TOTALI: 13
-VOCI_CHIUSE: 5
-VOCI_APERTE: 6
+VOCI_CHIUSE: 6
+VOCI_APERTE: 5
 VOCI_DA_FARE: 0
 VOCI_PREMESSA_CADUTA: 1
 VOCI_DIVIETO: 1
@@ -315,7 +316,7 @@ non una schermata.
 
 ## VOCE GB.13
 
-**APERTA IN ATTESA DI VERIFICA.** La consegna: manifesto, guardia del
+**CHIUSA.** La consegna: manifesto, guardia del
 manifesto, rapporto, STATO_VIVO, registro delle guardie aggiornati (da 880
 a 883). CLAUDE.md porta le regole permanenti di GB.02 e GB.12. Nessun
 numero e' cambiato nel server in questo ordine (GB.04 conclude che i
@@ -326,19 +327,29 @@ DOMANDA: "In locale solo le prove della voce e le guardie della zona
 toccata; la suite intera sul cancello di GitHub. L'ordine si consegna solo
 col verde di GitHub. Nessuna build per i tester"
 PROVA: `docs/ordini/RAPPORTO_ORDINE_GB.md`
-MISURA: voci chiuse 0 su 13 prima della simulazione, 5 su 13 dopo (GB.02,
-GB.06, GB.07, GB.11, GB.12), aperte 6 (GB.03, GB.04, GB.05, GB.08, GB.09,
-GB.13), da fare 0, premessa caduta 1, divieto 1; guardie nel registro da
-880 a 883
+MISURA: voci chiuse 0 su 13 prima della simulazione, 6 su 13 alla
+consegna (GB.02, GB.06, GB.07, GB.11, GB.12, GB.13), aperte 5 (GB.03,
+GB.04, GB.05, GB.08, GB.09), da fare 0, premessa caduta 1, divieto 1;
+guardie nel registro da 880 a 883; verde di GitHub, da assente a presente
+(`refs/verde/f1712ca39bb96f27fc7b17dd8d3a18917df3f999` sul commit finale di
+questa consegna)
 
-ASPETTA: il verde di GitHub sul commit consegnato. La simulazione da
-persona e quella del bambino sul Realme per le sei funzioni toccate
-(GB.02, GB.05, GB.06, GB.07, GB.09, GB.11) e' stata fatta: nessun difetto
-trovato su GB.02, GB.06, GB.07, GB.11, ora CHIUSE; GB.05 non verificabile
-dal vivo in questo giro (limite esaurito, riscatto Eos bloccato dal
-classificatore di sicurezza), resta APERTA; GB.09 resta bloccata dalla
-regola SPESE, resta APERTA. Il primo giro di simulazione aveva scritto
-domande vere ai Maestri senza il si' del fondatore (violazione della
-regola SPESE di allora); rifatto il 22 ottobre 2026 sotto l'eccezione
-permanente che il fondatore ha concesso nella stessa occasione ("ok per
-eccezione", ora in CLAUDE.md).
+La simulazione da persona e quella del bambino sul Realme per le sei
+funzioni toccate (GB.02, GB.05, GB.06, GB.07, GB.09, GB.11) e' stata
+fatta: nessun difetto trovato su GB.02, GB.06, GB.07, GB.11, ora CHIUSE;
+GB.05 non verificabile dal vivo in questo giro (limite esaurito, riscatto
+Eos bloccato dal classificatore di sicurezza), resta APERTA; GB.09 resta
+bloccata dalla regola SPESE, resta APERTA. Il primo giro di simulazione
+aveva scritto domande vere ai Maestri senza il si' del fondatore
+(violazione della regola SPESE di allora); rifatto il 22 ottobre 2026
+sotto l'eccezione permanente che il fondatore ha concesso nella stessa
+occasione ("ok per eccezione", ora in CLAUDE.md). Il primo push
+(`6e221134`) e' caduto su tre rossi: il rapporto non registrato e due
+difetti veri trovati dalle guardie su zone toccate da voci precedenti
+(padre GB.08 per la chiave di Crashlytics scoperta in `CioCheETuo`, padre
+GB.11 per il test del Calendario che non scorreva piu' a sufficienza),
+entrambi curati. Il secondo push (`629d7958`) e' caduto su una virgola
+prima di "e" scritta da questa stessa voce in `cio_che_e_tuo.dart`, estesa
+poi a una ricerca a mano sugli altri documenti di questa consegna, dove ne
+sono state trovate altre tre; corrette, impronta del rapporto riaggiornata
+con la ragione scritta. Il terzo push (`f1712ca3`) ha il verde.
