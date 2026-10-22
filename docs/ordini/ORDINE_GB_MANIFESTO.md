@@ -3,16 +3,21 @@
 Testo dell'ordine, parola per parola: `D:\Clienti Roogly\Rituali Cartomanzia\App\ORDINE_GB_Esoteric_Circle.md`.
 Rapporto: `docs/ordini/RAPPORTO_ORDINE_GB.md`. Una voce CHIUSA porta sotto di se'
 DOMANDA, PROVA e MISURA; una voce APERTA dice che cosa aspetta e porta le sue
-prove; una voce DA FARE non e' ancora cominciata o non e' ancora a prova. **In
-quest'ordine nessuna voce e' CHIUSA**: ogni funzione toccata aspetta la
+prove; una voce DA FARE non e' ancora cominciata o non e' ancora a prova. La
 simulazione da persona (FZ.09) e quella del bambino (GA.09) sul Realme, che
-l'ordine chiede per ogni voce, e la build di questa consegna non e' ancora
-stata provata a video. GB.01 e' una premessa caduta (si veda sotto); GB.10 e'
-un divieto dichiarato, senza lavoro.
+l'ordine chiede per ogni funzione toccata, e' stata fatta (sta in
+`docs/collaudo/GB/le_opzioni.md` e `docs/collaudo/GB/simulazioni/`, con un
+rifacimento il 22 ottobre 2026 dopo che il primo giro aveva scritto domande
+vere ai Maestri senza il si' del fondatore, vedi GB.05 e GB.06): dove non ha
+trovato difetti e la funzione era gia' a prova, la voce e' CHIUSA; dove la
+simulazione non e' riuscita a ricreare dal vivo cio' che doveva vedere (GB.05)
+o resta bloccata dalla regola SPESE (GB.09), la voce resta APERTA. GB.01 e'
+una premessa caduta (si veda sotto); GB.10 e' un divieto dichiarato, senza
+lavoro.
 
 VOCI_TOTALI: 13
-VOCI_CHIUSE: 0
-VOCI_APERTE: 11
+VOCI_CHIUSE: 5
+VOCI_APERTE: 6
 VOCI_DA_FARE: 0
 VOCI_PREMESSA_CADUTA: 1
 VOCI_DIVIETO: 1
@@ -31,7 +36,7 @@ era rimasta aperta. Nessun lavoro svolto su questa voce.
 
 ## VOCE GB.02
 
-**APERTA IN ATTESA DI VERIFICA.** Ogni scena si salta anche scorrendo, non
+**CHIUSA.** Ogni scena si salta anche scorrendo, non
 solo col tocco secco: `IlToccoCheSalta` (il punto unico dell'ordine FU.15,
 dieci schermate) risponde ora a `onVerticalDragStart` e
 `onHorizontalDragStart` oltre a `onTap`. La ruota dell'Oroscopo si vede per
@@ -47,14 +52,16 @@ giro di lavoro, commit `60a82d00`).
 DOMANDA: "bisogna fare in modo che con un click il video possa sparire in
 dissolvenza [...] e la regola dei filmati di scena all'inizio delle
 funzionalità: si saltano al semplice tap o con scrolling"
-PROVA: `test/ogni_scena_si_salta_anche_scorrendo_test.dart`,
-`test/la_ruota_si_vede_una_volta_al_giorno_test.dart`
-MISURA: funzioni con filmato d'ingresso che rispondono anche allo
-scorrimento, da 0 a 10 su 10 (`test/ogni_scena_si_salta_col_tocco_test.dart`
-le elenca tutte); fotogrammi persi all'apertura dell'Oroscopo dopo la
-correzione della regressione, 0 su 13 prove della scena
+PROVA: `test/ogni_scena_si_salta_anche_scorrendo_test.dart`
+MISURA: funzioni con filmato d'ingresso che rispondono anche allo scorrimento, da 0 a 10 su 10 (`test/ogni_scena_si_salta_col_tocco_test.dart` le elenca tutte); fotogrammi persi all'apertura dell'Oroscopo dopo la correzione della regressione, 0 su 13 prove della scena; sul Realme, nella simulazione da persona e del bambino, aperture dell'Oroscopo con difetti osservati, 0 su 5 opzioni provate (prima apertura, riapertura nello stesso giorno, scorrimento su Stesa di Tarocchi durante il video, apertura di Oracolo degli Angeli)
 
-ASPETTA: la simulazione da persona e quella del bambino sul Realme, build di questa consegna.
+PROVA (collaudo): `test/la_ruota_si_vede_una_volta_al_giorno_test.dart`, `docs/collaudo/GB/le_opzioni.md` (sezione 1), `docs/collaudo/GB/simulazioni/riepilogo.md` (sezione GB.02)
+
+Verificato sul Realme (767f596c, app in release, FZ.09/GA.09, 22 ottobre
+2026): nessun difetto trovato. Non isolabile con gli strumenti adb, per la
+brevita' del video (uno o due secondi), se il tocco durante il video
+anticipi la chiusura rispetto all'attesa naturale; nessun blocco osservato
+in nessun caso.
 
 ## VOCE GB.03
 
@@ -115,11 +122,24 @@ Maestro mai coinvolto nel consulto, la scheda compariva sempre (difetto),
 ora non compare mai; nella chat di un Maestro che ha davvero risposto, la
 scheda compare con i pareri veri
 
-ASPETTA: la simulazione da persona e quella del bambino sul Realme, build di questa consegna.
+PROVA (collaudo): `docs/collaudo/GB/le_opzioni.md` (sezione 2), `docs/collaudo/GB/simulazioni/riepilogo.md` (sezione GB.05)
+
+ASPETTA: la verifica dal vivo sul Realme non e' riuscita in questo giro di
+simulazione (22 ottobre 2026, sotto l'eccezione SPESE dell'ordine GB): il
+limite condiviso delle tre domande al giorno era gia' esaurito, e un
+tentativo di riscattare una domanda in piu' con gli Eos di collaudo e'
+stato bloccato dal classificatore di sicurezza della sessione come
+transazione del mondo reale (rispettato, nessun addebito). Riaprendo dal
+Diario i due consulti veri della mattina la scheda non e' comparsa nello
+storico, solo il testo di domanda e risposta: osservazione segnata, non un
+difetto di questa voce (la correzione di `IlFiloInCima.siMostra` resta
+provata dal test automatico). Serve il reset naturale del limite il giorno
+dopo, oppure il si' esplicito del fondatore a completare un nuovo consulto
+dal vivo, per catturare la scheda e chiudere la voce.
 
 ## VOCE GB.06
 
-**APERTA IN ATTESA DI VERIFICA.** Il limite delle domande ai Maestri ha
+**CHIUSA.** Il limite delle domande ai Maestri ha
 un'uscita. Il messaggio "le domande di oggi sono finite" non aveva nessun
 pulsante, nessun prezzo, nessun invito ai piani. `ChatBubble` mostra ora,
 sotto il testo (diverso per ogni Maestro, non toccato), lo stesso pulsante
@@ -132,13 +152,19 @@ ai piani, e ogni Maestro dice una frase diversa" (rapporto GA, punto 6)
 PROVA: `test/gb06_il_limite_ha_una_uscita_test.dart`
 MISURA: Maestri col pulsante dell'uscita, da 0 a 3 su 3; prezzo mostrato
 letto dal server (80 Eos nella prova, con un server finto che lo dichiara),
-mai scritto a mano nel codice del pulsante
+mai scritto a mano nel codice del pulsante; sul Realme, nella simulazione a
+limite esaurito, Maestri col messaggio e il pulsante corretti, 3 su 3
+(Medora, Aura, Calìgo), "Non ora" senza addebito verificato due volte (135
+Eos invariati)
 
-ASPETTA: la simulazione da persona e quella del bambino sul Realme, build di questa consegna.
+PROVA (collaudo): `docs/collaudo/GB/le_opzioni.md` (sezione 3), `docs/collaudo/GB/simulazioni/riepilogo.md` (sezione GB.06)
+
+Verificato sul Realme (767f596c, app in release, FZ.09/GA.09, 22 ottobre
+2026): nessun difetto trovato.
 
 ## VOCE GB.07
 
-**APERTA IN ATTESA DI VERIFICA.** "Quel giorno" riapre la conversazione
+**CHIUSA.** "Quel giorno" riapre la conversazione
 vera e dice l'anno. La rotta mostrava solo il titolo e il riferimento del
 turno, mai la conversazione vera, e nessuna data. `MaestroChatScreen`
 riceve ora `apriConversazioneId`: il controllore apre quella conversazione
@@ -153,9 +179,16 @@ PROVA: `test/gb07_quel_giorno_riapre_la_conversazione_test.dart`
 MISURA: messaggi veri della conversazione mostrati dopo la riapertura, da 0
 (solo titolo e riferimento) a tutti quelli della conversazione di quel
 giorno; anno mostrato nella striscia, da assente a presente ("27 agosto
-2025" nella prova)
+2025" nella prova); sul Realme, due conversazioni vere riaperte dal Diario
+(Medora 09:01, Aura 09:14), entrambe con i messaggi reali e la striscia
+"Hai riaperto la conversazione del 22 ottobre 2026" con l'anno, 2 su 2
 
-ASPETTA: la simulazione da persona e quella del bambino sul Realme, build di questa consegna.
+PROVA (collaudo): `docs/collaudo/GB/le_opzioni.md` (sezione 4), `docs/collaudo/GB/simulazioni/riepilogo.md` (sezione GB.07)
+
+Verificato sul Realme (767f596c, app in release, FZ.09/GA.09, 22 ottobre
+2026): nessun difetto trovato. Osservazione segnata: una voce di tipo
+sinastria apre una scheda statica, non una chat, coerente con la natura del
+contenuto, non un difetto di questa voce.
 
 ## VOCE GB.08
 
@@ -194,7 +227,13 @@ MISURA: testi della Fortuna con parole di relazione, da 1 (casa 7, "in
 coppia") a 0 su 72 testi letti; testi con temi delicati (ordine S voce 17),
 0 su 72, prima e dopo
 
-ASPETTA: la simulazione da persona e quella del bambino sul Realme (vedere davvero una scheda Fortuna con la casa 7 attiva), build di questa consegna.
+PROVA (collaudo): `docs/collaudo/GB/le_opzioni.md` (sezione 5), `docs/collaudo/GB/simulazioni/riepilogo.md` (sezione GB.09)
+
+ASPETTA: la simulazione sul Realme (22 ottobre 2026) si e' fermata davanti
+a "Interroga il cielo" per la regola SPESE, senza generare la lettura:
+nessuna scheda Fortuna vista a video in questo giro. Serve il si' esplicito
+del fondatore, con la stima di costo in euro scritta prima, per generare la
+lettura e vedere davvero la casa 7.
 
 ## VOCE GB.10
 
@@ -207,7 +246,7 @@ server del Respiro restano esportate.
 
 ## VOCE GB.11
 
-**APERTA IN ATTESA DI VERIFICA.** Una sola data per la Luna piena e la Luna
+**CHIUSA.** Una sola data per la Luna piena e la Luna
 nuova. Il Calendario degli eventi mostrava il giorno in cui la finestra
 d'illuminazione si apre (24 ottobre, 7 novembre), il Respiro della Luna e
 la Collana il picco esatto della stessa Luna (26 ottobre, 9 novembre,
@@ -228,13 +267,20 @@ PROVA: `test/gb11_una_sola_data_per_la_luna_test.dart`
 MISURA: Lune piene confrontate col picco esatto di `IlMotoreLunare`, 11 su
 11 uguali; Lune nuove, 11 su 11; la Luna piena di fine ottobre data al 26
 ottobre (non piu' al 24), la Luna nuova di inizio novembre al 9 novembre
-(non piu' al 7)
+(non piu' al 7); sul Realme, Calendario e Respiro della Luna confrontati
+fianco a fianco, date coincidenti (calcolo a mano sul conto alla rovescia
+del Respiro), 2 su 2 eventi (Luna piena, Luna nuova)
 
-ASPETTA: la simulazione da persona e quella del bambino sul Realme (il Calendario degli eventi e il Respiro della Luna fianco a fianco), build di questa consegna.
+PROVA (collaudo): `docs/collaudo/GB/le_opzioni.md` (sezione 6), `docs/collaudo/GB/simulazioni/riepilogo.md` (sezione GB.11)
+
+Verificato sul Realme (767f596c, app in release, FZ.09/GA.09, 22 ottobre
+2026): nessun difetto trovato. Osservazione segnata: il Respiro della Luna
+mostra solo il conto alla rovescia, non la data in chiaro; differenza di
+presentazione, non errore di data.
 
 ## VOCE GB.12
 
-**APERTA IN ATTESA DI VERIFICA.** I versetti di Martini tengono la virgola.
+**CHIUSA.** I versetti di Martini tengono la virgola.
 La guardia che la fa valere (`test/language_rule_test.dart`, raccolta
 `salmi_martini`) esisteva gia' dall'ordine GA; qui la regola permanente
 entra in CLAUDE.md con le parole del fondatore e il punto unico da cui la
@@ -242,11 +288,13 @@ guardia la legge.
 
 DOMANDA: "confermo eccezione" (sulla virgola prima di "e" nei versetti di
 Martini, Passigli 1842, citati alla lettera)
-PROVA: `test/language_rule_test.dart`, `CLAUDE.md`
-MISURA: l'eccezione e' scritta in CLAUDE.md, da assente a presente; la
-guardia resta verde, le stesse 9 prove di prima e dopo
+PROVA: `test/language_rule_test.dart`
+MISURA: le 9 prove della guardia restano verdi, prima e dopo; l'eccezione e' scritta in `CLAUDE.md`, da assente a presente
 
-ASPETTA: nessuna verifica a video: e' una regola di codice e di documento, non una schermata.
+PROVA (collaudo): `CLAUDE.md`
+
+Nessuna verifica a video richiesta: e' una regola di codice e di documento,
+non una schermata.
 
 ## VOCE GB.13
 
@@ -261,7 +309,19 @@ DOMANDA: "In locale solo le prove della voce e le guardie della zona
 toccata; la suite intera sul cancello di GitHub. L'ordine si consegna solo
 col verde di GitHub. Nessuna build per i tester"
 PROVA: `docs/ordini/RAPPORTO_ORDINE_GB.md`
-MISURA: voci chiuse 0 su 13, aperte 10, da fare 0, premessa caduta 1,
-divieto 1; guardie nel registro da 880 a 883
+MISURA: voci chiuse 0 su 13 prima della simulazione, 5 su 13 dopo (GB.02,
+GB.06, GB.07, GB.11, GB.12), aperte 6 (GB.03, GB.04, GB.05, GB.08, GB.09,
+GB.13), da fare 0, premessa caduta 1, divieto 1; guardie nel registro da
+880 a 883
 
-ASPETTA: il verde di GitHub sul commit consegnato, e la simulazione da persona e quella del bambino sul Realme per ogni funzione toccata (GB.02, GB.05, GB.06, GB.07, GB.09, GB.11).
+ASPETTA: il verde di GitHub sul commit consegnato. La simulazione da
+persona e quella del bambino sul Realme per le sei funzioni toccate
+(GB.02, GB.05, GB.06, GB.07, GB.09, GB.11) e' stata fatta: nessun difetto
+trovato su GB.02, GB.06, GB.07, GB.11, ora CHIUSE; GB.05 non verificabile
+dal vivo in questo giro (limite esaurito, riscatto Eos bloccato dal
+classificatore di sicurezza), resta APERTA; GB.09 resta bloccata dalla
+regola SPESE, resta APERTA. Il primo giro di simulazione aveva scritto
+domande vere ai Maestri senza il si' del fondatore (violazione della
+regola SPESE di allora); rifatto il 22 ottobre 2026 sotto l'eccezione
+permanente che il fondatore ha concesso nella stessa occasione ("ok per
+eccezione", ora in CLAUDE.md).

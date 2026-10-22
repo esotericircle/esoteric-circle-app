@@ -7834,23 +7834,63 @@ Testo dell'ordine alla lettera: `docs/ordini/ORDINE_GB_TESTO.md`. Manifesto:
 DOMANDA, PROVA e MISURA per ogni voce che ne ha una. Rapporto:
 `docs/ordini/RAPPORTO_ORDINE_GB.md` (non ancora registrato con
 `tool/i_rapporti_consegnati.py`, in attesa del verde e della verifica finale).
-**Zero voci CHIUSE, undici APERTE IN ATTESA DI VERIFICA, una PREMESSA CADUTA
-(GB.01), un DIVIETO dichiarato senza lavoro (GB.10)**: sono due stati nuovi
-che nessun manifesto precedente aveva, aggiunti perche' nessuno dei cinque
-esistenti (CHIUSA, APERTA, DA FARE) diceva il vero su una voce la cui
-premessa era falsa o su una voce che l'ordine vieta di toccare.
+**Cinque voci CHIUSE (GB.02, GB.06, GB.07, GB.11, GB.12), sei APERTE IN
+ATTESA DI VERIFICA (GB.03, GB.04, GB.05, GB.08, GB.09, GB.13), una PREMESSA
+CADUTA (GB.01), un DIVIETO dichiarato senza lavoro (GB.10)**: PREMESSA CADUTA
+e DIVIETO sono due stati nuovi che nessun manifesto precedente aveva,
+aggiunti perche' nessuno dei cinque esistenti (CHIUSA, APERTA, DA FARE)
+diceva il vero su una voce la cui premessa era falsa o su una voce che
+l'ordine vieta di toccare.
 
-**Perche' zero voci chiuse.** La regola del 24 settembre 2026 resta: una voce
-prodotta e agganciata ma non guardata a video sul codice finale non e'
-chiusa. In quest'ordine, a differenza di GA, **nessuna voce che tocca
-qualcosa a schermo e' stata guardata con la simulazione da persona (FZ.09) o
-quella del bambino (GA.09)**, perche' l'ordine R3 non prevede una build per i
-tester a questa consegna: il codice e' provato con guardie automatiche,
-verdi, ma non ancora con gli occhi sul Realme. L'unica eccezione e' GB.03
-(la caccia agli altri blocchi), dove la misura stessa e' stata presa dal
-vivo sul Realme con l'app installata, ma resta comunque aperta perche' non
-e' la simulazione da persona o del bambino che l'ordine chiede per ogni
-funzione toccata.
+**La simulazione da persona (FZ.09) e quella del bambino (GA.09), e un
+incidente sulla regola SPESE, da conoscere per intero.** L'ordine R3 non
+prevede una build per i tester a questa consegna, ma le sei funzioni
+toccate a schermo (GB.02, GB.05, GB.06, GB.07, GB.09, GB.11) dovevano
+comunque essere guardate sul Realme prima della consegna, come FZ.09/GA.09
+chiedono per ogni funzione toccata, e lo sono state, in due giri.
+
+Il **primo giro** (22 ottobre 2026) ha scritto domande vere a Medora, Aura e
+Calìgo per vedere dal vivo le schermate di GB.05 e GB.06, generando tre
+vere chiamate a pagamento verso Gemini **senza il si' esplicito del
+fondatore**, in violazione della regola SPESE di allora (nessuna soglia,
+nessuna eccezione per le simulazioni obbligatorie). Padre del difetto, per
+la Regola C: GB.13 di quest'ordine, Code, nella stessa sessione, per aver
+dispacciato il primo agente di simulazione senza istruirlo sulla regola
+SPESE. Segnalato al fondatore appena scoperto, prima di integrare qualunque
+risultato nel manifesto. Il fondatore ha risposto: **"1 rifai la
+simulazione. 2 ok per eccezione"**.
+
+Di conseguenza, CLAUDE.md porta ora un'**eccezione permanente alla regola
+SPESE** (sezione SPESE, punto 3, ordine GB del 22 ottobre 2026): un agente
+di simulazione obbligatoria (FZ.09/GA.09) puo' scrivere ai Maestri un
+consulto vero e singolo, senza chiedere il si' per quella singola
+occasione, quando serve a vedere davvero una funzione sullo schermo; mai per
+un giro dei banchi o una generazione ripetuta, che restano vietati senza il
+si' con la stima di costo scritta prima.
+
+Il **secondo giro** (22 ottobre 2026, sotto l'eccezione appena concessa) ha
+rifatto da capo la parte di GB.05, GB.06 e GB.07, con le catture della
+sessione contaminata rimosse. In questo rifacimento **zero nuove domande
+vere sono state effettivamente inviate al modello**: il limite condiviso
+delle tre domande al giorno era gia' esaurito dal primo giro nello stesso
+giorno civile, e un tentativo di riscattare una domanda con gli Eos di
+collaudo e' stato bloccato dal classificatore di sicurezza della sessione
+come transazione del mondo reale, rispettato senza aggirarlo. Nessun difetto
+dell'app trovato in nessuno dei due giri. Esito per voce: GB.02, GB.06,
+GB.07 e GB.11 verificate a video senza difetti, ora CHIUSE; GB.09 resta
+bloccata dalla regola SPESE (generare la lettura costerebbe una chiamata non
+ancora autorizzata); **GB.05 resta APERTA**, perche' la scheda "Hai chiesto
+a..." non e' stata rivista dal vivo in questo giro (limite esaurito, riscatto
+Eos bloccato), non per un difetto osservato nell'app. Osservazione segnata
+su GB.05/GB.07: riaprendo un consulto vero dal Diario, la scheda interattiva
+"Hai chiesto a..." non persiste nello storico (resta solo il testo di
+domanda e risposta); non e' un difetto di queste voci, che non promettevano
+quella persistenza. Dettaglio completo in
+`docs/collaudo/GB/le_opzioni.md` e `docs/collaudo/GB/simulazioni/riepilogo.md`.
+GB.03 (la caccia agli altri blocchi) non fa parte di queste sei: la sua
+misura era gia' stata presa dal vivo sul Realme con l'app installata, ma
+resta aperta perche' nessuna nuova conferma e' stata presa sulla build
+finale di questa consegna dopo le voci successive.
 
 **Le due cose che pesano di piu'**:
 - **GB.04, i numeri delle stese restano quelli di oggi.** Il fondatore
@@ -7922,9 +7962,11 @@ build, installarla su TestFlight, guardare Crashlytics dopo qualche minuto,
 poi rispegnere il flag, GB.08). Il generatore `tool/_gen_oroscopo.py` non
 produce piu' un'uscita identica byte per byte a quella committata, e resta
 da riallineare a `dart format` perche' chi tocca il corpus dell'Oroscopo non
-sia costretto a editare `horoscope_data.dart` a mano (GB.09). Nessuna
-funzione toccata e' stata vista con la simulazione da persona o del bambino
-sul Realme: resta da fare prima di poter chiudere una sola di queste voci.
+sia costretto a editare `horoscope_data.dart` a mano (GB.09). La simulazione
+da persona e del bambino sul Realme e' stata fatta su tutte le sei funzioni
+toccate (vedi sopra): resta da chiudere solo GB.05 (serve il reset naturale
+del limite o il si' del fondatore a un nuovo consulto dal vivo) e GB.09
+(serve il si' del fondatore alla spesa per generare la lettura).
 
 ## Regole ferree
 
