@@ -21,7 +21,7 @@ import 'il_ritratto_della_coppia.dart' show immagineDellaSinastria;
 ///
 /// **LO STESSO RESPONSO**: i capitoli sono quelli che ha letto lui, parola per
 /// parola, nel formato di casa dei capitoli ([ResponsoInTreParagrafi]); il
-/// testo e' scritto a lui (il "tu" e' chi ha letto, il nome e' il tuo), e la
+/// testo e' scritto a lui (il "tu" e' chi ha letto, il nome e' il tuo) e la
 /// riga in cima lo dice. Nessuna nascita: la lettura non ne porta.
 class LaSinastriaRicevutaScreen extends StatelessWidget {
   const LaSinastriaRicevutaScreen({super.key, required this.ricevuta});
@@ -43,7 +43,8 @@ class LaSinastriaRicevutaScreen extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         // Semitrasparente in ogni stato (ordine FY voce FY.20).
-        backgroundColor: palette.deepest.withValues(alpha: AppTheme.veloDellaBarra),
+        backgroundColor:
+            palette.deepest.withValues(alpha: AppTheme.veloDellaBarra),
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,
@@ -96,7 +97,8 @@ class LaSinastriaRicevutaScreen extends StatelessWidget {
                           color: palette.goldSoft, letterSpacing: 2.0)),
                   const SizedBox(height: SpacingTokens.xxs),
                   TitoloDelResponso(
-                    chiaveDelTesto: Key('sinastria_ricevuta_${c.capitolo.name}'),
+                    chiaveDelTesto:
+                        Key('sinastria_ricevuta_${c.capitolo.name}'),
                     testo: c.titolo,
                     allineamento: TextAlign.center,
                     aCapoFraLeParole: true,

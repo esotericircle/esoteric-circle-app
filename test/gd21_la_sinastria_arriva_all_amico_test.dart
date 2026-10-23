@@ -58,7 +58,7 @@ class _IlServer {
 }
 
 class _PortaDi extends PortaFintaDelCerchioSociale {
-  _PortaDi(this.io, this.server, {super.nome, super.amici});
+  _PortaDi(this.io, this.server, {super.nome});
 
   final String io;
   final _IlServer server;
@@ -227,8 +227,8 @@ void main() {
         reason: 'all\'amica del Cerchio la lettura non e\' arrivata');
     final ricevuta = stella.cerchio.sinastrie.single;
     expect(ricevuta.da, 'u-io');
-    await tester.pumpWidget(app(
-        LaSinastriaRicevutaScreen(ricevuta: ricevuta), stella));
+    await tester
+        .pumpWidget(app(LaSinastriaRicevutaScreen(ricevuta: ricevuta), stella));
     await passa(tester, 6);
     expect(find.text('Il vostro cielo è stato letto'), findsOneWidget);
     var confrontati = 0;
@@ -237,8 +237,7 @@ void main() {
       await tester.scrollUntilVisible(titolo, 300,
           scrollable: find.byType(Scrollable).first, maxScrolls: 120);
       // Il titolo del responso va a capo fra le parole: si confronta il testo.
-      expect(tester.widget<Text>(titolo).data!.replaceAll('\n', ' '),
-          c.titolo,
+      expect(tester.widget<Text>(titolo).data!.replaceAll('\n', ' '), c.titolo,
           reason: 'il titolo arrivato non e\' quello letto');
       for (final p in c.paragrafi) {
         await tester.scrollUntilVisible(find.text(p), 300,
@@ -253,7 +252,7 @@ void main() {
   });
 
   testWidgets(
-      'GD.21: a chi non e\' nel Cerchio non arriva niente, e il telefono non '
+      'GD.21: a chi non e\' nel Cerchio non arriva niente e il telefono non '
       'chiama nemmeno la porta', (tester) async {
     final server = _IlServer();
     final porta = _PortaDi('u-io', server);

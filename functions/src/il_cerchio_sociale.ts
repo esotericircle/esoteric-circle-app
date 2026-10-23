@@ -2177,7 +2177,7 @@ export const mandaUnDono = onCall(OPZIONI_SOCIALI, async (request) => {
  * ottobre 2026. Chi ha letto la sinastria con un amico del Cerchio gliela
  * consegna: lo stesso responso, coi soli campi di un responso
  * (`sinastriaDaCorpo`, nessun dato di nascita), nella sua raccolta
- * `sinastrie`, e un avviso "il vostro cielo e' stato letto". Solo fra amici,
+ * `sinastrie` e un avviso "il vostro cielo e' stato letto". Solo fra amici,
  * mai fra chi si e' bloccato (`laSinastriaSiConsegna`); l'identificativo del
  * movimento rende innocuo il doppio tocco. Non costa niente e non conta
  * niente: la lettura l'ha gia' contata chi legge. SCRITTA E NON PUBBLICATA

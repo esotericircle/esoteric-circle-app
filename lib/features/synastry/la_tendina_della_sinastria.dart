@@ -83,12 +83,12 @@ enum _Passo { scelta, online, offline, modulo }
 /// l'invito per chi non li ha ([RigaDelPiano.sinastriaLunga]).
 ///
 /// **GLI AMICI OFFLINE DA UNA PORTA SOLA** (GD.20): l'elenco e' quello di
-/// [AmiciOffline], lo stesso dell'Oroscopo, e la persona nuova scritta qui
+/// [AmiciOffline], lo stesso dell'Oroscopo e la persona nuova scritta qui
 /// entra in quella lista (se il piano la tiene): nessuna seconda lista.
 ///
-/// **LA LETTURA A DUE TELEFONI RESTA** (FT.03, e per la Sinastria resta,
+/// **LA LETTURA A DUE TELEFONI RESTA** (FT.03 e per la Sinastria resta,
 /// FY.14): nel modulo, "Hai un codice dal suo telefono?" apre la nascita
-/// letta col consenso, e la nascita non si mostra (arriva per una lettura).
+/// letta col consenso e la nascita non si mostra (arriva per una lettura).
 class LaTendinaDellaSinastria extends StatefulWidget {
   const LaTendinaDellaSinastria({
     super.key,
@@ -345,7 +345,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
     if (_nuovaOffline && _dalCodice == null && _data != null) {
       // **LA PERSONA NUOVA ENTRA NELLA LISTA DI TUTTI** (GD.20): la stessa
       // dell'Oroscopo, se il piano la tiene; se no la lettura si fa lo
-      // stesso, e la riga nel modulo l'ha detto prima.
+      // stesso e la riga nel modulo l'ha detto prima.
       await _amici.aggiungi(
           Amico(
             id: 'a${DateTime.now().microsecondsSinceEpoch}',
@@ -491,12 +491,11 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
               key: const Key('sinastria_tendina_cerchio_chiuso'), style: _nota)
         else if (amici.isEmpty) ...[
           Text('Non hai ancora amici nel Cerchio.',
-              key: const Key('sinastria_tendina_online_vuoto'),
-              style: _valore),
+              key: const Key('sinastria_tendina_online_vuoto'), style: _valore),
           const SizedBox(height: SpacingTokens.xxs),
           Text(
-              'Vuoi invitarli? Quando entrano nel tuo Cerchio li trovi qui, '
-              'e la vostra lettura arriva anche a loro.',
+              'Vuoi invitarli? Quando entrano nel tuo Cerchio li trovi qui: '
+              'la vostra lettura arriva anche a loro.',
               style: _nota),
           const SizedBox(height: SpacingTokens.md),
           PulsanteDipinto(
@@ -831,8 +830,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
           voci: ProfonditaDellaSinastria.values,
           palette: _p,
           etichetta: (d) => d.etichetta,
-          bloccata: (d) =>
-              d == ProfonditaDellaSinastria.lunga && !_lungaAperta,
+          bloccata: (d) => d == ProfonditaDellaSinastria.lunga && !_lungaAperta,
           perche: (d) =>
               PlanCatalog.dalPiano(
                   (t) => PlanCatalog.apre(RigaDelPiano.sinastriaLunga, t)) ??

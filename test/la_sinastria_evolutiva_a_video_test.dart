@@ -149,7 +149,7 @@ void main() {
 
   // **IL LEGAME SI SCEGLIE PRIMA, UNO SOLO**, ordine GD voce GD.16: nella
   // lettura non ci sono piu' le quattro icone da toccare (la tipologia si
-  // sceglie nella tendina, e un'altra tipologia e' una sinastria nuova).
+  // sceglie nella tendina e un'altra tipologia e' una sinastria nuova).
   // LAPIDE: le tre prove qui sotto toccavano `sinastria_legame_*` nella
   // lettura; adesso chiedono il legame alla schermata e misurano lo stesso
   // fatto, lo sbarramento d'eta' e il no del server (FT.04). La riga sobria
@@ -160,7 +160,9 @@ void main() {
       'amore resta chiuso e la lettura parte dall\'amicizia', (tester) async {
     // Quindici anni e trecentosessantaquattro giorni al 14 ottobre 2026.
     await _monta(tester,
-        tier: Tier.tier2, nascitaSua: DateTime(2010, 10, 15), legame: Legame.amore);
+        tier: Tier.tier2,
+        nascitaSua: DateTime(2010, 10, 15),
+        legame: Legame.amore);
     final chiesto = await _titolo(tester);
     await _monta(tester,
         tier: Tier.tier2,
@@ -186,7 +188,9 @@ void main() {
   testWidgets('a sedici anni compiuti l\'amore si apre e cambia la lettura',
       (tester) async {
     await _monta(tester,
-        tier: Tier.tier2, nascitaSua: DateTime(2010, 10, 14), legame: Legame.amore);
+        tier: Tier.tier2,
+        nascitaSua: DateTime(2010, 10, 14),
+        legame: Legame.amore);
     final amore = await _titolo(tester);
     await _monta(tester,
         tier: Tier.tier2,

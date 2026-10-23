@@ -24,3 +24,122 @@ A1. functions/src/sinastria_evolutiva.test.ts, GD.21 lato server.
     Esito (npx tsc e node --test lib/sinastria_evolutiva.test.js): ROSSA, pass 28 fail 2:
     "una nascita infilata nel corpo non arriva a nessuno" e "a chi non e' nel Cerchio non arriva niente".
     Tolto ripristinando la copia; grep -c INNESTO -> 0; di nuovo verde (82 su 82 con sociale e cerchio).
+
+A2. test/gd20_gli_amici_offline_hanno_una_porta_sola_test.dart, GD.20.
+    PRIMA MISURA CAMBIATA (non la soglia): la prima stesura contava i file con SharedPreferences che nominano
+    "'amici_offline'", e prendeva anche lo scarico dei dati e le memorie custodite, che nominano la chiave come
+    voce di un elenco senza leggere la lista; e non avrebbe preso una seconda lista con un nome suo. La grandezza
+    misurata e' diventata: una chiave che nomina gli amici dichiarata in una costante o scritta in una chiamata
+    get/set/remove, in un file che usa SharedPreferences.
+    Innesto in lib/features/synastry/la_tendina_della_sinastria.dart: import di shared_preferences e
+    `laSecondaLista()` che legge `getStringList('amici_della_sinastria')` (// INNESTO REGOLA A).
+    Grep: righe 3, 894, 897, presenti.
+    Esito: ROSSA (+2 -1), "CHI TOCCA LA LISTA SUL DISCO: [amici_offline.dart, la_tendina_della_sinastria.dart]".
+    Tolto ripristinando la copia; grep -c INNESTO -> 0; verde (+3).
+
+A3 GD.13. test/gd_la_sinastria_evolutiva_test.dart, "GD.13 a 390x844".
+    Innesto in lib/features/synastry/sinastria_evolutiva_screen.dart: `altezza: null,` al posto di `altezza: alto,`.
+    Grep: righe [724], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: a value greater than or equal to <0.999>
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A4 GD.14 la tendina. test/gd_la_sinastria_evolutiva_test.dart, "GD.14: il tocco apre verso".
+    Innesto in lib/features/synastry/la_tendina_della_sinastria.dart: `static const double velo = 1.0;` al posto di `static const double velo = 0.82;`.
+    Grep: righe [114], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: a value less than <1>
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A5 GD.14 l'invito e il ritorno. test/gd_la_sinastria_evolutiva_test.dart, "GD.14: online senza amici".
+    Innesto in lib/features/synastry/la_tendina_della_sinastria.dart: `Navigator.of(context).pushReplacement(InvitaNelCerchioScreen.route()),` al posto di `Navigator.of(context).push(InvitaNelCerchioScreen.route()),`.
+    Grep: righe [509], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: exactly one matching candidate
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A6 GD.14 l'elenco online. test/gd_la_sinastria_evolutiva_test.dart, "GD.14: online con gli amici".
+    Innesto in lib/features/synastry/la_tendina_della_sinastria.dart: `final amici = const <PersonaDelCerchio>[];` al posto di `final amici = s?.cerchio.amici ?? const <PersonaDelCerchio>[];`.
+    Grep: righe [479], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: exactly one matching candidate
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A7 GD.14 e GD.20 l'elenco offline. test/gd_la_sinastria_evolutiva_test.dart, "GD.14 e GD.20: offline".
+    Innesto in lib/features/synastry/la_tendina_della_sinastria.dart: `final amici = const <Amico>[];` al posto di `final amici = _amici.tutti;`.
+    Grep: righe [549], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: exactly one matching candidate
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A8 GD.15 il censimento. test/gd_la_sinastria_evolutiva_test.dart, "GD.15: il modulo".
+    Innesto in lib/features/synastry/la_tendina_della_sinastria.dart: `TypographyTokens.body(size: 17).copyWith(color: ColorTokens.textPrimary);` al posto di `TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary);`.
+    Grep: righe [378], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: empty
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A9 GD.16 una sola alla volta. test/gd_la_sinastria_evolutiva_test.dart, "GD.16: le quattro icone".
+    Innesto in lib/features/synastry/la_tendina_della_sinastria.dart: `selected: l == _legame || l == Legame.amicizia,` al posto di `selected: l == _legame,`.
+    Grep: righe [666], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: <0>
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A10 GD.16 e GD.22 il conto. test/gd_la_sinastria_evolutiva_test.dart, "GD.16 e GD.22".
+    Innesto in lib/features/synastry/avvio_sinastria_evolutiva.dart: `if (await LeCoppieScoperte.giaScoperta(impronta) && false) return true;` al posto di `if (await LeCoppieScoperte.giaScoperta(impronta)) return true;`.
+    Grep: righe [96], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: <14>
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A11 GD.17 il lucchetto. test/gd_la_sinastria_evolutiva_test.dart, "GD.17: senza il piano".
+    Innesto in lib/features/synastry/la_tendina_della_sinastria.dart: `false,` al posto di `d == ProfonditaDellaSinastria.lunga && !_lungaAperta,`.
+    Grep: righe [835], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: true
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A12 GD.17 solo la prima risposta. test/gd_la_sinastria_evolutiva_test.dart, "GD.17: con la Lunga soltanto". (Il motivo: "la Lunga entra anche nel capitolo emozioni".)
+    Innesto in lib/features/synastry/sinastria_evolutiva_screen.dart: `lunga: testiDellaLunga,` al posto di `lunga: i == 0 ? testiDellaLunga : null,`.
+    Grep: righe [865], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: 
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A13 GD.17 la Lunga senza modello. test/gd_la_sinastria_evolutiva_test.dart, "GD.17: la Lunga non ha un ripiego".
+    Innesto in lib/core/synastry_evolutiva/la_lunga_della_sinastria.dart: `const viaDelModello = 'generateContent';
+    return (approfondimento: primo.paragrafi[1], filo: filo + viaDelModello);` al posto di `return (approfondimento: approfondimento, filo: filo);`.
+    Grep: righe [84], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: "la Lunga ripete un paragrafo gia' letto" (il primo approfondimento uguale al secondo paragrafo del capitolo).
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A14 GD.18 la statua grande. test/gd_la_sinastria_evolutiva_test.dart, "GD.18".
+    Innesto in lib/features/synastry/lo_studio_di_medora.dart: `static const double altezzaDellaStatua = 200;` al posto di `static const double altezzaDellaStatua = 500;`.
+    Grep: righe [122], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: a value greater than or equal to <0.35>
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A15 GD.19 i numeri del calcolo. test/gd_la_sinastria_evolutiva_test.dart, "GD.19".
+    Innesto in lib/core/synastry_evolutiva/le_barre_della_sinastria.dart: `.fold<double>(0.5, (m, f) => 0.5),
+        ),
+    ];
+  }
+
+  /// Le barre delle tre coppie` al posto di `.fold<double>(0, (m, f) => f > m ? f : m),
+        ),
+    ];
+  }
+
+  /// Le barre delle tre coppie`.
+    Grep: righe [56], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: [
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A16 GD.22 la riga viva. test/gd_la_sinastria_evolutiva_test.dart, "GD.22" (il nome prende anche la prova "GD.16 e GD.22", verde: +1; cade la GD.22, -1).
+    Innesto in lib/features/synastry/sinastria_evolutiva_screen.dart: `final t = 'Oggi il vostro cielo vi parla.';` al posto di `final t = _oggiFraVoi!.testo.trim();`.
+    Grep: righe [330], presenti.
+    Esito: ROSSA [('1', '1')]. Motivo: Expected: not 'Oggi il vostro cielo vi parla.'
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A17 GD.21 lo stesso responso. test/gd21_la_sinastria_arriva_all_amico_test.dart, "GD.21: il giro". (Il motivo: il capitolo dell'attrazione non arriva all'amica, il titolo sinastria_ricevuta_attrazione non si trova.)
+    Innesto in lib/features/synastry/sinastria_evolutiva_screen.dart: `final letti = tutti ? _capitoli.skip(1).toList() : _capitoli.take(2).toList();` al posto di `final letti = tutti ? _capitoli : _capitoli.take(2).toList();`.
+    Grep: righe [436], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: 
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+A18 GD.21 a chi non e' nel Cerchio. test/gd21_la_sinastria_arriva_all_amico_test.dart, "GD.21: a chi non".
+    Innesto in lib/core/cerchio/il_cerchio_sociale.dart: `if (!_cerchio.amici.any((p) => p.uid == a) && false) {` al posto di `if (!_cerchio.amici.any((p) => p.uid == a)) {`.
+    Grep: righe [1433], presenti.
+    Esito: ROSSA [('0', '1')]. Motivo: Expected: empty
+    Tolto ripristinando la copia; grep -c INNESTO -> 0.

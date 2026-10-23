@@ -25,10 +25,10 @@ import 'package:esoteric_circle/core/synastry_evolutiva/legame_e_eta.dart';
 import 'package:esoteric_circle/design_system/components/interruttore_del_cerchio.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
+import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:esoteric_circle/features/amici/amici_screen.dart';
 import 'package:esoteric_circle/features/cerchio/invita_nel_cerchio_screen.dart';
 import 'package:esoteric_circle/features/respiro_della_luna/i_comandi_dipinti.dart';
-import 'package:esoteric_circle/features/scene/la_scena_in_video.dart';
 import 'package:esoteric_circle/features/synastry/avvio_sinastria_evolutiva.dart';
 import 'package:esoteric_circle/features/synastry/il_grafico_delle_barre.dart';
 import 'package:esoteric_circle/features/synastry/la_nascita_dell_altra_persona.dart';
@@ -50,7 +50,7 @@ import 'porta_finta_del_cerchio_sociale.dart';
 /// **LA SINASTRIA EVOLUTIVA RIFATTA, ORDINE GD PARTE D**, 23 ottobre 2026.
 /// Il fondatore sulla funzione com'era: *"SEMPLICEMENTE FA CAGARE"*. Una
 /// prova per voce, dalla GD.13 alla GD.22 (la GD.20 ha la sua guardia,
-/// `gd20_gli_amici_offline_hanno_una_porta_sola_test.dart`, e la GD.21 la sua
+/// `gd20_gli_amici_offline_hanno_una_porta_sola_test.dart` e la GD.21 la sua
 /// prova del giro, `gd21_la_sinastria_arriva_all_amico_test.dart`). Nessuna
 /// chiamata al modello: la Sinastria evolutiva non ne fa (tutto dal corpus),
 /// e le prove usano la finta del video gia' delle prove della Sinastria.
@@ -220,7 +220,8 @@ void main() {
     }
   }
 
-  SinastriaEvolutivaScreen ingresso({_Finta? finta}) => SinastriaEvolutivaScreen(
+  SinastriaEvolutivaScreen ingresso({_Finta? finta}) =>
+      SinastriaEvolutivaScreen(
         nomeTuo: 'Tu',
         cieloTuo: _marco,
         oggi: _oggi,
@@ -251,8 +252,7 @@ void main() {
       final schermata = Offset.zero & s;
       final video = tester.getRect(find.byKey(const Key('studio_filmato')));
       final coperta = video.intersect(schermata);
-      final rapporto =
-          (coperta.width * coperta.height) / (s.width * s.height);
+      final rapporto = (coperta.width * coperta.height) / (s.width * s.height);
       print('GD.13 ${s.width.toInt()}x${s.height.toInt()}: video $video, '
           'area coperta ${(coperta.width * coperta.height).toStringAsFixed(0)} '
           'su ${(s.width * s.height).toStringAsFixed(0)} punti quadrati, '
@@ -280,8 +280,7 @@ void main() {
       expect(find.byType(PulsanteDipinto), findsOneWidget,
           reason: 'sulla scena c\'e\' piu\' di un pulsante');
       final g = GeometriaDelloStudio.aTuttoSchermo(s);
-      final testa =
-          g.origine.dy + GeometriaDelloStudio.testaDiMedora * g.scala;
+      final testa = g.origine.dy + GeometriaDelloStudio.testaDiMedora * g.scala;
       final rDomanda = tester.getRect(domanda);
       print('GD.13 ${s.width.toInt()}x${s.height.toInt()}: domanda da '
           '${rDomanda.top.toStringAsFixed(1)} a '
@@ -314,8 +313,8 @@ void main() {
     expect(find.byKey(const Key('sinastria_tendina_online')), findsOneWidget);
     expect(find.byKey(const Key('sinastria_tendina_offline')), findsOneWidget);
     // Un passo alla volta: al primo passo non c'e' ancora nessun elenco.
-    expect(find.byKey(const Key('sinastria_tendina_elenco_online')),
-        findsNothing);
+    expect(
+        find.byKey(const Key('sinastria_tendina_elenco_online')), findsNothing);
     expect(find.byKey(const Key('sinastria_modulo')), findsNothing);
     final foglio = tester.widget<BottomSheet>(find.byType(BottomSheet));
     final velo = foglio.backgroundColor!.a;
@@ -343,8 +342,8 @@ void main() {
     await tocca(tester, const Key('sinastria_scegli_la_persona'));
     await tocca(tester, const Key('sinastria_tendina_online'));
     await passa(tester, 4);
-    expect(find.byKey(const Key('sinastria_tendina_online_vuoto')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('sinastria_tendina_online_vuoto')), findsOneWidget,
         reason: 'senza amici nel Cerchio la tendina non lo dice');
     expect(find.text('Non hai ancora amici nel Cerchio.'), findsOneWidget);
     await tocca(tester, const Key('sinastria_tendina_invita'));
@@ -354,8 +353,8 @@ void main() {
     await tester.pageBack();
     await passa(tester, 8);
     expect(find.byType(InvitaNelCerchioScreen), findsNothing);
-    expect(find.byKey(const Key('sinastria_tendina_online_vuoto')),
-        findsOneWidget,
+    expect(
+        find.byKey(const Key('sinastria_tendina_online_vuoto')), findsOneWidget,
         reason: 'la freccia indietro dall\'invito non torna nella tendina');
     expect(find.byType(SinastriaEvolutivaScreen), findsOneWidget,
         reason: 'tornando dall\'invito si e\' usciti dalla Sinastria');
@@ -400,7 +399,8 @@ void main() {
     await passa(tester, 8);
     await tocca(tester, const Key('sinastria_scegli_la_persona'));
     await tocca(tester, const Key('sinastria_tendina_offline'));
-    expect(find.byKey(const Key('sinastria_tendina_offline_a1')), findsOneWidget,
+    expect(
+        find.byKey(const Key('sinastria_tendina_offline_a1')), findsOneWidget,
         reason: 'l\'amica salvata nell\'Oroscopo non e\' nella Sinastria');
     expect(find.byKey(const Key('sinastria_tendina_nuovo')), findsOneWidget);
     // Marta dall'elenco: il modulo arriva gia' compilato.
@@ -422,8 +422,8 @@ void main() {
     expect(grezzo, contains('Bianca'),
         reason: 'la persona nuova della Sinastria non e\' nella lista');
     // E l'Oroscopo la vede, dalla sua rubrica.
-    await tester.pumpWidget(app(const AmiciScreen(perScegliere: true),
-        tier: Tier.tier1));
+    await tester.pumpWidget(
+        app(const AmiciScreen(perScegliere: true), tier: Tier.tier1));
     await passa(tester, 8);
     expect(find.text('Bianca'), findsOneWidget,
         reason: 'l\'amica creata nella Sinastria non si vede nell\'Oroscopo');
@@ -480,8 +480,8 @@ void main() {
     await schermo(tester, const Size(390, 844));
     // PRIMA: il modulo di prima, "La sua nascita" (cattura GD_12).
     await tester.pumpWidget(app(Builder(
-        builder: (c) => LaNascitaDellAltraPersona(
-            palette: MaestroScope.of(c)))));
+        builder: (c) =>
+            LaNascitaDellAltraPersona(palette: MaestroScope.of(c)))));
     await passa(tester, 4);
     final prima = censimento(tester, find.byType(LaNascitaDellAltraPersona));
     print('GD.15 PRIMA, "La sua nascita": ${prima.testi} testi, fuori dalla '
@@ -515,9 +515,7 @@ void main() {
       final sotto = find.descendant(
           of: find.byKey(Key(k)),
           matching: find.byKey(const Key('paragrafo_in_evidenza')));
-      expect(
-          dentro.evaluate().length + sotto.evaluate().length,
-          greaterThan(0),
+      expect(dentro.evaluate().length + sotto.evaluate().length, greaterThan(0),
           reason: '$k non sta in un riquadro della casa');
     }
   });
@@ -699,10 +697,11 @@ void main() {
         .descendant(
             of: primo,
             matching: find.byWidgetPredicate((w) =>
-                w is Text &&
+                (w is Text || w is ParagrafiDiLettura) &&
                 w.key is ValueKey<String> &&
-                ((w.key! as ValueKey<String>).value.startsWith(
-                        'responso_paragrafo_') ||
+                ((w.key! as ValueKey<String>)
+                        .value
+                        .startsWith('responso_paragrafo_') ||
                     (w.key! as ValueKey<String>).value ==
                         'sinastria_lunga_approfondimento' ||
                     (w.key! as ValueKey<String>).value ==
@@ -761,7 +760,7 @@ void main() {
   test(
       'GD.17: la Lunga non ha un ripiego che la perda, perche\' non viene '
       'dal modello: su quaranta coppie i due paragrafi ci sono sempre, dal '
-      'corpus, e nessun sorgente della Sinastria chiama un modello', () {
+      'corpus e nessun sorgente della Sinastria chiama un modello', () {
     var coppie = 0;
     for (var i = 0; i < 40; i++) {
       final suo = CieloEvolutivo.perNascita(
@@ -836,9 +835,11 @@ void main() {
     await tocca(tester, const Key('sinastria_scegli_la_persona'));
     await tocca(tester, const Key('sinastria_tendina_offline'));
     await tocca(tester, const Key('sinastria_tendina_nuovo'));
-    bool acceso() => tester
-        .widget<PulsanteDipinto>(find.byKey(const Key('sinastria_scopri')))
-        .onTap != null;
+    bool acceso() =>
+        tester
+            .widget<PulsanteDipinto>(find.byKey(const Key('sinastria_scopri')))
+            .onTap !=
+        null;
     expect(acceso(), isFalse, reason: 'il pulsante e\' acceso senza dati');
     await tester.enterText(
         find.byKey(const Key('sinastria_modulo_nome')), 'Giulia');
@@ -905,7 +906,7 @@ void main() {
   // --- GD.19 ---------------------------------------------------------------
 
   testWidgets(
-      'GD.19: le barre subito dopo il titolo coi dati del calcolo, e ogni '
+      'GD.19: le barre subito dopo il titolo coi dati del calcolo e ogni '
       'bolla ha la sua infografica, dello stesso tipo', (tester) async {
     await schermo(tester, const Size(390, 844));
     await rotta(tester, tier: Tier.tier2);
@@ -951,8 +952,7 @@ void main() {
     for (final b in bolle) {
       final f = find.byKey(Key(b));
       await scorriFino(tester, f);
-      expect(
-          find.descendant(of: f, matching: find.byType(IlGraficoDelleBarre)),
+      expect(find.descendant(of: f, matching: find.byType(IlGraficoDelleBarre)),
           findsOneWidget,
           reason: 'la bolla $b non ha la sua infografica');
       trovate++;

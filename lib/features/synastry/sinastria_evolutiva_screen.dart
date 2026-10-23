@@ -77,7 +77,7 @@ export 'la_tendina_della_sinastria.dart' show SceltaDellaSinastria;
 /// - GD.18: "Scopri la compatibilità", la riflessione di Medora (la stessa
 ///   scena della Stesa e dell'Oracolo, [AttesaDiMedora]) e la statua del
 ///   segno della relazione, grande e scontornata, sul tavolo;
-/// - GD.19: le barre dell'infografica subito dopo il titolo, e in ogni
+/// - GD.19: le barre dell'infografica subito dopo il titolo e in ogni
 ///   bolla le sue, dello stesso tipo ([IlGraficoDelleBarre]);
 /// - GD.21: con un amico del Cerchio la lettura arriva anche a lui;
 /// - GD.22: la riga viva di oggi sulla scheda della coppia.
@@ -123,10 +123,10 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
 
   /// **IL CONTO DELLA COPPIA NUOVA** (FT.13, GD.16 e GD.22): vero se la
   /// lettura si puo' fare. Il ponte `AvvioSinastriaEvolutiva` conta qui le
-  /// coppie nuove, e una coppia gia' scoperta col suo legame si rilegge
+  /// coppie nuove e una coppia gia' scoperta col suo legame si rilegge
   /// senza consumare. Nullo, la lettura si fa sempre.
-  final Future<bool> Function(BuildContext context, SceltaDellaSinastria scelta)?
-      laCoppiaSiConta;
+  final Future<bool> Function(
+      BuildContext context, SceltaDellaSinastria scelta)? laCoppiaSiConta;
 
   /// Il nome gia' noto (il segno 15, il confronto del cielo): riempie solo il
   /// campo del nome del modulo.
@@ -368,8 +368,7 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
 
   Future<SceltaDellaSinastria?> _laTendina(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    final tier =
-        _forse<EntitlementService>(context)?.tier ?? Tier.free;
+    final tier = _forse<EntitlementService>(context)?.tier ?? Tier.free;
     return LaTendinaDellaSinastria.apri(
       context,
       palette: palette,
@@ -415,8 +414,8 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
     });
     _nelCammino();
     _attesaDellaRiflessione?.cancel();
-    _attesaDellaRiflessione = Timer(
-        AttesaDiMedora.minimaPer(riduciMovimento: _reduceMotion), () {
+    _attesaDellaRiflessione =
+        Timer(AttesaDiMedora.minimaPer(riduciMovimento: _reduceMotion), () {
       if (mounted) setState(() => _riflettendo = false);
     });
     final uid = scelta.uidDelCerchio;
@@ -922,7 +921,8 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
                                   chiave: 'adepto',
                                   palette: palette,
                                   immagine: 'legame_amore_v1',
-                                  titolo: 'Il cielo comune, il momento giusto e '
+                                  titolo:
+                                      'Il cielo comune, il momento giusto e '
                                       'il ritratto della coppia',
                                   onApri: () => _invito(
                                       'Il cielo comune della relazione',
@@ -1021,8 +1021,8 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
   }
 
   String _titoloDelComposito() {
-    final v = corpusDellaSinastriaEvolutiva[
-        'composito|${_composito!.cella}|titolo']!;
+    final v =
+        corpusDellaSinastriaEvolutiva['composito|${_composito!.cella}|titolo']!;
     return v[
         LetturaEvolutiva.semeDellaCoppia(widget.cieloTuo, _suo) % v.length];
   }
@@ -1112,15 +1112,18 @@ class _LaRigaViva extends StatelessWidget {
                 style: TypographyTokens.suLaScena(TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 2.0))),
             const SizedBox(height: SpacingTokens.xxs),
+            // Una riga sola sulla scena, non un testo narrato: il ruolo del
+            // corpo, con l'ombra comune della scena.
             Text(riga,
                 key: const Key('sinastria_riga_viva'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.suLaScena(TypographyTokens.lettura()
+                style: TypographyTokens.suLaScena(TypographyTokens.corpo()
                     .copyWith(color: coloreSulVelluto))),
-            const SizedBox(height: SpacingTokens.xs),
-            Icon(Icons.keyboard_arrow_down_rounded,
-                color: palette.goldSoft, size: 32),
-            Text('Scorri per leggere il vostro cielo',
+            const SizedBox(height: SpacingTokens.sm),
+            // Nessuna freccia in giu': non e' toccabile, e una freccia
+            // promette un tocco (guardia `ogni_freccia_mantiene`). La riga lo
+            // dice a parole.
+            Text('Scorri in su per leggere il vostro cielo',
                 style: TypographyTokens.suLaScena(TypographyTokens.didascalia()
                     .copyWith(color: coloreSulVelluto))),
           ],
@@ -1263,7 +1266,7 @@ class _IlCapitolo extends StatelessWidget {
   final List<BarraDellaSinastria> barre;
 
   /// **I DUE PARAGRAFI DELLA LUNGA**, solo nel primo capitolo (GD.17):
-  /// l'approfondimento, e nel riquadro col suo titolo il filo del cielo
+  /// l'approfondimento e nel riquadro col suo titolo il filo del cielo
   /// comune. Nulli alla Breve e in ogni altro capitolo.
   final ({String approfondimento, String filo})? lunga;
 
@@ -1322,8 +1325,13 @@ class _IlCapitolo extends StatelessWidget {
         ),
         if (lunga != null) ...[
           SizedBox(height: distanza),
-          Text(lunga!.approfondimento,
-              key: const Key('sinastria_lunga_approfondimento'), style: stile),
+          // Il testo narrato passa da ParagrafiDiLettura (guardia
+          // `etichette_e_lettura`).
+          ParagrafiDiLettura(
+              key: const Key('sinastria_lunga_approfondimento'),
+              testo: lunga!.approfondimento,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary)),
           SizedBox(height: distanza),
           RiquadroInEvidenza(
             key: const Key('sinastria_lunga_riquadro'),
@@ -1336,8 +1344,11 @@ class _IlCapitolo extends StatelessWidget {
                     style: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.xs),
-                Text(lunga!.filo,
-                    key: const Key('sinastria_lunga_filo'), style: stile),
+                ParagrafiDiLettura(
+                    key: const Key('sinastria_lunga_filo'),
+                    testo: lunga!.filo,
+                    stile: TypographyTokens.lettura()
+                        .copyWith(color: ColorTokens.textPrimary)),
               ],
             ),
           ),

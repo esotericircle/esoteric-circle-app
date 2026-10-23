@@ -13,17 +13,17 @@ class BarraDellaSinastria {
   final double valore;
 
   @override
-  String toString() => '$etichetta ${valore.toStringAsFixed(3)}';
+  String toString() => '$etichetta ${(valore * 1000).round()} per mille';
 }
 
 /// **LE BARRE DELLA SINASTRIA EVOLUTIVA.** Ordine GD voce GD.19, 23 ottobre
 /// 2026. Il fondatore: *"Il responso mostrerà già all'inizio o quasi, magari
 /// dopo il titolo, le barre di infografica. E ogni bolla dovrà avere la sua
-/// infografica"*, e poi *"usa la stessa, così l'utente non deve imparare a
+/// infografica"* e poi *"usa la stessa, così l'utente non deve imparare a
 /// leggerne una diversa per ogni bolla nella stessa funzionalità"*.
 ///
 /// **UN TIPO SOLO, I DATI DI OGNI BOLLA.** Ogni bolla della lettura porta lo
-/// stesso grafico, barre orizzontali da zero a uno, e ogni barra e' un
+/// stesso grafico, barre orizzontali da zero a uno e ogni barra e' un
 /// numero del calcolo della sinastria, mai un numero scritto a mano:
 /// - in cima al responso, una barra per capitolo: la forza del contatto piu'
 ///   stretto fra le coppie del capitolo (lo stesso che decide il suo tono);

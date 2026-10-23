@@ -262,9 +262,6 @@ class DonoRicevuto {
       );
 }
 
-/// Chi ha risposto a una proposta del giorno insieme (FV.10): il suo nome e
-/// la sua risposta, oppure nulla se non ha risposto ancora.
-@immutable
 /// **UNA SINASTRIA RICEVUTA**, ordine GD voce GD.21: la lettura che un amico
 /// del Cerchio ha fatto con te, arrivata dalla porta `mandaLaSinastria`. Il
 /// [responso] e' lo stesso che ha letto lui, coi soli campi di un responso
@@ -297,6 +294,9 @@ class SinastriaRicevuta {
       );
 }
 
+/// Chi ha risposto a una proposta del giorno insieme (FV.10): il suo nome e
+/// la sua risposta, oppure nulla se non ha risposto ancora.
+@immutable
 class RispostaAlGiorno {
   const RispostaAlGiorno(
       {required this.nome, required this.risposta, this.altroGiorno});
@@ -1427,7 +1427,7 @@ class IlCerchioSociale extends ChangeNotifier {
   /// Il [responso] e' quello che chi legge ha appena letto, gia' nella forma
   /// della porta (`LaSinastriaCondivisa.comeDati`), senza nascite. **Solo agli
   /// amici del Cerchio**: a chi non lo e' il telefono non chiama nemmeno la
-  /// porta, e il server lo rifiuterebbe comunque (`laSinastriaSiConsegna`).
+  /// porta e il server lo rifiuterebbe comunque (`laSinastriaSiConsegna`).
   Future<EsitoDelGesto> mandaLaSinastria(
       String a, Map<String, Object?> responso) async {
     if (!_cerchio.amici.any((p) => p.uid == a)) {

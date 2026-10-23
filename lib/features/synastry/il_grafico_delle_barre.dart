@@ -88,8 +88,7 @@ class IlGraficoDelleBarre extends StatelessWidget {
 
 /// Una barra: il binario velato e, sopra, la parte piena quanto il valore.
 class _LaBarra extends StatelessWidget {
-  const _LaBarra(
-      {super.key, required this.valore, required this.palette});
+  const _LaBarra({super.key, required this.valore, required this.palette});
 
   final double valore;
   final MaestroPalette palette;

@@ -285,7 +285,7 @@ test("FU.10 il listino porta la consultazione in piu' a 100 Eos", () => {
  * GD.21, LA LETTURA ARRIVA ANCHE ALL'AMICO DEL CERCHIO, LATO SERVER. Ordine
  * GD, 23 ottobre 2026. Il giro fra due identita' di collaudo finte, "u-mauro"
  * e "u-stella": il responso passa intero fra amici, coi soli campi di un
- * responso (una nascita infilata nel corpo non arriva), e a chi non e' nel
+ * responso (una nascita infilata nel corpo non arriva) e a chi non e' nel
  * Cerchio, o si e' bloccato, non arriva niente. La prova gemella lato app e'
  * test/gd21_la_sinastria_arriva_all_amico_test.dart.
  */

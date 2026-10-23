@@ -36,7 +36,7 @@ import 'sinastria_evolutiva_screen.dart';
 /// scelta: nessuna lettura a meta', nessun vicolo cieco.
 ///
 /// **LA TENDINA, ORDINE GD VOCE GD.14**: la persona si sceglie dalla tendina
-/// che sale sopra la scena, e qui resta solo il conto
+/// che sale sopra la scena e qui resta solo il conto
 /// ([SinastriaEvolutivaScreen.laCoppiaSiConta]). **Una coppia gia' scoperta
 /// col suo legame si rilegge senza consumare** (GD.22, [LeCoppieScoperte]);
 /// la stessa persona con un altro legame e' una sinastria nuova e si conta
@@ -87,8 +87,7 @@ class AvvioSinastriaEvolutiva extends StatelessWidget {
     );
   }
 
-  Future<bool> _conta(
-      BuildContext context, SceltaDellaSinastria scelta) async {
+  Future<bool> _conta(BuildContext context, SceltaDellaSinastria scelta) async {
     // **LA COPPIA GIA' SCOPERTA SI RILEGGE SENZA CONSUMARE**, ordine GD voce
     // GD.22: stessa persona, stesso cielo, stesso legame.
     final impronta =

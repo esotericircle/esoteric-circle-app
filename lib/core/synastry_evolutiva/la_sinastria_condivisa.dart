@@ -29,7 +29,7 @@ class CapitoloCondiviso {
 /// aperto: l'amico riceve cio' che e' stato letto, non di piu'.
 ///
 /// **NESSUNA NASCITA**: la forma non ha un campo per una data, un'ora o un
-/// luogo, e il server butta ogni campo che non sia di un responso
+/// luogo e il server butta ogni campo che non sia di un responso
 /// (`sinastriaDaCorpo` in `functions/src/sinastria_evolutiva.ts`).
 class LaSinastriaCondivisa {
   const LaSinastriaCondivisa({

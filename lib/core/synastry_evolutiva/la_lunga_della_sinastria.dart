@@ -22,10 +22,10 @@ enum ProfonditaDellaSinastria {
 ///
 /// **TUTTO DAL CORPUS, MAI DAL MODELLO.** La Sinastria evolutiva non chiama
 /// nessun modello (`la_lettura_evolutiva.dart`, "Tutto deterministico"): la
-/// Lunga e' composta qui, con o senza rete, e non ha un ripiego che possa
+/// Lunga e' composta qui, con o senza rete e non ha un ripiego che possa
 /// perderla. L'ordine GD ha trovato la Lunga della Stesa e dell'Oracolo che
 /// spariva proprio sul ripiego, con le prove verdi su una risposta finta del
-/// modello: qui una strada del modello non c'e', e la guardia
+/// modello: qui una strada del modello non c'e' e la guardia
 /// `gd_la_sinastria_evolutiva_test.dart` pretende che non nasca.
 ///
 /// **I DUE PARAGRAFI, dalla stessa coppia di cieli**, sempre gli stessi per la
@@ -74,8 +74,9 @@ abstract final class LaLungaDellaSinastria {
         for (final t in v)
           if (_pulito(t, nomeSuo) != primo.paragrafi.first) _pulito(t, nomeSuo),
       ];
-      approfondimento =
-          altre.isEmpty ? _pulito(v.first, nomeSuo) : altre[seme % altre.length];
+      approfondimento = altre.isEmpty
+          ? _pulito(v.first, nomeSuo)
+          : altre[seme % altre.length];
     }
     final composito = IlComposito.fra(tuo, suo);
     final testi = corpus['composito|${composito.cella}|testo']!;

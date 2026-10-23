@@ -1,7 +1,7 @@
 # LO SCONTORNO DELLE DODICI STATUE DELLA SINASTRIA EVOLUTIVA. Ordine GD
 # voce GD.18, 23 ottobre 2026. Il fondatore: "alla fine comparirà sul tavolo
 # di Medora la statua grande scontornata simbolo della risultato della
-# sinastria", e sulle statue, alle 16:52, "ci sono già".
+# sinastria" e sulle statue, alle 16:52, "ci sono già".
 #
 # Le statue ci sono: sono le dodici coppie dipinte del segno della
 # relazione, assets/img/sinastria/coppia_<segno>_v1.webp (896 per 1200), una

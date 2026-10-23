@@ -64,7 +64,7 @@ class AttesaDiMedora extends StatefulWidget {
 
   /// **LE RIGHE DI UN'ALTRA ARTE DELLA STESSA FAMIGLIA**, ordine GD voce
   /// GD.18: la Sinastria evolutiva riflette con questa stessa scena ("come
-  /// per oroscopo o tarocchi", il fondatore), e le sue righe parlano dei
+  /// per oroscopo o tarocchi", il fondatore) e le sue righe parlano dei
   /// due cieli, non delle carte. Nulle, le righe del tavolo ([righePer]).
   final List<String>? righeProprie;
 

@@ -22,7 +22,7 @@ import 'legame_e_eta.dart';
 /// (`CioCheETuo`).
 ///
 /// **LA COPPIA E' COPPIA PIU' LEGAME**: la stessa persona con un altro legame
-/// ha un'altra impronta, e quindi e' una sinastria nuova che consuma come
+/// ha un'altra impronta e quindi e' una sinastria nuova che consuma come
 /// una coppia nuova (GD.16).
 abstract final class LeCoppieScoperte {
   static const String chiave = 'sinastria.coppie_scoperte';
@@ -36,7 +36,8 @@ abstract final class LeCoppieScoperte {
   static String impronta(String nome, CieloEvolutivo cielo, Legame legame) {
     final punti = [
       for (final p in PuntoDelCieloEvolutivo.values)
-        (cielo.longitudini[p] ?? -1).toStringAsFixed(2),
+        // In centesimi di grado, interi: l'impronta non si mostra mai.
+        ((cielo.longitudini[p] ?? -1) * 100).round(),
     ].join(',');
     final testo = '${nome.trim().toLowerCase()}|$punti|${cielo.oraNota}|'
         '${legame.name}';

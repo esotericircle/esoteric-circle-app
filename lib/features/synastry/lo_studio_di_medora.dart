@@ -345,7 +345,7 @@ class _LettoreDellaScenaSinastriaVero implements LettoreDellaScenaSinastria {
 /// **LA SCENA**: lo sfondo tagliato e Medora, ferma o nel video.
 ///
 /// Non porta carte ne' un piano: la Sinastria evolutiva mostra qui solo
-/// la scena, e il contenuto della lettura sta sotto o sopra, nella schermata
+/// la scena e il contenuto della lettura sta sotto o sopra, nella schermata
 /// che la monta.
 ///
 /// **A TUTTO SCHERMO**, ordine GD voce GD.13: con [altezza] la scena copre
@@ -415,9 +415,9 @@ class LoStudioDiMedora extends StatelessWidget {
       final medora = nelloSchermo(GeometriaDelloStudio.medoraNellImmagine);
       final misuraDellaStatua =
           statua == null ? null : GeometriaDelloStudio.statue[statua];
-      final altoDelFilmato =
-          (ScenaDellaSinastriaInVideo.sotto - ScenaDellaSinastriaInVideo.sopra) *
-              s;
+      final altoDelFilmato = (ScenaDellaSinastriaInVideo.sotto -
+              ScenaDellaSinastriaInVideo.sopra) *
+          s;
       return SizedBox(
         width: w,
         height: alta,
@@ -507,8 +507,7 @@ class LoStudioDiMedora extends StatelessWidget {
                         ? Duration.zero
                         : dissolvenzaDellaStatua,
                     curve: Curves.easeOut,
-                    child: Image.asset(
-                        GeometriaDelloStudio.statua(statua!),
+                    child: Image.asset(GeometriaDelloStudio.statua(statua!),
                         key: const Key('sinastria_evolutiva_statua'),
                         fit: BoxFit.contain,
                         filterQuality: FilterQuality.medium),
