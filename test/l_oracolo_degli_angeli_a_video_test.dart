@@ -213,8 +213,7 @@ void main() {
     // Dopo le lettere la riflessione di Medora (GC.13) e le carte che si
     // girano una alla volta e si alzano (GC.14): si aspetta il responso.
     for (var i = 0;
-        i < 400 &&
-            find.byKey(const Key('oracolo_responso')).evaluate().isEmpty;
+        i < 400 && find.byKey(const Key('oracolo_responso')).evaluate().isEmpty;
         i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
@@ -287,19 +286,19 @@ void main() {
   // fondatore: *"all'apertura non si deve vedere la carta o messaggio del
   // momento"*. LAPIDE: "l'angelo dell'ora e il messaggio del giorno si
   // vedono subito". Adesso arrivano solo a lettura fatta, in fondo.
-  testWidgets('l\'angelo dell\'ora e il messaggio del giorno arrivano dopo '
+  testWidgets(
+      'l\'angelo dell\'ora e il messaggio del giorno arrivano dopo '
       'la lettura, non all\'apertura', (tester) async {
     await _monta(tester, lettori: [_Finta(fallira: true)]);
     expect(find.byKey(const Key('oracolo_angelo_dell_ora')), findsNothing,
         reason: 'all\'apertura si vede il messaggio del momento');
     await consultaLOracolo(tester, 'Devo cambiare lavoro?');
-    await tester
-        .ensureVisible(find.byKey(const Key('oracolo_angelo_dell_ora')));
-    // Alle 10:05 governa l'angelo 31 (minuto 605: 605 / 20 = 30, piu' uno).
-    expect(find.byKey(const Key('oracolo_nome_dell_ora')), findsOneWidget);
-    expect(find.text('dalle 10:00 alle 10:20'), findsOneWidget);
-    expect(
-        find.byKey(const Key('oracolo_messaggio_del_giorno')), findsOneWidget);
+    // RISCRITTA DALL'ORDINE GD, voce GD.08: nemmeno dopo la lettura. Il
+    // fondatore: "Alla fine del responso NON DEVE COMPARIRE LA BOLLA
+    // DELL'ANGELO DEL MOMENTO". LAPIDE: l'angelo 31 delle 10:05 e il
+    // messaggio del giorno, in fondo al responso.
+    expect(find.byKey(const Key('oracolo_angelo_dell_ora')), findsNothing);
+    expect(find.byKey(const Key('oracolo_messaggio_del_giorno')), findsNothing);
   });
 
   testWidgets(

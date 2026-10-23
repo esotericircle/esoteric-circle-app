@@ -417,6 +417,9 @@ void main() {
     // Trentadue dal 23 ottobre 2026: le dodici dell'aggiunta GCA (le undici
     // decisioni delegate dal fondatore e il rapporto), titoli "## VOCE GCA.".
     'GC': 32,
+    // GD: ventisei voci, contate coi titoli "## VOCE GD." del manifesto il 23
+    // ottobre 2026.
+    'GD': 26,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

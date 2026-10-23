@@ -124,20 +124,37 @@ abstract final class GeometriaDellAltare {
         (basso - altezzaVista) * s, larghezzaInBasso * s, altezzaVista * s);
   }
 
-  /// **LA CARTA IN PIEDI, INGRANDITA** (GC.14), nelle misure dello schermo:
-  /// col lato basso sul bordo dell'altare e il centro sopra il suo posto,
-  /// larga [larghezzaInPiedi] dello schermo (le tre non si toccano: i posti
-  /// distano 265 pixel su 1080), [larghezzaDellaSola] per la carta del
-  /// momento, che e' una sola al centro.
-  static const double larghezzaInPiedi = 0.23;
+  /// **LA CARTA IN PIEDI, INGRANDITA** (GC.14), nelle misure dello schermo,
+  /// col lato basso sul bordo dell'altare.
+  ///
+  /// **LE TRE OCCUPANO QUASI TUTTA LA LARGHEZZA**, ordine GD voce GD.07, 23
+  /// ottobre 2026. Il fondatore: *"Dopo la lettura le carte si mettono in
+  /// verticale e si devono ingrandire di più, fino ad occupare quasi tutta
+  /// l'area orizzontale"*. La fila delle tre lascia [margineInPiedi] dello
+  /// schermo a ogni lato e [spazioInPiedi] fra una carta e l'altra: ogni
+  /// carta e' larga [larghezzaInPiedi], e la fila il 94 per cento dello
+  /// schermo. LAPIDE: larghe 0,23 dello schermo e centrate sopra i loro
+  /// posti dell'altare, la fila ne occupava il 72 per cento.
+  /// [larghezzaDellaSola] per la carta del momento, che e' una sola al
+  /// centro (la voce GD.07 parla delle tre, la sola resta com'era).
+  static const double margineInPiedi = 0.03;
+  static const double spazioInPiedi = 0.015;
+  static const double larghezzaInPiedi =
+      (1 - 2 * margineInPiedi - 2 * spazioInPiedi) / 3;
   static const double larghezzaDellaSola = 0.30;
 
   static Rect inPiedi(int i, double larghezzaSchermo, {bool unaSola = false}) {
     final s = scala(larghezzaSchermo);
-    final w =
-        larghezzaSchermo * (unaSola ? larghezzaDellaSola : larghezzaInPiedi);
+    if (unaSola) {
+      final w = larghezzaSchermo * larghezzaDellaSola;
+      final h = w * 1.5;
+      return Rect.fromLTWH(centriInBasso[i] * s - w / 2, basso * s - h, w, h);
+    }
+    final w = larghezzaSchermo * larghezzaInPiedi;
     final h = w * 1.5;
-    return Rect.fromLTWH(centriInBasso[i] * s - w / 2, basso * s - h, w, h);
+    final sinistra = larghezzaSchermo *
+        (margineInPiedi + i * (larghezzaInPiedi + spazioInPiedi));
+    return Rect.fromLTWH(sinistra, basso * s - h, w, h);
   }
 
   /// **I DIECI PIXEL DEL TELEFONO** (GC.10). Il fondatore: *"alza il video di

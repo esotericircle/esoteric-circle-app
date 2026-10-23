@@ -465,7 +465,8 @@ void main() {
       await tester.enterText(
           find.byKey(const Key('oracolo_campo_domanda')), _domanda);
       await tester.pump();
-      await tester.tap(find.byKey(const Key('oracolo_affida')));
+      // GD.06: le porte del giorno si guardano al primo dorso toccato.
+      await toccaIlDorso(tester, dorsiDelGiro[0]);
       await tester.pumpAndSettle();
       expect(find.text('Le consultazioni di oggi sono finite'), findsOneWidget);
       expect(find.textContaining('100 Eos'), findsWidgets,

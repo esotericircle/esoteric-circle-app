@@ -242,8 +242,8 @@ void main() {
     expect(domanda, 'Quale passo devo fare nel mio lavoro?');
     await scatta(tester, '05_la_domanda_scelta');
 
-    // SCELTA DELLE CARTE.
-    await tester.tap(find.byKey(const Key('oracolo_affida')));
+    // SCELTA DELLE CARTE: scelta la domanda il mazzo si e' acceso da solo
+    // (GD.06).
     await passa(tester, 8);
     expect(find.byKey(const Key('oracolo_mazzo_coperto')), findsOneWidget);
     expect(find.byKey(const Key('oracolo_dorso_0')), findsNothing);
@@ -293,8 +293,8 @@ void main() {
     // LAPIDE, FY.17: `AltareVuoto`, la toppa sui dorsi dipinti del v1. Col
     // filmato v2 (GC Aggiunta) l'ultimo fotogramma ha gia' l'altare vuoto.
     expect(
-        (tester.widget<Image>(find.byKey(const Key('oracolo_fotogramma')))
-                .image as AssetImage)
+        (tester.widget<Image>(find.byKey(const Key('oracolo_fotogramma'))).image
+                as AssetImage)
             .assetName,
         GeometriaDellAltare.ultimoFotogramma);
     await scatta(tester, '10_carta_di_taglio_sull_altare_vuoto');
@@ -315,7 +315,8 @@ void main() {
     // se' alla risposta. Si aspetta il responso, non un numero di secondi.
     for (var i = 0;
         i < 200 &&
-            find.byKey(const Key('oracolo_responso_principale'))
+            find
+                .byKey(const Key('oracolo_responso_principale'))
                 .evaluate()
                 .isEmpty;
         i++) {

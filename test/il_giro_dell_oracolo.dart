@@ -85,17 +85,19 @@ Future<void> scegliLaLunga(WidgetTester tester) async {
 /// nella finestra iniziale del ventaglio (il centro e' a meta' dei 72).
 const List<int> dorsiDelGiro = [33, 36, 39];
 
-/// Scrive la domanda e la affida: il mazzo coperto si accende.
+/// Scrive la domanda e chiude la tastiera: il mazzo coperto si e' gia'
+/// acceso da solo (ordine GD voce GD.06; LAPIDE: si toccava il pulsante
+/// rotondo che la affidava).
 ///
 /// **LA DOMANDA STA SOTTO IL TAVOLO**, ordine GC voce GC.09: il riquadro e'
-/// nella lista, e prima di toccarne il pulsante si porta in vista.
+/// nella lista, e prima di scriverci si porta in vista.
 Future<void> affidaLaDomanda(WidgetTester tester, String domanda) async {
   final campo = find.byKey(const Key('oracolo_campo_domanda'));
   await Scrollable.ensureVisible(tester.element(campo), alignment: 0.5);
   await tester.pump();
   await tester.enterText(campo, domanda);
   await tester.pump();
-  await tester.tap(find.byKey(const Key('oracolo_affida')));
+  await tester.testTextInput.receiveAction(TextInputAction.done);
   for (var i = 0; i < 8; i++) {
     await tester.pump(const Duration(milliseconds: 100));
   }

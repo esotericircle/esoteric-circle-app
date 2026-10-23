@@ -113,6 +113,16 @@ Future<({List<String> richieste, List<Map<String, Object?>> campi})> _monta(
   return (richieste: richieste, campi: campi);
 }
 
+/// I cori accesi nella mappa del responso (GD.12).
+Set<int> _coriAccesi(WidgetTester tester) => {
+      for (var p = 0; p < 9; p++)
+        if (find
+            .byKey(Key('oracolo_coro_della_mappa_${p}_acceso'))
+            .evaluate()
+            .isNotEmpty)
+          p,
+    };
+
 bool _spento(WidgetTester tester, String chiave) =>
     tester.widget<PulsanteDipinto>(find.byKey(Key(chiave))).onTap == null;
 
@@ -143,8 +153,11 @@ void main() {
       expect(find.byType(LaCartaDellAngelo), findsNothing,
           reason: 'all\'apertura si vede una carta');
       await consultaLOracolo(tester, 'Devo cambiare lavoro?');
-      expect(find.byKey(const Key('oracolo_angelo_dell_ora')), findsOneWidget,
-          reason: 'dopo la lettura l\'angelo dell\'ora non torna');
+      // RISCRITTA DALL'ORDINE GD, voce GD.08: la bolla dell'angelo dell'ora
+      // non torna nemmeno dopo la lettura. LAPIDE: "dopo la lettura l'angelo
+      // dell'ora torna" (GC.08).
+      expect(find.byKey(const Key('oracolo_angelo_dell_ora')), findsNothing,
+          reason: 'dopo la lettura torna la bolla dell\'angelo dell\'ora');
     });
   });
 
@@ -221,8 +234,8 @@ void main() {
         }
         final barra = tester.getRect(find.byType(AppBar)).bottom;
         final scena = tester.getRect(find.byKey(const Key('oracolo_scena')));
-        final posto = GeometriaDellAltare.sullAltare(0, scena.width)
-            .shift(scena.topLeft);
+        final posto =
+            GeometriaDellAltare.sullAltare(0, scena.width).shift(scena.topLeft);
         final ventaglio = tester.getRect(find.byType(StesaFan));
         print('Il tavolo in vista, ${finestra.width.toInt()} per '
             '${finestra.height.toInt()}: posto delle carte da '
@@ -259,7 +272,9 @@ void main() {
     }
   });
 
-  group('GC.11 la tendina si chiude e il pulsante ha la freccia di invio', () {
+  // RISCRITTA DALL'ORDINE GD, voce GD.06: il pulsante rotondo non c'e'
+  // piu'. LAPIDE: "il pulsante ha la freccia di invio" (GC.11).
+  group('GC.11 la tendina si chiude e il pulsante rotondo non c\'e\'', () {
     testWidgets('scelta la domanda la tendina sparisce', (tester) async {
       await _monta(tester);
       final unTema = find.byKey(const Key('oracolo_tema_amore'));
@@ -276,9 +291,8 @@ void main() {
       final campo = tester
           .widget<TextField>(find.byKey(const Key('oracolo_campo_domanda')));
       expect(campo.controller!.text, isNotEmpty);
-      final icona = tester
-          .widget<Icon>(find.byKey(const Key('oracolo_simbolo_dell_invio')));
-      expect(icona.icon, Icons.keyboard_return_rounded);
+      expect(find.byKey(const Key('oracolo_simbolo_dell_invio')), findsNothing);
+      expect(find.byKey(const Key('oracolo_affida')), findsNothing);
     });
   });
 
@@ -442,7 +456,7 @@ void main() {
           reason: 'la carta del momento si nomina col ruolo del Custode');
     });
 
-    testWidgets('la stesa a una carta: la scritta, il responso, un gradino',
+    testWidgets('la stesa a una carta: la scritta, il responso, un coro',
         (tester) async {
       final esito = await _monta(tester);
       await scegliQuanteCarte(tester, 1);
@@ -462,9 +476,9 @@ void main() {
                   find.byKey(const Key('oracolo_quante_nel_responso')))
               .data,
           'STESA A UNA CARTA');
-      expect(find.byKey(const Key('oracolo_gradino_1')), findsOneWidget);
-      expect(find.byKey(const Key('oracolo_gradino_0')), findsNothing);
-      expect(find.byKey(const Key('oracolo_gradino_2')), findsNothing);
+      // RISCRITTA DALL'ORDINE GD, voce GD.12: la mappa dei cori accende il
+      // solo coro della carta. LAPIDE: "un gradino" della scala di luce.
+      expect(_coriAccesi(tester), hasLength(1));
     });
 
     test('la stesa a una carta conta come una consultazione', () {
@@ -483,14 +497,14 @@ void main() {
     });
   });
 
+  // RISCRITTA DALL'ORDINE GD, voce GD.12: il colpo d'occhio e' la mappa dei
+  // cori. LAPIDE: i tre gradini della scala di luce (GC.18).
   group('GC.18 il livello visivo del responso dell\'Oracolo', () {
-    testWidgets('i gradini accesi seguono le carte uscite', (tester) async {
+    testWidgets('i cori accesi seguono le carte uscite', (tester) async {
       await _monta(tester);
       await consultaLOracolo(tester, 'Devo cambiare casa?');
-      for (final g in [0, 1, 2]) {
-        expect(find.byKey(Key('oracolo_gradino_$g')), findsOneWidget,
-            reason: 'il gradino $g non si accende');
-      }
+      expect(_coriAccesi(tester), isNotEmpty,
+          reason: 'la mappa dei cori non accende niente');
       for (final r in RuoloDellAngelo.values) {
         expect(find.byKey(Key('oracolo_coro_${r.name}')), findsOneWidget,
             reason: 'la carta ${r.name} non porta il suo coro');
@@ -501,9 +515,8 @@ void main() {
         (tester) async {
       await _monta(tester, tier: Tier.free);
       await consultaLOracolo(tester, 'Devo cambiare casa?');
-      expect(find.byKey(const Key('oracolo_gradino_0')), findsOneWidget);
-      expect(find.byKey(const Key('oracolo_gradino_1')), findsNothing);
-      expect(find.byKey(const Key('oracolo_gradino_2')), findsNothing);
+      expect(_coriAccesi(tester), hasLength(1),
+          reason: 'nell\'assaggio si accende piu\' del coro del Custode');
     });
   });
 

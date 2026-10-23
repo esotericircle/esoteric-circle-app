@@ -116,8 +116,8 @@ class LaScalaDelResponso extends StatefulWidget {
 
 class _LaScalaDelResponsoState extends State<LaScalaDelResponso>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _accendi = AnimationController(
-      vsync: this, duration: LaScalaDelResponso.durata);
+  late final AnimationController _accendi =
+      AnimationController(vsync: this, duration: LaScalaDelResponso.durata);
 
   @override
   void initState() {
@@ -179,7 +179,8 @@ class _LaScalaDelResponsoState extends State<LaScalaDelResponso>
         );
     return Semantics(
       label: 'La scala di luce: ${[
-        for (final c in carte) '${LaScalaDelResponso.parolaDi(c)}, ${c.angelo.name}',
+        for (final c in carte)
+          '${LaScalaDelResponso.parolaDi(c)}, ${c.angelo.name}',
       ].join('; ')}',
       child: ExcludeSemantics(
         child: AnimatedBuilder(

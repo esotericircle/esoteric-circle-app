@@ -2,6 +2,7 @@ import '../angels/angel_catalog.dart';
 import '../chat/chi_di_dovere.dart';
 import '../responsi/la_forma_del_responso.dart';
 import 'i_ruoli_e_l_estrazione.dart';
+import 'l_ora_degli_angeli.dart';
 
 /// **LA FORMA DI UNA DOMANDA ALL'ORACOLO**, ordine GA voce GA.06, 20 ottobre
 /// 2026. Che cosa chiede la persona, letto sul telefono senza modello: e' cio'
@@ -1302,6 +1303,82 @@ abstract final class LaRispostaDaiDoni {
       risposta: risposta,
       cosaFare: cosaFare,
     );
+  }
+
+  /// **L'APPROFONDIMENTO DI CASA, il terzo paragrafo della Lunga.** Ordine GD
+  /// voce GD.10, 23 ottobre 2026. Il fondatore: *"la profondità lunga NON
+  /// FUNZIONA ANCORA nella prima risposta dove dovrebbe comparire 2 paragrafi
+  /// in più di cui il secondo in riquadro con titolo! Quante volte devo
+  /// chiederlo?"*. LAPIDE: dall'ordine GA il ripiego del corpus era sempre
+  /// Breve, e ogni volta che il modello non tornava, o tornava scartato dalla
+  /// misura o da una parola vietata, la Lunga spariva.
+  ///
+  /// La stessa consegna del modello (`LaFormaDelResponso.perIlModello`): il
+  /// dettaglio pratico, cioe' i gesti scritti nel corpus per l'Angelo del
+  /// Cuore e per quello dell'Intelletto sulla famiglia della domanda, che il
+  /// "Cosa fare" non dice (lui usa il gesto del Custode). Nella stesa a una
+  /// carta, e quando i gesti non entrano nella misura, il consiglio
+  /// documentato della carta per il suo posto (`custode|NN|consiglio`), che a
+  /// video non compare altrove. Da 40 a 50 parole; nullo se non c'e' niente
+  /// della misura: allora la Lunga non si finge.
+  static String? approfondimento({
+    required String domanda,
+    required List<CartaDellOracolo> carte,
+    required Map<String, List<String>> corpus,
+    int variante = 0,
+  }) {
+    final q = LaDomandaDellOracolo.leggi(domanda);
+    final f = FamigliaDellaDomanda.di(q);
+    final custode = carte.firstWhere((c) => c.ruolo == RuoloDellAngelo.custode,
+        orElse: () => carte.first);
+    final cuore =
+        carte.where((c) => c.ruolo == RuoloDellAngelo.cuore && !c.coperta);
+    final intelletto =
+        carte.where((c) => c.ruolo == RuoloDellAngelo.intelletto && !c.coperta);
+    String minuscola(String t) => t[0].toLowerCase() + t.substring(1);
+    bool aMisuraGiusta(String? t) =>
+        t != null &&
+        LaFormaDelResponso.parole(t) >= LaFormaDelResponso.minimo &&
+        LaFormaDelResponso.parole(t) <= LaFormaDelResponso.massimo;
+    if (cuore.isNotEmpty) {
+      final h = cuore.first.angelo;
+      final gestoH = lettura(corpus, h, 'gesto_${f.gruppo}');
+      final i = intelletto.isEmpty ? null : intelletto.first.angelo;
+      final gestoI = i == null ? null : lettura(corpus, i, 'gesto_${f.gruppo}');
+      if (gestoH != null) {
+        final a = custode.angelo;
+        final t = _seEntra([
+          _ruota([
+            'Per andare più a fondo, nel Cuore ${h.name} ti chiede questo: '
+                '${minuscola(gestoH)}',
+            'Nel Cuore, ${h.name} aggiunge un passo: ${minuscola(gestoH)}',
+          ], q.testo, h.number),
+          if (gestoI != null)
+            _ruota([
+              'Nell\'Intelletto, ${i!.name} completa così: '
+                  '${minuscola(gestoI)}',
+              'Dall\'Intelletto, ${i.name} ti suggerisce: '
+                  '${minuscola(gestoI)}',
+            ], q.testo, i.number),
+          [
+            '',
+            'Il punto delicato è fermarsi al primo passo: ${a.name} ti chiede '
+                'di ${via(corpus, a)}.',
+            'L\'ostacolo da aspettarsi è la vecchia abitudine: ${a.name} ti '
+                'chiede di ${via(corpus, a)}.',
+          ],
+        ]);
+        if (aMisuraGiusta(t)) return t;
+      }
+    }
+    final ruolo = carte.length == 1 ? RuoloDellAngelo.custode : custode.ruolo;
+    final v = corpus[LOraDegliAngeli.chiaveDelConsiglio(ruolo, custode.angelo)];
+    if (v == null || v.isEmpty) return null;
+    for (var k = 0; k < v.length; k++) {
+      final t = v[(variante + k) % v.length];
+      if (aMisuraGiusta(t)) return t;
+    }
+    return null;
   }
 
   /// **LA CORNICE DEI RUOLI**, ordine GA voce GA.06, terza lettura cieca: le

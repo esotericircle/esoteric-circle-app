@@ -64,6 +64,7 @@ import '../../tarot/tarot_card_art.dart';
 import '../../tarot/tarot_selectors.dart';
 import 'la_carta_dell_angelo_aperta.dart';
 import 'la_geometria_dell_altare.dart';
+import 'la_mappa_dei_cori.dart';
 import 'la_scala_del_responso.dart';
 import 'oracolo_share_card.dart';
 
@@ -135,7 +136,9 @@ class OracoloDegliAngeliScreen extends StatefulWidget {
   /// Il corpus dei messaggi; nullo, quello generato.
   final Map<String, List<String>>? corpus;
 
-  /// L'orologio, per le prove dell'angelo dell'ora.
+  /// L'orologio, per le prove dell'angelo dell'ora. Dall'ordine GD voce GD.08
+  /// la bolla dell'angelo dell'ora non c'e' piu': il parametro resta perche'
+  /// le prove che lo passano non cambino firma.
   final DateTime Function()? adesso;
 
   /// La nascita da usare; nulla, quella del profilo.
@@ -208,12 +211,14 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
 
   _Fase _fase = _Fase.domanda;
 
-  /// **LA DOMANDA AFFIDATA**: quella che il pulsante rotondo ha affidato.
-  /// Vuota finche' la persona non la affida; torna vuota se dopo la
-  /// cambia, e allora il ventaglio e il pulsante si spengono finche' non la
-  /// affida di nuovo (GC.09, la regola piu' semplice: il ventaglio si
-  /// accende quando c'e' una domanda affidata).
-  String _affidata = '';
+  /// **LA DOMANDA DATA**, scritta o scelta fra le proposte. Ordine GD voce
+  /// GD.06, 23 ottobre 2026, il fondatore: *"bisogna eliminare il pulsante
+  /// rotondo di invio nella bolla delle domande: quando l'utente ha scelto la
+  /// domanda semplicemente il riquadro delle carte da scegliere si attiva"*.
+  /// LAPIDE: dall'ordine FY la domanda andava "affidata" col pulsante
+  /// rotondo (GC.11 gli aveva dato la freccia d'invio), e finche' non la si
+  /// affidava il mazzo restava spento anche con la domanda gia' scritta.
+  String get _affidata => _domanda.text.trim();
   List<CartaDellOracolo> _carte = const [];
   RispostaDellOracolo? _risposta;
   int _consultazioni = 0;
@@ -269,8 +274,6 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
 
   Map<String, List<String>> get _corpus => widget.corpus ?? corpusDellOracolo;
 
-  DateTime _ora() => widget.adesso?.call() ?? DateTime.now();
-
   /// Riduci Movimento o la grafica alleggerita, come nella Stesa.
   bool get _riduciMovimento {
     final tierBasso =
@@ -304,14 +307,10 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     if (mounted) setState(() {});
   }
 
-  /// La domanda cambiata dopo l'affido non e' piu' affidata (GC.09).
+  /// La domanda data accende e spegne il ventaglio mentre si scrive (GD.06).
   void _seCambiaLaDomanda() {
     if (!mounted) return;
-    setState(() {
-      if (_affidata.isNotEmpty && _domanda.text.trim() != _affidata) {
-        _affidata = '';
-      }
-    });
+    setState(() {});
   }
 
   @override
@@ -378,10 +377,12 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
       _scelti.length == _quante &&
       _inVolo == null;
 
-  /// **AFFIDARE LA DOMANDA** (FY.15): la domanda resta affidata e il ventaglio
-  /// si accende. Le consultazioni del giorno si contano qui, prima della
-  /// scelta, cosi' nessuno sceglie le carte per poi trovare la porta chiusa
-  /// (FU.10).
+  /// **LA DOMANDA DATA** (GD.06): chiusa la tastiera o scelta una proposta,
+  /// la schermata scorre al mazzo, che si e' gia' acceso da solo. Le
+  /// consultazioni del giorno si guardano al primo dorso toccato
+  /// ([_scegli]), prima della scelta, cosi' nessuno sceglie le carte per poi
+  /// trovare la porta chiusa (FU.10). LAPIDE: qui le guardava l'affido col
+  /// pulsante rotondo (FY.15).
   ///
   /// **LAPIDE, ordine FV aggiunta voce FVA.01, 15 ottobre 2026.** Qui una
   /// domanda delicata non estraeva carte e riceveva la risposta di cura col
@@ -390,13 +391,9 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   /// si rispondono elegantemente con sensibilità Senza prendersi
   /// responsabilità". La regola sta nell'istruzione al modello, la stessa
   /// delle chat dei Maestri.
-  Future<void> _affida() async {
-    final domanda = _domanda.text.trim();
-    if (domanda.isEmpty || _fase != _Fase.domanda) return;
+  void _domandaData() {
+    if (_affidata.isEmpty || _fase != _Fase.domanda) return;
     FocusManager.instance.primaryFocus?.unfocus();
-    if (!await _lePorteSonoAperte()) return;
-    if (!mounted) return;
-    setState(() => _affidata = domanda);
     _scorriAlMazzo();
   }
 
@@ -434,6 +431,11 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
   /// una la carta del momento, al centro.
   Future<void> _scegli(int indice, Rect? partenza) async {
     if (!_ventaglioAttivo || indice < 0 || indice >= _mazzo.length) return;
+    // Le porte del giorno si guardano al primo dorso (GD.06, FU.10).
+    if (_scelti.isEmpty) {
+      if (!await _lePorteSonoAperte()) return;
+      if (!mounted || !_ventaglioAttivo) return;
+    }
     final numero = _mazzo[indice];
     if (_scelti.contains(numero)) return;
     final posto = _posti[_scelti.length];
@@ -626,7 +628,6 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
     _domanda.clear();
     setState(() {
       _fase = _Fase.domanda;
-      _affidata = '';
       _risposta = null;
       _carte = const [];
       _mazzo = EstrazioneDellOracolo.mescola(_caso);
@@ -923,8 +924,7 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                   _LaDomanda(
                     palette: palette,
                     controllo: _domanda,
-                    affidata: _affidata,
-                    onAffida: _affida,
+                    onDomandaData: _domandaData,
                   ),
                   const SizedBox(height: SpacingTokens.xs),
                   _LeOpzioni(
@@ -980,7 +980,7 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                     const SizedBox(height: SpacingTokens.xxs),
                     Text(
                       _affidata.isEmpty
-                          ? 'Affida la domanda col pulsante rotondo, poi '
+                          ? 'Scrivi o scegli la tua domanda, poi '
                               'scegli ${_quante == 1 ? 'la tua carta' : 'le tre carte'}.'
                           : 'Scegli ${_quante == 1 ? 'la tua carta' : 'le tre carte'} '
                               'dal ventaglio, poi avvia la lettura.',
@@ -1040,17 +1040,11 @@ class _OracoloDegliAngeliScreenState extends State<OracoloDegliAngeliScreen>
                       onTap: _nuovaDomanda,
                     ),
                   ),
-                  // **L'ANGELO DELL'ORA DOPO LA LETTURA** (GC.08): all'apertura
-                  // non si vede nessun messaggio; l'angelo dell'ora e il
-                  // messaggio del giorno (FU.08) arrivano solo a lettura
-                  // fatta, in fondo.
-                  const SizedBox(height: SpacingTokens.lg),
-                  _LAngeloDellOra(
-                    palette: palette,
-                    adesso: _ora(),
-                    triade: _triade,
-                    corpus: _corpus,
-                  ),
+                  // LAPIDE, ordine GD voce GD.08: qui sotto stava la bolla
+                  // dell'angelo dell'ora col messaggio del giorno (GC.08,
+                  // FU.08). Il fondatore, 23 ottobre 2026: "Alla fine del
+                  // responso NON DEVE COMPARIRE LA BOLLA DELL'ANGELO DEL
+                  // MOMENTO sotto il pulsante «affida una nuova domanda»".
                 ],
                 const SizedBox(height: SpacingTokens.xxl),
               ],
@@ -1467,22 +1461,21 @@ class _LaDomanda extends StatefulWidget {
   const _LaDomanda({
     required this.palette,
     required this.controllo,
-    required this.affidata,
-    required this.onAffida,
+    required this.onDomandaData,
   });
 
   final MaestroPalette palette;
   final TextEditingController controllo;
 
-  /// La domanda gia' affidata, o vuota.
-  final String affidata;
-  final VoidCallback onAffida;
+  /// Chiusa la tastiera o scelta una proposta (GD.06).
+  final VoidCallback onDomandaData;
 
   /// Quanto e' alto al massimo il riquadro delle proposte.
   static const double altezzaDelleProposte = 176;
 
-  /// **IL SIMBOLO DEL PULSANTE CHE AFFIDA** (GC.11).
-  static const IconData simboloDellInvio = Icons.keyboard_return_rounded;
+  // LAPIDE, ordine GD voce GD.06: qui stava `simboloDellInvio`, la freccia
+  // d'invio del pulsante rotondo che affidava la domanda (GC.11). Il
+  // fondatore, 23 ottobre 2026 alle 16:52: "elimina il pulsante rotondo".
 
   @override
   State<_LaDomanda> createState() => _LaDomandaState();
@@ -1496,9 +1489,7 @@ class _LaDomandaState extends State<_LaDomanda> {
   @override
   Widget build(BuildContext context) {
     final palette = widget.palette;
-    final vuota = widget.controllo.text.trim().isEmpty;
-    final affidata = widget.affidata.isNotEmpty &&
-        widget.controllo.text.trim() == widget.affidata;
+    final affidata = widget.controllo.text.trim().isNotEmpty;
     final tema = _tema;
     return Container(
       key: const Key('oracolo_domanda'),
@@ -1517,44 +1508,25 @@ class _LaDomandaState extends State<_LaDomanda> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(affidata ? 'LA TUA DOMANDA È AFFIDATA' : 'LA TUA DOMANDA',
+          Text('LA TUA DOMANDA',
               key: const Key('oracolo_domanda_stato'),
               style: TypographyTokens.etichetta().copyWith(
                   color: affidata ? palette.glow : palette.goldSoft,
                   letterSpacing: 1.2)),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  key: const Key('oracolo_campo_domanda'),
-                  controller: widget.controllo,
-                  minLines: 1,
-                  maxLines: 2,
-                  textInputAction: TextInputAction.send,
-                  onSubmitted: (_) => widget.onAffida(),
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textPrimary),
-                  decoration: const InputDecoration(
-                    hintText: 'Scrivi la tua domanda agli angeli',
-                    border: InputBorder.none,
-                    isDense: true,
-                  ),
-                ),
-              ),
-              const SizedBox(width: SpacingTokens.xxs),
-              Opacity(
-                opacity: vuota || affidata ? 0.45 : 1,
-                child: PulsanteTondoDipinto(
-                  key: const Key('oracolo_affida'),
-                  etichetta: 'Affida la domanda',
-                  lato: 44,
-                  onTap: vuota || affidata ? null : widget.onAffida,
-                  figlio: Icon(_LaDomanda.simboloDellInvio,
-                      key: const Key('oracolo_simbolo_dell_invio'),
-                      color: palette.goldSoft),
-                ),
-              ),
-            ],
+          TextField(
+            key: const Key('oracolo_campo_domanda'),
+            controller: widget.controllo,
+            minLines: 1,
+            maxLines: 2,
+            textInputAction: TextInputAction.done,
+            onSubmitted: (_) => widget.onDomandaData(),
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary),
+            decoration: const InputDecoration(
+              hintText: 'Scrivi la tua domanda agli angeli',
+              border: InputBorder.none,
+              isDense: true,
+            ),
           ),
           const SizedBox(height: SpacingTokens.xxs),
           SizedBox(
@@ -1602,8 +1574,10 @@ class _LaDomandaState extends State<_LaDomanda> {
                         widget.controllo.text = d;
                         widget.controllo.selection =
                             TextSelection.collapsed(offset: d.length);
-                        // GC.11: scelta la domanda, la tendina si chiude.
+                        // GC.11: scelta la domanda, la tendina si chiude;
+                        // GD.06: e il mazzo, gia' acceso, viene in vista.
                         setState(() => _tema = null);
+                        widget.onDomandaData();
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -1775,7 +1749,7 @@ class _IlMazzoCoperto extends StatelessWidget {
   /// La riga che guida la scelta, detta prima del gesto.
   static String guida(int quante, int scelti, {bool affidata = true}) {
     if (!affidata) {
-      return 'Il mazzo si apre quando affidi la tua domanda.';
+      return 'Il mazzo si apre quando scrivi o scegli la tua domanda.';
     }
     if (quante == 1) {
       return scelti >= 1
@@ -1896,75 +1870,6 @@ class _IlMazzoCoperto extends StatelessWidget {
   }
 }
 
-/// **L'ANGELO DELL'ORA E IL MESSAGGIO DEL GIORNO** (FU.08), senza modello.
-///
-/// **LAPIDE, ordine GA voce GA.08, 20 ottobre 2026.** Qui accanto al nome
-/// stava la carta dipinta dell'angelo dell'ora (`LaCartaDellAngelo`, piccola,
-/// a sinistra): era una carta in vista all'apertura, fuori dal ventaglio. Il
-/// fondatore: "L'oracolo degli angeli non mostra all'inizio, all'apertura,
-/// nessuna Carta prima che l'utente le scelga". Restano il nome, i suoi venti
-/// minuti e il messaggio del giorno.
-class _LAngeloDellOra extends StatelessWidget {
-  const _LAngeloDellOra({
-    required this.palette,
-    required this.adesso,
-    required this.triade,
-    required this.corpus,
-  });
-
-  final MaestroPalette palette;
-  final DateTime adesso;
-  final AngelTriad triade;
-  final Map<String, List<String>> corpus;
-
-  @override
-  Widget build(BuildContext context) {
-    final angelo = LOraDegliAngeli.dellOra(adesso);
-    final delGiorno = LOraDegliAngeli.messaggioDelGiorno(
-        triade: triade, giorno: adesso, corpus: corpus);
-    return Container(
-      key: const Key('oracolo_angelo_dell_ora'),
-      padding: const EdgeInsets.all(SpacingTokens.md),
-      decoration: BoxDecoration(
-        color: palette.primary.withValues(alpha: 0.3),
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('L\'angelo di quest\'ora',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.goldSoft)),
-          const SizedBox(height: SpacingTokens.xxs),
-          Text(angelo.name,
-              key: const Key('oracolo_nome_dell_ora'),
-              style: TypographyTokens.titoloScheda()
-                  .copyWith(color: ColorTokens.textPrimary)),
-          Text(LOraDegliAngeli.momentoDelRito(angelo),
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: ColorTokens.textSecondary)),
-          if (delGiorno != null) ...[
-            const SizedBox(height: SpacingTokens.md),
-            Text('Il messaggio di oggi',
-                key: const Key('oracolo_messaggio_del_giorno'),
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft)),
-            Text('dal tuo ${delGiorno.ruolo.nome}',
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary)),
-            const SizedBox(height: SpacingTokens.xxs),
-            ParagrafiDiLettura(
-                testo: delGiorno.testo,
-                stile: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textPrimary)),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
 /// **IL RESPONSO NELLA FORMA NUOVA.** Ordine GA voci GA.03, GA.04 e GA.05,
 /// 20 ottobre 2026. Il fondatore, 19 ottobre 2026: *"Per le risposte brevi
 /// 2 paragrafi di cui il secondo messo in evidenza in un riquadro e questo
@@ -2077,8 +1982,9 @@ class _IlResponso extends StatelessWidget {
         // **COME NELLA STESA: PRIMA LE CARTE USCITE** (GC.15). Il fondatore:
         // *"come per la stesa di tarocchi, il responso all'inizio scrive le
         // carte uscite e poi i riquadri delle risposte"*. In cima il numero
-        // di carte scelto (GC.17), poi le carte uscite, poi il colpo
-        // d'occhio della scala di luce (GC.18), poi il titolo e i paragrafi.
+        // di carte scelto (GC.17), poi le carte uscite (la terna fare,
+        // sentire, capire, una volta sola: GD.12), poi il colpo d'occhio
+        // della mappa dei cori (GD.12), poi il titolo e i paragrafi.
         Text(carte.length == 1 ? 'STESA A UNA CARTA' : 'STESA A TRE CARTE',
             key: const Key('oracolo_quante_nel_responso'),
             textAlign: TextAlign.center,
@@ -2087,13 +1993,15 @@ class _IlResponso extends StatelessWidget {
         const SizedBox(height: SpacingTokens.xs),
         _LeCarteUscite(carte: carte, assaggio: assaggio, palette: palette),
         const SizedBox(height: SpacingTokens.md),
-        LaScalaDelResponso(
+        // LAPIDE, ordine GD voce GD.12: qui stava la scala di luce
+        // (`LaScalaDelResponso`, GC.18), che ripeteva in un riquadro la
+        // terna appena scritta sopra.
+        LaMappaDeiCori(
           carte: carte,
           palette: palette,
           chiuse: assaggio
               ? const {RuoloDellAngelo.cuore, RuoloDellAngelo.intelletto}
               : const {},
-          ferma: riduciMovimento,
         ),
         const SizedBox(height: SpacingTokens.md),
         KeyedSubtree(
@@ -2117,17 +2025,12 @@ class _IlResponso extends StatelessWidget {
               style: TypographyTokens.didascalia().copyWith(
                   color: ColorTokens.textSecondary,
                   fontStyle: FontStyle.italic)),
-        ] else if (!risposta.dalModello) ...[
-          const SizedBox(height: SpacingTokens.sm),
-          Text(
-            'Medora oggi risponde dai doni dei tre angeli usciti: la '
-            'risposta scritta per te sulle tre carte arriva quando la rete '
-            'torna.',
-            key: const Key('oracolo_solo_corpus'),
-            style: TypographyTokens.didascalia().copyWith(
-                color: ColorTokens.textSecondary, fontStyle: FontStyle.italic),
-          ),
         ],
+        // LAPIDE, ordine GD voce GD.09: qui, quando la risposta veniva dal
+        // corpus, una riga in corsivo diceva che la risposta scritta sarebbe
+        // arrivata col ritorno della rete. Il fondatore, 23 ottobre 2026:
+        // "eliminalo completamente, non dovrà mai comparire in nessuna
+        // caso!". La risposta dai doni e' una risposta intera, e non si scusa.
         const SizedBox(height: SpacingTokens.lg),
         for (var i = 0; i < carte.length; i++) ...[
           if (assaggio && i > 0)
@@ -2435,14 +2338,7 @@ class _LaBollaDellaCarta extends StatelessWidget {
   /// **IL SEGNO DEL CORO** (GC.18): uno dei nove segni dipinti dal fondatore
   /// (`assets/img/simboli/`, ordine GC). Il catalogo chiama "Potenze" il
   /// coro che il file chiama "potesta", e scrive "Virtu'" con l'apostrofo.
-  static String segnoDelCoro(Angel a) {
-    final nome = switch (a.choir.name) {
-      'Potenze' => 'potesta',
-      "Virtu'" => 'virtu',
-      final altro => altro.toLowerCase(),
-    };
-    return 'assets/img/simboli/sig_coro_${nome}_v1.webp';
-  }
+  static String segnoDelCoro(Angel a) => LaMappaDeiCori.segnoDi(a.choir);
 
   /// **CHI E'**, in una riga: il numero, il nome, il coro e chi lo regge.
   /// Il nome del coro col suo articolo ("degli Angeli", "dei Troni") e con
@@ -2479,11 +2375,68 @@ class _LaBollaDellaCarta extends StatelessWidget {
     return null;
   }
 
+  /// **LA MISURA DEI SEGNI DELLA SCHEDA**, ordine GD voce GD.11: il
+  /// medaglione del ruolo e il segno del coro hanno la stessa misura e
+  /// stanno sulla stessa colonna. LAPIDE: il medaglione era di 48 punti sopra
+  /// la carta e il segno del coro di 34 sotto, su due colonne diverse.
+  static const double latoDelSegno = 28;
+
+  /// La larghezza della carta nella testata: le righe della testata le
+  /// stanno accanto, e la carta e' alta una volta e mezzo.
+  static const double latoDellaCarta = SpacingTokens.xxl + SpacingTokens.lg;
+
+  Widget _segno(Widget figlio, Key chiave) => SizedBox(
+      key: chiave, width: latoDelSegno, height: latoDelSegno, child: figlio);
+
+  /// **LA SCHEDA, PRIMA LA RISPOSTA**, ordine GD voce GD.11, 23 ottobre
+  /// 2026. Il fondatore: *"la prima cosa che vuole vedere l'utente è la
+  /// risposta, L'UTENTE NON GLIENE FREGA NIENTE DEI DETTAGLI VUOLE LA
+  /// RISPOSTA! Sistema elegantemente tutte le risposte delle singole
+  /// carte"*. Dall'alto: la testata (la carta, e accanto il posto col segno
+  /// del ruolo, il nome dell'angelo e il suo dono col segno del coro, tre
+  /// righe allineate allo stesso margine); subito sotto il suo messaggio per
+  /// te, aperto (titolo e un solo paragrafo, GC.05); poi i dettagli, chi la
+  /// porta, chi e' e che cosa porta secondo la tradizione; in fondo le
+  /// azioni. LAPIDE: il messaggio stava in fondo e chiuso ("Leggi il suo
+  /// messaggio", GC.18), dopo il coro, chi e' e la tradizione, e accanto
+  /// alla carta restava un vuoto che sembrava una riga mancante.
   @override
   Widget build(BuildContext context) {
-    const lato = SpacingTokens.xxl + SpacingTokens.lg;
+    final r = carta.ruolo.name;
+    final etichetta =
+        TypographyTokens.etichetta().copyWith(color: palette.goldSoft);
+    final segnoDelRuolo = carta.delMomento
+        ? Container(
+            key: const Key('oracolo_simbolo_del_momento'),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: palette.deepest,
+              border: Border.all(color: palette.gold, width: 1.5),
+            ),
+            child: Icon(Icons.auto_stories_rounded,
+                size: latoDelSegno * 0.6, color: palette.goldSoft),
+          )
+        : ClipOval(
+            child: Image.asset(carta.ruolo.medaglione,
+                width: latoDelSegno, height: latoDelSegno, fit: BoxFit.contain),
+          );
+    final segnoDelCoroDipinto = Image.asset(segnoDelCoro(carta.angelo),
+        fit: BoxFit.contain,
+        filterQuality: FilterQuality.medium,
+        errorBuilder: (_, __, ___) => DecoratedBox(
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: palette.gold.withValues(alpha: 0.6))));
+    Widget riga(Widget segno, Widget testo) => Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            segno,
+            const SizedBox(width: SpacingTokens.xs),
+            Expanded(child: testo),
+          ],
+        );
     return Container(
-      key: Key('oracolo_bolla_${carta.ruolo.name}'),
+      key: Key('oracolo_bolla_$r'),
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         color: palette.primary.withValues(alpha: 0.25),
@@ -2493,129 +2446,104 @@ class _LaBollaDellaCarta extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // --- LA TESTATA ---
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
-                children: [
-                  // **IL SIMBOLO DELLA CARTA** (GC.15): il medaglione del suo
-                  // ruolo, quello sopra la carta nella cattura 07 del
-                  // fondatore. La carta del momento non ha ruolo (GC.17): il
-                  // suo simbolo e' quello dell'Oracolo che l'app ha gia', il
-                  // segno della funzione nel catalogo delle arti
-                  // (`ArtCatalog`, voce `angels_oracle`), in un cerchio d'oro.
-                  if (carta.delMomento)
-                    Container(
-                      key: const Key('oracolo_simbolo_del_momento'),
-                      width: SpacingTokens.xxl,
-                      height: SpacingTokens.xxl,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: palette.deepest,
-                        border: Border.all(color: palette.gold, width: 2),
-                      ),
-                      child: Icon(Icons.auto_stories_rounded,
-                          color: palette.goldSoft),
-                    )
-                  else
-                    ClipOval(
-                      child: Image.asset(carta.ruolo.medaglione,
-                          width: SpacingTokens.xxl,
-                          height: SpacingTokens.xxl,
-                          fit: BoxFit.contain),
-                    ),
-                  const SizedBox(height: SpacingTokens.xs),
-                  SizedBox(
-                    width: lato,
-                    height: lato * 1.5,
-                    child: carta.coperta
-                        ? Image.asset(GeometriaDellAltare.dorso,
-                            fit: BoxFit.fill)
-                        : LaCartaDellAngelo(
-                            angelo: carta.angelo, palette: palette),
-                  ),
-                ],
+              SizedBox(
+                key: Key('oracolo_carta_della_bolla_$r'),
+                width: latoDellaCarta,
+                height: latoDellaCarta * 1.5,
+                child: carta.coperta
+                    ? Image.asset(GeometriaDellAltare.dorso, fit: BoxFit.fill)
+                    : LaCartaDellAngelo(angelo: carta.angelo, palette: palette),
               ),
               const SizedBox(width: SpacingTokens.sm),
               Expanded(
                 child: Column(
+                  key: Key('oracolo_testata_$r'),
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                        carta.delMomento
-                            ? 'LA CARTA DEL MOMENTO'
-                            : carta.ruolo.posizione.toUpperCase(),
-                        style: TypographyTokens.etichetta()
-                            .copyWith(color: palette.goldSoft)),
-                    const SizedBox(height: SpacingTokens.xxs),
+                    riga(
+                        _segno(segnoDelRuolo, Key('oracolo_segno_ruolo_$r')),
+                        Text(
+                            carta.delMomento
+                                ? 'LA CARTA DEL MOMENTO'
+                                : carta.ruolo.posizione.toUpperCase(),
+                            style: etichetta)),
+                    const SizedBox(height: SpacingTokens.xs),
                     Text(carta.coperta ? 'Carta coperta' : carta.angelo.name,
+                        key: Key('oracolo_nome_$r'),
                         style: TypographyTokens.titoloScheda()
                             .copyWith(color: ColorTokens.textPrimary)),
-                    const SizedBox(height: SpacingTokens.xxs),
-                    Text(_chiLaPorta,
-                        style: TypographyTokens.didascalia()
-                            .copyWith(color: ColorTokens.textSecondary)),
+                    if (!carta.coperta) ...[
+                      const SizedBox(height: SpacingTokens.xs),
+                      // **IL CORO COME PICCOLO SEGNO, CON UNA PAROLA CHIAVE**
+                      // (GC.18): il segno dipinto del coro e il dono
+                      // dell'angelo. Senza il file, un cerchio nel colore
+                      // dell'oro.
+                      KeyedSubtree(
+                        key: Key('oracolo_coro_$r'),
+                        child: riga(
+                            _segno(segnoDelCoroDipinto,
+                                Key('oracolo_segno_coro_$r')),
+                            Text(
+                                parolaChiave.trim().isEmpty
+                                    ? 'Coro dei ${carta.angelo.choir.name.replaceAll("u'", 'ù')}'
+                                    : '${parolaChiave.trim()[0].toUpperCase()}'
+                                        '${parolaChiave.trim().substring(1)}',
+                                key: Key('oracolo_parola_chiave_$r'),
+                                style: TypographyTokens.corpo().copyWith(
+                                    color: palette.goldSoft, height: 1.25))),
+                      ),
+                    ],
                   ],
                 ),
               ),
             ],
           ),
-          if (!carta.coperta) ...[
+          // --- LA RISPOSTA, PER PRIMA ---
+          if (carta.coperta) ...[
             const SizedBox(height: SpacingTokens.sm),
-            // **IL CORO COME PICCOLO SEGNO, CON UNA PAROLA CHIAVE** (GC.18):
-            // il segno dipinto del coro e il dono dell'angelo. Senza il file,
-            // un cerchio nel colore dell'oro.
-            Row(
-              key: Key('oracolo_coro_${carta.ruolo.name}'),
-              children: [
-                SizedBox(
-                  width: 34,
-                  height: 34,
-                  child: Image.asset(segnoDelCoro(carta.angelo),
-                      fit: BoxFit.contain,
-                      filterQuality: FilterQuality.medium,
-                      errorBuilder: (_, __, ___) => DecoratedBox(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: palette.gold.withValues(alpha: 0.6)))),
-                ),
-                const SizedBox(width: SpacingTokens.xs),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Il coro in didascalia e non in maiuscoletto: nella bolla stretta
-                      // "CORO DEI DOMINAZIONI" andava a capo, e un'etichetta in
-                      // maiuscoletto sta su una riga (guardia etichette_e_lettura).
-                      Text(
-                          'Coro dei ${carta.angelo.choir.name.replaceAll("u'", 'ù')}',
-                          style: TypographyTokens.didascalia()
-                              .copyWith(color: palette.goldSoft)),
-                      if (parolaChiave.trim().isNotEmpty)
-                        Text(
-                            '${parolaChiave.trim()[0].toUpperCase()}'
-                            '${parolaChiave.trim().substring(1)}',
-                            key: Key('oracolo_parola_chiave_'
-                                '${carta.ruolo.name}'),
-                            style: TypographyTokens.titoloScheda().copyWith(
-                                color: ColorTokens.textPrimary, height: 1.2)),
-                    ],
-                  ),
-                ),
-              ],
+            Text('Perché resta coperta', style: etichetta),
+            const SizedBox(height: SpacingTokens.xxs),
+            ParagrafiDiLettura(
+                key: Key('oracolo_messaggio_$r'),
+                testo: messaggio,
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary)),
+          ] else if (responso case final rr?) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            // **IL SUO MESSAGGIO PER TE: UN PARAGRAFO, APERTO** (GD.11): il
+            // titolo "Il suo messaggio per te" e il paragrafo intero, senza
+            // il riquadro "Cosa fare adesso" (GC.05). Il nome dell'angelo e'
+            // gia' il titolo, nella testata.
+            KeyedSubtree(
+              key: Key('oracolo_messaggio_$r'),
+              child: LaSingolaCheSiApre(
+                responso: rr,
+                parolaChiave: '',
+                etichetta: 'Il suo messaggio per te',
+                chiave: 'oracolo_carta_singola_$r',
+                palette: palette,
+                mostraIlTitolo: false,
+                apertaAllInizio: true,
+              ),
             ),
-            const SizedBox(height: SpacingTokens.sm),
+          ],
+          // --- I DETTAGLI, DOPO ---
+          if (!carta.coperta) ...[
+            const SizedBox(height: SpacingTokens.md),
             Column(
-              key: Key('oracolo_chi_e_${carta.ruolo.name}'),
+              key: Key('oracolo_chi_e_$r'),
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Chi è',
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.goldSoft)),
+                Text('Chi è', style: etichetta),
                 const SizedBox(height: SpacingTokens.xxs),
-                Text(chiE(carta.angelo),
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: ColorTokens.textPrimary)),
+                Text('${chiE(carta.angelo)} $_chiLaPorta.',
+                    style: TypographyTokens.didascalia().copyWith(
+                        color: ColorTokens.textPrimary, height: 1.45)),
                 if (cosaPorta(carta.angelo) case final porta?) ...[
                   const SizedBox(height: SpacingTokens.xs),
                   SegnoDellaProvenienza(
@@ -2624,44 +2552,19 @@ class _LaBollaDellaCarta extends StatelessWidget {
                       dettaglio: porta.fonte),
                   const SizedBox(height: SpacingTokens.xxs),
                   Text(porta.testo,
-                      key: Key('oracolo_cosa_porta_${carta.ruolo.name}'),
+                      key: Key('oracolo_cosa_porta_$r'),
                       style: TypographyTokens.didascalia().copyWith(
                           color: ColorTokens.textPrimary, height: 1.45)),
                 ],
               ],
             ),
+          ] else ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Text(_chiLaPorta,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary)),
           ],
-          if (carta.coperta) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            Text('Perché resta coperta',
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft)),
-            const SizedBox(height: SpacingTokens.xxs),
-            ParagrafiDiLettura(
-                key: Key('oracolo_messaggio_${carta.ruolo.name}'),
-                testo: messaggio,
-                stile: TypographyTokens.lettura()
-                    .copyWith(color: ColorTokens.textPrimary)),
-          ] else if (responso case final r?) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            // **IL SUO MESSAGGIO PER TE: UN PARAGRAFO, CHIUSO ALL'APERTURA**
-            // (GC.15, GC.18): il titolo "Il suo messaggio per te" in vista e
-            // il paragrafo, intero, che si apre al tocco (strato 3 delle
-            // Linee Guida V14). Niente riquadro "Cosa fare adesso" nella
-            // carta singola (GC.05). Il nome dell'angelo e' gia' il titolo,
-            // nella testata.
-            KeyedSubtree(
-              key: Key('oracolo_messaggio_${carta.ruolo.name}'),
-              child: LaSingolaCheSiApre(
-                responso: r,
-                parolaChiave: '',
-                etichetta: 'Il suo messaggio per te',
-                chiave: 'oracolo_carta_singola_${carta.ruolo.name}',
-                palette: palette,
-                mostraIlTitolo: false,
-              ),
-            ),
-          ],
+          // --- LE AZIONI ---
           if (carta.coperta) ...[
             const SizedBox(height: SpacingTokens.sm),
             Center(
@@ -2675,7 +2578,7 @@ class _LaBollaDellaCarta extends StatelessWidget {
           ] else ...[
             const SizedBox(height: SpacingTokens.sm),
             ParlaneConMaestroCompatto(
-              keyDelPulsante: Key('oracolo_parlane_${carta.ruolo.name}'),
+              keyDelPulsante: Key('oracolo_parlane_$r'),
               palette: palette,
               maestro: Maestro.medora,
               frase: messaggio,
@@ -2688,7 +2591,7 @@ class _LaBollaDellaCarta extends StatelessWidget {
               angelo: carta.angelo,
               rito: rito,
               variante: variante,
-              chiave: carta.ruolo.name,
+              chiave: r,
             ),
           ],
         ],

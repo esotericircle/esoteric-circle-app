@@ -482,15 +482,9 @@ void main() {
           final bolla = find.byKey(Key('oracolo_bolla_${c.ruolo.name}'));
           await tester.ensureVisible(bolla);
           await tester.pump();
-          // GC.18: il messaggio della carta e' chiuso all'apertura e si apre
-          // al tocco, come farebbe chi lo legge.
-          final apri =
-              find.byKey(Key('oracolo_carta_singola_${c.ruolo.name}_apri'));
-          // A meta' finestra: in cima la barra del titolo prende il tocco.
-          await Scrollable.ensureVisible(tester.element(apri), alignment: 0.5);
-          await tester.pump();
-          await tester.tap(apri);
-          await tester.pump(const Duration(milliseconds: 400));
+          // RISCRITTA DALL'ORDINE GD, voce GD.11: il messaggio della carta e'
+          // aperto e viene per primo, senza tocco. LAPIDE (GC.18): chiuso
+          // all'apertura, si apriva al tocco.
           expect(_testoSotto(tester, bolla), contains(atteso));
         }
       });

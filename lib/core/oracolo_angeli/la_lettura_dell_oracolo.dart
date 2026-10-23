@@ -289,27 +289,43 @@ Regole che non si rompono:
   /// (`TemaDellOracolo.titoloDiRipiego`, sei titoli fissi): il lettore cieco
   /// l'ha trovata uguale alla carta singola 40 volte su 40, con la prima
   /// frase che rispondeva alla domanda 6 volte su 40 (difetti D1, D2, D3).
-  /// [variante] resta nella firma: serve alle carte singole, non al
-  /// responso principale.
+  /// [variante] serve alle carte singole e al consiglio che approfondisce.
+  ///
+  /// **[profonda], LA LUNGA ANCHE QUI**, ordine GD voce GD.10: l'
+  /// approfondimento di casa (`LaRispostaDaiDoni.approfondimento`) e il salmo
+  /// propiziatorio del Custode, come nella lettura del modello. LAPIDE: qui
+  /// la Lunga non esisteva, e la prova di GC.19 era verde perche' la misurava
+  /// solo con un modello finto che tornava sempre ben formato.
   static RispostaDellOracolo delCorpus({
     required String domanda,
     required List<CartaDellOracolo> carte,
     required Map<String, List<String>> corpus,
     required int variante,
     bool soloIlCustode = false,
+    bool profonda = false,
   }) {
     final r = LaRispostaDaiDoni.componi(
         domanda: domanda,
         carte: carte,
         corpus: corpus,
         soloIlCustode: soloIlCustode);
+    final custode = cartaDelCustode(carte).angelo;
+    final salmo = profonda && !soloIlCustode ? salmoDellAngelo(custode) : null;
+    final approfondimento = salmo == null
+        ? null
+        : LaRispostaDaiDoni.approfondimento(
+            domanda: domanda, carte: carte, corpus: corpus, variante: variante);
+    final lunga = salmo != null && approfondimento != null;
     return RispostaDellOracolo(
       responso: ResponsoInterpretato(
         arte: ArteInterpretata.oracolo,
         titolo: r.titolo,
         risposta: r.risposta,
         cosaFare: r.cosaFare,
-        daDoveViene: daDoveViene(dalModello: false),
+        approfondimento: lunga ? approfondimento : null,
+        rito: lunga ? salmo : null,
+        daDoveViene: daDoveViene(
+            dalModello: false, delSalmo: lunga ? fonteDelSalmo(custode) : null),
       ),
       dalModello: false,
     );
@@ -340,7 +356,11 @@ Regole che non si rompono:
     Duration? entro,
   }) async {
     final corpusSolo = delCorpus(
-        domanda: domanda, carte: carte, corpus: corpus, variante: variante);
+        domanda: domanda,
+        carte: carte,
+        corpus: corpus,
+        variante: variante,
+        profonda: profonda);
     final chiama = chiamata ?? _chiamataVera;
     String? testo;
     try {
