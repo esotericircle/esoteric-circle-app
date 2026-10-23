@@ -16,13 +16,13 @@ e `docs/collaudo/GD/simulazioni/`, su una build di rilascio installata solo sul
 telefono di collaudo col si' del fondatore in chat ("Autorizzo la build
 locale"), mai distribuita.
 
-Restano aperte tre voci: GD.03 (mancano le arti dipinte dei chakra), GD.21 (la
-porta del server va pubblicata dal fondatore) e GD.26 (si chiude col verde di
-GitHub sul commit della consegna, scritto nel rapporto).
+Restano aperte due voci: GD.03 (mancano le arti dipinte dei chakra) e GD.21
+(la porta del server va pubblicata dal fondatore). GD.26 e' chiusa col verde di
+GitHub sul commit `78aff744`, scritto in coda al rapporto.
 
 VOCI_TOTALI: 26
-VOCI_CHIUSE: 23
-VOCI_APERTE: 3
+VOCI_CHIUSE: 24
+VOCI_APERTE: 2
 VOCI_DA_FARE: 0
 VOCI_PREMESSA_CADUTA: 0
 VOCI_DIVIETO: 0
@@ -340,11 +340,12 @@ MISURA: opacita' della scritta, prima 0 a ogni istante dopo 1,0 a 0,5 s, 1,0 a 2
 
 ## VOCE GD.26
 
-**APERTA IN ATTESA DI VERIFICA.** La consegna: manifesto, rapporto con le due
-dichiarazioni di GD.05 e GD.10, STATO_VIVO, verde di GitHub sul commit della
-consegna scritto nel rapporto. Nessuna build per i tester e nessuna
-pubblicazione sul server: i comandi sono nel rapporto. Si chiude col verde.
+**CHIUSA.** La consegna: manifesto, rapporto con le due dichiarazioni di GD.05
+e GD.10, STATO_VIVO, verde di GitHub sul commit `78aff744`
+(`refs/verde/78aff7446214675f93d9c9074d96ffed6174072f`), scritto in coda al
+rapporto. Nessuna build per i tester e nessuna pubblicazione sul server: i
+comandi sono nel rapporto.
 
 DOMANDA: "Si consegna solo col verde, e il commit del verde va scritto nel rapporto."
 PROVA: `docs/ordini/RAPPORTO_ORDINE_GD.md`
-MISURA: voci del manifesto 26 su 26 con uno stato; verde di GitHub sul commit della consegna: da leggere.
+MISURA: voci del manifesto 26 su 26 con uno stato; verde di GitHub sul commit della consegna, prima assente dopo presente (`refs/verde/78aff744`, 0 rossi nuovi).

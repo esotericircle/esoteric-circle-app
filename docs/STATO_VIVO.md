@@ -8120,10 +8120,15 @@ dalla testa `02522987` (verde, la consegna della build 2316). Testo
 dell'ordine alla lettera: `docs/ordini/ORDINE_GD_TESTO.md`. Manifesto:
 `docs/ordini/ORDINE_GD_MANIFESTO.md` (ventisei voci, GD.01-GD.26). Rapporto:
 `docs/ordini/RAPPORTO_ORDINE_GD.md`, con le due dichiarazioni sul perche' le
-prove della Lunga erano verdi. **23 voci CHIUSE, 3 APERTE IN ATTESA DI
-VERIFICA**: GD.03 (mancano le arti dipinte dei sette chakra), GD.21 (la porta
-`mandaLaSinastria` va pubblicata dal fondatore, comando nel rapporto), GD.26
-(la consegna, si chiude col verde in coda al rapporto). Le dodici premesse
+prove della Lunga erano verdi. **24 voci CHIUSE, 2 APERTE IN ATTESA DI
+VERIFICA**: GD.03 (mancano le arti dipinte dei sette chakra) e GD.21 (la porta
+`mandaLaSinastria` va pubblicata dal fondatore, comando nel rapporto).
+**Consegnato col verde di GitHub sul commit `78aff744`**. Durante il collaudo
+il fondatore ha chiesto tre ritocchi, fatti e visti sul Realme: nel Respiro i
+testi sotto il mento di Medora; nella Sinastria la tendina semitrasparente
+davvero (0,6, scena sfocata, velo leggero 0,25 dietro) con le scelte e i
+campi nella cornice dipinta del pulsante largo (`CorniceDipinta`); "Oggi fra
+voi" staccato dal piedistallo della statua. Le dodici premesse
 erano tutte vere. Nessuna chiamata a pagamento, nessuna build per i tester,
 nessuna pubblicazione sul server. Le parti A, D ed E/F le hanno eseguite tre
 agenti su rami locali (`gd-a`, `gd-d`, `gd-ef`) partiti da `02522987`, fusi

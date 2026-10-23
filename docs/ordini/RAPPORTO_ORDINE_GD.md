@@ -239,3 +239,5 @@ richieste, eseguite dentro le voci che toccano e provate:
 
 Il commit della consegna e il suo verde di GitHub si scrivono in coda a questo
 rapporto, con la chiusura di GD.26.
+
+**Aggiunta del 23 ottobre 2026, ordine GD, la consegna.** Verde di GitHub sul commit `78aff7446214675f93d9c9074d96ffed6174072f` (`refs/verde/78aff7446214675f93d9c9074d96ffed6174072f`, tutti i controlli verdi, 0 rossi nuovi). GD.26 chiusa, `docs/ordini/RAPPORTO_ORDINE_GD.md`: manifesto a 24 voci chiuse e 2 aperte (GD.03, le arti dei chakra; GD.21, la pubblicazione del server). Nessuna build per i tester: la ordina il fondatore.
