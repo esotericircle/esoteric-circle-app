@@ -350,15 +350,18 @@ void main() {
     await tester.tap(find.byKey(const Key('luna_voce_respiro')));
     await tester.pump(const Duration(milliseconds: 300));
     final tempi = TempiDelRespiroDellaLuna.diOggi(DateTime(2026, 10, 16, 21));
-    for (var i = 0; i < tempi.cicliPerUnMinuto; i++) {
-      final dito = await tester.startGesture(
-          tester.getCenter(find.byKey(const Key('respiro_luna_vera'))));
+    // Il dito resta sulla Luna per tutto il rito (ordine GD voce GD.23):
+    // lasciarlo adesso ferma il respiro invece di farlo espirare.
+    final dito = await tester.startGesture(
+        tester.getCenter(find.byKey(const Key('respiro_luna_vera'))));
+    final passi =
+        (tempi.ciclo * tempi.cicliPerUnMinuto + const Duration(seconds: 1))
+                .inMilliseconds ~/
+            50;
+    for (var i = 0; i < passi; i++) {
       await tester.pump(const Duration(milliseconds: 50));
-      await tester.pump(tempi.inspiro + const Duration(milliseconds: 100));
-      await dito.up();
-      await tester.pump(const Duration(milliseconds: 50));
-      await tester.pump(tempi.espiro + const Duration(milliseconds: 100));
     }
+    await dito.up();
     await tester.pump(const Duration(milliseconds: 300));
     expect(find.byKey(const Key('respiro_riga_dopo')), findsOneWidget);
     await _scatta(tester, radice, 'fxa07_dopo_il_respiro');

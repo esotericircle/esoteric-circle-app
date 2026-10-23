@@ -100,7 +100,8 @@ void main() {
   }
 
   testWidgets('il giro intero del Respiro della Luna', (tester) async {
-    SharedPreferences.setMockInitialValues({'respiro.primaAperturaVista': true});
+    SharedPreferences.setMockInitialValues(
+        {'respiro.primaAperturaVista': true});
     tester.view.physicalSize = const Size(1080, 2400);
     tester.view.devicePixelRatio = 3.0;
     tester.view.padding = const FakeViewPadding(top: 75 * 3, bottom: 48 * 3);
@@ -173,16 +174,22 @@ void main() {
     await scatta(tester, 'il_rito_davanti_a_medora');
 
     final tempi = TempiDelRespiroDellaLuna.diOggi(adesso);
-    for (var i = 0; i < tempi.cicliPerUnMinuto; i++) {
-      final dito = await tester.startGesture(
-          tester.getCenter(find.byKey(const Key('respiro_la_luna_si_tocca'))));
+    // **IL DITO RESTA SULLA LUNA PER TUTTO IL RITO** (ordine GD voce
+    // GD.23): prima si lasciava per espirare, adesso lasciare ferma il
+    // respiro.
+    final dito = await tester.startGesture(
+        tester.getCenter(find.byKey(const Key('respiro_la_luna_si_tocca'))));
+    final passi =
+        (tempi.ciclo * tempi.cicliPerUnMinuto + const Duration(seconds: 1))
+                .inMilliseconds ~/
+            50;
+    for (var i = 0; i < passi; i++) {
       await tester.pump(const Duration(milliseconds: 50));
-      await tester.pump(tempi.inspiro + const Duration(milliseconds: 100));
-      if (i == 0) await scatta(tester, 'inspira');
-      await dito.up();
-      await tester.pump(const Duration(milliseconds: 50));
-      await tester.pump(tempi.espiro + const Duration(milliseconds: 100));
+      if (i == tempi.inspiro.inMilliseconds ~/ 100) {
+        await scatta(tester, 'inspira');
+      }
     }
+    await dito.up();
     await tester.pump(const Duration(milliseconds: 300));
     expect(
         tester

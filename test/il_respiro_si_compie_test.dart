@@ -1,12 +1,8 @@
-import 'dart:async';
-
 import 'package:esoteric_circle/core/lunario/il_dial_a_moon.dart';
 import 'package:esoteric_circle/core/lunario/il_respiro_della_luna.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
-import 'package:esoteric_circle/core/permissions/esito_del_permesso.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/respiro_della_luna/il_respiro_della_luna_screen.dart';
-import 'package:esoteric_circle/services/breath_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
@@ -14,42 +10,24 @@ import 'package:http/testing.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// **IL RESPIRO SI COMPIE, COL DITO E COL SOFFIO.** Ordine FY voce FY.06, 16
-/// ottobre 2026. Il fondatore, sulla build 2312: "Il respiro non funziona ne
-/// con microfono né con gesto".
+/// **IL RESPIRO SI COMPIE, COL DITO.** Ordine FY voce FY.06, 16 ottobre
+/// 2026. Il fondatore, sulla build 2312: "Il respiro non funziona ne con
+/// microfono né con gesto".
+///
+/// **RISCRITTA DALL'ORDINE GD VOCE GD.23, 23 ottobre 2026, non allentata.**
+/// Il fondatore: *"elimina il microfono e lascia solo «tieni premuto per
+/// inspirare e per espirare». Se l'utente solleva il dito, l'animazione e
+/// conteggio si fermano, ma può riprenderlo tenendo premuto"*. La prova del
+/// soffio in un microfono finto misurava un gesto che non esiste piu': al
+/// suo posto la prova del dito che si solleva a meta' e riprende. Il dito
+/// non si lascia piu' per espirare: tenuto sulla Luna, il rito fa da solo
+/// inspiro ed espiro.
 ///
 /// Due giri interi come una persona, dalla voce Respiro della barra in basso
-/// fino alla perla accesa: uno tenendo premuto sulla Luna e lasciando, uno
-/// soffiando in un microfono finto. Ognuno pretende che il rito arrivi in
-/// fondo ("Respiro compiuto" sulla scena) e che il giorno di oggi risulti
+/// fino alla perla accesa: uno col dito sempre sulla Luna, uno sollevandolo
+/// a ogni giro e riprendendo. Ognuno pretende che il rito arrivi in fondo
+/// ("Respiro compiuto" sulla scena) e che il giorno di oggi risulti
 /// respirato, cioe' che la perla di oggi si accenda nella Collana.
-
-/// Un microfono finto: concesso, e soffia quando glielo si dice. Il livello
-/// che manda e' quello della misura dell'aria (`soloAria`): uno se passa il
-/// fiato, zero se no.
-class _MicrofonoFinto extends BreathDetector {
-  _MicrofonoFinto() : super(soloAria: true);
-
-  final StreamController<double> _livelli =
-      StreamController<double>.broadcast();
-
-  @override
-  Stream<double> get level => _livelli.stream;
-
-  @override
-  EsitoDelPermesso? get esitoDelPermesso => EsitoDelPermesso.concesso;
-
-  @override
-  Future<bool> start() async => true;
-
-  @override
-  Future<void> stop() async {}
-
-  @override
-  Future<void> dispose() async {}
-
-  void soffia(double livello) => _livelli.add(livello);
-}
 
 IlDialAMoon _offline() =>
     IlDialAMoon(client: MockClient((_) async => http.Response('', 503)));
@@ -58,8 +36,7 @@ void main() {
   final adesso = DateTime(2026, 10, 16, 21);
   final tempi = TempiDelRespiroDellaLuna.diOggi(adesso);
 
-  Future<void> apriIlRito(WidgetTester tester,
-      {BreathDetector? rilevatore}) async {
+  Future<void> apriIlRito(WidgetTester tester) async {
     SharedPreferences.setMockInitialValues(
         {'respiro.primaAperturaVista': true});
     tester.view.physicalSize = const Size(360, 800);
@@ -69,8 +46,7 @@ void main() {
       providers: [ChangeNotifierProvider(create: (_) => MaestroController())],
       child: MaterialApp(
         home: MaestroScope(
-          child: IlRespiroDellaLunaScreen(
-              now: adesso, dialAMoon: _offline(), rilevatore: rilevatore),
+          child: IlRespiroDellaLunaScreen(now: adesso, dialAMoon: _offline()),
         ),
       ),
     ));
@@ -90,46 +66,53 @@ void main() {
       .widget<Text>(find.byKey(const Key('respiro_gesto_del_momento')))
       .data!;
 
-  testWidgets('col dito: tieni premuto e lascia, fino alla perla accesa',
+  Future<void> passa(WidgetTester tester, Duration d) async {
+    for (var i = 0; i < d.inMilliseconds ~/ 50; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+  }
+
+  Finder luna() => find.byKey(const Key('respiro_la_luna_si_tocca'));
+
+  testWidgets('col dito sempre premuto, fino alla perla accesa',
       (tester) async {
     await apriIlRito(tester);
-    expect(gestoSullaScena(tester), 'Tieni premuto sulla Luna, poi lascia');
-    for (var i = 0; i < tempi.cicliPerUnMinuto; i++) {
-      final dito = await tester.startGesture(
-          tester.getCenter(find.byKey(const Key('respiro_la_luna_si_tocca'))));
-      await tester.pump(const Duration(milliseconds: 50));
-      if (i == 0) expect(gestoSullaScena(tester), 'Inspira');
-      await tester.pump(tempi.inspiro + const Duration(milliseconds: 100));
-      await dito.up();
-      await tester.pump(const Duration(milliseconds: 50));
-      await tester.pump(tempi.espiro + const Duration(milliseconds: 100));
-    }
-    await tester.pump(const Duration(milliseconds: 300));
+    expect(gestoSullaScena(tester), 'Tieni premuto sulla Luna');
+    final dito = await tester.startGesture(tester.getCenter(luna()));
+    await tester.pump(const Duration(milliseconds: 50));
+    expect(gestoSullaScena(tester), 'Inspira');
+    await passa(tester,
+        tempi.ciclo * tempi.cicliPerUnMinuto + const Duration(seconds: 1));
     expect(gestoSullaScena(tester), 'Respiro compiuto');
+    await dito.up();
+    await tester.pump(const Duration(milliseconds: 300));
     expect(await tester.runAsync(respirato), isTrue,
         reason: 'il respiro col dito non ha acceso la perla di oggi');
   });
 
-  testWidgets('col soffio: il microfono sente il fiato, fino alla perla accesa',
-      (tester) async {
-    final mic = _MicrofonoFinto();
-    await apriIlRito(tester, rilevatore: mic);
+  testWidgets(
+      'sollevando il dito a ogni giro il rito si ferma, riprende e arriva '
+      'alla perla', (tester) async {
+    await apriIlRito(tester);
     for (var i = 0; i < tempi.cicliPerUnMinuto; i++) {
-      // Il soffio: il livello dell'aria a uno per tutto l'inspiro, una
-      // volta ogni 200 millisecondi come un microfono vero.
-      final passi = tempi.inspiro.inMilliseconds ~/ 200 + 2;
-      for (var k = 0; k < passi; k++) {
-        mic.soffia(1);
-        await tester.pump(const Duration(milliseconds: 200));
+      // Meta' giro col dito, poi il dito si solleva per due secondi.
+      var dito = await tester.startGesture(tester.getCenter(luna()));
+      await passa(tester, tempi.ciclo ~/ 2);
+      await dito.up();
+      await passa(tester, const Duration(seconds: 2));
+      if (i == 0) {
+        expect(gestoSullaScena(tester), 'Tieni premuto per riprendere');
       }
-      // Smette: passata la grazia del microfono, l'espiro vela la Luna.
-      await tester.pump(const Duration(milliseconds: 800));
-      await tester.pump(tempi.espiro + const Duration(milliseconds: 200));
+      // L'altra meta' del giro, col dito di nuovo sulla Luna.
+      dito = await tester.startGesture(tester.getCenter(luna()));
+      await passa(tester, tempi.ciclo ~/ 2 + const Duration(milliseconds: 200));
+      await dito.up();
+      await tester.pump(const Duration(milliseconds: 50));
     }
     await tester.pump(const Duration(milliseconds: 300));
     expect(gestoSullaScena(tester), 'Respiro compiuto',
-        reason: 'il soffio nel microfono non ha compiuto il respiro');
+        reason: 'col dito sollevato e ripreso il respiro non si compie');
     expect(await tester.runAsync(respirato), isTrue,
-        reason: 'il respiro col soffio non ha acceso la perla di oggi');
+        reason: 'il respiro ripreso non ha acceso la perla di oggi');
   });
 }
