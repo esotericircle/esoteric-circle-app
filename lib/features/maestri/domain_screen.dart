@@ -9,6 +9,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../scene/la_scena_in_video.dart';
 import '../shell/vie_del_cerchio.dart';
+import 'il_dono_nel_palmo.dart';
 import 'maestro_screen.dart';
 import 'widgets/domain_pillars.dart';
 import 'rotta_arte.dart';
@@ -41,12 +42,16 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 /// dei tre ha un motivo per comportarsi diversamente (scelta di Code, FW.03).
 class DomainScreen extends StatefulWidget {
   const DomainScreen(
-      {super.key, required this.maestro, this.fabbricaDellaScena});
+      {super.key, required this.maestro, this.fabbricaDellaScena, this.adesso});
 
   final Maestro maestro;
 
   /// La finta del lettore video, per le prove headless.
   final FabbricaDiScena? fabbricaDellaScena;
+
+  /// L'ora da cui si legge il dono del giorno nel palmo (la runa del
+  /// tramonto di Caligo, GD.02). Nulla vuol dire adesso; la fissano le prove.
+  final DateTime? adesso;
 
   static Route<void> route({
     required Maestro maestro,
@@ -281,6 +286,22 @@ class _DomainScreenState extends State<DomainScreen> {
                   ),
                 ),
               ),
+            // **IL DONO NEL PALMO, ordine GD voci GD.01 e GD.02**: il segno
+            // di Medora, la runa del tramonto di Caligo. Sopra il video e
+            // dentro lo stesso spostamento verso l'alto del fotogramma, cosi'
+            // resta sul palmo dipinto; compare solo a scena ferma, come il
+            // resto (`IlDonoSulPalmo` usa `IlRestoDopoLaScena`).
+            Positioned.fill(
+              child: Transform.translate(
+                offset: Offset(0, -spostamento),
+                child: IlDonoSulPalmo(
+                  maestro: widget.maestro,
+                  scenaFerma: ferma,
+                  subito: !_regia.filmatoInScena && !_regia.saltata,
+                  adesso: widget.adesso,
+                ),
+              ),
+            ),
             // **IL VELO IN BASSO, FW.03**: il contenuto del dominio (i
             // pilastri sono gia' nella barra, leggibili per conto loro)
             // scorre sopra la scena a partire da meta' schermo: una

@@ -37,15 +37,20 @@ VIDEO = os.path.join(RADICE, 'brand_assets', 'maestri_scena')
 # Lo scambio di Caligo (FW.05) e' gia' qui: il video del vortice viene dalla
 # cartella Chat ma il suo fotogramma fermo e il suo posto sono del dominio,
 # e viceversa per il cerchio di fuoco.
+# ORDINE GD VOCE GD.02, 23 ottobre 2026: lo scambio torna indietro, per
+# parola del fondatore ("Per Caligo bisogna scambiare il video introduttivo
+# della chat con quello del dominio"). Ogni video di Caligo torna al posto
+# della sua cartella: il cerchio di fuoco col palmo aperto nel dominio, il
+# vortice nella chat. Rieseguire lo script non disfa piu' la GD.02.
 VOCI = [
     ('Medora Dominio Scena', 'medora_planetario_v1.mp4',
      'medora_planetario_ultimo_fotogramma_v1.jpg', 'medora_dominio'),
     ('Medora Chat Scena', 'medora_l_invito_v1.mp4',
      'medora_chat_ultimo_fotogramma_v1.jpg', 'medora_chat'),
     ('Caligo Chat Scena', 'caligo_il_vortice_v1.mp4',
-     'caligo_chat_ultimo_fotogramma_v1.jpg', 'caligo_dominio'),
+     'caligo_chat_ultimo_fotogramma_v1.jpg', 'caligo_chat'),
     ('Caligo Dominio Scena', 'caligo_la_runa_della_sera_v1.mp4',
-     'caligo_dominio_ultimo_fotogramma_v1.jpg', 'caligo_chat'),
+     'caligo_dominio_ultimo_fotogramma_v1.jpg', 'caligo_dominio'),
     ('Aura Dominio Scena', 'aura_il_centro_di_oggi_v1.mp4',
      'aura_dominio_ultimo_fotogramma_v1.jpg', 'aura_dominio'),
     ('Aura Chat Scena', 'aura_il_respiro_sul_loto_v1.mp4',

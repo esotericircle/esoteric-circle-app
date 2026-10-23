@@ -9,6 +9,14 @@ import 'maestro.dart';
 /// il fuoco, io lo userei per il suo dominio essendo di forte impatto e
 /// l'altro per la chat"*), e il nome nel ramo riflette gia' lo scambio: lo
 /// script `tool/gli_asset_dell_ordine_fw.py` lo porta cosi'.
+///
+/// **LO SCAMBIO DI CALIGO TORNA INDIETRO, ordine GD voce GD.02, 23 ottobre
+/// 2026.** Il fondatore: *"Per Caligo bisogna scambiare il video
+/// introduttivo della chat con quello del dominio e nella sua mano aperta
+/// dovrebbe comparire la runa del tramonto del giorno"*. I file si sono
+/// scambiati di nome coi loro ultimi fotogrammi: il cerchio di fuoco col
+/// palmo aperto (la runa della sera) e' adesso `caligo_dominio`, il vortice
+/// `caligo_chat`. Il nome nel ramo dice ancora il posto nell'app.
 class LaScenaDelMaestro {
   const LaScenaDelMaestro._({
     required this.video,
