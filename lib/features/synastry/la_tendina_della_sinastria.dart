@@ -768,8 +768,8 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
         _testata('La sua nascita'),
         const SizedBox(height: SpacingTokens.xs),
         Text(
-            'Medora legge il tuo cielo e il suo: scrivi il nome, il giorno e l\'ora di nascita, '
-            'nato, poi scegli il vostro legame.',
+            'Medora legge il tuo cielo e il suo: scrivi il nome, il giorno '
+            'e l\'ora di nascita, poi scegli il vostro legame.',
             style: _nota),
         const SizedBox(height: SpacingTokens.md),
         RiquadroInEvidenza(
