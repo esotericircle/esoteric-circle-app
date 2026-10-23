@@ -1,13 +1,14 @@
 // LA STESA SI CONSERVA. Ordine FI voci 26, 27 e 41, 10 ottobre 2026.
 //
-// Il seme della stesa nasceva dal caso a ogni apertura: chi usciva e
-// rientrava con la stessa domanda vedeva carte diverse e poteva rilanciare
-// finche' non usciva il responso che gli piaceva. La guardia monta l'APP
-// DALL'AVVIO VERO, apre la stesa dalla rotta di produzione (senza seme), fa
-// una stesa compiuta, esce, rientra con la stessa domanda e pretende le
-// stesse carte, con la riga di Medora che lo dice. Il difetto e' di
-// collegamento: montata da sola, la schermata passerebbe per la ragione
-// sbagliata.
+// LAPIDE, ordine GD voce GD.04 del 23 ottobre 2026. Qui la guardia pretendeva
+// che chi rientrava con la stessa domanda si ritrovasse le carte di prima gia'
+// in tavola, con la riga di Medora. Il fondatore: "mi dice sempre «su questa
+// domanda le carte hanno già parlato oggi» ma non è assolutamente vero anche
+// perché devo ancora scegliere le carte". Adesso la guardia, sempre dall'APP
+// DALL'AVVIO VERO e dalla rotta di produzione, pretende il contrario: al
+// rientro le carte si scelgono di nuovo e la riga non c'e', ne' prima di
+// scegliere ne' con carte diverse. Il caso raro delle carte identiche lo
+// misura `gd04_le_carte_hanno_gia_parlato_test.dart`.
 
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/tarot/la_stesa_conservata.dart';
@@ -72,7 +73,7 @@ void main() {
       .map((c) => '${c.card.name}${c.reversed ? ' (rovescia)' : ''}')
       .join(', ');
 
-  testWidgets('chi rientra con la stessa domanda ritrova le sue carte',
+  testWidgets('chi rientra con la stessa domanda sceglie di nuovo le carte',
       (tester) async {
     silenzia();
     SharedPreferences.setMockInitialValues(
@@ -106,14 +107,29 @@ void main() {
     await passa(tester, 20);
     nav.push(StesaTreCarteScreen.route());
     await passa(tester, 30);
+    final alRientro = tester
+        .state<StesaTreCarteScreenState>(find.byType(StesaTreCarteScreen))
+        .carteScelte;
+    final rigaAlRientro =
+        find.byKey(const Key('stesa_conservata')).evaluate().isNotEmpty;
+    for (final indice in const [41, 42, 43]) {
+      await pesca(tester, indice);
+    }
     final dopo = carte(tester);
+    final rigaDopo =
+        find.byKey(const Key('stesa_conservata')).evaluate().isNotEmpty;
     // ignore: avoid_print
-    print('STESA CONSERVATA: prima [$prima], dopo il rientro [$dopo]');
-    expect(dopo, prima,
-        reason: 'rientrando con la stessa domanda le carte '
-            'sono cambiate');
-    expect(find.byKey(const Key('stesa_conservata')), findsOneWidget,
-        reason: 'la schermata non dice che le carte sono quelle di prima');
+    print('STESA AL RIENTRO: prima [$prima], al rientro [$alRientro] '
+        'riga $rigaAlRientro, scelte di nuovo [$dopo] riga $rigaDopo');
+    expect(alRientro, 0,
+        reason: 'al rientro le carte sono gia\' in tavola: '
+            'l\'utente deve ancora sceglierle');
+    expect(rigaAlRientro, isFalse,
+        reason: 'la riga compare prima che le carte siano scelte');
+    if (dopo != prima) {
+      expect(rigaDopo, isFalse,
+          reason: 'la riga compare con carte diverse da quelle di prima');
+    }
     expect(tester.takeException(), isNull);
   });
 }

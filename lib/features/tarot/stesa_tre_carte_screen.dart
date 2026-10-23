@@ -97,7 +97,13 @@ class StesaTreCarteScreen extends StatefulWidget {
     this.tipo,
     this.mazzo,
     this.fabbricaDellaScena,
+    this.ricordaAncheColSeme = false,
   });
+
+  /// **LA STESA DI OGGI ANCHE COL SEME**, per la prova di GD.04: col seme
+  /// dichiarato la stesa conservata di solito non si cerca; la prova la
+  /// cerca, per ripetere la stessa stesa identica.
+  final bool ricordaAncheColSeme;
 
   /// **CHI COSTRUISCE IL LETTORE DEL VIDEO DELLA SCENA**, ordine FS
   /// aggiunta: nullo, quello vero; le prove ne passano uno finto, come fa il
@@ -210,34 +216,58 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// `StesaInCorso`.
   late StesaInCorso _stesa = _stesaIniziale();
 
-  /// Vero quando le carte a schermo sono la stesa conservata di oggi su
-  /// questa domanda (ordine FI voce 27): il responso e' gia' stato pagato, e
-  /// la schermata lo dice.
-  bool _conservata = false;
+  /// **LA STESA DI OGGI SU QUESTA DOMANDA, SE C'E'**, ordine GD voce GD.04,
+  /// 23 ottobre 2026. Il fondatore: *"Questa scritta deve uscire solo nella
+  /// caso raro in cui pongo la stessa identica domanda ed escono le stesse
+  /// identiche carte nello stesso giorno"*. Le carte non tornano piu' da
+  /// sole sul tavolo: si scelgono sempre. La stesa conservata serve solo a
+  /// riconoscere il caso raro, a stesa compiuta.
+  ///
+  /// LAPIDE, ordine FI voce 27: "chi riapre la stessa stesa con la stessa
+  /// domanda ritrova le sue carte", posate da sole prima che la persona ne
+  /// toccasse una, con la riga di Medora gia' a schermo.
+  List<DrawnCard>? _diOggi;
+  List<int>? _usciteDiOggi;
+
+  /// Vero quando la stesa compiuta e' la stessa identica di oggi su questa
+  /// domanda: stesse carte, stesso verso, stessi posti. Il responso e' gia'
+  /// stato pagato, e la schermata lo dice.
+  bool get _conservata {
+    final oggi = _diOggi;
+    if (oggi == null || !_complete) return false;
+    final ora = _spread.cards;
+    if (ora.length != oggi.length) return false;
+    for (var i = 0; i < ora.length; i++) {
+      if (ora[i].card.stem != oggi[i].card.stem ||
+          ora[i].reversed != oggi[i].reversed ||
+          ora[i].position != oggi[i].position) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   /// La firma della stesa: il tipo e la domanda (ordine FI voce 27).
   String get _firma => LaStesaConservata.firma(_setup.tipo,
       domandaScritta: _setup.domandaScritta, argomento: _setup.argomento);
 
-  /// **LA STESA COMPIUTA SU QUESTA DOMANDA TORNA.** Finche' nessuna carta e'
-  /// stata presa, se oggi su questa domanda c'e' gia' una stesa compiuta le
-  /// carte tornano quelle. Le prove e le anteprime col seme dichiarato non
-  /// la cercano: sono stese scritte apposta.
+  /// **LA STESA DI OGGI SU QUESTA DOMANDA SI RICORDA, NON SI POSA** (GD.04):
+  /// si legge la stesa conservata con questa firma, senza toccare il tavolo.
+  /// Le prove e le anteprime col seme dichiarato non la cercano: sono stese
+  /// scritte apposta.
   Future<void> _cercaLaStesaConservata() async {
-    if (widget.seed != null || widget.revealAll || _drawn > 0) return;
+    if ((widget.seed != null && !widget.ricordaAncheColSeme) ||
+        widget.revealAll) {
+      return;
+    }
     final firma = _firma;
     final carte = await LaStesaConservata.ritrova(firma, _setup.tipo);
-    if (!mounted || carte == null || _drawn > 0 || firma != _firma) return;
-    final uscite = await LaStesaConservata.usciteDi(firma);
-    if (!mounted || _drawn > 0 || firma != _firma) return;
-    _uscite = uscite;
+    final uscite =
+        carte == null ? null : await LaStesaConservata.usciteDi(firma);
+    if (!mounted || firma != _firma) return;
     setState(() {
-      _stesa =
-          StesaInCorso.conservata(carte: carte, mazzo: _mazzo, seme: _seme);
-      _mazzo = List<int>.of(_stesa.mazzoResiduo);
-      _drawn = carte.length;
-      _scene = StesaScene.completa;
-      _conservata = true;
+      _diOggi = carte;
+      _usciteDiOggi = uscite;
     });
   }
 
@@ -294,6 +324,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// per la guardia della rotazione.
   @visibleForTesting
   List<int>? get usciteCorrenti => _uscite;
+
+  /// Quante carte l'utente ha gia' scelto dal ventaglio, per la guardia di
+  /// GD.04: al rientro con la stessa domanda sono zero.
+  @visibleForTesting
+  int get carteScelte => _drawn;
 
   // --- La regia della scena ---
 
@@ -1205,14 +1240,19 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     if (!_conservata && !_laStesaSiPuoAprire(riprova: _apriIlResponso)) {
       return;
     }
-    if (!_conservata && widget.seed == null && !widget.revealAll) {
+    // La stessa stesa identica: le stesse varianti di prima (voce FI.18).
+    if (_conservata) _uscite = _usciteDiOggi;
+    if (!_conservata &&
+        (widget.seed == null || widget.ricordaAncheColSeme) &&
+        !widget.revealAll) {
       // Si contano le uscite una volta sola, qui, e si conservano con la
       // stesa: rileggerla ritrova le stesse varianti (voce FI.18).
       final firma = _firma;
       final carte = _spread.cards;
       unawaited(LeUsciteDelleCarte.conta(carte).then((uscite) {
         if (mounted) setState(() => _uscite = uscite);
-        return LaStesaConservata.conserva(firma, carte, uscite: uscite);
+        return LaStesaConservata.conserva(firma, carte, uscite: uscite)
+            .then((_) => _cercaLaStesaConservata());
       }));
     }
     // **LA LETTURA PARTE QUI, ordine EQ voce 04**, al gesto che la chiede e
@@ -2100,7 +2140,6 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                         seme: _seme,
                         posizioni: s.tipo.posizioni);
                     _drawn = 0;
-                    _conservata = false;
                     _scene = StesaScene.riposo;
                   } else {
                     s = s.copyWith(tipo: _setup.tipo);
@@ -3745,7 +3784,6 @@ class BollaDellaPosizione extends StatelessWidget {
     );
   }
 }
-
 
 /// La carta che si stacca dal ventaglio e vola nel suo slot.
 ///

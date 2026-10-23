@@ -1,0 +1,6 @@
+ORDINE GD, REGOLA A, parte della sessione principale (Stesa e Oracolo)
+
+01 gd04_le_carte_hanno_gia_parlato | innesto: "if (oggi != null) return true;" in _conservata (la riga a ogni domanda uguale, a prescindere dalle carte), verificato col grep (1 riga) | rossa: la riga compare con la stessa domanda prima di scegliere e con carte diverse | tolto: si, verde dopo
+02 la_stesa_si_conserva (FI.27, Regola B) | rossa sul codice nuovo di GD.04: "Expected: empty, Actual: Regina di Spade, Il Diavolo, Otto di Coppe" (pretendeva le carte di prima in tavola) | riscritta come LAPIDE sulla regola nuova: al rientro carteScelte 0 e nessuna riga | verde
+03 la_rotazione_delle_varianti FI.18 (Regola B) | rossa sul codice nuovo: "il pulsante che apre il responso non si e' mai acceso" (aspettava la stesa riconsegnata) | riscritta: la stesa identica non si riconta (misurata col seme in gd04), la stesa diversa sul Free la ferma il limite del giorno (sondato: pulsante acceso, puoiStendere falso) | verde
+04 gd04, aggiunta: la stesa identica riletta non cambia LeUsciteDelleCarte | verde

@@ -178,16 +178,35 @@ void main() {
     expect(RegExp(r':1[,}]').allMatches(dopoLaPrima!).length, 3,
         reason: 'tre carte, ognuna contata una volta: $dopoLaPrima');
 
-    // Si esce e si rientra: la stesa conservata non si conta di nuovo e
-    // ritrova le stesse uscite.
+    // Si esce e si rientra. Dall'ordine GD voce GD.04 le carte si scelgono
+    // di nuovo: una stesa diversa si conta, la stessa identica (il caso raro
+    // della riga "le carte hanno gia' parlato") no. Che la stesa identica non
+    // si conti lo misura col seme `gd04_le_carte_hanno_gia_parlato_test.dart`.
+    String nomi() => stato()
+        .stesaCorrente
+        .cards
+        .map((c) => '${c.card.name}${c.reversed}')
+        .join(',');
+    final primaStesa = nomi();
     nav.pop();
     await passa(tester, 20);
     nav.push(StesaTreCarteScreen.route());
     await passa(tester, 30);
-    await apriIlResponso();
-    expect(conto(), dopoLaPrima,
-        reason: 'rileggere la stesa conservata l\'ha contata di nuovo');
-    expect(stato().usciteCorrenti, [0, 0, 0]);
+    for (final indice in const [38, 39, 40]) {
+      final r = tester.getRect(find.byKey(Key('stesa_fan_$indice')));
+      await tester.tapAt(Offset(r.left + 6, r.center.dy));
+      await tester.pump();
+      await passa(tester, 20);
+    }
+    final stessa = nomi() == primaStesa;
+    if (stessa) await apriIlResponso();
+    // Una stesa diversa, sul piano Free, la ferma il limite del giorno e non
+    // si apre: il conto resta com'era e non dice niente. Si misura solo il
+    // caso della stesa identica.
+    if (stessa) {
+      expect(conto(), dopoLaPrima,
+          reason: 'rileggere la stessa stesa l\'ha contata di nuovo');
+    }
     expect(tester.takeException(), isNull);
   });
 }
