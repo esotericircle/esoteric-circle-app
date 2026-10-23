@@ -98,7 +98,13 @@ class StesaTreCarteScreen extends StatefulWidget {
     this.mazzo,
     this.fabbricaDellaScena,
     this.ricordaAncheColSeme = false,
+    this.profondita,
   });
+
+  /// **LA PROFONDITA' DI PARTENZA**, ordine GD voce GD.05: nulla, la Breve;
+  /// la prova della Lunga parte dalla Lunga senza passare dal selettore, che
+  /// fuori dal guscio dell'app non sa il piano.
+  final AnswerDepth? profondita;
 
   /// **LA STESA DI OGGI ANCHE COL SEME**, per la prova di GD.04: col seme
   /// dichiarato la stesa conservata di solito non si cerca; la prova la
@@ -753,7 +759,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       tipo: widget.tipo ?? TarotSpreadType.predefinita,
       topic: widget.topic ?? TarotTopic.predefinito,
       key: widget.chiave ?? ReadingKey.predittiva,
-      deck: widget.mazzo ?? TarotDeckStyle.riderWaite);
+      deck: widget.mazzo ?? TarotDeckStyle.riderWaite,
+      depth: widget.profondita ?? AnswerDepth.breve);
 
   /// **LE POSIZIONI DELLA STESA SCELTA**, ordine FK aggiunta 2 voce A10: la
   /// schermata stende quello che la stesa dichiara, non tre carte fisse.

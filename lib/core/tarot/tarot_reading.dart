@@ -229,12 +229,13 @@ class TarotReading {
   ///   carte), la sua risposta e il suo cosa fare; nella Lunga il suo
   ///   approfondimento e la contemplazione propiziatoria della carta chiave
   ///   dal corpus dei riti, mai dal modello (*"Nessuna formula inventata"*).
-  /// - **Di casa**, quando il modello non torna: nella stesa a una carta il
-  ///   responso della carta dal corpus (titolo, paragrafo e cosa fare), nelle
-  ///   altre `VoceDellaStesa.responsoDiCasa`. Sempre Breve: senza modello non
-  ///   c'e' un approfondimento, e un rito senza approfondimento sarebbe una
-  ///   forma a meta' (ordine FN, *"un riquadro arancione senza niente
-  ///   dentro"*).
+  /// - **Di casa**, quando il modello non torna: `VoceDellaStesa.responsoDiCasa`
+  ///   e, nella Lunga, `VoceDellaStesa.approfondimentoDiCasa` con la stessa
+  ///   contemplazione dal corpus. LAPIDE, ordine GD voce GD.05: qui stava
+  ///   *"Sempre Breve: senza modello non c'e' un approfondimento"*, e sul
+  ///   telefono del fondatore la Lunga spariva ogni volta che il modello non
+  ///   tornava o tornava scartato. Le prove erano verdi perche' la Lunga la
+  ///   misuravano tutte con un modello finto che tornava sempre ben formato.
   static ResponsoInterpretato principaleDi(
     TarotSpread spread,
     TarotTopic lente,
@@ -247,9 +248,18 @@ class TarotReading {
     String? mazzo,
     String? nomeDellaStesa,
   }) {
-    final lunga = depth == AnswerDepth.profonda &&
-        dalModello != null &&
-        dalModello.approfondimento.isNotEmpty;
+    // La Lunga c'e' col modello e senza: col modello il suo approfondimento
+    // (obbligatorio nella Lunga, `LetturaDelModello.daJson`), senza quello
+    // di casa.
+    final approfondimento = depth != AnswerDepth.profonda
+        ? ''
+        : dalModello != null
+            ? dalModello.approfondimento
+            : VoceDellaStesa.approfondimentoDiCasa(spread, lente,
+                domandaScritta: domandaScritta,
+                fattoDelCielo: fattoDelCielo,
+                chiave: chiave.drawn);
+    final lunga = approfondimento.trim().isNotEmpty;
     final rito =
         lunga ? LeCarteNellaPosizione.contemplazioneDi(chiave.drawn) : null;
     // Un rito che manca nel corpus non si inventa: senza, il responso resta
@@ -281,6 +291,8 @@ class TarotReading {
         titolo: _senzaPunto(casa.titolo),
         risposta: casa.risposta,
         cosaFare: casa.cosaFare,
+        approfondimento: eLunga ? approfondimento : null,
+        rito: eLunga ? rito : null,
         daDoveViene: fonte,
       );
     }
@@ -290,7 +302,7 @@ class TarotReading {
           domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo),
       risposta: dalModello.risposta,
       cosaFare: dalModello.cosaFare,
-      approfondimento: eLunga ? dalModello.approfondimento : null,
+      approfondimento: eLunga ? approfondimento : null,
       rito: eLunga ? rito : null,
       daDoveViene: fonte,
     );

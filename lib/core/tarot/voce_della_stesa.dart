@@ -1003,9 +1003,34 @@ abstract final class VoceDellaStesa {
     return '${_maiuscola(dove)}, $nome mostra ${_tema(carta)}. $coda';
   }
 
+  /// **L'APPROFONDIMENTO DI CASA, il terzo paragrafo della Lunga.** Ordine GD
+  /// voce GD.05, 23 ottobre 2026. Il fondatore: *"la profondità lunga nella
+  /// prima risposta NON FUNZIONA: non compaiono i 2 paragrafi aggiuntivi"*.
+  /// LAPIDE: dall'ordine GA la lettura di casa era *"Sempre Breve"*, e ogni
+  /// volta che il modello non tornava, o tornava scartato dalla misura in
+  /// parole, la Lunga spariva senza dirlo. Adesso anche la casa approfondisce,
+  /// con la stessa consegna del modello (`LaFormaDelResponso.perIlModello`):
+  /// l'ostacolo concreto da aspettarsi, letto nel testo documentato della
+  /// carta chiave (`nota_ostacolo`), e come affrontarlo, coi gesti della
+  /// domanda che il "Cosa fare adesso" non ha gia' detto. Da 40 a 50 parole,
+  /// senza ripetere le figure dei due paragrafi sopra.
+  static String approfondimentoDiCasa(
+    TarotSpread spread,
+    TarotTopic topic, {
+    String? domandaScritta,
+    String? fattoDelCielo,
+    DrawnCard? chiave,
+  }) =>
+      _componi(spread, topic,
+              domandaScritta: domandaScritta,
+              fattoDelCielo: fattoDelCielo,
+              chiave: chiave)
+          .approfondimento;
+
   static ({
     String risposta,
     String cosaFare,
+    String approfondimento,
     List<String> pezzi,
     String titolo,
   }) _componi(
@@ -1316,9 +1341,58 @@ abstract final class VoceDellaStesa {
     ].whereType<_Posto>().toList();
     final scelteFare = _scegli(postiFare, usate);
 
+    // --- L'APPROFONDIMENTO, solo per la Lunga (voce GD.05) ---
+    final detto = '${scelteRisposta.join(' ')} ${scelteFare.join(' ')}';
+    final ostacolo = _testi(carta)['nota_ostacolo']!;
+    // La carta sola dice gia' il suo ostacolo nella risposta, a volte: allora
+    // l'approfondimento entra dal timore che la domanda porta con se'.
+    final giaDetto = detto.contains(ostacolo);
+    final primo = giaDetto
+        ? [
+            'Sotto la domanda c\'è anche un timore: ${laCarta(carta)} '
+                '${_testi(carta)['nota_timori']}.',
+            'Sotto la domanda, ${laCarta(carta)} '
+                '${_testi(carta)['nota_timori']}.',
+          ]
+        : inOrdine([
+            'L\'ostacolo da aspettarsi è questo: $nome $ostacolo.',
+            'Da tenere d\'occhio: ${cartaSola ? laCarta(carta) : nome} '
+                '$ostacolo.',
+            'Il punto delicato è questo: $nome $ostacolo.',
+          ]);
+    final rimaste = [
+      for (final a in azioni)
+        if (!scelteFare.contains(a)) a,
+    ];
+    final nonRimasti = [
+      for (final n in nonFare)
+        if (!scelteFare.contains(n)) n,
+    ];
+    String minuscola(String f) => f[0].toLowerCase() + f.substring(1);
+    final postiApprofondimento = <_Posto>[
+      _Posto(primo, obbligatorio: true),
+      if (rimaste.isNotEmpty)
+        _Posto([
+          for (final a in rimaste) 'Per affrontarlo, ${minuscola(a)}',
+        ], obbligatorio: true)
+      else
+        _Posto(['Per affrontarlo: ${gestoDellaCarta(carta)}'],
+            obbligatorio: true),
+      for (final n in nonRimasti) _Posto([n], diRiserva: true),
+      if (!cartaSola)
+        for (final c in _altre(spread, carta).take(2))
+          _Posto([
+            'Sullo sfondo, ${nomeNellaFrase(c)} '
+                '${_testi(c)['nota_influenza']}.',
+          ], diRiserva: true),
+      for (final a in rimaste.skip(1)) _Posto([a], diRiserva: true),
+    ];
+    final scelteApprofondimento = _scegli(postiApprofondimento, usate);
+
     return (
       risposta: scelteRisposta.join(' '),
       cosaFare: scelteFare.join(' '),
+      approfondimento: scelteApprofondimento.join(' '),
       pezzi: [if (cielo.isNotEmpty) cielo, ...scelteRisposta, ...scelteFare],
       titolo: sensibile != null ? titoliSensibili[sensibile]! : v.titolo,
     );

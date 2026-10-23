@@ -80,8 +80,14 @@ void main() {
                 for (final d in r.principale.difetti()) {
                   guasti.add('$dove: $d');
                 }
-                // La Lunga solo col modello e solo nel responso principale.
-                final attesaLunga = lunga && dalModello != null;
+                // La Lunga solo nel responso principale, col modello E
+                // SENZA. LAPIDE, ordine GD voce GD.05: qui stava "La Lunga
+                // solo col modello" (`lunga && dalModello != null`), cioe' la
+                // prova pretendeva che la lettura di casa restasse Breve. Sul
+                // telefono il modello non tornava o tornava scartato, parlava
+                // la casa e la Lunga spariva: la prova era verde perche'
+                // misurava come giusto proprio il difetto.
+                final attesaLunga = lunga;
                 if (r.principale.lungo != attesaLunga) {
                   guasti.add('$dove: lunga ${r.principale.lungo}, attesa '
                       '$attesaLunga');
@@ -146,7 +152,9 @@ void main() {
           perche: 'quattro stese, sedici argomenti, tre semi, due '
               'profondita\', col modello e senza');
       cardinaleMinimo(carte, 1700, cosa: 'responsi di carta');
-      cardinaleMinimo(lunghe, 4 * 16 * 3, cosa: 'responsi Lunghi');
+      cardinaleMinimo(lunghe, 4 * 16 * 3 * 2,
+          cosa: 'responsi Lunghi',
+          perche: 'col modello e di casa (voce GD.05)');
       print('ORDINE GA: responsi principali $principali, Lunghi $lunghe, '
           'carte $carte, difetti ${guasti.length}');
       expect(guasti, isEmpty, reason: guasti.take(8).join('\n'));
@@ -397,8 +405,8 @@ void main() {
           }
           // Il riquadro "Cosa fare adesso" e' solo quello del responso
           // principale.
-          expect(find.text(LaFormaDelResponso.titoloDelConsiglio),
-              findsOneWidget);
+          expect(
+              find.text(LaFormaDelResponso.titoloDelConsiglio), findsOneWidget);
         }
         expect(tester.takeException(), isNull);
       });
