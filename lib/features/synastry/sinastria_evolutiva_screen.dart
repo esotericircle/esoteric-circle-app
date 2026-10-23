@@ -741,12 +741,21 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
                     bottom: alto - testa + SpacingTokens.xs,
                     child: IlRestoDopoLaScena(
                       scenaFerma: _scenaFerma,
-                      child: Text(SinastriaEvolutivaScreen.laDomanda,
-                          key: const Key('sinastria_la_domanda'),
-                          textAlign: TextAlign.center,
-                          style: TypographyTokens.suLaScena(
-                              TypographyTokens.titoloSezione()
-                                  .copyWith(color: coloreSulVelluto))),
+                      // **CON LA TENDINA APERTA LA DOMANDA SI DISSOLVE**,
+                      // simulazione da persona dell'ordine GD sul Realme: la
+                      // tendina e' semitrasparente e il titolo della scena
+                      // filtrava sotto le sue righe, illeggibili. La scena
+                      // dipinta resta.
+                      child: AnimatedOpacity(
+                        opacity: _scegliendo ? 0 : 1,
+                        duration: const Duration(milliseconds: 250),
+                        child: Text(SinastriaEvolutivaScreen.laDomanda,
+                            key: const Key('sinastria_la_domanda'),
+                            textAlign: TextAlign.center,
+                            style: TypographyTokens.suLaScena(
+                                TypographyTokens.titoloSezione()
+                                    .copyWith(color: coloreSulVelluto))),
+                      ),
                     ),
                   ),
                   // **SOLO IL PULSANTE, IN BASSO**, ordine GD voce GD.13: via
@@ -758,10 +767,16 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
                     bottom: 0,
                     child: IlRestoDopoLaScena(
                       scenaFerma: _scenaFerma,
-                      child: _IlPulsanteInBasso(
-                        scegliendo: _scegliendo,
-                        bassoSicuro: bassoSicuro,
-                        onScegli: _scegliLaPersona,
+                      // Anche il pulsante si dissolve sotto la tendina: il
+                      // suo "Un momento" filtrava sotto le righe della scelta.
+                      child: AnimatedOpacity(
+                        opacity: _scegliendo ? 0 : 1,
+                        duration: const Duration(milliseconds: 250),
+                        child: _IlPulsanteInBasso(
+                          scegliendo: _scegliendo,
+                          bassoSicuro: bassoSicuro,
+                          onScegli: _scegliLaPersona,
+                        ),
                       ),
                     ),
                   ),

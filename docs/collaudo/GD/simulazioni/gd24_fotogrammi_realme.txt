@@ -1,0 +1,8 @@
+ORDINE GD voce GD.24, la fluidita del video di Medora col respiro, Realme 767f596c, 23 ottobre 2026, build di rilascio locale dal commit 3127de18.
+
+Misura: dumpsys SurfaceFlinger --timestats durante 12 secondi di dito premuto sulla Luna (input swipe fermo di 12000 ms), video comandato per posizione avanti e indietro.
+(dumpsys gfxinfo conta HWUI e non Flutter: tornava 0 fotogrammi, scartato.)
+
+Livello SurfaceView dell app: totalFrames 703, droppedFrames 0
+Schermo: totalFrames 706, displayOnTime 12647 ms
+Fotogrammi al secondo dell app: 703 / 12,647 s = 55,6 su 60

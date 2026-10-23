@@ -46,6 +46,13 @@ SACCA_MINIMA = 150
 OMBRA = 72
 SCURO_MEDIO = 32
 FASCIA = 3
+# LA FASCIA DELL'ALONE, simulazione da persona dell'ordine GD sul Realme:
+# sul tavolo di Medora intorno alle statue restava un alone nero spesso e
+# seghettato, la penombra del fondo che il passo 2bis teneva piena perche'
+# il suo pezzo, toccato dal bagliore dell'oro, aveva la luce media sopra
+# SCURO_MEDIO. Entro BANDA pixel dal fondo ogni pixel piu' scuro di OMBRA
+# sfuma con la sua luce, a pezzi o no: il bagliore resta, il nero se ne va.
+BANDA = 40
 
 
 def scontorna(rgb):
@@ -100,6 +107,9 @@ def scontorna(rgb):
     scuri = np.flatnonzero(somme / quanti < SCURO_MEDIO)
     alone = np.isin(lab2, scuri[scuri > 0]) & penombra.astype(bool)
     rampa = np.clip((rgb.max(axis=2) - SOGLIA) / float(OMBRA - SOGLIA), 0, 1)
+    dal_fondo = cv2.distanceTransform((~fondo).astype(np.uint8), cv2.DIST_L2,
+                                      5)
+    alone = alone | ((dal_fondo < BANDA) & penombra.astype(bool))
     alfa = np.where(alone, np.minimum(alfa, rampa), alfa)
     fascia = fascia | alone
     a3 = np.maximum(alfa[..., None], 1e-3)
@@ -123,6 +133,19 @@ def filo_nero(rgba, scuro=(16, 18, 40)):
     return int((giro & (luce < 12)).sum()), int(giro.sum())
 
 
+def alone_scuro(rgba, scuro=(16, 18, 40), larga=25, sotto=45):
+    """I pixel pieni (alfa oltre meta') entro [larga] pixel dal vuoto che sul
+    fondo del tavolo restano piu' scuri di [sotto]: l'alone che si vede."""
+    a = rgba[..., 3:4].astype(np.float32) / 255
+    comp = rgba[..., :3].astype(np.float32) * a + np.array(
+        scuro, np.float32) * (1 - a)
+    luce = comp @ np.array([0.299, 0.587, 0.114], np.float32)
+    vuoto = (rgba[..., 3] < 13).astype(np.uint8)
+    dal_vuoto = cv2.distanceTransform(1 - vuoto, cv2.DIST_L2, 5)
+    banda = (dal_vuoto > 0) & (dal_vuoto < larga) & (rgba[..., 3] > 127)
+    return int((banda & (luce < sotto)).sum()), int(banda.sum())
+
+
 def main():
     scrivi = '--prova' not in sys.argv
     for s in SEGNI:
@@ -131,9 +154,11 @@ def main():
         rgba = scontorna(rgb)
         t = int((rgba[..., 3] == 0).sum())
         nero = filo_nero(rgba)
+        al = alone_scuro(rgba)
         print(f'statua_{s}: {rgba.shape[1]}x{rgba.shape[0]} (dalla coppia '
               f'{rgb.shape[1]}x{rgb.shape[0]}), trasparenti {t}, filo nero '
-              f'sul giro {nero[0]} su {nero[1]}')
+              f'sul giro {nero[0]} su {nero[1]}, alone scuro {al[0]} su '
+              f'{al[1]}')
         if scrivi:
             Image.fromarray(rgba, 'RGBA').save(
                 f'{CARTELLA}statua_{s}_v1.webp', 'WEBP', quality=90,

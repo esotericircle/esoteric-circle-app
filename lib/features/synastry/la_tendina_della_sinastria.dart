@@ -270,12 +270,61 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
   bool get _lungaAperta =>
       PlanCatalog.apre(RigaDelPiano.sinastriaLunga, widget.tier);
 
+  /// **I SELETTORI NEL TEMA DELLA CASA**, simulazione da persona
+  /// dell'ordine GD sul Realme: il giorno e l'ora si sceglievano in due
+  /// finestre grigie di sistema, col titolo in Roboto e il viola di Material,
+  /// fuori dal modulo elegante della GD.15. Adesso hanno i colori della
+  /// tendina: il fondo di Medora, l'oro, i caratteri della casa.
+  Widget _nelTema(BuildContext context, Widget? figlio) {
+    final base = Theme.of(context);
+    final p = _p;
+    return Theme(
+      data: base.copyWith(
+        colorScheme: base.colorScheme.copyWith(
+          primary: p.gold,
+          onPrimary: p.deepest,
+          surface: p.deepest,
+          onSurface: ColorTokens.textPrimary,
+          surfaceContainerHigh: p.deepest,
+        ),
+        dialogTheme: base.dialogTheme.copyWith(backgroundColor: p.deepest),
+        datePickerTheme: base.datePickerTheme.copyWith(
+          backgroundColor: p.deepest,
+          headerBackgroundColor: p.primary.withValues(alpha: 0.5),
+          headerForegroundColor: p.goldSoft,
+          headerHeadlineStyle:
+              TypographyTokens.titoloSezione().copyWith(color: p.goldSoft),
+          headerHelpStyle:
+              TypographyTokens.etichetta().copyWith(color: p.goldSoft),
+          dayStyle: TypographyTokens.corpo(),
+          yearStyle: TypographyTokens.corpo(),
+          weekdayStyle:
+              TypographyTokens.etichetta().copyWith(color: p.goldSoft),
+        ),
+        timePickerTheme: base.timePickerTheme.copyWith(
+          backgroundColor: p.deepest,
+          dialBackgroundColor: p.primary.withValues(alpha: 0.4),
+          hourMinuteColor: p.primary.withValues(alpha: 0.5),
+          hourMinuteTextColor: p.goldSoft,
+          dialHandColor: p.gold,
+          helpTextStyle:
+              TypographyTokens.etichetta().copyWith(color: p.goldSoft),
+        ),
+        textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(foregroundColor: p.goldSoft)),
+      ),
+      child: figlio!,
+    );
+  }
+
   Future<void> _scegliData() async {
     final scelta = await showDatePicker(
       context: context,
       initialDate: _data ?? DateTime(widget.oggi.year - 25),
       firstDate: DateTime(1900),
       lastDate: widget.oggi,
+      helpText: 'Il giorno della sua nascita',
+      builder: _nelTema,
     );
     if (scelta == null || !mounted) return;
     setState(() {
@@ -289,6 +338,8 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
     final scelta = await showTimePicker(
       context: context,
       initialTime: _ora ?? const TimeOfDay(hour: 12, minute: 0),
+      helpText: 'L\'ora della sua nascita',
+      builder: _nelTema,
     );
     if (scelta != null && mounted) setState(() => _ora = scelta);
   }
@@ -717,7 +768,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
         _testata('La sua nascita'),
         const SizedBox(height: SpacingTokens.xs),
         Text(
-            'Medora legge il tuo cielo e il suo: scrivi chi è e quando è '
+            'Medora legge il tuo cielo e il suo: scrivi il nome, il giorno e l\'ora di nascita, '
             'nato, poi scegli il vostro legame.',
             style: _nota),
         const SizedBox(height: SpacingTokens.md),

@@ -55,12 +55,19 @@ class IlGraficoDelleBarre extends StatelessWidget {
                 bottom: i == barre.length - 1 ? 0 : SpacingTokens.xs),
             child: Row(
               children: [
+                // **L'ETICHETTA SU UNA RIGA**, simulazione da persona
+                // dell'ordine GD sul Realme: nella bolla stretta di "Oggi fra
+                // voi" le etichette in maiuscoletto andavano a capo a meta'
+                // parola ("L'ATTRAZI / ONE", "LA / DURATA"). Su una riga, si
+                // rimpicciolisce quanto serve.
                 Expanded(
                   flex: 5,
-                  child: Text(barre[i].etichetta,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: etichetta),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(barre[i].etichetta,
+                        maxLines: 1, softWrap: false, style: etichetta),
+                  ),
                 ),
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
