@@ -59,6 +59,11 @@ Future<T?> foglioDelCerchio<T>({
   bool enableDrag = true,
   ShapeBorder? shape,
   BoxConstraints? constraints,
+  // **IL VELO PROPRIO**, ordine GD: la tendina della Sinastria evolutiva
+  // vuole la scena in vista dietro di se' (il fondatore: "il modulo tendina
+  // deve essere semitrasparente"), e il velo comune al 72 per cento la
+  // spegneva. Nullo, il velo comune, per tutti gli altri fogli.
+  Color? barriera,
 }) {
   return showModalBottomSheet<T>(
     context: context,
@@ -80,7 +85,7 @@ Future<T?> foglioDelCerchio<T>({
     enableDrag: enableDrag,
     shape: shape,
     constraints: constraints,
-    barrierColor: VeloDelCerchio.barriera,
+    barrierColor: barriera ?? VeloDelCerchio.barriera,
     // **IL FOGLIO SI FERMA SOTTO LE BARRE IN ALTO. Ordine DY voce 03.**
     //
     // Il fatto, dal fondatore con due catture: il titolo di *Fonti e metodo*

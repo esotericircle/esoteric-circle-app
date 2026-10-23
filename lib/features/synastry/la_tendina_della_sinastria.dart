@@ -122,6 +122,11 @@ class LaTendinaDellaSinastria extends StatefulWidget {
   /// La sfocatura della scena dietro la tendina, in punti.
   static const double sfocatura = 8;
 
+  /// Il velo sulla scena fuori dalla tendina: leggero, la scena resta in
+  /// vista. LAPIDE: il velo comune dei fogli, 0,72, sommato a quello della
+  /// tendina la faceva leggere piena sul Realme.
+  static const double veloDellaScena = 0.25;
+
   /// Apre la tendina dal basso e aspetta la scelta.
   static Future<SceltaDellaSinastria?> apri(
     BuildContext context, {
@@ -136,6 +141,7 @@ class LaTendinaDellaSinastria extends StatefulWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: palette.deepest.withValues(alpha: velo),
+      barriera: Colors.black.withValues(alpha: veloDellaScena),
       builder: (_) => LaTendinaDellaSinastria(
         palette: palette,
         tier: tier,

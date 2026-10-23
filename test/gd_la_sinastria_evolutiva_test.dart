@@ -328,6 +328,13 @@ void main() {
     // passava lo 0,82 che sul telefono si leggeva pieno.
     expect(velo, lessThanOrEqualTo(0.6),
         reason: 'la tendina e\' quasi piena: velo $velo');
+    final barriera = tester
+        .widgetList<ModalBarrier>(find.byType(ModalBarrier))
+        .map((b) => b.color?.a ?? 0)
+        .fold<double>(0, (m, a) => a > m ? a : m);
+    print('GD.14 IL VELO SULLA SCENA: ${barriera.toStringAsFixed(2)}');
+    expect(barriera, lessThanOrEqualTo(0.3),
+        reason: 'la scena sotto la tendina resta spenta: velo $barriera');
     expect(find.byKey(const Key('sinastria_tendina_sfocata')), findsOneWidget,
         reason: 'la scena dietro la tendina non e\' sfocata');
     // Le due scelte nella cornice dipinta del pulsante largo.
