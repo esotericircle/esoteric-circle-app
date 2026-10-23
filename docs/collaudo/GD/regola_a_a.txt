@@ -1,0 +1,157 @@
+ORDINE GD, PARTE A (GD.01, GD.02, GD.03): REGOLA B E REGOLA A, 23 ottobre 2026
+Punto di partenza 02522987, ramo locale gd-a. Ogni innesto e' stato verificato
+col grep sul file prima di leggere l'esito, e tolto subito dopo (git diff
+pulito sulla riga innestata, prove riviste verdi).
+
+======================================================================
+REGOLA B, LE ZONE GIA' COPERTE, VISTE ROSSE PRIMA DI TOCCARLE
+======================================================================
+
+B1. test/ogni_video_dei_maestri_e_nel_suo_posto_test.dart (FW.05)
+  file: lib/core/maestro/la_scena_del_maestro.dart
+  innesto: delDominio -> _di('${maestro.id}_chat') (il dominio prende i file
+           della chat)
+  grep: `_di('\${maestro.id}_chat')` contato 2 volte nel file (prima 1)
+  esito: ROSSO, "LaScenaDelMaestro porta ogni Maestro al suo posto, mai
+         scambiato" (il video del dominio non e' quello atteso)
+  tolto: si', riga tornata `_di('${maestro.id}_dominio')`, prova verde.
+
+B2. test/la_scena_del_dominio_e_un_filmato_test.dart (FW.03, FXA.08)
+  file: lib/features/maestri/domain_screen.dart
+  innesto: `ferma ? scena.primoFotogramma : scena.primoFotogramma` (la scena
+           ferma non mostra piu' l'ultimo fotogramma)
+  grep: trovato alla riga 261
+  esito: ROSSO, due prove: "fermo o finito, il dominio mostra l'ultimo
+         fotogramma della sua scena" e "con Riduci Movimento la scena resta
+         ferma da subito"
+  tolto: si', git diff vuoto, 25 prove verdi (con la chat).
+
+======================================================================
+REGOLA A, LE PROVE NUOVE (test/gd_il_dono_nel_palmo_test.dart), VISTE ROSSE
+======================================================================
+
+Primo giro di innesti (quattro difetti su prove disgiunte, ciascun rosso
+attribuito alla sua prova):
+
+A1. GD.01, il simbolo e' quello del segno della persona
+  file: lib/features/maestri/il_dono_nel_palmo.dart
+  innesto: `IlDonoNelPalmo.segnoDiMedora(Zodiac.values.first)` al posto di
+           `segnoDiMedora(segno)` (sempre Ariete, qualunque persona)
+  grep: riga 198
+  esito: ROSSO "nata o nato sotto cancro: nel palmo compare l'emblema
+         dipinto del suo segno" e "due persone di segno diverso vedono due
+         simboli diversi" (visto un solo simbolo). La prova sotto Ariete
+         resta verde, come deve: l'innesto da' proprio l'Ariete.
+  tolto: si'.
+
+A4. GD.02, la runa e' quella del tramonto di quel giorno
+  innesto: `DateTime.now()` al posto di `widget.adesso ?? DateTime.now()`
+           (la runa letta dall'ora vera e non dal giorno chiesto)
+  grep: riga 205
+  esito: ROSSO "nel palmo compare la pietra dipinta della runa del tramonto
+         di quel giorno, e due giorni con rune diverse danno due pietre
+         diverse" e "prima di mezzogiorno la pietra e' ancora quella della
+         sera prima"
+  tolto: si'.
+
+A8. GD.02, la pietra dentro l'anello sopra la mano
+  innesto: `IlPalmo(x: 600, ...)` per Caligo al posto di x 812
+  grep: riga 68
+  esito: ROSSO "la pietra cade dentro l'anello di fuoco sopra la mano"
+  tolto: si'.
+
+A3. il dono mai a video in corso
+  innesto: `scenaFerma: true` dentro IlDonoSulPalmo (dono sempre pieno)
+  grep: riga 225
+  esito: ROSSO "medora: mai a video in corso, si' a video finito" e
+         "caligo: mai a video in corso, si' a video finito"
+  tolto: si'; 17 prove verdi.
+
+Secondo giro:
+
+A2. GD.01, il segno nella mano tesa (dentro lo spostamento della scena)
+  file: lib/features/maestri/domain_screen.dart
+  innesto: `offset: Offset.zero` per il dono (fuori dallo spostamento verso
+           l'alto del fotogramma)
+  grep: riga 296
+  esito: ROSSO "il segno cade nella mano tesa del fotogramma dipinto"
+  tolto: si'.
+
+A5. GD.01, senza data di nascita non si inventa un segno
+  innesto: `identity.segnoDellaNascita` al posto di `identity.sunSign` (il
+           segno anche dai dati d'esempio)
+  grep: riga 197
+  esito: ROSSO "senza la data di nascita il palmo resta vuoto, non si
+         inventa un segno"
+  tolto: si'.
+
+A6. GD.02, ciascun video alla sua schermata
+  file: lib/core/maestro/la_scena_del_maestro.dart
+  innesto: delDominio -> `_di('${maestro.id}_chat')`
+  grep: righe 48 e 52
+  esito: ROSSO "il dominio apre col cerchio di fuoco, la chat col vortice"
+         e "la schermata del dominio mostra il fermo del cerchio di fuoco"
+  tolto: si'.
+
+A7. GD.02, il giorno della runa e' il giorno rituale (confine a mezzogiorno)
+  innesto: runa letta alle 18 del giorno di calendario di `adesso`
+  grep: riga 208 (`widget.adesso!.day, 18`)
+  esito: ROSSO "prima di mezzogiorno la pietra e' ancora quella della sera
+         prima, come nel rituale"; nello stesso giro cade anche la prova
+         della posizione di Caligo, per l'innesto A2 che sposta il dono
+  tolto: si'.
+
+Terzo giro:
+
+A9. il dono compare anche quando il video si salta
+  innesto: `scenaFerma: ferma && !_regia.saltata` nel dominio
+  grep: riga 299
+  esito: ROSSO "medora: compare anche quando il video si salta" e
+         "caligo: compare anche quando il video si salta"
+  tolto: si'.
+
+Quarto giro:
+
+A10. con Riduci Movimento (e video che non si carica) il dono e' gia' li'
+  innesto: `scenaFerma: ferma && _regia.filmatoInScena` nel dominio
+  grep: riga 299
+  esito: ROSSO "medora: con Riduci Movimento e' gia' nel palmo", "caligo:
+         con Riduci Movimento e' gia' nel palmo" e le due prove del segno
+         col video che non si carica (cancro, ariete)
+  tolto: si'; git diff del dominio e della scena riletto riga per riga,
+  85 prove verdi della zona (gd, scena del dominio, scena della chat,
+  impronte, anteprime, busto, titoli, larghezza, catalogo delle arti).
+
+Quinto giro:
+
+A11. aura, nessun simbolo nel palmo finche' non ci sono i chakra dipinti
+  file: lib/features/maestri/il_dono_nel_palmo.dart
+  innesto: `Maestro.aura => palmoDiMedora` e, nel caso di Aura,
+           `dono = IlDonoNelPalmo.segnoDiMedora(Zodiac.values.first)` (un
+           simbolo qualunque inventato nel palmo di Aura)
+  grep: righe 74 e 213
+  esito: ROSSO "aura: nessun simbolo nel palmo finche' non ci sono i chakra
+         dipinti (GD.03 aperta)"
+  tolto: si'. Questa prova dice lo stato della GD.03 aperta e cadra' di
+  proposito il giorno in cui le sette arti arriveranno.
+
+Sesto giro:
+
+A12. GD.02, i byte che la schermata carica davvero (pacchetto degli asset)
+  Nato da un difetto VISTO nella cattura: la prima cattura del dominio di
+  Caligo mostrava ancora il fermo del vortice con Dagaz, mentre la prova
+  sul disco era verde. Causa: lo scambio per rinomina (`git mv`) lascia ai
+  file la data di prima, e `build/unit_test_assets` non era stato
+  ricopiato. Cura: `touch` dei quattro file scambiati, pacchetto rifatto.
+  innesto: copiato il fermo del vortice sopra
+           build/unit_test_assets/assets/img/maestri_scena/caligo_dominio_ultimo_fotogramma_v1.webp
+  verifica: sha256 del file nel pacchetto 83e10a5f... (il vortice)
+  esito: ROSSO "la schermata del dominio mostra il fermo del cerchio di
+         fuoco", ragione "il pacchetto degli asset porta il fermo di prima
+         dello scambio: va ricostruito"
+  tolto: si', pacchetto cancellato e rifatto da flutter test, 42 prove verdi.
+
+Guardie di casa: le 141 prove che scorrono i sorgenti di lib
+(`sorgentiDiLib()`), 646 casi, tutte verdi sul codice finale (accenti,
+lingua, virgola prima di "e", trattino lungo, barre del titolo, grafica
+dipinta, porte uniche del segno e dello scuotimento, e le altre).

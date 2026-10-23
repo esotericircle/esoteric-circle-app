@@ -18,6 +18,15 @@ import 'package:flutter_test/flutter_test.dart';
 /// Questa guardia lega ogni file alla sua impronta, cosi' uno scambio futuro
 /// (una sostituzione col nome giusto ma il contenuto sbagliato) cade subito,
 /// senza dover rimisurare lo scarto ogni volta.
+///
+/// **LO SCAMBIO TORNA INDIETRO, ordine GD voce GD.02, 23 ottobre 2026.** Il
+/// fondatore: *"Per Caligo bisogna scambiare il video introduttivo della chat
+/// con quello del dominio"*. Il cerchio di fuoco col palmo aperto (la runa
+/// della sera, `5965a25b...`) apre adesso il dominio, dove nel palmo compare
+/// la runa del tramonto; il vortice (`05b6636e...`) apre la chat. Le due
+/// impronte di Caligo si sono scambiate di posto insieme ai file, coi loro
+/// ultimi fotogrammi: scarto rimisurato 12,18 contro 18,96 per il dominio,
+/// 9,62 contro 18,69 per la chat (docs/collaudo/GD/parte_a.md).
 void main() {
   const impronte = {
     'medora_dominio':
@@ -25,9 +34,9 @@ void main() {
     'medora_chat':
         '7c620d62104be7092117f16f139ccfd7f1b3666c9ed67ca910d4644af42a4f17',
     'caligo_dominio':
-        '05b6636e90b647c8e409104f1f8af5d98fe3952229d7ae74bb86c1c72fb18660',
-    'caligo_chat':
         '5965a25bf8dddd388f2e9194025e8aa586d5c667a7845a0d2f5ca463da6b0b65',
+    'caligo_chat':
+        '05b6636e90b647c8e409104f1f8af5d98fe3952229d7ae74bb86c1c72fb18660',
     'aura_dominio':
         '72c8c8bc403974785b04ed5698bcb810884b655f4f625d20363c575ff39d341b',
     'aura_chat':
@@ -53,8 +62,7 @@ void main() {
             'la coppia video/fotogramma):\n${colpe.join('\n')}');
   });
 
-  test('LaScenaDelMaestro porta ogni Maestro al suo posto, mai scambiato',
-      () {
+  test('LaScenaDelMaestro porta ogni Maestro al suo posto, mai scambiato', () {
     for (final m in Maestro.values) {
       final dominio = LaScenaDelMaestro.delDominio(m);
       final chat = LaScenaDelMaestro.dellaChat(m);
