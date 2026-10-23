@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 173 -->
-<!-- FILE_CON_VUOTI: 77 -->
+<!-- VUOTI_CENSITI: 174 -->
+<!-- FILE_CON_VUOTI: 78 -->
 <!-- VUOTI_ECCESSIVI: 1 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **173** |
-| File che ne contengono | **77** |
+| Vuoti verticali dichiarati | **174** |
+| File che ne contengono | **78** |
 | Oltre la soglia di 48 punti | **1** |
 
 ## Da dove viene la soglia
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 88 |
+| 2 | 89 |
 | 3 | 8 |
 | 4 | 34 |
 | 5 | 2 |
@@ -96,6 +96,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/design_system/components/segno_della_provenienza.dart` | 1 | 0 |
 | `lib/features/account/consensi_della_registrazione.dart` | 1 | 0 |
 | `lib/features/account/notifiche_screen.dart` | 1 | 0 |
+| `lib/features/angels/oracolo/la_mappa_dei_cori.dart` | 1 | 0 |
 | `lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart` | 1 | 0 |
 | `lib/features/calendario/calendario_degli_eventi_screen.dart` | 1 | 0 |
 | `lib/features/cerchio/la_tendina_del_cerchio.dart` | 1 | 0 |

@@ -104,11 +104,16 @@ void main() {
               'caso ci fosse');
       expect(breveConModelloLungo.fonte, isNot(contains('Golden Dawn')));
 
+      // RISCRITTA DALL'ORDINE GD, voce GD.05: senza modello la Lunga c'e'
+      // lo stesso, con l'approfondimento di casa e la contemplazione dal
+      // corpus. LAPIDE: "la lettura di casa, senza modello, non ha un
+      // approfondimento da mostrare", la regola che sul telefono del
+      // fondatore toglieva la Lunga ogni volta che il modello non tornava.
       final profondaSenzaModello = TarotReading.of(s, TarotTopic.lavoroTrovare,
           depth: AnswerDepth.profonda);
-      expect(profondaSenzaModello.principale.lungo, isFalse,
-          reason: 'la lettura di casa, senza modello, non ha un '
-              'approfondimento da mostrare');
+      expect(profondaSenzaModello.principale.lungo, isTrue,
+          reason: 'senza modello la Lunga sparisce');
+      expect(profondaSenzaModello.principale.difetti(), isEmpty);
 
       final profondaMaModelloBreve = TarotReading.of(
           s, TarotTopic.lavoroTrovare,
