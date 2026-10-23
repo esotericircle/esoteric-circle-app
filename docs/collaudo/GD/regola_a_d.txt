@@ -143,3 +143,7 @@ A18 GD.21 a chi non e' nel Cerchio. test/gd21_la_sinastria_arriva_all_amico_test
     Grep: righe [1433], presenti.
     Esito: ROSSA [('0', '1')]. Motivo: Expected: empty
     Tolto ripristinando la copia; grep -c INNESTO -> 0.
+
+B3. Zona: la matrice dei piani (test/entitlement_test.dart, "La mappa comparativa ha le righe attese con quattro valori").
+    Vista rossa dal lavoro stesso della GD.17: la riga nuova `RigaDelPiano.sinastriaLunga` porta la matrice a 67, la prova
+    pretendeva 66 ("Expected: <66> Actual: <67>", giro delle prove della zona). Aggiornata a 67 col commento della riga nuova.
