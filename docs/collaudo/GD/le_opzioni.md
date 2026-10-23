@@ -124,3 +124,18 @@ seconda build (commit `8a96f8c8`), alle 20:36-20:40:
   (`cura_d4_statua_senza_alone.png`).
 - D5 curato: le etichette della bolla "Oggi fra voi" su una riga
   (`cura_d5_etichette_su_una_riga.png`).
+
+**Aggiunta del 23 ottobre 2026, ordine GD, le richieste del fondatore viste sul
+Realme** (build dal commit `1d929656`, 21:05-21:19):
+
+- Respiro: i testi del rito sotto il mento di Medora, prima del gesto e
+  all'inspiro (`richiesta_respiro_viso_libero_prima.png`,
+  `richiesta_respiro_viso_libero_inspira.png`).
+- Sinastria: la tendina con le scelte nella cornice dipinta del pulsante
+  largo (`richiesta_tendina_con_la_cornice.png`), il modulo coi campi nella
+  stessa cornice e la frase corretta (`richiesta_modulo_con_la_cornice_e_d3_curato.png`),
+  la tendina semitrasparente col velo leggero sulla scena
+  (`richiesta_tendina_semitrasparente_velo_leggero.png`). La correzione D3
+  e' cosi' vista a video.
+- "Oggi fra voi" staccato dal piedistallo: misurato nella prova alle misure
+  del Realme; a video si rivede con la prossima build del fondatore.

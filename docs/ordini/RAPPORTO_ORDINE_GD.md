@@ -206,6 +206,35 @@ npm run build
 firebase deploy --only functions:mandaLaSinastria,functions:ilMioCerchio
 ```
 
+## Le richieste del fondatore arrivate durante il collaudo
+
+Mentre il collaudo sul Realme era in corso il fondatore ha scritto tre
+richieste, eseguite dentro le voci che toccano e provate:
+
+- *"Nel respiro, cerca di evitare di coprire il viso di Medora con i testi."*
+  (GD.23) I testi del rito partono dalla riga 1030 del fotogramma, sotto il
+  mento (il viso finisce alla 1000): prova in
+  `test/gd23_il_respiro_col_solo_dito_test.dart`, vista rossa con la posizione
+  di prima (testi da 390 punti, sul viso), verde a 516; viste sul Realme
+  prima del gesto e all'inspiro
+  (`docs/collaudo/GD/simulazioni/catture/richiesta_respiro_viso_libero_inspira.png`).
+- *"Nella sinastria, il modulo tendina deve essere semitrasparente e vorrei
+  che curassi graficamente di più l'estetica, mi piace la grafica cornice del
+  pulsante «scopri la compatibilità», ma dovrebbe essere ripreso."* (GD.14,
+  GD.15) La tendina e' velata a 0,6 come le barre del titolo, con la scena
+  dietro sfocata e un velo leggero (0,25) al posto di quello comune dei
+  fogli (0,72), che la faceva leggere piena; le scelte e i campi del modulo
+  stanno nella cornice dipinta del pulsante largo (`CorniceDipinta`, la stessa
+  pittura a nove parti). Prove in `test/gd_la_sinastria_evolutiva_test.dart`,
+  viste rosse col velo di prima; viste sul Realme
+  (`docs/collaudo/GD/simulazioni/catture/richiesta_tendina_semitrasparente_velo_leggero.png`).
+- *"Il testo «oggi fra Voi» dovrebbe andare un po' piu in basso per non
+  sovrapporsi alla statua."* (GD.22) Il blocco della riga viva e' stretto in
+  basso: a 360 per 726 punti, la schermata del Realme, lo stacco dalla base
+  della statua passa da 9,7 a 21,7 punti. Prova in
+  `test/gd_la_sinastria_evolutiva_test.dart` a tre misure di telefono, vista
+  rossa coi margini di prima.
+
 ## Il verde
 
 Il commit della consegna e il suo verde di GitHub si scrivono in coda a questo
