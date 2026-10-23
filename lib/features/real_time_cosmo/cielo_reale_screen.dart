@@ -72,6 +72,7 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
+import 'alza_il_telefono_al_cielo.dart';
 import 'il_pannello_del_tempo.dart';
 import 'il_tempo_del_cosmo.dart';
 import 'il_velo_delle_costellazioni.dart';
@@ -408,6 +409,16 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
   /// vero del telefono: la Luna restava ferma nel calcolo e scivolava a
   /// video a ogni inclinazione. L'esplorazione col sensore resta giusta a
   /// riposo, prima e dopo la corsa; durante il volo vince l'aggancio.
+  /// **QUANDO SI DICE DI ALZARE IL TELEFONO** (GD.25): entrando nel cielo di
+  /// adesso e nel cielo dell'onboarding (`nascita` data da fuori), cioe' le
+  /// due entrate in cui la schermata segue il telefono. Non nel cielo di
+  /// nascita ne' nella macchina del tempo aperta dal cielo di adesso, che
+  /// partono col dito; non con Riduci Movimento, che spegne il sensore: li'
+  /// alzare il telefono non muoverebbe niente.
+  bool get _alzaIlTelefono =>
+      !_riduciMovimento &&
+      (widget.modo == ModoDelCielo.adesso || widget.nascita != null);
+
   bool get _usaIlSensore =>
       _colSensore &&
       !_riduciMovimento &&
@@ -2535,6 +2546,10 @@ class _CieloRealeScreenState extends State<CieloRealeScreen>
                   ),
                 ),
               if (_guastoDelCielo != null) _Messaggio(testo: _guastoDelCielo!),
+              // **"ALZA IL TELEFONO AL CIELO"** (ordine GD voce GD.25): tre
+              // secondi all'ingresso, poi in dissolvenza, nel cielo di adesso
+              // e nel passaggio dell'onboarding (questa stessa schermata).
+              if (_alzaIlTelefono) const AlzaIlTelefonoAlCielo(),
               _Testata(
                 titolo: _titolo,
                 colSensore: _usaIlSensore,

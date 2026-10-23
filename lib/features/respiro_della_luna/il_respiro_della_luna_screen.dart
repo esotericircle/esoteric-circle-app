@@ -29,7 +29,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../services/avvisi_locali.dart';
-import '../../services/breath_detector.dart';
+import '../../core/quality/quality_tier.dart';
 import '../lunario/calendario_lunare_screen.dart';
 import '../pricing/pricing_screen.dart';
 import '../maestri/rotta_arte.dart';
@@ -43,18 +43,23 @@ import 'il_piano_del_respiro.dart';
 import 'il_senso_del_respiro.dart';
 import 'la_collana_delle_lune_screen.dart';
 import 'la_geometria_della_luna_dipinta.dart';
+import 'medora_che_respira.dart';
 
 /// **IL RESPIRO DELLA LUNA.** Ordine FX voce FX.04, 16 ottobre 2026.
 ///
 /// Un minuto di respiro guidato accordato alla fase di oggi
 /// ([TempiDelRespiroDellaLuna]): la Luna si accende con l'inspiro e si vela
-/// con l'espiro, e un anello di perle accese ne accompagna il ritmo. Il
-/// gesto e' doppio e sempre attivo tutti e due insieme, non l'uno di
-/// ripiego dell'altro: **si tiene premuto per inspirare e si lascia per
-/// espirare**, e lo stesso vale se il microfono sente il respiro vero
-/// ([BreathDetector], lo stesso del Soffio del Destino, riusato senza
-/// cambiarne il comportamento). A rito compiuto si accende la perla del
-/// giorno sulla Collana delle Lune (FX.05).
+/// con l'espiro, e un anello di perle accese ne accompagna il ritmo.
+/// **SOLO IL DITO, NIENTE MICROFONO** (ordine GD voce GD.23, 23 ottobre
+/// 2026). Il fondatore: *"elimina il microfono e lascia solo «tieni premuto
+/// per inspirare e per espirare». Se l'utente solleva il dito, l'animazione
+/// e conteggio si fermano, ma può riprenderlo tenendo premuto"*. Finche' il
+/// dito resta sulla Luna il rito va da solo, inspiro e poi espiro coi tempi
+/// della fase; sollevato il dito la Luna, Medora e il giro si fermano dove
+/// sono, e riprendono da li' alla pressione seguente. Il microfono qui non
+/// si apre e il suo permesso non si chiede: prima (FX.04, FY.06) il soffio
+/// valeva quanto il dito. A rito compiuto si accende la perla del giorno
+/// sulla Collana delle Lune (FX.05).
 /// Il punto medio che unisce le tre righe di Medora in una sola (FX.07).
 /// Non e' il separatore del dominio di un Maestro: sta in una costante
 /// propria perche' il testo del codice non collida con quella forma.
@@ -67,7 +72,7 @@ class IlRespiroDellaLunaScreen extends StatefulWidget {
       this.dialAMoon,
       this.posizione,
       this.fabbricaDellaScena,
-      this.rilevatore});
+      this.fabbricaDelRespiro});
 
   /// L'istante da cui si calcola la fase: sostituibile nelle prove.
   final DateTime? now;
@@ -85,9 +90,9 @@ class IlRespiroDellaLunaScreen extends StatefulWidget {
   /// guardano cosa si vede mentre il video gira. Senza, il video vero.
   final FabbricaDiScena? fabbricaDellaScena;
 
-  /// Chi sente il soffio nel microfono: iniettabile per le prove di FY.06,
-  /// che soffiano con un rilevatore finto. Senza, il microfono vero.
-  final BreathDetector? rilevatore;
+  /// Chi mostra Medora che respira (GD.24): iniettabile per le prove, che
+  /// registrano le posizioni chieste al lettore. Senza, il video vero.
+  final FabbricaDelRespiro? fabbricaDelRespiro;
 
   static Route<void> route({DateTime? now}) =>
       PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
@@ -111,35 +116,18 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   static const String _perlaAccesa =
       'assets/img/respiro_della_luna/collana/perla_accesa_v1.webp';
 
-  /// **SOTTO QUESTO LIVELLO IL MICROFONO NON CONTA UN SOFFIO.** Scelta di
-  /// Code, con lo stesso ordine di grandezza della soglia usata altrove in
-  /// app per un livello normalizzato in [0, 1]: un rumore di fondo non deve
-  /// far credere al rito che la persona stia respirando.
-  static const double _sogliaDelMicrofono = 0.12;
-
-  /// Quanto resta accesa la rilevazione del microfono dopo l'ultimo
-  /// campione sopra soglia, perche' il respiro reale non e' un segnale
-  /// continuo: ha dei vuoti anche mentre l'aria sta ancora entrando o
-  /// uscendo.
-  static const Duration _graziaDelMicrofono = Duration(milliseconds: 700);
-
   late final IlRespiroDellaLuna _flag = IlRespiroDellaLuna();
 
-  /// **IL SOFFIO, NON IL VOLUME** (ordine FY voce FY.06). Il fondatore: "Il
-  /// respiro non funziona ne con microfono né con gesto". Il rilevatore
-  /// misurava il volume grezzo, e un respiro alla distanza di un telefono
-  /// non arriva alla soglia di 0,12: il microfono non sentiva niente. Adesso
-  /// conta la forma dell'aria (`soloAria`, la stessa misura del Soffio del
-  /// Destino e del rito del sogno), che vale uno quando passa il fiato.
-  late final BreathDetector _mic =
-      widget.rilevatore ?? BreathDetector(soloAria: true);
   late final RegiaDellaScena _regia = RegiaDellaScena(
       widget.fabbricaDellaScena ?? () => LettoreDiScena.vero(_video));
   late final TempiDelRespiroDellaLuna _tempi =
       TempiDelRespiroDellaLuna.diOggi(widget.now ?? DateTime.now());
 
-  /// La Luna, animata: zero velata, uno piena luce. Durata reale per fase,
-  /// data a ogni `animateTo`: qui serve solo un valore di apertura.
+  /// Il tempo del respiro, lineare: zero velata, uno piena luce. Durata
+  /// reale per fase, data a ogni `animateTo`. **LINEARE PERCHE' SI FERMA A
+  /// META'** (GD.23): sollevato il dito il respiro resta dov'e', e alla
+  /// pressione seguente il resto del tratto dura esattamente cio' che
+  /// mancava. La morbidezza del respiro sta in [_respiro].
   late final AnimationController _luce = AnimationController(
     vsync: this,
     duration: _tempi.ciclo,
@@ -149,39 +137,24 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     // telefono ha la scala delle animazioni a zero, e il rito sparirebbe
     // prima di essere visto.
     animationBehavior: AnimationBehavior.preserve,
-  )..addListener(() {
-      // **SUL VALORE, NON SULLO STATO.** Un giro e' inspiro piu' espiro:
-      // si vede che l'inspiro e' arrivato in fondo quando il valore tocca
-      // uno, si conta il giro quando torna a zero dopo averlo toccato. Lo
-      // stato di `AnimationController` (`completed`/`dismissed`) segue la
-      // stessa logica ma sui soli estremi esatti: il valore e' la
-      // grandezza che il rito guarda davvero, ed e' quella che si misura.
-      // **IL GIRO SI CONTA QUANDO SI LASCIA** (ordine FY, il fondatore
-      // sulla build 2313: "IL RESPIRO NON FUNZIONA, IN NESSUN MODO"). Prima
-      // un giro contava solo se la Luna arrivava piena (5 secondi tenuti) e
-      // poi tornava del tutto velata: chi lasciava prima non vedeva niente
-      // avanzare. Adesso conta [_contaIlGiro], al momento del rilascio.
-      if (_luce.value >= 1.0) _hoVistoPieno = true;
-    });
+  )..addListener(() => _medora?.segui(_respiro));
 
-  /// Un inspiro che ha acceso la Luna almeno a meta' e' un giro, contato
-  /// appena il dito si alza o il soffio si ferma.
-  void _contaIlGiro() {
-    if (_finito || (_luce.value < 0.5 && !_hoVistoPieno)) return;
-    _hoVistoPieno = false;
-    _cicliCompiuti++;
-    if (_cicliCompiuti >= _tempi.cicliPerUnMinuto) {
-      _completa();
-    } else if (mounted) {
-      setState(() {});
-    }
-  }
+  /// Quanto e' aperto il respiro, morbido all'inizio e alla fine del tratto:
+  /// e' il valore che accende la Luna e che porta Medora al suo fotogramma.
+  double get _respiro => Curves.easeInOut.transform(_luce.value);
 
-  EsitoDelPermesso? _esitoMic;
+  /// **MEDORA CHE RESPIRA** (GD.24): il lettore del tratto dell'inspiro,
+  /// aperto entrando nel rito. Nullo prima, con Riduci Movimento o con la
+  /// grafica alleggerita: li' la scena resta ferma come prima.
+  MedoraCheRespira? _medora;
+
+  /// Vero quando il dito e' sulla Luna: solo allora il respiro avanza.
   bool _tenutoGiu = false;
-  bool _respiroSentito = false;
-  bool _inFaseDiInspiro = false;
-  bool _hoVistoPieno = false;
+
+  /// Il verso del tratto in corso, o fermo a meta': vero l'inspiro, falso
+  /// l'espiro. Un giro e' un inspiro seguito da un espiro, contato quando
+  /// l'espiro arriva in fondo.
+  bool _versoLInspiro = true;
   int _cicliCompiuti = 0;
   bool _finito = false;
 
@@ -194,7 +167,6 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   /// in due righe che cosa si ottiene. Nullo finche' la preferenza non
   /// risponde, cosi' le righe non compaiono e spariscono.
   bool? _primaApertura;
-  Timer? _graziaTimer;
 
   // **IL TEMPO SOTTO IL DITO, ordine FX voce FX.03.** `_tempoVisto` e'
   // l'istante che la Luna e i suoi numeri mostrano: "adesso" finche' nessuno
@@ -223,7 +195,6 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
   void initState() {
     super.initState();
     unawaited(_flag.leggi());
-    unawaited(_avviaMic());
     // La foto si chiede DOPO il luogo, mai prima: col luogo ancora vuoto
     // partiva per latitudine 0 (FXA.06).
     unawaited(_caricaLuogo());
@@ -362,23 +333,6 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     _vaiATempo(widget.now ?? DateTime.now());
   }
 
-  Future<void> _avviaMic() async {
-    final ok = await _mic.start();
-    if (!mounted) return;
-    setState(() => _esitoMic = _mic.esitoDelPermesso);
-    if (!ok) return;
-    _mic.level.listen((v) {
-      if (_finito || v <= _sogliaDelMicrofono) return;
-      _respiroSentito = true;
-      _aggiornaFase();
-      _graziaTimer?.cancel();
-      _graziaTimer = Timer(_graziaDelMicrofono, () {
-        _respiroSentito = false;
-        if (mounted) _aggiornaFase();
-      });
-    });
-  }
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -389,32 +343,85 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
     }
   }
 
-  /// **IL GESTO, DOPPIO E SEMPRE ATTIVO.** FX.04: tenuto giu' col dito o
-  /// sentito dal microfono vale la stessa cosa, inspirare; nessuno dei due
-  /// e' il ripiego dell'altro.
-  void _aggiornaFase() {
-    final dentro = _tenutoGiu || _respiroSentito;
-    if (!mounted || dentro == _inFaseDiInspiro || _finito) return;
-    // Si ridisegna: il gesto del momento scritto sulla scena ("Inspira",
-    // "Espira") deve cambiare col dito (FY.06; prima restava fermo, preso
-    // dalla prova del rito col dito).
-    setState(() => _inFaseDiInspiro = dentro);
-    if (!dentro) _contaIlGiro();
-    _luce.animateTo(dentro ? 1.0 : 0.0,
-        duration: dentro ? _tempi.inspiro : _tempi.espiro,
-        curve: Curves.easeInOut);
+  /// **IL DITO GUIDA IL RESPIRO** (GD.23). Premuto, il respiro riparte dal
+  /// punto in cui si era fermato; sollevato, la Luna, Medora e il giro si
+  /// fermano li'. Prima (FX.04) tenere premuto voleva dire inspirare e
+  /// lasciare voleva dire espirare: adesso lasciare vuol dire fermarsi.
+  void _tocca(bool giu) {
+    if (_finito || giu == _tenutoGiu) return;
+    _tenutoGiu = giu;
+    if (giu) {
+      _muovi();
+    } else {
+      _luce.stop();
+    }
+    if (mounted) setState(() {});
   }
 
-  void _tocca(bool giu) {
-    _tenutoGiu = giu;
-    _aggiornaFase();
+  /// Fa correre il tratto in corso fino in fondo, per il tempo che manca.
+  void _muovi() {
+    if (!_tenutoGiu || _finito) return;
+    final inspiro = _versoLInspiro;
+    final resto = inspiro ? 1 - _luce.value : _luce.value;
+    final tratto = inspiro ? _tempi.inspiro : _tempi.espiro;
+    // **IL TRATTO FINISCE SOLO SE ARRIVA IN FONDO.** Il futuro di
+    // `animateTo` si compie quando l'animazione arriva al suo valore; se il
+    // dito si solleva prima, `stop` la cancella e il futuro resta sospeso:
+    // il verso non cambia e il giro non si conta.
+    unawaited(_luce
+        .animateTo(inspiro ? 1.0 : 0.0,
+            duration: tratto * resto, curve: Curves.linear)
+        .then((_) => _fineDelTratto(inspiro)));
+  }
+
+  /// In fondo all'inspiro comincia l'espiro; in fondo all'espiro il giro e'
+  /// compiuto e ricomincia l'inspiro, finche' il dito resta sulla Luna.
+  void _fineDelTratto(bool inspiro) {
+    if (!mounted || _finito || inspiro != _versoLInspiro) return;
+    _versoLInspiro = !inspiro;
+    if (!inspiro) {
+      _cicliCompiuti++;
+      if (_cicliCompiuti >= _tempi.cicliPerUnMinuto) {
+        _completa();
+        return;
+      }
+    }
+    setState(() {});
+    _muovi();
+  }
+
+  /// **ENTRANDO NEL RITO MEDORA SI PREPARA A RESPIRARE** (GD.24). Il
+  /// lettore si apre una volta sola e solo qui, non all'apertura della
+  /// schermata: chi consulta la Luna e non respira non lo paga. Con Riduci
+  /// Movimento o con la grafica alleggerita non si apre, come la scena.
+  void _entraNelRito() {
+    if (_medora != null) return;
+    if (MediaQuery.of(context).disableAnimations) return;
+    try {
+      if (context.read<QualityTierController>().tier == QualityTier.low) {
+        return;
+      }
+    } catch (senzaGrafica) {
+      // Senza il controllo della grafica nell'albero (le prove che montano
+      // la schermata da sola) vale la grafica piena, come per la scena.
+      debugPrint('Respiro della Luna: grafica non letta ($senzaGrafica)');
+    }
+    final fabbrica = widget.fabbricaDelRespiro ??
+        () => LettoreDelRespiro.vero(MedoraCheRespira.filmato);
+    final medora = MedoraCheRespira(fabbrica());
+    _medora = medora;
+    unawaited(medora.lettore.apri().then((_) {
+      if (!mounted || !identical(_medora, medora)) return;
+      setState(() {});
+      medora.segui(_respiro);
+    }));
   }
 
   void _completa() {
     if (_finito) return;
     _finito = true;
+    _luce.stop();
     unawaited(_flag.segnaRespirato(widget.now ?? DateTime.now()));
-    unawaited(_mic.stop());
     if (mounted) {
       unawaited(RegiaDelCammino.dopoUnGesto(context, 'respiro'));
       setState(() {});
@@ -423,9 +430,8 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
 
   @override
   void dispose() {
-    _graziaTimer?.cancel();
     _debounceDellaFoto?.cancel();
-    unawaited(_mic.dispose());
+    _medora?.chiudi();
     _luce.dispose();
     _comparsa.dispose();
     _scorrimento.dispose();
@@ -482,6 +488,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
 
   void _scegliLaVoce(BuildContext context, VoceDellaLuna v) {
     setState(() => _voce = v);
+    if (v == VoceDellaLuna.respiro) _entraNelRito();
     // **MEDORA TORNA COL RESPIRO** (ordine FY voce FY.05). Il fondatore:
     // "Medora torna quando utente fa click su "respiro"". La scena si
     // riporta in cima, intera, e il rito si fa davanti a lei.
@@ -660,6 +667,25 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                           fit: BoxFit.cover,
                           errorBuilder: (_, __, ___) =>
                               ColoredBox(color: palette.deepest)),
+                      // **MEDORA RESPIRA COL DITO** (GD.24): nel rito, a
+                      // scena ferma, il fotogramma del tratto dell'inspiro
+                      // che il respiro chiede. Sopra, la Luna dipinta del
+                      // video si copre col cielo senza Luna della stessa
+                      // pittura: la Luna resta una sola, quella vera (FY.03).
+                      if (ferma &&
+                          nelRito &&
+                          (_medora?.lettore.pronto ?? false))
+                        KeyedSubtree(
+                          key: const Key('respiro_medora_che_respira'),
+                          child: _medora!.lettore.disegna(),
+                        ),
+                      if (ferma &&
+                          nelRito &&
+                          (_medora?.lettore.pronto ?? false))
+                        _LaLunaDipintaCoperta(
+                          cielo: _cieloSenzaLuna,
+                          disco: disco.shift(-scena.topLeft),
+                        ),
                       if (!ferma)
                         Image.asset(_primoFotogramma,
                             fit: BoxFit.cover,
@@ -695,7 +721,7 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                         child: AnimatedBuilder(
                           animation: _luce,
                           builder: (context, _) {
-                            final quanto = nelRito ? _luce.value : 1.0;
+                            final quanto = nelRito ? _respiro : 1.0;
                             return Stack(
                               clipBehavior: Clip.none,
                               alignment: Alignment.center,
@@ -776,7 +802,9 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                       child: _IlGiroSullaScena(
                         palette: palette,
                         finito: _finito,
-                        inspira: _inFaseDiInspiro,
+                        tenuto: _tenutoGiu,
+                        inspira: _versoLInspiro,
+                        iniziato: _cicliCompiuti > 0 || _luce.value > 0,
                         cicli: _cicliCompiuti,
                         cicliTotali: _tempi.cicliPerUnMinuto,
                       ),
@@ -933,10 +961,13 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                   PulsanteDipinto(
                     key: const Key('respiro_prima_apertura_respira'),
                     testo: 'Respira con la Luna',
-                    onTap: () => setState(() {
-                      _voce = VoceDellaLuna.respiro;
-                      _primaApertura = false;
-                    }),
+                    onTap: () {
+                      setState(() {
+                        _voce = VoceDellaLuna.respiro;
+                        _primaApertura = false;
+                      });
+                      _entraNelRito();
+                    },
                   ),
                 ],
               ),
@@ -1065,18 +1096,6 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
             onTap: () =>
                 Navigator.of(context).push(LaCollanaDelleLuneScreen.route()),
           ),
-          if (!_finito &&
-              _esitoMic != null &&
-              _esitoMic != EsitoDelPermesso.concesso) ...[
-            const SizedBox(height: SpacingTokens.sm),
-            AvvisoDelPermesso(
-              chiave: 'respiro_della_luna',
-              permesso: AppPermission.microphone,
-              esito: _esitoMic!,
-              palette: palette,
-              onRichiedi: _avviaMic,
-            ),
-          ],
         ],
       ),
     );
@@ -1137,7 +1156,7 @@ class _AnelloDiLuce extends StatelessWidget {
   }
 }
 
-/// Il pannello col gesto da compiere e lo stato del microfono.
+/// Il pannello col gesto da compiere: tenere premuto, scritto per primo.
 class _PannelloDelGesto extends StatelessWidget {
   const _PannelloDelGesto({
     required this.palette,
@@ -1167,15 +1186,20 @@ class _PannelloDelGesto extends StatelessWidget {
             children: [
               _LaRigaDelSenso(riga: rigaPrima, chiave: 'respiro_riga_prima'),
               const SizedBox(height: SpacingTokens.sm),
-              Text('Tieni premuto per inspirare, lascia per espirare',
+              // **TENERE PREMUTO, DETTO PER PRIMO** (GD.23). Il fondatore:
+              // "deve essere chiaro per l'utente cosa deve fare ovvero
+              // tenere premuto". Il titolo sono le sue parole.
+              Text('Tieni premuto per inspirare e per espirare',
+                  key: const Key('respiro_tieni_premuto'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.titoloScheda()
                       .copyWith(color: palette.goldSoft)),
               const SizedBox(height: SpacingTokens.xxs),
               Text(
-                  'Oppure soffia piano verso il telefono: la Luna si accende '
-                  'col soffio e si vela quando smetti. Giro '
-                  '${cicli + 1} di $cicliTotali',
+                  'Finché tieni premuto sulla Luna il respiro va da solo: '
+                  'inspira mentre la Luna si accende, espira mentre si vela. '
+                  'Se sollevi il dito tutto si ferma; premi di nuovo per '
+                  'riprendere. Giro ${cicli + 1} di $cicliTotali',
                   key: const Key('respiro_conteggio'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.label(size: 12)
@@ -1485,29 +1509,54 @@ class _IlGiroSullaScena extends StatelessWidget {
   const _IlGiroSullaScena({
     required this.palette,
     required this.finito,
+    required this.tenuto,
     required this.inspira,
+    required this.iniziato,
     required this.cicli,
     required this.cicliTotali,
   });
 
   final MaestroPalette palette;
   final bool finito;
+
+  /// Il dito e' sulla Luna.
+  final bool tenuto;
+
+  /// Il verso del tratto, anche fermo a meta'.
   final bool inspira;
+
+  /// Il respiro si e' gia' mosso almeno una volta.
+  final bool iniziato;
   final int cicli;
   final int cicliTotali;
 
   @override
   Widget build(BuildContext context) {
+    // **COL DITO SOLLEVATO IL GESTO DICE DI PREMERE** (GD.23): prima del
+    // primo tocco "Tieni premuto sulla Luna", a respiro fermo a meta' "Tieni
+    // premuto per riprendere", mai un "Inspira" che non sta accadendo.
     final gesto = finito
         ? 'Respiro compiuto'
-        : inspira
-            ? 'Inspira'
-            : cicli == 0
-                ? 'Tieni premuto sulla Luna, poi lascia'
-                : 'Espira';
+        : tenuto
+            ? (inspira ? 'Inspira' : 'Espira')
+            : iniziato
+                ? 'Tieni premuto per riprendere'
+                : 'Tieni premuto sulla Luna';
     final sotto = finito
         ? 'La perla di oggi è accesa nella tua Collana'
-        : 'Giro ${cicli + 1} di $cicliTotali';
+        : !tenuto && iniziato
+            ? 'Giro ${cicli + 1} di $cicliTotali, fermo'
+            : 'Giro ${cicli + 1} di $cicliTotali';
+    // **LE PAROLE DEL FONDATORE SULLA SCENA**, dove l'occhio gia' guarda,
+    // in due righe che si leggono come una frase sola prima del primo tocco:
+    // "Tieni premuto sulla Luna / per inspirare e per espirare".
+    // Il pannello del rito sta sotto la scena e sul telefono resta fuori
+    // dallo schermo finche' non si scorre.
+    final istruzione = finito || tenuto
+        ? null
+        : iniziato
+            ? 'Hai sollevato il dito: il respiro è fermo'
+            : 'per inspirare e per espirare';
     // **IL VELO SCURO SOTTO IL GESTO E IL GIRO, ordine GA voce GA.10.** Le due
     // righe correvano sulle colonne di marmo e sul mare: "Tieni premuto sulla
     // Luna, poi lascia" 2,46 a 1 e "Giro 1 di 8" 3,31 nel punto piu' chiaro:
@@ -1545,7 +1594,11 @@ class _IlGiroSullaScena extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: 56, vertical: SpacingTokens.sm),
-            child: _IGiroTesti(gesto: gesto, sotto: sotto, palette: palette),
+            child: _IGiroTesti(
+                gesto: gesto,
+                sotto: sotto,
+                istruzione: istruzione,
+                palette: palette),
           ),
         ),
       ),
@@ -1555,10 +1608,16 @@ class _IlGiroSullaScena extends StatelessWidget {
 
 class _IGiroTesti extends StatelessWidget {
   const _IGiroTesti(
-      {required this.gesto, required this.sotto, required this.palette});
+      {required this.gesto,
+      required this.sotto,
+      required this.istruzione,
+      required this.palette});
 
   final String gesto;
   final String sotto;
+
+  /// Che cosa fare col dito, quando il dito non e' sulla Luna (GD.23).
+  final String? istruzione;
   final MaestroPalette palette;
 
   @override
@@ -1574,12 +1633,66 @@ class _IGiroTesti extends StatelessWidget {
               style: TypographyTokens.titoloSezione()
                   .copyWith(color: palette.goldSoft, shadows: ombraSullaScena)),
         ),
+        if (istruzione != null)
+          Text(istruzione!,
+              key: const Key('respiro_istruzione_sulla_scena'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft, shadows: ombraSullaScena)),
         Text(sotto,
             key: const Key('respiro_giro'),
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta()
                 .copyWith(color: Colors.white, shadows: ombraSullaScena)),
       ],
+    );
+  }
+}
+
+/// **LA LUNA DIPINTA DEL VIDEO, COPERTA** (GD.24). Nel video di Medora che
+/// respira la Luna dipinta si svela con l'inspiro; sopra di lei la schermata
+/// mette la Luna vera di quest'ora (FY.03). Per non vederne due, sul disco
+/// dipinto e sul suo alone si stende lo stesso cielo dipinto senza Luna
+/// (`respiro_cielo_senza_luna_v1`), della misura della scena e quindi
+/// allineato al pixel, sfumato verso fuori perche' non abbia un bordo.
+/// Nessuna figura disegnata: e' un ritaglio di una pittura esistente.
+class _LaLunaDipintaCoperta extends StatelessWidget {
+  const _LaLunaDipintaCoperta({required this.cielo, required this.disco});
+
+  final String cielo;
+
+  /// Il disco della Luna dipinta, nel sistema della scena.
+  final Rect disco;
+
+  /// Fin dove arriva la copertura, in raggi del disco: l'alone dipinto
+  /// intorno alla Luna piena arriva a circa un terzo del raggio oltre il
+  /// bordo (misurato sui fotogrammi da 3 a 4,5 secondi).
+  static const double portata = 1.35;
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: ShaderMask(
+        key: const Key('respiro_luna_dipinta_coperta'),
+        blendMode: BlendMode.dstIn,
+        shaderCallback: (r) {
+          final raggio = disco.width / 2;
+          return RadialGradient(
+            center: Alignment(disco.center.dx / r.width * 2 - 1,
+                disco.center.dy / r.height * 2 - 1),
+            radius: raggio * portata / r.shortestSide,
+            colors: const [
+              Color(0xFFFFFFFF),
+              Color(0xFFFFFFFF),
+              Color(0x00FFFFFF)
+            ],
+            stops: const [0, 1.05 / portata, 1],
+          ).createShader(r);
+        },
+        child: Image.asset(cielo,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+      ),
     );
   }
 }

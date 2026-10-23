@@ -23,8 +23,10 @@ IlDialAMoon _dialAMoonOffline() =>
 ///
 /// Prova i tempi accordati alla fase (la scelta e' dichiarata e motivata in
 /// `TempiDelRespiroDellaLuna`), il flag "respirato oggi" che persiste sul
-/// telefono ed e' idempotente, e che la schermata vera risponde al gesto
-/// doppio (il dito tenuto giu' accende la Luna, come farebbe il microfono).
+/// telefono ed e' idempotente, e che la schermata vera risponde al dito:
+/// tenuto giu' accende la Luna e poi la vela, un giro intero. Dall'ordine GD
+/// voce GD.23 il microfono non c'e' piu' e il dito non si lascia per
+/// espirare: resta sulla Luna per tutto il giro.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -118,8 +120,7 @@ void main() {
           ),
         );
 
-    testWidgets(
-        'risponde al dito: tenuto giu\' accende la Luna, lasciato la vela',
+    testWidgets('risponde al dito: tenuto giu\' accende la Luna e poi la vela',
         (tester) async {
       SharedPreferences.setMockInitialValues({});
       tester.view.physicalSize = const Size(390, 844);
@@ -161,26 +162,29 @@ void main() {
       final dito = await tester.startGesture(tester.getCenter(find.byKey(
         const Key('respiro_luna_vera'),
       )));
-      await tester.pump(const Duration(milliseconds: 100));
-      await tester.pump(tempi.inspiro);
+      for (var i = 0; i < tempi.inspiro.inMilliseconds ~/ 50; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
 
       final luceAlCulmine = opacitaDellaLuna();
       expect(luceAlCulmine, greaterThan(veloAllInizio),
           reason: 'la Luna non si e\' accesa tenendo premuto il dito');
 
-      // Si lascia: l'espiro vela la Luna di nuovo, e un giro si completa.
+      // Il dito resta: l'espiro vela la Luna di nuovo, e un giro si
+      // completa (GD.23: prima l'espiro partiva lasciando il dito).
+      for (var i = 0; i < tempi.espiro.inMilliseconds ~/ 50 + 4; i++) {
+        await tester.pump(const Duration(milliseconds: 50));
+      }
       await dito.up();
-      await tester.pump(const Duration(milliseconds: 100));
-      await tester.pump(tempi.espiro);
+      await tester.pump(const Duration(milliseconds: 50));
 
       final veloDopoUnGiro = opacitaDellaLuna();
       expect(veloDopoUnGiro, lessThan(luceAlCulmine),
-          reason: 'la Luna non si e\' velata lasciando il dito');
+          reason: 'la Luna non si e\' velata tenendo il dito');
 
       if (tempi.cicliPerUnMinuto > 1) {
         // Il giro si legge sulla scena, sotto la Luna (ordine FY voce FY.06).
-        expect(
-            tester.widget<Text>(find.byKey(const Key('respiro_giro'))).data,
+        expect(tester.widget<Text>(find.byKey(const Key('respiro_giro'))).data,
             startsWith('Giro 2 di'),
             reason: 'un giro intero (inspiro piu\' espiro) non ha fatto '
                 'avanzare il conteggio');
