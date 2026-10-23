@@ -16,6 +16,7 @@ Future<void> compilaLaTendina(
   String legame = 'amicizia',
   bool lunga = false,
   bool apri = true,
+  bool giaOffline = false,
 }) async {
   Future<void> passa([int volte = 4]) async {
     for (var i = 0; i < volte; i++) {
@@ -38,7 +39,7 @@ Future<void> compilaLaTendina(
     await tester.tap(scelta);
     await passa(6);
   }
-  await tocca(const Key('sinastria_tendina_offline'));
+  if (!giaOffline) await tocca(const Key('sinastria_tendina_offline'));
   await tocca(const Key('sinastria_tendina_nuovo'));
   await tester.enterText(find.byKey(const Key('sinastria_modulo_nome')), nome);
   await passa(2);
