@@ -8113,6 +8113,74 @@ ha ricevuto 10 Eos dal traguardo "Le tre carte" aperto da se' (da 145 a
 155). Sul telefono c'e' di nuovo l'app vera al posto del banco della
 misura.
 
+## L'ORDINE GD, I VIDEO DI INGRESSO AI DOMINI, LA STESA DI TAROCCHI, L'ORACOLO DEGLI ANGELI, LA SINASTRIA EVOLUTIVA, IL RESPIRO DELLA LUNA E IL CIELO IN TEMPO REALE (23 ottobre 2026)
+
+**Sul ramo canonico `claude/esoteric-circle-master-order-e798aj`**, partito
+dalla testa `02522987` (verde, la consegna della build 2316). Testo
+dell'ordine alla lettera: `docs/ordini/ORDINE_GD_TESTO.md`. Manifesto:
+`docs/ordini/ORDINE_GD_MANIFESTO.md` (ventisei voci, GD.01-GD.26). Rapporto:
+`docs/ordini/RAPPORTO_ORDINE_GD.md`, con le due dichiarazioni sul perche' le
+prove della Lunga erano verdi. **23 voci CHIUSE, 3 APERTE IN ATTESA DI
+VERIFICA**: GD.03 (mancano le arti dipinte dei sette chakra), GD.21 (la porta
+`mandaLaSinastria` va pubblicata dal fondatore, comando nel rapporto), GD.26
+(la consegna, si chiude col verde in coda al rapporto). Le dodici premesse
+erano tutte vere. Nessuna chiamata a pagamento, nessuna build per i tester,
+nessuna pubblicazione sul server. Le parti A, D ed E/F le hanno eseguite tre
+agenti su rami locali (`gd-a`, `gd-d`, `gd-ef`) partiti da `02522987`, fusi
+sul canonico. Collaudo sul Realme su due build di rilascio fatte sul computer
+e installate solo sul telefono di collaudo, col si' del fondatore in chat
+("Autorizzo la build locale"): cinque difetti trovati e curati
+(`docs/collaudo/GD/le_opzioni.md`).
+
+**Cosa e' cambiato nell'app.**
+- **Domini dei Maestri**: nel palmo di Medora, a video finito, l'emblema
+  dipinto del segno solare della persona; i due video di Calìgo scambiati (il
+  cerchio di fuoco apre il dominio, il vortice la chat) e nella sua mano la
+  pietra della runa del tramonto del giorno (`il_dono_nel_palmo.dart`). Aura
+  resta col palmo vuoto. **Lo scambio dei file di Calìgo e' una rinomina**:
+  prima di ogni build serve una build pulita o il `touch` dei quattro file.
+  Il video del vortice ha una runa Dagaz dipinta dentro, da far guardare al
+  fondatore.
+- **Stesa di Tarocchi**: la riga "le carte hanno già parlato" compare solo
+  con la stessa domanda e le stesse carte nello stesso giorno; al rientro le
+  carte si scelgono di nuovo (LAPIDE FI.27). **La Lunga da' i due paragrafi
+  anche quando il modello non torna**: la lettura di casa ha il suo
+  approfondimento (`VoceDellaStesa.approfondimentoDiCasa`) e la
+  contemplazione dal corpus.
+- **Oracolo degli Angeli**: niente pulsante rotondo, la domanda scritta o
+  scelta accende da sola il mazzo, le consultazioni del giorno si guardano al
+  primo dorso; carte in piedi al 94 per cento della larghezza; via la bolla
+  dell'angelo dell'ora in fondo e il messaggio della rete; la Lunga col salmo
+  anche dalla risposta dai doni (`LaRispostaDaiDoni.approfondimento`); la
+  scheda della carta con la risposta aperta per prima e i segni della stessa
+  misura; al posto della scala la mappa dei nove cori nelle tre sfere
+  (`LaMappaDeiCori`), coi segni dipinti, dai cori degli angeli usciti. Due
+  regole permanenti di `CLAUDE.md` aggiornate con la lapide (il pulsante con
+  la freccia, la scala di luce).
+- **Sinastria evolutiva rifatta**: video a tutto schermo con la domanda sopra
+  Medora e un solo pulsante; tendina semitrasparente con online e offline,
+  l'invito del Cerchio che torna alla tendina; modulo nella misura dei
+  Tarocchi, selettori di data e ora nel tema della casa; quattro legami, uno
+  per volta; Breve e Lunga col riquadro "Il filo che vi lega"
+  (`RigaDelPiano.sinastriaLunga`); riflessione di Medora e statua scontornata
+  sul tavolo (dodici statue nuove `statua_<segno>_v1.webp`, generate da
+  `tool/scontorna_le_statue_della_sinastria.py`); barre dopo il titolo e in
+  ogni bolla, dallo stesso calcolo; la lista degli amici offline una sola con
+  l'Oroscopo; la lettura che arriva all'amico del Cerchio (server non ancora
+  pubblicato); la riga viva di "Oggi fra voi" sulla scheda della coppia.
+- **Respiro della Luna**: via il microfono, si tiene premuto sulla Luna, il
+  dito sollevato ferma tutto; il video di Medora (il tratto dell'inspiro con
+  un fotogramma chiave per fotogramma) va avanti e indietro col respiro, 703
+  fotogrammi in 12,6 secondi sul Realme, 0 persi.
+- **Cielo in tempo reale e onboarding**: "Alza il telefono al Cielo" per tre
+  secondi, poi in dissolvenza.
+
+**Guardie**: undici nuove, registro `docs/guardie.md` da 888 a **899**
+(categorie 169, 323, 407). Callable del server da 48 a **49**
+(`mandaLaSinastria`). Le prove che difendevano la Lunga Breve senza modello
+(`la_stesa_ha_la_forma_nuova`, `le_correzioni_dell_ordine_fn`) sono riscritte
+con la lapide: erano il motivo per cui il difetto passava verde.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
