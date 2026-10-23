@@ -181,8 +181,8 @@ void main() {
     expect(dove.top >= 0 && dove.bottom <= schermo.height, isTrue,
         reason: 'la scritta del gesto e\' fuori dallo schermo: $dove');
     final istruzione = find.byKey(const Key('respiro_istruzione_sulla_scena'));
-    expect(tester.widget<Text>(istruzione).data,
-        'Tieni premuto per inspirare e per espirare',
+    expect('${gesto(tester)} ${tester.widget<Text>(istruzione).data}',
+        'Tieni premuto sulla Luna per inspirare e per espirare',
         reason: 'la scena non dice di tenere premuto con le parole del '
             'fondatore');
     final doveIstruzione = tester.getRect(istruzione);

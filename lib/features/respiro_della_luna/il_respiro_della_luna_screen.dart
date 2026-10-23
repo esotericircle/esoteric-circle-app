@@ -1547,14 +1547,16 @@ class _IlGiroSullaScena extends StatelessWidget {
         : !tenuto && iniziato
             ? 'Giro ${cicli + 1} di $cicliTotali, fermo'
             : 'Giro ${cicli + 1} di $cicliTotali';
-    // **LE PAROLE DEL FONDATORE SULLA SCENA**, dove l'occhio gia' guarda:
-    // il pannello del rito sta sotto la scena e sul telefono resta fuori
+    // **LE PAROLE DEL FONDATORE SULLA SCENA**, dove l'occhio gia' guarda,
+    // in due righe che si leggono come una frase sola prima del primo tocco:
+    // "Tieni premuto sulla Luna / per inspirare e per espirare".
+    // Il pannello del rito sta sotto la scena e sul telefono resta fuori
     // dallo schermo finche' non si scorre.
     final istruzione = finito || tenuto
         ? null
         : iniziato
             ? 'Hai sollevato il dito: il respiro è fermo'
-            : 'Tieni premuto per inspirare e per espirare';
+            : 'per inspirare e per espirare';
     // **IL VELO SCURO SOTTO IL GESTO E IL GIRO, ordine GA voce GA.10.** Le due
     // righe correvano sulle colonne di marmo e sul mare: "Tieni premuto sulla
     // Luna, poi lascia" 2,46 a 1 e "Giro 1 di 8" 3,31 nel punto piu' chiaro:
