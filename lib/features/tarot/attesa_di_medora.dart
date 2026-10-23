@@ -59,7 +59,14 @@ class AttesaDiMedora extends StatefulWidget {
     this.fattoDelCielo,
     this.carte = 3,
     this.angeli = false,
+    this.righeProprie,
   });
+
+  /// **LE RIGHE DI UN'ALTRA ARTE DELLA STESSA FAMIGLIA**, ordine GD voce
+  /// GD.18: la Sinastria evolutiva riflette con questa stessa scena ("come
+  /// per oroscopo o tarocchi", il fondatore) e le sue righe parlano dei
+  /// due cieli, non delle carte. Nulle, le righe del tavolo ([righePer]).
+  final List<String>? righeProprie;
 
   /// Quante carte ci sono sul tavolo: le righe le nominano giuste.
   final int carte;
@@ -174,8 +181,9 @@ class _AttesaDiMedoraState extends State<AttesaDiMedora>
   AnimationController? _giro;
 
   Timer? _passo;
-  List<String> get _righe =>
-      AttesaDiMedora.righePer(carte: widget.carte, angeli: widget.angeli);
+  List<String> get _righe => widget.righeProprie?.isNotEmpty == true
+      ? widget.righeProprie!
+      : AttesaDiMedora.righePer(carte: widget.carte, angeli: widget.angeli);
 
   late int _corrente = _righe.isEmpty ? 0 : widget.rotazione % _righe.length;
 

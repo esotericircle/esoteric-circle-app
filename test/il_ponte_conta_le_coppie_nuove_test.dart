@@ -11,6 +11,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'la_tendina_della_sinastria_aiuto.dart';
+
 /// **IL PONTE CONTA LE COPPIE NUOVE.** Ordine FT voce FT.13, 14 ottobre
 /// 2026. Il Viandante che ha gia' letto la sua coppia nuova del giorno, col
 /// server che conosce il budget, non entra in una seconda lettura: trova
@@ -104,19 +106,9 @@ void main() {
     // dell'altra persona da solo, su uno schermo nero; adesso apre la scena,
     // e la nascita si chiede dalla scelta sotto lo studio. Il conto delle
     // coppie nuove e' lo stesso, ed e' cio' che questa prova misura.
-    final scelta = find.byKey(const Key('sinastria_scegli_la_persona'));
-    await tester.ensureVisible(scelta);
-    await tester.pump();
-    await tester.tap(scelta);
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byKey(const Key('nascita_altra_ora_non_nota')));
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('nascita_altra_data')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('OK'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('nascita_altra_conferma')));
+    // **E DALL'ORDINE GD DALLA TENDINA CHE SALE** (GD.14): LAPIDE, qui la
+    // prova compilava "La sua nascita" (`nascita_altra_*`).
+    await compilaLaTendina(tester);
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('upgrade_invite')), findsOneWidget,

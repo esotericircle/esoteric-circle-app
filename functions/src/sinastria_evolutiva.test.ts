@@ -10,6 +10,8 @@ import {
   nascitaDaCorpo,
   haAlmeno16Anni,
   legameApribile,
+  laSinastriaSiConsegna,
+  sinastriaDaCorpo,
 } from "./sinastria_evolutiva";
 import {limiteDi} from "./budget";
 import {LISTINO_DEL_RISCATTO, PREZZI_DEL_RISCATTO} from "./borsellino";
@@ -277,4 +279,63 @@ test("FU.10 le consultazioni dell'Oracolo al giorno: uno, tre, cinque, sei", () 
 test("FU.10 il listino porta la consultazione in piu' a 100 Eos", () => {
   assert.equal(PREZZI_DEL_RISCATTO.oracoliAngeli, 100);
   assert.equal(LISTINO_DEL_RISCATTO["oracoliAngeli"], 100);
+});
+
+/**
+ * GD.21, LA LETTURA ARRIVA ANCHE ALL'AMICO DEL CERCHIO, LATO SERVER. Ordine
+ * GD, 23 ottobre 2026. Il giro fra due identita' di collaudo finte, "u-mauro"
+ * e "u-stella": il responso passa intero fra amici, coi soli campi di un
+ * responso (una nascita infilata nel corpo non arriva) e a chi non e' nel
+ * Cerchio, o si e' bloccato, non arriva niente. La prova gemella lato app e'
+ * test/gd21_la_sinastria_arriva_all_amico_test.dart.
+ */
+const responsoDiProva = {
+  legame: "amicizia",
+  segno: "Leone",
+  capitoli: [{
+    capitolo: "attrazione",
+    titolo: "Vi piacete con una naturalezza disarmante",
+    paragrafi: ["Primo.", "Secondo.", "Terzo."],
+    daDoveViene: "La sinastria confronta i pianeti di due nascite.",
+  }],
+};
+
+test("GD.21 fra due amici il responso passa intero", () => {
+  const r = sinastriaDaCorpo(responsoDiProva);
+  assert.deepEqual(r, responsoDiProva);
+  assert.deepEqual(
+    laSinastriaSiConsegna({da: "u-mauro", a: "u-stella", amici: true, bloccati: false}),
+    {ok: true});
+});
+
+test("GD.21 una nascita infilata nel corpo non arriva a nessuno", () => {
+  const r = sinastriaDaCorpo({
+    ...responsoDiProva,
+    nascita: "1990-05-12T14:30:00.000Z",
+    capitoli: [{...responsoDiProva.capitoli[0], ora: "14:30", luogo: "Roma"}],
+  });
+  assert.ok(r !== null);
+  const testo = JSON.stringify(r);
+  assert.equal(testo.includes("1990"), false);
+  assert.equal(testo.includes("14:30"), false);
+  assert.equal(testo.includes("Roma"), false);
+});
+
+test("GD.21 a chi non e' nel Cerchio non arriva niente", () => {
+  assert.deepEqual(
+    laSinastriaSiConsegna({da: "u-mauro", a: "u-sconosciuta", amici: false, bloccati: false}),
+    {ok: false, perche: "nonAmici"});
+  assert.deepEqual(
+    laSinastriaSiConsegna({da: "u-mauro", a: "u-stella", amici: true, bloccati: true}),
+    {ok: false, perche: "nonRaggiungibile"});
+  assert.deepEqual(
+    laSinastriaSiConsegna({da: "u-mauro", a: "u-mauro", amici: true, bloccati: false}),
+    {ok: false, perche: "persona"});
+});
+
+test("GD.21 un responso monco o con un capitolo inventato non si consegna", () => {
+  assert.equal(sinastriaDaCorpo({...responsoDiProva, capitoli: []}), null);
+  assert.equal(sinastriaDaCorpo({...responsoDiProva, legame: "complici"}), null);
+  assert.equal(sinastriaDaCorpo({...responsoDiProva,
+    capitoli: [{...responsoDiProva.capitoli[0], capitolo: "denaro"}]}), null);
 });

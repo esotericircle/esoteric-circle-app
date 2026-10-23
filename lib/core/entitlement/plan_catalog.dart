@@ -211,6 +211,14 @@ enum RigaDelPiano {
   intervalliDiKeplero,
   compositoRitrattoMomento,
 
+  /// **LA LUNGA DELLA SINASTRIA EVOLUTIVA, ordine GD voce GD.17**, 23
+  /// ottobre 2026. Il fondatore: *"Lunga sarà esclusiva degli utenti premium
+  /// a pagamento che aggiungerà solo alla prima risposta del responso 2
+  /// paragrafi di cui il secondo in riquadro con titolo"*. Dall'Iniziato,
+  /// come la Lunga dell'Oracolo e delle Rune (GA.05): zero modello, tutto
+  /// dal corpus.
+  sinastriaLunga,
+
   /// **L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10**, 15 ottobre 2026: le
   /// consultazioni al giorno (il budget `oracoliAngeli` del server), le tre
   /// carte intere (al Viandante l'assaggio scopre solo il Custode), e la
@@ -1050,6 +1058,11 @@ class PlanCatalog {
     FeatureRow('Tema Composito, ritratto della coppia e momento giusto',
         ['No', 'No', 'Sì', 'Sì'],
         chiave: RigaDelPiano.compositoRitrattoMomento),
+    // **LA LUNGA DELLA SINASTRIA EVOLUTIVA, ordine GD voce GD.17**: dai piani
+    // a pagamento, come le altre Lunghe. Non chiama nessun modello, quindi
+    // non entra nel conto del tetto del costo.
+    FeatureRow('Sinastria evolutiva: risposta lunga', ['No', 'Sì', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.sinastriaLunga),
     // **L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10**, 15 ottobre 2026. La
     // proposta dell'Architetto approvata il 14 ottobre: al Viandante l'angelo
     // dell'ora, il messaggio del giorno e un assaggio della consultazione;

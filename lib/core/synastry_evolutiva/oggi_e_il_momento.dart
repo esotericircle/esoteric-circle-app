@@ -111,6 +111,31 @@ class OggiFraVoi {
     );
   }
 
+  /// **QUANTO OGNI CAPITOLO E' ACCESO OGGI**, ordine GD voce GD.19: i dati
+  /// della barra di Oggi fra voi. Lo stesso calcolo di [per], dalla stessa
+  /// porta ([MoltiplicatoreCeleste.accensione]), un capitolo alla volta coi
+  /// soli suoi contatti: la somma delle forze dei transiti del giorno, che a
+  /// uno vale gia' un contatto colpito all'angolo esatto (oltre, la barra e'
+  /// piena). Zero per un capitolo senza contatti o non toccato oggi.
+  static Map<Capitolo, double> accensioneDeiCapitoli({
+    required CieloEvolutivo tuo,
+    required CieloEvolutivo suo,
+    required DateTime giorno,
+  }) {
+    return {
+      for (final c in Capitolo.values)
+        c: (() {
+          final contatti = _contattiDeiCapitoli(tuo, suo, {c});
+          if (contatti.isEmpty) return 0.0;
+          return MoltiplicatoreCeleste.accensione(
+            contatti: _perLaPorta(contatti, tuo, suo),
+            giorno: giorno,
+            transiti: transitiGuardati.toSet(),
+          ).somma.clamp(0.0, 1.0);
+        })(),
+    };
+  }
+
   static int _giornoDellAnno(DateTime g) => DateTime.utc(g.year, g.month, g.day)
       .difference(DateTime.utc(g.year))
       .inDays;
@@ -122,11 +147,18 @@ class GiornoFavorevole {
     required this.giorno,
     required this.transito,
     required this.testo,
+    this.forza = 0,
   });
 
   final DateTime giorno;
   final CorpoCeleste transito;
   final String testo;
+
+  /// **QUANTO E' ACCESO QUEL GIORNO**, ordine GD voce GD.19: la somma delle
+  /// forze dei transiti favorevoli sui contatti del legame, la stessa che ha
+  /// scelto il giorno, fra zero e uno (oltre, uno). La barra del Momento
+  /// giusto la mostra com'e'.
+  final double forza;
 }
 
 /// **IL MOMENTO GIUSTO.** Ordine FT voce FT.10, esclusiva del piano Adepto.
@@ -219,6 +251,7 @@ abstract final class IlMomentoGiusto {
           return GiornoFavorevole(
             giorno: scelti[i].giorno,
             transito: scelti[i].t,
+            forza: scelti[i].somma.clamp(0.0, 1.0),
             testo: _pulito(
                 v[(LetturaEvolutiva.semeDellaCoppia(tuo, suo) + i) % v.length],
                 nomeSuo),

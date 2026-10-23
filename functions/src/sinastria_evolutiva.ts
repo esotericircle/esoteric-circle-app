@@ -249,3 +249,88 @@ export function consumaConsenso(
     consensoAggiornato: {...consenso, consumato: true},
   };
 }
+
+/**
+ * LA LETTURA ARRIVA ANCHE ALL'AMICO DEL CERCHIO, ordine GD voce GD.21, 23
+ * ottobre 2026 (proposta dell'Architetto approvata dal fondatore con "2 si").
+ * Quando la persona della sinastria e' un amico del Cerchio, il responso
+ * arriva anche a lei, con l'avviso che il vostro cielo e' stato letto.
+ *
+ * Il contenuto e' LO STESSO RESPONSO che il telefono di chi legge ha composto
+ * dal corpus (`LetturaEvolutiva.componi`), non una copia scritta a mano: il
+ * server non riscrive niente, tiene soltanto i campi che un responso ha e
+ * butta tutto il resto. **Nessun dato di nascita passa**: i campi ammessi
+ * sono il legame, il segno della relazione e i capitoli (nome, titolo,
+ * paragrafi, "Da dove viene"); una data, un'ora o un luogo infilati nel
+ * corpo non arrivano a nessuno, perche' non c'e' un campo che li porti.
+ */
+export const CAPITOLI_DELLA_SINASTRIA =
+  ["attrazione", "emozioni", "mente", "durata", "destino"] as const;
+export const LEGAMI: readonly Legame[] = ["amore", "amicizia", "famiglia", "lavoro"];
+
+export interface CapitoloCondiviso {
+  capitolo: string;
+  titolo: string;
+  paragrafi: string[];
+  daDoveViene: string;
+}
+
+export interface SinastriaCondivisa {
+  legame: Legame;
+  segno: string;
+  capitoli: CapitoloCondiviso[];
+}
+
+function testoBreve(valore: unknown, massimo: number): string | null {
+  if (typeof valore !== "string") return null;
+  const t = valore.trim();
+  return t.length === 0 || t.length > massimo ? null : t;
+}
+
+/** Il responso da consegnare, coi soli campi di un responso; nullo se non lo e'. */
+export function sinastriaDaCorpo(corpo: unknown): SinastriaCondivisa | null {
+  if (corpo === null || typeof corpo !== "object") return null;
+  const c = corpo as Record<string, unknown>;
+  const legame = LEGAMI.find((l) => l === c.legame);
+  const segno = testoBreve(c.segno, 40);
+  if (legame === undefined || segno === null || !Array.isArray(c.capitoli)) return null;
+  if (c.capitoli.length === 0 || c.capitoli.length > CAPITOLI_DELLA_SINASTRIA.length) {
+    return null;
+  }
+  const capitoli: CapitoloCondiviso[] = [];
+  for (const x of c.capitoli) {
+    if (x === null || typeof x !== "object") return null;
+    const k = x as Record<string, unknown>;
+    const nome = CAPITOLI_DELLA_SINASTRIA.find((n) => n === k.capitolo);
+    const titolo = testoBreve(k.titolo, 240);
+    const daDoveViene = testoBreve(k.daDoveViene, 1200);
+    if (nome === undefined || titolo === null || daDoveViene === null) return null;
+    if (!Array.isArray(k.paragrafi) || k.paragrafi.length === 0 || k.paragrafi.length > 5) {
+      return null;
+    }
+    const paragrafi: string[] = [];
+    for (const p of k.paragrafi) {
+      const t = testoBreve(p, 2400);
+      if (t === null) return null;
+      paragrafi.push(t);
+    }
+    capitoli.push({capitolo: nome, titolo, paragrafi, daDoveViene});
+  }
+  return {legame, segno, capitoli};
+}
+
+/**
+ * Se la lettura si consegna: solo fra due amici del Cerchio, mai a chi ha
+ * bloccato o e' stato bloccato, mai a se stessi.
+ */
+export function laSinastriaSiConsegna(p: {
+  da: string;
+  a: string;
+  amici: boolean;
+  bloccati: boolean;
+}): {ok: true} | {ok: false; perche: "persona" | "nonAmici" | "nonRaggiungibile"} {
+  if (p.a.length === 0 || p.a === p.da) return {ok: false, perche: "persona"};
+  if (p.bloccati) return {ok: false, perche: "nonRaggiungibile"};
+  if (!p.amici) return {ok: false, perche: "nonAmici"};
+  return {ok: true};
+}

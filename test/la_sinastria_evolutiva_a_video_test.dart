@@ -11,6 +11,7 @@ import 'package:esoteric_circle/core/synastry_evolutiva/la_lettura_evolutiva.dar
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_evolutiva_screen.dart';
+import 'package:esoteric_circle/core/synastry_evolutiva/legame_e_eta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -28,8 +29,14 @@ CieloEvolutivo _cielo(DateTime nascita, String nome) =>
         nome: nome);
 
 Future<void> _monta(WidgetTester tester,
-    {required Tier tier, DateTime? nascitaSua, bool? amoreDalServer}) async {
+    {required Tier tier,
+    DateTime? nascitaSua,
+    bool? amoreDalServer,
+    Legame? legame}) async {
   SharedPreferences.setMockInitialValues({});
+  // Una schermata nuova a ogni montaggio: due montaggi di fila nella stessa
+  // prova non devono riusare lo stato (la coppia si calcola all'avvio).
+  await tester.pumpWidget(const SizedBox());
   tester.view.physicalSize = const Size(390, 844);
   tester.view.devicePixelRatio = 1.0;
   addTearDown(tester.view.resetPhysicalSize);
@@ -57,6 +64,7 @@ Future<void> _monta(WidgetTester tester,
             cieloSuo: _cielo(nascitaSua ?? DateTime(1992, 9, 3), 'Giulia'),
             oggi: _oggi,
             amoreDalServer: amoreDalServer,
+            legame: legame,
           ),
         ),
       ),
@@ -76,6 +84,13 @@ Future<void> _scorriFino(WidgetTester tester, Finder f) async {
   await tester.pump();
 }
 
+/// Il titolo del primo capitolo, sotto la scena a tutto schermo (GD.13).
+Future<String?> _titolo(WidgetTester tester) async {
+  final f = find.byKey(const Key('sinastria_titolo_attrazione'));
+  await _scorriFino(tester, f);
+  return tester.widget<Text>(f).data;
+}
+
 void main() {
   setUp(() => LaSuoneria.spentaPerLeProve = false);
   tearDown(() => LaSuoneria.spentaPerLeProve = null);
@@ -84,7 +99,10 @@ void main() {
       'il Viandante: Oggi fra voi, due capitoli aperti, tre chiusi col '
       'lucchetto, Keplero e le esclusive chiusi', (tester) async {
     await _monta(tester, tier: Tier.free);
-    expect(find.byKey(const Key('sinastria_evolutiva_coppia')), findsOneWidget);
+    // **LA FIGURA DELLA COPPIA E' LA STATUA SUL TAVOLO**, ordine GD voce
+    // GD.18. LAPIDE: `sinastria_evolutiva_coppia`, la coppia piccola accanto
+    // al titolo.
+    expect(find.byKey(const Key('sinastria_evolutiva_statua')), findsOneWidget);
     await _scorriFino(tester, find.byKey(const Key('sinastria_oggi_fra_voi')));
     for (final c in [Capitolo.attrazione, Capitolo.emozioni]) {
       await _scorriFino(
@@ -129,52 +147,56 @@ void main() {
     expect(find.byKey(const Key('sinastria_chiuso_adepto')), findsNothing);
   });
 
+  // **IL LEGAME SI SCEGLIE PRIMA, UNO SOLO**, ordine GD voce GD.16: nella
+  // lettura non ci sono piu' le quattro icone da toccare (la tipologia si
+  // sceglie nella tendina e un'altra tipologia e' una sinastria nuova).
+  // LAPIDE: le tre prove qui sotto toccavano `sinastria_legame_*` nella
+  // lettura; adesso chiedono il legame alla schermata e misurano lo stesso
+  // fatto, lo sbarramento d'eta' e il no del server (FT.04). La riga sobria
+  // del legame chiuso sta nel modulo della tendina, provata in
+  // test/gd_la_sinastria_evolutiva_test.dart.
   testWidgets(
       'lo sbarramento d\'eta\': con una persona di quindici anni il legame '
       'amore resta chiuso e la lettura parte dall\'amicizia', (tester) async {
     // Quindici anni e trecentosessantaquattro giorni al 14 ottobre 2026.
-    await _monta(tester, tier: Tier.tier2, nascitaSua: DateTime(2010, 10, 15));
-    final prima = tester
-        .widget<Text>(find.byKey(const Key('sinastria_titolo_attrazione')))
-        .data;
-    await _scorriFino(tester, find.byKey(const Key('sinastria_legame_amore')));
-    await tester.tap(find.byKey(const Key('sinastria_legame_amore')));
-    await tester.pump();
-    expect(find.byKey(const Key('sinastria_amore_chiuso')), findsOneWidget);
-    expect(
-        find.text('Il legame amore si apre dai sedici anni.'), findsOneWidget);
-    // La lettura non e' cambiata: si legge ancora l'amicizia.
-    expect(
-        tester
-            .widget<Text>(find.byKey(const Key('sinastria_titolo_attrazione')))
-            .data,
-        prima);
+    await _monta(tester,
+        tier: Tier.tier2,
+        nascitaSua: DateTime(2010, 10, 15),
+        legame: Legame.amore);
+    final chiesto = await _titolo(tester);
+    await _monta(tester,
+        tier: Tier.tier2,
+        nascitaSua: DateTime(2010, 10, 15),
+        legame: Legame.amicizia);
+    final amicizia = await _titolo(tester);
+    expect(chiesto, amicizia,
+        reason: 'con quindici anni l\'amore si e\' aperto lo stesso');
   });
 
   testWidgets(
       'il no del server sull\'amore vale anche fra due adulti (FT.04, '
       'la lettura a due telefoni)', (tester) async {
-    await _monta(tester, tier: Tier.tier2, amoreDalServer: false);
-    await _scorriFino(tester, find.byKey(const Key('sinastria_legame_amore')));
-    await tester.tap(find.byKey(const Key('sinastria_legame_amore')));
-    await tester.pump();
-    expect(find.byKey(const Key('sinastria_amore_chiuso')), findsOneWidget,
+    await _monta(tester,
+        tier: Tier.tier2, amoreDalServer: false, legame: Legame.amore);
+    final chiesto = await _titolo(tester);
+    await _monta(tester, tier: Tier.tier2, legame: Legame.amicizia);
+    final amicizia = await _titolo(tester);
+    expect(chiesto, amicizia,
         reason: 'il server ha detto di no e l\'app ha aperto lo stesso');
   });
 
   testWidgets('a sedici anni compiuti l\'amore si apre e cambia la lettura',
       (tester) async {
-    await _monta(tester, tier: Tier.tier2, nascitaSua: DateTime(2010, 10, 14));
-    // Si apre gia' sull'amore: il primo legame, quando e' apribile.
-    final amore = tester
-        .widget<Text>(find.byKey(const Key('sinastria_titolo_attrazione')))
-        .data;
-    await _scorriFino(tester, find.byKey(const Key('sinastria_legame_lavoro')));
-    await tester.tap(find.byKey(const Key('sinastria_legame_lavoro')));
-    await tester.pump();
-    final lavoro = tester
-        .widget<Text>(find.byKey(const Key('sinastria_titolo_attrazione')))
-        .data;
+    await _monta(tester,
+        tier: Tier.tier2,
+        nascitaSua: DateTime(2010, 10, 14),
+        legame: Legame.amore);
+    final amore = await _titolo(tester);
+    await _monta(tester,
+        tier: Tier.tier2,
+        nascitaSua: DateTime(2010, 10, 14),
+        legame: Legame.lavoro);
+    final lavoro = await _titolo(tester);
     expect(lavoro, isNot(amore), reason: 'il legame cambia la lettura (FT.06)');
   });
 }

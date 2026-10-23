@@ -166,6 +166,8 @@ export {
   // La lettura a due telefoni della Sinastria evolutiva, ordine FT.
   condividiLaNascita,
   leggiLaNascita,
+  // La lettura che arriva all'amico del Cerchio, ordine GD voce GD.21.
+  mandaLaSinastria,
   // Il Calendario Lunare, ordine FV voci FV.10 e FV.12: scritte e provate
   // nell'ordine FV ma mai riesportate da qui, il punto che il deploy guarda
   // davvero; trovato il 15 ottobre 2026 dal primo giro di deploy vero del

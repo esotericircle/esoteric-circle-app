@@ -384,7 +384,11 @@ void main() {
       // 2026, per ordine del fondatore e non per condensare: esce la riga
       // "Respiro della Luna: Respiriamo insieme", perche' le funzioni del
       // Respiro condiviso non si pubblicano.
-      expect(PlanCatalog.matrix.length, 66);
+      // SESSANTASETTE dall'ordine GD voce GD.17, 23 ottobre 2026: la riga
+      // della risposta lunga della Sinastria evolutiva
+      // (`RigaDelPiano.sinastriaLunga`), dall'Iniziato in su e solo per la
+      // prima risposta del responso.
+      expect(PlanCatalog.matrix.length, 67);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di
