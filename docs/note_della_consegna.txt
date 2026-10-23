@@ -1,29 +1,11 @@
-Build 2315, ordine GA: le risposte dirette e coerenti delle quattro arti, le stese contate per stesa, la caccia ai difetti dei tester, la Luna piu' grande nel cielo reale, l'Oroscopo che si apre subito, l'ora di nascita che non si richiede piu' a chi l'ha data.
+Build 2316, ordine GC e aggiunta GCA: la Stesa di Tarocchi piu' leggera e senza fascia sotto la barra, l'Oracolo degli Angeli rifatto col filmato nuovo, il livello visivo dei due responsi, la Lunga dell'Oracolo, le undici decisioni delegate.
 
-COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE.
+COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE (Realme, build di rilascio).
 
-La build si accende sul Realme, senza errori nel registro.
+Stesa di Tarocchi. La stesa a dieci carte non scatta piu': memoria grafica da 140 a 96 MB, fotogrammi oltre un decimo di secondo da 16 a 3; letta anche sull'app vera col piano Illuminato attivato in demo, nessuna chiusura. La scena parte dal bordo alto sotto la barra semitrasparente. Saltando il filmato Medora si ferma con la mano al cuore, come alla fine naturale. Domanda scelta e domanda scritta non stanno mai insieme. La singola carta ha il titolo e un solo paragrafo. Sopra il responso le piste dei semi coi simboli dipinti, e ogni carta col messaggio che si apre al tocco.
 
-Le stese dei Tarocchi contano per stesa, non per carta: 1, 3, 3 e 5 al giorno (Viandante, Iniziato, Adepto, Illuminato), non i 6 e 10 che avevi scritto, perche' col 30% dopo provvigioni e IVA 6 stese sforavano oltre il 39%. Se vuoi 6 e 10, serve un prezzo diverso: dimmi tu.
+Oracolo degli Angeli. Il filmato nuovo dura per intero (circa 10 secondi) e lascia il tavolo vuoto. Sotto il tavolo: la domanda con la freccia di invio, una carta o tre e la profondita', il mazzo coi gesti, il pulsante; tutto piu' compatto, cosi' mentre scegli le carte vedi il tavolo dove atterrano. La carta che tocchi vola al suo posto col suo suono. Medora riflette, le carte si girano una alla volta e si alzano con Fare, Sentire, Capire o La carta del momento; toccandone una si apre la sua scheda con numero e nome. Responso come nella Stesa, con la scala di luce e i segni dipinti dei cori. Sfondo cosmico. La stesa a una carta conta come consultazione, e sotto Avvia la lettura c'e' il conto delle consultazioni rimaste oggi. La Lunga si sceglie (dall'Iniziato) e aggiunge due paragrafi solo al responso principale, col riquadro Il salmo propiziatorio.
 
-I responsi delle quattro arti (Oroscopo, Tarocchi, Oracolo degli Angeli, Rune) rispondono subito nella prima frase, con il riquadro "Cosa fare adesso". Letti alla cieca da un lettore indipendente su dodici responsi per arte: Tarocchi 11 su 12, Oracolo 10 su 12, Oroscopo 9 su 12. Le Rune restano il punto piu' debole, 6 su 12: le schede delle singole pietre sono ancora generiche, serve testo scritto per pietra e tipo di domanda, non altri pozzi di voci neutre.
+Altro. Il Maestro dice la Luna piena e nuova nello stesso giorno del Calendario. Il Diario scrive l'anno sopra i mesi e le date in lettere. Il pulsante per chiedere agli altri Maestri non dice piu' "confronto di sinastria". La carta "Hai chiesto a..." si vede dopo un consulto vero a tre.
 
-L'Oracolo degli Angeli si apre senza carte in vista. La Luna nel Cielo Reale si riconosce a colpo d'occhio, piu' grande dei puntini delle stelle. I selettori bloccati della Stesa di Tarocchi (un mazzo o una chiave che il tuo piano non apre) mostrano un invito all'upgrade, mai un vicolo cieco silenzioso: l'avevo segnalato come difetto e poi ho trovato che era un mio errore di verifica, non del codice.
-
-Ventidue testi col contrasto curato (pulsanti pieni d'oro, il dialogo "Ricominciare da zero", il fiore della Meditazione): letti bene sullo schermo.
-
-Pubblicate le funzioni del server per la Croce Celtica (statoDelCerchio, consumaDelGiorno, muoviGliEos), le hai lanciate tu da PowerShell il 21 ottobre.
-
-DA PROVARE TU, PERCHÉ OGGI IO NON HO POTUTO.
-
-L'ora di nascita non si deve piu' chiedere a chi l'ha gia' data: l'account di collaudo non ha l'ora, quindi non ho potuto vederlo sparire a video, solo nella prova automatica.
-
-Le schede delle Rune (il difetto piu' pesante di questo giro): dimmi cosa leggi tu.
-
-I sette animali di terra del Viaggio dello Sciamano (Lince, Volpe, Orso, Lupo, Cavallo, Cervo, Tartaruga) hanno il video nuovo del "si volta": li ho analizzati sui file ma non visti a video, perche' servirebbe azzerare il tuo Diario e non scrivo dati di produzione.
-
-Il filmato della ruota dell'Oroscopo dura circa 9 secondi prima del contenuto: se lo vuoi piu' corto, dimmelo.
-
-Le due date della Luna (Calendario degli eventi contro Respiro della Luna e Collana) restano diverse, una e' la finestra che comincia e l'altra il picco esatto: quale preferisci?
-
-Il resto dei difetti aperti e delle decisioni che ti aspettano sono nel rapporto dell'ordine, docs/ordini/RAPPORTO_ORDINE_GA.md.
+Nota: nella demo l'Illuminato attivato dai piani non resta dopo una reinstallazione dell'app: va riattivato.

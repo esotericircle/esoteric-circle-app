@@ -21,8 +21,8 @@ simulazione; GC.20, la consegna, si chiude col verde di GitHub sul commit
 finale.
 
 VOCI_TOTALI: 32
-VOCI_CHIUSE: 31
-VOCI_APERTE: 1
+VOCI_CHIUSE: 32
+VOCI_APERTE: 0
 VOCI_DA_FARE: 0
 VOCI_PREMESSA_CADUTA: 0
 VOCI_DIVIETO: 0
@@ -275,7 +275,7 @@ MISURA: paragrafi del principale nella Lunga da 2 a 4, delle singole carte 1; al
 
 ## VOCE GC.20
 
-**APERTA IN ATTESA DI VERIFICA.** Manifesto, guardia del manifesto
+**CHIUSA.** Consegnata il 23 ottobre 2026 la build 2316 dal commit `c82c3720`, verde di GitHub (`refs/verde/c82c37209200ddb7934f145cf4e8f22f8c1b1958`), release `1ne3h8ddl2kvo`, distribuita a cloud@esotericircle.app e accettata, su ordine del fondatore in chat (*"Alla fine dell'ordine, tutte le voci nessuna eccezione, consegna nuova build"*). Manifesto, guardia del manifesto
 (`test/ordine_gc_guard_test.dart`), rapporto, STATO_VIVO, registro delle
 guardie (887) e CLAUDE.md con le regole permanenti di GC.05, GC.06 e GC.18,
 GC.11 e GC.19. Le voci da GC.01 a GC.05 sono state eseguite in quest'ordine:
@@ -284,9 +284,8 @@ tester.
 
 DOMANDA: "Consegna solo col verde di GitHub (verde.yml)."
 PROVA: `docs/ordini/RAPPORTO_ORDINE_GC.md`
-MISURA: voci del manifesto 20 su 20; guardie nuove 4, viste rosse 4; innesti della Regola A 23, rossi 23
+MISURA: voci chiuse da 0 a 32 su 32; guardie nuove 5, viste rosse 5; innesti della Regola A 27, rossi 27; build consegnate 1 (2316), accettate 1
 
-ASPETTA: il verde di GitHub sul commit consegnato e la build ai tester, che il fondatore ha chiesto in chat la stessa sera: *"Alla fine dell'ordine, tutte le voci nessuna eccezione, consegna nuova build"*.
 
 ## VOCE GCA.01
 

@@ -8016,14 +8016,15 @@ consulto dal vivo).
 
 ## L'ORDINE GC, I CINQUE DIFETTI DELLA STESA DI TAROCCHI, LE CORREZIONI DELL'ORACOLO DEGLI ANGELI, IL LIVELLO VISIVO DEI DUE RESPONSI E LA PROFONDITÀ LUNGA (22 ottobre 2026)
 
-**In consegna sul ramo canonico `claude/esoteric-circle-master-order-e798aj`**,
+**Consegnato sul ramo canonico `claude/esoteric-circle-master-order-e798aj`**,
 partito dalla testa `55323422` (verde). Testo dell'ordine alla lettera:
 `docs/ordini/ORDINE_GC_TESTO.md`. Manifesto: `docs/ordini/ORDINE_GC_MANIFESTO.md`
 (venti voci, GC.01 a GC.20). Rapporto: `docs/ordini/RAPPORTO_ORDINE_GC.md`.
-**Diciannove voci CHIUSE, una APERTA IN ATTESA DI VERIFICA**: GC.20, la
-consegna, che si chiude col verde di GitHub e la build ai tester chiesta dal
-fondatore (*"Alla fine dell'ordine, tutte le voci nessuna eccezione,
-consegna nuova build"*). GC.01 e' chiusa col banco per decisione del
+**Consegnato: tutte le 32 voci CHIUSE** (GC.01-GC.20 e GCA.01-GCA.12).
+**Build 2316** dal commit `c82c3720`, verde di GitHub, release App
+Distribution `1ne3h8ddl2kvo`, distribuita a cloud@esotericircle.app e
+accettata, come chiesto dal fondatore (*"Alla fine dell'ordine, tutte le voci
+nessuna eccezione, consegna nuova build"*). GC.01 e' chiusa col banco per decisione del
 fondatore e misurata anche sull'app vera, con l'Illuminato attivato in demo
 dalla pagina dei piani (`docs/collaudo/GC/gc01_app_vera.txt`); GC.12 e GC.14
 sono state viste sul Realme la stessa sera. **Nella demo l'Illuminato si
