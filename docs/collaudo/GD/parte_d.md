@@ -139,7 +139,7 @@ PADRE: nessun difetto (funzione nuova sui testi dell'ordine FT voce FT.09).
 - `la_scena_della_sinastria_e_un_filmato_test.dart`: si scorre fino ai nomi, sotto la scena a tutto schermo.
 - `functions/src/sociale.test.ts`: le porte sociali sono 36 (la nuova `mandaLaSinastria`).
 
-Verdi in locale: le prove della zona (le 13 della Sinastria, le 3 nuove, 18 + 2 + 3 prove nuove) e le guardie di casa che scorrono `lib` (186 file) piu' le prove che nominano piano, Cerchio, amici e attesa (71 file): l'esito e' scritto in fondo.
+Esito in locale (mai la suite intera): le 14 prove della Sinastria verdi (73 casi), le 3 prove nuove verdi (16 + 2 + 3 casi, piu' 4 del server, 82 su 82 con `sociale.test.ts` e `cerchio.test.ts`). Le guardie di casa che scorrono `lib` (186 file) e le prove che nominano piano, Cerchio, amici e attesa (71 file): al primo giro rosse 8, tutte del lavoro di questa parte e tutte curate (la virgola prima di "e" in una stringa della tendina, due decimali scritti senza la lingua, la freccia in giu' decorativa della riga viva, la schermata ricevuta non classificata per la barra, due paragrafi della Lunga e la riga viva fuori da `ParagrafiDiLettura`, la matrice dei piani a 67), rifatte verdi; resta rossa solo `il_registro_delle_guardie_quadra` finche' la sessione principale non registra la guardia gd20 in `docs/guardie.md` (file che la parte d non tocca).
 
 ## LE GUARDIE NUOVE
 
