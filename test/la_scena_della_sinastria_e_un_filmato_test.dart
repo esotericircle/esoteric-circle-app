@@ -275,6 +275,13 @@ void main() {
   testWidgets('gli aspetti veri entrano nella schermata', (tester) async {
     final finta = _Finta();
     await _monta(tester, lettori: [finta]);
+    // Dall'ordine GD voce GD.13 la scena copre tutto lo schermo e la lettura
+    // comincia sotto: si scorre fino ai nomi.
+    finta.finisci();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('sinastria_evolutiva_nomi')), 300,
+        scrollable: find.byType(Scrollable).first);
     expect(find.byKey(const Key('sinastria_evolutiva_nomi')), findsOneWidget);
     expect(find.textContaining('Giulia'), findsWidgets);
   });

@@ -11,9 +11,8 @@ import '../maestri/rotta_arte.dart';
 import '../pricing/upgrade_invite.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/synastry_evolutiva/cielo_evolutivo.dart';
-import '../../design_system/theme/maestro_palette.dart';
+import '../../core/synastry_evolutiva/le_coppie_scoperte.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
-import 'la_nascita_dell_altra_persona.dart';
 import 'lo_studio_di_medora.dart';
 import 'sinastria_evolutiva_screen.dart';
 
@@ -35,6 +34,13 @@ import 'sinastria_evolutiva_screen.dart';
 /// ([SinastriaEvolutivaScreen.chiediLaPersona]), e qui resta il conto delle
 /// coppie nuove (FT.13). Se la persona ci ripensa, resta sulla scena con la
 /// scelta: nessuna lettura a meta', nessun vicolo cieco.
+///
+/// **LA TENDINA, ORDINE GD VOCE GD.14**: la persona si sceglie dalla tendina
+/// che sale sopra la scena, e qui resta solo il conto
+/// ([SinastriaEvolutivaScreen.laCoppiaSiConta]). **Una coppia gia' scoperta
+/// col suo legame si rilegge senza consumare** (GD.22, [LeCoppieScoperte]);
+/// la stessa persona con un altro legame e' una sinastria nuova e si conta
+/// come una coppia nuova (GD.16).
 class AvvioSinastriaEvolutiva extends StatelessWidget {
   const AvvioSinastriaEvolutiva({
     super.key,
@@ -76,32 +82,32 @@ class AvvioSinastriaEvolutiva extends StatelessWidget {
       nomeTuo: 'Tu',
       cieloTuo: CieloEvolutivo.perIdentita(identitaTua, nome: 'Tu'),
       fabbricaDellaScena: fabbricaDellaScena,
-      chiediLaPersona: _chiedi,
+      nomeSuggerito: nomeSuggerito,
+      laCoppiaSiConta: _conta,
     );
   }
 
-  Future<PersonaDellaSinastria?> _chiedi(BuildContext context) async {
-    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    final altra = await LaNascitaDellAltraPersona.chiedi(context, palette,
-        nomeIniziale: nomeSuggerito);
-    if (altra == null || !context.mounted) return null;
+  Future<bool> _conta(
+      BuildContext context, SceltaDellaSinastria scelta) async {
+    // **LA COPPIA GIA' SCOPERTA SI RILEGGE SENZA CONSUMARE**, ordine GD voce
+    // GD.22: stessa persona, stesso cielo, stesso legame.
+    final impronta =
+        LeCoppieScoperte.impronta(scelta.nome, scelta.cielo, scelta.legame);
+    if (await LeCoppieScoperte.giaScoperta(impronta)) return true;
+    if (!context.mounted) return false;
     // **LA COPPIA NUOVA SI CONTA**, ordine FT voce FT.13, e si conta qui,
-    // alla prima lettura: chi riapre dal Diario rilegge cio' che ha gia'
-    // avuto. Finche' il server non porta il budget nel listino non si conta
-    // niente (`QuestionAllowance.contaLeSinastrieEvolutive`).
+    // alla prima lettura. Finche' il server non porta il budget nel listino
+    // non si conta niente (`QuestionAllowance.contaLeSinastrieEvolutive`).
     final borsa = _forse<QuestionAllowance>(context);
     final tier = _forse<EntitlementService>(context)?.tier ?? Tier.free;
     if (borsa != null && !borsa.puoiLeggereUnaCoppiaNuova(tier)) {
       await _leCoppieDiOggiSonoFinite(context, borsa);
-      if (!context.mounted) return null;
-      if (!borsa.puoiLeggereUnaCoppiaNuova(tier)) return null;
+      if (!context.mounted) return false;
+      if (!borsa.puoiLeggereUnaCoppiaNuova(tier)) return false;
     }
     borsa?.registraSinastriaEvolutiva(tier);
-    return (
-      nome: altra.nome,
-      cielo: altra.cielo,
-      amoreDalServer: altra.amoreDalServer,
-    );
+    await LeCoppieScoperte.segna(impronta);
+    return true;
   }
 
   /// **MAI UN VICOLO CIECO**: le coppie nuove del giorno finite aprono

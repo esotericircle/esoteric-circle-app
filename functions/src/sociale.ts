@@ -1254,6 +1254,8 @@ export const TETTI_DELLE_PORTE: Record<string, {quante: number; finestraMs: numb
   // La lettura a due telefoni della Sinastria evolutiva, ordine FT.
   condividiLaNascita: {quante: 30, finestraMs: 60 * 60 * 1000},
   leggiLaNascita: {quante: 30, finestraMs: 60 * 60 * 1000},
+  // La lettura che arriva all'amico del Cerchio, ordine GD voce GD.21.
+  mandaLaSinastria: {quante: 30, finestraMs: 60 * 60 * 1000},
   // Il Calendario Lunare, ordine FV voci FV.10 e FV.12.
   proponiGiornoInsieme: {quante: 30, finestraMs: 60 * 60 * 1000},
   rispondiAlGiorno: {quante: 120, finestraMs: 60 * 60 * 1000},

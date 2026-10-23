@@ -17,7 +17,9 @@ import {
   creaConsenso,
   esitoDellaLettura,
   giornoDa,
+  laSinastriaSiConsegna,
   nascitaDaCorpo,
+  sinastriaDaCorpo,
 } from "./sinastria_evolutiva";
 import {Piano, pianoValido} from "./budget";
 import {confineDellaPresenza} from "./presenza";
@@ -1019,7 +1021,7 @@ export const ilMioCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
     chiaveDelGiorno());
   // I segni e i doni recenti viaggiano con il Cerchio: il telefono legge
   // tutto da questa porta, senza una seconda strada sullo stesso dato.
-  const [segniSnap, doniSnap, giorniInsiemeSnap] = await Promise.all([
+  const [segniSnap, doniSnap, giorniInsiemeSnap, sinastrieSnap] = await Promise.all([
     utente(uid).collection("segni").orderBy("quando", "desc").limit(40).get(),
     utente(uid).collection("doni").orderBy("quando", "desc").limit(40).get(),
     // **TROVA IL GIORNO INSIEME, ordine FV voce FV.10.** Le proposte che la
@@ -1027,6 +1029,9 @@ export const ilMioCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
     // sola porta per tutto il Cerchio, mai una seconda strada sullo stesso
     // dato. SCRITTA E NON PUBBLICATA (R3 dell'ordine).
     utente(uid).collection("giorni_insieme").orderBy("quando", "desc").limit(40).get(),
+    // **LE SINASTRIE RICEVUTE, ordine GD voce GD.21**: dalla stessa porta,
+    // come i doni. SCRITTA E NON PUBBLICATA (R3 dell'ordine GD).
+    utente(uid).collection("sinastrie").orderBy("quando", "desc").limit(20).get(),
   ]);
   const nomeDi = (u: string) => perUid.get(u)?.nome ?? null;
   const iconaDi = (u: string) => perUid.get(u)?.icona ?? null;
@@ -1047,6 +1052,12 @@ export const ilMioCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
       // La carta degli Angeli porta il suo numero, ordine FU voce FU.09.
       return {id: d.id, dono: s.dono ?? null, da, nomeDa: nomeDi(da),
         quando: s.quando ?? null, carta: cartaDegliAngeli(s.carta)};
+    }),
+    sinastrie: sinastrieSnap.docs.map((d) => {
+      const s = d.data();
+      const da = String(s.da ?? "");
+      return {id: d.id, da, nomeDa: nomeDi(da), quando: s.quando ?? null,
+        responso: s.responso ?? null};
     }),
     proposteDiGiorno: giorniInsiemeSnap.docs.map((d) => {
       const s = d.data();
@@ -2157,6 +2168,54 @@ export const mandaUnDono = onCall(OPZIONI_SOCIALI, async (request) => {
     const nomi: Record<string, string> = {cenno: "un cenno", scintilla: "una scintilla",
       sigillo: "un sigillo", angelo: "una carta degli Angeli"};
     if (io !== null) await avvisa(a, `${io.nome} ti ha mandato ${nomi[dono]}`, "dono");
+  }
+  return esito;
+});
+
+/**
+ * LA LETTURA ARRIVA ANCHE ALL'AMICO DEL CERCHIO, ordine GD voce GD.21, 23
+ * ottobre 2026. Chi ha letto la sinastria con un amico del Cerchio gliela
+ * consegna: lo stesso responso, coi soli campi di un responso
+ * (`sinastriaDaCorpo`, nessun dato di nascita), nella sua raccolta
+ * `sinastrie`, e un avviso "il vostro cielo e' stato letto". Solo fra amici,
+ * mai fra chi si e' bloccato (`laSinastriaSiConsegna`); l'identificativo del
+ * movimento rende innocuo il doppio tocco. Non costa niente e non conta
+ * niente: la lettura l'ha gia' contata chi legge. SCRITTA E NON PUBBLICATA
+ * (R3 dell'ordine): il comando sta nel rapporto.
+ */
+export const mandaLaSinastria = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "mandaLaSinastria");
+  const a = String(request.data?.a ?? "");
+  const id = String(request.data?.idMovimento ?? "").trim();
+  if (id.length < 8 || id.length > 200) {
+    throw new HttpsError("invalid-argument", "Ogni lettura porta il suo identificativo.");
+  }
+  const responso = sinastriaDaCorpo(request.data?.responso);
+  if (responso === null) throw new HttpsError("invalid-argument", "Il responso non è intero.");
+  if (a.length === 0 || a === uid) throw new HttpsError("invalid-argument", "Persona sconosciuta.");
+  const esito = await db().runTransaction(async (tx) => {
+    const doc = utente(a).collection("sinastrie").doc(`${uid}-${id}`);
+    const gia = await tx.get(doc);
+    const legame = legameDa((await tx.get(legameDi(uid, a))).data());
+    const blocchi = (await tx.get(statoDi(uid, "blocchi"))).data() ?? {};
+    if (gia.exists) return {ok: true, perche: null, gia: true};
+    const decisione = laSinastriaSiConsegna({
+      da: uid, a,
+      amici: legame?.stato === "amici",
+      bloccati: elenco(blocchi.bloccati).includes(a) || elenco(blocchi.bloccatoDa).includes(a),
+    });
+    if (!decisione.ok) {
+      return {ok: false, perche: decisione.perche, gia: false,
+        riga: decisione.perche === "nonAmici" ?
+          "La lettura arriva solo agli amici del Cerchio." : null};
+    }
+    tx.set(doc, {da: uid, quando: Date.now(), responso});
+    return {ok: true, perche: null, gia: false};
+  });
+  if (esito.ok && !esito.gia) {
+    const io = await schedaPubblica(uid);
+    if (io !== null) await avvisa(a, `${io.nome}: il vostro cielo è stato letto`, "sinastria");
   }
   return esito;
 });

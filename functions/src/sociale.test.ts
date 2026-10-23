@@ -477,8 +477,10 @@ test("EY.16 GUARDIA: ogni porta del motore sociale ha il suo tetto", () => {
   // respiroInsiemeConteggio, invitaCollanaADue, rispondiCollanaADue,
   // segnalaRespiroDelGiornoPerLaCollanaADue, leCollaneADue). 35 dall'ordine
   // FX aggiunta FXA.03: ricuciUnaPerlaDelRespiro, la ricucitura vera di una
-  // perla della collana delle lune, che spende Eos in transazione.
-  assert.equal(nomi.length, 35);
+  // perla della collana delle lune, che spende Eos in transazione. 36
+  // dall'ordine GD voce GD.21: mandaLaSinastria, la lettura che arriva
+  // all'amico del Cerchio.
+  assert.equal(nomi.length, 36);
   assert.deepEqual(senza, []);
   assert.deepEqual(nomi.sort(), Object.keys(TETTI_DELLE_PORTE).sort());
   // E App Check resta spento, come dichiara la premessa P9.
@@ -521,8 +523,9 @@ test("EZ.04 la soglia dei quattordici anni: ogni porta sociale tranne quella che
   // 24 dall'ordine FT, con le due porte della lettura a due telefoni. 28
   // dall'ordine FV, con le quattro porte del Calendario Lunare. 34
   // dall'ordine FX, con le sei porte del Respiro della Luna. 35 dall'ordine
-  // FX aggiunta FXA.03, con la ricucitura vera di una perla.
-  assert.equal(porte.length, 35);
+  // FX aggiunta FXA.03, con la ricucitura vera di una perla. 36 dall'ordine
+  // GD voce GD.21, con la lettura che arriva all'amico del Cerchio.
+  assert.equal(porte.length, 36);
   const aperteSotto = porte.filter((p) => sogliaDellEtaPassata(p, false) ||
     sogliaDellEtaPassata(p, undefined));
   console.log(`EZ.04 LE PORTE APERTE SOTTO I QUATTORDICI ANNI: ${aperteSotto}`);

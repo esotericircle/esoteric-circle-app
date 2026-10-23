@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import '../scene/la_scena_in_video.dart';
@@ -83,6 +85,71 @@ class GeometriaDelloStudio {
       medoraNellImmagine.height * s,
     );
   }
+
+  /// **LA SCENA A TUTTO SCHERMO**, ordine GD voce GD.13, 23 ottobre 2026. Il
+  /// fondatore: *"Video introduzione bello, ma è tagliato per fare spazio a
+  /// testo e pulsante, ma perché è tagliato? Il video copre tutta l'area del
+  /// telefono e sopra testi e pulsante"*. Il taglio della scena (lo stesso
+  /// riquadro del video, 688 per 1223 pixel dello sfondo) copre lo schermo
+  /// [schermo] come un `BoxFit.cover`: la scala e' la piu' grande delle due,
+  /// e cio' che avanza si toglie in parti uguali dai due lati (a 360 per 800,
+  /// quarantacinque punti per lato; sui telefoni piu' larghi che alti di
+  /// 688 su 1223, in alto e in basso). Restituisce la scala in punti per
+  /// pixel e l'origine del taglio sullo schermo.
+  static ({double scala, Offset origine}) aTuttoSchermo(Size schermo) {
+    final s = math.max(
+        schermo.width / immagine.width, schermo.height / altoDelTaglio);
+    return (
+      scala: s,
+      origine: Offset((schermo.width - immagine.width * s) / 2,
+          (schermo.height - altoDelTaglio * s) / 2),
+    );
+  }
+
+  /// **IL PIXEL DELLA TESTA DI MEDORA**, nello sfondo: dove la testa comincia
+  /// (misurato sulla posa, 403; il rettangolo delle pose comincia a 392,1 con
+  /// l'aria sopra i capelli). La domanda della GD.13 sta sopra di lui.
+  static const double testaDiMedora = 403;
+
+  /// **IL TAVOLO DI MEDORA**, ordine GD voce GD.18: il centro del piano
+  /// scuro del tavolo nello sfondo (il disco fra il bordo d'oro, da 70 a 620
+  /// in larghezza, da 900 a 1110 in altezza), dove la statua posa la base.
+  static const Offset baseDellaStatua = Offset(345, 1045);
+
+  /// L'altezza della statua sul tavolo, in pixel dello sfondo: dalla base
+  /// fino a sotto il viso di Medora (che finisce intorno a 530), cosi' la
+  /// statua e' grande e Medora resta in vista dietro di lei.
+  static const double altezzaDellaStatua = 500;
+
+  /// Il rettangolo della statua nello sfondo, per un'immagine di misura
+  /// [misura] (le statue sono gia' ritagliate alla figura).
+  static Rect statuaNellImmagine(Size misura) {
+    final larga = altezzaDellaStatua * misura.width / misura.height;
+    return Rect.fromLTWH(baseDellaStatua.dx - larga / 2,
+        baseDellaStatua.dy - altezzaDellaStatua, larga, altezzaDellaStatua);
+  }
+
+  /// **LE DODICI STATUE**, una per segno della relazione: le coppie dipinte
+  /// del fondatore scontornate da `tool/scontorna_le_statue_della_sinastria.py`
+  /// (GD.18), con la loro misura in pixel dopo il ritaglio alla figura.
+  static const Map<String, Size> statue = {
+    'ariete': Size(664, 987),
+    'toro': Size(682, 978),
+    'gemelli': Size(693, 996),
+    'cancro': Size(520, 1079),
+    'leone': Size(613, 1057),
+    'vergine': Size(632, 977),
+    'bilancia': Size(670, 991),
+    'scorpione': Size(522, 973),
+    'sagittario': Size(590, 1034),
+    'capricorno': Size(519, 974),
+    'acquario': Size(560, 956),
+    'pesci': Size(725, 936),
+  };
+
+  /// Il file della statua del segno [segno] (il nome italiano minuscolo).
+  static String statua(String segno) =>
+      'assets/img/sinastria/statua_${segno}_v1.webp';
 }
 
 /// **IL VIDEO DELLA SCENA DELLA SINASTRIA.** Ordine FT voce FT.02.
@@ -278,14 +345,29 @@ class _LettoreDellaScenaSinastriaVero implements LettoreDellaScenaSinastria {
 /// **LA SCENA**: lo sfondo tagliato e Medora, ferma o nel video.
 ///
 /// Non porta carte ne' un piano: la Sinastria evolutiva mostra qui solo
-/// la scena, e il contenuto della lettura sta sotto, nella schermata che la
-/// monta (come "Scegli la tua stesa" sta sotto il tavolo della Stesa).
+/// la scena, e il contenuto della lettura sta sotto o sopra, nella schermata
+/// che la monta.
+///
+/// **A TUTTO SCHERMO**, ordine GD voce GD.13: con [altezza] la scena copre
+/// tutto il rettangolo largo quanto il genitore e alto [altezza], come un
+/// `BoxFit.cover` ([GeometriaDelloStudio.aTuttoSchermo]); senza, e' alta
+/// quanto il taglio a quella larghezza, come prima. Lo sfondo, il video,
+/// Medora e la statua usano la stessa scala e la stessa origine: restano
+/// allineati in ogni forma dello schermo.
+///
+/// **LA STATUA SUL TAVOLO**, ordine GD voce GD.18: con [statua] (il segno
+/// della relazione) la figura dipinta e scontornata compare grande sul
+/// tavolo di Medora, in dissolvenza quando [statuaVisibile] diventa vero.
 class LoStudioDiMedora extends StatelessWidget {
   const LoStudioDiMedora({
     super.key,
     this.posa = GeometriaDelloStudio.posaDelleManiAperte,
     this.filmato,
     this.filmatoSaltato = false,
+    this.altezza,
+    this.statua,
+    this.statuaVisibile = true,
+    this.riduciMovimento = false,
   });
 
   /// La posa di Medora quando la scena e' ferma.
@@ -299,18 +381,48 @@ class LoStudioDiMedora extends StatelessWidget {
   /// e la posa ferma appare al suo posto, in dissolvenza incrociata.
   final bool filmatoSaltato;
 
+  /// L'altezza della scena a tutto schermo (GD.13); nulla, quella del taglio.
+  final double? altezza;
+
+  /// Il segno della relazione (il nome italiano minuscolo) della statua sul
+  /// tavolo (GD.18); nullo, nessuna statua.
+  final String? statua;
+  final bool statuaVisibile;
+
+  /// Con Riduci Movimento la statua c'e' gia', senza dissolvenza.
+  final bool riduciMovimento;
+
+  static const Duration dissolvenzaDellaStatua = Duration(milliseconds: 900);
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, vincoli) {
       final w = vincoli.maxWidth;
-      final s = GeometriaDelloStudio.scala(w);
-      final alta = GeometriaDelloStudio.altezza(w);
-      final medora = GeometriaDelloStudio.medora(w);
+      final schermo = altezza;
+      final double s;
+      final Offset o;
+      if (schermo == null) {
+        s = GeometriaDelloStudio.scala(w);
+        o = Offset.zero;
+      } else {
+        final g = GeometriaDelloStudio.aTuttoSchermo(Size(w, schermo));
+        s = g.scala;
+        o = g.origine;
+      }
+      final alta = schermo ?? GeometriaDelloStudio.altezza(w);
+      Rect nelloSchermo(Rect r) => Rect.fromLTWH(
+          o.dx + r.left * s, o.dy + r.top * s, r.width * s, r.height * s);
+      final medora = nelloSchermo(GeometriaDelloStudio.medoraNellImmagine);
+      final misuraDellaStatua =
+          statua == null ? null : GeometriaDelloStudio.statue[statua];
+      final altoDelFilmato =
+          (ScenaDellaSinastriaInVideo.sotto - ScenaDellaSinastriaInVideo.sopra) *
+              s;
       return SizedBox(
         width: w,
         height: alta,
         child: Stack(
-          clipBehavior: Clip.none,
+          clipBehavior: Clip.hardEdge,
           children: [
             Positioned(
               left: 0,
@@ -324,13 +436,13 @@ class LoStudioDiMedora extends StatelessWidget {
                     Positioned.fill(
                       child: OverflowBox(
                         alignment: Alignment.topLeft,
-                        minWidth: w,
-                        maxWidth: w,
+                        minWidth: GeometriaDelloStudio.immagine.width * s,
+                        maxWidth: GeometriaDelloStudio.immagine.width * s,
                         minHeight: GeometriaDelloStudio.immagine.height * s,
                         maxHeight: GeometriaDelloStudio.immagine.height * s,
                         child: Transform.translate(
-                          offset:
-                              Offset(0, -GeometriaDelloStudio.taglioInAlto * s),
+                          offset: Offset(o.dx,
+                              o.dy - GeometriaDelloStudio.taglioInAlto * s),
                           child: Image.asset(GeometriaDelloStudio.sfondo,
                               key: const Key('studio_sfondo'),
                               fit: BoxFit.fill,
@@ -348,26 +460,21 @@ class LoStudioDiMedora extends StatelessWidget {
                       Positioned.fill(
                         child: OverflowBox(
                           alignment: Alignment.topLeft,
-                          minWidth: w,
-                          maxWidth: w,
-                          minHeight: (ScenaDellaSinastriaInVideo.sotto -
-                                  ScenaDellaSinastriaInVideo.sopra) *
-                              s,
-                          maxHeight: (ScenaDellaSinastriaInVideo.sotto -
-                                  ScenaDellaSinastriaInVideo.sopra) *
-                              s,
+                          minWidth: GeometriaDelloStudio.immagine.width * s,
+                          maxWidth: GeometriaDelloStudio.immagine.width * s,
+                          minHeight: altoDelFilmato,
+                          maxHeight: altoDelFilmato,
                           child: Transform.translate(
                             offset: Offset(
-                                0,
-                                (ScenaDellaSinastriaInVideo.sopra -
-                                        GeometriaDelloStudio.taglioInAlto) *
-                                    s),
+                                o.dx,
+                                o.dy +
+                                    (ScenaDellaSinastriaInVideo.sopra -
+                                            GeometriaDelloStudio.taglioInAlto) *
+                                        s),
                             child: SizedBox(
                               key: const Key('studio_filmato'),
-                              width: w,
-                              height: (ScenaDellaSinastriaInVideo.sotto -
-                                      ScenaDellaSinastriaInVideo.sopra) *
-                                  s,
+                              width: GeometriaDelloStudio.immagine.width * s,
+                              height: altoDelFilmato,
                               child: IlFilmatoCheSfuma(
                                   saltato: filmatoSaltato, child: filmato!),
                             ),
@@ -387,6 +494,25 @@ class LoStudioDiMedora extends StatelessWidget {
                       key: const Key('studio_medora'),
                       fit: BoxFit.contain,
                       filterQuality: FilterQuality.medium),
+                ),
+              ),
+            if (misuraDellaStatua != null)
+              Positioned.fromRect(
+                rect: nelloSchermo(
+                    GeometriaDelloStudio.statuaNellImmagine(misuraDellaStatua)),
+                child: IgnorePointer(
+                  child: AnimatedOpacity(
+                    opacity: statuaVisibile ? 1 : 0,
+                    duration: riduciMovimento
+                        ? Duration.zero
+                        : dissolvenzaDellaStatua,
+                    curve: Curves.easeOut,
+                    child: Image.asset(
+                        GeometriaDelloStudio.statua(statua!),
+                        key: const Key('sinastria_evolutiva_statua'),
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.medium),
+                  ),
                 ),
               ),
           ],

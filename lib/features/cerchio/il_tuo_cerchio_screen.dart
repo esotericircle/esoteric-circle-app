@@ -1,3 +1,4 @@
+import '../synastry/la_sinastria_ricevuta_screen.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -172,6 +173,27 @@ class _IlTuoCerchioScreenState extends State<IlTuoCerchioScreen>
                     label: Text('Gli Enigmi del Cerchio',
                         style: TypographyTokens.etichetta()),
                   ),
+                  // **IL VOSTRO CIELO E' STATO LETTO**, ordine GD voce GD.21:
+                  // le sinastrie che gli amici hanno letto con te.
+                  if (c.sinastrie.isNotEmpty) ...[
+                    const _Titolo('Il vostro cielo è stato letto'),
+                    for (final r in c.sinastrie)
+                      ListTile(
+                        key: Key('cerchio_sinastria_${r.id}'),
+                        enableFeedback: false,
+                        contentPadding: EdgeInsets.zero,
+                        leading: Icon(Icons.auto_awesome_rounded,
+                            color: palette.goldSoft),
+                        title: Text('${r.nomeDa} ha letto il vostro cielo',
+                            style: TypographyTokens.titoloScheda()
+                                .copyWith(color: palette.goldSoft)),
+                        subtitle: Text('Tocca per leggerlo',
+                            style: TypographyTokens.didascalia()
+                                .copyWith(color: ColorTokens.textSecondary)),
+                        onTap: () => Navigator.of(context)
+                            .push(LaSinastriaRicevutaScreen.route(r)),
+                      ),
+                  ],
                   if (c.ricevuti.isNotEmpty) ...[
                     const _Titolo('Ti cercano'),
                     for (final p in c.ricevuti)

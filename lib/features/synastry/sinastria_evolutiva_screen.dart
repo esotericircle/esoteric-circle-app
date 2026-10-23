@@ -4,8 +4,10 @@ import '../scene/la_scena_in_video.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/amici/amici_offline.dart';
 import '../../core/astro/il_segno_del_cielo.dart';
 import '../../core/astro/meeus/corpo_celeste.dart';
+import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
 import '../../core/entitlement/tier.dart';
@@ -18,10 +20,14 @@ import '../../core/synastry_evolutiva/cielo_evolutivo.dart';
 import '../../core/synastry_evolutiva/il_composito_e_keplero.dart';
 import '../../core/synastry_evolutiva/il_corpus_della_sinastria_evolutiva.g.dart';
 import '../../core/synastry_evolutiva/la_lettura_evolutiva.dart';
+import '../../core/synastry_evolutiva/la_lunga_della_sinastria.dart';
+import '../../core/synastry_evolutiva/la_sinastria_condivisa.dart';
+import '../../core/synastry_evolutiva/le_barre_della_sinastria.dart';
 import '../../core/synastry_evolutiva/legame_e_eta.dart';
 import '../../core/synastry_evolutiva/oggi_e_il_momento.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/il_responso_in_tre_paragrafi.dart';
+import '../../design_system/components/riquadro_in_evidenza.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/components/titolo_del_responso.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -37,8 +43,13 @@ import '../pricing/upgrade_invite.dart';
 import '../respiro_della_luna/i_comandi_dipinti.dart';
 import '../ricordi/azioni_del_responso.dart';
 import '../sigilli/regia_del_cammino.dart';
+import '../tarot/attesa_di_medora.dart';
+import 'il_grafico_delle_barre.dart';
 import 'il_ritratto_della_coppia.dart';
+import 'la_tendina_della_sinastria.dart';
 import 'lo_studio_di_medora.dart';
+
+export 'la_tendina_della_sinastria.dart' show SceltaDellaSinastria;
 
 /// **LA SINASTRIA EVOLUTIVA.** Ordine FT, 14 ottobre 2026.
 ///
@@ -52,12 +63,24 @@ import 'lo_studio_di_medora.dart';
 ///
 /// **SI APRE SULLA SCENA, ANCHE SENZA L'ALTRA PERSONA.** Ordine FY voce
 /// FY.11, 16 ottobre 2026. Il fondatore: *"La sinastria evolutiva inizia con
-/// una schermata nera e le funzioni social, niente altro"*. Il ponte
-/// dell'ordine FT voce FT.14 chiedeva la nascita dell'altra persona prima di
-/// aprire questa schermata, su un fondo nero. Adesso la schermata si apre
-/// subito con lo studio di Medora e il suo video, e sotto, a scena ferma,
-/// c'e' la scelta della persona ([chiediLaPersona]); data la nascita, la
+/// una schermata nera e le funzioni social, niente altro"*. La schermata si
+/// apre subito con lo studio di Medora e il suo video; data la nascita, la
 /// lettura compare qui, sotto la stessa scena, senza un secondo video.
+///
+/// **RIFATTA CON CURA, ORDINE GD PARTE D**, 23 ottobre 2026. Il giudizio del
+/// fondatore sulla funzione com'era: *"SEMPLICEMENTE FA CAGARE"*.
+/// - GD.13: il video copre tutto lo schermo, sopra stanno la domanda sopra
+///   la testa di Medora e il solo pulsante in basso;
+/// - GD.14-GD.17: il pulsante apre la tendina che sale, semitrasparente, un
+///   passo alla volta ([LaTendinaDellaSinastria]): online o offline, la
+///   persona, il modulo della nascita, il legame, Breve o Lunga;
+/// - GD.18: "Scopri la compatibilità", la riflessione di Medora (la stessa
+///   scena della Stesa e dell'Oracolo, [AttesaDiMedora]) e la statua del
+///   segno della relazione, grande e scontornata, sul tavolo;
+/// - GD.19: le barre dell'infografica subito dopo il titolo, e in ogni
+///   bolla le sue, dello stesso tipo ([IlGraficoDelleBarre]);
+/// - GD.21: con un amico del Cerchio la lettura arriva anche a lui;
+/// - GD.22: la riga viva di oggi sulla scheda della coppia.
 class SinastriaEvolutivaScreen extends StatefulWidget {
   const SinastriaEvolutivaScreen({
     super.key,
@@ -65,7 +88,12 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
     required this.cieloTuo,
     this.nomeSuo,
     this.cieloSuo,
+    this.legame,
+    this.profondita = ProfonditaDellaSinastria.breve,
     this.chiediLaPersona,
+    this.laCoppiaSiConta,
+    this.nomeSuggerito,
+    this.amici,
     this.fabbricaDellaScena,
     this.oggi,
     this.amoreDalServer,
@@ -76,16 +104,36 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
   final CieloEvolutivo cieloTuo;
 
   /// L'altra persona. Nulli, la schermata si apre sulla scena e chiede chi
-  /// e' con [chiediLaPersona].
+  /// e' con la tendina.
   final String? nomeSuo;
   final CieloEvolutivo? cieloSuo;
 
-  /// **LA SCELTA DELLA PERSONA**, ordine FY voce FY.11: apre la nascita
-  /// dell'altra persona (a mano o col codice del suo telefono) e restituisce
-  /// la persona, o nullo se chi legge ci ripensa. Il ponte
-  /// `AvvioSinastriaEvolutiva` la passa con il conto delle coppie nuove.
-  final Future<PersonaDellaSinastria?> Function(BuildContext context)?
+  /// Il legame della lettura aperta con la coppia gia' nota; nullo, l'amore
+  /// se lo sbarramento d'eta' lo apre, altrimenti l'amicizia.
+  final Legame? legame;
+
+  /// La profondita' della lettura aperta con la coppia gia' nota (GD.17).
+  final ProfonditaDellaSinastria profondita;
+
+  /// **LA SCELTA DELLA PERSONA.** Nulla, la tendina della GD.14
+  /// ([LaTendinaDellaSinastria.apri]); le prove la sostituiscono con una
+  /// scelta gia' fatta.
+  final Future<SceltaDellaSinastria?> Function(BuildContext context)?
       chiediLaPersona;
+
+  /// **IL CONTO DELLA COPPIA NUOVA** (FT.13, GD.16 e GD.22): vero se la
+  /// lettura si puo' fare. Il ponte `AvvioSinastriaEvolutiva` conta qui le
+  /// coppie nuove, e una coppia gia' scoperta col suo legame si rilegge
+  /// senza consumare. Nullo, la lettura si fa sempre.
+  final Future<bool> Function(BuildContext context, SceltaDellaSinastria scelta)?
+      laCoppiaSiConta;
+
+  /// Il nome gia' noto (il segno 15, il confronto del cielo): riempie solo il
+  /// campo del nome del modulo.
+  final String? nomeSuggerito;
+
+  /// La porta degli amici offline, per le prove (GD.20).
+  final AmiciOffline? amici;
 
   /// La finta del lettore video, per le prove headless.
   final FabbricaDellaScenaSinastria? fabbricaDellaScena;
@@ -96,6 +144,9 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
   /// **IL VELO DELLA BARRA DEL TITOLO**, uno solo in ogni stato (ordine FY
   /// voce FY.20): semitrasparente, mai pieno.
   static const double veloDellaBarra = 0.45;
+
+  /// La domanda sopra la testa di Medora, alla lettera del fondatore (GD.13).
+  static const String laDomanda = 'Con chi vuoi scoprire la tua compatibilità?';
 
   /// **IL SECONDO CONTROLLO DELL'ETA'**, ordine FT voce FT.04: nella lettura
   /// a due telefoni il server rifa' lo sbarramento dei sedici anni con la
@@ -108,6 +159,7 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
     required CieloEvolutivo cieloTuo,
     required String nomeSuo,
     required CieloEvolutivo cieloSuo,
+    Legame? legame,
     bool? amoreDalServer,
   }) =>
       // **LA SOGLIA UNICA DELLE ARTI**: la Sinastria evolutiva e' un'arte
@@ -122,6 +174,7 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
             cieloTuo: cieloTuo,
             nomeSuo: nomeSuo,
             cieloSuo: cieloSuo,
+            legame: legame,
             amoreDalServer: amoreDalServer,
           ),
         ),
@@ -132,25 +185,32 @@ class SinastriaEvolutivaScreen extends StatefulWidget {
       _SinastriaEvolutivaScreenState();
 }
 
-/// L'altra persona della lettura, come la restituisce la sua nascita.
-typedef PersonaDellaSinastria = ({
-  String nome,
-  CieloEvolutivo cielo,
-  bool? amoreDalServer,
-});
-
 class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
     with WidgetsBindingObserver {
   bool _reduceMotion = false;
 
-  /// L'altra persona: dalla rotta, o scelta qui sotto la scena (FY.11).
+  /// L'altra persona: dalla rotta, o scelta dalla tendina (GD.14).
   late String? _nomeSuo = widget.nomeSuo;
   late CieloEvolutivo? _cieloSuo = widget.cieloSuo;
   late bool? _amoreDalServer = widget.amoreDalServer;
+  late Legame? _legameChiesto = widget.legame;
+  late ProfonditaDellaSinastria _profondita = widget.profondita;
   bool get _coppiaNota => _cieloSuo != null;
   String get _nome => _nomeSuo!;
   CieloEvolutivo get _suo => _cieloSuo!;
   bool _scegliendo = false;
+
+  /// **MEDORA RIFLETTE**, ordine GD voce GD.18: dopo "Scopri la
+  /// compatibilità", la scena della Stesa e dell'Oracolo sopra lo studio,
+  /// per il suo minimo garantito; poi la statua sul tavolo e la lettura.
+  bool _riflettendo = false;
+  Timer? _attesaDellaRiflessione;
+
+  /// **LA RIGA DELLA CONSEGNA**, ordine GD voce GD.21: la lettura arrivata
+  /// anche all'amico del Cerchio, o perche' no.
+  String? _rigaDellaConsegna;
+
+  final ScrollController _scorrimento = ScrollController();
 
   /// **L'ORA NON NOTA SI DICHIARA A VIDEO**, ordine FT voce FT.03: la Luna
   /// tace (`CieloEvolutivo.oraNota`), e chi legge sa perche' nessun
@@ -173,7 +233,7 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
 
   /// **IL VIDEO HA UN TEMPO**, ordine FY voce FY.11. Questa scena tiene il
   /// suo lettore e non la regia comune, e dall'ordine FX voce FXA.08 il
-  /// blocco sotto lo studio aspetta la scena ferma: un video che non si
+  /// blocco sopra la scena aspetta la scena ferma: un video che non si
   /// prepara, che e' pronto e non parte, o che parte e si blocca, lo teneva
   /// nascosto per sempre. Le stesse attese della regia comune
   /// ([RegiaDellaScena.attesaMassima]): passata l'attesa senza un video
@@ -206,13 +266,18 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
   bool _filmatoSospesoDaNoi = false;
 
   late final DateTime _oggi = widget.oggi ?? DateTime.now();
-  late final DateTime _quando = DateTime.now();
+  DateTime _quando = DateTime.now();
 
-  /// Il legame: amore se lo sbarramento d'eta' lo apre, altrimenti amicizia,
-  /// finche' chi legge non ne sceglie uno.
-  Legame? _legameScelto;
-  Legame get _legame =>
-      _legameScelto ?? (_amoreApribile ? Legame.amore : Legame.amicizia);
+  /// Il legame della lettura: quello chiesto, se si apre; l'amore chiuso
+  /// dallo sbarramento d'eta' (FT.04) o dal no del server lascia il posto
+  /// all'amicizia, come prima che si potesse scegliere.
+  Legame get _legame {
+    final chiesto = _legameChiesto;
+    if (chiesto != null && (chiesto != Legame.amore || _amoreApribile)) {
+      return chiesto;
+    }
+    return _amoreApribile && chiesto == null ? Legame.amore : Legame.amicizia;
+  }
 
   bool get _amoreApribile =>
       _amoreDalServer != false &&
@@ -224,33 +289,54 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
   bool _cardInScena = false;
 
   // Il calcolo non dipende dal legame (FT.06: "il legame cambia la lettura,
-  // non il calcolo"): si fa una volta sola, quando la coppia e' nota (la
-  // persona si sceglie una volta per apertura, FY.11).
-  late final IlComposito _composito = IlComposito.fra(widget.cieloTuo, _suo);
-  late final List<Corda> _corde =
-      IntervalliDiKeplero.fra(widget.cieloTuo, _suo);
-  late final OggiFraVoi _oggiFraVoi = OggiFraVoi.per(
-      tuo: widget.cieloTuo,
-      suo: _suo,
-      nomeSuo: _nome,
-      giorno: _oggi,
-      corpus: corpusDellaSinastriaEvolutiva);
+  // non il calcolo"): si fa una volta per coppia, quando la coppia e' nota.
+  // Non `late final`: un'altra sinastria (GD.16) porta un'altra coppia.
+  IlComposito? _composito;
+  List<Corda> _corde = const [];
+  OggiFraVoi? _oggiFraVoi;
+  List<CapitoloLetto> _capitoli = const [];
 
-  List<CapitoloLetto> get _capitoli => LetturaEvolutiva.componi(
-      tuo: widget.cieloTuo,
-      suo: _suo,
-      nomeSuo: _nome,
-      legame: _legame,
-      corpus: corpusDellaSinastriaEvolutiva);
+  void _calcola() {
+    if (!_coppiaNota) return;
+    _composito = IlComposito.fra(widget.cieloTuo, _suo);
+    _corde = IntervalliDiKeplero.fra(widget.cieloTuo, _suo);
+    _oggiFraVoi = OggiFraVoi.per(
+        tuo: widget.cieloTuo,
+        suo: _suo,
+        nomeSuo: _nome,
+        giorno: _oggi,
+        corpus: corpusDellaSinastriaEvolutiva);
+    _capitoli = LetturaEvolutiva.componi(
+        tuo: widget.cieloTuo,
+        suo: _suo,
+        nomeSuo: _nome,
+        legame: _legame,
+        corpus: corpusDellaSinastriaEvolutiva);
+  }
 
   /// Il segno della relazione: quello del Sole composito.
   String get _coppia =>
       ArtworkDelRicordo.percorsoDellaCoppia(IlSegnoDelCielo.dellaLongitudine(
-          _composito.punti[PuntoDelCieloEvolutivo.sole]!));
+          _composito!.punti[PuntoDelCieloEvolutivo.sole]!));
 
   String get _segnoDellaCoppia => IlSegnoDelCielo.dellaLongitudine(
-          _composito.punti[PuntoDelCieloEvolutivo.sole]!)
+          _composito!.punti[PuntoDelCieloEvolutivo.sole]!)
       .italianName;
+
+  /// **LA RIGA VIVA DI OGGI**, ordine GD voce GD.22: la prima frase di Oggi
+  /// fra voi (FT.09), che cambia col giorno senza modello. Rileggere la
+  /// coppia non consuma niente: la riga si compone qui, dal corpus.
+  String get _rigaViva {
+    final t = _oggiFraVoi!.testo.trim();
+    final fine = RegExp(r'[.!?](\s|$)').firstMatch(t);
+    return fine == null ? t : t.substring(0, fine.start + 1);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _calcola();
+  }
 
   @override
   void didChangeDependencies() {
@@ -271,7 +357,7 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
   }
 
   /// LA SINASTRIA EVOLUTIVA ENTRA NEL CAMMINO, col suo gesto: quando la
-  /// coppia e' nota, dalla rotta o dalla scelta qui sotto la scena.
+  /// coppia e' nota, dalla rotta o dalla tendina.
   void _nelCammino() {
     unawaited(RegiaDelCammino.dopoUnGesto(
       context,
@@ -280,22 +366,100 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
     ));
   }
 
-  /// **LA SCELTA DELLA PERSONA**, ordine FY voce FY.11: la nascita
-  /// dell'altra persona si apre sopra la scena, e la lettura torna qui.
+  Future<SceltaDellaSinastria?> _laTendina(BuildContext context) {
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final tier =
+        _forse<EntitlementService>(context)?.tier ?? Tier.free;
+    return LaTendinaDellaSinastria.apri(
+      context,
+      palette: palette,
+      tier: tier,
+      cieloTuo: widget.cieloTuo,
+      oggi: _oggi,
+      nomeSuggerito: widget.nomeSuggerito,
+      amici: widget.amici,
+    );
+  }
+
+  /// **LA SCELTA DELLA PERSONA**, ordini FY voce FY.11 e GD voci
+  /// GD.14-GD.18: la tendina sale sopra la scena, il conto della coppia
+  /// nuova, la riflessione di Medora e la lettura qui, sotto la stessa
+  /// scena.
   Future<void> _scegliLaPersona() async {
-    final chiedi = widget.chiediLaPersona;
-    if (chiedi == null || _scegliendo || _coppiaNota) return;
+    if (_scegliendo || _coppiaNota) return;
     setState(() => _scegliendo = true);
-    final persona = await chiedi(context);
+    final scelta = await (widget.chiediLaPersona ?? _laTendina)(context);
     if (!mounted) return;
+    if (scelta == null) {
+      setState(() => _scegliendo = false);
+      return;
+    }
+    final conta = widget.laCoppiaSiConta;
+    final puoi = conta == null ? true : await conta(context, scelta);
+    if (!mounted) return;
+    if (!puoi) {
+      setState(() => _scegliendo = false);
+      return;
+    }
     setState(() {
       _scegliendo = false;
-      if (persona == null) return;
-      _nomeSuo = persona.nome;
-      _cieloSuo = persona.cielo;
-      _amoreDalServer = persona.amoreDalServer;
+      _nomeSuo = scelta.nome;
+      _cieloSuo = scelta.cielo;
+      _amoreDalServer = scelta.amoreDalServer;
+      _legameChiesto = scelta.legame;
+      _profondita = scelta.profondita;
+      _rigaDellaConsegna = null;
+      _quando = DateTime.now();
+      _riflettendo = true;
+      _calcola();
     });
-    if (persona != null) _nelCammino();
+    _nelCammino();
+    _attesaDellaRiflessione?.cancel();
+    _attesaDellaRiflessione = Timer(
+        AttesaDiMedora.minimaPer(riduciMovimento: _reduceMotion), () {
+      if (mounted) setState(() => _riflettendo = false);
+    });
+    final uid = scelta.uidDelCerchio;
+    if (uid != null) unawaited(_consegnaAllAmico(uid));
+  }
+
+  /// **LA LETTURA ARRIVA ANCHE ALL'AMICO DEL CERCHIO**, ordine GD voce
+  /// GD.21: lo stesso responso appena composto, i capitoli che il piano di
+  /// chi legge apre, nella forma della porta ([LaSinastriaCondivisa]),
+  /// senza nascite. Solo a un amico del Cerchio ([IlCerchioSociale.
+  /// mandaLaSinastria] non chiama la porta per gli altri).
+  Future<void> _consegnaAllAmico(String uid) async {
+    final sociale = _forse<IlCerchioSociale>(context);
+    if (sociale == null) return;
+    final tier = _forse<EntitlementService>(context)?.tier ?? Tier.free;
+    final tutti = PlanCatalog.apre(RigaDelPiano.capitoliDellaSinastria, tier);
+    final letti = tutti ? _capitoli : _capitoli.take(2).toList();
+    final nome = _nome;
+    final esito = await sociale.mandaLaSinastria(
+        uid,
+        LaSinastriaCondivisa.dai(
+                legame: _legame, segno: _segnoDellaCoppia, capitoli: letti)
+            .comeDati());
+    if (!mounted) return;
+    setState(() => _rigaDellaConsegna = esito.ok
+        ? 'La vostra lettura è arrivata anche a $nome, nel suo Cerchio.'
+        : esito.riga);
+  }
+
+  /// **UN'ALTRA SINASTRIA**, ordine GD voce GD.16: un altro legame, o
+  /// un'altra persona, e' una sinastria nuova, che si sceglie dalla tendina
+  /// e si conta come una coppia nuova.
+  void _unAltraSinastria() {
+    setState(() {
+      _nomeSuo = null;
+      _cieloSuo = null;
+      _legameChiesto = null;
+      _amoreDalServer = null;
+      _rigaDellaConsegna = null;
+      _profondita = ProfonditaDellaSinastria.breve;
+      _capitoli = const [];
+    });
+    if (_scorrimento.hasClients) _scorrimento.jumpTo(0);
   }
 
   void _scade() {
@@ -405,21 +569,11 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
   void dispose() {
     _attesaDelVideo?.cancel();
     _attesaDellaFine?.cancel();
+    _attesaDellaRiflessione?.cancel();
+    _scorrimento.dispose();
     WidgetsBinding.instance.removeObserver(this);
     _lettore?.chiudi();
     super.dispose();
-  }
-
-  void _scegliIlLegame(Legame l) {
-    if (l == Legame.amore && !_amoreApribile) {
-      // **UNA RIGA SOBRIA, senza spiegazioni sull'eta' dell'altra
-      // persona** (FT.04).
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          key: Key('sinastria_amore_chiuso'),
-          content: Text('Il legame amore si apre dai sedici anni.')));
-      return;
-    }
-    setState(() => _legameScelto = l);
   }
 
   Future<void> _invito(String cosa, bool Function(Tier) apre) {
@@ -455,13 +609,21 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
     }
   }
 
+  /// Le righe della riflessione: nominano i due cieli e il legame, mai un
+  /// caricamento qualunque (la regola delle righe di [AttesaDiMedora]).
+  List<String> get _righeDellaRiflessione => [
+        'Medora mette il tuo cielo accanto a quello di $_nome.',
+        'Medora cerca dove i vostri pianeti si guardano.',
+        'Medora pesa il legame che hai scelto: ${_legame.nome.toLowerCase()}.',
+        'Medora ascolta che cosa dice il vostro cielo comune.',
+        'Medora tiene i vostri due cieli sotto gli occhi, senza fretta.',
+      ];
+
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final tier =
         _forse<EntitlementService>(context, osserva: true)?.tier ?? Tier.free;
-    // Senza l'altra persona non c'e' ancora una lettura: la scena e, sotto,
-    // la scelta (FY.11).
     final coppia = _coppiaNota;
     final capitoli = coppia ? _capitoli : const <CapitoloLetto>[];
     final tuttiICapitoli =
@@ -469,6 +631,20 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
     final keplero = PlanCatalog.apre(RigaDelPiano.intervalliDiKeplero, tier);
     final adepto =
         PlanCatalog.apre(RigaDelPiano.compositoRitrattoMomento, tier);
+    // **LA LUNGA SOLO COL PIANO** (GD.17): una Lunga chiesta senza il piano
+    // (una rotta vecchia, un piano sceso) si legge Breve.
+    final lunga = coppia &&
+        _profondita == ProfonditaDellaSinastria.lunga &&
+        PlanCatalog.apre(RigaDelPiano.sinastriaLunga, tier);
+    final testiDellaLunga = !lunga
+        ? null
+        : LaLungaDellaSinastria.per(
+            tuo: widget.cieloTuo,
+            suo: _suo,
+            nomeSuo: _nome,
+            legame: _legame,
+            primo: capitoli.first,
+            corpus: corpusDellaSinastriaEvolutiva);
     final perIlDiario = !coppia
         ? null
         : ResponsoDaCustodire(
@@ -484,6 +660,7 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
               'legame': _legame.name,
             },
           );
+    final bassoSicuro = MediaQuery.paddingOf(context).bottom;
     // IL TOCCO CHE SALTA IL VIDEO, ordine FU voce FU.15, punto unico.
     return IlToccoCheSalta(
       inCorso: _videoInCorso,
@@ -531,209 +708,288 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
           key: const Key('sinastria_evolutiva_sfondo'),
           seed: 7,
           showZodiac: false,
-          child: SafeArea(
-            top: false,
-            child: Stack(
+          child: LayoutBuilder(builder: (context, vincoli) {
+            final alto = vincoli.maxHeight;
+            final largo = vincoli.maxWidth;
+            // **LA SCENA PARTE DAL BORDO ALTO E PASSA SOTTO LA BARRA**,
+            // ordine GC voce GC.02, regola permanente R12; dall'ordine GD
+            // voce GD.13 copre tutto lo schermo. LAPIDE: la scena era alta
+            // quanto il taglio a tutta larghezza (a 360 punti, 640) e sotto
+            // stava il velo col testo, che la tagliava.
+            final scena = LoStudioDiMedora(
+              key: const Key('sinastria_evolutiva_scena'),
+              posa: _posaDiMedora,
+              filmato: _filmatoInScena,
+              filmatoSaltato: _filmatoSaltato,
+              altezza: alto,
+              statua: coppia ? _segnoDellaCoppia.toLowerCase() : null,
+              statuaVisibile: _scenaFerma && !_riflettendo,
+              riduciMovimento: _reduceMotion,
+            );
+            final geometria =
+                GeometriaDelloStudio.aTuttoSchermo(Size(largo, alto));
+            final testa = geometria.origine.dy +
+                GeometriaDelloStudio.testaDiMedora * geometria.scala;
+            return Stack(
               children: [
-                ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    // Il responso entra nel Diario da se', in cima all'elenco
-                    // pigro (ordine FE voce 22.6).
-                    if (perIlDiario != null)
-                      IlResponsoNelDiario(
-                        maestro: Maestro.medora,
-                        responso: perIlDiario,
-                        quando: _quando,
-                      ),
-                    // **LA SCENA PARTE DAL BORDO ALTO E PASSA SOTTO LA
-                    // BARRA**, ordine GC voce GC.02, 22 ottobre 2026: il
-                    // fondatore, sulla Stesa, *"La barra in alto del titolo
-                    // deve essere semitrasparente in modo da fare vedere il
-                    // video animazione sotto"*, regola permanente R12. LAPIDE:
-                    // la scena cominciava sotto la barra (un margine alto
-                    // quanto la barra di stato e la barra del titolo) e la
-                    // barra copriva solo il cosmo. In cima allo studio c'e'
-                    // l'arco della finestra: la testa di Medora comincia al
-                    // pixel 403 dell'immagine, a 360 punti circa cinquanta
-                    // punti sotto la barra, intera.
-                    LoStudioDiMedora(
-                      key: const Key('sinastria_evolutiva_scena'),
-                      posa: _posaDiMedora,
-                      filmato: _filmatoInScena,
-                      filmatoSaltato: _filmatoSaltato,
-                    ),
-                    // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce
-                    // FXA.08: la coppia, i legami e i capitoli aspettano la
-                    // scena ferma e compaiono in dissolvenza.
-                    IlRestoDopoLaScena(
+                if (!coppia) ...[
+                  Positioned.fill(child: scena),
+                  // **LA DOMANDA SOPRA LA TESTA DI MEDORA**, ordine GD voce
+                  // GD.13, alla lettera del fondatore.
+                  Positioned(
+                    left: SpacingTokens.lg,
+                    right: SpacingTokens.lg,
+                    bottom: alto - testa + SpacingTokens.xs,
+                    child: IlRestoDopoLaScena(
                       scenaFerma: _scenaFerma,
-                      child: Padding(
-                        padding: const EdgeInsets.all(SpacingTokens.md),
-                        // Senza l'altra persona sotto la scena non c'e'
-                        // niente: la scelta sta in fondo allo schermo, qui
-                        // sotto nella pila.
-                        child: !coppia
-                            ? const SizedBox.shrink()
-                            : Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  _LaCoppia(
-                                    palette: palette,
-                                    coppia: _coppia,
-                                    nomeSuo: _nome,
-                                    segno: _segnoDellaCoppia,
-                                  ),
-                                  if (_laLunaTace != null) ...[
-                                    const SizedBox(height: SpacingTokens.sm),
-                                    Text(_laLunaTace!,
-                                        key:
-                                            const Key('sinastria_ora_non_nota'),
-                                        textAlign: TextAlign.center,
-                                        style: TypographyTokens.didascalia()
-                                            .copyWith(
-                                                color:
-                                                    ColorTokens.textSecondary,
-                                                fontStyle: FontStyle.italic)),
-                                  ],
-                                  const SizedBox(height: SpacingTokens.md),
-                                  _ILegami(
-                                    palette: palette,
-                                    scelto: _legame,
-                                    amoreApribile: _amoreApribile,
-                                    onScegli: _scegliIlLegame,
-                                  ),
-                                  const SizedBox(height: SpacingTokens.lg),
-                                  _OggiFraVoiCard(
-                                      palette: palette, oggi: _oggiFraVoi),
-                                  const SizedBox(height: SpacingTokens.lg),
-                                  for (var i = 0; i < capitoli.length; i++) ...[
-                                    if (tuttiICapitoli || i < 2)
-                                      _IlCapitolo(
-                                          palette: palette,
-                                          capitolo: capitoli[i])
-                                    else
-                                      _Chiuso(
-                                        chiave:
-                                            'capitolo_${capitoli[i].capitolo.name}',
-                                        palette: palette,
-                                        immagine:
-                                            capitoli[i].capitolo.medaglione,
-                                        titolo: capitoli[i].capitolo.nome,
-                                        onApri: () => _invito(
-                                            'Il capitolo ${capitoli[i].capitolo.nome.toLowerCase()}',
-                                            (t) => PlanCatalog.apre(
-                                                RigaDelPiano
-                                                    .capitoliDellaSinastria,
-                                                t)),
-                                      ),
-                                    const SizedBox(height: SpacingTokens.lg),
-                                  ],
-                                  if (keplero)
-                                    _Keplero(
-                                        palette: palette,
-                                        corde: _corde,
-                                        nomeSuo: _nome)
-                                  else
-                                    _Chiuso(
-                                      chiave: 'keplero',
-                                      palette: palette,
-                                      immagine: 'aspetto_trigono_v1',
-                                      titolo: 'Gli intervalli di Keplero',
-                                      onApri: () => _invito(
-                                          'Gli intervalli di Keplero',
-                                          (t) => PlanCatalog.apre(
-                                              RigaDelPiano.intervalliDiKeplero,
-                                              t)),
-                                    ),
-                                  const SizedBox(height: SpacingTokens.lg),
-                                  if (adepto) ...[
-                                    _IlComposito(
-                                        palette: palette,
-                                        composito: _composito),
-                                    const SizedBox(height: SpacingTokens.lg),
-                                    _IlMomentoGiusto(
-                                      palette: palette,
-                                      giorni: IlMomentoGiusto.per(
-                                          tuo: widget.cieloTuo,
-                                          suo: _suo,
-                                          nomeSuo: _nome,
-                                          legame: _legame,
-                                          da: _oggi,
-                                          corpus:
-                                              corpusDellaSinastriaEvolutiva),
-                                      senzaGiorni:
-                                          IlMomentoGiusto.testoSenzaGiorni(
-                                              tuo: widget.cieloTuo,
-                                              suo: _suo,
-                                              nomeSuo: _nome,
-                                              legame: _legame,
-                                              corpus:
-                                                  corpusDellaSinastriaEvolutiva),
-                                      oggi: _oggi,
-                                    ),
-                                  ] else
-                                    _Chiuso(
-                                      chiave: 'adepto',
-                                      palette: palette,
-                                      immagine: 'legame_amore_v1',
-                                      titolo:
-                                          'Il cielo comune, il momento giusto e '
-                                          'il ritratto della coppia',
-                                      onApri: () => _invito(
-                                          'Il cielo comune della relazione',
-                                          (t) => PlanCatalog.apre(
-                                              RigaDelPiano
-                                                  .compositoRitrattoMomento,
-                                              t)),
-                                    ),
-                                  const SizedBox(height: SpacingTokens.lg),
-                                  AzioniDelResponso(
-                                    palette: palette,
-                                    maestro: Maestro.medora,
-                                    dorato: true,
-                                    responso: perIlDiario!,
-                                    quando: _quando,
-                                    condividi: () => _condividi(tier, capitoli),
-                                    aperturaDellaChat:
-                                        ChatOpeners.sinastriaEvolutiva(
-                                            _nome,
-                                            _legame.nome.toLowerCase(),
-                                            capitoli.first.titolo),
-                                  ),
-                                  const SizedBox(height: SpacingTokens.xl),
-                                ],
-                              ),
-                      ),
+                      child: Text(SinastriaEvolutivaScreen.laDomanda,
+                          key: const Key('sinastria_la_domanda'),
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.suLaScena(
+                              TypographyTokens.titoloSezione()
+                                  .copyWith(color: coloreSulVelluto))),
                     ),
-                  ],
-                ),
-                // La card condivisibile, disegnata fuori campo solo durante lo
-                // scatto: il ritratto per l'Adepto, il primo capitolo per gli
-                // altri piani (FT.14).
-                // **LA SCELTA DELLA PERSONA, IN FONDO ALLO SCHERMO**, ordine
-                // FY voce FY.11: sulla scena ferma, sul pavimento dello studio
-                // sotto Medora, e sempre dentro la prima schermata. Messa
-                // sotto lo studio nell'elenco, a 360 per 797 il pulsante
-                // stava sotto la piega, e la prima schermata tornava a essere
-                // una scena senza un gesto. Anche lei aspetta la scena ferma
-                // (FXA.08).
-                if (!coppia)
+                  ),
+                  // **SOLO IL PULSANTE, IN BASSO**, ordine GD voce GD.13: via
+                  // le due righe sotto il titolo. Anche lui aspetta la scena
+                  // ferma (FXA.08).
                   Positioned(
                     left: 0,
                     right: 0,
                     bottom: 0,
                     child: IlRestoDopoLaScena(
                       scenaFerma: _scenaFerma,
-                      child: _LaSceltaDellaPersona(
+                      child: _IlPulsanteInBasso(
                         scegliendo: _scegliendo,
-                        onScegli: widget.chiediLaPersona == null
-                            ? null
-                            : _scegliLaPersona,
+                        bassoSicuro: bassoSicuro,
+                        onScegli: _scegliLaPersona,
                       ),
                     ),
                   ),
-                if (_cardInScena)
+                ] else
+                  ListView(
+                    controller: _scorrimento,
+                    padding: EdgeInsets.zero,
+                    children: [
+                      // Il responso entra nel Diario da se', in cima
+                      // all'elenco pigro (ordine FE voce 22.6).
+                      if (perIlDiario != null)
+                        IlResponsoNelDiario(
+                          maestro: Maestro.medora,
+                          responso: perIlDiario,
+                          quando: _quando,
+                        ),
+                      SizedBox(
+                        height: alto,
+                        child: Stack(
+                          children: [
+                            Positioned.fill(child: scena),
+                            // **LA SCHEDA DELLA COPPIA, CON LA RIGA VIVA DI
+                            // OGGI**, ordine GD voce GD.22.
+                            Positioned(
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              child: IlRestoDopoLaScena(
+                                scenaFerma: _scenaFerma && !_riflettendo,
+                                child: _LaRigaViva(
+                                  palette: palette,
+                                  riga: _rigaViva,
+                                  bassoSicuro: bassoSicuro,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // **SOPRA IL VIDEO SOLO IL VIDEO**, ordine FX voce
+                      // FXA.08: la lettura aspetta la scena ferma e compare
+                      // in dissolvenza.
+                      IlRestoDopoLaScena(
+                        scenaFerma: _scenaFerma && !_riflettendo,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              SpacingTokens.md,
+                              SpacingTokens.lg,
+                              SpacingTokens.md,
+                              SpacingTokens.md + bassoSicuro),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              _LaCoppia(
+                                palette: palette,
+                                nomeSuo: _nome,
+                                segno: _segnoDellaCoppia,
+                                legame: _legame,
+                              ),
+                              const SizedBox(height: SpacingTokens.md),
+                              // **LE BARRE SUBITO DOPO IL TITOLO**, ordine
+                              // GD voce GD.19.
+                              Container(
+                                key: const Key('sinastria_barre_responso'),
+                                child: IlGraficoDelleBarre(
+                                  palette: palette,
+                                  titolo: 'Quanto si guardano i vostri cieli, '
+                                      'capitolo per capitolo',
+                                  barre: LeBarreDellaSinastria.deiCapitoli(
+                                      widget.cieloTuo, _suo),
+                                ),
+                              ),
+                              if (_laLunaTace != null) ...[
+                                const SizedBox(height: SpacingTokens.sm),
+                                Text(_laLunaTace!,
+                                    key: const Key('sinastria_ora_non_nota'),
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.didascalia()
+                                        .copyWith(
+                                            color: ColorTokens.textSecondary,
+                                            fontStyle: FontStyle.italic)),
+                              ],
+                              const SizedBox(height: SpacingTokens.lg),
+                              _OggiFraVoiCard(
+                                palette: palette,
+                                oggi: _oggiFraVoi!,
+                                barre: LeBarreDellaSinastria.diOggi(
+                                    widget.cieloTuo, _suo, _oggi),
+                              ),
+                              const SizedBox(height: SpacingTokens.lg),
+                              for (var i = 0; i < capitoli.length; i++) ...[
+                                if (tuttiICapitoli || i < 2)
+                                  _IlCapitolo(
+                                    palette: palette,
+                                    capitolo: capitoli[i],
+                                    barre: LeBarreDellaSinastria.delCapitolo(
+                                        capitoli[i].capitolo,
+                                        widget.cieloTuo,
+                                        _suo),
+                                    lunga: i == 0 ? testiDellaLunga : null,
+                                  )
+                                else
+                                  _Chiuso(
+                                    chiave:
+                                        'capitolo_${capitoli[i].capitolo.name}',
+                                    palette: palette,
+                                    immagine: capitoli[i].capitolo.medaglione,
+                                    titolo: capitoli[i].capitolo.nome,
+                                    onApri: () => _invito(
+                                        'Il capitolo ${capitoli[i].capitolo.nome.toLowerCase()}',
+                                        (t) => PlanCatalog.apre(
+                                            RigaDelPiano.capitoliDellaSinastria,
+                                            t)),
+                                  ),
+                                const SizedBox(height: SpacingTokens.lg),
+                              ],
+                              if (keplero)
+                                _Keplero(
+                                    palette: palette,
+                                    corde: _corde,
+                                    nomeSuo: _nome)
+                              else
+                                _Chiuso(
+                                  chiave: 'keplero',
+                                  palette: palette,
+                                  immagine: 'aspetto_trigono_v1',
+                                  titolo: 'Gli intervalli di Keplero',
+                                  onApri: () => _invito(
+                                      'Gli intervalli di Keplero',
+                                      (t) => PlanCatalog.apre(
+                                          RigaDelPiano.intervalliDiKeplero, t)),
+                                ),
+                              const SizedBox(height: SpacingTokens.lg),
+                              if (adepto) ...[
+                                _IlComposito(
+                                    palette: palette, composito: _composito!),
+                                const SizedBox(height: SpacingTokens.lg),
+                                _IlMomentoGiusto(
+                                  palette: palette,
+                                  giorni: IlMomentoGiusto.per(
+                                      tuo: widget.cieloTuo,
+                                      suo: _suo,
+                                      nomeSuo: _nome,
+                                      legame: _legame,
+                                      da: _oggi,
+                                      corpus: corpusDellaSinastriaEvolutiva),
+                                  senzaGiorni: IlMomentoGiusto.testoSenzaGiorni(
+                                      tuo: widget.cieloTuo,
+                                      suo: _suo,
+                                      nomeSuo: _nome,
+                                      legame: _legame,
+                                      corpus: corpusDellaSinastriaEvolutiva),
+                                  oggi: _oggi,
+                                ),
+                              ] else
+                                _Chiuso(
+                                  chiave: 'adepto',
+                                  palette: palette,
+                                  immagine: 'legame_amore_v1',
+                                  titolo: 'Il cielo comune, il momento giusto e '
+                                      'il ritratto della coppia',
+                                  onApri: () => _invito(
+                                      'Il cielo comune della relazione',
+                                      (t) => PlanCatalog.apre(
+                                          RigaDelPiano.compositoRitrattoMomento,
+                                          t)),
+                                ),
+                              const SizedBox(height: SpacingTokens.lg),
+                              AzioniDelResponso(
+                                palette: palette,
+                                maestro: Maestro.medora,
+                                dorato: true,
+                                responso: perIlDiario!,
+                                quando: _quando,
+                                condividi: () => _condividi(tier, capitoli),
+                                aperturaDellaChat:
+                                    ChatOpeners.sinastriaEvolutiva(
+                                        _nome,
+                                        _legame.nome.toLowerCase(),
+                                        capitoli.first.titolo),
+                              ),
+                              if (_rigaDellaConsegna != null) ...[
+                                const SizedBox(height: SpacingTokens.md),
+                                Text(_rigaDellaConsegna!,
+                                    key: const Key('sinastria_consegnata'),
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.didascalia()
+                                        .copyWith(
+                                            color: ColorTokens.textSecondary)),
+                              ],
+                              const SizedBox(height: SpacingTokens.lg),
+                              // **UN'ALTRA SINASTRIA**, ordine GD voce GD.16.
+                              PulsanteDipinto(
+                                key: const Key('sinastria_un_altra'),
+                                testo: 'Un\'altra sinastria',
+                                larghezzaPiena: true,
+                                onTap: _unAltraSinastria,
+                              ),
+                              const SizedBox(height: SpacingTokens.xs),
+                              Text(
+                                  'Un altro legame o un\'altra persona: una '
+                                  'lettura nuova.',
+                                  textAlign: TextAlign.center,
+                                  style: TypographyTokens.didascalia().copyWith(
+                                      color: ColorTokens.textSecondary)),
+                              const SizedBox(height: SpacingTokens.xl),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                // **MEDORA RIFLETTE**, ordine GD voce GD.18: la scena della
+                // Stesa e dell'Oracolo, sopra lo studio.
+                if (_riflettendo && coppia)
+                  Positioned.fill(
+                    child: AttesaDiMedora(
+                      key: const Key('sinastria_riflessione'),
+                      palette: palette,
+                      riduciMovimento: _reduceMotion,
+                      righeProprie: _righeDellaRiflessione,
+                    ),
+                  ),
+                // La card condivisibile, disegnata fuori campo solo durante
+                // lo scatto: il ritratto per l'Adepto, il primo capitolo per
+                // gli altri piani (FT.14).
+                if (_cardInScena && coppia)
                   Positioned(
                     left: -3000,
                     top: 0,
@@ -757,43 +1013,41 @@ class _SinastriaEvolutivaScreenState extends State<SinastriaEvolutivaScreen>
                     ),
                   ),
               ],
-            ),
-          ),
+            );
+          }),
         ),
       ),
     );
   }
 
   String _titoloDelComposito() {
-    final v =
-        corpusDellaSinastriaEvolutiva['composito|${_composito.cella}|titolo']!;
+    final v = corpusDellaSinastriaEvolutiva[
+        'composito|${_composito!.cella}|titolo']!;
     return v[
         LetturaEvolutiva.semeDellaCoppia(widget.cieloTuo, _suo) % v.length];
   }
 }
 
-/// **LA SCELTA DELLA PERSONA, SOTTO LA SCENA.** Ordine FY voce FY.11: la
-/// prima cosa sotto lo studio di Medora, quando l'altra persona non e' ancora
-/// nota. Dice dove sei, che cosa fare e che cosa ottieni; il gesto apre la
-/// nascita dell'altra persona, a mano o col codice del suo telefono (FT.03,
-/// e per la Sinastria resta, FY.14). Il pulsante e' il pezzo dipinto del
-/// ramo (R8 dell'ordine FY, come FXA.02); il testo sta sul velo che sale dal
-/// fondo, e non su un pannello, perche' il pannello dipinto, con la sua falce
-/// e le sue cornici, era alto 263 punti e a 390 per 844 copriva Medora.
-class _LaSceltaDellaPersona extends StatelessWidget {
-  const _LaSceltaDellaPersona(
-      {required this.scegliendo, required this.onScegli});
+/// **IL SOLO PULSANTE IN BASSO.** Ordine GD voce GD.13, il fondatore:
+/// *"Prima di tutto, via tutto il testo e lascia solo il pulsante sotto"*.
+/// LAPIDE: qui c'era `_LaSceltaDellaPersona` dell'ordine FY voce FY.11, col
+/// titolo "Con chi leggo il tuo cielo?" e la riga "Scrivi la sua nascita o
+/// leggila dal suo telefono: leggo i vostri due cieli." sopra il pulsante.
+/// Il pulsante e' il pezzo dipinto del ramo; un velo che sale dal fondo, alto
+/// quanto il pulsante e il suo respiro, lo stacca dal pavimento dello studio.
+class _IlPulsanteInBasso extends StatelessWidget {
+  const _IlPulsanteInBasso({
+    required this.scegliendo,
+    required this.bassoSicuro,
+    required this.onScegli,
+  });
 
   final bool scegliendo;
+  final double bassoSicuro;
   final VoidCallback? onScegli;
 
   @override
   Widget build(BuildContext context) {
-    // Il velo sale dal fondo dello schermo e si spegne verso Medora: il
-    // testo si legge sul pavimento dello studio senza un riquadro che la
-    // copra.
-    // L'ombra comune dell'app (ordine GA voce GA.10).
-    const ombra = TypographyTokens.ombraDelTesto;
     return DecoratedBox(
       key: const Key('sinastria_la_scelta'),
       decoration: BoxDecoration(
@@ -801,40 +1055,74 @@ class _LaSceltaDellaPersona extends StatelessWidget {
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
           colors: [
-            ColorTokens.medoraDeepest.withValues(alpha: 0.9),
-            ColorTokens.medoraDeepest.withValues(alpha: 0.7),
+            ColorTokens.medoraDeepest.withValues(alpha: 0.75),
             ColorTokens.medoraDeepest.withValues(alpha: 0),
           ],
-          stops: const [0, 0.6, 1],
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xl,
-            SpacingTokens.lg, SpacingTokens.md),
+        padding: EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xl,
+            SpacingTokens.lg, SpacingTokens.md + bassoSicuro),
+        child: PulsanteDipinto(
+          key: const Key('sinastria_scegli_la_persona'),
+          testo: scegliendo ? 'Un momento' : 'Scegli la persona',
+          larghezzaPiena: true,
+          onTap: scegliendo ? null : onScegli,
+        ),
+      ),
+    );
+  }
+}
+
+/// **LA RIGA VIVA DELLA COPPIA**, ordine GD voce GD.22 (proposta
+/// dell'Architetto approvata dal fondatore con "3 ok"): sulla scena, sotto la
+/// statua, la prima frase di Oggi fra voi, che cambia ogni giorno; e sotto,
+/// l'invito a scorrere verso la lettura.
+class _LaRigaViva extends StatelessWidget {
+  const _LaRigaViva({
+    required this.palette,
+    required this.riga,
+    required this.bassoSicuro,
+  });
+
+  final MaestroPalette palette;
+  final String riga;
+  final double bassoSicuro;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [
+            ColorTokens.medoraDeepest.withValues(alpha: 0.85),
+            ColorTokens.medoraDeepest.withValues(alpha: 0),
+          ],
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xl,
+            SpacingTokens.lg, SpacingTokens.sm + bassoSicuro),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Con chi leggo il tuo cielo?',
-                key: const Key('sinastria_la_scelta_titolo'),
-                textAlign: TextAlign.center,
-                style: TypographyTokens.titoloScheda()
-                    .copyWith(color: coloreSulVelluto, shadows: ombra)),
+            Text('OGGI FRA VOI',
+                style: TypographyTokens.suLaScena(TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft, letterSpacing: 2.0))),
             const SizedBox(height: SpacingTokens.xxs),
-            Text(
-                'Scrivi la sua nascita o leggila dal suo telefono: leggo i '
-                'vostri due cieli.',
+            Text(riga,
+                key: const Key('sinastria_riga_viva'),
                 textAlign: TextAlign.center,
-                style: TypographyTokens.didascalia().copyWith(
-                    color: coloreSulVelluto.withValues(alpha: 0.9),
-                    shadows: ombra)),
-            const SizedBox(height: SpacingTokens.sm),
-            PulsanteDipinto(
-              key: const Key('sinastria_scegli_la_persona'),
-              testo: scegliendo ? 'Un momento' : 'Scegli la persona',
-              larghezzaPiena: true,
-              onTap: scegliendo ? null : onScegli,
-            ),
+                style: TypographyTokens.suLaScena(TypographyTokens.lettura()
+                    .copyWith(color: coloreSulVelluto))),
+            const SizedBox(height: SpacingTokens.xs),
+            Icon(Icons.keyboard_arrow_down_rounded,
+                color: palette.goldSoft, size: 32),
+            Text('Scorri per leggere il vostro cielo',
+                style: TypographyTokens.suLaScena(TypographyTokens.didascalia()
+                    .copyWith(color: coloreSulVelluto))),
           ],
         ),
       ),
@@ -842,110 +1130,39 @@ class _LaSceltaDellaPersona extends StatelessWidget {
   }
 }
 
-/// La coppia del segno della relazione, in cima: il primo colpo d'occhio.
+/// Il titolo del responso: i due nomi, il segno della relazione e il legame.
+/// La figura sta gia' sul tavolo di Medora (GD.18): LAPIDE, qui c'era la
+/// coppia dipinta piccola, 96 per 128, accanto al titolo.
 class _LaCoppia extends StatelessWidget {
   const _LaCoppia({
     required this.palette,
-    required this.coppia,
     required this.nomeSuo,
     required this.segno,
+    required this.legame,
   });
 
   final MaestroPalette palette;
-  final String coppia;
   final String nomeSuo;
   final String segno;
+  final Legame legame;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          child: Image.asset(coppia,
-              key: const Key('sinastria_evolutiva_coppia'),
-              width: 96,
-              height: 128,
-              fit: BoxFit.cover),
-        ),
-        const SizedBox(width: SpacingTokens.md),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Tu e $nomeSuo',
-                  key: const Key('sinastria_evolutiva_nomi'),
-                  style: TypographyTokens.titoloSezione()
-                      .copyWith(color: palette.goldSoft)),
-              const SizedBox(height: SpacingTokens.xxs),
-              Text('Il segno della vostra relazione è $segno.',
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textSecondary)),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-/// I quattro legami, coi loro medaglioni. L'amore chiuso dallo sbarramento
-/// d'eta' resta visibile, velato, e al tocco dice una riga sobria.
-class _ILegami extends StatelessWidget {
-  const _ILegami({
-    required this.palette,
-    required this.scelto,
-    required this.amoreApribile,
-    required this.onScegli,
-  });
-
-  final MaestroPalette palette;
-  final Legame scelto;
-  final bool amoreApribile;
-  final ValueChanged<Legame> onScegli;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        for (final l in Legame.values)
-          Expanded(
-            child: GestureDetector(
-              key: Key('sinastria_legame_${l.name}'),
-              behavior: HitTestBehavior.opaque,
-              onTap: () => onScegli(l),
-              child: Opacity(
-                opacity: l == Legame.amore && !amoreApribile ? 0.4 : 1,
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                            color:
-                                l == scelto ? palette.gold : Colors.transparent,
-                            width: 2),
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(
-                            immagineDellaSinastria('legame_${l.name}_v1'),
-                            width: 56,
-                            height: 56),
-                      ),
-                    ),
-                    const SizedBox(height: SpacingTokens.xxs),
-                    Text(l.nome,
-                        style: TypographyTokens.etichetta().copyWith(
-                            color: l == scelto
-                                ? palette.goldSoft
-                                : ColorTokens.textSecondary)),
-                  ],
-                ),
-              ),
-            ),
-          ),
+        Text('Tu e $nomeSuo',
+            key: const Key('sinastria_evolutiva_nomi'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.titoloSezione()
+                .copyWith(color: palette.goldSoft)),
+        const SizedBox(height: SpacingTokens.xxs),
+        Text(
+            'Il segno della vostra relazione è $segno. Il legame: '
+            '${legame.nome.toLowerCase()}.',
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary)),
       ],
     );
   }
@@ -965,9 +1182,13 @@ class _Medaglione extends StatelessWidget {
 }
 
 class _OggiFraVoiCard extends StatelessWidget {
-  const _OggiFraVoiCard({required this.palette, required this.oggi});
+  const _OggiFraVoiCard(
+      {required this.palette, required this.oggi, required this.barre});
   final MaestroPalette palette;
   final OggiFraVoi oggi;
+
+  /// Quanto i transiti di oggi accendono ogni capitolo (GD.19).
+  final List<BarraDellaSinastria> barre;
 
   @override
   Widget build(BuildContext context) {
@@ -1002,6 +1223,17 @@ class _OggiFraVoiCard extends StatelessWidget {
                     style: TypographyTokens.titoloScheda()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.xxs),
+                const SizedBox(height: SpacingTokens.xs),
+                // **LA SUA INFOGRAFICA**, ordine GD voce GD.19.
+                Container(
+                  key: const Key('sinastria_barre_oggi'),
+                  child: IlGraficoDelleBarre(
+                    palette: palette,
+                    titolo: 'Quanto il cielo di oggi tocca ogni capitolo',
+                    barre: barre,
+                  ),
+                ),
+                const SizedBox(height: SpacingTokens.sm),
                 ParagrafiDiLettura(
                     testo: oggi.testo,
                     stile: TypographyTokens.lettura()
@@ -1018,9 +1250,28 @@ class _OggiFraVoiCard extends StatelessWidget {
 /// Un capitolo nel formato di casa: medaglioni, titolo, tre paragrafi col
 /// secondo nel riquadro, "Da dove viene".
 class _IlCapitolo extends StatelessWidget {
-  const _IlCapitolo({required this.palette, required this.capitolo});
+  const _IlCapitolo({
+    required this.palette,
+    required this.capitolo,
+    required this.barre,
+    this.lunga,
+  });
   final MaestroPalette palette;
   final CapitoloLetto capitolo;
+
+  /// Le barre delle tre coppie di punti del capitolo (GD.19).
+  final List<BarraDellaSinastria> barre;
+
+  /// **I DUE PARAGRAFI DELLA LUNGA**, solo nel primo capitolo (GD.17):
+  /// l'approfondimento, e nel riquadro col suo titolo il filo del cielo
+  /// comune. Nulli alla Breve e in ogni altro capitolo.
+  final ({String approfondimento, String filo})? lunga;
+
+  TextStyle get stile =>
+      TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary);
+
+  /// La stessa distanza fra paragrafi di [ResponsoInTreParagrafi].
+  double get distanza => (stile.fontSize ?? TypographyTokens.pavimento) * 1.2;
 
   @override
   Widget build(BuildContext context) {
@@ -1055,13 +1306,53 @@ class _IlCapitolo extends StatelessWidget {
               .copyWith(color: palette.goldSoft, height: 1.25),
         ),
         const SizedBox(height: SpacingTokens.sm),
+        // **LA SUA INFOGRAFICA, SUBITO DOPO IL TITOLO**, ordine GD voce GD.19.
+        Container(
+          key: Key('sinastria_barre_${capitolo.capitolo.name}'),
+          child: IlGraficoDelleBarre(palette: palette, barre: barre),
+        ),
+        const SizedBox(height: SpacingTokens.md),
         ResponsoInTreParagrafi(
           paragrafi: capitolo.paragrafi,
-          daDoveViene: capitolo.daDoveViene,
+          // Con la Lunga il "Da dove viene" scende sotto i due paragrafi in
+          // piu', in fondo al capitolo come sempre.
+          daDoveViene: lunga == null ? capitolo.daDoveViene : null,
           palette: palette,
-          stile: TypographyTokens.lettura()
-              .copyWith(color: ColorTokens.textPrimary),
+          stile: stile,
         ),
+        if (lunga != null) ...[
+          SizedBox(height: distanza),
+          Text(lunga!.approfondimento,
+              key: const Key('sinastria_lunga_approfondimento'), style: stile),
+          SizedBox(height: distanza),
+          RiquadroInEvidenza(
+            key: const Key('sinastria_lunga_riquadro'),
+            palette: palette,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(LaLungaDellaSinastria.titoloDelRiquadro,
+                    key: const Key('sinastria_lunga_titolo'),
+                    style: TypographyTokens.titoloScheda()
+                        .copyWith(color: palette.goldSoft)),
+                const SizedBox(height: SpacingTokens.xs),
+                Text(lunga!.filo,
+                    key: const Key('sinastria_lunga_filo'), style: stile),
+              ],
+            ),
+          ),
+          SizedBox(height: distanza),
+          Text('Da dove viene',
+              style: TypographyTokens.etichetta().copyWith(
+                  color: ColorTokens.textSecondary, letterSpacing: 1.2)),
+          const SizedBox(height: SpacingTokens.xxs),
+          Text('${capitolo.daDoveViene} ${IlComposito.daDoveViene}',
+              key: const Key('responso_da_dove_viene'),
+              style: TypographyTokens.didascalia().copyWith(
+                  color: ColorTokens.textSecondary,
+                  height: 1.35,
+                  fontStyle: FontStyle.italic)),
+        ],
       ],
     );
   }
@@ -1169,12 +1460,23 @@ class _Keplero extends StatelessWidget {
             style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
         const SizedBox(height: SpacingTokens.sm),
+        // **LA SUA INFOGRAFICA**, ordine GD voce GD.19: quanto ogni corda e'
+        // vicina alla sua consonanza. LAPIDE: qui ogni corda portava la sua
+        // corda divisa (l'arco minore e il maggiore, `_LaCorda`), un grafico
+        // diverso da quello delle altre bolle.
+        Container(
+          key: const Key('sinastria_barre_keplero'),
+          child: IlGraficoDelleBarre(
+            palette: palette,
+            titolo: 'Quanto ogni corda è vicina alla sua consonanza',
+            barre: LeBarreDellaSinastria.diKeplero(corde, _chi),
+          ),
+        ),
+        const SizedBox(height: SpacingTokens.md),
         for (var i = 0; i < corde.length; i++) ...[
           Text(_chi(corde[i]),
               style: TypographyTokens.titoloScheda()
                   .copyWith(color: ColorTokens.textPrimary)),
-          const SizedBox(height: SpacingTokens.xxs),
-          _LaCorda(palette: palette, corda: corde[i]),
           const SizedBox(height: SpacingTokens.xxs),
           Text(
               corde[i].consonanza == null
@@ -1207,46 +1509,6 @@ class _Keplero extends StatelessWidget {
             style: TypographyTokens.didascalia().copyWith(
                 color: ColorTokens.textSecondary, fontStyle: FontStyle.italic)),
       ],
-    );
-  }
-}
-
-/// La corda divisa: l'arco minore e l'arco maggiore del cerchio, in
-/// proporzione, come la corda divisa di Keplero.
-class _LaCorda extends StatelessWidget {
-  const _LaCorda({required this.palette, required this.corda});
-  final MaestroPalette palette;
-  final Corda corda;
-
-  @override
-  Widget build(BuildContext context) {
-    final minore = (corda.separazione / 360).clamp(0.02, 0.5);
-    return SizedBox(
-      height: SpacingTokens.xs,
-      child: Row(
-        children: [
-          Expanded(
-            flex: (minore * 1000).round(),
-            child: Container(
-              decoration: BoxDecoration(
-                color: palette.goldSoft,
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-          ),
-          const SizedBox(width: 3),
-          Expanded(
-            flex: ((1 - minore) * 1000).round(),
-            child: Container(
-              decoration: BoxDecoration(
-                color: palette.primary,
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: palette.gold.withValues(alpha: 0.5)),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -1286,6 +1548,15 @@ class _IlComposito extends StatelessWidget {
           aCapoFraLeParole: true,
           stile: TypographyTokens.titoloSezione()
               .copyWith(color: palette.goldSoft, height: 1.25),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        // **LA SUA INFOGRAFICA**, ordine GD voce GD.19.
+        Container(
+          key: const Key('sinastria_barre_composito'),
+          child: IlGraficoDelleBarre(
+            palette: palette,
+            barre: LeBarreDellaSinastria.delComposito(composito),
+          ),
         ),
         const SizedBox(height: SpacingTokens.sm),
         ParagrafiDiLettura(
@@ -1335,6 +1606,19 @@ class _IlMomentoGiusto extends StatelessWidget {
             style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
         const SizedBox(height: SpacingTokens.sm),
+        // **LA SUA INFOGRAFICA**, ordine GD voce GD.19: quanto e' acceso
+        // ciascuno dei giorni.
+        if (giorni.isNotEmpty) ...[
+          Container(
+            key: const Key('sinastria_barre_momento'),
+            child: IlGraficoDelleBarre(
+              palette: palette,
+              barre: LeBarreDellaSinastria.delMomento(
+                  giorni, (g) => '${g.day} ${_mesi[g.month - 1]}'),
+            ),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+        ],
         if (giorni.isEmpty)
           ParagrafiDiLettura(
               testo: senzaGiorni,

@@ -265,6 +265,38 @@ class DonoRicevuto {
 /// Chi ha risposto a una proposta del giorno insieme (FV.10): il suo nome e
 /// la sua risposta, oppure nulla se non ha risposto ancora.
 @immutable
+/// **UNA SINASTRIA RICEVUTA**, ordine GD voce GD.21: la lettura che un amico
+/// del Cerchio ha fatto con te, arrivata dalla porta `mandaLaSinastria`. Il
+/// [responso] e' lo stesso che ha letto lui, coi soli campi di un responso
+/// (legame, segno della relazione, capitoli): nessuna nascita.
+class SinastriaRicevuta {
+  const SinastriaRicevuta({
+    required this.id,
+    required this.da,
+    required this.nomeDa,
+    required this.quando,
+    required this.responso,
+  });
+
+  final String id;
+  final String da;
+  final String nomeDa;
+  final DateTime? quando;
+  final Map<String, Object?> responso;
+
+  factory SinastriaRicevuta.da(Map<String, Object?> d) => SinastriaRicevuta(
+        id: '${d['id'] ?? ''}',
+        da: '${d['da'] ?? ''}',
+        nomeDa: (d['nomeDa'] as String?) ?? 'Un amico del Cerchio',
+        quando: d['quando'] is num
+            ? DateTime.fromMillisecondsSinceEpoch((d['quando'] as num).toInt())
+            : null,
+        responso: d['responso'] is Map
+            ? Map<String, Object?>.from(d['responso'] as Map)
+            : const {},
+      );
+}
+
 class RispostaAlGiorno {
   const RispostaAlGiorno(
       {required this.nome, required this.risposta, this.altroGiorno});
@@ -449,6 +481,7 @@ class IlMioCerchio {
     this.segni = const [],
     this.doni = const [],
     this.proposteDiGiorno = const [],
+    this.sinastrie = const [],
   });
 
   final List<PersonaDelCerchio> amici;
@@ -463,6 +496,10 @@ class IlMioCerchio {
 
   /// **"TROVA IL GIORNO INSIEME"** (FV.10): le proposte mandate o ricevute.
   final List<PropostaDelGiorno> proposteDiGiorno;
+
+  /// **LE SINASTRIE RICEVUTE** (GD.21): le letture che gli amici hanno fatto
+  /// con te.
+  final List<SinastriaRicevuta> sinastrie;
 
   static List<T> _lista<T>(Object? v, T Function(Map<String, Object?>) fai) =>
       v is List
@@ -483,6 +520,7 @@ class IlMioCerchio {
         segni: _lista(d['segni'], SegnoScambiato.da),
         doni: _lista(d['doni'], DonoRicevuto.da),
         proposteDiGiorno: _lista(d['proposteDiGiorno'], PropostaDelGiorno.da),
+        sinastrie: _lista(d['sinastrie'], SinastriaRicevuta.da),
       );
 
   /// Il semaforo di una persona, come lo vedo io.
@@ -1382,6 +1420,24 @@ class IlCerchioSociale extends ChangeNotifier {
       'dono': donoDellaCartaDegliAngeli,
       'carta': numero,
       'idMovimento': PortaDelCerchio.nuovoIdentificativo('dono'),
+    }));
+  }
+
+  /// **LA LETTURA ARRIVA ANCHE ALL'AMICO DEL CERCHIO, ordine GD voce GD.21.**
+  /// Il [responso] e' quello che chi legge ha appena letto, gia' nella forma
+  /// della porta (`LaSinastriaCondivisa.comeDati`), senza nascite. **Solo agli
+  /// amici del Cerchio**: a chi non lo e' il telefono non chiama nemmeno la
+  /// porta, e il server lo rifiuterebbe comunque (`laSinastriaSiConsegna`).
+  Future<EsitoDelGesto> mandaLaSinastria(
+      String a, Map<String, Object?> responso) async {
+    if (!_cerchio.amici.any((p) => p.uid == a)) {
+      return const EsitoDelGesto(
+          ok: false, riga: 'La lettura arriva solo agli amici del Cerchio.');
+    }
+    return _esito(await _chiedi('mandaLaSinastria', {
+      'a': a,
+      'responso': responso,
+      'idMovimento': PortaDelCerchio.nuovoIdentificativo('sinastria'),
     }));
   }
 

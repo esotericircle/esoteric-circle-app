@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
@@ -30,6 +31,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'la_tendina_della_sinastria_aiuto.dart';
 
 /// **IL GIRO DELLE DUE SINASTRIE, COME UNA PERSONA.** Ordine FY voce FY.21,
 /// 16 ottobre 2026. Il fondatore: *"Code deve fare simulazione per ogni
@@ -296,34 +299,25 @@ void main() {
     expect(tester.getRect(scelta).bottom, lessThanOrEqualTo(844));
     await scatta(tester, 'e03_scena_ferma_e_scelta');
 
-    // SCELTA: la nascita dell'altra persona.
-    await tester.tap(scelta);
-    await passa(tester, 8);
-    expect(find.byKey(const Key('nascita_altra_codice')), findsOneWidget);
-    await scatta(tester, 'e04_la_sua_nascita');
-    await tester.enterText(
-        find.byKey(const Key('nascita_altra_nome')), 'Giulia');
-    await tester.tap(find.byKey(const Key('nascita_altra_ora_non_nota')));
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('nascita_altra_data')));
-    await passa(tester, 6);
-    await tester.tap(find.text('OK'));
-    await passa(tester, 6);
-    await scatta(tester, 'e05_nascita_compilata');
-
-    // AZIONE: continua.
-    await tester.tap(find.byKey(const Key('nascita_altra_conferma')));
+    // SCELTA E AZIONE: dall'ordine GD la tendina che sale (GD.14-GD.17).
+    // LAPIDE: qui la prova compilava "La sua nascita" in una seconda
+    // schermata e poi toccava il legame nella lettura; dall'ordine GD il
+    // legame si sceglie prima, uno solo (GD.16).
+    await compilaLaTendina(tester, legame: 'famiglia');
+    await scatta(tester, 'e04_la_riflessione');
+    await tester.pump(AttesaDiMedora.durataMinima);
     await passa(tester, 10);
+    await scatta(tester, 'e05_la_statua_sul_tavolo');
 
     // RISPOSTA: la lettura, sotto la stessa scena, senza un secondo video.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('sinastria_evolutiva_nomi')), 300,
+        scrollable: find.byType(Scrollable).first);
     expect(find.byKey(const Key('sinastria_evolutiva_nomi')), findsOneWidget);
     expect(find.text('Tu e Giulia'), findsOneWidget);
     expect(finta.avvii, 1, reason: 'scelta la persona il video e\' ripartito');
-    await tester.drag(find.byType(Scrollable).first, const Offset(0, -560));
     await passa(tester, 6);
     await scatta(tester, 'e06_la_lettura');
-    await tester.tap(find.byKey(const Key('sinastria_legame_famiglia')));
-    await passa(tester, 4);
     await tester.drag(find.byType(Scrollable).first, const Offset(0, -500));
     await passa(tester, 6);
     expect(tester.takeException(), isNull);

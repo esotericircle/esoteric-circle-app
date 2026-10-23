@@ -1,0 +1,26 @@
+REGOLA A E REGOLA B, PARTE D DELL'ORDINE GD (la Sinastria evolutiva, voci GD.13-GD.22)
+Ogni riga: file, testo innestato, verifica col grep, esito, motivo del rosso, tolto.
+
+== REGOLA B, prima di toccare la zona ==
+
+B1. Zona: la scena della Sinastria evolutiva (guardia GC.02, test/la_sinastria_evolutiva_si_apre_sulla_scena_test.dart).
+    Innesto in lib/features/synastry/sinastria_evolutiva_screen.dart, sopra LoStudioDiMedora: `const SizedBox(height: 80), // INNESTO REGOLA B`.
+    Grep: `grep -n "INNESTO REGOLA B"` -> riga 560, presente.
+    Esito: ROSSA (+8 -1), cade "la scena comincia a 80.0, sotto la barra del titolo".
+    Tolto con git checkout del file; grep -c INNESTO -> 0.
+
+B2. Zona: il responso della Sinastria evolutiva per piano (test/la_sinastria_evolutiva_a_video_test.dart).
+    Innesto in sinastria_evolutiva_screen.dart: `if (tuttiICapitoli || i < 1) // INNESTO REGOLA B` al posto di `i < 2`.
+    Grep: riga 611, presente.
+    Esito: ROSSA (+4 -1), cade il Viandante: il secondo capitolo aperto non si trova.
+    Tolto con git checkout; grep -c INNESTO -> 0.
+
+== REGOLA A, le prove nuove ==
+
+A1. functions/src/sinastria_evolutiva.test.ts, GD.21 lato server.
+    Innesto in functions/src/sinastria_evolutiva.ts: (a) `return {...c, legame, segno, capitoli} as SinastriaCondivisa; // INNESTO REGOLA A`
+    (il corpo intero passa, nascita compresa); (b) `// INNESTO REGOLA A: if (!p.amici) ...` (il controllo dell'amicizia tolto).
+    Grep: righe 319 e 334, presenti.
+    Esito (npx tsc e node --test lib/sinastria_evolutiva.test.js): ROSSA, pass 28 fail 2:
+    "una nascita infilata nel corpo non arriva a nessuno" e "a chi non e' nel Cerchio non arriva niente".
+    Tolto ripristinando la copia; grep -c INNESTO -> 0; di nuovo verde (82 su 82 con sociale e cerchio).

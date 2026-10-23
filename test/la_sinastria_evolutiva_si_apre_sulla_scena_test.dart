@@ -20,6 +20,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
+
+import 'la_tendina_della_sinastria_aiuto.dart';
 
 /// **LA SINASTRIA EVOLUTIVA SI APRE SULLA SUA SCENA.** Ordine FY voce FY.11,
 /// 16 ottobre 2026. Il fondatore, sulla build 2312: *"La sinastria evolutiva
@@ -194,35 +197,27 @@ void main() {
             'video non passa sotto il velo');
     expect(r.height, greaterThan(500), reason: 'la scena non e\' intera');
 
-    // Sotto la scena, a scena ferma, la scelta della persona: si vede e si
-    // tocca.
+    // In fondo alla scena, a scena ferma, la scelta della persona: si vede e
+    // si tocca.
     final scelta = find.byKey(const Key('sinastria_scegli_la_persona'));
     expect(scelta, findsOneWidget,
-        reason: 'sotto la scena manca il gesto che apre la lettura');
-    await tester.ensureVisible(scelta);
-    await passa(tester, 2);
-    await tester.tap(scelta);
+        reason: 'sulla scena manca il gesto che apre la lettura');
+    // **DALL'ORDINE GD LA PERSONA SI SCEGLIE DALLA TENDINA** (GD.14): il
+    // gesto apre la tendina che sale, non piu' la nascita in una seconda
+    // schermata. LAPIDE: qui la prova compilava "La sua nascita"
+    // (`nascita_altra_*`), che resta nel modulo come lettura a due telefoni.
+    await compilaLaTendina(tester);
+    await tester.pump(AttesaDiMedora.durataMinima);
     await passa(tester, 8);
-    expect(find.byKey(const Key('nascita_altra_codice')), findsOneWidget,
-        reason: 'il gesto non apre la nascita dell\'altra persona: la '
-            'lettura a due telefoni (FY.14: per la Sinastria resta) e la '
-            'strada a mano');
-
-    await tester.enterText(
-        find.byKey(const Key('nascita_altra_nome')), 'Giulia');
-    await tester.tap(find.byKey(const Key('nascita_altra_ora_non_nota')));
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('nascita_altra_data')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('OK'));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key('nascita_altra_conferma')));
-    await passa(tester, 12);
 
     // La risposta, nella stessa schermata e sotto la stessa scena.
     expect(find.byType(SinastriaEvolutivaScreen), findsOneWidget,
         reason: 'la lettura si e\' aperta in una seconda schermata');
     expect(scena, findsOneWidget);
+    // La scena copre tutto lo schermo (GD.13): la lettura comincia sotto.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('sinastria_evolutiva_nomi')), 300,
+        scrollable: find.byType(Scrollable).first);
     expect(find.byKey(const Key('sinastria_evolutiva_nomi')), findsOneWidget,
         reason: 'scelta la persona la lettura non compare');
     expect(find.text('Tu e Giulia'), findsOneWidget);
@@ -242,6 +237,7 @@ void main() {
         'FY.11 a ${schermo.width.toInt()}x${schermo.height.toInt()}: la '
         'scelta della persona si vede intera nella prima schermata, sotto '
         'Medora', (tester) async {
+      SharedPreferences.setMockInitialValues({});
       silenzia();
       tester.view.physicalSize = schermo;
       tester.view.devicePixelRatio = 1.0;
@@ -254,15 +250,15 @@ void main() {
       await passa(tester, 6);
       final pulsante =
           tester.getRect(find.byKey(const Key('sinastria_scegli_la_persona')));
-      // Il testo della scelta, la prima cosa che si vede sopra il velo.
-      final pannello =
-          tester.getRect(find.byKey(const Key('sinastria_la_scelta_titolo')));
       final medora = tester.getRect(find.byKey(const Key('studio_medora')));
       expect(pulsante.bottom, lessThanOrEqualTo(schermo.height),
           reason: 'il pulsante della scelta finisce a ${pulsante.bottom}, '
               'sotto la piega di ${schermo.height}');
-      expect(pannello.top, greaterThanOrEqualTo(medora.bottom - 0.5),
-          reason: 'la scelta comincia a ${pannello.top} e copre Medora, '
+      // **DALL'ORDINE GD VOCE GD.13 RESTA SOLO IL PULSANTE**: LAPIDE, qui si
+      // misurava il titolo della scelta ("Con chi leggo il tuo cielo?"),
+      // che e' uscito. Il pulsante non copre Medora.
+      expect(pulsante.top, greaterThanOrEqualTo(medora.bottom - 0.5),
+          reason: 'il pulsante comincia a ${pulsante.top} e copre Medora, '
               'che finisce a ${medora.bottom}');
       expect(tester.takeException(), isNull);
     });
