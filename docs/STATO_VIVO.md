@@ -8123,7 +8123,7 @@ dell'ordine alla lettera: `docs/ordini/ORDINE_GD_TESTO.md`. Manifesto:
 prove della Lunga erano verdi. **24 voci CHIUSE, 2 APERTE IN ATTESA DI
 VERIFICA**: GD.03 (mancano le arti dipinte dei sette chakra) e GD.21 (la porta
 `mandaLaSinastria` va pubblicata dal fondatore, comando nel rapporto).
-**Consegnato col verde di GitHub sul commit `78aff744`**. Durante il collaudo
+**Consegnato col verde di GitHub sul commit `78aff744`**. **Build 2317** dal commit `867f956f`, verde, release App Distribution `2i9m69764id8g`, distribuita e accettata; la porta `mandaLaSinastria` pubblicata dal fondatore alle 23:06. Durante il collaudo
 il fondatore ha chiesto tre ritocchi, fatti e visti sul Realme: nel Respiro i
 testi sotto il mento di Medora; nella Sinastria la tendina semitrasparente
 davvero (0,6, scena sfocata, velo leggero 0,25 dietro) con le scelte e i

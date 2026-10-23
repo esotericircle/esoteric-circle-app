@@ -1,11 +1,17 @@
-Build 2316, ordine GC e aggiunta GCA: la Stesa di Tarocchi piu' leggera e senza fascia sotto la barra, l'Oracolo degli Angeli rifatto col filmato nuovo, il livello visivo dei due responsi, la Lunga dell'Oracolo, le undici decisioni delegate.
+Build 2317, ordine GD: i doni nei palmi dei Maestri, la Stesa e l'Oracolo con la Lunga anche senza rete, l'Oracolo riordinato, la Sinastria evolutiva rifatta, il Respiro col solo dito, la scritta del cielo.
 
 COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE (Realme, build di rilascio).
 
-Stesa di Tarocchi. La stesa a dieci carte non scatta piu': memoria grafica da 140 a 96 MB, fotogrammi oltre un decimo di secondo da 16 a 3; letta anche sull'app vera col piano Illuminato attivato in demo, nessuna chiusura. La scena parte dal bordo alto sotto la barra semitrasparente. Saltando il filmato Medora si ferma con la mano al cuore, come alla fine naturale. Domanda scelta e domanda scritta non stanno mai insieme. La singola carta ha il titolo e un solo paragrafo. Sopra il responso le piste dei semi coi simboli dipinti, e ogni carta col messaggio che si apre al tocco.
+Domini. Alla fine del video Medora ha nel palmo il tuo segno; il dominio di Calìgo si apre col cerchio di fuoco e nella sua mano c'è la runa del tramonto di oggi; la chat di Calìgo si apre col vortice. Aura resta senza simbolo finché non arrivano le immagini dei chakra.
 
-Oracolo degli Angeli. Il filmato nuovo dura per intero (circa 10 secondi) e lascia il tavolo vuoto. Sotto il tavolo: la domanda con la freccia di invio, una carta o tre e la profondita', il mazzo coi gesti, il pulsante; tutto piu' compatto, cosi' mentre scegli le carte vedi il tavolo dove atterrano. La carta che tocchi vola al suo posto col suo suono. Medora riflette, le carte si girano una alla volta e si alzano con Fare, Sentire, Capire o La carta del momento; toccandone una si apre la sua scheda con numero e nome. Responso come nella Stesa, con la scala di luce e i segni dipinti dei cori. Sfondo cosmico. La stesa a una carta conta come consultazione, e sotto Avvia la lettura c'e' il conto delle consultazioni rimaste oggi. La Lunga si sceglie (dall'Iniziato) e aggiunge due paragrafi solo al responso principale, col riquadro Il salmo propiziatorio.
+Stesa di Tarocchi. "Su questa domanda le carte hanno già parlato" compare solo con la stessa domanda e le stesse carte nello stesso giorno: rientrando, le carte si scelgono di nuovo. La Lunga dà i due paragrafi in più, il secondo nel riquadro, anche senza rete.
 
-Altro. Il Maestro dice la Luna piena e nuova nello stesso giorno del Calendario. Il Diario scrive l'anno sopra i mesi e le date in lettere. Il pulsante per chiedere agli altri Maestri non dice piu' "confronto di sinastria". La carta "Hai chiesto a..." si vede dopo un consulto vero a tre.
+Oracolo degli Angeli. Niente pulsante rotondo: scritta o scelta la domanda, il mazzo si accende da solo. Dopo la lettura le tre carte in piedi occupano quasi tutta la larghezza. Sparite la bolla dell'angelo del momento in fondo e la frase sulla rete. La Lunga dà due paragrafi in più col riquadro "Il salmo propiziatorio", anche senza rete. La scheda di ogni carta parte dal suo messaggio, i dettagli dopo. In cima al responso la terna una volta sola e, al posto della scala, la mappa dei nove cori che accende i cori degli angeli usciti.
 
-Nota: nella demo l'Illuminato attivato dai piani non resta dopo una reinstallazione dell'app: va riattivato.
+Sinastria evolutiva. Video a tutto schermo, la domanda sopra Medora, un solo pulsante. La tendina semitrasparente con online e offline, le scelte e i campi nella cornice dipinta del pulsante. Quattro legami, uno alla volta; Breve o Lunga col riquadro "Il filo che vi lega". Medora riflette, poi sul tavolo la statua del vostro segno; "Oggi fra voi" sotto il piedistallo. Barre dopo il titolo e in ogni bolla. Gli amici offline sono gli stessi dell'Oroscopo.
+
+Respiro della Luna. Niente microfono: si tiene premuto sulla Luna, sollevando il dito tutto si ferma. Medora alza e abbassa il viso col respiro, e i testi stanno sotto il suo mento.
+
+Cielo di adesso e onboarding. "Alza il telefono al Cielo" per tre secondi, poi sfuma.
+
+Da sapere: la lettura della Sinastria all'amico del Cerchio va provata con due account dello stesso Cerchio. Nella demo l'Illuminato attivato dai piani non resta dopo una reinstallazione: va riattivato.
