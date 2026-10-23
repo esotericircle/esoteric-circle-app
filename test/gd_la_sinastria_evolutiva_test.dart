@@ -24,6 +24,7 @@ import 'package:esoteric_circle/core/synastry_evolutiva/le_barre_della_sinastria
 import 'package:esoteric_circle/core/synastry_evolutiva/legame_e_eta.dart';
 import 'package:esoteric_circle/design_system/components/interruttore_del_cerchio.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.dart';
 import 'package:esoteric_circle/features/amici/amici_screen.dart';
@@ -321,7 +322,25 @@ void main() {
     final rFoglio = tester.getRect(find.byType(BottomSheet));
     print('GD.14 LA TENDINA: velo ${velo.toStringAsFixed(2)}, da '
         '${rFoglio.top.toStringAsFixed(0)} a ${rFoglio.bottom}');
-    expect(velo, lessThan(1), reason: 'la tendina e\' piena, non velata');
+    // **SEMITRASPARENTE DAVVERO**, il fondatore sul Realme, ordine GD: "il
+    // modulo tendina deve essere semitrasparente". Non piu' velata delle
+    // barre del titolo, e la scena dietro sfocata. LAPIDE: "meno di 1", e
+    // passava lo 0,82 che sul telefono si leggeva pieno.
+    expect(velo, lessThanOrEqualTo(0.6),
+        reason: 'la tendina e\' quasi piena: velo $velo');
+    expect(find.byKey(const Key('sinastria_tendina_sfocata')), findsOneWidget,
+        reason: 'la scena dietro la tendina non e\' sfocata');
+    // Le due scelte nella cornice dipinta del pulsante largo.
+    for (final k in const [
+      'sinastria_tendina_online',
+      'sinastria_tendina_offline'
+    ]) {
+      expect(
+          find.descendant(
+              of: find.byKey(Key(k)), matching: find.byType(CorniceDipinta)),
+          findsOneWidget,
+          reason: '$k non ha la cornice dipinta');
+    }
     expect(rFoglio.bottom, 844, reason: 'la tendina non sale dal fondo');
     expect(find.byKey(const Key('sinastria_evolutiva_scena')), findsOneWidget,
         reason: 'sotto la tendina la scena non c\'e\' piu\'');
@@ -503,20 +522,21 @@ void main() {
     expect(dopo.fuori, isEmpty,
         reason: 'testi del modulo fuori dalla misura del responso dei '
             'Tarocchi: ${dopo.fuori}');
-    // I tre campi stanno nei riquadri della casa.
+    // I tre campi stanno nella cornice dipinta del pulsante largo. Il
+    // fondatore sul Realme, ordine GD: "mi piace la grafica cornice del
+    // pulsante «scopri la compatibilità», ma dovrebbe essere ripreso".
+    // LAPIDE: i campi stavano nei riquadri della casa (`RiquadroInEvidenza`).
     for (final k in const [
       'sinastria_modulo_nome',
       'sinastria_modulo_data',
       'sinastria_modulo_ora'
     ]) {
       final dentro = find.ancestor(
-          of: find.byKey(Key(k)),
-          matching: find.byKey(const Key('paragrafo_in_evidenza')));
+          of: find.byKey(Key(k)), matching: find.byType(CorniceDipinta));
       final sotto = find.descendant(
-          of: find.byKey(Key(k)),
-          matching: find.byKey(const Key('paragrafo_in_evidenza')));
+          of: find.byKey(Key(k)), matching: find.byType(CorniceDipinta));
       expect(dentro.evaluate().length + sotto.evaluate().length, greaterThan(0),
-          reason: '$k non sta in un riquadro della casa');
+          reason: '$k non sta nella cornice dipinta');
     }
   });
 
@@ -984,5 +1004,51 @@ void main() {
     expect(tester.getRect(find.byKey(const Key('sinastria_riga_viva'))).bottom,
         lessThanOrEqualTo(844));
     expect(find.byType(InterruttoreDelCerchio), findsNothing);
+    // **SOTTO IL PIEDISTALLO**, il fondatore sul Realme: "Il testo «oggi
+    // fra Voi» dovrebbe andare un po' piu in basso per non sovrapporsi alla
+    // statua".
+    // Alle misure dei telefoni veri: il Realme di collaudo e' 360 per 800
+    // punti (1080 per 2400 a densita' 3), dove il fondatore ha visto la
+    // sovrapposizione; a 390 per 844 i margini di prima passavano.
+    final statua = find.byKey(const Key('sinastria_evolutiva_statua'));
+    final titolo = find.byKey(const Key('sinastria_riga_viva_titolo'));
+    // I caratteri veri della casa: col carattere delle prove la riga viva
+    // va a capo altrove e il blocco ha un'altra altezza.
+    await tester.runAsync(() async {
+      for (final f in const [
+        ['Cinzel', 'assets/fonts/Cinzel-variable.ttf'],
+        ['EBGaramond', 'assets/fonts/EBGaramond-variable.ttf'],
+      ]) {
+        final loader = FontLoader(f[0]);
+        loader.addFont(
+            Future.value(ByteData.view(File(f[1]).readAsBytesSync().buffer)));
+        await loader.load();
+      }
+    });
+    // La finestra del Realme va da bordo a bordo: la barra di sistema in
+    // basso, coi tre tasti, copre 204 pixel (68 punti) e la barra di stato
+    // in alto 96 (32 punti), letti con `dumpsys window` e sulla cattura.
+    for (final misura in const [
+      Size(360, 726),
+      Size(390, 844),
+      Size(412, 915)
+    ]) {
+      await schermo(tester, misura);
+      tester.view.padding = const FakeViewPadding(top: 32, bottom: 68);
+      tester.view.viewPadding = const FakeViewPadding(top: 32, bottom: 68);
+      await rotta(tester, tier: Tier.free, oggi: DateTime(2026, 10, 23));
+      final base = tester.getRect(statua).bottom;
+      final cima = tester.getRect(titolo).top;
+      print('GD.22 A ${misura.width.toInt()} PER ${misura.height.toInt()}: '
+          'la base della statua a ${base.toStringAsFixed(1)}, "OGGI FRA VOI" '
+          'da ${cima.toStringAsFixed(1)}');
+      // Lo stacco, non il solo "sotto": coi margini di prima la riga
+      // cominciava 10 punti sotto il bordo del riquadro della statua, la
+      // stessa posizione della cattura del fondatore, dove le lettere
+      // toccano il piedistallo. Lo stacco chiesto e' uno spazio della casa.
+      expect(cima - base, greaterThanOrEqualTo(SpacingTokens.sm),
+          reason: '"OGGI FRA VOI" tocca la statua a $misura: stacco '
+              '${(cima - base).toStringAsFixed(1)} punti');
+    }
   });
 }

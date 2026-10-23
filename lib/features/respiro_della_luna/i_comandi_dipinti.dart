@@ -37,6 +37,47 @@ const Color coloreSulVelluto = Color(0xFFF1ECE2);
 /// Il testo sull'argento del pulsante premuto: il blu del velluto.
 const Color coloreSullArgento = Color(0xFF14204A);
 
+/// **LA CORNICE DEL PULSANTE LARGO, INTORNO A UN CONTENUTO.** Ordine GD, il
+/// fondatore sul Realme guardando la Sinastria evolutiva: *"mi piace la
+/// grafica cornice del pulsante «scopri la compatibilità», ma dovrebbe essere
+/// ripreso"*. E' la stessa pittura del [PulsanteDipinto] (gli angoli d'oro, il
+/// filo, il velluto blu), a nove parti e alla stessa scala degli ornamenti di
+/// un pulsante alto 54 punti: cresce in altezza col suo contenuto (una scelta
+/// con due righe, un campo del modulo) senza che gli angoli si deformino.
+/// [scelta] usa la pittura del pulsante premuto, per la voce scelta.
+class CorniceDipinta extends StatelessWidget {
+  const CorniceDipinta({super.key, required this.child, this.scelta = false});
+
+  final Widget child;
+  final bool scelta;
+
+  /// La scala degli ornamenti: quella di un [PulsanteDipinto] alto 54.
+  static const double scala = PulsanteDipinto.altezzaDellImmagine / 54;
+
+  /// Il margine dentro la cornice: oltre gli angoli e oltre il filo alto.
+  static const EdgeInsets margine = EdgeInsets.fromLTRB(28, 18, 24, 18);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: ImmagineANoveParti(
+            asset: scelta
+                ? PulsanteDipinto.immaginePremuta
+                : PulsanteDipinto.immagine,
+            misura: scelta ? const Size(1132, 323) : const Size(1133, 323),
+            taglio:
+                scelta ? PulsanteDipinto.taglioPremuto : PulsanteDipinto.taglio,
+            scala: scala,
+          ),
+        ),
+        Padding(padding: margine, child: child),
+      ],
+    );
+  }
+}
+
 /// **IL PULSANTE LARGO, A NOVE PARTI.** Misure dell'immagine: 1133 per 323
 /// (premuto 1132 per 323); gli ornamenti degli angoli finiscono entro 210
 /// pixel da ciascun lato, il filo alto entro 110 e quello basso da 213.

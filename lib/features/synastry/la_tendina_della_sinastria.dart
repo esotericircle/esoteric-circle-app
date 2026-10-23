@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -110,8 +111,16 @@ class LaTendinaDellaSinastria extends StatefulWidget {
   /// si carica dal telefono.
   final AmiciOffline? amici;
 
-  /// Il velo della tendina: semitrasparente, la scena si vede dietro.
-  static const double velo = 0.82;
+  /// **IL VELO DELLA TENDINA, SEMITRASPARENTE DAVVERO**, ordine GD, il
+  /// fondatore sul Realme: *"Nella sinastria, il modulo tendina deve essere
+  /// semitrasparente"*. LAPIDE: 0,82, che col velo comune del foglio sopra la
+  /// scena si leggeva come un pannello pieno. Adesso lo stesso velo delle
+  /// barre del titolo (`AppTheme.veloDellaBarra`, 0,6) e la scena dietro
+  /// sfocata quanto basta perche' le righe si leggano ([sfocatura]).
+  static const double velo = 0.6;
+
+  /// La sfocatura della scena dietro la tendina, in punti.
+  static const double sfocatura = 8;
 
   /// Apre la tendina dal basso e aspetta la scelta.
   static Future<SceltaDellaSinastria?> apri(
@@ -469,8 +478,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
           enableFeedback: false,
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
           onTap: onTap,
-          child: RiquadroInEvidenza(
-            palette: _p,
+          child: CorniceDipinta(
             child: Row(
               children: [
                 Icon(icona, color: _p.goldSoft, size: 28),
@@ -570,8 +578,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
                   borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
                   onTap: () =>
                       _alModulo(da: _Passo.online, nome: a.nome, uid: a.uid),
-                  child: RiquadroInEvidenza(
-                    palette: _p,
+                  child: CorniceDipinta(
                     child: Row(
                       children: [
                         Expanded(
@@ -630,8 +637,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
                           hour: int.parse(a.ora!.split(':')[0]),
                           minute: int.parse(a.ora!.split(':')[1])),
                 ),
-                child: RiquadroInEvidenza(
-                  palette: _p,
+                child: CorniceDipinta(
                   child: Row(
                     children: [
                       Expanded(
@@ -678,8 +684,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
         enableFeedback: false,
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         onTap: onTap,
-        child: RiquadroInEvidenza(
-          palette: _p,
+        child: CorniceDipinta(
           child: Row(
             children: [
               Expanded(
@@ -772,8 +777,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
             'e l\'ora di nascita, poi scegli il vostro legame.',
             style: _nota),
         const SizedBox(height: SpacingTokens.md),
-        RiquadroInEvidenza(
-          palette: _p,
+        CorniceDipinta(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -799,8 +803,7 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
         ),
         const SizedBox(height: SpacingTokens.sm),
         if (codice != null)
-          RiquadroInEvidenza(
-            palette: _p,
+          CorniceDipinta(
             child: Text(
                 'La nascita di ${codice.nome.isEmpty ? 'questa persona' : codice.nome} '
                 'è arrivata dal suo telefono, per questa lettura.',
@@ -920,18 +923,28 @@ class _LaTendinaDellaSinastriaState extends State<LaTendinaDellaSinastria> {
       _Passo.offline => _offline(),
       _Passo.modulo => _ilModulo(),
     };
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: alta),
-      child: SingleChildScrollView(
-        key: const Key('sinastria_tendina'),
-        padding: EdgeInsets.fromLTRB(
-            SpacingTokens.lg,
-            SpacingTokens.md,
-            SpacingTokens.lg,
-            MediaQuery.viewInsetsOf(context).bottom + SpacingTokens.lg),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 220),
-          child: KeyedSubtree(key: ValueKey(_passo), child: passo),
+    return ClipRRect(
+      borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(SpacingTokens.radiusLg)),
+      child: BackdropFilter(
+        key: const Key('sinastria_tendina_sfocata'),
+        filter: ui.ImageFilter.blur(
+            sigmaX: LaTendinaDellaSinastria.sfocatura,
+            sigmaY: LaTendinaDellaSinastria.sfocatura),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: alta),
+          child: SingleChildScrollView(
+            key: const Key('sinastria_tendina'),
+            padding: EdgeInsets.fromLTRB(
+                SpacingTokens.lg,
+                SpacingTokens.md,
+                SpacingTokens.lg,
+                MediaQuery.viewInsetsOf(context).bottom + SpacingTokens.lg),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 220),
+              child: KeyedSubtree(key: ValueKey(_passo), child: passo),
+            ),
+          ),
         ),
       ),
     );

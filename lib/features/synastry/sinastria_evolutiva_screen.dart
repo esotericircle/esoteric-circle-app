@@ -1117,13 +1117,20 @@ class _LaRigaViva extends StatelessWidget {
           ],
         ),
       ),
+      // **SOTTO IL PIEDISTALLO, NON SULLA STATUA**, ordine GD, il fondatore
+      // sul Realme: "Il testo «oggi fra Voi» dovrebbe andare un po' piu in
+      // basso per non sovrapporsi alla statua". LAPIDE: un margine alto di
+      // 32 punti e 12 fra la riga e l'invito spingevano "OGGI FRA VOI" sul
+      // piedistallo; adesso il blocco e' stretto in basso e la prova GD.22
+      // pretende che cominci sotto la base della statua.
       child: Padding(
-        padding: EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xl,
-            SpacingTokens.lg, SpacingTokens.sm + bassoSicuro),
+        padding: EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xxs,
+            SpacingTokens.lg, SpacingTokens.xs + bassoSicuro),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('OGGI FRA VOI',
+                key: const Key('sinastria_riga_viva_titolo'),
                 style: TypographyTokens.suLaScena(TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 2.0))),
             const SizedBox(height: SpacingTokens.xxs),
@@ -1134,7 +1141,7 @@ class _LaRigaViva extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TypographyTokens.suLaScena(TypographyTokens.corpo()
                     .copyWith(color: coloreSulVelluto))),
-            const SizedBox(height: SpacingTokens.sm),
+            const SizedBox(height: SpacingTokens.xxs),
             // Nessuna freccia in giu': non e' toccabile, e una freccia
             // promette un tocco (guardia `ogni_freccia_mantiene`). La riga lo
             // dice a parole.

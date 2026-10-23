@@ -168,6 +168,38 @@ void main() {
   });
 
   testWidgets(
+      'i testi del rito non coprono il viso di Medora, e restano in vista',
+      (tester) async {
+    // Il fondatore sul Realme, ordine GD: "Nel respiro, cerca di evitare di
+    // coprire il viso di Medora con i testi". Nel fotogramma dipinto 1080
+    // per 1920 il viso finisce alla riga 1000: tutto cio' che il rito
+    // scrive (il gesto, l'istruzione, il giro) comincia sotto quella riga.
+    await apriIlRito(tester);
+    final schermo = tester.view.physicalSize / tester.view.devicePixelRatio;
+    final scena =
+        tester.getRect(find.byKey(const Key('respiro_cielo_senza_luna')));
+    final fineDelViso = scena.top + scena.height * 1000 / 1920;
+    final testi = [
+      for (final k in const [
+        'respiro_gesto_del_momento',
+        'respiro_istruzione_sulla_scena',
+        'respiro_giro',
+      ])
+        tester.getRect(find.byKey(Key(k))),
+    ];
+    final cima = testi.map((r) => r.top).reduce((a, b) => a < b ? a : b);
+    final fondo = testi.map((r) => r.bottom).reduce((a, b) => a > b ? a : b);
+    // ignore: avoid_print
+    print('IL VISO DI MEDORA finisce a ${fineDelViso.toStringAsFixed(1)}, i '
+        'testi del rito da ${cima.toStringAsFixed(1)} a '
+        '${fondo.toStringAsFixed(1)} su ${schermo.height.toStringAsFixed(0)}');
+    expect(cima, greaterThanOrEqualTo(fineDelViso),
+        reason: 'i testi del rito coprono il viso di Medora');
+    expect(fondo, lessThanOrEqualTo(schermo.height),
+        reason: 'i testi del rito escono dallo schermo');
+  });
+
+  testWidgets(
       'i tre stati: prima del gesto la scritta, col dito premuto il giro '
       'avanza, col dito sollevato tutto fermo', (tester) async {
     await apriIlRito(tester);

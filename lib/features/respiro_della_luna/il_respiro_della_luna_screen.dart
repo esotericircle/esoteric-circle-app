@@ -792,11 +792,20 @@ class _IlRespiroDellaLunaScreenState extends State<IlRespiroDellaLunaScreen>
                 // conteggio stava nel pannello sotto la scena, che sul Realme
                 // restava fuori dallo schermo: chi teneva premuto non vedeva
                 // niente avanzare e il respiro sembrava non funzionare.
+                // **SOTTO IL MENTO, MAI SUL VISO**, ordine GD, il fondatore
+                // sul Realme: "Nel respiro, cerca di evitare di coprire il
+                // viso di Medora con i testi". LAPIDE: i testi partivano
+                // appena sotto la Luna e scendevano sul viso. Misurato sul
+                // fotogramma dipinto 1080 per 1920: la Luna finisce alla riga
+                // 620, il viso va dalla 730 alla 1000 (piu' in alto quando lo
+                // alza all'inspiro, mai piu' in basso); i testi partono dalla
+                // riga [rigaSottoIlViso], sul petto.
                 if (ferma && nelRito)
                   Positioned(
                     left: SpacingTokens.md,
                     right: SpacingTokens.md,
-                    top: foto.bottom + SpacingTokens.xxs,
+                    top: scena.top +
+                        scena.height * _IlGiroSullaScena.rigaSottoIlViso / 1920,
                     child: Opacity(
                       opacity: respiroVisto,
                       child: _IlGiroSullaScena(
@@ -1529,6 +1538,10 @@ class _IlGiroSullaScena extends StatelessWidget {
   final bool iniziato;
   final int cicli;
   final int cicliTotali;
+
+  /// La riga del fotogramma 1080 per 1920 da cui partono i testi del rito:
+  /// sotto il mento di Medora (il viso finisce alla 1000).
+  static const double rigaSottoIlViso = 1030;
 
   @override
   Widget build(BuildContext context) {
