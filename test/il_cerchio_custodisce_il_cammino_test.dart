@@ -276,8 +276,16 @@ void main() {
     // transazione E scrive un giorno della collana personale, con le sue
     // difese (niente futuro, sette giorni indietro, tre per ciclo, lo stesso
     // giorno mai pagato due volte) in `users/{uid}/stato/respiro_ricuciture`.
-    expect(callable.length, 48,
-        reason: 'le callable non sono piu\' quarantotto: $callable. Se ne '
+    // **QUARANTANOVE, ordine GD voce GD.21, 23 ottobre 2026**, e si
+    // dichiara qui come la prova chiede. La nuova e' `mandaLaSinastria`: la
+    // lettura della Sinastria evolutiva arriva anche all'amico del Cerchio
+    // (proposta dell'Architetto approvata dal fondatore con "2 si"), e non
+    // poteva viaggiare dentro `statoDelCerchio`, che riguarda chi chiama:
+    // questa scrive nel Cerchio dell'altra persona, solo se e' nel Cerchio
+    // di chi la manda, e mai i dati di nascita. Motivata nel rapporto
+    // dell'ordine GD.
+    expect(callable.length, 49,
+        reason: 'le callable non sono piu\' quarantanove: $callable. Se ne '
             'serviva una nuova andava dichiarata e motivata nel rapporto');
     // **OGNI CALLABLE VIAGGIA DAVVERO, ordine FW, 15 ottobre 2026.** Il
     // fondatore ha provato a pubblicare `compraUnMeseDelLunario` dal PC vero
@@ -291,9 +299,8 @@ void main() {
     // aggiungerla al blocco `export { ... } from "./il_cerchio_sociale"`.
     final indexTesto = File('functions/src/index.ts').readAsStringSync();
     final riesportati = <String>{};
-    for (final m
-        in RegExp(r'export \{([\s\S]*?)\}\s*from\s*"\./\w+";')
-            .allMatches(indexTesto)) {
+    for (final m in RegExp(r'export \{([\s\S]*?)\}\s*from\s*"\./\w+";')
+        .allMatches(indexTesto)) {
       for (final riga in m.group(1)!.split('\n')) {
         final pulito =
             riga.replaceAll(RegExp(r'//.*'), '').replaceAll(',', '').trim();

@@ -20,7 +20,8 @@ import 'sorgenti_di_lib.dart';
 /// contiene quella sottostringa e sarebbe passata sotto silenzio senza una
 /// guardia propria.
 void main() {
-  test('nessun CustomPainter, nessun cerchio o alone finto, '
+  test(
+      'nessun CustomPainter, nessun cerchio o alone finto, '
       'solo icone di interfaccia dichiarate', () {
     final file = sorgentiDiLib()
         .where((f) =>
@@ -46,10 +47,22 @@ void main() {
       if (testo.contains('CustomPaint') || testo.contains('CustomPainter')) {
         colpeCustomPaint.add(percorso);
       }
-      if (testo.contains('BoxShape.circle') ||
-          testo.contains('RadialGradient')) {
-        colpeCerchio.add(percorso);
+      // **LA MASCHERA DI DISSOLVENZA NON E' UN ALONE**, ordine GD voce GD.24:
+      // la Luna dipinta del video di Medora si copre con un ritaglio del
+      // cielo dipinto, sfumato da un `RadialGradient` dentro uno
+      // `ShaderMask` in `BlendMode.dstIn`. Il gradiente li' non disegna
+      // niente: decide quanto si vede di un'immagine dipinta, che e' una
+      // dissolvenza (R8). Fuori da quella forma ogni `RadialGradient` resta
+      // una colpa.
+      final righe = testo.split('\n');
+      for (var i = 0; i < righe.length; i++) {
+        if (!righe[i].contains('RadialGradient')) continue;
+        final prima = righe.sublist(i < 8 ? 0 : i - 8, i).join('\n');
+        final maschera =
+            prima.contains('ShaderMask(') && prima.contains('BlendMode.dstIn');
+        if (!maschera) colpeCerchio.add('$percorso, riga ${i + 1}');
       }
+      if (testo.contains('BoxShape.circle')) colpeCerchio.add(percorso);
       for (final m in RegExp(r'Icons\.([a-zA-Z0-9_]+)').allMatches(testo)) {
         final nome = m.group(1)!;
         if (!iconeDiInterfaccia.contains(nome)) {
