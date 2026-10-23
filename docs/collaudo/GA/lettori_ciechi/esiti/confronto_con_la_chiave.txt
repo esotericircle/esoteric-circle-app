@@ -1,0 +1,5 @@
+tarocchi schede 40 letti 40 giusti 40 sbagliati 0 [] dubbi []
+rune schede 40 letti 40 giusti 37 sbagliati 2 [(10, 'scambiato', 'sì'), (25, 'scambiato', 'sì')] dubbi [26]
+oracolo schede 40 letti 40 giusti 38 sbagliati 1 [(7, 'scambiato', 'sì')] dubbi [30]
+oroscopo schede 48 letti 48 giusti 48 sbagliati 0 [] dubbi []
+oracolo v1 schede 40 letti 40 giusti 39 sbagliati 1 [(13, 'originale', 'no')] dubbi []

@@ -1,0 +1,26 @@
+# IL CANCELLO ESEGUE TUTTE LE PROVE DEL RAMO, ordine FC voce 11.2, 5 ottobre 2026.
+# Il verdetto del cancello di GitHub sul commit c903a01c (giro 37256829583,
+# lavoro 'analyze e sbarramento'), righe copiate dal suo registro:
+== PEZZO 0: 687 prove passate, 0 rosse, 0 saltate, esito 0 ==
+== PEZZO 1: 1129 prove passate, 0 rosse, 0 saltate, esito 0 ==
+== PEZZO 2: 1168 prove passate, 0 rosse, 0 saltate, esito 0 ==
+== PEZZO 3: 1281 prove passate, 0 rosse, 0 saltate, esito 0 ==
+== PEZZO 4: 1174 prove passate, 0 rosse, 0 saltate, esito 0 ==
+== PEZZO 5: 1304 prove passate, 0 rosse, 0 saltate, esito 0 ==
+== IL CANCELLO HA ESEGUITO 6743 CASI: 6743 passati, 0 rossi, 0 saltati, in 6 pezzi ==
+== IL SERVER HA ESEGUITO 185 CASI ==
+== SUITE VERDE: la build puo' procedere ==
+== GETTONE SCRITTO: numero 2297, 6743 prove ==
+##[notice]nessuna prova rossa, nemmeno fra le accettate.
+# refs/verde/c903a01c6f3c61961d779d9ec8e434adae1b6c9d scritta da GitHub (git ls-remote).
+#
+# La suite intera in locale (C:/Users/user/ecs, TZ=Europe/Rome) sul commit 4ebaefd5,
+# che ha le stesse prove di c903a01c (cambia solo tool/collaudo_sigillo_es18.dart):
+52:01 +6743: All tests passed!
+# e il corredo a scala 1,3:
+08:47 +193: All tests passed!
+#
+# PRIMA della cura, giro 37215562849 sul commit bcf8eaff: 1248 file, 6703 casi
+# sul ramo, eseguiti 6692 (6685 passati, 7 rossi accettati), saltati 11; il
+# numero del cancello diceva 6685. DOPO: casi del ramo 6743, eseguiti dal
+# cancello 6743, suite intera locale 6743, saltati 0, rossi 0.

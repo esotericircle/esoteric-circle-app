@@ -1,0 +1,8 @@
+DOVE SI ROMPE LA VOCE, docs/collaudo/FE/voci/prima_2298_caligo
+fondo della stanza -42 dB, soglia della voce -30 dB, rottura da 800 ms di silenzio
+risposta di 4.9 s dal secondo 6.9 al 11.9, scritta in 1.2 s: nessuna rottura
+risposta di 19.7 s dal secondo 35.3 al 55.0, scritta in 15.3 s: nessuna rottura
+risposta di 15.9 s dal secondo 70.9 al 86.8, scritta in 6.8 s: nessuna rottura
+risposta di 11.2 s dal secondo 100.7 al 112.0, scritta in 3.5 s: nessuna rottura
+risposta di 19.7 s dal secondo 126.0 al 145.8, scritta in 7.3 s: nessuna rottura
+ORDINE FE VOCE 05: 0 rotture in 5 tratti di voce

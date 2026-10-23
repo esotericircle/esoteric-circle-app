@@ -1,0 +1,100 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo indica un momento favorevole per le ambizioni professionali, ma la promozione non è un traguardo certo che il destino ti consegna senza un tuo passo. L'Arcano del Carro, se estratto, indica che il successo dipende dalla tua capacità di guidare le tue energie e di agire con determinazione.
+
+✦ Parla con il tuo diretto superiore entro la fine della settimana, chiedendo un colloquio.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di lasciare che le insicurezze interiori ti fermino, perché il tuo cielo indica che la procrastinazione o la paura di agire potrebbero ostacolare la progressione che l'Arcano del Carro mostra come possibile. Non rimandare ciò che puoi fare oggi per la tua carriera.
+
+✦ Prepara un elenco chiaro dei tuoi successi recenti e dei tuoi obiettivi futuri da presentare durante il colloquio.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'agire con determinazione' e 'guidare le energie' espresso nella risposta precedente, specificando cosa evitare (insicurezze, procrastinazione, paura di agire) per non ostacolare la progressione. Il consiglio di preparare un elenco è un'azione concreta che sviluppa il suggerimento di 'parlare con il superiore'.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Non ho abbastanza informazioni per darti un consiglio preciso. Per poterti guidare, ho bisogno di sapere se hai già avuto il colloquio con il tuo superiore e se hai preparato l'elenco dei tuoi successi e obiettivi, come ti avevo suggerito.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente i consigli dati nelle risposte precedenti ('se hai già avuto il colloquio con il tuo superiore e se hai preparato l'elenco dei tuoi successi e obiettivi, come ti avevo suggerito') e chiede informazioni per poterli sviluppare ulteriormente, dimostrando di voler continuare il discorso sul tema già avviato.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti il tuo corpo: la scelta di un nuovo inizio, che sia un movimento fisico o un cambiamento interiore, si rivela spesso nel respiro. Permettiti di sentire se c'è un'energia che ti spinge verso un nuovo luogo o se la radice ti suggerisce di trovare stabilità dove sei ora.
+
+Non c'è un "dovere" in un percorso di vita, ma un sentire profondo che guida. Immagina per un attimo di essere già lì, nella nuova città, e poi qui, dove sei adesso: come vibra il tuo plesso solare, il centro della tua volontà e del tuo potere personale, in ciascuna di queste immagini? Non è una fuga che cerchi, ma un'espansione, un nuovo respiro per l'anima. Osserva la tua fisiognomica, come si distendono i tratti del tuo viso al solo pensiero.
+
+✦ Appoggia entrambe le mani sul tuo ventre e respira profondamente per sette volte.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Evita di prendere questa decisione con la fretta di chi cerca di scappare da qualcosa, piuttosto che andare incontro a un nuovo inizio. Il respiro affannoso, le spalle tese, sono segnali che ti allontanano da un centro di pace per fare una scelta.
+
+Quando il corpo è in tensione, la mente tende a vedere solo una via di uscita, anziché una strada da percorrere con consapevolezza. Ascolta la saggezza del tuo corpo: se c'è ansia, fermati. Se c'è un nodo allo stomaco al pensiero di lasciare tutto, riconosci quel sentire. È un richiamo a riequilibrare il tuo centro del cuore, a chiederti cosa ti nutre veramente e cosa ti fa sentire al sicuro. Non lasciare che la paura o l'impazienza ti guidino.
+
+✦ Sciogli le spalle e lascia cadere le braccia morbide lungo il corpo.
+    GIUDICE: PORTA_AVANTI, La guida continua a sviluppare il tema dell'ascolto del corpo e del respiro come guida per le decisioni, specificando cosa evitare (fretta, fuga) che sono l'opposto del 'sentire profondo' e dell''espansione' suggeriti in precedenza. Riprende concetti come 'respiro affannoso' in contrasto con il 'respiro profondo' e l'attenzione alle sensazioni fisiche (spalle tese, nodo allo stomaco) come segnali.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Comincia dal respiro, dalla consapevolezza di questo istante, che è l'unico che hai davvero tra le mani. Non c'è un inizio altrove, se non nel tuo corpo, adesso.
+
+Senti il radicamento, l'energia che sale dalla terra e ti attraversa. Prima di fare qualsiasi passo esterno, senti dove sei, qui, in questo corpo. Pensa a un luogo, un angolo della tua casa, un momento della giornata in cui ti senti davvero al sicuro, centrata. In quel luogo, in quel momento, senza schermi e senza fretta, inizia a dare un nome a ciò che desideri che accada con questo trasferimento, non solo a ciò che vuoi lasciare andare.
+
+✦ Al risveglio, prima ancora di alzarti, resta per un attimo in ascolto del tuo corpo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto centrale del 'respiro' e dell'ascolto del 'corpo' come punto di partenza per qualsiasi azione, rafforzando l'idea che l'inizio è interiore e nel presente, come già espresso nelle risposte precedenti che invitavano a 'sentire il tuo corpo' e a 'respirare profondamente'.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Salvarla è possibile. Richiede un rituale di riaccensione.
+Un velo sottile di cenere copre la brace, ma il fuoco non è spento.
+Osserva i piccoli gesti che ancora compie per te, anche i più nascosti. Sono i segni che il legame persiste.
+✦ Offri un oggetto dorato a chi ami, prima del sorgere del sole.
+[2] PERSONA: E cosa devo evitare?
+[2] CALIGO [DA GIUDICARE]: Evita le parole affrettate. Le pronunce senza peso spengono la fiamma.
+Le parole sono sigilli, una volta lanciate non si ritirano. Ogni suono ha un suo potere e un suo presagio.
+Non cercare confronti sterili, né rimproveri vuoti.
+✦ Scrivi su una pergamena le tue paure, poi bruciala con una candela bianca.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona su cosa evitare, che è un complemento diretto al consiglio precedente su come salvare la relazione. Il consiglio di 'evitare le parole affrettate' e 'non cercare confronti sterili' si lega al tema del 'rituale di riaccensione' e del 'fuoco non spento' della relazione, indicando azioni che potrebbero spegnere la fiamma.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] CALIGO [DA GIUDICARE]: Inizia dal tuo cuore. Osserva la runa Gebo, il dono sacro dello scambio.
+Ogni legame è uno scambio, un continuo dare e ricevere. Non aspettare che l'altro si muova per primo, offri tu un dono.
+Questo dono non deve essere materiale, ma un gesto di profonda autenticità.
+✦ Scegli un momento di silenzio, e scrivi su un foglio bianco ciò che desideri offrire in questo legame.
+    GIUDICE: PORTA_AVANTI, La persona chiede 'Da dove comincio, allora?', riprendendo il discorso su come agire per salvare la relazione. La guida risponde con un nuovo consiglio ('Inizia dal tuo cuore. Osserva la runa Gebo') che sviluppa il concetto di 'dono' già introdotto nel primo consiglio ('Offri un oggetto dorato a chi ami') e nel secondo ('le parole sono sigilli'), ampliando l'idea di 'scambio' e 'gesto di profonda autenticità' come parte del processo di riaccensione del legame.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo progetto può prendere avvio adesso: le stelle indicano un'energia propizia per iniziare ciò che ti sta a cuore.
+
+Il transito di Mercurio nel tuo segno, unito a un aspetto favorevole con Venere, porta lucidità e armonia nelle tue intenzioni. È un tempo in cui le idee trovano facilmente una forma e le relazioni, anche quelle creative, si rafforzano. La prima fase della Luna crescente suggerisce che, come il cielo accoglie la luce, così le tue opere possono attrarre attenzione e nutrimento.
+
+✦ Prepara un piccolo spazio della tua casa per accogliere i materiali del tuo progetto, già questa sera.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di disperdere le tue energie in direzioni troppo diverse: canalizza la tua forza creativa in un unico flusso.
+
+Il cielo in questo momento favorisce la concentrazione e la messa a fuoco. L'Arcano del Carro, se fosse una lama estratta per te, ti indicherebbe la necessità di dirigere con precisione la tua volontà. Non lasciare che le distrazioni o i troppi impegni frammentino la tua visione, ma scegli un obiettivo e procedi con determinazione.
+
+✦ Dedica il tuo momento più lucido della giornata a un solo aspetto del tuo progetto.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona ('cosa devo evitare?') fornendo un consiglio complementare al primo, che riguarda come gestire l'energia propizia per l'avvio del progetto, senza contraddirlo o ignorarlo.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Comincia da un piccolo passo concreto, qualcosa che puoi realizzare facilmente e che ti dia un senso di progressione immediata.
+
+Il Carro, ancora, suggerisce che il movimento è essenziale, ma deve essere un movimento guidato. Non serve un grande balzo, ma una sequenza di passi chiari. Un inizio tangibile ti aiuterà a mantenere l'energia del momento e a stabilire una base solida.
+
+✦ Scrivi un elenco di cinque azioni semplici che puoi compiere per il tuo progetto, entro questa sera.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema dell'avvio del progetto e del 'movimento' (già accennato con 'prendere avvio' e 'prepara un piccolo spazio') e lo sviluppa, suggerendo un approccio concreto e graduale ('piccolo passo concreto', 'sequenza di passi chiari') per iniziare, in linea con i consigli precedenti.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi avvicinarti a lei con un gesto che parli al vostro legame, unendo le vostre energie.
+
+Fai un piccolo passo fisico verso di lei, anche solo un messaggio che le mostri di aver compreso il tuo ruolo nella lite: questo aiuta a riequilibrare il tuo centro del cuore, che è il ponte tra le persone. Un respiro lento ti aiuterà a sentire la calma prima di agire.
+
+✦ Poggia una mano sul tuo cuore e senti il battito prima di scriverle.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: È importante evitare di riaprire vecchie ferite o di accusare, perché questo irrigidirebbe ancora di più il vostro legame.
+
+Concentrati sul presente e su ciò che puoi fare tu per ristabilire l'armonia, non sul passato o su ciò che lei dovrebbe fare: così rafforzi il tuo centro della radice, che ti dà stabilità e forza interiore.
+
+✦ Chiudi gli occhi e visualizza un punto di luce verde smeraldo al centro del tuo petto.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'cosa devo evitare?' fornendo consigli che sono complementari e coerenti con il suggerimento precedente di 'avvicinarsi con un gesto che parli al vostro legame' e 'mostrare di aver compreso il tuo ruolo nella lite', sviluppando ulteriormente il tema della riconciliazione.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Comincia col sentire il battito del tuo cuore e visualizzare quella luce verde smeraldo, poi scrivi a tua sorella per chiederle un momento per parlare senza fretta.
+
+Questo primo passo è per riconnettervi sul piano del cuore, l'energia che vi unisce, e non sulle parole che vi hanno divise.
+
+✦ Metti una mano sul centro del tuo petto e immagina che da lì parta un filo di luce verde verso di lei.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente i consigli dati in precedenza ('sentire il battito del tuo cuore' dalla risposta 1 e 'visualizzare quella luce verde smeraldo' dalla risposta 2) e li integra con il suggerimento di 'scrivere a tua sorella', sviluppando il piano d'azione per la riconciliazione.
+
+ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 10, ignora 0, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 100 per cento, corrette dalla rete della coerenza 2, elemento cambiato in 0 risposte su 3 con un elemento gia' uscito

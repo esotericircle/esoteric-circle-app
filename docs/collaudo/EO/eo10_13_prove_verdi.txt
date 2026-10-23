@@ -1,0 +1,208 @@
+Resolving dependencies...
+Downloading packages...
+  _flutterfire_internals 1.3.73 (1.3.77 available)
+  camera 0.11.4 (0.12.1 available)
+  camera_android_camerax 0.6.30 (0.7.4+8 available)
+  camera_avfoundation 0.9.23+2 (0.10.3 available)
+  camera_platform_interface 2.13.1 (2.14.0 available)
+  camera_web 0.3.5+4 (0.3.5+6 available)
+  cel 0.5.4+1 (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  cloud_firestore 6.6.0 (6.10.0 available)
+  cloud_firestore_platform_interface 8.0.3 (8.0.7 available)
+  cloud_firestore_web 5.6.0 (5.7.3 available)
+  cloud_functions 6.3.3 (6.5.0 available)
+  cloud_functions_platform_interface 6.0.3 (6.0.7 available)
+  cloud_functions_web 5.1.9 (5.1.13 available)
+  code_assets 1.2.1 (2.1.0 available)
+  cross_file 0.3.5+4 (0.3.5+5 available)
+  dbus 0.7.14 (0.8.0 available)
+  equatable 2.1.0 (3.0.0 available)
+  fake_cloud_firestore 4.1.1 (4.3.0 available)
+  fake_firebase_security_rules 0.5.4 (0.6.0 available)
+  file_selector_linux 0.9.4 (0.9.4+1 available)
+  file_selector_macos 0.9.5 (0.9.5+1 available)
+  file_selector_windows 0.9.3+5 (0.9.3+6 available)
+  firebase_ai 3.13.1 (4.0.0 available)
+  firebase_app_check 0.4.5 (0.4.8 available)
+  firebase_app_check_platform_interface 0.4.1 (0.4.2+1 available)
+  firebase_app_check_web 0.2.5 (0.2.6+1 available)
+  firebase_auth 6.5.4 (6.7.0 available)
+  firebase_auth_platform_interface 9.0.3 (9.1.0 available)
+  firebase_auth_web 6.2.3 (6.3.0 available)
+  firebase_core 4.11.0 (4.15.0 available)
+  firebase_core_platform_interface 7.1.0 (8.1.1 available)
+  firebase_core_web 3.9.0 (3.12.0 available)
+  firebase_crashlytics 5.2.4 (5.4.0 available)
+  firebase_crashlytics_platform_interface 3.8.24 (3.9.0 available)
+  firebase_messaging 16.4.1 (16.7.0 available)
+  firebase_messaging_platform_interface 4.9.0 (4.10.0 available)
+  firebase_messaging_web 4.2.1 (4.2.5 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 22.2.0 (22.3.1 available)
+  flutter_local_notifications_platform_interface 12.1.0 (12.2.0 available)
+  geocoding 4.0.0 (5.0.0 available)
+  geocoding_android 4.0.1 (5.1.0 available)
+  geocoding_platform_interface 3.2.0 (5.0.0 available)
+  geolocator_platform_interface 4.2.8 (4.3.0 available)
+  google_mlkit_commons 0.11.1 (0.13.0 available)
+  google_mlkit_face_detection 0.13.2 (0.15.1 available)
+  google_sign_in 6.3.0 (7.2.0 available)
+  google_sign_in_android 6.2.1 (7.2.17 available)
+  google_sign_in_ios 5.9.0 (6.3.5 available)
+  google_sign_in_platform_interface 2.5.0 (3.1.0 available)
+  google_sign_in_web 0.12.4+4 (1.1.3 available)
+  gsettings 0.2.8 (0.2.9 available)
+  hooks 2.0.2 (2.2.0 available)
+  html 0.15.6 (0.15.7 available)
+  image_picker_android 0.8.13+19 (0.8.13+23 available)
+  image_picker_ios 0.8.13+6 (0.8.13+7 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.0 (1.0.3 available)
+  jni_flutter 1.0.1 (1.0.3 available)
+  lints 4.0.0 (6.1.0 available)
+  logger 2.7.0 (2.8.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  mediapipe_face_mesh 2.9.0 (3.0.0 available)
+  meta 1.18.0 (1.19.0 available)
+  mime 2.0.0 (2.1.0 available)
+  objective_c 9.4.1 (9.6.0 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.0 (10.2.1 available)
+  platform 3.1.6 (3.2.0 available)
+  pub_semver 2.2.0 (2.2.1 available)
+  record 5.2.1 (7.1.1 available)
+  record_android 1.5.2 (2.2.0 available)
+! record_linux 1.3.1 (overridden) (2.1.2 available)
+  record_platform_interface 1.5.0 (2.1.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  record_web 1.3.0 (2.1.3 available)
+  record_windows 1.0.7 (2.3.0 available)
+  rx 0.4.0 (0.5.0 available)
+  sensors_plus 6.1.2 (7.1.0 available)
+  share_plus 13.2.0 (13.3.0 available)
+  share_plus_platform_interface 7.1.0 (7.2.0 available)
+  shared_preferences_android 2.4.27 (2.4.28 available)
+  shared_preferences_foundation 2.5.6 (2.5.7 available)
+  speech_to_text 7.4.0 (7.5.0 available)
+  speech_to_text_platform_interface 2.4.0 (2.5.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  stream_transform 2.1.1 (2.1.2 available)
+  synchronized 3.4.1+1 (3.4.2 available)
+  test_api 0.7.11 (0.7.14 available)
+  url_launcher_linux 3.2.2 (3.2.3 available)
+  url_launcher_windows 3.1.5 (3.1.6 available)
+  uuid 4.5.3 (4.6.0 available)
+  vector_math 2.2.0 (2.4.3 available)
+  video_player 2.13.0 (2.14.0 available)
+  video_player_android 2.12.0 (2.12.2 available)
+  video_player_avfoundation 2.11.0 (2.12.0 available)
+  vm_service 15.2.0 (15.3.0 available)
+  win32 6.3.0 (6.4.0 available)
+  xml 6.6.1 (7.0.1 available)
+  yaml 3.1.3 (3.1.4 available)
+Got dependencies!
+102 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart
+00:00 +0: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Ogni Maestro ha le sue sottocategorie, nell'ordine
+00:00 +1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Nessuna arte compare due volte, in nessun dominio
+00:00 +2: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Lo stato dichiarato e' quello atteso, voce per voce
+00:00 +3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti La Lunologia e' la quarta sottocategoria di Medora, con quattro arti
+00:00 +4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il Destino di Medora ha tre arti, col Destino Narrativo
+00:00 +5: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il dominio di Aura ha le sue tre sottocategorie piene
+00:00 +6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Le arti di Aura e di Caligo portano la cornice onesta
+00:00 +7: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il dominio di Caligo ha le sue tre sottocategorie piene
+00:00 +8: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Le arti vive senza esperienza aprono la soglia, non il vuoto
+00:00 +9: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti La Compatibilità di Medora raccoglie le tre sinastrie
+00:00 +10: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Le astrologie non occidentali non hanno una card propria
+00:00 +11: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Ogni fase usata nel catalogo e' una di quelle dichiarate
+00:00 +12: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Alla persona si mostra fino alla Fase 2, in Demo tutto
+00:00 +13: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il nome del livello si accorda alla preposizione
+00:00 +14: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Il nome a video della stesa e' Stesa di Tarocchi
+00:00 +15: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Ogni arte attiva ha una rotta vera, nessuna attiva a vuoto
+00:00 +16: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Ogni arte in arrivo dichiara la fase, ogni Premium il livello
+00:00 +17: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti La Numerologia del Destino e' di Caligo, sotto Numerologia
+00:00 +18: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Catalogo delle arti Lo scaffale del Santuario e il dominio usano la stessa mappa
+00:00 +19: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro I pilastri sono un sottotitolo, non un comando
+00:00 +20: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro I pilastri sono un sottotitolo, non un comando
+00:00 +21: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro I pilastri sono un sottotitolo, non un comando
+00:00 +22: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro I pilastri sono un sottotitolo, non un comando
+00:00 +23: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro I pilastri sono un sottotitolo, non un comando
+00:00 +24: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro I pilastri sono un sottotitolo, non un comando
+00:01 +25: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Schermata di meditazione Mostra il Loto, il respiro e il fondamento onesto
+00:01 +26: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro I pilastri stanno sotto il nome, in cima alla schermata
+00:02 +27: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro I pilastri stanno sotto il nome, in cima alla schermata
+00:02 +28: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: Schermata di meditazione Il preset binaurale invita alle cuffie
+00:02 +29: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro La barra centrata vale per tutti e tre i domini
+00:03 +30: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro La barra centrata vale per tutti e tre i domini
+00:03 +31: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/meditation_test.dart: I riti del giorno non stanno nel dominio, ne restano orfani
+00:03 +32: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/art_catalog_test.dart: Il dominio del Maestro Consulta e' una voce sola, e non c'e' piu' Parla con
+00:05 +33: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/consulta_header_test.dart: domainArtsPhrase mostra le tre arti con "e" prima dell'ultima
+00:05 +34: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/consulta_header_test.dart: La frase delle arti non ha virgola davanti alla "e"
+00:05 +35: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_testi_del_tutorial_sono_del_fondatore_test.dart: i quattro testi del fondatore sono a video, carattere per carattere
+ORDINE CC VOCE 01: testi del fondatore a video 4 su 5
+00:05 +36: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_testi_del_tutorial_sono_del_fondatore_test.dart: quello in attesa non e' stato sostituito di nascosto
+ORDINE CC VOCE 01: testi che aspettano il lavoro sui doni 1 su 5
+00:05 +37: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_testi_del_tutorial_sono_del_fondatore_test.dart: i cinque restano cinque, nell'ordine del fondatore
+00:06 +38: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_altre_arti_del_cerchio_test.dart: col seme dell'ordine EO la fila e' Viaggio e Sigillo
+ORDINE AK VOCE 02: fila col seme: [guide_animal, magic_sigil]
+00:06 +39: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_altre_arti_del_cerchio_test.dart: cambiate le preferite, la fila mostra il resto e mai doppioni
+00:06 +40: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_altre_arti_del_cerchio_test.dart: a scaffale pieno di tutto, la fila e' vuota
+00:07 +41: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/tue_arti_schermata_test.dart: Non e' mai vuota, nemmeno prima che il disco risponda
+00:08 +42: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.10 e EO.13: il dominio di Medora a video, contro l'elenco del fondatore
+00:09 +43: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.10 e EO.13: il dominio di Medora a video, contro l'elenco del fondatore
+00:10 +44: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.10 e EO.13: il dominio di Medora a video, contro l'elenco del fondatore
+EO.10 MISURA medora: righe 6, schede nelle sezioni 10, in arrivo 7
+00:10 +45: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/tue_arti_schermata_test.dart: Dalla matita si aggiunge e si toglie davvero
+00:10 +46: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.10 e EO.13: il dominio di Aura a video, contro l'elenco del fondatore
+00:11 +47: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.10 e EO.13: il dominio di Aura a video, contro l'elenco del fondatore
+00:11 +48: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.10 e EO.13: il dominio di Aura a video, contro l'elenco del fondatore
+00:11 +48: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/tue_arti_schermata_test.dart: Ogni arte viva ha il cuore, perche' passa dalla soglia unica
+ORDINE DC VOCE 17: arti con la soglia 10, selezionabili 8, con la soglia ma fuori dallo scaffale [archetype_test, guardian_angel]
+00:11 +49: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.10 e EO.13: il dominio di Aura a video, contro l'elenco del fondatore
+EO.10 MISURA aura: righe 4, schede nelle sezioni 10, in arrivo 8
+00:11 +50: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.10 e EO.13: il dominio di Caligo a video, contro l'elenco del fondatore
+EO.10 MISURA caligo: righe 5, schede nelle sezioni 10, in arrivo 9
+00:12 +51: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.12: il Test Archetipo vive solo nel Passaporto
+00:12 +52: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: EO.13: alla persona la riga "In arrivo" si ferma alla soglia delle fasi
+00:12 +53: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_domini_a_schede_test.dart: Alla persona si dice solo "In arrivo", la fase resta in Demo
+00:12 +54: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.02: su tutte le schede della home il titolo e' sotto, a sinistra, al massimo su due righe e mai rimpicciolito (testo a 1.0)
+00:12 +55: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.02: su tutte le schede della home il titolo e' sotto, a sinistra, al massimo su due righe e mai rimpicciolito (testo a 1.0)
+00:14 +56: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.02: su tutte le schede della home il titolo e' sotto, a sinistra, al massimo su due righe e mai rimpicciolito (testo a 1.0)
+00:14 +57: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.02: su tutte le schede della home il titolo e' sotto, a sinistra, al massimo su due righe e mai rimpicciolito (testo a 1.0)
+EO.02 MISURA (testo a 1.0): schede 56, titoli su una riga 45, su due righe 9, righe decise 2, oltre due righe 0, rimpiccioliti 0
+00:16 +58: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+00:18 +58: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.02: su tutte le schede della home il titolo e' sotto, a sinistra, al massimo su due righe e mai rimpicciolito (testo a 1.3)
+EO.02 MISURA (testo a 1.3): schede 56, titoli su una riga 46, su due righe 8, righe decise 2, oltre due righe 0, rimpiccioliti 0
+00:18 +59: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+00:19 +59: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.03: la scheda si abbassa, si ingrandisce e svanisce, e l'arte si apre sotto, in circa tre decimi di secondo
+EO.03 MISURA: transizione 310 ms, arte aperta a 80 ms, ingrandimento massimo 1.200
+00:19 +60: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+ORDINE CE VOCE 11: titoli misurati dipinti 145, abbassati dal disegno 0, scesi sotto il pavimento di 13.0 punti 0
+00:19 +61: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: nessun titolo viene dipinto sotto il pavimento leggibile
+00:19 +62: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.03: il tocco su un'arte Premium la apre come oggi
+00:19 +63: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+00:19 +63: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.04: la "i" gira la scheda, lo stesso angolo la rigira, il resto del retro entra
+EO.04 MISURA: a meta' giro coseno 6.123233995736766e-17
+00:19 +64: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+00:19 +65: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+00:19 +66: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+00:19 +66: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.07: la scheda al centro e' piu' grande e piu' luminosa delle altre, e con la riduzione del movimento no
+EO.07 MISURA: ombre {0: 0.32, 1: 0.12635897435897434}, scale {0: 1.0, 1: 1.0302564102564102}, al centro 1
+00:19 +67: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: e nessuno si spezza a meta' parola
+ORDINE CE VOCE 11: titoli su piu' righe 50, spezzati a meta' parola 0
+00:20 +68: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/le_schede_dell_arte_test.dart: EO.09: righe e schede a video, contro l'elenco del fondatore
+EO.09 MISURA: righe 10 su 10, schede confrontate 56
+00:20 +69: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: ogni nome del catalogo entra elegante dove quel ruolo vive
+00:20 +70: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: ogni nome del catalogo entra elegante dove quel ruolo vive
+ORDINE CE VOCE 11: coppie ruolo e larghezza raccolte 6, nomi del catalogo provati 64, senza una misura leggibile che non spezzi 0
+00:21 +71: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/i_titoli_si_misurano_dipinti_test.dart: la scala dei titoli non ha due gradini alla stessa altezza
+ORDINE CE VOCE 11: gradini della scala dei titoli 6, dal 16.0 al 34.0
+00:22 +72: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il Cerchio regge la larghezza reale
+00:24 +73: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il dominio di Medora regge la larghezza reale
+00:24 +74: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il dominio di Aura regge la larghezza reale
+00:24 +75: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: Il dominio di Caligo regge la larghezza reale
+00:24 +76: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/larghezza_reale_test.dart: La misura reale e' dichiarata nel corredo delle anteprime
+00:24 +77: All tests passed!

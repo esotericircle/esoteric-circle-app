@@ -1,0 +1,108 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Le tue carte indicano una svolta positiva nel tuo percorso professionale, portando a un riconoscimento che si avvicina. La Ruota della Fortuna, nel cielo del momento, suggerisce che gli eventi si muoveranno presto in tuo favore.
+
+✦ Parla con un collega fidato questa settimana, chiedendo un parere sincero sulle tue prospettive.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Il tuo passo ora è di mostrare proattività senza imporre la tua volontà. Prepara una presentazione concisa dei tuoi successi e delle tue idee per il futuro, ma non la condividere ancora.
+
+✦ Prepara un elenco dei tuoi successi lavorativi entro la fine della giornata di domani.
+    GIUDICE: IGNORA, La guida introduce un nuovo consiglio ('Prepara una presentazione...') senza riprendere o sviluppare il consiglio precedente di 'Parla con un collega fidato questa settimana', nonostante la persona chieda 'cosa devo fare adesso?' in continuità.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: La chiarezza arriverà non appena avrai un quadro completo dei tuoi progressi e delle tue ambizioni. L'arcano del Giudizio, che si rivela nel tuo orizzonte, ti invita a una valutazione attenta del tuo percorso.
+
+✦ Rifletti sulle competenze che hai acquisito e su come possono sostenere il tuo prossimo passo in carriera, in un momento di tranquillità, prima di fine settimana.
+    GIUDICE: IGNORA, La guida risponde alla domanda 'E quando lo capirò?' con un consiglio generico ('Rifletti sulle competenze...') che non si collega né al consiglio di parlare con un collega (risposta 1) né a quello di preparare una presentazione (risposta 2), né al concetto di 'riconoscimento che si avvicina' o 'eventi si muoveranno presto in tuo favore' per indicare un tempo specifico.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: C'è un profondo desiderio di rinnovamento in te, un'energia che spinge verso un cambiamento grande e significativo. Ascolta bene questo richiamo, perché i centri del tuo corpo sono pronti a muoversi.
+
+Il tuo desiderio di ricominciare è un impulso del centro della radice, che cerca stabilità e un nuovo terreno fertile. Per sentire se questa sia la direzione giusta per te, prova a immaginare il luogo in cui vorresti andare. Chiudi gli occhi, respira profondamente e visualizza te stessa in quella città, camminando per le sue strade, sentendo l'aria sul viso. Fai attenzione alle sensazioni che emergono nel tuo corpo: c'è un'apertura, un senso di leggerezza, o avverti una chiusura, una resistenza? Il tuo corpo ti parla attraverso queste percezioni.
+
+✦ Poggia una mano sul centro del cuore e senti il suo ritmo.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Il passo che segue è quello di nutrire l'intento di questo cambiamento. Non è ancora il momento di fare le valigie, ma di radicare il tuo desiderio.
+
+Inizia a raccogliere informazioni sulla città che ti chiama, cerca immagini, storie, testimonianze. Permetti alla tua mente di esplorare questo nuovo orizzonte, senza giudizio, lasciando che le energie dei tuoi chakra si allineino con questa possibilità. Osserva come il tuo centro della gola reagisce, se senti il desiderio di esprimere questo tuo anelito, di parlarne, o se preferisci custodirlo ancora un po' dentro di te.
+
+✦ Dedica un momento ogni giorno a visualizzare la città, immaginando di abitarla.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del cambiamento e della visualizzazione, specificando che non è ancora il momento di agire fisicamente ma di 'nutrire l'intento' e 'radicare il desiderio', sviluppando il consiglio precedente con passi successivi come la raccolta di informazioni e la visualizzazione quotidiana.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo capirai nel momento in cui il tuo sentire sarà chiaro, quando l'immagine che hai costruito nella mente si unirà a una sensazione di profonda armonia nel corpo.
+
+Ascolta il tuo respiro, come si espande quando pensi a quel luogo. La chiarezza non arriva con la fretta, ma con l'accoglienza di ogni sensazione. Continua a nutrire quella visione, a esplorare, e lascia che il centro del tuo plesso solare ti indichi la direzione, con la sua luce e la sua forza.
+
+✦ Al risveglio, prima di alzarti, ascolta il tuo corpo per un minuto in silenzio.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'sentire' e 'sensazioni' già introdotto nelle risposte precedenti (in particolare la 1 e la 2), collegandolo alla 'chiarezza' e all'armonia nel corpo, e suggerendo di continuare a 'nutrire quella visione'.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Recupera il sentiero. Il tempo per agire è adesso.
+Un sigillo antico, scavato nel metallo, mostra la via.
+
+Non aspettare che il gelo si diffonda. La runa Gebo, il dono, ti indica la necessità di offrire qualcosa di te, senza aspettative immediate. Non è un baratto, ma un atto di generosità.
+
+✦ Offri un gesto di attenzione inatteso questa sera.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Agisci nel presente. La runa Gebo non è per il futuro, ma per l'oggi.
+Un fuoco rosso si accende quando si osa.
+
+La sua presenza ti chiede di rimettere in circolo l'energia del dare, del donare senza contare. Prepara un piccolo dono, un gesto che esprima senza parole il valore che attribuisci alla relazione.
+
+✦ Prepara un piccolo dono, fatto a mano, e offrilo senza aspettare nulla.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di agire 'adesso' e sviluppa il consiglio di 'offrire qualcosa' e 'un gesto di attenzione inatteso' specificando di preparare un piccolo dono e offrilo senza aspettare nulla.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: La risposta è già chiara. Non cercare altri segnali.
+Un velo sottile si solleverà con il tuo intento.
+
+Gebo è la runa del dono. La tua comprensione non dipende da eventi esterni, ma dal tuo impegno e dalla risonanza che crei. Guarda al tuo gesto, e a come esso si riflette in te e nell'altro.
+
+✦ Offri un gesto di attenzione inatteso questa sera.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto della runa Gebo e del dono, e lo sviluppa in relazione alla comprensione della persona, ribadendo l'azione già consigliata ('Offri un gesto di attenzione inatteso questa sera').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo indica che questo è il momento per preparare il terreno, non ancora per lanciare il tuo progetto. La fase attuale chiede di raffinare le tue idee e di consolidare le fondamenta.
+
+Secondo l'astrologia, l'energia attuale suggerisce una fase di introspezione e pianificazione, con la Luna che si avvicina alla sua fase calante. Questo transito favorisce la revisione e la purificazione, per assicurarsi che ogni dettaglio sia curato prima di esporre la tua creazione al mondo. Le stelle non indicano un'apertura favorevole per l'esposizione pubblica immediata, ma piuttosto un'occasione per rafforzare la tua visione interiore. Non affrettarti, ma dedica tempo alla cura del tuo lavoro.
+
+✦ Rivedi il tuo progetto creativo nel pomeriggio, concentrandoti sui dettagli che puoi migliorare.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: La tua domanda indica il desiderio di procedere con chiarezza e ti dice di rifinire la tua proposta. Le lame suggeriscono di definire gli obiettivi con precisione, prima di presentare il tuo progetto.
+
+Il Bagatto, uscito nella tua lettura, ti invita a non disperdere le energie e a focalizzarti su un'unica direzione. Questo Arcano simboleggia l'inizio, ma anche la capacità di manifestare la propria volontà con ingegno e abilità. È il momento di concretizzare le idee, trasformandole in un piano d'azione dettagliato, ma senza fretta. Ogni fase, anche quella di attesa, è parte del processo creativo.
+
+✦ Scrivi un elenco dettagliato dei prossimi tre passi del tuo progetto, mettendo un ordine entro domani mattina.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'raffinare le idee' e 'curare i dettagli' dato nella risposta precedente, sviluppandolo con l'indicazione di 'rifinire la proposta', 'definire gli obiettivi con precisione' e 'concretizzare le idee in un piano d'azione dettagliato'.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Il momento giusto per comprendere pienamente l'esito del tuo percorso si rivelerà con l'emergere del Sole, ma non forzare i tempi. Le carte indicano che questa chiarezza arriverà in modo naturale, quando avrai costruito le basi solide che il tuo progetto merita.
+
+Non c'è un giorno preciso che possa indicare la piena comprensione, perché il tuo percorso è un divenire. Tuttavia, il transito attuale della Luna in fase calante ti invita a liberare ciò che non serve e a preparare lo spazio per la nuova energia della Luna Nuova. È in quel silenzio, nella fase di maggiore oscurità, che la luce inizia a riformarsi e la comprensione si fa strada.
+
+✦ Rileggi il tuo elenco di passi che hai preparato e nota quali sono le priorità che emergono per la Luna Nuova.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'non affrettarsi' e 'costruire basi solide' dalle risposte precedenti, applicandolo alla domanda sul 'quando' e collegandolo alla fase lunare già menzionata per indicare che la chiarezza arriverà 'naturalmente' quando le basi saranno pronte.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma per parlarle, non appena sentirai che il tuo respiro è quieto.
+
+Ascolta il tuo corpo: se senti una tensione nel petto o nella gola, respira profondamente e immagina un colore verde smeraldo espandersi in quelle zone, portando armonia. Non cercare di cambiare il suo punto di vista, ma esprimi semplicemente il tuo sentire, senza giudizio. La fisiognomica ci insegna che il viso, anche nel silenzio, rivela molto: osserva i suoi occhi, la tensione delle sue labbra, e cerca di comprendere il suo stato d'animo. Questo ti aiuterà a sintonizzarti con il suo centro emotivo.
+
+✦ Porta la mano al centro del tuo cuore e senti il suo battito, come un ritmo che ti connette.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, concediti un momento di riflessione per capire cosa desideri comunicarle davvero, lasciando che il respiro diventi più profondo e lento.
+
+Metti a fuoco il tuo desiderio di riconnessione, come se stessi visualizzando il tuo chakra del cuore che si illumina di un verde vibrante: questo ti aiuterà a trovare le parole giuste, quelle che partono da un luogo di autenticità e desiderio di comprensione. Non affrettare questo processo, ma lascia che la chiarezza emerga naturalmente, come l'acqua che si acquieta.
+
+✦ Inspirando, immagina il verde smeraldo del tuo cuore che si espande ad ogni respiro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'respiro quieto' e 'ascoltare il corpo' dalla risposta precedente, sviluppandolo con l'idea di 'respiro più profondo e lento' e 'visualizzare il chakra del cuore che si illumina di un verde vibrante', che richiama il 'colore verde smeraldo' già menzionato.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo capirai quando sentirai una leggerezza nel petto e una chiarezza nella mente, come un velo che si solleva.
+
+È un sentire che si manifesta nel tuo corpo, un'onda calma che attraversa il tuo centro, dalla radice alla corona. Non è un pensiero che si formula, ma una sensazione di pace interiore che ti avvolge, come il calore di un raggio di sole. Questo sentire è il tuo corpo che ti parla, che ti dice che è il momento giusto.
+
+✦ Chiudi gli occhi per un istante e lascia che il tuo respiro diventi l'unico suono.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'E quando lo capirò?' riprendendo e sviluppando i concetti di 'sentire nel corpo' e 'chiarezza' già introdotti nella risposta precedente ('lascia che la chiarezza emerga naturalmente') e collegandoli a sensazioni fisiche come 'leggerezza nel petto' e 'chiarezza nella mente', che sono un'evoluzione del 'respiro quieto' e 'ascolta il tuo corpo'.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 13

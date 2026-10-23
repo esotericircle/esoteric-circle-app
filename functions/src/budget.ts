@@ -1,0 +1,373 @@
+/**
+ * I BUDGET DEL GIORNO, decisi dal server e non dal telefono.
+ *
+ * Qui vive la sola copia server dei limiti giornalieri. La copia di prodotto
+ * resta la matrice dei piani nel client (`lib/core/entitlement/plan_catalog.dart`),
+ * che e' cio' che si PROMETTE alla persona: due copie della stessa promessa
+ * divergono sempre, quindi la prova
+ * `test/i_limiti_del_server_sono_quelli_promessi_test.dart` legge QUESTO file e
+ * la matrice e cade se un numero non coincide. Chi cambia un limite lo cambia
+ * in tutti e due i posti, oppure la suite lo ferma.
+ *
+ * `null` vuol dire senza limite; `0` vuol dire che il piano non comprende
+ * quella cosa, e non e' la stessa cosa: la cella "No" della matrice vale zero,
+ * non infinito, ed e' un errore gia' fatto una volta.
+ */
+export type Piano = "free" | "tier1" | "tier2" | "tier3";
+export type Budget =
+  | "domande"
+  | "approfondimenti"
+  | "confronti"
+  | "gettate"
+  | "stese"
+  | "sinastrie"
+  | "cieli"
+  | "sinastrieEvolutive"
+  | "oracoliAngeli"
+  | "steseDaDieci";
+
+export const PIANI: Piano[] = ["free", "tier1", "tier2", "tier3"];
+export const BUDGET: Budget[] = [
+  "domande",
+  "approfondimenti",
+  "confronti",
+  "gettate",
+  "stese",
+  "sinastrie",
+  // I CONFRONTI DEL CIELO CON UN AMICO, ordine EY voce 13: uno, cinque,
+  // quindici e trenta al giorno. Il confronto non chiama nessun modello, si
+  // calcola sul telefono; il tetto e' del server come ogni altro.
+  "cieli",
+  // LA SINASTRIA EVOLUTIVA, ordine FT voce FT.13: le coppie nuove lette
+  // al giorno. Come i cieli, nessun modello: il tetto serve contro l'abuso.
+  "sinastrieEvolutive",
+  // L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10: le consultazioni al
+  // giorno. Ogni consultazione dall'Iniziato in su chiama Gemini 2.5
+  // Flash-Lite una volta; quella del Viandante e' un assaggio del solo
+  // corpus, senza modello.
+  "oracoliAngeli",
+  // LA STESA A DIECI CARTE, UNA AL GIORNO, ordine GA voce 02 (20 ottobre
+  // 2026, sera). Il fondatore: "Limitiamo la stesa tarocchi a 10 carte: sarà
+  // disponibile solo per Tier 2 e 3 e solo 1 al giorno". Si consuma INSIEME
+  // a una stesa del budget `stese`: e' un tetto in piu', non un budget al
+  // posto di quello. Il nome non e' `steseDieci` perche' quel nome e' gia'
+  // il riscatto da 400 Eos della Croce Celtica (`riscatto_steseDieci` in
+  // `borsellino.ts`), e `budgetDelRiscatto` leggerebbe quel motivo come il
+  // riscatto di questo budget.
+  "steseDaDieci",
+];
+
+/**
+ * **I BUDGET CHE NON SI RISCATTANO CON GLI EOS.** Ordine GA voce 02: la
+ * stesa a dieci carte e' una al giorno e non si ricompra, nemmeno con gli
+ * Eos ("solo 1 al giorno", il fondatore la sera del 20 ottobre 2026). Senza
+ * riscatto lo speso non puo' scendere sotto zero, e `decidi` lo tratta
+ * come zero anche se ci arrivasse per un'altra strada: il credito comprato
+ * che apre un budget a zero (ordine BN voce 09) qui non esiste.
+ */
+export const BUDGET_SENZA_RISCATTO: readonly Budget[] = ["steseDaDieci"];
+
+/** I budget che si riscattano: tutti tranne quelli senza riscatto. */
+export type BudgetRiscattabile = Exclude<Budget, "steseDaDieci">;
+
+/** Nell'ordine dei piani: Viandante, Iniziato, Adepto, Illuminato. */
+/**
+ * **NESSUN BUDGET E' PIU' SENZA TETTO. Ordine CE voce 08.**
+ *
+ * **Parole del fondatore:** "illimitato mi espone all'abuso o uso
+ * incontrollato o bot, quindi e' da eliminare e da sostituire con un numero
+ * abbastanza ampio da essere piu' che sufficiente per l'utente ovvero
+ * difficilmente raggiungera' il limite imposto anche con uso intensivo."
+ *
+ * **Il server e' il sovrano, quindi qui conta piu' che nell'app.** Togliere
+ * l'illimitato solo dalla matrice del telefono avrebbe lasciato il tetto vero
+ * aperto: chi chiama la callable direttamente non passa da nessuna schermata.
+ *
+ * **I numeri, e la ragione di ognuno.** Ogni tetto dell'Illuminato e' almeno
+ * il triplo di quello del piano sotto, e sta molto sopra un uso umano
+ * intensivo: cinquanta domande, trenta approfondimenti, venti confronti,
+ * cinquanta gettate, venticinque sinastrie. Le stese avevano gia' venti dalla
+ * voce BV.03, e restano.
+ */
+/*
+ * **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
+ * dell'Architetto approvata dal fondatore ("Si ok, approvo."). Le stese si
+ * contano a CARTE: "mettiamo limite delle carte estratte e la stesa a 10
+ * solo dal tier 2 19,99".
+ *
+ * **L'ORDINE GA, voci 01 e 02, 20 ottobre 2026**: le stese tornano a
+ * contarsi a stese (uno, tre, quattro e cinque al giorno) e la stesa a
+ * dieci carte ha il suo tetto, una al giorno all'Adepto e all'Illuminato.
+ */
+const LIMITI: Record<Budget, (number | null)[]> = {
+  /**
+   * **LE DOMANDE SI ALZANO, ordine EX Aggiunta 3, 2 ottobre 2026.** Il
+   * fondatore: "Cmq, alziamo subito il limite"; quanto: "Poco sotto il
+   * margine (Consigliata)", il margine misurato dalla voce EX.11 (circa 7, 9
+   * e 11 domande in piu' al giorno). Erano 3, 6, 10, 13.
+   *
+   * **Ordine FE voce 20, 6 ottobre 2026**: 17 e 21, erano 18 e 22. Il
+   * fondatore: "Una domanda in meno", perche' col filo del consulto il caso
+   * peggiore del mensile sforava il 30 per cento (lib/core/entitlement/
+   * plan_catalog.dart, la stessa riga).
+   */
+  domande: [3, 12, 17, 21],
+  approfondimenti: [0, 2, 2, 3],
+  confronti: [0, 1, 2, 3],
+  gettate: [1, 2, 3, 3],
+  /**
+   * LE STESE COMPLETE DI TAROCCHI, ordine BN voce 09.
+   *
+   * **Un budget PROPRIO, separato da quello delle gettate di rune**, perche'
+   * il listino le tiene su due righe distinte e tenerle sullo stesso
+   * contatore vorrebbe dire che chi ha gettato le rune non puo' piu' stendere
+   * le carte.
+   *
+   * **I NUMERI SONO QUELLI DELLA RIGA "Stese complete tarocchi", e non quelli
+   * della riga "Tarocchi carta singola".** L'ordine BN citava "una carta di
+   * tarocchi al giorno" del Viandante credendo di citare la stesa: quella
+   * frase e' l'altra riga, la carta singola. Il Briefing Progetto dice
+   * "carta singola quotidiana e stese complete, dalla tre carte alla Croce
+   * Celtica", quindi la stesa a tre carte e' una stesa COMPLETA, e il
+   * listino le promette cosi': Eos pieno, Eos scontati, cinque al giorno,
+   * illimitate. Zero non e' un vicolo cieco: e' il presupposto della strada
+   * degli Eos, che si apre al primo tocco.
+   *
+   * Prima dell'ordine BN la stesa non aveva nessun gating: le stese erano
+   * infinite e gratuite su tutti i piani, mentre il listino prometteva altro.
+   *
+   * **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04.** Decisione del
+   * fondatore sulla build 2208: "il viandante ha una stesa al giorno", e
+   * supera la lettura del listino fatta dalla voce BN 09, che aveva concluso
+   * zero. **Solo la prima cella cambia**: per Iniziato e Adepto l ordine
+   * proponeva 3 e 5, ma il tre non e dichiarato da nessuna parte, e la regola
+   * di casa dice di tenere quello di oggi quando il numero non e scritto.
+   * L Adepto era gia a cinque.
+   *
+   * **UNO, QUATTRO, SETTE E VENTI, ordine BV voce 03.** Decisione del
+   * fondatore sulla 2209, e supera i numeri della voce BU 04: "le stese devono
+   * essere gratis 1, tier 1 4 stese, tier 2 7 stese e tier 3 20 stese. tu mi
+   * hai insegnato di non fare nulla di illimitato". L illimitato sparisce anche
+   * dall ultimo livello.
+   *
+   * **LE CARTE, NON LE STESE, ordine EX voce 02.** Il budget conserva il
+   * nome `stese`, ma l'unita' e' la carta estratta in una stesa letta dal
+   * modello: tre, sei, dieci e quindici al giorno. Una stesa consuma tutte
+   * le sue carte in un colpo (`decidi` con la quantita').
+   *
+   * **LE STESE, NON LE CARTE, ordine GA voce 01, 20 ottobre 2026.** Il
+   * fondatore: "bisogna tornare a conteggio per stesa e non per numero di
+   * carte". Una stesa vale una stesa qualunque sia il numero delle carte. I
+   * numeri sono quelli che entrano nel 30 per cento (voce GA.02,
+   * tool/i_limiti_degli_annuali.py): uno, tre, due e tre al giorno.
+   *
+   * **UNO, TRE, QUATTRO E CINQUE, ordine GA voce 02, 20 ottobre 2026,
+   * sera.** Con la scelta del fondatore "Carte dal corpus" (in ogni stesa
+   * le carte vengono dal corpus e il modello scrive il solo responso
+   * principale) una stesa costa quanto la lettura misurata, circa 0,0020
+   * dollari anche nella Croce Celtica in Lunga, e nel 30 per cento del
+   * netto entrano tre stese all'Iniziato, quattro all'Adepto e cinque
+   * all'Illuminato (tool/i_limiti_degli_annuali.py, uscita in
+   * docs/costi/i_limiti_degli_annuali.txt). La stesa a dieci carte e'
+   * una di queste, e in piu' ha il suo tetto qui sotto.
+   *
+   * **UNO, TRE, TRE E CINQUE, ordine GA, decisione del 20 ottobre 2026.**
+   * Questo tetto non distingue il ciclo mensile dall'annuale, e con quattro
+   * stese l'annuale dell'Adepto sale al 30,08 per cento del netto: l'Adepto
+   * ha tre stese in entrambi i cicli, come nella matrice dell'app
+   * (lib/core/entitlement/plan_catalog.dart) e nel conto
+   * (tool/i_limiti_degli_annuali.py, STESE e STESE_ANNUALE).
+   *
+   * **ANCORA UNO, TRE, TRE E CINQUE, ordine GB voce 04, 22 ottobre 2026.**
+   * Il fondatore ha chiesto di tornare a sei e dieci, proponendo di contare
+   * al prezzo vero solo la stesa a dieci carte e le altre a non piu' di
+   * quattro. Il conto rifatto con questo metodo (tool/
+   * i_limiti_degli_annuali.py, STESA_PICCOLA e STESA_DIECI, misurate sul
+   * testo vero della richiesta al modello) trova che anche cosi' sei stese
+   * all'Adepto costano il 30,8 per cento mensile e il 31,2 annuale, dieci
+   * all'Illuminato il 31,3 e il 31,6: sopra il tetto in ogni ciclo. Il
+   * numero sicuro per entrambi i cicli resta quello di oggi. Per avere sei
+   * e dieci serve un prezzo diverso dei piani, non un altro conto: lo dice
+   * il rapporto dell'ordine GB.
+   */
+  stese: [1, 3, 3, 5],
+  /**
+   * LE SINASTRIE CELEB, ordine BO voce 13.
+   *
+   * **UN BUDGET PROPRIO, e non quello dei confronti: la voce 13 nominava la
+   * riga sbagliata.** L'ordine dice "il budget e' confronti, che il server
+   * gia' conosce", e che la matrice prometterebbe tre al giorno al Viandante
+   * mentre il codice ne da' zero. Verificato: le righe sono DUE e diverse.
+   * `Confronti nel Cerchio` (No, 3, 5, illimitato) e' il confronto fra i tre
+   * Maestri nella chat, e li' lo zero al Viandante e' cio' che il listino
+   * promette davvero. `Sinastria VIP` (3, 5, 5, illimitata) e' la Sinastria
+   * Celeb, e **promette gia' tre al giorno al Viandante**, in accordo col
+   * briefing che la vuole accessibile al piano gratuito perche' e' la leva
+   * virale.
+   *
+   * Mettere le sinastrie sul contatore dei confronti avrebbe fatto due danni
+   * in una riga: chi ha usato il Consiglio dei Maestri non avrebbe piu'
+   * potuto confrontare un VIP, e alzare a tre il Viandante gli avrebbe
+   * regalato tre confronti nel Cerchio che il listino gli nega. E' la stessa
+   * forma di difetto delle stese, ordine BN voce 09.
+   *
+   * Prima di questa voce la Sinastria non aveva NESSUN gating: era infinita e
+   * gratuita su tutti i piani, e quindi la leva non era chiusa, era
+   * ingovernata.
+   */
+  sinastrie: [3, 5, 5, 25],
+  /**
+   * I CONFRONTI DEL CIELO CON UN AMICO, ordine EY voce 13, 4 ottobre 2026:
+   * la tabella del punto 8 approvata dal fondatore. La riga che li promette
+   * e' `Confronti del cielo con gli amici`, cosa diversa sia dai confronti
+   * del Consiglio dei Maestri sia dalla Sinastria VIP.
+   */
+  cieli: [1, 5, 15, 30],
+  /**
+   * LA SINASTRIA EVOLUTIVA, ordine FT voce FT.13: coppie nuove al giorno,
+   * la riga `Sinastria evolutiva: coppie nuove` del telefono. Scelta di
+   * Code (il fondatore: "Lo decide Code"), con la ragione nel rapporto.
+   */
+  sinastrieEvolutive: [1, 2, 5, 15],
+  /**
+   * L'ORACOLO DEGLI ANGELI, ordine FU voce FU.10, 15 ottobre 2026: le
+   * consultazioni al giorno, la riga `Oracolo degli Angeli: consultazioni`
+   * del telefono. Scelta di Code (il fondatore: "I numeri dei limiti e degli
+   * Eos li decide Code dentro la matrice dei limiti in vigore e la regola
+   * del tetto del costo"), con la ragione nel rapporto:
+   * - Viandante 1: l'assaggio del giorno, del solo corpus, senza modello;
+   * - Iniziato 3, Adepto 5, Illuminato 6: il tetto del costo (30 per cento
+   *   del netto al caso peggiore, `tool/i_limiti_degli_annuali.py`) col
+   *   ciclo piu' stretto, il mensile dell'Illuminato, lascia al massimo 7,6
+   *   consultazioni Lunghe al giorno (0,00032 dollari l'una); con 7 il conto
+   *   arriva al 29,97 per cento, con 6 si ferma al 29,9 e tiene un margine.
+   */
+  oracoliAngeli: [1, 3, 5, 6],
+  /**
+   * LA STESA A DIECI CARTE, ordine GA voce 02, 20 ottobre 2026, sera. Il
+   * fondatore: "Limitiamo la stesa tarocchi a 10 carte: sarà disponibile
+   * solo per Tier 2 e 3 e solo 1 al giorno". La riga del telefono e'
+   * `Stesa da 10 carte` (No, No, 1 al giorno, 1 al giorno). Una Croce
+   * Celtica consuma una stesa del budget delle stese E questa: dopo la
+   * prima del giorno la seconda non si apre, nemmeno con gli Eos (il
+   * budget sta in `BUDGET_SENZA_RISCATTO` e non ha prezzo nel listino).
+   */
+  steseDaDieci: [0, 0, 1, 1],
+};
+
+/**
+ * IL TETTO DI CORRETTEZZA per chi non ha limite, lo stesso numero che il
+ * client dichiara: non e' una restrizione commerciale, e' la difesa contro il
+ * tocco ripetuto. Vale sui budget che costano una chiamata al modello.
+ */
+export const TETTO_DI_CORRETTEZZA = 30;
+
+/** I budget che, senza limite di piano, restano sotto il tetto di correttezza. */
+const CON_TETTO: Budget[] = ["domande", "approfondimenti", "confronti"];
+
+export function pianoValido(valore: unknown): Piano {
+  return PIANI.includes(valore as Piano) ? (valore as Piano) : "free";
+}
+
+export function budgetValido(valore: unknown): Budget | null {
+  return BUDGET.includes(valore as Budget) ? (valore as Budget) : null;
+}
+
+/** Il limite del piano per quel budget, oppure null se senza limite. */
+export function limiteDi(budget: Budget, piano: Piano): number | null {
+  return LIMITI[budget][PIANI.indexOf(piano)];
+}
+
+/**
+ * Quanto resta oggi, dato quanto e' gia' stato speso.
+ *
+ * Senza limite di piano si torna il residuo sotto il tetto di correttezza per
+ * i budget che costano una chiamata, e `null` per gli altri: le gettate sono
+ * un calcolo locale, non c'e' nessun modello da difendere.
+ */
+export function restaOggi(
+  budget: Budget,
+  piano: Piano,
+  speso: number
+): number | null {
+  const limite = limiteDi(budget, piano);
+  if (limite === null) {
+    if (!CON_TETTO.includes(budget)) return null;
+    return Math.max(0, TETTO_DI_CORRETTEZZA - speso);
+  }
+  return Math.max(0, limite - speso);
+}
+
+/**
+ * LA DECISIONE, pura e senza database: si puo' consumare, e con che residuo.
+ *
+ * Sta fuori dalla transazione apposta, cosi' si prova senza emulatore e senza
+ * rete: la transazione la chiama e si limita a scrivere.
+ */
+export function decidi(
+  budget: Budget,
+  piano: Piano,
+  speso: number,
+  quanti = 1
+): {concesso: boolean; resta: number | null; motivo?: string} {
+  const limite = limiteDi(budget, piano);
+  // **SENZA RISCATTO NON C'E' CREDITO, ordine GA voce 02.** Un budget che
+  // non si ricompra con gli Eos non puo' avere uno speso sotto zero: se ci
+  // arrivasse (un documento scritto a mano, un client che inventa un
+  // motivo) vale zero, e la stesa a dieci resta una al giorno.
+  const spesoVero =
+    BUDGET_SENZA_RISCATTO.includes(budget) && speso < 0 ? 0 : speso;
+  // **IL LIMITE ZERO CEDE AL CREDITO COMPRATO, ordine BN voce 09.**
+  //
+  // Chi riscatta un uso con gli Eos porta lo speso a meno uno nella stessa
+  // transazione del saldo: e' il credito comprato in anticipo sul proprio
+  // piano, ed e' il modo in cui il riscatto funziona da BG voce 05. Qui
+  // pero' lo zero rifiutava PRIMA di guardare lo speso, quindi su un budget
+  // che il piano non comprende il server diceva di no anche a chi aveva
+  // appena pagato: il telefono concedeva il gesto, la chiamata tornava un
+  // no, e il conto locale si allineava buttando via l'acquisto. Valeva gia'
+  // per gli approfondimenti e i confronti del Viandante, e con le stese
+  // sarebbe stata la strada NORMALE, non l'eccezione.
+  //
+  // Adesso lo zero rifiuta solo quando non c'e' credito, cioe' quando lo
+  // speso non e' andato sotto zero.
+  if (limite === 0 && spesoVero >= 0) {
+    return {
+      concesso: false,
+      resta: 0,
+      motivo: "Questo piano non comprende questa cosa.",
+    };
+  }
+  const resta = restaOggi(budget, piano, spesoVero);
+  // **TUTTE LE CARTE O NIENTE**, ordine EX voce 02: una stesa da tre con
+  // due carte rimaste non si apre a meta'.
+  if (resta !== null && (resta <= 0 || resta < quanti)) {
+    return {
+      concesso: false,
+      resta: 0,
+      motivo: "Il budget di oggi e' finito.",
+    };
+  }
+  const dopo = restaOggi(budget, piano, spesoVero + quanti);
+  return {concesso: true, resta: dopo};
+}
+
+/**
+ * **QUANTO RIDA' UN RISCATTO, per budget.** Un riscatto ridà un uso. Ordine
+ * GA voce 01, 20 ottobre 2026: le stese tornano a contarsi a stese, e il
+ * riscatto delle stese ridà una stesa (dall'ordine EX voce 02 ridava tre
+ * carte).
+ */
+export const UNITA_DEL_RISCATTO: Partial<Record<Budget, number>> = {
+  stese: 1,
+};
+
+/**
+ * **OGNI GESTO CONSUMA UN USO.** Ordine GA voce 01: anche la stesa, che
+ * dall'ordine EX consumava tutte le sue carte in un colpo, adesso vale uno
+ * qualunque sia il numero delle carte. Il campo `quanti` di un client
+ * vecchio si ignora: chiedere dieci non consuma dieci.
+ */
+export function quantiValidi(_budget: Budget, _valore: unknown): number {
+  return 1;
+}

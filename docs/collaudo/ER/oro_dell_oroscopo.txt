@@ -1,0 +1,16 @@
+ER.07, L'ORO DELL'OROSCOPO, 27 settembre 2026
+
+Confronto dei tre webp dell'Oroscopo fra assets/schede del repository e la cartella del PC del fondatore (assets/Sfondi Schede/webp), sha1:
+PRIMA (commit 3a2c12d3):
+  Oroscopo-Vert-1.webp repo e2ccb832421f1b399971510d7264556145f5c9c3  PC a3b34daa4ee33454c856890b7f5992c1d886d4bc  uguali: no
+  Oroscopo-Square-1.webp repo 93c58572d33c970e2f62dd2bbf04f6d80544866f  PC 365574e4fa9aacf0847a0fe18b854fc4b30b409f  uguali: no
+  Oroscopo-Oriz-1.webp repo e05700431a266cd6578f27074c489e83e181f42c  PC e419b2d688a81d8346d61854679467105cf3cfe0  uguali: no
+  uguali 0 su 3
+DOPO:
+  Oroscopo-Vert-1.webp repo a3b34daa4ee33454c856890b7f5992c1d886d4bc  PC a3b34daa4ee33454c856890b7f5992c1d886d4bc  uguali: si
+  Oroscopo-Square-1.webp repo 365574e4fa9aacf0847a0fe18b854fc4b30b409f  PC 365574e4fa9aacf0847a0fe18b854fc4b30b409f  uguali: si
+  Oroscopo-Oriz-1.webp repo e419b2d688a81d8346d61854679467105cf3cfe0  PC e419b2d688a81d8346d61854679467105cf3cfe0  uguali: si
+  uguali 3 su 3
+
+Regola B, gli_sfondi_delle_schede_test.dart, con Oroscopo-Vert-1.webp tolto: ROSSA (00:00 +2 -1), file rimesso identico (e2ccb832421f).
+Regola A, guardia nuova l_oro_dell_oroscopo_test.dart, con Oroscopo-Square-1.webp di prima rimesso (93c58572d33c): 00:00 +0 -1: Some tests failed., ROSSA; file corretto rimesso (365574e4fa9a).

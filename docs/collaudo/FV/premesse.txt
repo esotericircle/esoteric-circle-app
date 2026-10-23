@@ -1,0 +1,140 @@
+== P1
+Elementi
+lunario_almanacco_aperto_v1.jpg
+lunario_almanacco_chiuso_v1.jpg
+lunario_primo_fotogramma_v1.jpg
+lunario_ultimo_fotogramma_v1.jpg
+medora_almanacco_di_luce_v1.mp4
+medora_apre_l_almanacco_v1.jpg
+medora_regge_il_mese_v1.jpg
+video,768,1376,25/1 0.040000,668332  lunario_almanacco_aperto_v1.jpg
+video,768,1376,25/1 0.040000,639812  lunario_almanacco_chiuso_v1.jpg
+video,1080,1920,25/1 0.040000,472509  lunario_primo_fotogramma_v1.jpg
+video,1080,1920,25/1 0.040000,440081  lunario_ultimo_fotogramma_v1.jpg
+video,1080,1920,24/1 audio,0/0 8.000000,7761187  medora_almanacco_di_luce_v1.mp4
+video,768,1376,25/1 0.040000,566803  medora_apre_l_almanacco_v1.jpg
+video,768,1376,25/1 0.040000,546799  medora_regge_il_mese_v1.jpg
+== P2
+30
+card_mese_sfondo_v1.jpg
+card_mese_sfondo_v1.png
+castone_luna_v1.png
+emb_amore_v1.png
+emb_bellezza_v1.png
+emb_capelli_v1.png
+emb_casa_v1.png
+emb_conserve_v1.png
+emb_inizi_v1.png
+emb_orto_v1.png
+emb_pesca_v1.png
+emb_piante_v1.png
+emb_viaggi_v1.png
+emb_vino_v1.png
+foglio_emblemi_a_v1.jpg
+foglio_emblemi_b_v1.jpg
+foglio_luci_v1.jpg
+foglio_sigilli_v1.jpg
+luce_alone_oro_v1.png
+luce_scia_oro_v1.png
+seme_di_luce_v1.png
+sig_luna_fuori_corso_v1.png
+sig_luna_nel_tuo_segno_v1.png
+sig_luna_sul_tuo_sole_v1.png
+sig_thun_fiore_v1.png
+sig_thun_foglia_v1.png
+sig_thun_frutto_v1.png
+sig_thun_radice_v1.png
+sig_tua_fase_di_nascita_v1.png
+sig_tuo_ritorno_lunare_v1.png
+card_mese_sfondo_v1.jpg (768, 1376) RGB
+card_mese_sfondo_v1.png (768, 1376) RGBA
+castone_luna_v1.png (512, 512) RGBA
+emb_amore_v1.png (512, 512) RGBA
+emb_bellezza_v1.png (512, 512) RGBA
+emb_capelli_v1.png (512, 512) RGBA
+emb_casa_v1.png (512, 512) RGBA
+emb_conserve_v1.png (512, 512) RGBA
+emb_inizi_v1.png (512, 512) RGBA
+emb_orto_v1.png (512, 512) RGBA
+emb_pesca_v1.png (512, 512) RGBA
+emb_piante_v1.png (512, 512) RGBA
+emb_viaggi_v1.png (512, 512) RGBA
+emb_vino_v1.png (512, 512) RGBA
+foglio_emblemi_a_v1.jpg (1200, 896) RGB
+foglio_emblemi_b_v1.jpg (1200, 896) RGB
+foglio_luci_v1.jpg (1024, 1024) RGB
+foglio_sigilli_v1.jpg (1024, 1024) RGB
+luce_alone_oro_v1.png (512, 512) RGB
+luce_scia_oro_v1.png (498, 280) RGB
+seme_di_luce_v1.png (260, 300) RGB
+sig_luna_fuori_corso_v1.png (512, 512) RGBA
+sig_luna_nel_tuo_segno_v1.png (512, 512) RGBA
+sig_luna_sul_tuo_sole_v1.png (512, 512) RGBA
+sig_thun_fiore_v1.png (512, 512) RGBA
+sig_thun_foglia_v1.png (512, 512) RGBA
+sig_thun_frutto_v1.png (512, 512) RGBA
+sig_thun_radice_v1.png (512, 512) RGBA
+sig_tua_fase_di_nascita_v1.png (512, 512) RGBA
+sig_tuo_ritorno_lunare_v1.png (512, 512) RGBA
+== P3
+419:        id: 'lunar_calendar',
+420-        title: 'Calendario Lunare Personale',
+421-        teaser:
+422-            'La vista mensile a calendario, coi rituali e le indicazioni per ogni fase.',
+423-        icon: Icons.calendar_month_rounded,
+424-        state: ArtState.inArrivo,
+425-        phase: ArtPhase.faseSuccessiva,
+91:    'lunar_calendar': 'Calendario-Lunare',
+206:      chiave: 'la_tua_intenzione',
+213:        'lunar_calendar',
+== P4
+lib/core/astro/meeus/corpo_celeste.dart
+lib/core/astro/meeus/eclissi.dart
+lib/core/astro/meeus/i_pianeti_di_meeus.dart
+lib/core/astro/meeus/il_cielo_di_meeus.dart
+lib/core/astro/meeus/l_alba_e_il_tramonto.dart
+lib/core/astro/meeus/la_luna_intera.dart
+lib/core/astro/meeus/le_tabelle_dei_pianeti.dart
+9:/// a mezza giornata. Nel frattempo `Celestial.moonIllumination` calcolava la
+12:/// Adesso il calcolo viene da `Celestial` e da nessun altro posto: questa classe
+46:  /// il calcolo e' quello di `Celestial`: due formule per il giorno giuliano
+birth_moon esiste
+339ce803:lib/core/arts/art_catalog.dart:395:            'Il cruscotto lunare del presente: fase con la percentuale reale, Luna nel segno, i trenta giorni lunari, il calendario biodinamico, la Luna fuori corso e i consigli per categoria.',
+339ce803:lib/core/horoscope/i_segni_delle_tradizioni.dart:54:  /// vedici che la usano; null per Mithuna e Makara, che hanno la loro.
+339ce803:lib/core/horoscope/i_segni_delle_tradizioni.dart:221:    'Mithuna',
+339ce803:lib/features/horoscope/corsa_dello_zodiaco.dart:57:  /// voce 09): il segno lunare siderale col suo nome ("Tula"), e per Mithuna e
+339ce803:lib/features/horoscope/la_scena_dell_oroscopo.dart:157:        final i = s.zodiaco?.index ?? (s.nome.startsWith('Mithuna') ? 2 : 9);
+339ce803:lib/features/horoscope/la_scena_dell_oroscopo.dart:172:  /// La figura di un rashi: quella occidentale, o la propria per Mithuna e
+339ce803:lib/features/horoscope/la_scena_dell_oroscopo.dart:175:        2 => 'assets/img/zodiac/zod_vedica_mithuna.webp',
+339ce803:lib/features/horoscope/la_testa_della_tradizione.dart:20:/// - Vedica: la figura occidentale del rashi, o quella propria per Mithuna e
+339ce803:lib/features/horoscope/la_testa_della_tradizione.dart:75:        final propria = s.nome.startsWith('Mithuna') ? 'mithuna' : 'makara';
+== P5
+392:        id: 'lunology',
+393-        title: 'Il Respiro della Luna',
+394-        teaser:
+395-            'Il cruscotto lunare del presente: fase con la percentuale reale, Luna nel segno, i trenta giorni lunari, il calendario biodinamico, la Luna fuori corso e i consigli per categoria.',
+396-        icon: Icons.nightlight_round,
+397-        state: ArtState.inArrivo,
+== P6
+33:abstract class LettoreDiScena {
+181:class RegiaDellaScena extends ChangeNotifier with WidgetsBindingObserver {
+312:class IlToccoCheSalta extends StatelessWidget {
+== P7
+la_tua_nascita esiste
+cerchio esiste
+cerchio ts esiste
+== P8
+avvisi esiste
+169:  flutter_local_notifications: ^22.2.0
+== P9
+fonti esiste
+== P10
+luogo esiste
+16:  /// sorgere dipende da latitudine e longitudine, e dentro una citta' la
+32:/// dichiarabile perche' una longitudine dedotta dall'offset puo' sbagliare di
+58:        lat: c.latitude,
+59:        lon: c.longitude,
+== P11
+0
+161:- **SPESE, regola permanente del fondatore, 14 ottobre 2026.**
+164:- **LA SUITE INTERA GIRA SU GITHUB, NON SUL COMPUTER DI MAURO.** Regola permanente del fondatore, 14 ottobre 2026: *"deve diventare la regola per tutte le sessioni"*, dopo una suite locale da ottanta minuti.

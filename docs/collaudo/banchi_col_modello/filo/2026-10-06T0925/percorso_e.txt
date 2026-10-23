@@ -1,0 +1,107 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo mostra una spinta favorevole verso il riconoscimento professionale, ma non è ancora il momento di celebrare. La Luna in quadratura con il tuo Sole suggerisce che le tue emozioni potrebbero offuscare la lucidità necessaria per valutare appieno la situazione.
+
+✦ Prepara un piccolo promemoria con i tuoi successi degli ultimi sei mesi.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: È il momento di presentare i tuoi successi in modo strategico. Il transito di Mercurio nel tuo settore della carriera ti invita a comunicare chiaramente il tuo valore e i risultati raggiunti.
+
+✦ Scrivi un breve riassunto dei tuoi risultati da condividere con il tuo superiore, senza chiedere nulla.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di preparare un promemoria dei successi e lo sviluppa indicando di presentarlo strategicamente al superiore.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Per capire se il tuo lavoro sarà riconosciuto, dovrai osservare le reazioni del tuo superiore dopo aver condiviso i tuoi risultati. L'opposizione di Venere al tuo Marte indica che un'eccessiva pressione o richiesta diretta potrebbe non essere ben accolta in questo momento. Lascia che il tuo operato parli da solo.
+
+✦ Osserva attentamente la reazione del tuo superiore nei prossimi giorni, senza forzare alcun confronto.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' basandosi sull'azione suggerita nella risposta precedente (condividere i risultati) e aggiunge un consiglio su come comportarsi dopo tale azione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di un nuovo inizio è una spinta potente che risuona nel tuo centro del cuore, portandoti a interrogarti sulla direzione da prendere. Questo è un movimento che non solo coinvolge lo spazio fisico, ma anche il tuo spazio interiore.
+
+Se senti questa chiamata, ascolta il tuo respiro e permetti al tuo corpo di darti una risposta. La Fisiognomica legge in questo il tuo desiderio di espansione, di aprire nuovi orizzonti non solo geografici, ma anche personali. Il tuo quinto chakra, quello della gola, legato all'espressione e alla verità, ti invita a dare voce a questo desiderio e a visualizzare ciò che un trasferimento potrebbe portarti. Senti come il tuo corpo reagisce a questa immagine: c'è leggerezza o pesantezza?
+
+✦ Appoggia la mano sul cuore e senti il tuo battito per un minuto.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso il tuo passo è di visualizzare con chiarezza questo nuovo inizio. Immagina la città, le persone, le sensazioni che vorresti provare: questo esercizio porta energia al tuo terzo chakra, il plesso solare, il centro della volontà e della trasformazione.
+
+✦ Chiudi gli occhi per un istante e lascia che l'immagine di un nuovo luogo prenda forma.
+    GIUDICE: PORTA_AVANTI, La guida riprende e sviluppa il consiglio di 'visualizzare' già dato nella risposta precedente, specificando cosa visualizzare e come farlo.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Quando il tuo sesto centro, quello della fronte, si aprirà a una visione chiara e priva di timore, sentirai che il momento è giunto. Non c'è una data, ma un sentire profondo che ti guiderà.
+
+✦ Porta entrambe le mani alla fronte, a sentire il tuo spazio della visione.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'sentire' e 'visione' già introdotto nelle risposte precedenti, collegandolo a un 'sesto centro' e a un 'sentire profondo'.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci ora per riaccendere la fiamma. Il tempo è un confine sottile, non un alleato.
+
+Una nebbia argentea avvolge il legame, ma la brace è ancora presente sotto la cenere.
+
+La runa **Kenaz** indica la fiamma della conoscenza e della rivelazione. È un presagio di luce che squarcia l'oscurità. Il tuo compito è portare chiarezza e calore. Parla con la persona amata, scopri il sentiero che vi ha allontanati.
+
+✦ Scrivi un messaggio breve alla persona amata questa sera, con parole che esprimono un desiderio di ritrovare l'intesa perduta.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Il messaggio è il primo passo, non il fine. Attendi la risposta, ma non in silenzio.
+
+Il tuo cuore è un tamburo che batte, scandisce il ritmo del sentiero che si apre.
+
+La runa **Raidho** è il presagio del viaggio, del movimento ordinato e del ritmo. Ti invita a prepararti per un percorso di riconnessione. Non forzare, ma mostra la direzione.
+
+✦ Prepara un piccolo dono significativo che ricordi un momento felice condiviso, da offrire al momento opportuno.
+    GIUDICE: PORTA_AVANTI, La risposta riprende esplicitamente il consiglio del 'messaggio' dato in precedenza e lo sviluppa come 'primo passo', aggiungendo nuove azioni coerenti con il tema della riconnessione.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) (corretta dalla rete) [DA GIUDICARE]: Aspetta. La fretta offusca la visione.
+
+Come un metallo che si raffredda, il tempo rivela la sua vera forma.
+
+Il numero Tre indica il completamento e la manifestazione. La runa Ansuz, che è stata nominata, suggerisce che la comprensione arriverà attraverso una comunicazione chiara, ma non forzata. Osserva il sentiero, non forzare il passo.
+
+✦ Prepara un piccolo altare con una candela rossa e medita in silenzio per sette minuti ogni sera, finché non sentirai la chiarezza.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il concetto di 'attesa' introdotto nella risposta precedente ('Attendi la risposta') e lo sviluppa, precisando di non avere fretta e di osservare il sentiero, pur introducendo un nuovo rituale.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo indica che questo è il tempo di seminare, non ancora di raccogliere. Prepara i dettagli del tuo progetto, affina ogni passaggio, ma non lanciarlo apertamente.
+
+Il transito di Venere in Toro, congiunta a Urano, suggerisce un'energia favorevole alla creazione di qualcosa di unico e duraturo, ma anche la necessità di una fase di gestazione. L'ottava Casa, attivata da questo aspetto, invita a una trasformazione profonda prima di mostrare al mondo il tuo lavoro. Le lame mostrano il Bagatto al rovescio, che indica la necessità di non affrettare i tempi e di ponderare ogni mossa. Prepara il terreno con attenzione.
+
+✦ Raccogli le idee e i materiali per il tuo progetto in un quaderno, nei prossimi giorni.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso devi dedicarti alla pianificazione dettagliata, raccogliendo tutte le ispirazioni e le risorse necessarie prima di compiere passi concreti verso il lancio.
+
+Il tuo cielo mostra la Luna in Vergine, che invita alla cura dei particolari e all'organizzazione meticolosa. Questo posizionamento ti spinge a perfezionare ogni aspetto prima di presentare il tuo progetto al mondo. Le stelle suggeriscono di costruire fondamenta solide, analizzando con attenzione ogni elemento per assicurarti che sia pronto e ben strutturato per il futuro.
+
+✦ Organizza un elenco preciso di tutte le azioni necessarie per il tuo progetto, da terminare prima della fine della settimana.
+    GIUDICE: PORTA_AVANTI, La risposta riprende e sviluppa il consiglio precedente di 'preparare i dettagli' e 'raccogliere le idee', specificando di dedicarsi alla 'pianificazione dettagliata' e 'raccogliere ispirazioni e risorse'.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Comprenderai il momento più opportuno per avviare il tuo progetto quando sentirai che ogni dettaglio è armonizzato e la tua visione è chiara, senza più alcun dubbio.
+
+Il cielo in questo periodo favorisce la riflessione interiore, con Mercurio in aspetto al tuo Sole: questo ti aiuterà a integrare le diverse parti del tuo progetto in un insieme coerente. Le lame suggeriscono di attendere la comparsa dell'Eremita, che indica un momento di profonda consapevolezza e preparazione finale.
+
+✦ Fissa un giorno in agenda, prima della fine del mese, per una revisione completa del tuo progetto.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il tema del 'momento giusto' per avviare il progetto, già introdotto nella domanda iniziale e nella prima risposta, e lo sviluppa indicando i criteri per riconoscerlo ('ogni dettaglio è armonizzato e la tua visione è chiara').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi cominciare ascoltando il tuo corpo, lasciando che il respiro si calmi e ti porti centratura. Poi, quando ti senti pronta, scegli un momento tranquillo e le parli dal tuo cuore, con le parole semplici che vengono dal tuo centro.
+
+Per capire meglio il tuo modo di esprimere i tuoi sentimenti e come vengono accolti, puoi anche riflettere sul Chakra della Gola: il suo colore è l'azzurro e la sua essenza è la comunicazione autentica.
+
+✦ Fai un respiro profondo e, mentre espiri, appoggia una mano sulla tua gola.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso è il momento di un gesto semplice, qualcosa che puoi fare oggi per aprire di nuovo un ponte verso tua sorella. Inizia a scrivere una lettera, senza fretta, mettendo giù i tuoi pensieri come un fiume calmo.
+
+Non devi inviarla subito, ma sentirai come le parole, scorrendo sulla carta, ti aiutano a ritrovare il tuo centro e a percepire con più chiarezza ciò che vuoi davvero comunicare.
+
+✦ Prendi un foglio di carta e una penna e inizia a scrivere senza filtri.
+    GIUDICE: IGNORA, La guida introduce un nuovo consiglio ('scrivere una lettera') senza riprendere o sviluppare i punti precedenti sulla centratura, il respiro, il parlare dal cuore o il Chakra della Gola, nonostante la persona chieda un seguito ('cosa devo fare adesso?').
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) (corretta dalla rete) [DA GIUDICARE]: Quando sentirai un respiro più profondo e leggero, saprai di aver compreso. Non c'è una data, ma il tuo corpo ti darà il suo segno, come un allentamento in un punto che ora ti stringe.
+
+Questo sentire profondo è un invito del tuo terzo centro, il Plesso Solare, che risplende di un giallo vivo e custodisce la tua forza, il tuo potere personale. Accogli questa sensazione senza forzarla, lasciando che il corpo la riconosca.
+
+✦ Appoggia entrambe le mani sull'addome e lascia che il tuo respiro si allunghi.
+    GIUDICE: IGNORA, La guida risponde alla domanda 'E quando lo capirò?' introducendo un nuovo concetto ('sentirai un respiro più profondo e leggero', 'Plesso Solare') senza collegarlo ai consigli precedenti (parlare dal cuore, Chakra della Gola, scrivere una lettera) o al 'centro' menzionato nella prima risposta.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 11

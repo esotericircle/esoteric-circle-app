@@ -1,0 +1,18 @@
+ORDINE EV, SEGNALAZIONE DEL FONDATORE: LE RICHIESTE DI "NOTE DI KEEP" DOPO LA REGISTRAZIONE CON GOOGLE
+
+Il fondatore: "Difetto grave: ho rifatto installazione da zero e Senza registrazione. Dopo l'onboarding ho fatto registrazione con Google [...] tutto ok, mi sono stati riaccreditati EOS e traguardi, ma nelle notifiche sono arrivate richieste di accesso a tutti i miei account Google." Le due catture: "Richiesta di accesso, Note di Keep" e le notifiche di sistema "Autorizzazione richiesta da Note di Keep", una per account.
+
+CHE COSA CHIEDE L'APP (letto dall'archivio, non dal codice)
+aapt2 dump permissions sull'APK 0.1.0+2290 (1 ottobre 2026): ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, RECORD_AUDIO, CAMERA, POST_NOTIFICATIONS, RECEIVE_BOOT_COMPLETED, SET_WALLPAPER, WRITE_EXTERNAL_STORAGE (fino ad Android 9), READ_EXTERNAL_STORAGE, ACCESS_NETWORK_STATE, INTERNET, WAKE_LOCK, VIBRATE, c2dm RECEIVE e READ_GSERVICES (le notifiche push di Firebase), BLUETOOTH (fino ad Android 11), MODIFY_AUDIO_SETTINGS.
+Nessuna di queste tocca gli account del telefono: non ci sono GET_ACCOUNTS, USE_CREDENTIALS, MANAGE_ACCOUNTS ne' AUTHENTICATE_ACCOUNTS.
+
+COME ENTRA CON GOOGLE
+lib/core/identity/account_del_cerchio.dart, GoogleSignIn().signIn() senza scope aggiunti: il sistema mostra la scelta dell'account e consegna all'app il solo account scelto, con nome, email e foto (gli scope di base). L'app non chiede niente di Keep e non puo' chiederlo per gli altri account.
+
+DA DOVE VENGONO LE RICHIESTE
+"Note di Keep" e' l'app Google Keep. Le notifiche "Autorizzazione richiesta da Note di Keep" sono di Google Play Services: compaiono quando un'app di Google chiede di nuovo il permesso di sincronizzare un account, tipicamente dopo un cambio sugli account del telefono o un aggiornamento di Keep, e arrivano una per account perche' Keep sincronizza tutti gli account del telefono. Non nominano Esoteric Circle e non possono venire da un'app che non ha i permessi sugli account.
+
+CHE COSA PUO' FARE IL FONDATORE
+Toccare la notifica e consentire, se usa Keep su quegli account; altrimenti ignorarla o rifiutare: Esoteric Circle non ne e' toccata e il suo account resta quello scelto alla registrazione.
+
+DIFETTO NEL CODICE DI OGGI: nessuno trovato. Nessuna modifica.

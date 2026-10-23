@@ -1,0 +1,40 @@
+ORDINE EW VOCE EW.04, IL COSTO DI OGNI FUNZIONE, misurato il 2026-10-02 06:30:36.087931 col codice vero dell'app e Gemini in europe-west1; 20 usi per caso.
+Prezzi per milione di token: Flash 0,30 ingresso testo, 1,00 ingresso audio, 2,50 uscita e ragionamento; Flash-Lite 0,10 e 0,40; Flash TTS 0,50 testo e 10,00 audio in uscita.
+
+chat, memoria vuota [chat_risposta]: usi 20, chiamate per uso da 1 a 6 (media 2.10); token in ingresso 312612, in uscita 4188, di ragionamento 0, dalla cache 199807; costo per uso medio 0.00252 $, massimo 0.00714 $
+chat, memoria piena (20 turni, sintesi, 12 fatti) [chat_risposta]: usi 20, chiamate per uso da 1 a 4 (media 2.10); token in ingresso 404239, in uscita 3458, di ragionamento 0, dalla cache 222229; costo per uso medio 0.00350 $, massimo 0.00601 $
+chat, Vai piu' a fondo (memoria piena) [chat_seguito]: usi 10, chiamate per uso da 1 a 2 (media 1.30); token in ingresso 116392, in uscita 1331, di ragionamento 0, dalla cache 56613; costo per uso medio 0.00230 $, massimo 0.00373 $
+LIVE, la risposta del Maestro [chat_live]: usi 20, chiamate per uso da 1 a 4 (media 1.90); token in ingresso 373470, in uscita 2831, di ragionamento 0, dalla cache 198496; costo per uso medio 0.00328 $, massimo 0.00979 $
+LIVE, la voce del Maestro della risposta [voce_maestro]: usi 20, chiamate per uso da 2 a 3 (media 2.25); token in ingresso 1748, in uscita 15496, di ragionamento 0, dalla cache 0; costo per uso medio 0.00779 $, massimo 0.01211 $
+LIVE, l'ascolto di una frase [ascolto_live]: usi 13, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 7777, in uscita 117, di ragionamento 0, dalla cache 0; costo per uso medio 0.00027 $, massimo 0.00031 $
+Interroga i Maestri, tre lenti e la sintesi [interroga_breve, interroga_sintesi]: usi 20, chiamate per uso da 4 a 4 (media 4.00); token in ingresso 336889, in uscita 11999, di ragionamento 24, dalla cache 70506; costo per uso medio 0.00219 $, massimo 0.00261 $
+Tarocchi, la lettura della stesa [lettura_tarocchi]: usi 20, chiamate per uso da 1 a 3 (media 1.75); token in ingresso 49127, in uscita 10647, di ragionamento 0, dalla cache 2873; costo per uso medio 0.00203 $, massimo 0.00416 $
+Rune, la lettura della gettata [lettura_rune]: usi 20 (alla riserva dopo il modello 2), chiamate per uso da 1 a 3 (media 1.85); token in ingresso 250607, in uscita 18031, di ragionamento 0, dalla cache 145555; costo per uso medio 0.00405 $, massimo 0.00881 $
+Sigillo, titolo e responso [sigillo]: usi 20, chiamate per uso da 1 a 2 (media 1.55); token in ingresso 13683, in uscita 1977, di ragionamento 0, dalla cache 0; costo per uso medio 0.00045 $, massimo 0.00061 $
+Sigillo, la riformulazione [sigillo]: usi 10, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 2846, in uscita 154, di ragionamento 0, dalla cache 0; costo per uso medio 0.00012 $, massimo 0.00013 $
+Sigillo, il compimento [sigillo]: usi 10, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 3246, in uscita 156, di ragionamento 0, dalla cache 0; costo per uso medio 0.00014 $, massimo 0.00015 $
+Viaggio, una discesa con la domanda scritta [viaggio_domanda, viaggio_scena]: usi 20, chiamate per uso da 2 a 4 (media 3.80); token in ingresso 170317, in uscita 8893, di ragionamento 0, dalla cache 3934; costo per uso medio 0.00345 $, massimo 0.00393 $
+Viaggio, un segno chiesto all'animale [viaggio_segno, viaggio_scena]: usi 20, chiamate per uso da 1 a 2 (media 1.05); token in ingresso 10673, in uscita 1008, di ragionamento 2, dalla cache 0; costo per uso medio 0.00012 $, massimo 0.00127 $
+Il titolo della conversazione [titoli_conversazioni]: usi 20, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 2794, in uscita 157, di ragionamento 0, dalla cache 0; costo per uso medio 0.00002 $, massimo 0.00002 $
+Ricordi, la pagina del mese [ricordi_del_mese]: usi 20, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 8492, in uscita 2713, di ragionamento 0, dalla cache 0; costo per uso medio 0.00010 $, massimo 0.00017 $
+
+IL BANCO: chiamate a Gemini 533 (piu' le sintesi delle frasi da ascoltare), costo misurato 0.6186 $.
+Chiamate che nell'app partono fuori da europe-west1, misurate in europe-west1: 20 (us-central1).
+
+ORDINE EW VOCE EW.04, IL COSTO DI OGNI FUNZIONE, misurato il 2026-10-02 06:36:52.129273 col codice vero dell'app e Gemini in europe-west1; 20 usi per caso.
+Prezzi per milione di token: Flash 0,30 ingresso testo, 1,00 ingresso audio, 2,50 uscita e ragionamento; Flash-Lite 0,10 e 0,40; Flash TTS 0,50 testo e 10,00 audio in uscita.
+
+LIVE, l'ascolto di una frase [ascolto_live]: usi 20, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 11930, in uscita 200, di ragionamento 0, dalla cache 0; costo per uso medio 0.00027 $, massimo 0.00031 $
+Interroga, una lente Profonda (mai chiesta dall'app) [interroga_profonda]: usi 20, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 104603, in uscita 4676, di ragionamento 8530, dalla cache 15057; costo per uso medio 0.00302 $, massimo 0.00348 $
+
+IL BANCO: chiamate a Gemini 40 (piu' le sintesi delle frasi da ascoltare), costo misurato 0.0657 $.
+
+ORDINE EW VOCE EW.04, IL COSTO DI OGNI FUNZIONE, misurato il 2026-10-02 06:50:59.295331 col codice vero dell'app e Gemini in europe-west1; 20 usi per caso.
+Prezzi per milione di token: Flash 0,30 ingresso testo, 1,00 ingresso audio, 2,50 uscita e ragionamento; Flash-Lite 0,10 e 0,40; Flash TTS 0,50 testo e 10,00 audio in uscita.
+
+chat, memoria piena (20 turni, sintesi, 12 fatti) [chat_risposta]: usi 10, chiamate per uso da 1 a 5 (media 2.50); token in ingresso 242064, in uscita 2207, di ragionamento 0, dalla cache 69227; costo per uso medio 0.00594 $, massimo 0.01171 $
+chat, Vai piu' a fondo (memoria piena) [chat_seguito]: usi 10, chiamate per uso da 1 a 4 (media 1.60); token in ingresso 144136, in uscita 1819, di ragionamento 0, dalla cache 87300; costo per uso medio 0.00242 $, massimo 0.00531 $
+Sigillo, la riformulazione [sigillo]: usi 10, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 2848, in uscita 149, di ragionamento 0, dalla cache 0; costo per uso medio 0.00012 $, massimo 0.00013 $
+Sigillo, il compimento [sigillo]: usi 10, chiamate per uso da 1 a 1 (media 1.00); token in ingresso 3248, in uscita 156, di ragionamento 0, dalla cache 0; costo per uso medio 0.00014 $, massimo 0.00015 $
+
+IL BANCO: chiamate a Gemini 61 (piu' le sintesi delle frasi da ascoltare), costo misurato 0.0863 $.

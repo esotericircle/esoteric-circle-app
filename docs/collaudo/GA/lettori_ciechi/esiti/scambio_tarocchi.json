@@ -1,0 +1,1685 @@
+{
+ "istruzione": "Per ogni scheda: i simboli indicati sono quelli da cui e nato il responso? Rispondi si o no con una riga di ragione.",
+ "schede": [
+  {
+   "scheda": 1,
+   "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Dieci di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il carico da alleggerire."
+    }
+   ],
+   "responso": {
+    "titolo": "Il peso che porti non è tuo",
+    "risposta": "L'abitudine fa da cinghia a un peso che non ti riguarda. Le spalle lo reggono per inerzia, il proprietario è un altro e metterlo a terra lascia tutti al loro posto. I compiti delegati ai colleghi, il carico ridistribuito nel reparto, l'incarico in più rifiutato con garbo.",
+    "cosaFare": "Rifiuta con garbo l'incarico in più che ti propongono oggi, spiegando quali compiti hai già in corso. Questa carta mostra il carico che si alleggerisce: dire di no a ciò che non ti spetta protegge la qualità di ciò che fai e il tuo respiro.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Dieci di Bastoni rovesciato (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 2,
+   "domanda": "La mia relazione può durare nonostante la distanza?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Fante di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il messaggero ardente."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Nove di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il desiderio appagato."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Asso di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cuore trattenuto."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Regina di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La cura concreta."
+    }
+   ],
+   "responso": {
+    "titolo": "La porta è socchiusa",
+    "risposta": "Con Nove di Spade le carte, nel tuo quadro affettivo, indicano una situazione che gira a tuo favore. Parla di una porta socchiusa: non si apre da sola, ma non è chiusa. Non serve un colpo di fortuna: serve la costanza delle cose piccole.",
+    "cosaFare": "Quello che le carte chiedono è una cosa sola. Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non farti dettare i tempi da chi aspetta. Quattro di Bastoni chiude la lettura su una nota concreta: questo gesto è il modo di raggiungerla.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: L'Eremita (passato), Nove di Spade (presente), Quattro di Bastoni (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 3,
+   "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Re di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La visione che guida."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Otto di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il lavoro senz'anima."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Il Mago",
+     "verso": "dritta",
+     "significatoDelVerso": "Il potere di creare."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Tre di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La festa da riequilibrare."
+    }
+   ],
+   "responso": {
+    "titolo": "Il terreno è buono",
+    "risposta": "Fante di Bastoni risponde, su cosa prova per te, con un favore concreto e vicino su cui puoi contare. Dice che il terreno è buono: non promette clamori, ma quello che ci pianti cresce. È il momento buono per muoverti, senza aspettare condizioni migliori di queste.",
+    "cosaFare": "Le carte non lasciano il consiglio nel vago: eccolo. Rendi visibile quello che sai fare, anche con una riga sola in più. Non lasciare che resti un segreto. L'ultima carta è Regina di Denari: un risultato alla portata, se il gesto si fa adesso.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Fante di Bastoni (il consultante), Nove di Coppe (il lato), Asso di Coppe rovesciato (il lato), Regina di Denari (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 4,
+   "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Tre di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il ritorno diverso dall'atteso."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Fante di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il messaggero ardente."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Sei di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il dono dell'infanzia."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Quattro di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La festa della soglia."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Quattro di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "L'offerta non vista."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Cinque di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Le coppe versate."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "La Papessa",
+     "verso": "dritta",
+     "significatoDelVerso": "Il sapere del silenzio."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "La Torre",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il crollo evitato."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Fante di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La promessa rimandata."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Sette di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "L'attesa del raccolto."
+    }
+   ],
+   "responso": {
+    "titolo": "Manca un pezzo in un punto solo",
+    "risposta": "Nella tua casa, la risposta è un ritardo piccolo e del tutto rimediabile, come mostra Tre di Bastoni rovesciato. Un ingranaggio gratta: non si è rotto niente, manca qualcosa in un punto solo. Non è un segnale di fine: è un granello che si toglie subito.",
+    "cosaFare": "La mossa suggerita si fa in pochi giorni. Parla presto con la persona che sta dall'altra parte dell'inghippo. Non provare a sistemarlo in segreto, senza dirglielo. La lettura si chiude con Sette di Denari: cose che si vedono e si contano, se cominci.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Tre di Bastoni rovesciato (ciò che copre), Fante di Bastoni (ciò che attraversa), Sei di Coppe (ciò che corona), Quattro di Bastoni (il fondamento), Quattro di Coppe (ciò che è dietro), Cinque di Coppe (futuro), La Papessa ([te stesso|te stessa|tu]), La Torre rovesciata (la tua casa), Fante di Denari rovesciato (speranze o timori), Sette di Denari (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 5,
+   "domanda": "Incontrerò qualcuno di importante quest'anno?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Re di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "La calma del cuore."
+    }
+   ],
+   "responso": {
+    "titolo": "Un cuore calmo che regge le onde",
+    "risposta": "L'acqua si agita e il seggio che la domina non cede: senti tutto quanto per intero e nulla ti rovescia, così la tua calma diventa un posto fermo per gli altri. Il partner maturo, il porto sicuro, l'amore calmo che sa reggere le tempeste di entrambi.",
+    "cosaFare": "Quando nasce una tensione con il tuo partner, abbassa il tono invece di alzarlo e proponi di parlarne con calma più tardi, a un'ora precisa. Fare da porto sicuro non significa tacere: significa scegliere il momento in cui le parole aiutano davvero.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Re di Coppe (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 6,
+   "domanda": "Cosa prova davvero Marco per me?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Sei di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il dare sbilanciato."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Quattro di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il riposo del guerriero."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "La Papessa",
+     "verso": "dritta",
+     "significatoDelVerso": "Il sapere del silenzio."
+    }
+   ],
+   "responso": {
+    "titolo": "Le cose stanno dove devono",
+    "risposta": "Su cosa prova per te, la risposta è buona e sta alla tua misura, come mostra Quattro di Spade. Racconta una misura giusta: le cose stanno dove devono e chiedono solo di essere usate. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
+    "cosaFare": "Le carte indicano un gesto preciso: è questo. Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non farti dettare i tempi da chi aspetta. Dove la lettura si chiude c'è La Papessa: questo gesto è il primo tratto per arrivarci.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Sei di Denari rovesciato (passato), Quattro di Spade (presente), La Papessa (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 7,
+   "domanda": "È il momento giusto per aprire la mia attività?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Re di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il comando impaziente."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Il Giudizio",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La chiamata inascoltata."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Il Mondo",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cerchio che si compie."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Fante di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il messaggero ardente."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Re di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La prosperità sicura."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Fante di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La mente curiosa."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "Tre di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La collaborazione stonata."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Fante di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo studente diligente."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Due di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La scelta bendata."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Cinque di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Le coppe versate."
+    }
+   ],
+   "responso": {
+    "titolo": "La porta è socchiusa",
+    "risposta": "Sul progetto che porti, la risposta è positiva e concreta, senza clamore: a dirlo è Re di Bastoni. Parla di una porta socchiusa: non si apre da sola, ma non è chiusa. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
+    "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Fai la versione piccola della cosa grande che hai in mente, questa settimana. Non progettare oltre prima di averla provata. L'ultima carta è Tre di Coppe rovesciato: la più facile da smentire, con un gesto come questo.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Re di Bastoni (il consultante), Otto di Denari rovesciato (il lato), Il Mago (il lato), Tre di Coppe rovesciato (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 8,
+   "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "La Forza",
+     "verso": "dritta",
+     "significatoDelVerso": "La forza gentile."
+    }
+   ],
+   "responso": {
+    "titolo": "Un attrito piccolo frena tutto",
+    "risposta": "Re di Bastoni rovesciato regge la lettura e, nella tua casa, dice che la cosa si ripara con poco. È un attrito piccolo, di quelli che non si vedono da fuori e rallentano tutto. Il ritardo è reale ma si recupera, se te ne occupi adesso.",
+    "cosaFare": "Le carte indicano un gesto preciso: è questo. Metti per iscritto che cosa esattamente si è inceppato e dove. Non lamentartene con nessuno prima di averlo nominato bene. Cinque di Coppe aspetta in fondo alla stesa: è il seguito di questo gesto, non una sorpresa.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Re di Bastoni rovesciato (ciò che copre), Il Giudizio rovesciato (ciò che attraversa), Il Mondo (ciò che corona), Fante di Bastoni (il fondamento), Re di Denari (ciò che è dietro), Fante di Spade (futuro), Tre di Denari rovesciato ([te stesso|te stessa|tu]), Fante di Denari (la tua casa), Due di Spade (speranze o timori), Cinque di Coppe (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 9,
+   "domanda": "Il progetto che ho presentato verrà approvato?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Sei di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La bilancia del dare."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Il Carro",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Le redini allentate."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Cavaliere di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore in viaggio."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Cinque di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La sfida vivace."
+    }
+   ],
+   "responso": {
+    "titolo": "Governa l'istinto con mano gentile",
+    "risposta": "Una mano senza armi si posa sul muso di un animale che potrebbe mordere e l'animale si acquieta perché nessuno lo sfida: la tua dolcezza che non cede nulla governa l'istinto meglio della stretta. La tenacia paziente, la calma coi colleghi difficili, il gruppo guidato senza alzare i toni.",
+    "cosaFare": "Con la persona più difficile del gruppo, abbassa il tono invece di alzarlo. Oggi ascoltala fino in fondo prima di rispondere e cerca un punto su cui tu e lei potete essere d'accordo: la calma ferma convince più di qualsiasi braccio di ferro.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: La Forza (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 10,
+   "domanda": "Devo trasferirmi a Milano o restare a Bari?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Il Diavolo",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La catena che si spezza."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Il Mondo",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cerchio quasi chiuso."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Nove di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giardino conquistato."
+    }
+   ],
+   "responso": {
+    "titolo": "Il tempo giusto non è ancora il tuo",
+    "risposta": "Sul cambiamento in arrivo, la risposta è che serve più tempo del previsto: a dirlo è Il Mondo rovesciato. Racconta un tempo che non coincide col tuo: non è ostilità, è un altro orologio. Quello che desideri non sparisce affatto: chiede soltanto un'altra via per arrivare.",
+    "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Smetti di spingere per qualche giorno e guarda che cosa si muove da solo. Non forzare la porta. Dove la lettura si chiude c'è una cosa che si costruisce e non capita: Nove di Denari.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Il Diavolo rovesciato (passato), Il Mondo rovesciato (presente), Nove di Denari (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 11,
+   "domanda": "Dimmi qualcosa.",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Cinque di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il conflitto che stanca."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Sei di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La vittoria che sfila."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Sette di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La guardia stanca."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Quattro di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il riposo del guerriero."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Due di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "L'armonia incrinata."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "La Ruota della Fortuna",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giro del destino."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Regina di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La lucidità sincera."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Sette di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La strategia silenziosa."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Re di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giudizio giusto."
+    }
+   ],
+   "responso": {
+    "titolo": "La porta è socchiusa",
+    "risposta": "Sei di Denari risponde, nel momento che vivi, con un favore concreto e vicino su cui puoi contare. Parla di una porta socchiusa: non si apre da sola, ma non è chiusa. Quello che ti serve è già vicino: va solo preso e usato.",
+    "cosaFare": "Non serve un piano intero: serve una cosa sola. Scegli una sola cosa fra quelle aperte e portala a termine. Non aprirne un'altra prima di averla chiusa. Cinque di Bastoni sta in fondo alla stesa: una carta piccola e dritta, che chiede solo costanza.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Sei di Denari (il consultante), Il Carro rovesciato (il lato), Cavaliere di Coppe (il lato), Cinque di Bastoni (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 12,
+   "domanda": "Ha senso riprovarci con la mia ex?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Dieci di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "L'arcobaleno della famiglia."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Dieci di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La risalita."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Tre di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il brindisi degli amici."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Sei di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La traversata calma."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Il Mondo",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cerchio quasi chiuso."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Regina di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "L'emozione che sommerge."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "Asso di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore che trabocca."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Due di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo sguardo lontano."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Due di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "L'incontro dei cuori."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Re di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La visione che guida."
+    }
+   ],
+   "responso": {
+    "titolo": "La porta è socchiusa",
+    "risposta": "Le carte, sul ritorno che aspetti, vedono un vantaggio a portata di mano: lo porta Nove di Spade. Parla di una porta socchiusa: non si apre da sola, ma non è chiusa. Le carte minori dritte parlano di cose che si vedono e si contano.",
+    "cosaFare": "Non serve un piano intero: serve una cosa sola. Fai oggi il passo concreto che rimandi da tempo, anche se piccolo. Non aspettare di avere tutto chiaro. Re di Spade aspetta in fondo alla stesa: è il seguito di questo gesto, non una sorpresa.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Nove di Spade (ciò che copre), Cinque di Bastoni rovesciato (ciò che attraversa), Sei di Bastoni (ciò che corona), Sette di Bastoni rovesciato (il fondamento), Quattro di Spade (ciò che è dietro), Due di Coppe rovesciato (futuro), La Ruota della Fortuna ([te stesso|te stessa|tu]), Regina di Spade (la tua casa), Sette di Spade (speranze o timori), Re di Spade (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 13,
+   "domanda": "Come gestisco il conflitto con il mio capo?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Quattro di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La festa della soglia."
+    }
+   ],
+   "responso": {
+    "titolo": "Una base solida da celebrare con chi ami",
+    "risposta": "Le fondamenta hanno passato la prova del peso e sopra di esse si sta in piedi in compagnia. La gioia che ti riguarda è divisa con altri e la corsa al prossimo resta ferma. Il traguardo festeggiato, l'inaugurazione di una sede nuova, la stabilità raggiunta dopo un periodo di fatica.",
+    "cosaFare": "Segna oggi un traguardo raggiunto nel tuo lavoro, anche piccolo: festeggialo davvero, avvisa chi ha collaborato con te, offri un caffè, scrivi due righe di ringraziamento sincero. Le fondamenta tengono e riconoscerlo apertamente dà forza alla squadra prima del prossimo obiettivo.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Quattro di Bastoni (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 14,
+   "domanda": "Vincerò la causa contro il mio ex socio?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Asso di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La scintilla che tarda."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Re di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La visione che guida."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "La Torre",
+     "verso": "dritta",
+     "significatoDelVerso": "Il crollo che rivela."
+    }
+   ],
+   "responso": {
+    "titolo": "Un passo che riesce",
+    "risposta": "Le carte, sul ritorno che aspetti, vedono un vantaggio a portata di mano: lo porta Re di Bastoni. Parla di un passo che riesce, di quelli che non fanno rumore e spostano molto. Il buon senso basta: qui la scelta semplice è anche quella che funziona.",
+    "cosaFare": "Non serve un piano intero: serve una cosa sola. Rendi visibile quello che sai fare, anche con una riga sola in più. Non lasciare che resti un segreto. Dove la lettura si chiude c'è La Torre: questo gesto è il primo tratto per arrivarci.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Asso di Bastoni rovesciato (passato), Re di Bastoni (presente), La Torre (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 15,
+   "domanda": "Passerò l'esame di stato a dicembre?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Regina di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La cura concreta."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Dieci di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il carico da alleggerire."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Regina di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il carisma caldo."
+    }
+   ],
+   "responso": {
+    "titolo": "Le cose stanno dove devono",
+    "risposta": "Sulla tua crescita, la risposta è positiva e concreta, senza clamore: a dirlo è Regina di Denari. Racconta una misura giusta: le cose stanno dove devono e chiedono solo di essere usate. Il buon senso basta: qui la scelta semplice è anche quella che funziona.",
+    "cosaFare": "La lettura porta un compito breve e chiaro. Chiedi apertamente quello che finora hai solo sperato che ti venisse offerto. Non pretendere che lo indovinino da soli. La lettura si chiude con Regina di Bastoni: cose che si vedono e si contano, se cominci.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Regina di Denari (il consultante), Nove di Spade (il lato), Dieci di Bastoni rovesciato (il lato), Regina di Bastoni (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 16,
+   "domanda": "L'operazione al ginocchio del mese prossimo andrà bene?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "La Luna",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il velo che si dirada."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Cinque di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La vittoria amara."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Cavaliere di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La carica del pensiero."
+    }
+   ],
+   "responso": {
+    "titolo": "Le cose stanno dove devono",
+    "risposta": "Con Dieci di Coppe le carte, sul cambiamento in arrivo, indicano una situazione che gira a tuo favore. Racconta una misura giusta: le cose stanno dove devono e chiedono solo di essere usate. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
+    "cosaFare": "Quello che le carte chiedono è una cosa sola. Metti un numero su quello che stai valutando: quanto costa, quanto rende, entro quando. Non decidere a sensazione. Con Re di Bastoni in fondo alla lettura, il seguito dipende più da te che dalle circostanze.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Dieci di Coppe (ciò che copre), Dieci di Spade rovesciato (ciò che attraversa), Tre di Coppe (ciò che corona), Sei di Spade (il fondamento), Il Mondo rovesciato (ciò che è dietro), Regina di Coppe rovesciata (futuro), Asso di Coppe ([te stesso|te stessa|tu]), Due di Bastoni (la tua casa), Due di Coppe (speranze o timori), Re di Bastoni (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 17,
+   "domanda": "Quando finirà questo periodo di stallo?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Cavaliere di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La corsa audace."
+    }
+   ],
+   "responso": {
+    "titolo": "Vai a prendere ciò che vuoi",
+    "risposta": "Verso la cosa che desideri il movimento comincia subito, senza istruttoria: il tuo coraggio sta nel mettersi in strada a cavallo prima che il piano sia completo. L'avventura, la partenza, il viaggio, il cavallo impennato che porta lontano verso ciò che si desidera.",
+    "cosaFare": "Non aspettare il momento perfetto per muoverti: quel momento lo crea il primo passo. Scegli oggi una cosa che desideri e fai il gesto che la avvicina. La carta parla di passione che corre; perché non si perda, ogni sera controlla se la direzione è ancora quella giusta.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Cavaliere di Bastoni (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 18,
+   "domanda": "Come posso fare pace con mia sorella?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Tre di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore trafitto."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Cavaliere di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore in viaggio."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Gli Amanti",
+     "verso": "dritta",
+     "significatoDelVerso": "La scelta del cuore."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Fante di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo studente diligente."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Nove di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giardino conquistato."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Il Matto",
+     "verso": "dritta",
+     "significatoDelVerso": "Il salto nel vuoto."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "La Papessa",
+     "verso": "dritta",
+     "significatoDelVerso": "Il sapere del silenzio."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Due di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il gioco d'equilibrio."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "La Temperanza",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La misura perduta."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Sette di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La posizione difesa."
+    }
+   ],
+   "responso": {
+    "titolo": "Le cose stanno dove devono",
+    "risposta": "Con Cinque di Spade le carte, nella tua casa, indicano una situazione che gira a tuo favore. Racconta una misura giusta: le cose stanno dove devono e chiedono solo di essere usate. In concreto, la riuscita dipende più da te che dalla fortuna del momento.",
+    "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non farti dettare i tempi da chi aspetta. Cavaliere di Spade aspetta in fondo alla stesa: è il seguito di questo gesto, non una sorpresa.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: La Luna rovesciata (passato), Cinque di Spade (presente), Cavaliere di Spade (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 19,
+   "domanda": "È giusto andare a vivere lontano dai miei genitori?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Il Mago",
+     "verso": "dritta",
+     "significatoDelVerso": "Il potere di creare."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Nove di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La difesa irrigidita."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Fante di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo studente diligente."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Due di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "L'incontro dei cuori."
+    }
+   ],
+   "responso": {
+    "titolo": "Il lavoro è fatto",
+    "risposta": "Con Il Mago le carte, nella tua casa, indicano un compimento chiaro e non una mancanza. Dice che il lavoro è stato fatto: manca solo riconoscere che è finito davvero. Qui non serve altra fatica: serve accorgersi di ciò che è già tuo.",
+    "cosaFare": "Le carte indicano un gesto preciso: è questo. Scrivi in poche righe che cosa hai imparato in questo tratto e tienile con te. Non buttarle via domani. Due di Coppe sta in fondo alla stesa: una carta piccola e dritta, che chiede solo costanza.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Il Mago (il consultante), Nove di Bastoni rovesciato (il lato), Fante di Denari (il lato), Due di Coppe (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 20,
+   "domanda": "Arriverà presto la risposta che aspetto?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Asso di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La lama della verità."
+    }
+   ],
+   "responso": {
+    "titolo": "Il vantaggio è alla tua portata",
+    "risposta": "In quell'amicizia, la risposta è buona e sta alla tua misura, come mostra Tre di Spade. Parla di cose che si toccano: il vantaggio c'è ed è alla tua portata. In concreto, la riuscita dipende più da te che dalla fortuna del momento.",
+    "cosaFare": "Tradotta in un gesto, la lettura dice proprio questo. Cerca chi ha già fatto questa cosa e fagli due domande precise. Non chiedere un parere generico a tutti. Dove la lettura si chiude c'è una cosa che si costruisce e non capita: Sette di Bastoni.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Tre di Spade (ciò che copre), Cavaliere di Coppe (ciò che attraversa), Gli Amanti (ciò che corona), Fante di Denari (il fondamento), Nove di Denari (ciò che è dietro), Il Matto (futuro), La Papessa ([te stesso|te stessa|tu]), Due di Denari (la tua casa), La Temperanza rovesciata (speranze o timori), Sette di Bastoni (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 21,
+   "domanda": "Devo dirle che sono innamorato di lei?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Cavaliere di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La carica del pensiero."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Re di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giudizio giusto."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "L'Imperatore",
+     "verso": "dritta",
+     "significatoDelVerso": "La struttura che protegge."
+    }
+   ],
+   "responso": {
+    "titolo": "Un taglio netto fra vero e falso",
+    "risposta": "La lucidità ha la forma di una prima definizione. Dove stava un mucchio indistinto ti rimane una frase che puoi ripetere parola per parola. La verità detta in amore, la chiarezza nel legame, la dichiarazione netta che taglia ogni ambiguità.",
+    "cosaFare": "Scrivi su un foglio, in una frase sola, che cosa vuoi davvero da questo legame. La carta indica un'idea netta che taglia la confusione: quando la frase è chiara per te, diventa più facile dirla e capire se l'altro può accoglierla.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Asso di Spade (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 22,
+   "domanda": "Il cambiamento che sento arrivare sarà positivo?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Fante di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La mente curiosa."
+    }
+   ],
+   "responso": {
+    "titolo": "Questione di settimane, non di anni",
+    "risposta": "Sul cambiamento in arrivo, la risposta è buona e sta alla tua misura, come mostra Re di Spade. È una carta della giornata, non del destino: parla di settimane e non di anni. Il buon senso basta: qui la scelta semplice è anche quella che funziona.",
+    "cosaFare": "Con questa lettura in mano, il compito è chiaro. Chiedi apertamente quello che finora hai solo sperato che ti venisse offerto. Non pretendere che lo indovinino da soli. L'Imperatore aspetta in fondo alla stesa: fare questo adesso è il modo di andarci incontro.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Cavaliere di Spade (passato), Re di Spade (presente), L'Imperatore (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 23,
+   "domanda": "Il colloquio di giovedì andrà bene?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Fante di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La mente curiosa."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "L'Imperatore",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La regola che soffoca."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Sei di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il dono dell'infanzia."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Re di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La visione che guida."
+    }
+   ],
+   "responso": {
+    "titolo": "Il terreno è buono",
+    "risposta": "Sulla decisione da prendere, le carte dicono che la cosa è fattibile adesso: lo conferma Fante di Spade. Dice che il terreno è buono: non promette clamori, ma quello che ci pianti cresce. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
+    "cosaFare": "Ecco che cosa farne adesso, stando alle carte lette. Fissa tu la prima scadenza, prima che te la fissi qualcun altro. Non farti dettare i tempi da chi aspetta. Re di Bastoni aspetta in fondo alla stesa: è il seguito di questo gesto, non una sorpresa.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Fante di Spade (il consultante), L'Imperatore rovesciato (il lato), Sei di Coppe (il lato), Re di Bastoni (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 24,
+   "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Tre di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore trafitto."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Il Mago",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il potere sprecato."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "La Forza",
+     "verso": "dritta",
+     "significatoDelVerso": "La forza gentile."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Otto di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La prigione dei pensieri."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "La Temperanza",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La misura perduta."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Cinque di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Le coppe versate."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "Re di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cuore senza governo."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Due di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo sguardo lontano."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Tre di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La collaborazione stonata."
+    }
+   ],
+   "responso": {
+    "titolo": "Hai più di quanto pensi",
+    "risposta": "Sul lavoro che cerchi, la risposta è buona e sta alla tua misura, come mostra Tre di Spade. Dice che hai più materiale di quanto pensi: non serve procurarti altro, serve metterlo insieme. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
+    "cosaFare": "La lettura porta un compito breve e chiaro. Metti un numero su quello che stai valutando: quanto costa, quanto rende, entro quando. Non decidere a sensazione. Tre di Denari rovesciato chiude la lettura su un attrito piccolo: questo gesto lo toglie prima che cresca.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Tre di Spade (ciò che copre), Il Mago rovesciato (ciò che attraversa), La Forza (ciò che corona), Otto di Spade (il fondamento), La Temperanza rovesciata (ciò che è dietro), Cinque di Coppe (futuro), Re di Coppe rovesciato ([te stesso|te stessa|tu]), Due di Bastoni (la tua casa), Nove di Spade (speranze o timori), Tre di Denari rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 25,
+   "domanda": "Come posso ritrovare l'intesa con mio marito?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Re di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La prosperità sicura."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "La Giustizia",
+     "verso": "dritta",
+     "significatoDelVerso": "La bilancia della verità."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "La Temperanza",
+     "verso": "dritta",
+     "significatoDelVerso": "La misura che accorda."
+    }
+   ],
+   "responso": {
+    "titolo": "Cercare con attenzione, parlare con cura",
+    "risposta": "La capacità in esercizio è l'attenzione: guardi, domandi, metti insieme pezzi di vero che nessuno ti ha consegnato, mentre la lingua pronta vorrebbe ripeterli appena arrivano. La curiosità sull'altro, il sospetto, il controllo dei messaggi del partner, le domande poste per capire.",
+    "cosaFare": "Fai oggi una domanda diretta al partner invece di controllare il suo telefono: chiedi con calma quello che vuoi sapere e ascolta la risposta fino in fondo. La curiosità sull'altro è legittima, ma la verità si cerca guardandosi negli occhi, non frugando di nascosto.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Fante di Spade (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 26,
+   "domanda": "Posso fidarmi del mio compagno?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "La Forza",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il dominio perso."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Cavaliere di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La foga imprudente."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Asso di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il seme d'oro."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Dieci di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La risalita."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Sei di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La partenza difficile."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "L'Eremita",
+     "verso": "dritta",
+     "significatoDelVerso": "La luce interiore."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "Due di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Lo sguardo lontano."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Il Matto",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il passo avventato."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Regina di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La fiamma insicura."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "La Stella",
+     "verso": "dritta",
+     "significatoDelVerso": "La speranza ritrovata."
+    }
+   ],
+   "responso": {
+    "titolo": "Il lavoro è fatto",
+    "risposta": "La Giustizia risponde, sul ritorno che aspetti, con una cosa grande che si sta compiendo proprio adesso. Dice che il lavoro è stato fatto: manca solo riconoscere che è finito davvero. Quello che hai costruito regge, anche se ti sembra ancora troppo fragile.",
+    "cosaFare": "Con questa lettura in mano, il compito è chiaro. Segna il traguardo in un posto dove puoi ritrovarlo, anche solo una riga sul calendario. Non farlo passare in silenzio. L'ultima carta è La Temperanza, fra le più aperte: questo gesto ti tiene sulla sua linea.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Re di Denari (passato), La Giustizia (presente), La Temperanza (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 27,
+   "domanda": "Conviene investire i miei risparmi in borsa adesso?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Il Papa",
+     "verso": "dritta",
+     "significatoDelVerso": "La guida antica."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Regina di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La cura dispersa."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Dieci di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La casa divisa."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Tre di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La festa da riequilibrare."
+    }
+   ],
+   "responso": {
+    "titolo": "Il traguardo è già qui",
+    "risposta": "Sul lavoro che cerchi, le carte dicono che quello che chiedi ha preso forma: lo mostra Il Papa. Porta un compimento: il rischio non è fallire, è non accorgersi di avercela fatta. Non resta niente da conquistare: resta da prenderne atto e da usarlo.",
+    "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Dai una data precisa alla consegna, entro questa settimana. Non lasciarla aperta: una data vaga diventa una data mai. L'ultima carta è Tre di Coppe rovesciato: la più facile da smentire, con un gesto come questo.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Il Papa (il consultante), Regina di Denari rovesciata (il lato), Dieci di Coppe rovesciato (il lato), Tre di Coppe rovesciato (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 28,
+   "domanda": "Compro casa adesso o aspetto un anno?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Re di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "Il giudizio giusto."
+    }
+   ],
+   "responso": {
+    "titolo": "C'è un prezzo noto da pagare",
+    "risposta": "Con La Forza rovesciata le carte, nella tua casa, indicano una spinta grande che oggi incontra resistenza. C'è un prezzo e il prezzo è noto: resta da decidere se pagarlo adesso. Quello che desideri non sparisce affatto: chiede soltanto un'altra via per arrivare.",
+    "cosaFare": "Il gesto che le carte mettono davanti è piccolo. Prenditi il tempo che serve, ma mettici una scadenza scritta. Non lasciare che l'attesa diventi una scusa comoda per fermarti. In fondo c'è La Stella: è lì che questo gesto ti accompagna, un giorno alla volta.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: La Forza rovesciata (ciò che copre), Cavaliere di Spade rovesciato (ciò che attraversa), Asso di Denari (ciò che corona), Dieci di Spade rovesciato (il fondamento), Sei di Spade rovesciato (ciò che è dietro), L'Eremita (futuro), Due di Bastoni ([te stesso|te stessa|tu]), Il Matto rovesciato (la tua casa), Regina di Bastoni rovesciata (speranze o timori), La Stella (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 29,
+   "domanda": "Che cosa mi aspetta?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "La Luna",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il velo che si dirada."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Quattro di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La mano che stringe."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Il Matto",
+     "verso": "dritta",
+     "significatoDelVerso": "Il salto nel vuoto."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Regina di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il carisma caldo."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Due di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il piano incerto."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Asso di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cuore trattenuto."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "Due di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il gioco d'equilibrio."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Re di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il rigore senza cuore."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Cinque di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il ritorno al caldo."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "La Torre",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il crollo evitato."
+    }
+   ],
+   "responso": {
+    "titolo": "La stessa regola per tutti",
+    "risposta": "La lucidità diventa un incarico quando qualcuno ti viene a chiedere come stanno le cose: la risposta è onesta anche dove è scomoda e il suo peso ricade su chi l'ha formulata. L'etica, il giudizio giusto, la ragione messa al servizio del bene comune, la parola che decide con onestà.",
+    "cosaFare": "Onora oggi un impegno preso con qualcuno, anche piccolo, anche se ti costa fatica. La parola mantenuta è la base dell'autorità che gli altri ti riconoscono. Se non puoi mantenerlo, dillo apertamente e spiega perché: la chiarezza vale quanto la promessa.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Re di Spade (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 30,
+   "domanda": "Devo accettare l'offerta della nuova azienda?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Dieci di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il peso portato."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Cavaliere di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il passo costante."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Otto di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Le frecce nell'aria."
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo mestiere ti premia",
+    "risposta": "Cavaliere di Denari risponde, sull'incontro che cerchi, con un favore concreto e vicino su cui puoi contare. È una carta di mestiere: premia chi conosce bene ciò che fa, come fai tu. Non è una promessa di miracoli: è una base solida su cui contare.",
+    "cosaFare": "In pratica, la lettura ti chiede soltanto questo. Cerca chi ha già fatto questa cosa e fagli due domande precise. Non chiedere un parere generico a tutti. La lettura si chiude con Otto di Bastoni: cose che si vedono e si contano, se cominci.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Dieci di Bastoni (passato), Cavaliere di Denari (presente), Otto di Bastoni (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 31,
+   "domanda": "Andrà tutto bene?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Cavaliere di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La corsa audace."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Fante di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il messaggero ardente."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Nove di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "L'indipendenza da curare."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "La Morte",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La fine trattenuta."
+    }
+   ],
+   "responso": {
+    "titolo": "Hai più di quanto pensi",
+    "risposta": "Nella tua casa, le carte rispondono in modo favorevole: lo dice Cavaliere di Bastoni, una carta concreta. Dice che hai più materiale di quanto pensi: non serve procurarti altro, serve metterlo insieme. Non è una promessa di miracoli: è una base solida su cui contare.",
+    "cosaFare": "La mossa suggerita si fa in pochi giorni. Fai oggi il passo concreto che rimandi da tempo, anche se piccolo. Non aspettare di avere tutto chiaro. La Morte rovesciata sta in fondo: una carta di traverso, che chiede preparazione e non paura.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Cavaliere di Bastoni (il consultante), Fante di Bastoni (il lato), Nove di Denari rovesciato (il lato), La Morte rovesciata (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 32,
+   "domanda": "Lui tornerà da me dopo quello che è successo?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Il Matto",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il passo avventato."
+    }
+   ],
+   "responso": {
+    "titolo": "Resta, ma passa da una porta stretta",
+    "risposta": "La Luna rovesciata risponde, sul ritorno che aspetti, che la cosa resta possibile ma chiede prima una condizione. È una carta di traverso: quello che promette resta, ma passa da una porta stretta. Quello che desideri non sparisce affatto: chiede soltanto un'altra via per arrivare.",
+    "cosaFare": "Non serve un piano intero: serve una cosa sola. Smetti di spingere per qualche giorno e guarda che cosa si muove da solo. Non forzare la porta. La Torre rovesciata sta in fondo: una carta di traverso, che chiede preparazione e non paura.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: La Luna rovesciata (ciò che copre), Quattro di Denari (ciò che attraversa), Il Matto (ciò che corona), Regina di Bastoni (il fondamento), Due di Bastoni rovesciato (ciò che è dietro), Asso di Coppe rovesciato (futuro), Due di Denari ([te stesso|te stessa|tu]), Re di Spade rovesciato (la tua casa), Cinque di Denari rovesciato (speranze o timori), La Torre rovesciata (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 33,
+   "domanda": "Quale strada scelgo tra i due corsi di laurea?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Nove di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "L'indipendenza da curare."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Il Matto",
+     "verso": "dritta",
+     "significatoDelVerso": "Il salto nel vuoto."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Cavaliere di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il passo costante."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "La Forza",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il dominio perso."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Il Mondo",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cerchio che si compie."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "La Stella",
+     "verso": "dritta",
+     "significatoDelVerso": "La speranza ritrovata."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "Re di Denari",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il possesso che irrigidisce."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Dieci di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "L'eredità della casa."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Tre di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La festa da riequilibrare."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Re di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il rigore senza cuore."
+    }
+   ],
+   "responso": {
+    "titolo": "Guarda da dove nasce la spinta",
+    "risposta": "Sotto il piede non c'è fondo e la spinta che ti porta là manca di un'origine riconosciuta: può nascere dal coraggio oppure da una fuga. La partenza resta aperta in entrambi i casi. Lo slancio che non sa dove va, l'esitazione sull'orlo del dirupo, la fuga travestita da coraggio.",
+    "cosaFare": "Scegli oggi un passo minimo verso ciò che ti attira e che continui a rimandare per timore: una telefonata, una domanda, un biglietto. Restare sull'orlo per sempre è anch'esso una scelta; un gesto piccolo ti dice se la paura era fondata.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Il Matto rovesciato (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 34,
+   "domanda": "Devo lasciare Roma, e se lo faccio la mia famiglia capirà?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Re di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "La calma del cuore."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Otto di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La prigione dei pensieri."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Il Giudizio",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La chiamata inascoltata."
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo mestiere ti premia",
+    "risposta": "Nella tua casa, le carte rispondono in modo favorevole: lo dice Otto di Spade, una carta concreta. È una carta di mestiere: premia chi conosce bene ciò che fa, come fai tu. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
+    "cosaFare": "Le carte non lasciano il consiglio nel vago: eccolo. Metti un numero su quello che stai valutando: quanto costa, quanto rende, entro quando. Non decidere a sensazione. Il Giudizio rovesciato chiude la lettura rimandando, non negando: il gesto di oggi prepara proprio quel momento.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Re di Coppe (passato), Otto di Spade (presente), Il Giudizio rovesciato (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 35,
+   "domanda": "Devo chiudere l'amicizia con Giulia?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Dieci di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La fine e la resa."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Il Diavolo",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La catena che si spezza."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Asso di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il cuore trattenuto."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Otto di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "La partenza silenziosa."
+    }
+   ],
+   "responso": {
+    "titolo": "Il terreno è buono",
+    "risposta": "Dieci di Spade risponde, in quell'amicizia, con un favore concreto e vicino su cui puoi contare. Dice che il terreno è buono: non promette clamori, ma quello che ci pianti cresce. In concreto, la riuscita dipende più da te che dalla fortuna del momento.",
+    "cosaFare": "In pratica, la lettura ti chiede soltanto questo. Chiedi apertamente quello che finora hai solo sperato che ti venisse offerto. Non pretendere che lo indovinino da soli. L'ultima carta è Otto di Coppe: un risultato alla portata, se il gesto si fa adesso.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Dieci di Spade (il consultante), Il Diavolo rovesciato (il lato), Asso di Coppe rovesciato (il lato), Otto di Coppe (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 36,
+   "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+   "simboli": [
+    {
+     "posizione": "Ciò che copre",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "Ciò che attraversa",
+     "carta": "Cinque di Spade",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La pace da ricucire."
+    },
+    {
+     "posizione": "Ciò che corona",
+     "carta": "Asso di Coppe",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cuore che trabocca."
+    },
+    {
+     "posizione": "Il fondamento",
+     "carta": "Gli Amanti",
+     "verso": "dritta",
+     "significatoDelVerso": "La scelta del cuore."
+    },
+    {
+     "posizione": "Ciò che è dietro",
+     "carta": "Cavaliere di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La corsa audace."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "L'Imperatore",
+     "verso": "dritta",
+     "significatoDelVerso": "La struttura che protegge."
+    },
+    {
+     "posizione": "[Te stesso|Te stessa|Tu]",
+     "carta": "Sei di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La vittoria che sfila."
+    },
+    {
+     "posizione": "La tua casa",
+     "carta": "Regina di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "La cura concreta."
+    },
+    {
+     "posizione": "Speranze o timori",
+     "carta": "Il Papa",
+     "verso": "dritta",
+     "significatoDelVerso": "La guida antica."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Asso di Bastoni",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La scintilla che tarda."
+    }
+   ],
+   "responso": {
+    "titolo": "Ti manca un'informazione",
+    "risposta": "Nove di Denari rovesciato regge la lettura e, sulla tua crescita, dice che la cosa si ripara con poco. Dice che ti manca un'informazione, non una forza: qui cercare con cura batte insistere. Non serve un esperto: serve un'ora di attenzione onesta sul punto giusto.",
+    "cosaFare": "Non serve un piano intero: serve una cosa sola. Metti per iscritto che cosa esattamente si è inceppato e dove. Non lamentartene con nessuno prima di averlo nominato bene. Re di Spade rovesciato aspetta in fondo alla stesa e si smonta appena qualcuno ci guarda davvero.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Nove di Denari rovesciato (ciò che copre), Il Matto (ciò che attraversa), Cavaliere di Denari (ciò che corona), La Forza rovesciata (il fondamento), Il Mondo (ciò che è dietro), La Stella (futuro), Re di Denari rovesciato ([te stesso|te stessa|tu]), Dieci di Denari (la tua casa), Tre di Coppe rovesciato (speranze o timori), Re di Spade rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 37,
+   "domanda": "La mia relazione può durare nonostante la distanza?",
+   "simboli": [
+    {
+     "posizione": "La carta",
+     "carta": "Il Mondo",
+     "verso": "dritta",
+     "significatoDelVerso": "Il cerchio che si compie."
+    }
+   ],
+   "responso": {
+    "titolo": "Il tuo percorso si compie per intero",
+    "risposta": "Arriva al punto di saldatura un cammino lungo: il guadagno è la larghezza del passo e la capacità di stare in ogni angolo del disegno senza più sentirti fuori posto. La pienezza di una relazione, l'unione compiuta, la coppia intera dopo un lungo cammino insieme.",
+    "cosaFare": "Sosta nella gioia di ciò che hai costruito in amore prima di chiederti che cosa viene dopo. Scegli oggi un'abitudine di coppia, o un momento tuo, che ti fa sentire a casa e vivilo con piena attenzione. Il cerchio compiuto si gusta da dentro, non guardando oltre.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Il Mondo (la carta). Mazzo Rider-Waite, Stesa a una Carta: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 38,
+   "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "Il Sole",
+     "verso": "dritta",
+     "significatoDelVerso": "La gioia piena."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Il Mago",
+     "verso": "rovesciata",
+     "significatoDelVerso": "Il potere sprecato."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Tre di Coppe",
+     "verso": "rovesciata",
+     "significatoDelVerso": "La festa da riequilibrare."
+    }
+   ],
+   "responso": {
+    "titolo": "Non è tolto: è rimandato",
+    "risposta": "Su cosa prova per te, le carte dicono che i tempi non sono ancora maturi: lo conferma Il Mago rovesciato. È una carta grande uscita al rovescio: non toglie quello che promette, lo rimanda. Le carte rovesciate trattengono: quello che chiedi resta, ma con un altro tempo.",
+    "cosaFare": "Quello che le carte chiedono è una cosa sola. Rimanda di una settimana la decisione che stai per prendere di fretta. Non firmare e non promettere niente sotto pressione. Dove la lettura si chiude c'è Tre di Coppe rovesciato: se ti muovi adesso, quell'intralcio non lo incontri.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Il Sole (passato), Il Mago rovesciato (presente), Tre di Coppe rovesciato (futuro). Mazzo Rider-Waite, Stesa di Tarocchi: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 39,
+   "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+   "simboli": [
+    {
+     "posizione": "Il consultante",
+     "carta": "Il Diavolo",
+     "verso": "dritta",
+     "significatoDelVerso": "L'ombra da guardare."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Otto di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "La prigione dei pensieri."
+    },
+    {
+     "posizione": "Il lato",
+     "carta": "Cinque di Denari",
+     "verso": "dritta",
+     "significatoDelVerso": "Il freddo fuori dalla porta."
+    },
+    {
+     "posizione": "L'esito",
+     "carta": "Dieci di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "Il peso portato."
+    }
+   ],
+   "responso": {
+    "titolo": "Il lavoro è fatto",
+    "risposta": "Le carte, nella tua casa, rispondono con una notizia buona: Il Diavolo porta un compimento vero. Dice che il lavoro è stato fatto: manca solo riconoscere che è finito davvero. Quello che hai costruito regge, anche se ti sembra ancora troppo fragile.",
+    "cosaFare": "Quello che le carte chiedono è una cosa sola. Togli le ultime cose che hai aggiunto e guarda se non era già finito prima. Non ricominciare da capo. L'ultima carta è Dieci di Bastoni: un risultato alla portata, se il gesto si fa adesso.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Il Diavolo (il consultante), Otto di Spade (il lato), Cinque di Denari (il lato), Dieci di Bastoni (l'esito). Mazzo Rider-Waite, Stesa a Croce: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  },
+  {
+   "scheda": 40,
+   "domanda": "Incontrerò qualcuno di importante quest'anno?",
+   "simboli": [
+    {
+     "posizione": "Passato",
+     "carta": "L'Eremita",
+     "verso": "dritta",
+     "significatoDelVerso": "La luce interiore."
+    },
+    {
+     "posizione": "Presente",
+     "carta": "Nove di Spade",
+     "verso": "dritta",
+     "significatoDelVerso": "L'angoscia della notte."
+    },
+    {
+     "posizione": "Futuro",
+     "carta": "Quattro di Bastoni",
+     "verso": "dritta",
+     "significatoDelVerso": "La festa della soglia."
+    }
+   ],
+   "responso": {
+    "titolo": "Questione di settimane, non di anni",
+    "risposta": "Sul ritorno che aspetti, le carte dicono che la cosa è fattibile adesso: lo conferma Nove di Spade. È una carta della giornata, non del destino: parla di settimane e non di anni. Su questa questione il tempo lavora dalla tua parte, a patto di cominciare.",
+    "cosaFare": "Non serve un piano intero: serve una cosa sola. Cerca chi ha già fatto questa cosa e fagli due domande precise. Non chiedere un parere generico a tutti. Dove la lettura si chiude c'è Asso di Bastoni rovesciato: se ti muovi adesso, quell'intralcio non lo incontri.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Le carte uscite: Nove di Spade (ciò che copre), Cinque di Spade rovesciato (ciò che attraversa), Asso di Coppe (ciò che corona), Gli Amanti (il fondamento), Cavaliere di Bastoni (ciò che è dietro), L'Imperatore (futuro), Sei di Bastoni ([te stesso|te stessa|tu]), Regina di Denari (la tua casa), Il Papa (speranze o timori), Asso di Bastoni rovesciato (l'esito). Mazzo Rider-Waite, Stesa della Croce Celtica: ogni carta si legge col suo significato nella tradizione di Waite e nella posizione in cui è uscita."
+   }
+  }
+ ]
+}

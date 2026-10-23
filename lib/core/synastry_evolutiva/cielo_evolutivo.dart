@@ -1,0 +1,242 @@
+import '../astro/celestial.dart';
+import '../astro/il_segno_del_cielo.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
+import '../astro/natal_chart.dart';
+import '../astro/zodiac.dart';
+import '../identity/birth_identity.dart';
+import '../synastry/cielo_della_sinastria.dart' show AspettiDiSinastria;
+
+/// I PUNTI DELLA SINASTRIA EVOLUTIVA. Ordine FT voce FT.05, 14 ottobre
+/// 2026.
+///
+/// **La premessa P5 dell'ordine dice "dieci punti... compreso il Nodo
+/// Nord"**: presa alla lettera farebbe nove pianeti piu' il nodo, e
+/// toglierebbe un pianeta ai dieci che [CorpoCeleste] gia' calcola (REGOLA
+/// ZERO: il testo dell'ordine non e' affidabile, si verifica). Togliere un
+/// pianeta a caso (quale?) sarebbe arbitrario e peggiore che usarli tutti:
+/// qui i punti sono gli stessi dieci di [CorpoCeleste] (Sole fino a Plutone)
+/// **piu'** il Nodo Nord, undici in tutto. La scelta e la sua ragione stanno
+/// nel rapporto dell'ordine FT.
+///
+/// Non e' lo stesso elenco di `PuntoDelCielo` (Sinastria VIP, sei punti,
+/// Sole/Luna/Mercurio/Venere/Marte/Ascendente): quella rimane com'e' (R9),
+/// questa e' una lista sua, piu' ampia e senza Ascendente (l'evolutiva
+/// confronta due cieli di nascita, non chiede l'ora per forza: vedi
+/// [CieloEvolutivo.oraNota]).
+enum PuntoDelCieloEvolutivo {
+  sole('Sole', '☉', CorpoCeleste.sole, femminile: false),
+  luna('Luna', '☽', CorpoCeleste.luna, femminile: true),
+  mercurio('Mercurio', '☿', CorpoCeleste.mercurio, femminile: false),
+  venere('Venere', '♀', CorpoCeleste.venere, femminile: true),
+  marte('Marte', '♂', CorpoCeleste.marte, femminile: false),
+  giove('Giove', '♃', CorpoCeleste.giove, femminile: false),
+  saturno('Saturno', '♄', CorpoCeleste.saturno, femminile: false),
+  urano('Urano', '♅', CorpoCeleste.urano, femminile: false),
+  nettuno('Nettuno', '♆', CorpoCeleste.nettuno, femminile: false),
+  plutone('Plutone', '♇', CorpoCeleste.plutone, femminile: false),
+
+  /// Non e' un [CorpoCeleste]: non ha una posizione VSOP87, solo la
+  /// longitudine media (Meeus cap. 22), calcolata a parte in
+  /// [CieloEvolutivo._longitudineDi].
+  nodoNord('Nodo Nord', '☊', null, femminile: false);
+
+  const PuntoDelCieloEvolutivo(this.nome, this.glifo, this.corpo,
+      {required this.femminile});
+
+  final String nome;
+  final String glifo;
+
+  /// Il corpo delle effemeridi, oppure nullo per il Nodo Nord.
+  final CorpoCeleste? corpo;
+
+  /// Stessa ragione di `PuntoDelCielo.femminile`: la lingua si accorda da
+  /// sola solo se il genere e' dichiarato, non indovinato riga per riga.
+  final bool femminile;
+
+  String get ilSuo => femminile ? 'la sua' : 'il suo';
+  String get alTuo => femminile ? 'alla tua' : 'al tuo';
+  String get ilTuo => femminile ? 'la tua' : 'il tuo';
+  String get alSuo => femminile ? 'alla sua' : 'al suo';
+}
+
+/// IL CIELO DI UNA PERSONA per la Sinastria evolutiva: le longitudini
+/// degli undici punti, e niente altro. Sempre offline, sempre deterministico
+/// (R2 dell'ordine FT: nessuna chiamata a pagamento, nessuna rete).
+class CieloEvolutivo {
+  const CieloEvolutivo({
+    required this.longitudini,
+    required this.segnoSolare,
+    required this.oraNota,
+    required this.giornoDiNascita,
+    this.nome = '',
+  });
+
+  final Map<PuntoDelCieloEvolutivo, double> longitudini;
+
+  /// **IL GIORNO DI NASCITA NEL CALENDARIO DEL LUOGO**, per lo sbarramento
+  /// d'eta' sul legame amore (FT.04): al confine dei sedici anni il giorno
+  /// conta, e il momento in tempo universale puo' cadere il giorno prima o
+  /// dopo quello che la persona dice.
+  final DateTime giornoDiNascita;
+  final Zodiac segnoSolare;
+
+  /// **L'ORA DI NASCITA NON NOTA FA TACERE LA LUNA**, ordine FT voce FT.03:
+  /// "i punti che ne dipendono tacciono invece di essere indovinati". Fra
+  /// gli undici punti l'unico che l'ora sposta oltre l'orbo e' la Luna,
+  /// circa tredici gradi al giorno, quindi fino a sei e mezzo dal
+  /// mezzogiorno convenzionale: piu' dell'orbo del sestile. Mercurio, il piu'
+  /// veloce dopo di lei, fa al massimo poco piu' di un grado in mezza
+  /// giornata. Con l'ora non nota la Luna non entra in [longitudini], e
+  /// aspetti, Composito e Keplero la saltano; la schermata lo dice.
+  final bool oraNota;
+
+  final String nome;
+
+  /// Il cielo dalla sua identita' di nascita. Stessa conversione a tempo
+  /// universale di `CieloDiSinastria.perIdentita`: il momento e' locale, si
+  /// porta a UT con l'offset del luogo quando c'e'.
+  factory CieloEvolutivo.perIdentita(BirthIdentity identita,
+      {String nome = ''}) {
+    final luogo = identita.birthPlace;
+    final momento = luogo == null
+        ? DateTime.utc(
+            identita.birthMoment.year,
+            identita.birthMoment.month,
+            identita.birthMoment.day,
+            identita.birthMoment.hour,
+            identita.birthMoment.minute,
+          )
+        : DateTime.utc(
+            identita.birthMoment.year,
+            identita.birthMoment.month,
+            identita.birthMoment.day,
+            identita.birthMoment.hour,
+            identita.birthMoment.minute,
+          ).subtract(Duration(minutes: luogo.utcOffsetMinutes));
+    return CieloEvolutivo.perNascita(
+      momentoUtc: momento,
+      oraNota: identita.hasBirthTime,
+      nome: nome,
+      giornoDiNascita: DateTime(identita.birthMoment.year,
+          identita.birthMoment.month, identita.birthMoment.day),
+    );
+  }
+
+  /// Il cielo dai pezzi nudi: il momento in tempo universale, e nient'altro.
+  /// Chi passa un momento esatto ha l'ora: [oraNota] vale vero se non si
+  /// dice altro. Il modulo della nascita e la propria identita' lo dicono
+  /// sempre.
+  /// Stessa scelta di `CieloDiSinastria.perNascita` (ordine BO): prende
+  /// numeri, non una delle classi del luogo di nascita che convivono nel
+  /// progetto.
+  factory CieloEvolutivo.perNascita({
+    required DateTime momentoUtc,
+    Zodiac? segnoDichiarato,
+    String nome = '',
+    bool oraNota = true,
+    DateTime? giornoDiNascita,
+  }) {
+    final jd = Celestial.julianDay(momentoUtc);
+    final tutte = IlCieloDiMeeus.tutte(jd);
+    final punti = <PuntoDelCieloEvolutivo, double>{};
+    for (final p in PuntoDelCieloEvolutivo.values) {
+      final corpo = p.corpo;
+      if (corpo != null) {
+        final lon = tutte[corpo];
+        if (lon != null) punti[p] = lon;
+      }
+    }
+    punti[PuntoDelCieloEvolutivo.nodoNord] =
+        IlCieloDiMeeus.longitudineDelNodoNord(jd);
+    if (!oraNota) punti.remove(PuntoDelCieloEvolutivo.luna);
+    final sole = punti[PuntoDelCieloEvolutivo.sole] ?? 0;
+    return CieloEvolutivo(
+      longitudini: punti,
+      segnoSolare: segnoDichiarato ?? IlSegnoDelCielo.dellaLongitudine(sole),
+      oraNota: oraNota,
+      nome: nome,
+      giornoDiNascita: giornoDiNascita ??
+          DateTime(momentoUtc.year, momentoUtc.month, momentoUtc.day),
+    );
+  }
+
+  // LAPIDE, ordine FT: qui c'era `comeCarta`, una NatalChart costruita in
+  // proprio per la ruota comune. Nessuna schermata la usava, e la guardia
+  // `la_carta_natale_sopravvive` vuole che la carta passi da una porta sola.
+}
+
+/// Un aspetto fra un punto del tuo cielo e un punto del suo, nella Sinastria
+/// evolutiva. Stessa forma di `AspettoDiSinastria` (Sinastria VIP), con
+/// l'elenco dei punti piu' ampio: undici invece di sei.
+class AspettoEvolutivo {
+  const AspettoEvolutivo({
+    required this.tuo,
+    required this.suo,
+    required this.tipo,
+    required this.orbo,
+  });
+
+  final PuntoDelCieloEvolutivo tuo;
+  final PuntoDelCieloEvolutivo suo;
+  final AspectType tipo;
+
+  /// Di quanto l'aspetto e' lontano dall'angolo esatto, in gradi.
+  final double orbo;
+
+  /// Quanto e' forte: uno all'angolo esatto, zero al limite dell'orbo.
+  double forzaCon(double orboAmmesso) =>
+      orboAmmesso <= 0 ? 0 : (1 - orbo / orboAmmesso).clamp(0.0, 1.0);
+
+  /// "La tua Venere è in trigono con la Luna di Giulia": stesso impianto del
+  /// `laFrase` della Sinastria VIP (ordine CC voce 06h, il nome dell'altra
+  /// persona sempre detto), con chi legge alla seconda persona.
+  String frase(String nomeSuo) {
+    final mio = '${tuo.ilTuo} ${tuo.nome}';
+    final altro = '${suo.femminile ? "la" : "il"} ${suo.nome} di $nomeSuo';
+    final testo = '$mio è in ${tipo.italianName.toLowerCase()} con $altro';
+    return testo[0].toUpperCase() + testo.substring(1);
+  }
+}
+
+/// GLI ASPETTI FRA DUE CIELI, Sinastria evolutiva.
+///
+/// **Gli orbi sono quelli gia' dichiarati e approvati per la sinastria**
+/// (`AspettiDiSinastria.orbo`, ordine BO/CC): sei gradi sugli aspetti
+/// maggiori, quattro sul sestile. Qui non nasce una seconda tavola di orbi:
+/// la Sinastria evolutiva e' la stessa tradizione, su piu' punti.
+class AspettiEvolutivi {
+  const AspettiEvolutivi._();
+
+  static Map<AspectType, double> get orbo => AspettiDiSinastria.orbo;
+
+  /// Gli aspetti fra i due cieli, dal piu' stretto al piu' largo.
+  /// Deterministico: stessa coppia di cieli, stesso elenco, sempre.
+  static List<AspettoEvolutivo> fra(CieloEvolutivo tuo, CieloEvolutivo suo) {
+    final trovati = <AspettoEvolutivo>[];
+    for (final a in PuntoDelCieloEvolutivo.values) {
+      final la = tuo.longitudini[a];
+      if (la == null) continue;
+      for (final b in PuntoDelCieloEvolutivo.values) {
+        final lb = suo.longitudini[b];
+        if (lb == null) continue;
+        for (final tipo in AspectType.values) {
+          final candidato =
+              ChartAspect(aLongitude: la, bLongitude: lb, type: tipo);
+          if (candidato.orbe <= orbo[tipo]!) {
+            trovati.add(AspettoEvolutivo(
+                tuo: a, suo: b, tipo: tipo, orbo: candidato.orbe));
+            break;
+          }
+        }
+      }
+    }
+    trovati.sort((x, y) {
+      final perOrbo = x.orbo.compareTo(y.orbo);
+      if (perOrbo != 0) return perOrbo;
+      final perSuo = x.suo.index.compareTo(y.suo.index);
+      if (perSuo != 0) return perSuo;
+      return x.tuo.index.compareTo(y.tuo.index);
+    });
+    return trovati;
+  }
+}

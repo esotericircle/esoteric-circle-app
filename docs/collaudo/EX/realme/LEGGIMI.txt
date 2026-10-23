@@ -1,0 +1,18 @@
+ORDINE EX, LE CATTURE DEL REALME (767f596c). 2 ottobre 2026, dalle 12:56 alle 13:05.
+
+La build: build di collaudo dal commit 6179e721 (stesso codice di lib dei commit dell'ordine), flutter build apk --release --dart-define=CATTURE_PERMESSE=true, installata con adb install -r col numero 2292, lo stesso della build consegnata che era sul telefono. Non e' una consegna: serve solo a guardare. Il piano del telefono e' l'Illuminato (demo).
+
+EX.03, LE RUNE DAL CORPUS
+- rune_1_prima_della_gettata.png: le tre Norne, la domanda "Nel lavoro, quale passo fare?", "Oggi hai 3 gettate di rune" (Illuminato, matrice nuova).
+- rune_2_la_gettata.png: Dagaz, Fehu in ombra, Hagalaz; "Ti restano 2 gettate di rune su 3, oggi".
+- rune_3_il_presagio.png: la risposta e il verdetto, e il gesto nel riquadro dorato. Le tre frasi sono voci del corpus dell'Architetto, parola per parola: risposta.md voce 15 ("Per un poco {cosa} sembra in disordine, ma è il disordine buono del cantiere..."), verdetto.md voce 13 ("Il cerchio gira e porta luce e ombra insieme..."), gesto.md voce 2 ("Scrivi su un foglio ciò che si è incrinato di recente...").
+- rune_4_da_dove_viene.png: le voci di PIETRA con la glossa riempita ("Dagaz, che qui è ciò che fu", "Fehu rovesciata, come ciò che diviene", "Hagalaz come ciò che sarà").
+- Nessuna chiamata al modello: la strada del modello scrive sempre "RUNE ATTESA" nel registro del telefono; dopo la gettata, logcat -d | grep -c 'RUNE ATTESA' = 0.
+
+EX.02, LE CARD DEI PIANI (Il tuo account, Abbonamento)
+- piani_1.png ... piani_12.png (manca piani_11, tolta perche' portava una notifica personale di un'altra app): Viandante "Tre domande al giorno", "Tre carte di tarocchi al giorno"; Iniziato "6 domande al giorno", "6 carte di tarocchi", "2 gettate di rune al giorno"; Adepto "Voce AI dei tre Maestri nel LIVE, 60 minuti al mese", "10 domande", "10 carte", "La stesa a dieci carte, appena arriva nel Cerchio", "3 gettate di rune"; Illuminato "13 domande", "15 carte di tarocchi al giorno, anche nella stesa a dieci carte", "120 minuti al mese".
+
+EX AGGIUNTA 3 ED EX.01, 2 ottobre 2026 pomeriggio
+- live_1_aperta.png, live_2_risponde.png, live_3_minuti_finiti.png: il LIVE di Aura aperto, la risposta detta, e l'apertura rifiutata coi minuti finiti ("Per questo mese ho finito il fiato").
+- piani_aggiunta3_iniziato.png, piani_aggiunta3_adepto.png, piani_aggiunta3_illuminato.png: build 2293 (commit 2a811596), "12 domande al giorno ai Maestri", "18 domande al giorno ai Maestri", "22 domande ai Maestri al giorno".
+- chat_aggiunta3_contatore_22.png: la chat di Aura legge dal server "Ti restano 17 domande ai Maestri su 22, oggi".

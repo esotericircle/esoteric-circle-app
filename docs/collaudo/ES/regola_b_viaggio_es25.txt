@@ -1,0 +1,2 @@
+REGOLA B, 30 settembre 2026, innesto "la guardia senza le forme vaghe": grep nel file SI; prova ROSSA; ORDINE ES VOCE 25: giro 3 (tarata) senza posizione prese 0 su 21, buone prese 0 su 51; giro 1 (non guardato) senza posizione prese 4 su 22, buone prese 0 su 50
+file rimesso: sha1 prima 89259f8f26fb6e23dccdd612df426193723bb929, dopo 89259f8f26fb6e23dccdd612df426193723bb929, IDENTICO

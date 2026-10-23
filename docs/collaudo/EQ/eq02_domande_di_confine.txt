@@ -1,0 +1,104 @@
+ORDINE EQ VOCE 02, IL MAESTRO RISPONDE CON LA SUA ARTE
+Collaudo con Gemini vero, 27 settembre 2026, tool/collaudo_eq02.dart.
+Chat, gemini-2.5-flash, europe-west1. Diciotto domande di confine per giro,
+sei per Maestro, in due giri con dati diversi (A e B); la domanda delle catture
+per Calìgo sta in tutti e due. Ogni domanda in una conversazione nuova.
+Prima frase che rimanda: la prima frase del corpo nomina uno degli altri due
+Maestri, contata a macchina. Parti senza risposta: dal giudice a temperatura
+zero, a maggioranza su tre, tarato su sei casi noti (la risposta vera delle
+catture deve avere Australia e compagna senza risposta).
+
+== prima: sul codice di HEAD, giudice della prima stesura
+  Taratura del giudice: risposta delle catture, Australia false, compagna false; risposta nel merito, Australia true, compagna true
+  EQ.02 prima giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 2, parti della domanda senza risposta 2 su 4, parole di firma degli altri due 0
+  EQ.02 prima giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 2 su 4, parole di firma degli altri due 1
+  EQ.02 prima giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 4 su 5, parole di firma degli altri due 1
+  EQ.02 prima giro B medora: domande 3, prime frasi che rimandano a un altro Maestro 3, parti della domanda senza risposta 2 su 6, parole di firma degli altri due 1
+  EQ.02 prima giro B aura: domande 3, prime frasi che rimandano a un altro Maestro 2, parti della domanda senza risposta 3 su 3, parole di firma degli altri due 3
+  EQ.02 prima giro B caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 6, parole di firma degli altri due 0
+  TOTALE: prime frasi che rimandano 9 su 18; parti senza risposta 15 su 28; parole di firma degli altri due 6
+
+== prima rigiudicato: le stesse risposte rigiudicate col giudice definitivo
+  Taratura del giudice: catture Australia false, catture compagna false, matrimonio schivato false; nel merito Australia true, compagna true, con un'altra arte true
+  EQ.02 rigiudicato prima giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 2, parti della domanda senza risposta 2 su 4
+     senza risposta: "Quale runa mi guida in questo periodo di cambiamenti?" -> la guida in questo periodo di cambiamenti
+     senza risposta: "Vorrei fare un rito per attirare denaro e capire se cambiare casa." -> attirare denaro
+  EQ.02 rigiudicato prima giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 1 su 4
+     senza risposta: "Il mio compagno è distante: torneremo vicini?" -> se torneranno vicini
+  EQ.02 rigiudicato prima giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 4 su 5
+     senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> trovare una compagna
+     senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> andare in Australia
+     senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> il successo nel lavoro
+     senza risposta: "Cosa dice il mio oroscopo di questa settimana per l'amore?" -> l'amore in questa settimana
+  EQ.02 rigiudicato prima giro B medora: domande 3, prime frasi che rimandano a un altro Maestro 3, parti della domanda senza risposta 3 su 6
+     senza risposta: "Voglio aprire una bottega: mi fai un rito di buon auspicio?" -> aprire la bottega
+     senza risposta: "Respiro male quando litigo con mio padre, come mi calmo?" -> calmarsi
+     senza risposta: "Che numero porta fortuna al mio matrimonio di giugno?" -> il matrimonio di giugno
+  EQ.02 rigiudicato prima giro B aura: domande 3, prime frasi che rimandano a un altro Maestro 2, parti della domanda senza risposta 2 su 3
+     senza risposta: "Cosa dice la mia carta natale sul lavoro nuovo?" -> il lavoro nuovo
+     senza risposta: "Mi estrai una runa per sapere se partire per il Portogallo?" -> se partire per il Portogallo
+  EQ.02 rigiudicato prima giro B caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 6
+     senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> trovare una compagna
+     senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> andare in Australia
+     senza risposta: "Mia sorella si sposa a maggio: sarà un buon matrimonio?" -> il matrimonio della sorella
+  TOTALE: prime frasi che rimandano 9 su 18; parti senza risposta 15 su 28; parole di firma degli altri due 0
+
+== dopo1: prima stesura della regola, giro fermato a meta'
+  EQ.02 dopo giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 0 su 4, parole di firma degli altri due 0
+  EQ.02 dopo giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 4, parole di firma degli altri due 0
+  EQ.02 dopo giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 5, parole di firma degli altri due 0
+  Giro fermato a mano il 27 settembre 2026 durante il giro B (processi chiusi a mano), dopo il giro A intero:
+  TOTALE: prime frasi che rimandano 0 su 18; parti senza risposta 5 su 13; parole di firma degli altri due 0
+
+== dopo2: regola piu' stretta, giudice della prima stesura
+  Taratura del giudice: risposta delle catture, Australia false, compagna false; risposta nel merito, Australia true, compagna true
+  EQ.02 dopo2 giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 4, parole di firma degli altri due 0
+  EQ.02 dopo2 giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 1 su 4, parole di firma degli altri due 0
+  EQ.02 dopo2 giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 5, parole di firma degli altri due 0
+  EQ.02 dopo2 giro B medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 6, parole di firma degli altri due 0
+  EQ.02 dopo2 giro B aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 3, parole di firma degli altri due 2
+  EQ.02 dopo2 giro B caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 6, parole di firma degli altri due 0
+  TOTALE: prime frasi che rimandano 0 su 18; parti senza risposta 13 su 28; parole di firma degli altri due 2
+
+== dopo3: regola delle parti e del si' o del no, giudice definitivo
+  Taratura del giudice: catture Australia false, catture compagna false, matrimonio schivato false; nel merito Australia true, compagna true, con un'altra arte true
+  EQ.02 dopo3 giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 0 su 4, parole di firma degli altri due 0
+  EQ.02 dopo3 giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 0 su 4, parole di firma degli altri due 0
+  EQ.02 dopo3 giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 5, parole di firma degli altri due 0
+  EQ.02 dopo3 giro B medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 1 su 6, parole di firma degli altri due 0
+  EQ.02 dopo3 giro B aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 3, parole di firma degli altri due 1
+  EQ.02 dopo3 giro B caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 6, parole di firma degli altri due 0
+  TOTALE: prime frasi che rimandano 0 su 18; parti senza risposta 9 su 28; parole di firma degli altri due 1
+
+== dopo4: istruzione definitiva col controllo prima di scrivere
+  Taratura del giudice: catture Australia false, catture compagna false, matrimonio schivato false; nel merito Australia true, compagna true, con un'altra arte true
+  EQ.02 dopo4 giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 1 su 4, parole di firma degli altri due 0
+  EQ.02 dopo4 giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 1 su 4, parole di firma degli altri due 1
+  EQ.02 dopo4 giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 0 su 5, parole di firma degli altri due 0
+  EQ.02 dopo4 giro B medora: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 1 su 6, parole di firma degli altri due 0
+  EQ.02 dopo4 giro B aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 1 su 3, parole di firma degli altri due 0
+  EQ.02 dopo4 giro B caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 6, parole di firma degli altri due 1
+  TOTALE: prime frasi che rimandano 1 su 18; parti senza risposta 6 su 28; parole di firma degli altri due 2
+
+== dopo5: codice definitivo, con la rete del rimando in fondo
+  Taratura del giudice: catture Australia false, catture compagna false, matrimonio schivato false; nel merito Australia true, compagna true, con un'altra arte true
+  EQ.02 dopo5 giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 1 su 4, parole di firma degli altri due 0
+  EQ.02 dopo5 giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 0 su 4, parole di firma degli altri due 0
+  EQ.02 dopo5 giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 5, parole di firma degli altri due 0
+  EQ.02 dopo5 giro B medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 1 su 6, parole di firma degli altri due 0
+  EQ.02 dopo5 giro B aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 0 su 3, parole di firma degli altri due 0
+  EQ.02 dopo5 giro B caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 6, parole di firma degli altri due 0
+  TOTALE: prime frasi che rimandano 0 su 18; parti senza risposta 8 su 28; parole di firma degli altri due 0
+
+ATTRIBUZIONE CIECA, soglia 85 per cento:
+  prima (ordine EO, 26 settembre 2026, docs/collaudo/EO/attribuzione/): 90,0, 87,7, 89,5, media 89,1
+  seconda stesura: EQ.01 e la regola EQ.02 con le parti: 98,3, 93,3, 98,3, media 96,7 (174 su 180), docs/collaudo/EQ/attribuzione_seconda_stesura/
+  terza stesura: il si' o il no in prima frase: 98,3, 94,8, 91,7, media 94,9 (168 su 177), docs/collaudo/EQ/attribuzione_terza_stesura/
+  istruzione definitiva, col controllo prima di scrivere: quella delle impronte: 96,7, 98,3, 95,0, media 96,7 (174 su 180), docs/collaudo/EQ/attribuzione/
+
+MISURA, prima e dopo, due giri:
+  prime frasi che rimandano a un altro Maestro: da 9 su 18 a 0 su 18
+  parti della domanda senza risposta, stesso giudice: da 15 su 28 a 8 su 28 (giro dopo4, stessa istruzione senza la rete: 6 su 28)
+
+Le guardie: test/prima_la_sua_arte_test.dart, nate rosse,
+docs/collaudo/EQ/eq02_regola_a_innesti.txt; Regola B, docs/collaudo/EQ/eq02_regola_b.txt.

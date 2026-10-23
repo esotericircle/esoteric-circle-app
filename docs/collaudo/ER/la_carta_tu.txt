@@ -1,0 +1,61 @@
+ORDINE ER VOCE 04: LA CARTA "TU" APRE IL TUO VOLTO, NON UN VIP. 27 settembre 2026
+
+Uscita della prova test/la_carta_tu_apre_il_tuo_volto_test.dart:
+ORDINE ER VOCE 4: tocchi sulla propria carta che aprono la scelta di un VIP: 0
+ORDINE ER VOCE 4: foto nella porta true, nel profilo true, nel responso true
+00:02 +3: All tests passed!
+
+PRIMA (commit 3a2c12d3): la carta 'sinastria_carta_tua' aveva onTocco: _scegli(perLaPrima: true), cioe' la galleria 'Scegli il primo dei due VIP'. Tocchi sulla propria carta che aprono la scelta di un VIP: 1 su 1. Lo rimette il primo innesto qui sotto, e la prova cade.
+DOPO: 0. Il confronto fra due VIP (ordine BO voce 13) si raggiunge dalla scelta 'Confronta 2 VIP' della porta; da li' la prima carta e' il VIP scelto, e il suo tocco torna a cambiarlo (prova CA.02 riscritta con la lapide in test/la_porta_della_sinastria_test.dart).
+
+===================== regola_b_porta =====================
+== Regola B, ER.04: la carta di sinistra riempie la casella di destra (il difetto CA.02)
+   file lib/features/synastry/porta_della_sinastria.dart, sha1 prima 3703a6cdd4a8, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +0 -1: Some tests failed.
+   Expected: contains 'Bad Bunny'
+   Actual: '♌ MAURO Tu'
+   ripristinato: sha1 3703a6cdd4a8, uguale
+
+===================== regola_b_foglio =====================
+== Regola B, ER.04: nel foglio del responso la fotocamera apre la galleria
+   file lib/features/synastry/sinastria_vip_screen.dart, sha1 prima 82f19f9b0bd1, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:05 +21: All tests passed!
+   ripristinato: sha1 82f19f9b0bd1, uguale
+
+===================== regola_a_er04 =====================
+== Regola A, ER.04: la carta Tu torna a scegliere un VIP (la regressione del fondatore)
+   file lib/features/synastry/porta_della_sinastria.dart, sha1 prima 8ac59a22a9f3, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +1 -2: Some tests failed.
+   Expected: <0>
+   Actual: <1>
+   Expected: exactly one matching candidate
+   Actual: _TextWidgetFinder:<Found 0 widgets with text "Togli la foto, torna al tuo avatar": []>
+   ripristinato: sha1 8ac59a22a9f3, uguale
+== Regola A, ER.04: la foto scelta non si scrive nel profilo
+   file lib/features/synastry/il_foglio_del_tuo_volto.dart, sha1 prima ee47f481c83a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +2 -1: Some tests failed.
+   Expected: [
+   Actual: <null>
+   ripristinato: sha1 ee47f481c83a, uguale
+== Regola A, ER.04: la carta della porta non mostra la foto
+   file lib/features/synastry/porta_della_sinastria.dart, sha1 prima 8ac59a22a9f3, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +1 -2: Some tests failed.
+   Expected: [
+   Actual: <null>
+   Expected: [
+   Actual: <null>
+   ripristinato: sha1 8ac59a22a9f3, uguale
+== Regola A, ER.04: scelto l'avatar, il profilo tiene la foto
+   file lib/features/synastry/il_foglio_del_tuo_volto.dart, sha1 prima ee47f481c83a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +2 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 ee47f481c83a, uguale
+
+Il verde di regola_b_foglio: nessuna prova toccava il foglio della foto del responso. PROVENIENZA IGNOTA del buco; lo copre adesso la guardia nuova.

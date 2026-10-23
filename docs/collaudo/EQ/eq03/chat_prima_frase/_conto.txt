@@ -1,0 +1,9 @@
+EQ.03 chat_prima_frase chat con Flash giro 1 medora: merito da leggere, tempo del modello mediano 1352 ms
+EQ.03 chat_prima_frase chat con Flash giro 1 aura: merito da leggere, tempo del modello mediano 1780 ms
+EQ.03 chat_prima_frase chat con Flash giro 1 caligo: merito da leggere, tempo del modello mediano 1062 ms
+EQ.03 chat_prima_frase chat con Flash giro 2 medora: merito da leggere, tempo del modello mediano 1460 ms
+EQ.03 chat_prima_frase chat con Flash giro 2 aura: merito da leggere, tempo del modello mediano 1568 ms
+EQ.03 chat_prima_frase chat con Flash giro 2 caligo: merito da leggere, tempo del modello mediano 1240 ms
+
+TOTALE CHAT CON FLASH: merito da leggere, tempo del modello mediano 1449 ms su 72 risposte
+Modelli: chat gemini-2.5-flash, LIVE dell'app gemini-2.5-flash; europe-west1.

@@ -1,0 +1,101 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: La promozione che attendi dipende da un transito favorevole, le carte vedono un momento di trasformazione che ti chiederà di agire con prontezza. L'arcano della Ruota della Fortuna indica un cambiamento imminente, ma la sua direzione sarà influenzata dalle tue scelte.
+
+Osserva con attenzione le dinamiche attorno a te, soprattutto le reazioni dei tuoi superiori, e preparati a cogliere l'opportunità quando si presenterà.
+
+✦ Scrivi un breve appunto sulle tue aspettative professionali prima che il cielo di domani entri nel segno della Bilancia.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Scusa, c'è stato un errore e la tua risposta precedente non è stata mostrata correttamente. Potresti ripetere la tua ultima domanda?
+    GIUDICE: IGNORA, La guida non risponde alla domanda della persona, ma segnala un problema tecnico e chiede di ripetere la domanda, ignorando il flusso della conversazione.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Ho bisogno di leggere la tua ultima domanda, che non è stata mostrata correttamente. Per favore, puoi ripeterla?
+    GIUDICE: IGNORA, Anche in questo caso, la guida non risponde alla domanda della persona, ma ripete la richiesta di ripetere la domanda a causa di un errore, ignorando il contesto e la domanda posta.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: La tua energia ti invita a sentire il richiamo di un nuovo inizio, a dare spazio al desiderio di trasformazione che ti muove. Porta l'attenzione al tuo centro della radice, quello che ti lega alla terra e alla tua stabilità più profonda.
+
+Osserva come si sente, se è in equilibrio o se avverte la necessità di un cambiamento. Non c'è una risposta giusta o sbagliata nel desiderio di ricominciare altrove, c'è solo il tuo sentire. Potresti voler esplorare questa spinta, non come una fuga, ma come un'espansione.
+
+✦ Visualizza per un istante il colore rosso, il colore del centro della radice.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Il primo passo è ascoltare la voce del tuo corpo, sentire la sua risonanza quando pensi a questo trasferimento. Prova a camminare per casa, immaginando che ogni stanza sia un luogo diverso che potresti chiamare casa, e osserva le sensazioni che sorgono.
+
+È il tuo centro del cuore, verde smeraldo, che ti guiderà a capire se questa mossa nutrirà la tua anima, o se invece ti porterà lontano da ciò che ti dà pace. La fisiognomica ti suggerisce di osservare la linea della tua fronte: se è più rilassata quando pensi al cambiamento, è un buon segno.
+
+✦ Poggia la mano sul cuore e senti il suo ritmo per un minuto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'sentire' e 'ascoltare il corpo' già introdotto nella risposta precedente, fornendo un'azione concreta ('ascoltare la voce del tuo corpo') per esplorare la spinta al cambiamento.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Non c'è un momento esatto, ma un processo di ascolto che si sviluppa nel tempo, un po' come il fiorire di un bocciolo. Ogni volta che ti trovi a riflettere su questo cambiamento, porta l'attenzione al tuo corpo.
+
+Prova a tenere un piccolo diario per le prossime sette sere, annotando come ti senti fisicamente al solo pensiero di questa nuova città. Vedrai emergere schemi, sensazioni ricorrenti che saranno il tuo messaggio più autentico.
+
+✦ Ogni sera prima di dormire, chiudi gli occhi e visualizza la tua nuova vita in questa città.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'ascolto' e 'sensazioni' già menzionato nelle risposte precedenti, suggerendo un metodo ('diario') per continuare questo processo di ascolto del corpo e delle sue risonanze.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci senza indugio. La soglia tra distanza e vicinanza si assottiglia in fretta.
+
+Il metallo si raffredda, ma può essere forgiato di nuovo con il giusto calore e intenti. I segni indicano che la runa **Ansuz** ti spinge a usare la parola. È il presagio della comunicazione, della ricerca di una comprensione profonda. La forza del legame si nutre della verità espressa.
+
+✦ Pronuncia parole sincere e dirette al cuore, domani sera, senza filtri.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Pronuncia le parole che hai nel cuore. **Ansuz** ti indica la via della comunicazione, il sigillo della parola onesta. La sincerità apre sentieri.
+
+✦ Chiedile un incontro sereno, in un luogo neutro, per un dialogo onesto.
+    GIUDICE: PORTA_AVANTI, La guida ribadisce il consiglio di usare la parola e la comunicazione (Ansuz) e lo sviluppa suggerendo di chiedere un incontro per il dialogo.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Non aspettare, non cercare nel tempo l'illuminazione. **Ansuz** ti ha guidato alla parola, il presagio è ora.
+
+Il velo che copre i sentimenti si dirada quando le parole vengono dette con chiarezza, non quando il tempo le erode. La runa ti ricorda che il sentiero si apre con l'azione, non con l'attesa. Il momento è quello che crei tu.
+
+✦ Prepara un piccolo dono simbolico, un fiore o una pietra liscia, da portare all'incontro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'agire senza indugio' e 'non aspettare' già espresso in [1], e lo sviluppa chiarendo che l'illuminazione non è nel tempo ma nell'azione, aggiungendo un ulteriore consiglio pratico per l'incontro.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Le carte ti consigliano di attendere prima di avviare il tuo progetto. L'Arcano del Carro suggerisce che, per quanto la volontà sia forte, alcune condizioni esterne non sono ancora allineate per un avvio efficace.
+
+Questo è un tempo di preparazione, dove la tua energia deve essere canalizzata per definire meglio le tappe future. Attendi il transito della Luna in Toro per radicare meglio le tue intenzioni e dare stabilità alle tue idee.
+
+✦ Prendi un quaderno e scrivi tutte le idee che hai per il progetto, suddividendole in piccole azioni concrete, prima del prossimo plenilunio.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Poiché le carte suggeriscono di attendere e il cielo indica un tempo di preparazione, il tuo compito è affinare la visione del tuo progetto. Non è un momento per l'azione esterna, ma per l'azione interna, di chiarezza.
+
+Continua a sviluppare i dettagli e a immaginare ogni passo, come se stessi costruendo una mappa precisa prima di intraprendere il viaggio. Questo ti permetterà di agire con maggiore sicurezza quando il momento sarà propizio.
+
+✦ Rileggi le idee che hai annotato e per ognuna individua due ostacoli possibili e due soluzioni concrete entro il prossimo mercoledì.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio di attendere e di dedicarsi alla preparazione interna dato nella risposta precedente, sviluppando ulteriormente le azioni da compiere in questa fase.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Lo comprenderai quando sentirai una risonanza profonda tra le tue intenzioni e le circostanze esterne. Le tue carte, l'Arcano del Carro, indicano che la direzione è chiara, ma la strada non è ancora sgombra da imprevisti.
+
+Quando il cielo di Mercurio in aspetto favorevole al tuo Sole natale illuminerà la strada, sentirai la chiarezza necessaria per procedere con fiducia. Quel giorno sarà come un velo che si solleva.
+
+✦ Prepara un piccolo schema per ogni idea, indicando i materiali che ti servono e le persone che ti possono aiutare.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'allineamento delle condizioni esterne' e 'chiarezza' già menzionati, e cita nuovamente l'Arcano del Carro. Il nuovo consiglio pratico si inserisce nel filone della preparazione.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma in cui entrambe possiate parlare senza fretta e senza interruzioni. Senti il tuo respiro farsi lento e profondo, preparandoti ad accogliere le sue parole.
+
+Avvicinati a lei con un animo aperto, pronto ad ascoltare il suo punto di vista e a riconoscere il suo sentire. Non è il momento di avere ragione, ma di ricostruire un ponte: il centro del cuore, con il suo verde smeraldo, invita alla compassione e al perdono, verso l'altro e verso te stessa. Lascia che la tua voce sia morbida e che i tuoi occhi, anche se stanchi, la guardino con dolcezza.
+
+✦ Appoggia la mano sul cuore e senti la sua vibrazione, mentre pensi a lei.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, dopo aver trovato quella calma, il passo è semplice: scrivi a tua sorella, non per spiegare, ma per dirle che pensi a lei e che desideri riavvicinarti. Questo gesto gentile apre la porta al dialogo, senza forzature.
+
+Il tuo cuore, il centro smeraldo che hai sentito, ti guida a esprimere il desiderio di riconnetterti, a lasciare che l'energia dell'amore familiare fluisca di nuovo. Non c'è bisogno di una risposta immediata, solo di piantare il seme della pace.
+
+✦ Chiudi gli occhi per un istante e visualizza un filo verde che ti unisce a lei.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il concetto di 'calma' introdotto nella risposta precedente ('dopo aver trovato quella calma') e fornisce un passo successivo concreto ('scrivi a tua sorella') che sviluppa il consiglio di 'ricostruire un ponte' e 'avvicinarsi con animo aperto'.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Non si tratta di capire con la mente, ma di sentire con il corpo il momento giusto: questo arriverà quando avrai percepito in te una reale apertura e serenità.
+
+Quando ti senti pronta, le parole giuste emergeranno da sole, spontanee e sincere, e non forzate dalla fretta o dal timore. Osserva il tuo respiro: quando è calmo e regolare, saprai che è il momento di agire.
+
+✦ Porta le mani al ventre e senti il calore che si espande, prima di ogni parola.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' agire, collegandosi al concetto di 'calma' e 'serenità' già menzionato nelle risposte precedenti come condizione per l'azione. Sviluppa l'idea che il momento giusto non è mentale ma 'sentito con il corpo', e che le parole emergeranno 'spontanee e sincere', in linea con l'approccio non forzato suggerito prima.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 1

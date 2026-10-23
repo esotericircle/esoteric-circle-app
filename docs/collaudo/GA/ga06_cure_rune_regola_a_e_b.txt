@@ -1,0 +1,395 @@
+ORDINE GA, VOCE GA.06, LE CURE DELLE RUNE DI CALIGO: LE PROVE DELLE REGOLE A E B
+Sul commit 1804c7d7, 21 ottobre 2026. Ramo del worktree worktree-agent-a4ac0deb8ba851272.
+
+=== PRIMA DI TOCCARE: LE PROVE DI CASA DELLA ZONA, VERDI ===
+flutter test sulle nove prove della zona (il_presagio_dal_corpus, il_corpus_delle_rune,
+le_rune_hanno_la_forma_nuova, la_domanda_scelta_arriva_al_responso,
+la_runa_singola_non_e_una_lezione, il_presagio_e_la_prima_bolla,
+il_sigillo_del_giorno_dice_a_cosa_serve, le_lunghezze_dei_responsi,
+il_genere_non_si_indovina): 42 prove, "All tests passed!" in 4:28.
+
+=== REGOLA B: LE GUARDIE CHE COPRONO LA ZONA, VISTE ROSSE PRIMA DI TOCCARE ===
+
+1) le_rune_hanno_la_forma_nuova, "LA FORMA SUI PRESAGI VERI"
+   (copre lib/core/rituals/il_presagio_dal_corpus.dart, la forma del responso)
+   Innesto: in IlPresagioDalCorpus.componi la risposta senza il verdetto,
+     risposta: '$risposta',
+   grep: "491:        risposta: '$risposta'," (l'innesto c'e').
+   Esito: ROSSA. "presagi composti 4224 (lunghi 2112), schede 15840, valori di
+   {cosa} 20, difetti 4224", il primo: "odino, seme 0, "", Breve: Rune di Caligo,
+   «Una luce si accende dove prima era buio.»: la risposta ha 23 parole".
+   Rimesso il file com'era (copia presa prima dell'innesto); git status pulito.
+
+2) il_corpus_delle_rune, "4. PAROLA PER PAROLA"
+   (copre docs/corpus/rune/*.md e il generato lib/core/rituals/il_corpus_del_presagio.g.dart)
+   Innesto: in docs/corpus/rune/risposta.md, Fehu dritta 3, "il valore XX c'è già".
+   grep: "4:3. Sì, per {cosa} il valore XX c'è già e cresce..." (l'innesto c'e').
+   Esito: ROSSA, "Expected: <0> Actual: <1>" (test\il_corpus_delle_rune_test.dart 329).
+   Rimesso il testo; git status pulito.
+
+=== REGOLA A: LE GUARDIE NUOVE, VISTE ROSSE CON L'INNESTO VERIFICATO COL GREP ===
+Ogni file e' stato rimesso com'era dalla copia presa prima dell'innesto; dopo
+il ripristino il grep dell'innesto conta 0. Prima di ogni innesto le prove
+erano verdi sul codice curato.
+
+3) il_tono_della_gettata_conta_le_pietre_vere: "il tono, i numeri e i nomi
+   delle rune dicono la gettata vera" e "OGNI VOCE DEL LEGAME E' VERA SOTTO
+   OGNI GETTATA DEL SUO GRUPPO"
+   a. Innesto in LaRispostaDellaGettata.frasiDelTono, il caso di una sola
+      pietra in ombra detto al plurale (il difetto dei lettori ciechi, "le
+      pietre rovesciate" con una sola in ombra):
+        'Le pietre in ombra stanno $doveSono: lì serve '
+      grep: "1135:        'Le pietre in ombra stanno $doveSono: lì serve '".
+      Insieme, nel generato il_corpus_del_presagio.g.dart, la voce LEGAME
+      croce/misto 33 rimessa al plurale, "Le pietre rovesciate in questa
+      gettata fanno da cornice alle dritte" (grep: riga 4435).
+      Esito: ROSSE tutte e due: "testi che dicono una gettata che non c'e'
+      182" ("norne, seme 0, «In amore, dove sto andando?», il paragrafo: «Le
+      pietre in ombra» con 1 pietre in ombra") e "voci del LEGAME ... non
+      garantito 1" ("legame/croce/misto/33, con 1 in ombra: «Le pietre
+      rovesciate»"). Il generato e' stato riscritto da
+      tool/genera_corpus_del_presagio.py.
+   b. Innesto di un nome di runa che non e' uscita, nella frase del tono con
+      le pietre tutte dritte: "pietre sono tutte dritte e Jera sostiene questa"
+      grep: "1122:        'Le ${_numeri[n]} pietre sono tutte dritte e Jera
+      sostiene questa '".
+      Esito: ROSSA, 66 testi ("norne, seme 1, «», il paragrafo: nomina Jera,
+      che non e' uscita").
+   Il primo giro della guardia sul corpus ha trovato 13 voci del LEGAME con un
+   plurale d'ombra che il gruppo non garantisce (croce/misto 21, 24, 28, 33,
+   45, 46, 48, 51; telo/misto 47, 59, 175, 180, 190). Riscritte, al neutro
+   ("ciò che è in ombra"), insieme a croce/misto 13 e 54 e telo/misto 1 che la
+   lettura a mano ha trovato con lo stesso difetto. Due allarmi erano della
+   guardia, e si e' corretta la grandezza misurata, mai la soglia: "Se una
+   pietra in ombra cade vicino al cuore del telo" (telo/misto 47) e' un'ipotesi
+   e non un conto, quindi "una pietra in ombra" non conta piu' come "una
+   sola"; "La croce non è tutta in luce" (croce/misto 24) e' vero, quindi la
+   negazione non conta come "tutta in luce".
+
+4) le_domande_delicate_delle_rune_hanno_il_limite
+   Innesto in IlPresagioDalCorpus.componi, il ramo delle domande delicate
+   spento:
+     if (letta.delicato != null && domanda.isEmpty) {
+   grep: "472:    if (letta.delicato != null && domanda.isEmpty) {".
+   Esito: ROSSA, "domande delicate 30, presagi composti 1440, senza limite o
+   con una spinta 1440".
+   Il primo giro della guardia sul codice curato ha trovato due difetti veri,
+   curati: "accogli il cambiamento un giorno alla volta, un giorno alla volta"
+   (l'animo di Dagaz) e "procedi con la tua cadenza, un passo alla volta, un
+   giorno alla volta" (l'animo di Raidho); e un allarme suo, "investi" letto
+   dentro "investimenti", corretto misurando la parola intera.
+
+5) la_pietra_nell_ostacolo_non_e_un_favore
+   a. Innesto in LaRispostaDellaGettata.titoloDellaScheda: nell'Ostacolo il
+      senso favorevole al posto del lato difficile, "'Ostacolo' => p.senso,"
+      grep: "1601:      'Ostacolo' => p.senso,".
+      Esito: ROSSA, "pietre messe nell'Ostacolo 40, lette come favore o senza
+      posizione 48".
+   b. Innesto in IlPresagioDalCorpus.componi: il titolo della scheda torna la
+      riga della runa, "titolo: p.riga.trim(),"
+      grep: "505:            titolo: p.riga.trim(),".
+      Esito: ROSSA ("ogni scheda comincia con cio' che dice la sua
+      posizione", 1 prova fallita su 1).
+
+6) la_risposta_della_gettata, prove 2, 3 e 4
+   a. Prova 4, LA PRIMA FRASE RISPONDE. Innesto: il paragrafo torna
+      nell'ordine di prima, la RISPOSTA del corpus per prima,
+        return scelta == null ? null : '$risposta $scelta';
+      grep: "1191:    return scelta == null ? null : '$risposta $scelta';".
+      Esito: ROSSA, "prime frasi lette 7560, che non rispondono 6522".
+   b. Prove 2 e 3, OGNI FORMA STA FRA 40 E 50 PAROLE e LA RISERVA NON SI USA.
+      Innesto: la finestra della prima frase stretta di trenta parole,
+        LaFormaDelResponso.massimo - b - 30);
+      grep: "1190:        LaFormaDelResponso.massimo - b - 30);".
+      Esito: ROSSE tutte e due: "paragrafi misurati 503000, riquadri 434000,
+      senza forma 495000" e "presagi composti 10080, riserve usate 8800".
+
+=== SECONDO GIRO (dopo il lettore cieco indipendente, sul ramo comune 067dc1eb) ===
+
+7) l_estrazione_delle_rune_e_uniforme (nuova)
+   Il sospetto del lettore (Ingwaz decide 9 gettate su 40) misurato su 4.000
+   gettate: l'estrazione dell'app e' uniforme (la pietra che decide fra 144 e
+   186, attese 166); il campione no, perche' ogni gettata aveva il suo
+   Random(606 * 100 + i) e semi consecutivi danno estrazioni vicine (nei primi
+   40: Ingwaz 9). Il generatore dei campioni ora usa un generatore solo.
+   a. Innesto in RuneCast.getta (rune_cast.dart riga 282): Ingwaz forzata in
+      testa una gettata su sei,
+        final r = (i == 0 && rng.nextInt(6) == 0) ? kElderFuthark[21] : ...
+      grep: riga 282 con "kElderFuthark[21]".
+      Esito: ROSSA, "chi quadro della pietra che decide 964.5, delle pietre
+      uscite 2109.3 (soglia 49.73)".
+   b. Innesto nel generatore dei campioni: di nuovo un Random per gettata,
+        RuneCast.getta(gettata, random: Random(_seme * 100 + i))
+      grep: "428:      final esito = RuneCast.getta(gettata, random:
+      Random(_seme * 100 + i));".
+      Esito: ROSSA ("il campione dei lettori ciechi non semina una gettata per
+      volta").
+   Tutti e due i file rimessi dalla copia; verdi dopo: chi quadro 24.2 e 30.6,
+   ombra 50,3 per cento.
+
+Regola B del secondo giro: prima di toccare il compositore, sul ramo comune
+067dc1eb con le risposte dirette ancora parziali, le guardie della zona erano
+gia' ROSSE sul lavoro in corso (21 ottobre 2026): la_risposta_della_gettata
+prove 3 e 4 ("il GESTO nel riquadro", "non risponde" su 6 domande del
+Cerchio), il_tono_della_gettata ("«pietre» al plurale con una pietra sola",
+6 testi), il_presagio_dal_corpus ("[gesto/" atteso fuori dal riquadro). Le
+tre sono state portate alla regola nuova e viste rosse di nuovo qui sotto.
+
+Ogni innesto e' fatto con lo strumento della copia di riserva
+(scratchpad/rune/rossa.py: sostituisce una volta sola, tiene la copia, la
+rimette), verificato col grep "INNESTO PROVA ROSSA" prima di leggere l'esito,
+e tolto subito dopo (grep finale: 0 righe in lib/core/rituals).
+
+8) le_risposte_dirette_delle_rune (nuova, quattro prove)
+   1. IL CORPUS E' NEL CODICE E COMPLETO.
+      Innesto nel generato: il gruppo 'Fehu/dritta/come' rinominato
+      'Fehu/dritta/comeX' (le_risposte_dirette.g.dart riga 23).
+      Esito: ROSSA, "diretta: manca Fehu/dritta/come".
+   2. OGNI VOCE STA FRA 40 E 50 PAROLE COI VALORI VERI.
+      Innesto nel generato: la prima voce di Fehu/dritta/come allungata di
+      dodici parole ("davvero e sempre, ogni giorno della settimana e del
+      mese"); grep: 1 riga.
+      Esito: ROSSA, "voci provate coi valori veri 9856, fuori misura 4".
+      Il cardinale minimo scritto per primo, 30000, era una stima sbagliata
+      fatta prima di contare: le prove sono 22 domande x 224 voci del tipo x
+      2 campi = 9856, e il cardinale e' 9800 (il conto sta nel commento).
+   3. LA PERSONA NON SPARISCE.
+      Innesto in LeRisposteDirette.valori: per ogni tipo tranne le vaghe lo
+      spazio prende solo il tema, cioe' il difetto contato dal lettore ("per
+      il lavoro" al posto del capo),
+        if (tipo != 'vaga') return [q.tema]; // INNESTO PROVA ROSSA
+      grep: riga 55.
+      Esito: ROSSA, "paragrafi letti 1520, senza la cosa della domanda 874".
+   4. NESSUNA FORMULA.
+      Innesto nel compositore: il riquadro diretto preceduto da una delle
+      formule contate ("Cura con costanza ciò che dipende da te."); grep:
+      riga 592.
+      Esito: ROSSA, "responsi composti 400, formule 801".
+
+9) la_risposta_della_gettata, prove 3 e 4 portate alle risposte dirette
+   3. LA RISERVA NON SI USA: il GESTO resta il riquadro di chi getta senza
+      domanda e delle domande aperte del Cerchio; ogni domanda con un tipo,
+      delicata o doppia ha il suo.
+      Innesto nel compositore: il riquadro diretto tolto alle domande sugli
+      altri (riquadroDiretto = letta.tipo == TipoDiDomanda.altrui ? null :
+      p2); grep: riga 592.
+      Esito: ROSSA, "presagi composti 10080, riserve usate 770".
+   4. LA PRIMA FRASE RISPONDE: per le domande con un tipo del corpus le regole
+      dello strumento (verdetto e azione di chi chiede nelle decisioni, la
+      cosa della domanda e mai un si' o un no negli altri tipi, il criterio
+      nella scelta, il limite delle rune con la negazione in quando,
+      previsione, altrui e vaghe, l'invito a precisare nelle vaghe).
+      Innesto in LeRisposteDirette.valori: le decisioni prendono "questa
+      decisione" al posto dell'azione di chi chiede; grep: riga 50.
+      Esito: ROSSA, "prime frasi lette 7560, che non rispondono 1320".
+
+10) il_tono_della_gettata_conta_le_pietre_vere, il plurale dell'oracolo
+   La regola "pietre al plurale con una pietra sola" adesso toglie prima gli
+   usi generali ("le pietre non", "alle/nelle/dalle pietre", "pietre non"):
+   "Le pietre non predicono l'esito" e' l'oracolo, vero anche sotto una
+   pietra sola. I quindici testi del corpus che con "pietre" descrivevano la
+   gettata ("le pietre parlano di te", "queste pietre indicano") sono stati
+   riscritti, non coperti.
+   Innesto nel compositore: dopo il paragrafo diretto la frase "Le pietre
+   uscite lo dicono."; grep: riga 591.
+   Esito: ROSSA, "testi che dicono una gettata che non c'e' 600".
+
+11) il_presagio_dal_corpus, "il presagio ha la forma nuova"
+   L'attesa del riquadro per la domanda aperta del Cerchio ("In amore, dove
+   sto andando?") e' adesso il GESTO.
+   Innesto in LeRisposteDirette.tipoDelCorpus: le domande aperte prendono il
+   corpus diretto della previsione; grep: riga 37.
+   Esito: ROSSA, alla prima attesa del paragrafo: "Expected: contains
+   '[risposta/' Actual: 'Il risultato, per l’amore, nessuna pietra lo
+   mostra in anticipo...'".
+
+Dopo: tutte verdi sul lavoro vero, con questi conti (21 ottobre 2026):
+risposte dirette nel codice 3136; voci provate 9856, fuori misura 0;
+paragrafi letti 1520, senza la cosa della domanda 0; responsi composti 400,
+formule 0; testi letti 61560, gettate che non ci sono 0; domande delicate 30,
+senza limite 0; paragrafi misurati 503000, senza forma 0; riserve usate 0 su
+10080; prime frasi che non rispondono 0 su 7560; pietre nell'Ostacolo lette
+come favore 0 su 40; sessanta giorni: voci ripetute 0 su 54000 gettate.
+
+================================================================================
+TERZO GIRO, RIAPERTURA DELLE RUNE DI CALIGO (21 ottobre 2026, seconda parte)
+Dopo la lettura cieca di dodici gettate (D1 12/12, D2 11/12, D3 10/12, tre si'
+9/12) e il collaudo sul Realme (gruppo C: alla domanda di denaro la sintesi
+manda dal consulente e i "Cosa fare" delle singole pietre no).
+================================================================================
+
+REGOLA B, le guardie della zona viste rosse prima di toccarla (21 ottobre 2026)
+  - le_domande_delicate_delle_rune_hanno_il_limite: finoA 'consulente' tolto
+    dal riquadro delicato, esito ROSSO, 400 gettate delicate senza il rinvio.
+  - la_risposta_della_gettata_test (vendere casa, affitto, caparra): regex del
+    denaro tolta, esito ROSSO, "sbagliate 1".
+  - le_rune_hanno_la_forma_nuova: titolo del riquadro delicato spostato,
+    esito ROSSO, 384.
+  - il_presagio_dal_corpus_test (forma nuova, legame): legame null, esito
+    ROSSO, "Expected: not null".
+
+REGOLA A, le guardie nuove o cambiate nate rosse (stesso giorno)
+  1. le_voci_neutre_delle_rune_test (NUOVA). Guarda le voci neutre PIETRA e
+     CONSIGLIO, RISPOSTA e GESTO: nessuna presuppone un conflitto, una paura,
+     un legame, una data o una cosa dei tarocchi. Innesto: una voce con
+     "paura" lasciata nel pozzo stretto; grep sul .g.dart per verificare che
+     l'innesto fosse entrato; esito ROSSO, difetti 1 (poi tolto).
+  2. le_schede_delle_rune_seguono_la_domanda_test (NUOVA), cinque prove:
+       T1 conflitto e paura che la domanda non porta: 63 conflitti, 244 paure;
+       T2 la persona nominata nella domanda entra nella scheda: 298 mancate;
+       T3 la persona assente non riceve voci di presenza: 22;
+       T4 l'evento breve non riceve cosa fare di settimane: 24, poi la misura
+          cambiata (conteggio esatto 0, mai soglia al 10%) dopo che
+          "ultime due settimane" era scappato a _tempoLungo;
+       T5 cuciture e schede uguali: 16 (la misura e' cambiata da "quattro
+          parole" a "due parole, esclusi persona, tema e generici").
+  3. l_approfondimento_e_le_schede_delicate_delle_rune_test (NUOVA), quattro:
+       grammatica dell'approfondimento con una pietra sola ("la pietra non
+       danno"): 360; senso di Fehu da esito sotto il denaro: 14; forme
+       delicate uguali nel telo a sette pietre: 240; "parla di il passo
+       giusto" (preposizione non contratta, _di): 416.
+  4. il_corpus_delle_rune_test n. 3 (CAMBIATA): ora fa potare la memoria prima
+     di calcolare le voci gia' uscite (padre del difetto: la prova dell'ordine
+     EX voce 03, che confrontava con la memoria non potata); aggiunge la
+     proprieta' di scelta ("prima le strette, poi le larghe, poi la piu'
+     vecchia"): violazioni 85.498 se rotta, larghe prima delle strette 53.570;
+     e il "debito dichiarato" come cricchetto (pietra e consiglio 213.585,
+     risposta e gesto 283): innesto debito pietra 0, esito ROSSO, 8.550.
+  5. la_risposta_della_gettata_test, le_domande_delicate..., il_presagio_dal_
+     corpus_test, le_rune_hanno_la_forma_nuova_test (AGGIORNATE alle forme
+     nuove: terapie, vendere casa, attivita', limite "vicenda legale").
+
+  Dopo (stessa data): tutte verdi sulla zona (116 prove nel giro completo, con
+  il corpus vero a piena scala), piu' la cura di rune-39 (Dagaz, "un orario
+  diverso" sotto un pranzo di Natale; "nelle volte successive": riscritte le
+  due voci; il riconoscimento di Natale come evento breve provato e TOLTO,
+  perche' la guardia T1 delle schede e' scattata su una scheda con "ansia") e di
+  "ciò che hai perso" sotto il denaro, fatta DOPO la lettura severa finale.
+
+NUMERI, prima e dopo (60 giorni, corpus vero, 2000 persone, 359.965 gettate)
+  Voci ripetute alla stessa persona nei sessanta giorni:
+    prima delle cure del terzo giro, pozzo neutro piccolo: 2.123.658
+    a meta' (pozzo neutro piu' ampio, senza il fallback largo): 2.523.694
+    dopo (strette poi larghe): 427.736
+       (pietra 213.585, consiglio 213.585, risposta 283, gesto 283)
+  Scelte che ripetevano con una voce libera: 0. Larghe usate prima delle
+  strette: 0. Voci trattenute uscite: 0.
+
+DEBITO DICHIARATO (non e' una cura)
+  Con tre gettate al giorno per sessanta giorni le schede ripetono ancora.
+  Servono circa cinquanta coppie neutre PIETRA e CONSIGLIO per gruppo: oggi 9
+  strette e circa 24 larghe. I gruppi tipati hanno solo 5-8 voci di diretta e
+  azione, e sotto uso pesante il principale ripete. Il cricchetto del test n. 3
+  impedisce che il debito cresca; per scenderlo serve scrittura (padre:
+  ordine EX voce 03, corpus dell'Architetto).
+
+================================================================================
+ULTIMO GIRO DELLE RUNE DI CALIGO (21 ottobre 2026, terza parte)
+Dopo la lettura cieca indipendente sulle dodici gettate varie del campione
+ridotto (146b2051): D1 10 su 12, D2 SOLO 6 su 12, D3 9 su 12, tre si' pieni 5
+su 12; schede con il Cosa fare legato alla domanda 17 su 35.
+================================================================================
+
+PADRI (Regola C)
+  - Azioni scalate di un posto rispetto alla loro diretta (Isa, Gebo, Eihwaz,
+    Tiwaz, Algiz, Fehu e altre): azione.md del secondo giro, GA.06 (511229c2),
+    scritto a piu' mani e numerato a coppie senza che nessuno le leggesse
+    accostate. Cura: 119 voci di azione.md rifatte o rimesse al loro posto, 7 di
+    diretta.md.
+  - "Le rune non danno consigli di denaro" sopra lasciare il lavoro e aprire
+    un'attivita': l'estensione del denaro a "aprire un'attivita'" e "lasciare
+    il lavoro", prima riapertura GA.06 (f8bd1425, 146b2051 la manteneva).
+  - Schede che si contraddicono fra loro e col principale: la scelta delle
+    coppie "come" per le schede, GA.06 riapertura (la scheda di ogni pietra
+    sceglieva per conto suo).
+  - "Per questa situazione" in apertura: `diretta.md` e `azione.md` del secondo
+    giro (la voce si apre con "Per {cosa}" e le schede riempivano il generico).
+  - "Una voce lieve" su dieci titoli: `ruolo` in la_risposta_della_gettata.dart,
+    GA.06 prima riapertura.
+  - Sensi/presupposti nelle voci neutre (il compito che ti preoccupa, il blocco
+    che hai davanti, arriva il freddo, stai vedendo conferme in ogni
+    coincidenza, qualcosa piu' grande di te, le tue carte migliori, ti e' stato
+    preso): `pietra.md` e `consiglio.md` dell'ordine EX voce 03 (Architetto).
+    Cura: 17 voci riscritte al loro posto (8 PIETRA e 9 CONSIGLIO nel conto di
+    git).
+  - "Dirle che sono innamorato" letta con "persone che contano": Wunjo
+    dritta/decisione, `diretta.md` e `azione.md` del secondo giro (GA.06).
+  - Il debito non curato qui sotto resta con il suo padre.
+
+REGOLA B, le guardie della zona viste rosse prima di toccarla (21 ottobre 2026)
+  - la_pietra_nell_ostacolo_non_e_un_favore_test: titolo "Ciò che ti frena"
+    cambiato in "Ciò che ti aiuta", ROSSA, 40 pietre su 40 lette senza posto.
+  - le_schede_delle_rune_seguono_la_domanda_test n. 1 (paura e conflitto): il
+    filtro della paura tolto dalle voci (regge), ROSSA, 322.
+
+REGOLA A, le guardie nuove nate rosse (stesso giorno), ognuna con l'innesto
+verificato col grep prima di leggere l'esito
+  1. la_scelta_di_vita_non_e_una_domanda_di_soldi_test (NUOVA). Innesto:
+     `if (false && domanda.sceltaDiVita)` nel paragrafo delicato (riga 1503).
+     Esito: ROSSA, n. 2 "scelte di vita lette 240, difetti 860", n. 3 "coppie
+     48, con due frasi uguali nel paragrafo 32". Dopo: 0 e 0.
+  2. le_schede_non_si_contraddicono_test (NUOVA). Innesto: la postura spenta
+     in `regge` (due righe) e nella coppia neutra (due condizioni a `false &&`).
+     Esito: ROSSA, "gettate con schede 900, che chiedono insieme di attendere
+     e di agire 399". Dopo: 0 su 900.
+  3. le_formule_delle_schede_non_si_ripetono_test (NUOVA, sei prove).
+     - n. 1 (la cosa generica non apre il testo): innesto `if (false &&
+       spazio == '{cosa}' ...` in riempi. ROSSA, "testi di schede 5760, aperti
+       da Per questa situazione e simili 1312 (22,8 per cento)". Dopo 0,0.
+     - n. 2 (per questo momento non sta nel paragrafo e nel riquadro): innesto
+       `false && comeAzione`. ROSSA, 93 responsi su 192. Dopo 0.
+     - n. 3 (Una voce lieve): innesto `% 1`. ROSSA, 320 su 320 e titoli
+       diversi 1. Dopo: 6 titoli, 16 su 320.
+     - n. 4 (i presupposti del lettore nelle voci neutre): innesto della frase
+       vecchia nel generato. ROSSA, 1. Dopo 0.
+     - n. 5 (persone care non nominate, campione di gettate): NON NATA ROSSA
+       (innesto `false && ... terzi`, esito 0 su 2432): il campione non ha
+       pescato una voce con persone care. Misura cambiata, non soglia: n. 6
+       sul filtro stesso.
+     - n. 6 (il filtro esclude ogni voce che nomina persone care): innesto
+       `false && !licenze.contains('terzi')`. ROSSA, "voci che nominano
+       persone care 21, che reggono con una domanda senza terzi 21". Dopo 0.
+  4. le_azioni_corrette_seguono_la_loro_diretta_test (NUOVA). Innesto: il testo
+     dell'azione Gebo/dritta/come/7 rimesso a "parli tu per cinque minuti e poi
+     ascolti" nel generato. ROSSA, "coppie corrette lette 18, azioni che non
+     seguono la diretta 1". Dopo 0. LIMITE DICHIARATO: la guardia protegge le
+     18 coppie che il lettore ha contato; l'allineamento delle altre e' un
+     fatto di senso che nessuna misura sulle parole prende (provato: la
+     sovrapposizione di radici da' 84 violazioni sul corpus di prima e 96 su
+     quello curato, cioe' non distingue). La lettura ha coperto: tutti i 40 gruppi "come" e tutti i 40
+     "previsione", 26 su 40 di "quando", 21 su 40 di "decisione", 28 su 40 di
+     "scelta", 7 su 40 di "altrui", 8 su 40 di "vaga".
+  5. Aggiornate alle forme nuove: la_risposta_della_gettata_test (prima frase
+     della scelta di vita), la_pietra_nell_ostacolo (i sei modi ai margini),
+     le_schede_delle_rune_seguono_la_domanda_test (lunghezze).
+
+NUMERI, prima e dopo (21 ottobre 2026)
+  - Lettura cieca indipendente sul campione ridotto: D1 10/12, D2 6/12, D3
+    9/12, tre si' pieni 5/12. Dopo la cura: da rileggere dal coordinatore.
+  - Gettate con schede che chiedono insieme di attendere e di agire: 399 su
+    900 con la postura spenta, 0 su 900 con la postura accesa.
+  - Testi di schede aperti da "Per questa situazione" e simili: 22,8 per cento
+    senza la cura, 0,0 con.
+  - Sessanta giorni (corpus vero, 2000 persone, 359.965 gettate): voci ripetute
+    427.736, come prima del giro; scelte che ripetevano con una voce libera 0;
+    larghe prima delle strette 0. Una prima versione del giro aveva portato le
+    ripetizioni a 1.111.160 (547.722 con una voce libera) perche' il filtro
+    sulle coppie neutre le toglieva anche quando erano le uniche non lette: ora
+    il filtro e' una preferenza, e la regola dei sessanta giorni vince.
+  - Prestazione: la misura della postura sul corpus vero non finiva in 40
+    minuti; con le misure ricordate per voce, il test dei sessanta giorni
+    torna a circa 10 minuti.
+
+DEBITO DICHIARATO (non e' una cura)
+  - Le coppie non lette (vedi sopra) possono avere ancora l'azione scalata.
+  - Le schede con la stessa pietra e lo stesso tipo di domanda restano in 5-8
+    varianti: due gettate diverse possono dare la stessa scheda parola per
+    parola (Laguz e Tiwaz del lettore). Il cardinale non cresce senza scrittura.
+  - Una scheda per cui nel gruppo non resta nessuna coppia che non contraddica,
+    non presupponga e non porti persone care passa alla coppia neutra della
+    pietra, che e' piu' generica: il "Cosa fare finto" del lettore e' sostituito
+    da un Cosa fare di tutte le domande, non da una scheda piu' corta.
+  - Il principale legge la sola pietra che decide; le altre sono
+    nell'approfondimento e nelle schede.
+  - Il pozzo neutro non e' lessicalmente puro: restano formule che un lettore
+    severo conta come presupposti.

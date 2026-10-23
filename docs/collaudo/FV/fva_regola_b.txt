@@ -1,0 +1,22 @@
+
+INNESTO, 15 ottobre 2026: Regola B: il confine scritto due volte nell'istruzione dei Maestri
+guardia: test/il_confine_del_responso_test.dart
+file: lib/services/ai/maestro_persona.dart
+grep dopo l'innesto, righe innestate: 1
+esito con l'innesto (uscita 1):
+  00:17 +5 -1: il confine arriva al MODELLO, e in un punto solo [E]
+  00:17 +5 -1: Some tests failed.
+ripristino; grep righe innestate 0, file identico: True
+esito sul codice vero (uscita 0):
+  00:17 +6: All tests passed!
+
+INNESTO, 15 ottobre 2026: Regola B: una regola tolta dall'istruzione dell'Oracolo
+guardia: test/l_oracolo_degli_angeli_test.dart
+file: lib/core/oracolo_angeli/la_lettura_dell_oracolo.dart
+grep dopo l'innesto, righe innestate: 1
+esito con l'innesto (uscita 1):
+  00:00 +8 -1: la lettura col modello dieci domande difficili arrivano con l'istruzione che le regge [E]
+  00:00 +12 -1: Some tests failed.
+ripristino; grep righe innestate 0, file identico: True
+esito sul codice vero (uscita 0):
+  00:00 +13: All tests passed!

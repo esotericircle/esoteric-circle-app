@@ -1,0 +1,39 @@
+REGOLA A, ordine EU, 1 ottobre 2026: le sei prove nate dai difetti visti sul Realme, ognuna vista rossa sul codice che il difetto lo aveva davvero (commit 8b9a581a, prima delle cure), poi verde dopo la cura. Il difetto non e' innestato: e' quello che il telefono ha mostrato, e il codice di allora lo conteneva (si vede nel diff della cura).
+
+1. test/la_soglia_e_la_rivelazione_dell_oroscopo_test.dart, "il terzo cielo del giorno non suona alla pressione".
+   Sul Realme: dumpsys media.audio_flinger, una traccia nuova dell'app 0,5 secondi dopo il tocco su "Apri l'almanacco" (terza tradizione del giorno), lunga 1,5 secondi come rivelazione.mp3 (docs/collaudo/EU/realme/eu03_suono_invio_realme.txt).
+   PRIMA: Sigillo dei Tre Cieli acceso true, suoni nel primo secondo dopo il tocco 1 [SuonoDelCerchio.rivelazione]. ROSSA.
+   DOPO: suoni nel primo secondo dopo il tocco 0, e al responso il solo suono del responso. VERDE.
+
+2. test/il_da_dove_non_si_ripete_nel_periodo_test.dart (nuova).
+   Sul Realme: la Settimana Lunga della Vedica finiva con "Da dove viene: il giorno migliore, martedì 6 ottobre: Il livello viene dalla Luna..." subito sotto la riga di martedì 6 ottobre fra i tre giorni migliori, con la stessa frase (eu02_vedica_settimana_3.jpg).
+   PRIMA: 72 schede guardate, righe in fondo che ripetono la riga di un giorno 92, maiuscole dopo i due punti 48. ROSSA.
+   DOPO: 0 e 0. VERDE.
+
+3. test/le_date_dell_anno_sono_della_tradizione_test.dart (nuova).
+   Sul Realme: l'Anno della Cinese diceva in testata "dal 15 giugno 2026 al 15 giugno 2027" e sotto "Il tuo anno cinese va dal 17 febbraio 2026 al 6 febbraio 2027" (eu04_cinese_anno_testata.jpg, eu02_cinese_anno_1.jpg).
+   PRIMA: testate con date diverse dalla riga della tradizione 1 su 3 (cinese). ROSSA.
+   DOPO: 0 su 3. VERDE.
+
+4. test/numero_e_colore_hanno_una_regola_test.dart, "la riga del colore dice "del Sole" e "della Luna"".
+   Sul Realme: "Il colore è quello di Il Sole, il pianeta del passaggio più stretto di oggi" (eu10_numero_fortunato_prima_della_riga_del_colore.jpg).
+   PRIMA: righe con "di" e un articolo 4 su 360 (col Sole o la Luna 224). ROSSA.
+   DOPO: 0 su 360. VERDE.
+
+5. test/il_nome_del_piano_non_si_spezza_test.dart (nuova).
+   Sul Realme: col Viandante attivo "VIANDA / NTE" accanto al badge "Piano Attuale" (eu07_viandante_piano_attuale.jpg).
+   PRIMA: nomi dei piani attivi spezzati dentro una parola 7 su 8 (a 360 punti, carattere normale e massimo). ROSSA.
+   DOPO: 0 su 8. VERDE.
+
+6. test/la_profondita_si_sceglie_test.dart, "chi scende al Viandante con la Lunga scelta legge "Breve"".
+   Sul Realme: passato al Viandante con la Lunga scelta, il selettore diceva "Lunga" col lucchetto sopra il testo della Breve (eu15_viandante_lunga_col_lucchetto.jpg).
+   PRIMA: il selettore dice [Lunga]. ROSSA.
+   DOPO: il selettore dice [Breve]. VERDE.
+
+Uscite dei giri: le righe ORDINE EU ed EU.03 MISURA delle prove, lette dall'uscita di flutter test -r expanded del 1 ottobre 2026.
+
+7. test/la_lunga_si_apre_con_gli_eos_test.dart (630), "al Viandante la Lunga offre i 50 Eos e il piano col suo nome", la misura nuova della scritta del piano.
+   Sul Realme: "La Lunga ogni giorno con l'Iniziato" su due righe allineate a sinistra nel pulsante (eu15_viandante_le_due_strade.jpg).
+   PRIMA: scarto massimo di una riga dal centro del pulsante 95,1 punti. ROSSA (ed e' la Regola B della zona: la guardia 630 vista rossa prima di toccare il foglio).
+   DOPO: 0,0. VERDE.
+   INNESTO A7 la scritta del piano di nuovo allineata a sinistra: grep del difetto nel file SI; prova test/la_lunga_si_apre_con_gli_eos_test.dart ROSSA; ORDINE EU VOCE 15: la scritta del piano su 2 righe, scarto massimo dal centro del pulsante 95.1 / una riga della scritta del piano non sta al centro del pulsante: scarto 31.792016595602036; file rimesso sha1 ff1d58e0aac2 -> ff1d58e0aac2 IDENTICO

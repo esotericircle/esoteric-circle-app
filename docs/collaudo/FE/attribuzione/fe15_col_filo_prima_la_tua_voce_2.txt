@@ -1,0 +1,62 @@
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-v3-realignment-a88835/tool/attribuzione_cieca.dart
+00:00 +0: Attribuzione cieca dei tre Maestri
+Shell: Modo: col filo di un altro Maestro (ordine FE voce 15).
+Shell: Chiedo 60 risposte, 20 domande per tre Maestri...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: FE.14 medora: nomina Aura in 11 risposte su 20
+Shell: FE.14 aura: nomina Caligo in 8 risposte su 20
+Shell: FE.14 caligo: nomina Medora in 12 risposte su 20
+Shell: Faccio giudicare 60 risposte...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: 
+Shell: MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+Shell:            medora     aura   caligo     totale   giusti
+Shell: medora         18        2        0       20    90.0%
+Shell: aura            0       20        0       20   100.0%
+Shell: caligo          3        1       16       20    80.0%
+Shell: 
+Shell: Attribuzione corretta: 54 su 60, cioe' 90.0 per cento.
+Shell: Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Shell: Verdetti illeggibili: 0.
+Shell: 
+Shell: LE FRASI SU CUI IL GIUDICE SI E' PERSO
+Shell: --- medora: 2 risposte attribuite ad altri
+Shell:   [creduto aura] domanda: non so cosa voglio davvero
+Shell:      prima frase: Il tuo cielo è in un momento di stasi, come se ti fosse chiesto di fermarti per osservare le tue stelle interiori: per questo non riesci a mettere a fuoco ciò che desideri.
+Shell:   [creduto aura] domanda: mi sembra di essere in ritardo su tutto
+Shell:      prima frase: Rallenta il passo e osserva ciò che ti circonda con attenzione, perché il cielo ti invita a ridefinire il tuo ritmo.
+Shell: --- caligo: 4 risposte attribuite ad altri
+Shell:   [creduto aura] domanda: vorrei ricominciare ma non so da dove
+Shell:      prima frase: Parti da dove sei.
+Shell:   [creduto medora] domanda: ho paura di sbagliare
+Shell:      prima frase: Non temere lo sbaglio: l'errore è un passo sul sentiero.
+Shell:   [creduto medora] domanda: non so cosa voglio davvero
+Shell:      prima frase: Valuta ciò che hai tra le mani.
+Shell:   [creduto medora] domanda: ho perso la direzione
+Shell:      prima frase: Aspetta.
+Shell: 
+Shell: RITMO DELLE VOCI, sulle risposte di questo giro
+Shell: medora   frasi contate 99, frase mediana 19.0 parole, domande 0, parole che ammorbidiscono 1
+Shell: aura     frasi contate 124, frase mediana 20.0 parole, domande 1, parole che ammorbidiscono 8
+Shell: caligo   frasi contate 128, frase mediana 11.0 parole, domande 0, parole che ammorbidiscono 0
+Shell: DA CORREGGERE: caligo scambiato per medora nel 15 per cento dei casi.
+00:36 +1: All tests passed!
+uscita 0

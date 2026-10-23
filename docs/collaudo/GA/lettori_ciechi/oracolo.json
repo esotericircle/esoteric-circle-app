@@ -1,0 +1,3260 @@
+{
+  "ordine": "GA",
+  "voce": "GA.06",
+  "strumento": "test/ga06_campioni_per_i_lettori_ciechi_test.dart",
+  "seme": 606,
+  "senzaModello": true,
+  "quanti": 40,
+  "responsi": [
+    {
+      "id": "oracolo-1",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Dimmi qualcosa.",
+      "ambitoDellaDomanda": "trabocchetto, vaga",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "67 Eiael",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Caliel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "13 Iezalel",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Melahel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "36 Menadel",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Veualiah",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Un orientamento per oggi, da Eiael",
+        "risposta": "Senza una domanda precisa le carte danno un orientamento: Eiael guarda con te ciò che di bello c'è già, prima di cambiare qualcosa. Per questo periodo, nel Cuore, Iezalel accende in te il calore di chi ricorda. Nell'Intelletto, Menadel ti svela che l'impegno di ogni giorno ti forma.",
+        "cosaFare": "Se c'è una situazione che ti sta a cuore, rifai la domanda nominandola: le carte leggono meglio ciò che nomini. Nota oggi tre cose belle che hai intorno a te e scrivile la sera, con calma. Un solo passo scelto bene oggi apre la giornata.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Eiael",
+          "titolo": "Eiael",
+          "risposta": "Trasforma senza demolire. Eiael ti chiede di lasciar crescere il nuovo dentro il vecchio, come un ramo che spunta sul tronco che già c'è. Scegli un'abitudine da cambiare e modificala di poco, un orario, un percorso, una parola: domani aggiungi un altro piccolo spostamento.",
+          "cosaFare": "Dopo tre giorni di piccoli spostamenti fermati a osservare che cosa del vecchio ritmo vuoi tenere, poi scrivilo. Non trasformare il cambiamento in un progetto da descrivere agli altri prima di farlo: rimandare il gesto concreto lo lascia un desiderio ben raccontato.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Iezalel",
+          "titolo": "Iezalel",
+          "risposta": "Se ti capita di sentire nostalgia di volti o di serate passate, Iezalel ti lascia sentirla senza tristezza. È la tua fedeltà che lavora come memoria attiva e ti dice quanto contano per te le persone care, anche quando la vita le tiene lontane.",
+          "cosaFare": "Dai a quella nostalgia una forma concreta. Elenca oggi i volti che ti mancano e accanto la promessa nata in quelle serate. Scegli quella che dipende ancora da te e rinnovala con un gesto entro la settimana. Non lasciare che il ricordo si spenga nel rimpianto.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Menadel",
+          "titolo": "Menadel",
+          "risposta": "Identificarti col ruolo che hai e abitarlo non coincidono. Menadel mostra il confine: chi abita il ruolo lo usa per crescere; chi si identifica sparisce dentro e scambia la stanchezza per dedizione. All'estremo opposto, la fuga continua lascia il posto prima di averlo capito.",
+          "cosaFare": "Controlla se c'è una fatica che usi come alibi: un'ora in più che nessuno chiede, un impegno preso per non pensare ad altro. Se la trovi, toglila questa settimana e guarda che cosa rimane del tuo ruolo. Non scappare però dal posto prima di averlo capito.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-2",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Posso fidarmi del mio compagno?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "22 Ieiaiel",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Damabiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "68 Habuhiah",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Veualiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "1 Vehuiah",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Umabel",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Fidarti del tuo compagno: guarda i gesti nel tempo",
+        "risposta": "Se puoi fidarti del tuo compagno lo dicono i suoi gesti: Ieiaiel ti invita a guardare ciò che regge nel tempo, non l'impressione di un momento. Nel Cuore, Habuhiah ti lascia sentire la gioia di dare senza conti. Nell'Intelletto, Vehuiah ti mostra che chiarire ciò che vuoi viene per primo.",
+        "cosaFare": "Metti accanto ciò che il tuo compagno ha detto di fare e ciò che ha fatto davvero nelle ultime settimane. Elenca i fatti che hai visto nel tempo in questo rapporto, distinti dalle impressioni di un giorno. Ciò che decide l'altra persona resta suo; ciò che fai tu resta tuo.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Ieiaiel",
+          "titolo": "Ieiaiel",
+          "risposta": "La visibilità che hai, poca o tanta, è uno strumento: conta come la usi. Ieiaiel insegna a consegnare cose solide prima di cercare attenzione. Prima di mostrare a qualcuno una cosa che hai fatto, riguardala oggi con calma, trova un punto debole e correggilo.",
+          "cosaFare": "Chiedi a una persona fidata di cercare un secondo punto debole. Quando la mostri, nomina il limite che resta e come pensi di affrontarlo. Non gonfiare il risultato per attirare attenzione: il valore sta nella cosa che regge, non nel modo in cui la presenti.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Habuhiah",
+          "titolo": "Habuhiah",
+          "risposta": "Dare senza contare porta una leggerezza che riconosci subito: niente registri, niente attese, soltanto il gesto e il suo calore. Habuhiah abita quella leggerezza. Lascia che ti attraversi. È la gioia pratica di chi aiuta con le mani prima che con le parole.",
+          "cosaFare": "Fai oggi un gesto generoso con le mani, senza annunciarlo: porta una cosa utile a chi ne ha bisogno, aiuta a spostare un mobile, prepara qualcosa per qualcuno. Non tenere il conto e non aspettare il grazie. Lascia che la leggerezza di quel gesto ti attraversi.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Vehuiah",
+          "titolo": "Vehuiah",
+          "risposta": "Distingui il cominciare dal preparare. Preparare ha una fine che sai indicare; il cominciare rimandato sposta la sua soglia ogni volta che ti avvicini. Vehuiah fa vedere che l'inizio non ha bisogno di un permesso: chi lo chiede di solito cerca qualcuno a cui affidare il primo passo.",
+          "cosaFare": "Scrivi oggi la data in cui la preparazione finisce, poi tienila come una scadenza vera. Se ti accorgi di spostarla, non aggiungere un altro passo preparatorio: fai il primo gesto concreto dell'impresa nel giorno fissato. Vehuiah chiede l'apertura, non un elenco di cose ancora da sistemare.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-3",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Come posso ritrovare l'intesa con mio marito?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "9 Haziel",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Nelchael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "44 Ielahiah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Ieiazel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "2 Ieliel",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Vasariah",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Per ritrovare l'intesa con tuo marito: la strada che indica Haziel",
+        "risposta": "Per ritrovare l'intesa con tuo marito, Haziel ti mostra la via della clemenza: dare senza pretendere e non tenere il conto. Per riuscirci, quanto al Cuore, Ielahiah ti dà l'onore quieto di essere di parola. Quanto all'Intelletto, Ieliel ti fa capire che un disaccordo non è una rottura.",
+        "cosaFare": "Con tuo marito comincia da una cosa semplice: ascolta fino in fondo ciò che ha da dire, senza preparare la risposta. Scrivi che cosa hai dato in questo rapporto aspettandoti qualcosa indietro, poi strappa il foglio. Il resto viene dopo, quando il primo passo è stato fatto davvero.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Haziel",
+          "titolo": "Haziel",
+          "risposta": "Un torto portato a lungo diventa un sacco pesante. Haziel insegna una clemenza consapevole: perdonare non per negare il fatto, ma per smettere di portarne il peso. Se ne porti uno, scrivi su un foglio il nome di chi te l'ha fatto e accanto la parola chiuso, poi mettilo via.",
+          "cosaFare": "Nei prossimi giorni, quando il torto ti torna in mente, ripeti piano la parola chiuso e torna a ciò che stavi facendo. Non riaprire il foglio per rileggerlo: il peso si lascia anche smettendo di guardarlo. Evita di raccontare di nuovo quel torto a qualcuno questa settimana.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Ielahiah",
+          "titolo": "Ielahiah",
+          "risposta": "Quando mantenere la parola costa qualcosa di preciso, una serata, un favore, un vantaggio perduto, sale una paura che stringe. Ielahiah la riconosce senza giudicarla. Accanto a lei ti fa sentire una fermezza calda: la dignità di chi non si piega proprio quando piegarsi è la via comoda.",
+          "cosaFare": "Mantieni la parola che hai dato anche se oggi ti costa una serata o un vantaggio. Prima, però, scrivi esattamente che cosa perdi: dare un nome al prezzo riduce la paura. Non annunciarlo come un sacrificio: tienilo con calma, senza chiedere a nessuno di accorgersene.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Ieliel",
+          "titolo": "Ieliel",
+          "risposta": "Capisci la differenza fra un disaccordo e una rottura. Il disaccordo riguarda un punto; la rottura riguarda il legame intero. Ieliel mostra che un legame tiene proprio perché sopporta il primo senza scivolare nella seconda: tornare alla stessa persona dopo una discussione non smentisce ciò che hai detto.",
+          "cosaFare": "Se c'è una persona con cui hai discusso, separa per iscritto il punto del disaccordo dal legame intero: due righe distinte. Il punto resta dove sta, non serve rinunciarci né chiuderlo adesso. Ieliel ti chiede di vedere che il legame può reggere anche con una questione ancora aperta.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-4",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+      "ambitoDellaDomanda": "lavoro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "31 Lecabel",
+          "coro": "Dominazioni",
+          "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+          "angeloDellaPersona": "Lelahel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "66 Manakel",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Menadel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "13 Iezalel",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Daniel",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Lasciare il lavoro per tornare a studiare: il criterio di Lecabel",
+        "risposta": "Lasciare il lavoro per tornare a studiare: Lecabel pone il sì se hai verificato i dettagli pratici senza perdere il quadro; se no, aspetta. Davanti a questa scelta, nel Cuore, Manakel ti lascia sentire la forza tranquilla di chi regge. Nell'Intelletto, Iezalel ti chiarisce che fedeltà non vuol dire immobilità.",
+        "cosaFare": "Prima di decidere se lasciare il lavoro per tornare a studiare, chiediti che cosa succede se aspetti qualche settimana e che cosa se agisci oggi. Fai una tabella con i dati concreti di ogni opzione e lasciala riposare qualche giorno prima di rileggerla.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Lecabel",
+          "titolo": "Lecabel",
+          "risposta": "Una decisione pratica presa a sensazione lascia spesso conti che non tornano. Lecabel chiede dati invece di impressioni, il dettaglio senza perdere l'insieme. Se ne hai una davanti, prendi un foglio, metti in colonna i numeri reali della questione, costi, tempi e scadenze: decidi soltanto dopo averli guardati.",
+          "cosaFare": "Prima di decidere, aggiungi accanto ai dati una riga sull'insieme: a che cosa serve questa scelta fra un anno. Non lasciarti trascinare da un dettaglio che colpisce più degli altri. Scrivi la decisione con il dato che la sostiene e rileggila domani mattina.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Manakel",
+          "titolo": "Manakel",
+          "risposta": "Reggere un peso senza farlo pesare agli altri porta una fatica silenziosa che pochi notano. Manakel ti permette di sentirla tutta, senza minimizzarla. Accanto c'è una dignità discreta: la scelta di non occupare tutto lo spazio. Quella discrezione non è timidezza, è una forma di cura.",
+          "cosaFare": "Riconosci oggi la fatica che porti senza farne parola: scrivila in una riga, così smette di essere invisibile anche a te. Non minimizzarla. Se il peso cresce, cedine una parte a chi può reggerla: la discrezione non ti chiede di portare tutto in silenzio.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Iezalel",
+          "titolo": "Iezalel",
+          "risposta": "La fedeltà può essere abitudine o memoria attiva. L'abitudine ripete un legame perché c'è sempre stato; la memoria attiva ricorda chi sono le persone anche quando loro se ne dimenticano. Iezalel ti chiede di vedere quale delle due tiene in piedi i tuoi rapporti.",
+          "cosaFare": "Scrivi oggi accanto a tre nomi a cui tieni un fatto che conta per ciascuno: un traguardo, una promessa, un giorno importante. Non tenere in piedi i legami per abitudine; tienili vivi ricordando chi sono le persone, anche quando loro lo dimenticano.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-5",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Arriverà presto la risposta che aspetto?",
+      "ambitoDellaDomanda": "attese",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "21 Nelchael",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Sitael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "23 Melahel",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Melahel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "36 Menadel",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Hahaiah",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "La risposta che aspetti: l'esito non è scritto, conta la tua parte",
+        "risposta": "Se e quando arriva la risposta che aspetti non è scritto nelle carte: Nelchael ti insegna a reggere il non sapere ancora, imparando ciò che puoi nel frattempo. Mentre aspetti, nel Cuore, Melahel ti porta la calma delle attenzioni quotidiane. Nell'Intelletto, Menadel ti fa capire che l'impegno non dipende dall'esito.",
+        "cosaFare": "Se vuoi una lettura più precisa, rifai la domanda dicendo di che risposta si tratta. Intanto separa ciò che dipende da te da ciò che non dipende da te. Scrivi la domanda a cui non hai ancora risposta e accanto ciò che puoi imparare intanto.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Nelchael",
+          "titolo": "Nelchael",
+          "risposta": "Ciò che hai imparato acquista senso quando lo passi a qualcun altro. Nelchael lega lo studio alla trasmissione, non al bisogno di avere ragione. Questa settimana spiega a una persona un concetto che hai capito di recente, usando un esempio tuo.",
+          "cosaFare": "Chiedi alla persona di farti una domanda su ciò che hai spiegato e rispondi senza difendere la tua versione. Non usare la teoria per mostrare quanto sai: lo scopo è che capisca, non che ti ammiri. Annota la domanda più spinosa e studiala in settimana.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Melahel",
+          "titolo": "Melahel",
+          "risposta": "Una quiete umile accompagna i gesti ripetuti con costanza, come chiudere la finestra prima che arrivi il vento. Melahel ti concede quel sentimento senza clamore. È la soddisfazione di chi non aspetta il guasto per accorgersi di ciò che ama.",
+          "cosaFare": "Previeni oggi un piccolo guasto prima che arrivi. Guarda la tua casa o il tuo lavoro e scegli una cosa che dà i primi segni di cedimento: una cerniera, una scadenza, un cassetto pieno. Sistemala adesso, con calma, senza aspettare che si rompa. Melahel abita i gesti fatti per tempo.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Menadel",
+          "titolo": "Menadel",
+          "risposta": "Il posto dove fai la tua parte può essere una condanna o il luogo dove diventi chi sei. Per Menadel la differenza non sta nel posto ma nel rapporto che hai con esso: ciò che fai ti forma se lo guardi come una scuola, non come un debito da pagare.",
+          "cosaFare": "Guarda ciò che fai oggi come una scuola: scegli un compito ordinario e chiediti che cosa ti sta insegnando mentre lo fai. Non viverlo come un debito da pagare a fine giornata. Annota la lezione prima di sera, anche se è piccola.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-6",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Devo chiudere l'amicizia con Giulia?",
+      "ambitoDellaDomanda": "scelte",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "42 Mikael",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Chavakhiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "4 Elemiah",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Hahahel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "14 Mebahel",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Lelahel",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Chiudere l'amicizia con Giulia: il criterio di Mikael",
+        "risposta": "Alla domanda se chiudere l'amicizia con Giulia, Mikael accorda il sì se la scelta resta chiara anche dopo una notte di riflessione; altrimenti aspetta. Davanti a questa scelta, nel Cuore, Elemiah ti trasmette la fermezza di chi vede chiaro. Nell'Intelletto, Mebahel ti mostra la differenza fra giusto e comodo.",
+        "cosaFare": "Prima di decidere se chiudere l'amicizia con Giulia, separa i fatti dalle paure e parlane con una persona di cui ti fidi. Elenca per ogni strada i fatti che la sostengono, separandoli dalle tue speranze, poi rileggili fra qualche giorno.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Mikael",
+          "titolo": "Mikael",
+          "risposta": "Prima di dire da che parte stai, guarda come stanno le cose. Mikael porta l'ordine interiore che precede ogni presa di posizione. Prima di una conversazione che conta scrivi due colonne, ciò che sai e ciò che supponi: prendi posizione soltanto sulla prima e lascia aperta la seconda.",
+          "cosaFare": "Per ogni voce della colonna delle supposizioni scrivi la domanda che la trasforma in un fatto e portala con te alla conversazione. Non dare il tuo assenso nella stessa giornata in cui ricevi le risposte: concediti una notte per rimettere in ordine ciò che hai sentito.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Elemiah",
+          "titolo": "Elemiah",
+          "risposta": "Il sospetto verso qualcuno che hai vicino porta un'inquietudine che toglie il respiro. Elemiah non ti chiede di scacciarla: ti concede di sentirla abbastanza da capire se nasce da un fatto o dal tuo tumulto interiore. C'è anche un sollievo nascosto, quello di poterti fidare del tuo intuito.",
+          "cosaFare": "Separa il fatto dal sospetto prima di muoverti. Prendi un foglio e scrivi da una parte ciò che quella persona ha fatto, dall'altra ciò che temi. Non affrontarla finché la prima colonna resta vuota: se il sospetto vive soltanto nella seconda, conviene guardare prima il tuo tumulto, come suggerisce Elemiah.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Mebahel",
+          "titolo": "Mebahel",
+          "risposta": "La verità detta per ferire e la verità detta per chiarire possono avere le stesse parole. Cambia lo scopo: la prima vuole colpire, la seconda vuole che la cosa si mostri com'è. Mebahel insegna a riconoscere quale delle due stai per pronunciare, prima di aprire bocca.",
+          "cosaFare": "Prima di dire una verità scomoda, scrivi lo scopo in una riga: vuoi che la cosa si veda o vuoi colpire? Se è la seconda, aspetta e riformula. Togli dalla frase ogni parola che giudica la persona e tieni soltanto quelle che rendono chiara la cosa.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-7",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Andrà tutto bene?",
+      "ambitoDellaDomanda": "trabocchetto, vaga",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "62 Iahhel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Sealiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "19 Leuviah",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Pahaliah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "20 Pahaliah",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Achaiah",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Nessuna carta lo promette: conta il passo che fai oggi",
+        "risposta": "Nessuna carta può prometterti che tutto vada bene: Iahhel ti suggerisce di puntare su una pausa prima di reagire, non sulla fretta. Per questo periodo, nel Cuore, Leuviah ti dà la pace di mettere ordine nei ricordi. Nell'Intelletto, Pahaliah ti chiarisce che cambiare strada non è rinnegarti.",
+        "cosaFare": "Se c'è una situazione che ti sta a cuore, rifai la domanda nominandola: le carte leggono meglio ciò che nomini. Prima di rispondere al prossimo messaggio che ti agita, fermati e conta dieci respiri in silenzio. Un solo passo scelto bene oggi apre la giornata.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Iahhel",
+          "titolo": "Iahhel",
+          "risposta": "La risposta che dai subito è spesso quella che rimpiangi. Iahhel ti insegna il valore di un momento di ritiro prima di parlare. Oggi, alla prima domanda che ti mette pressione, rispondi: ci penso e ti scrivo entro sera. Poi prenditi davvero quel tempo.",
+          "cosaFare": "Mantieni la promessa del ritorno e scrivi la risposta prima di sera, anche se è breve: il silenzio scelto vale soltanto se finisce con una parola. Non usare la stessa frase per ogni richiesta della giornata, altrimenti il raccoglimento diventa un modo elegante di evitare le persone.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Leuviah",
+          "titolo": "Leuviah",
+          "risposta": "La memoria precisa di ciò che è accaduto può portarti un rimpianto pungente. Leuviah ti lascia sentirlo senza farne un'accusa. Quando la memoria ricuce invece di ferire, arriva la quiete di una questione rimasta aperta per anni che finalmente si chiude dentro di te.",
+          "cosaFare": "Scrivi la storia di quella questione dall'inizio alla fine, come la racconteresti a chi non c'era. Fermati quando arrivi a oggi e aggiungi una riga finale: questa storia per me si chiude qui. Non usarla per accusare nessuno: Leuviah ti dà la memoria per chiudere, non per rinfacciare.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Pahaliah",
+          "titolo": "Pahaliah",
+          "risposta": "Cambiare direzione a metà strada non è incoerenza. L'incoerenza cambia per comodità; la svolta di Pahaliah cambia perché ha visto che la strada portava altrove. Il passato non sparisce: diventa il punto da cui misuri quanto è cambiata la tua rotta.",
+          "cosaFare": "Cambia direzione adesso, se hai capito che la strada porta altrove, invece di aspettare la fine del percorso. Scrivi la ragione della svolta in una frase, così non la confondi con la comodità. Non rinnegare il tratto fatto: usalo per misurare lo spostamento.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-8",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Devo dirle che sono innamorato di lei?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "24 Haheuiah",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Nanael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "34 Lehahiah",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Mitzrael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": null,
+          "coro": null,
+          "dominioDelCoro": null,
+          "angeloDellaPersona": null,
+          "coperta": true
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Dirle come stanno le cose: il criterio di Haheuiah",
+        "risposta": "Alla domanda se dirle come stanno le cose, Haheuiah dà il suo sì se la scelta rispetta i tuoi confini; se li scavalca, no. Davanti a questa scelta, quanto al Cuore, Lehahiah ti dà la fermezza di chi non decide d'impulso. L'Intelletto resta coperto senza la tua ora di nascita.",
+        "cosaFare": "Prima di decidere se dirle come stanno le cose, separa i fatti dalle paure e parlane con una persona di cui ti fidi. Immagina ogni strada fra qualche mese e chiediti dove il tuo spazio resta tuo, senza fretta di rispondere.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Haheuiah",
+          "titolo": "Haheuiah",
+          "risposta": "Un confine chiaro intorno a te non è un muro: è una soglia con una porta. Haheuiah insegna a decidere che cosa entra e che cosa resta fuori. Scrivi su un foglio due cose che da questa settimana non lasci più entrare nelle tue giornate e una che invece accogli.",
+          "cosaFare": "La prima volta che una di quelle due cose bussa, rispondi con la frase breve che hai preparato prima. Non alzare muri dove non servono: il confine ha una porta. La cosa che hai scelto di accogliere merita spazio vero, quindi fai oggi un gesto concreto per farla entrare.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Lehahiah",
+          "titolo": "Lehahiah",
+          "risposta": "La collera che sale quando gli altri alzano la voce è un fuoco vero. Lehahiah non ti chiede di spegnerla: ti concede di sentirla tutta, senza lasciarla esplodere. In quel trattenere c'è una forza quieta: dentro abita una fierezza che nessuno vede.",
+          "cosaFare": "Quando la collera sale, abbassa la voce invece di alzarla. Conta in silenzio fino a dieci, guarda un punto fisso e lascia che la frase dura non esca. Dopo, se serve, scrivi ciò che volevi dire e rileggilo un'ora più tardi. Lehahiah trasforma il fuoco in una forza che tiene.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": null,
+          "risposta": "La terza carta resta coperta: l'Angelo dell'Intelletto si rivela quando conosco la tua ora di nascita. Aggiungila e la carta si girerà."
+        }
+      ]
+    },
+    {
+      "id": "oracolo-9",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Passerò l'esame di stato a dicembre?",
+      "ambitoDellaDomanda": "attese",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "62 Iahhel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Haiaiel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "67 Eiael",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Ieliel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "40 Ieiazel",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Ariel",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "L'esame di stato: l'esito non è scritto, conta la tua parte",
+        "risposta": "L'esito dell'esame di stato non è scritto nelle carte: Iahhel ti suggerisce di attendere in un silenzio scelto, senza riempire l'attesa di domande agitate. Mentre ti prepari, nel Cuore, Eiael ti dona la gioia delle piccole cose che maturano. Nell'Intelletto, Ieiazel ti fa vedere che scrivere la paura la ridimensiona.",
+        "cosaFare": "Per l'esame di stato fissa un piano di ripasso fino alla data, una parte al giorno: segna ciò che hai fatto. Concediti ogni sera di questa settimana qualche minuto di silenzio tutto per te, senza cercare notizie. Ciò che costruisci oggi resta tuo, comunque vada.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Iahhel",
+          "titolo": "Iahhel",
+          "risposta": "La risposta che dai subito è spesso quella che rimpiangi. Iahhel ti insegna il valore di un momento di ritiro prima di parlare. Oggi, alla prima domanda che ti mette pressione, rispondi: ci penso e ti scrivo entro sera. Poi prenditi davvero quel tempo.",
+          "cosaFare": "Mantieni la promessa del ritorno e scrivi la risposta prima di sera, anche se è breve: il silenzio scelto vale soltanto se finisce con una parola. Non usare la stessa frase per ogni richiesta della giornata, altrimenti il raccoglimento diventa un modo elegante di evitare le persone.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Eiael",
+          "titolo": "Eiael",
+          "risposta": "Una crepa nel muro piena di muschio, la luce storta del pomeriggio: trovi bellezza dove gli altri passano oltre. Ne nasce uno stupore quieto, che Eiael ti invita ad accogliere senza imbarazzo: non è ingenuità, è un modo di guardare che si allena.",
+          "cosaFare": "Allena lo sguardo: ogni giorno di questa settimana annota una cosa bella notata dove gli altri passano oltre, una crepa, una luce, un'ombra sul selciato. Non vergognarti dello stupore. Tienilo come un esercizio quotidiano, non come un'ingenuità da nascondere a chi ti sta accanto.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Ieiazel",
+          "titolo": "Ieiazel",
+          "risposta": "Consolare e negare si somigliano solo in superficie. Chi nega dice che non è niente e ti chiede di stare meglio in fretta; chi consola riconosce il dolore e resta accanto senza spiegarlo. Ieiazel indica la seconda strada, anche verso te: una pena nominata apre, una pena smentita chiude.",
+          "cosaFare": "Dai un nome preciso alla pena che porti, senza aggiungere che passa presto. Se qualcuno vicino a te soffre, evita le frasi che minimizzano: resta accanto e ascolta. Oggi non spiegare la tristezza, né la tua né quella altrui: riconoscerla è già la consolazione che apre.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-10",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Cosa prova davvero Marco per me?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "72 Mumiah",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Nithael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "39 Rehael",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Damabiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "56 Poyel",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Daniel",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Ciò che sente Marco lo dice Marco, non le carte",
+        "risposta": "Ciò che Marco sente per te lo sa solo Marco: Mumiah ti domanda di ascoltare fino in fondo ciò che senti, senza fermarti a metà. In questo rapporto, nel Cuore, Rehael ti dona un rispetto che non chiede meriti. Nell'Intelletto, Poyel ti assicura che un bisogno detto piano resta intero.",
+        "cosaFare": "Su ciò che prova Marco conta ciò che fa più di ciò che immagini: osserva per qualche giorno senza tirare conclusioni. Scegli una questione soltanto di questo rapporto e pensaci fino in fondo, prima di passare ad altro. Le sue scelte sono sue: tu puoi curare le tue.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Mumiah",
+          "titolo": "Mumiah",
+          "risposta": "Portare a termine ciò che resta a metà ti permette di ripartire senza zavorra. Mumiah è la mano che firma l'ultima pagina. Fai oggi l'elenco dei compiti aperti da più di un mese e portane a termine uno prima di sera, anche il più piccolo.",
+          "cosaFare": "Domani chiudi la seconda voce della lista, poi una al giorno, senza aggiungere nuove voci finché l'elenco non si accorcia. Non scegliere ogni volta la più facile: alterna una chiusura leggera e una che rimandi da tempo, così l'elenco perde peso davvero.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Rehael",
+          "titolo": "Rehael",
+          "risposta": "Guardando chi viene dopo di te, può salire una severità di cui forse conosci il peso. Accogli il dispiacere di riconoscerla: vuol dire che te ne accorgi. Rehael porta il rispetto dato prima che sia meritato: da lì quella severità può allentarsi.",
+          "cosaFare": "Quando senti salire verso chi viene dopo di te la stessa severità che hai ricevuto, rallenta prima di parlare. Abbassa il tono di un grado e comincia da ciò che quella persona fa bene. Non rimproverarti per averla riconosciuta: accorgersene è già il primo passo per non ripeterla.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Poyel",
+          "titolo": "Poyel",
+          "risposta": "Rialzarsi e salire sono due movimenti diversi. Salire misura la distanza da chi sta sotto; rialzarsi misura solo la distanza dal punto della caduta. La tradizione lega Poyel al rialzarsi più che al salire. Capirlo cambia il metro: il tuo cammino si confronta con te, non con gli altri.",
+          "cosaFare": "Misura il tuo cammino dal punto della caduta, non dalla posizione degli altri. Scrivi che cosa hai recuperato da allora, anche poco. Evita oggi i confronti con chi sembra più in alto: rialzarsi ha un metro solo, la distanza da dove ti trovavi quel giorno.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-11",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Incontrerò qualcuno di importante quest'anno?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "8 Cahethel",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Nelchael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "36 Menadel",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Mikael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "63 Anauel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Iehuiah",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Un incontro importante: nessuna carta lo promette, conta il tuo passo",
+        "risposta": "Se arriva un incontro importante non è scritto nelle carte e nessuno può promettertelo: Cahethel vuole che tu dia valore all'impegno che hai già messo, mentre aspetti. Quanto al Cuore, Menadel ti dà la fiducia di chi continua a imparare. Quanto all'Intelletto, Anauel ti svela che ogni parte influenza l'insieme.",
+        "cosaFare": "Per un incontro importante, scegli questa settimana un'occasione nuova fra persone che condividono ciò che ami. Gli incontri nascono dove vai. Scrivi tre cose concrete che hai già fatto per arrivare fin qui e rileggile quando l'attesa pesa. Ciò che prepari adesso resta tuo, qualunque sia l'esito.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Cahethel",
+          "titolo": "Cahethel",
+          "risposta": "Ciò che hai in casa porta il segno della fatica di qualcuno, spesso anche della tua. Cahethel chiede una gratitudine che si vede nei gesti. Stasera scegli un oggetto della casa che usi ogni giorno, ricorda da dove viene e ringrazia ad alta voce chi l'ha reso possibile.",
+          "cosaFare": "Prenditi cura domani di quell'oggetto: puliscilo, riparalo o rimettilo nel posto dove lo usi meglio. Non sostituirlo per abitudine finché fa il suo lavoro: la tua gratitudine si vede nel modo in cui conservi. In settimana ripeti il gesto con un'altra cosa di casa che usi ogni giorno.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Menadel",
+          "titolo": "Menadel",
+          "risposta": "Il posto dove fai la tua parte, che sia un lavoro, uno studio o una casa da mandare avanti, a volte pesa come una condanna. Menadel ti concede di sentire quella fatica senza vergogna. Sotto abita un sentimento più quieto: la gratitudine per un luogo dove stai diventando qualcuno.",
+          "cosaFare": "Pensa al posto dove fai la tua parte ogni giorno: lavoro, studio o casa. Cerca una cosa che lì hai imparato quest'anno, scrivila e accanto annota com'era la tua giornata prima di saperla fare. Oggi non chiamarlo una condanna, nemmeno per scherzo: Menadel ti chiede di guardare dove stai crescendo.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Anauel",
+          "titolo": "Anauel",
+          "risposta": "Due interessi diversi non sono per forza opposti. Spesso sembrano tali perché li guardi dal punto in cui si scontrano, non da quello in cui potrebbero toccarsi. Anauel insegna a cercare il secondo: la percezione dell'unità fra le cose, nel concreto, è vedere dove un accordo è già possibile.",
+          "cosaFare": "Quando due interessi sembrano opposti, chiediti da quale punto li stai guardando: dallo scontro o dal possibile incontro. Cambia punto e descrivi la stessa situazione dal lato in cui si toccano. Non aprire mai dal punto dello scontro: l'accordo possibile spesso c'è già.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-12",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Devo lasciare Roma, e se lo faccio la mia famiglia capirà?",
+      "ambitoDellaDomanda": "trabocchetto, doppia",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "44 Ielahiah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Lauviah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "42 Mikael",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Anauel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "6 Lelahel",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Lelahel",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Lasciare Roma: decidi con il criterio di Ielahiah",
+        "risposta": "Alla domanda se lasciare Roma le carte danno un criterio, non un verdetto: Ielahiah risponde sì se puoi mantenere questa scelta anche quando costa; se no, aspetta. Nel Cuore, Mikael ti dà la fiducia di aver guardato bene. Nell'Intelletto, Lelahel ti fa vedere la differenza fra servire e brillare.",
+        "cosaFare": "Le domande sono due: sulla tua famiglia fai un'altra consultazione. Prima di decidere se lasciare Roma, chiediti che cosa succede se aspetti qualche settimana e che cosa se agisci oggi. Scrivi quale delle due strade ti chiede di più e quale ritieni giusta, poi rileggi fra qualche giorno.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Ielahiah",
+          "titolo": "Ielahiah",
+          "risposta": "Sotto pressione la rettitudine non alza la voce, resta dove ha detto che sarebbe stata. Ielahiah è la fermezza che non diventa durezza. Scrivi l'impegno che oggi ti costa di più mantenere e accanto il prezzo che accetti: poi rispettalo fino a sera.",
+          "cosaFare": "Domattina rileggi quel foglio e decidi se il prezzo è ancora sostenibile: se lo è, rinnova l'impegno a voce con chi lo riguarda. Non confondere la fermezza con la durezza. Puoi mantenere la parola e restare gentile con chi ti chiede di cambiarla.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Mikael",
+          "titolo": "Mikael",
+          "risposta": "Un accordo ben fatto lascia una serenità particolare, quella di chi sa che ogni parte ha detto il vero. Mikael la fa salire in te quando un'intesa si chiude con chiarezza. Accanto c'è una fatica: tenere insieme intelligenza e responsabilità senza che l'una copra l'altra.",
+          "cosaFare": "Prima di chiudere un accordo, rileggi ad alta voce ciò che ognuna delle parti ha detto e controlla che sia vero anche per te. Non firmare per stanchezza. Se l'intelligenza ti suggerisce una scorciatoia, chiediti chi ne porta la responsabilità e decidi da lì.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Lelahel",
+          "titolo": "Lelahel",
+          "risposta": "Il talento e il suo uso sono due cose distinte. Il primo ti è dato; il secondo lo decidi ogni giorno. Una capacità riconosciuta resta viva finché la usi anche per qualcun altro: quando serve soltanto a confermarti, smette di illuminare.",
+          "cosaFare": "Scegli una cosa che sai fare bene e mettila a disposizione di un'altra persona prima di sera. Non aspettare che te lo chiedano: offrila con semplicità. Smetti di usare il tuo talento soltanto per confermarti: tienilo vivo dandogli una destinazione fuori da te.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-13",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Devo trasferirmi a Milano o restare a Bari?",
+      "ambitoDellaDomanda": "scelte",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "43 Veualiah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Imamiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "22 Ieiaiel",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Mebahiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "72 Mumiah",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Anauel",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Fra trasferirti a Milano e restare a Bari: scegli con il criterio di Veualiah",
+        "risposta": "Fra trasferirti a Milano e restare a Bari le carte danno un criterio, non un nome: Veualiah consiglia la strada che hai la disciplina di completare. Davanti a questa scelta, nel Cuore, Ieiaiel ti libera dalla fame di applausi. Nell'Intelletto, Mumiah distingue per te il chiudere dal lasciare a metà.",
+        "cosaFare": "Prima di scegliere fra trasferirti a Milano e restare a Bari, raccogli i fatti che ti mancano. Scrivi per ogni strada il primo passo e il traguardo, poi chiediti quale sai portare fino in fondo. Una scelta così può aspettare qualche giorno.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Veualiah",
+          "titolo": "Veualiah",
+          "risposta": "Dopo una caduta netta non ti serve un grande slancio: ti serve la disciplina del passo che viene dopo. Veualiah riparte dal punto preciso dove una cosa si è interrotta. Se c'è qualcosa che hai lasciato dopo una caduta, rimettilo in calendario con un orario per tre mattine di fila.",
+          "cosaFare": "La prima delle tre mattine non rifare da capo ciò che c'era già: riparti dalla riga esatta dove il lavoro si era interrotto. Alla fine di ogni sessione scrivi la prima azione della mattina dopo, così cominci senza dover decidere. Non contare le cadute di prima: conta le mattine tenute.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Ieiaiel",
+          "titolo": "Ieiaiel",
+          "risposta": "L'ebbrezza dell'attenzione altrui è dolce e un po' pericolosa. Ieiaiel non te la toglie: ti lascia sentirla per ciò che è, una festa, non una misura del tuo valore. Sotto c'è la soddisfazione quieta del lavoro che regge nel tempo.",
+          "cosaFare": "Quando ricevi attenzione, goditela come una festa fino a sera, poi chiudila: il giorno dopo non rileggere i commenti e non usarli per decidere quanto vali. Riprendi ciò che stai facendo dal punto in cui l'avevi lasciato: Ieiaiel ne misura il valore sulla tenuta, non sul rumore.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Mumiah",
+          "titolo": "Mumiah",
+          "risposta": "Chiudere e interrompere non sono la stessa cosa. Un'interruzione lascia fili sciolti che ti seguono nel capitolo dopo; una chiusura li annoda e li consegna. Mumiah mostra che un inizio pulito dipende da come hai chiuso, non da quanto ti allontani.",
+          "cosaFare": "Prima di passare al capitolo nuovo, elenca i fili ancora sciolti di quello vecchio: una risposta mancata, un oggetto da rendere, un grazie non detto. Annodane uno al giorno. Non scappare in avanti lasciando tutto aperto: un inizio pulito dipende da come chiudi adesso.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-14",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Ha senso riprovarci con la mia ex?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "68 Habuhiah",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Mihael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "36 Menadel",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Aniel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "61 Umabel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Hahahel",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Riprovarci con la tua ex: decidi con il criterio di Habuhiah",
+        "risposta": "Alla domanda se riprovarci con la tua ex, Habuhiah ti dà il sì se scegli anche per dare qualcosa; se conti soltanto ciò che ricevi, aspetta. Nel Cuore, Menadel ti trasmette la fierezza di scegliere ciò che fa crescere. Nell'Intelletto, Umabel ti fa distinguere il tuo desiderio da quello altrui.",
+        "cosaFare": "Prima di decidere se riprovarci con la tua ex, chiediti che cosa succede se aspetti qualche settimana e che cosa se agisci oggi. Accanto a ogni strada scrivi che cosa potresti dare e che cosa speri di ricevere, poi rileggi fra qualche giorno.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Habuhiah",
+          "titolo": "Habuhiah",
+          "risposta": "Quando doni aspettando un grazie, il dono si irrigidisce e pesa su chi lo riceve. Habuhiah scioglie il gesto dall'attesa di riconoscimento: dare senza contare è la sua generosità pratica. Questa settimana fai tre piccoli favori senza firma e non raccontarli a nessuno.",
+          "cosaFare": "Fra un favore e l'altro, non controllare se qualcuno ha capito che venivano da te. Se ti accorgi di aspettare un grazie, scrivi su un foglio quel bisogno e strappalo. A fine settimana scegli un quarto gesto, più impegnativo, per una persona che non ti è simpatica.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Menadel",
+          "titolo": "Menadel",
+          "risposta": "Voglia di andartene e voglia di restare possono contendersi il posto dove passi le tue giornate, che sia un lavoro, una scuola o una casa. Menadel accoglie entrambe. La prima dice che qualcosa ti stanca; la seconda che quel luogo ha qualcosa da insegnarti. Puoi sentirle insieme senza decidere oggi.",
+          "cosaFare": "Non decidere oggi se andartene o restare. Per una settimana annota ogni sera una cosa che quel posto ti ha insegnato e una che ti ha tolto energie. Alla fine guarda quale colonna è più lunga. Menadel invita a restare finché il posto insegna, non un giorno di più.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Umabel",
+          "titolo": "Umabel",
+          "risposta": "Un'amicizia e un pubblico possono avere le stesse facce. La differenza sta in ciò che chiedi: al pubblico chiedi di guardarti, all'amicizia di conoscerti. Umabel mette in luce questa distinzione, utile quando scegli con chi passare il tuo tempo e a chi aprire davvero la porta.",
+          "cosaFare": "Guarda le persone con cui passi più tempo e chiediti con chi ti fai conoscere davvero e con chi ti limiti a farti guardare. Dedica questa settimana un'ora in più alle prime. Non spendere energia per tenere vicino un pubblico che non ti conosce.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-15",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Devo accettare l'offerta della nuova azienda?",
+      "ambitoDellaDomanda": "lavoro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "42 Mikael",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Ariel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "36 Menadel",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Haaiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "55 Mebahiah",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Omael",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Accettare l'offerta della nuova azienda: il criterio di Mikael",
+        "risposta": "Accettare l'offerta della nuova azienda: Mikael accorda il sì se la scelta resta chiara anche dopo una notte di riflessione; altrimenti aspetta. Davanti a questa scelta, nel Cuore, Menadel ti trasmette la fierezza di scegliere ciò che fa crescere. Nell'Intelletto, Mebahiah separa per te i proclami dai gesti.",
+        "cosaFare": "Prima di decidere se accettare l'offerta della nuova azienda, scrivi che cosa cambierebbe davvero e che cosa resterebbe uguale. Elenca per ogni strada i fatti che la sostengono, separandoli dalle tue speranze, poi rileggili fra qualche giorno. Lascia riposare le note e rileggile con calma, senza farti mettere fretta.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Mikael",
+          "titolo": "Mikael",
+          "risposta": "Prima di dire da che parte stai, guarda come stanno le cose. Mikael porta l'ordine interiore che precede ogni presa di posizione. Prima di una conversazione che conta scrivi due colonne, ciò che sai e ciò che supponi: prendi posizione soltanto sulla prima e lascia aperta la seconda.",
+          "cosaFare": "Per ogni voce della colonna delle supposizioni scrivi la domanda che la trasforma in un fatto e portala con te alla conversazione. Non dare il tuo assenso nella stessa giornata in cui ricevi le risposte: concediti una notte per rimettere in ordine ciò che hai sentito.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Menadel",
+          "titolo": "Menadel",
+          "risposta": "Il posto dove fai la tua parte, che sia un lavoro, uno studio o una casa da mandare avanti, a volte pesa come una condanna. Menadel ti concede di sentire quella fatica senza vergogna. Sotto abita un sentimento più quieto: la gratitudine per un luogo dove stai diventando qualcuno.",
+          "cosaFare": "Pensa al posto dove fai la tua parte ogni giorno: lavoro, studio o casa. Cerca una cosa che lì hai imparato quest'anno, scrivila e accanto annota com'era la tua giornata prima di saperla fare. Oggi non chiamarlo una condanna, nemmeno per scherzo: Menadel ti chiede di guardare dove stai crescendo.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Mebahiah",
+          "titolo": "Mebahiah",
+          "risposta": "Un principio dichiarato e uno praticato non pesano allo stesso modo. Il primo ti mette in pace con la tua idea di giustizia; il secondo cambia una giornata alla volta. Mebahiah lavora sul secondo: ciò che consideri giusto conta per quanto diventa gesto quotidiano, non per quanto lo spieghi.",
+          "cosaFare": "Scegli un principio che consideri giusto e traducilo oggi in un gesto preciso, da compiere prima di sera. Non spiegarlo a nessuno. Domani ripeti lo stesso gesto: un'idea di giustizia diventa tua soltanto quando cambia una giornata, poi un'altra, poi un'altra ancora.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-16",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Che cosa mi aspetta?",
+      "ambitoDellaDomanda": "trabocchetto, vaga",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "71 Haiaiel",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Vehuiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "30 Omael",
+          "coro": "Dominazioni",
+          "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+          "angeloDellaPersona": "Lauviah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": null,
+          "coro": null,
+          "dominioDelCoro": null,
+          "angeloDellaPersona": null,
+          "coperta": true
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Le carte non dicono il futuro: oggi conta il tuo passo",
+        "risposta": "Ciò che ti aspetta non è scritto nelle carte: Haiaiel ti spinge a puntare su ciò che decidi a mente fredda, non sulla paura. Per questo periodo, quanto al Cuore, Omael ti dà la fiducia di chi prepara il terreno. L'Intelletto resta coperto senza la tua ora di nascita.",
+        "cosaFare": "Se vuoi una risposta più precisa, rifai la domanda nominando la situazione che vivi. Davanti alla prossima richiesta che ti mette fretta, prenditi un'ora prima di rispondere sì o no. Un gesto piccolo, fatto oggi, vale più di molte previsioni.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Haiaiel",
+          "titolo": "Haiaiel",
+          "risposta": "Un no detto a mente fredda vale più di dieci sì strappati dall'impulso. Haiaiel porta questo coraggio quieto, che non ha bisogno di alzare la voce. Scrivi la richiesta a cui vuoi rispondere no, aspetta un'ora, poi rispondi con una frase calma e senza giustificazioni.",
+          "cosaFare": "Se dopo il tuo no arriva un'insistenza, ripeti la stessa frase una seconda volta con lo stesso tono, senza aggiungere ragioni. Non trasformare il rifiuto in uno scontro: il no a mente fredda riguarda la richiesta, non la persona. Stasera scrivi che cosa hai difeso dicendolo.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Omael",
+          "titolo": "Omael",
+          "risposta": "Quando nulla sembra muoversi sale uno scoraggiamento che pesa come terra bagnata. Omael ti concede di sentirlo senza vergogna. Sotto quella terra, però, qualcosa matura in silenzio: puoi accogliere anche la fiducia timida di chi prepara il terreno senza vederne ancora i frutti.",
+          "cosaFare": "Continua a preparare il terreno anche se oggi non vedi nulla crescere. Scegli un gesto di preparazione fra questi: studiare un'ora, ordinare i materiali, rivedere il piano. Ripetilo ogni giorno della settimana senza controllare i risultati. Omael ti chiede di fidarti del lavoro che ancora non si vede.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": null,
+          "risposta": "La terza carta resta coperta: l'Angelo dell'Intelletto si rivela quando conosco la tua ora di nascita. Aggiungila e la carta si girerà."
+        }
+      ]
+    },
+    {
+      "id": "oracolo-17",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+      "ambitoDellaDomanda": "trabocchetto, doppia",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "8 Cahethel",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Nithhaiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "2 Ieliel",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Mehiel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "5 Mahasiah",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Mahasiah",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Ciò che sente lui lo dice lui, non le carte",
+        "risposta": "Ciò che prova lui non si legge nelle carte: Cahethel ti fa riconoscere con gratitudine i gesti concreti che hai dato e ricevuto. In questo rapporto, nel Cuore, Ieliel ti fa sentire quanto conta per te questo legame. Nell'Intelletto, Mahasiah ti chiarisce che la serenità non dipende da una risposta.",
+        "cosaFare": "Le domande sono due: sul lavoro e sui suoi tempi fai un'altra consultazione, senza aspettarti una data. Su ciò che prova lui conta ciò che fa più di ciò che immagini: osserva per qualche giorno senza tirare conclusioni. Le sue scelte sono sue: tu puoi curare le tue.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Cahethel",
+          "titolo": "Cahethel",
+          "risposta": "Ciò che hai in casa porta il segno della fatica di qualcuno, spesso anche della tua. Cahethel chiede una gratitudine che si vede nei gesti. Stasera scegli un oggetto della casa che usi ogni giorno, ricorda da dove viene e ringrazia ad alta voce chi l'ha reso possibile.",
+          "cosaFare": "Prenditi cura domani di quell'oggetto: puliscilo, riparalo o rimettilo nel posto dove lo usi meglio. Non sostituirlo per abitudine finché fa il suo lavoro: la tua gratitudine si vede nel modo in cui conservi. In settimana ripeti il gesto con un'altra cosa di casa che usi ogni giorno.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Ieliel",
+          "titolo": "Ieliel",
+          "risposta": "Dopo un disaccordo resta spesso una nostalgia strana, quella di una persona che è ancora lì e che pure ti manca. Ieliel ti lascia accoglierla senza vergogna: è il segno che il legame tiene. Accanto può pungere l'orgoglio ferito: anche lui ha diritto di essere sentito prima di tacere.",
+          "cosaFare": "Concedi all'orgoglio ferito un momento di ascolto, poi non lasciargli l'ultima parola. Scrivi per te tre righe su ciò che ti ha dato fastidio nel disaccordo e una riga su ciò che ti manca di quella persona. Rileggi soltanto l'ultima: Ieliel ti chiede di ripartire da lì, se lo vuoi.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Mahasiah",
+          "titolo": "Mahasiah",
+          "risposta": "La pace e la resa si confondono facilmente. La resa compra la quiete rinunciando a dire la propria; la pace la ottiene restando nella stanza con le tue ragioni intatte. Mahasiah insegna questa seconda via: un clima sereno che non chiede a nessuno di sparire.",
+          "cosaFare": "Resta nella stanza quando la discussione si fa tesa e dì la tua posizione con voce piana. Non comprare la quiete tacendo ciò che pensi: è una tregua che dura poco. Cerca un clima sereno in cui anche le tue ragioni hanno posto.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-18",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Come posso fare pace con mia sorella?",
+      "ambitoDellaDomanda": "famiglia",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "24 Haheuiah",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Omael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "13 Iezalel",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Lauviah II",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "52 Imamiah",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Nelchael",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Per fare pace con tua sorella: un passo con Haheuiah",
+        "risposta": "Per fare pace con tua sorella, Haheuiah ti suggerisce di esserci con un confine chiaro: vicinanza sì, senza perderti. Per riuscirci, il Cuore risponde così: Iezalel risveglia in te la tenerezza della memoria condivisa. L'Intelletto aggiunge: Imamiah distingue per te la tua parte dalla colpa intera.",
+        "cosaFare": "Con tua sorella comincia da ciò che vi unisce e lascia per ultimo ciò che vi divide. Chiarisci per iscritto dove finisce il tuo spazio in questo rapporto e che cosa resta aperto. Un solo passo fatto davvero vale più di molti propositi.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Haheuiah",
+          "titolo": "Haheuiah",
+          "risposta": "Lasciare passare tutto non è tolleranza: è assenza di confini. La fermezza di Haheuiah ti chiede di tracciare una linea dove oggi non c'è. Di' oggi un no gentile a una richiesta che invade il tuo tempo e scrivi su un foglio perché era necessario.",
+          "cosaFare": "Quando arriva una richiesta dello stesso tipo, rispondi con lo stesso no senza nuove giustificazioni. Non cedere al senso di colpa che spinge a compensare con un sì più grande. Usa il tempo che hai recuperato per una cosa che hai scelto tu, già questa settimana.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Iezalel",
+          "titolo": "Iezalel",
+          "risposta": "Se ti capita di sentire nostalgia di volti o di serate passate, Iezalel ti lascia sentirla senza tristezza. È la tua fedeltà che lavora come memoria attiva e ti dice quanto contano per te le persone care, anche quando la vita le tiene lontane.",
+          "cosaFare": "Dai a quella nostalgia una forma concreta. Elenca oggi i volti che ti mancano e accanto la promessa nata in quelle serate. Scegli quella che dipende ancora da te e rinnovala con un gesto entro la settimana. Non lasciare che il ricordo si spenga nel rimpianto.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Imamiah",
+          "titolo": "Imamiah",
+          "risposta": "La tradizione lega Imamiah alle situazioni chiuse da cui si cerca l'uscita. Il meccanismo da vedere: una rivalsa sembra un'uscita, ma ti lega ancora a chi ti ha fatto torto. Si esce davvero quando l'errore, tuo o altrui, smette di essere il centro del racconto che fai di te.",
+          "cosaFare": "Se stai preparando una rivalsa, anche soltanto nei pensieri, rinunciaci oggi. Quando racconti la tua storia, prova a farlo senza mettere al centro il torto subito o commesso. Nota quanto spazio si apre: l'uscita comincia dove l'errore smette di essere il personaggio principale.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-19",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "L'operazione al ginocchio del mese prossimo andrà bene?",
+      "ambitoDellaDomanda": "trabocchetto, salute",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "48 Mihael",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Hahasiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "67 Eiael",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Daniel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "9 Haziel",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Mumiah",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Sull'esito dell'operazione al ginocchio ti risponde il medico",
+        "risposta": "Sull'esito dell'operazione al ginocchio risponde il tuo medico, non le carte. Mihael ti tiene compagnia nella costanza: esserci ogni giorno per te e per chi ami. Nel Cuore, Eiael ti regala un attimo di bellezza dentro la fatica. Nell'Intelletto, Haziel ti ricorda che la clemenza con te dà sollievo.",
+        "cosaFare": "Sull'operazione al ginocchio porta ogni dubbio al tuo medico: è lui o lei a poterti rispondere, non una carta. Tieni un quaderno per le domande e gli appuntamenti e aggiornalo ogni giorno, anche quando costa. Sul resto le carte ti accompagnano, ma non decidono al posto di chi è competente.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Mihael",
+          "titolo": "Mihael",
+          "risposta": "La fedeltà non è un giuramento pronunciato una volta: è un gesto che si rinnova ogni giorno. Mihael parla delle fasi in cui un legame non restituisce niente. Oggi fai una piccola cosa quotidiana per chi vive con te o ti è vicino ogni giorno, senza aspettarti che venga notata.",
+          "cosaFare": "Domani ripeti un gesto diverso della stessa misura e non tenere il conto di ciò che ricevi in cambio. Evita di controllare se quella persona se n'è accorta: la fedeltà che conta qui è la tua costanza, non la sua risposta.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Eiael",
+          "titolo": "Eiael",
+          "risposta": "Una crepa nel muro piena di muschio, la luce storta del pomeriggio: trovi bellezza dove gli altri passano oltre. Ne nasce uno stupore quieto, che Eiael ti invita ad accogliere senza imbarazzo: non è ingenuità, è un modo di guardare che si allena.",
+          "cosaFare": "Allena lo sguardo: ogni giorno di questa settimana annota una cosa bella notata dove gli altri passano oltre, una crepa, una luce, un'ombra sul selciato. Non vergognarti dello stupore. Tienilo come un esercizio quotidiano, non come un'ingenuità da nascondere a chi ti sta accanto.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Haziel",
+          "titolo": "Haziel",
+          "risposta": "Perdonare non vuol dire fingere che il torto non ci sia stato. Haziel separa le due cose con chiarezza: la clemenza nomina il torto e poi sceglie di non portarne più il peso; l'indulgenza lo copre. Se ti accorgi di coprire, non hai perdonato: hai soltanto rimandato.",
+          "cosaFare": "Se hai ricevuto un torto che ancora pesa, nominalo per iscritto, con parole precise e senza aggettivi. Poi decidi se vuoi smettere di portarlo: se sì, chiudi il foglio e non tornarci. Non coprire l'accaduto con un sorriso di circostanza; il perdono vero parte da ciò che è stato.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-20",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Vincerò la causa contro il mio ex socio?",
+      "ambitoDellaDomanda": "trabocchetto, legale",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "18 Caliel",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Lauviah II",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "15 Hariel",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Pahaliah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "58 Ieialel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Lehahiah",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Sulla causa contro il tuo ex socio: ti guida l'avvocato",
+        "risposta": "Sulla causa contro il tuo ex socio ti guida il tuo avvocato, non le carte. Caliel ti affianca nel distinguere ciò che sai davvero da ciò che temi. Nel Cuore, Hariel ti lascia sentire la calma che viene dall'ordine. Nell'Intelletto, Ieialel ti avverte che comprendere fino in fondo richiede tempo.",
+        "cosaFare": "Sulla causa contro il tuo ex socio lascia che sia il tuo avvocato a valutare le mosse, prima di agire. Prepara per chi ti segue domande precise sui fatti, tenendole separate dalle supposizioni. Sul resto le carte ti accompagnano, ma non decidono al posto di chi è competente.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Caliel",
+          "titolo": "Caliel",
+          "risposta": "In una discussione accesa, separa ciò che è accaduto da ciò che se ne pensa. Caliel insegna a pronunciarsi sui fatti senza bisogno di alzare la voce. Prima di rispondere, scrivi su un foglio due elenchi, fatti e opinioni, poi parla soltanto del primo con tono basso.",
+          "cosaFare": "Quando hai parlato, lascia cadere le opinioni anche se l'altra persona insiste sulle sue: resta sui fatti. Non ripetere lo stesso fatto alzando la voce per farlo pesare di più. Stasera rileggi l'elenco e segna quale fatto ha cambiato davvero il corso della discussione.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Hariel",
+          "titolo": "Hariel",
+          "risposta": "Quando i nessi fra le idee si accendono uno dopo l'altro provi un'euforia limpida, quasi infantile. Hariel te la lascia gustare. Il suo rovescio è la dispersione in mille inizi lasciati a metà: anche quella si può accogliere con un sorriso, senza giudicarti.",
+          "cosaFare": "Cattura l'idea che ti accende e scegline una sola da sviluppare oggi. Scrivi tutte le altre su un foglio da riprendere più avanti e mettilo via. Dedica alla prescelta un'ora di lavoro ordinato: Hariel trasforma l'euforia in metodo quando le dai un solo binario su cui correre.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Ieialel",
+          "titolo": "Ieialel",
+          "risposta": "L'effetto e la causa stanno spesso lontani. L'effetto si presenta subito; la causa ti si mostra soltanto se reggi la fatica di guardare oltre la prima spiegazione. Ieialel è questa forza mentale: non si ferma al perché più comodo, arriva a quello che spiega tutto il resto.",
+          "cosaFare": "Alla prima spiegazione che ti viene in mente, chiedi ancora perché, almeno tre volte di seguito. Scrivi ogni risposta. Fermati soltanto quando trovi la causa che spiega anche le altre. Non accontentarti oggi del perché più comodo: è il più vicino, raramente il più vero.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-21",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Conviene investire i miei risparmi in borsa adesso?",
+      "ambitoDellaDomanda": "trabocchetto, denaro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "34 Lehahiah",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Hahaiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "57 Nemamiah",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Habuhiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "33 Iehuiah",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Nanael",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Investire i tuoi risparmi in borsa adesso: decidi con un consulente",
+        "risposta": "Investire i tuoi risparmi in borsa adesso: decidilo con un consulente. Lehahiah resta con te nella calma, per ascoltare bene e chiedere con chiarezza. In questa situazione, quanto al Cuore, Nemamiah ti lascia la lucidità che le voci non confondono. Quanto all'Intelletto, Iehuiah chiarisce che a te spettano le domande.",
+        "cosaFare": "Sulla scelta di investire i tuoi risparmi in borsa adesso chiedi un parere a un consulente indipendente e fatti spiegare i rischi per iscritto. Prima dell'appuntamento con chi ti segue, siedi in silenzio qualche minuto e poi rileggi le tue domande.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Lehahiah",
+          "titolo": "Lehahiah",
+          "risposta": "La mitezza non c'entra: qui si parla di una forza trattenuta per scelta. Lehahiah governa la collera senza negarla. Tieni sulla scrivania un foglio dove annoti ciò che ti fa arrabbiare durante il giorno e rileggilo la sera, a mente fredda, prima di rispondere a chiunque.",
+          "cosaFare": "Scegli dal foglio l'episodio che si ripete più spesso e prepara una risposta pacata da usare la prossima volta. Non trasformare la calma in durezza verso di te: annotare la rabbia non è un'accusa. A fine settimana getta via il foglio e ricomincia da una pagina bianca.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Nemamiah",
+          "titolo": "Nemamiah",
+          "risposta": "Le cose che brillano troppo ti lasciano a volte un fastidio sottile, un disagio che non sai spiegare. Nemamiah lo chiama per nome: è il tuo senso della sostanza che si ribella all'apparenza. Lascia che quel fastidio parli. Spesso sa prima di te ciò che è vero.",
+          "cosaFare": "Davanti a ciò che brilla troppo, rallenta e chiediti che cosa c'è sotto la superficie: chi l'ha fatto, quanto dura, che cosa chiede in cambio. Non lasciarti convincere dalla lucentezza e non zittire il fastidio che senti: ascoltalo fino in fondo prima di dire sì.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Iehuiah",
+          "titolo": "Iehuiah",
+          "risposta": "Dove ci sono più persone insieme, in un ufficio, in un'associazione o in una famiglia, chi decide sulla carta e chi decide davvero possono non coincidere. Vedere questa differenza è una forma di lucidità: ti permette di stare dentro un gruppo senza perderti, perché sai dove passano le decisioni reali.",
+          "cosaFare": "Disegna su un foglio come passano le decisioni nel gruppo di cui fai parte, accanto a ciò che dicono i ruoli ufficiali. Segna dove le due mappe non coincidono. Non fermarti a chi ha soltanto il titolo: porta le tue proposte dove le scelte si fanno, con rispetto per tutti.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-22",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Il colloquio di giovedì andrà bene?",
+      "ambitoDellaDomanda": "lavoro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "47 Asaliah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Lehahiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "48 Mihael",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Aniel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "43 Veualiah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Ieialel",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Il colloquio di giovedì: l'esito non è scritto, conta ciò che fai tu",
+        "risposta": "L'esito del colloquio di giovedì non è scritto nelle carte: Asaliah vuole che tu sappia dove sei davvero, non dove vorresti essere. Mentre ti prepari, nel Cuore, Mihael ti fa sentire la fiducia di chi resta fedele. Nell'Intelletto, Veualiah ti fa capire che la disciplina non dipende dall'umore.",
+        "cosaFare": "Per il colloquio di giovedì prepara tre esempi concreti di ciò che sai fare e una domanda da porre tu. Ripetili a voce alta una volta, non di più. Dividi su due colonne ciò che speri e ciò che sai, poi lascia guidare i fatti.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Asaliah",
+          "titolo": "Asaliah",
+          "risposta": "Cercare il vero può metterti in torto: Asaliah ti chiede di accettarlo. Ripensa all'ultima discussione in cui hai difeso la tua posizione per comodità. Scrivi oggi su un foglio il punto in cui l'altra persona aveva ragione e rileggilo prima della prossima discussione.",
+          "cosaFare": "Accanto a quel punto oggi non aggiungere le tue ragioni: lascia il riconoscimento intero, senza nessun però. Nella prossima discussione, prima di difendere la tua posizione, chiediti ad alta voce se la difendi perché è vera o perché ti conviene.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Mihael",
+          "titolo": "Mihael",
+          "risposta": "La gelosia, quando arriva, si traveste da cura. Mihael ti invita a riconoscerla con dolcezza, senza punirti: è paura di perdere ciò che ami. Lasciala mostrarsi per quello che è. Al suo posto può salire la fiducia quotidiana, fatta di presenza e non di controllo.",
+          "cosaFare": "Quando la gelosia ti si presenta come cura, rinuncia per oggi a ogni controllo: niente domande insistenti, niente verifiche. Riconosci in silenzio la paura che sta sotto, quella di perdere chi ami. Poi offri presenza al posto della sorveglianza: un tempo insieme, invece di una domanda in più.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Veualiah",
+          "titolo": "Veualiah",
+          "risposta": "Veualiah separa il rimandare per timore del giudizio dal rimandare per prudenza. La prudenza ha una data di ripresa; il timore no, sposta il traguardo ogni volta. Finire una cosa, anche imperfetta, ti dà un dato da misurare. Un progetto mai concluso ti lascia soltanto ipotesi.",
+          "cosaFare": "Dai una data di ripresa a ciò che stai rimandando: se non riesci a trovarla, il motivo è il timore del giudizio, non la prudenza. Porta a termine una parte, anche imperfetta, entro la settimana. Un pezzo finito ti dà una misura vera; mille ipotesi non te la danno.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-23",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Il progetto che ho presentato verrà approvato?",
+      "ambitoDellaDomanda": "lavoro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "31 Lecabel",
+          "coro": "Dominazioni",
+          "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+          "angeloDellaPersona": "Iezalel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "21 Nelchael",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Mumiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "5 Mahasiah",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Ieliel",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Il tuo progetto: nessuna carta lo promette, conta il tuo passo",
+        "risposta": "L'esito del tuo progetto non è scritto nelle carte e nessuno può promettertelo: Lecabel ti affida i dettagli che dipendono da te, senza perdere l'insieme. Mentre aspetti, quanto al Cuore, Nelchael ti concede la calma di non sapere ancora. Quanto all'Intelletto, Mahasiah distingue per te l'attesa serena da quella rassegnata.",
+        "cosaFare": "Per il tuo progetto ormai consegnato, prepara con calma le risposte alle obiezioni più probabili. Poi lascialo maturare senza rimaneggiarlo mentre aspetti. Fai un elenco dei dettagli che dipendono da te e spunta ogni giorno quello che hai curato. Ciò che curi adesso conta più dell'attesa.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Lecabel",
+          "titolo": "Lecabel",
+          "risposta": "Un metodo funziona quando lo puoi ripetere senza pensarci. La misura di Lecabel trasforma un'idea in procedura. Scrivi su una scheda i passaggi esatti di un compito che fai spesso, con il controllo da fare a ogni passaggio, poi usala la prossima volta.",
+          "cosaFare": "Dopo averla usata, segna con un tratto i passaggi in cui hai esitato e chiariscili sulla scheda. Non aggiungere controlli inutili: tieni quelli che hanno evitato un errore. Prepara in settimana una seconda scheda per un altro compito che torna spesso.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Nelchael",
+          "titolo": "Nelchael",
+          "risposta": "Il piacere di avere ragione è dolce, ma Nelchael ti invita a sentire accanto anche qualcosa di più umile: la curiosità che sopporta il dubbio. È lei a scaldare davvero. Il bisogno di prevalere, guardato con calma, rivela soltanto la paura di non valere abbastanza.",
+          "cosaFare": "Nella prossima discussione rinuncia a prevalere e fai una domanda in più. Chiedi all'altra persona da dove nasce la sua idea e ascolta la risposta fino in fondo prima di ribattere. Annota poi una cosa che non sapevi. Nelchael scambia volentieri il piacere della ragione con quello della scoperta.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Mahasiah",
+          "titolo": "Mahasiah",
+          "risposta": "Riavvicinarsi non significa dare ragione. Chi si è allontanato da te può tornare vicino senza che uno dei due ritratti tutto: basta che la relazione conti più della posizione. Mahasiah mostra che l'orgoglio irrigidisce proprio dove la pace chiede soltanto di restare.",
+          "cosaFare": "Se qualcuno si è allontanato da te, separa per iscritto la relazione dalla posizione: che cosa vale il legame e chi aveva ragione, su due righe distinte. Non mettere le scuse come prezzo di un riavvicinamento: conta che la relazione possa tornare a respirare, quando e se accade.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-24",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Quando finirà questo periodo di stallo?",
+      "ambitoDellaDomanda": "attese",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "26 Haaiah",
+          "coro": "Dominazioni",
+          "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+          "angeloDellaPersona": "Eiael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "19 Leuviah",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Hahasiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": null,
+          "coro": null,
+          "dominioDelCoro": null,
+          "angeloDellaPersona": null,
+          "coperta": true
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Nessuna data: conta il passo che fai adesso",
+        "risposta": "Nessuna carta dà una data per la fine di questo periodo di stallo: Haaiah vuole che speranza e timore trovino un accordo dentro di te mentre aspetti. Il Cuore risponde così: Leuviah ti concede la serenità di ricordare senza rimpianto. L'Intelletto resta coperto senza la tua ora di nascita.",
+        "cosaFare": "Invece di contare i giorni, scegli una cosa ferma che dipende da te e muovila di un passo. Scrivi da una parte ciò che speri e dall'altra ciò che temi, poi cerca il punto che li unisce. Ciò che curi adesso conta più dell'attesa.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Haaiah",
+          "titolo": "Haaiah",
+          "risposta": "Ciò che prometti e ciò che fai devono stare sulla stessa riga. Haaiah misura la coerenza fra il patto detto e il patto mantenuto. Rileggi oggi gli impegni presi nell'ultimo mese e segna con una croce quelli già tradotti in azioni.",
+          "cosaFare": "Per ogni impegno ancora senza croce scrivi accanto il primo gesto che lo traduce in azione e fallo entro la settimana. Non promettere niente di nuovo finché la lista non è in pari. Se qualcuno aspetta uno di quegli impegni, digli a che punto sei, con fatti e date.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Leuviah",
+          "titolo": "Leuviah",
+          "risposta": "Se ti capita di rimuginare, può avere il sapore amaro di un conto da saldare. Leuviah accoglie quell'amarezza senza giudicarla. Sotto c'è la malinconia per ciò che è andato perso: anche lei ti chiede ascolto, fino in fondo, perché è da lì che una questione aperta comincia a chiudersi.",
+          "cosaFare": "Interrompi il rimuginare con un limite di tempo. Concedi alla contabilità dei torti dieci minuti precisi, una sola volta oggi, poi chiudi il quaderno. Nel resto della giornata, quando il pensiero ritorna, rimandalo a quell'appuntamento. Dai invece spazio alla malinconia: con Leuviah nomina piano ciò che hai perso.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": null,
+          "risposta": "La terza carta resta coperta: l'Angelo dell'Intelletto si rivela quando conosco la tua ora di nascita. Aggiungila e la carta si girerà."
+        }
+      ]
+    },
+    {
+      "id": "oracolo-25",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+      "ambitoDellaDomanda": "famiglia",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "19 Leuviah",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Lauviah II",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "57 Nemamiah",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Melahel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "67 Eiael",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Vehuel",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Per affrontare il pranzo di Natale con la famiglia di lui: un passo con Leuviah",
+        "risposta": "Per affrontare il pranzo di Natale con la famiglia di lui, Leuviah ti suggerisce di usare la memoria per capire, mai per rinfacciare. Per riuscirci, quanto al Cuore, Nemamiah ti dà la pace di guardare la sostanza. Quanto all'Intelletto, Eiael ti insegna che il bello sta nei gesti semplici.",
+        "cosaFare": "Prepara come vuoi stare al pranzo di Natale: che cosa porti, quali argomenti eviti e dove ti fermi se la tensione sale. Scrivi come ricordi un momento importante di questo rapporto, con i fatti in ordine. Il resto viene dopo, quando il primo passo è stato fatto davvero.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Leuviah",
+          "titolo": "Leuviah",
+          "risposta": "Ricordare bene serve a capire, non a tenere la contabilità dei torti. Leuviah ti insegna a usare la memoria come un archivio ordinato. Se una faccenda con qualcuno è rimasta in sospeso, decidi oggi una data in cui riguardarla con calma: segnala sul calendario, senza elencare le colpe passate.",
+          "cosaFare": "Quel giorno metti in fila ciò che serve per chiudere la faccenda e il modo concreto per farlo, anche soltanto dentro di te. Evita di risalire agli episodi lontani, anche quando il pensiero ci torna sopra. Dopo, scrivi che cosa hai deciso e conservalo con le note di allora.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Nemamiah",
+          "titolo": "Nemamiah",
+          "risposta": "Le cose che brillano troppo ti lasciano a volte un fastidio sottile, un disagio che non sai spiegare. Nemamiah lo chiama per nome: è il tuo senso della sostanza che si ribella all'apparenza. Lascia che quel fastidio parli. Spesso sa prima di te ciò che è vero.",
+          "cosaFare": "Davanti a ciò che brilla troppo, rallenta e chiediti che cosa c'è sotto la superficie: chi l'ha fatto, quanto dura, che cosa chiede in cambio. Non lasciarti convincere dalla lucentezza e non zittire il fastidio che senti: ascoltalo fino in fondo prima di dire sì.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Eiael",
+          "titolo": "Eiael",
+          "risposta": "Trasformare e rompere producono entrambi un cambiamento, ma uno solo conserva il filo. La rottura cancella la forma di prima; la trasformazione la porta in un'altra condizione senza strapparla. Eiael ti mostra questo secondo modo, quello in cui ciò che eri resta riconoscibile in ciò che diventi.",
+          "cosaFare": "Scrivi che cosa vuoi tenere della forma di oggi, prima di cambiare qualcosa nella tua vita. Tieni quel filo mentre cambi il resto. Non buttare via tutto per avere l'impressione di ricominciare: ciò che eri resta utile dentro ciò che diventi.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-26",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+      "ambitoDellaDomanda": "famiglia",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "55 Mebahiah",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Damabiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "43 Veualiah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Ielahiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "63 Anauel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Haiaiel",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Per aiutare tuo figlio: la via di Mebahiah",
+        "risposta": "Per aiutare tuo figlio, Mebahiah ti esorta ad agire come ritieni giusto, con parole che rasserenano invece di ferire. Per riuscirci, quanto al Cuore, Veualiah ti porta l'orgoglio quieto di chi mantiene gli impegni. Quanto all'Intelletto, Anauel ti segnala che il terreno comune sta nei fatti.",
+        "cosaFare": "Scegli un momento tranquillo e di' a tuo figlio una cosa sola, vera e senza rimprovero, poi ascolta fino in fondo. Di' oggi una parola che consola a chi ti è vicino, con semplicità e senza chiedere nulla. Il passo successivo si vede solo dopo il primo.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Mebahiah",
+          "titolo": "Mebahiah",
+          "risposta": "Hai le idee chiare su che cosa è giusto: Mebahiah ti chiede di renderlo gesto quotidiano, non principio dichiarato. Scegli uno dei tuoi principi e trovagli oggi un gesto concreto, piccolo, ripetibile: per esempio rispondere a chi aspetta da giorni.",
+          "cosaFare": "Ripeti quel gesto ogni giorno per una settimana alla stessa ora, così smette di essere un'eccezione e diventa la tua condotta. Non spiegare agli altri il principio che c'è dietro: se qualcuno nota il gesto, basta. La coerenza si trasmette meglio quando nessuno la predica.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Veualiah",
+          "titolo": "Veualiah",
+          "risposta": "Dopo una caduta netta resta un bruciore che non vuole essere consolato in fretta. Veualiah ti lascia sentirlo per intero, poi ti mostra che cosa c'è sotto: una determinazione quieta, ostinata, che chiede di ricominciare dal primo mattone. Quel bruciore e quella determinazione abitano insieme in te.",
+          "cosaFare": "Non correre a consolarti dopo la caduta e non ripartire subito dal punto di prima. Scegli oggi il primo mattone, il più piccolo che puoi posare entro sera: posalo. Lascia che il bruciore resti ancora un po': ti ricorda perché ricominci con più attenzione.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Anauel",
+          "titolo": "Anauel",
+          "risposta": "Due interessi diversi non sono per forza opposti. Spesso sembrano tali perché li guardi dal punto in cui si scontrano, non da quello in cui potrebbero toccarsi. Anauel insegna a cercare il secondo: la percezione dell'unità fra le cose, nel concreto, è vedere dove un accordo è già possibile.",
+          "cosaFare": "Quando due interessi sembrano opposti, chiediti da quale punto li stai guardando: dallo scontro o dal possibile incontro. Cambia punto e descrivi la stessa situazione dal lato in cui si toccano. Non aprire mai dal punto dello scontro: l'accordo possibile spesso c'è già.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-27",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "È il momento giusto per aprire la mia attività?",
+      "ambitoDellaDomanda": "lavoro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "27 Ierathel",
+          "coro": "Dominazioni",
+          "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+          "angeloDellaPersona": "Iehuiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "23 Melahel",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Vasariah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "68 Habuhiah",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Elemiah",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Aprire la tua attività: decidi con un consulente",
+        "risposta": "Aprire la tua attività: decidilo con un consulente, non con le carte. Ierathel ti accompagna nel fare chiarezza su ciò che ti dicono, senza colpevolizzarti. In questa situazione, nel Cuore, Melahel ti lascia la pace delle piccole attenzioni costanti. Nell'Intelletto, Habuhiah ti mostra che accettare aiuto è anch'esso generosità.",
+        "cosaFare": "Sulla scelta di aprire la tua attività chiedi un parere a un consulente indipendente e fatti spiegare i rischi per iscritto. Scrivi in parole semplici ciò che sai già e ciò che vuoi chiarire, poi portalo a chi ti segue.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Ierathel",
+          "titolo": "Ierathel",
+          "risposta": "Tenere una posizione sotto pressione non richiede di ferire chi la pensa diversamente. Ierathel porta una chiarezza che non ha bisogno di schiacciare. Scrivi la tua posizione in tre frasi senza nominare chi ti contraddice e rileggila prima di parlare.",
+          "cosaFare": "Quando parli, attieniti a quelle tre frasi e rispondi alle obiezioni senza uscire dal loro perimetro. Evita l'ironia sulle idee altrui, anche se ti sembra innocua. Se cambi parere su un punto, dillo apertamente: tenere una posizione non vuol dire ignorare un argomento buono.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Melahel",
+          "titolo": "Melahel",
+          "risposta": "Una quiete umile accompagna i gesti ripetuti con costanza, come chiudere la finestra prima che arrivi il vento. Melahel ti concede quel sentimento senza clamore. È la soddisfazione di chi non aspetta il guasto per accorgersi di ciò che ama.",
+          "cosaFare": "Previeni oggi un piccolo guasto prima che arrivi. Guarda la tua casa o il tuo lavoro e scegli una cosa che dà i primi segni di cedimento: una cerniera, una scadenza, un cassetto pieno. Sistemala adesso, con calma, senza aspettare che si rompa. Melahel abita i gesti fatti per tempo.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Habuhiah",
+          "titolo": "Habuhiah",
+          "risposta": "Generosità e rivendicazione si separano in un punto preciso: l'attesa di riconoscimento. Habuhiah te lo indica. Finché dai senza aspettarlo, la cura resta leggera; appena lo aspetti, ogni gesto diventa un credito che prima o poi presenti. Il dono cambia natura senza cambiare forma.",
+          "cosaFare": "Rinuncia oggi a ricordare a qualcuno ciò che hai fatto per quella persona. Se il bisogno di dirlo è forte, scrivilo per te e tienilo nel cassetto. Continua a dare dove puoi farlo senza presentare il conto: la cura resta leggera finché non diventa un credito.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-28",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "È giusto andare a vivere lontano dai miei genitori?",
+      "ambitoDellaDomanda": "famiglia",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "55 Mebahiah",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Achaiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "12 Hahaiah",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Veualiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "24 Haheuiah",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Lauviah",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Andare a vivere lontano dai tuoi genitori: il criterio di Mebahiah",
+        "risposta": "Alla domanda se andare a vivere lontano dai tuoi genitori, Mebahiah dà il sì se riesci a immaginare i tuoi giorni ordinari dopo la scelta; altrimenti aspetta. Nel Cuore, Hahaiah ti porta la calma silenziosa di chi ascolta dentro. Nell'Intelletto, Haheuiah ti insegna che scegliere vuol dire lasciare fuori qualcosa.",
+        "cosaFare": "Prima di decidere se andare a vivere lontano dai tuoi genitori, chiediti che cosa succede se aspetti qualche settimana e che cosa se agisci oggi. Scrivi in una riga ciò che per te conta in questa scelta e come lo vivresti nei giorni ordinari.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Mebahiah",
+          "titolo": "Mebahiah",
+          "risposta": "Quello che trasmetti passa per ciò che fai, non per ciò che dichiari. Mebahiah ti invita a togliere distanza fra pensiero e condotta. Scrivi su un foglio una regola che chiedi agli altri di rispettare e osserva per tre giorni se la rispetti anche tu.",
+          "cosaFare": "Alla fine dei tre giorni, se hai mancato quella regola, correggi prima la tua condotta e solo dopo torna a chiederla agli altri. Non riprendere nessuno su quel punto per tutta la settimana: il silenzio sulla regola altrui ti costringe a guardare la tua.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Hahaiah",
+          "titolo": "Hahaiah",
+          "risposta": "Custodire ciò che qualcuno ti ha confidato porta una tenerezza discreta e un certo peso. Puoi sentire entrambi: la tenerezza della fiducia ricevuta e la fatica di tenere un segreto che non è tuo. Nel rifugio interiore c'è posto per tutti e due.",
+          "cosaFare": "Se porti una confidenza, serbala senza raccontarla a nessuno, nemmeno per alleggerirti. Se il peso cresce, scrivi su un foglio ciò che provi tu, senza nomi né dettagli dell'altra persona, poi strappalo. Hahaiah ti lascia portare il segreto con discrezione: nel tuo rifugio interiore c'è posto anche per questo.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Haheuiah",
+          "titolo": "Haheuiah",
+          "risposta": "Tolleranza e assenza di limiti si scambiano spesso il nome. Haheuiah ti mostra la differenza: la tolleranza sceglie che cosa lasciar passare; l'assenza di limiti lascia passare tutto perché non ha mai deciso nulla. Il confine che poni intorno a te è la condizione della tolleranza, non il suo opposto.",
+          "cosaFare": "Decidi oggi in modo esplicito che cosa lasci passare e dove ti fermi. Scrivi la cosa che finora hai tollerato senza averla mai scelta. Non darle il nome di apertura: la tolleranza vera nasce da un limite posto, non dalla sua assenza.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-29",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Lui tornerà da me dopo quello che è successo?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "47 Asaliah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Lauviah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "68 Habuhiah",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Umabel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "32 Vasariah",
+          "coro": "Dominazioni",
+          "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+          "angeloDellaPersona": "Elemiah",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Un ritorno dipende da lui o da lei: tu parti da te",
+        "risposta": "Un suo ritorno non si legge nelle carte: Asaliah ti invita a distinguere ciò che vedi da ciò che speri di vedere. Intanto, nel Cuore, Habuhiah ti lascia sentire la gioia di dare senza conti. Nell'Intelletto, Vasariah ti ricorda che un gesto non dice tutta una persona.",
+        "cosaFare": "Lascia che sia una sua scelta e intanto metti al centro ciò che fa bene alla tua vita. Metti in fila tre fatti del tuo rapporto così come sono andati, senza interpretarli né addolcirli. Intanto la tua giornata è un luogo dove puoi stare bene.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Asaliah",
+          "titolo": "Asaliah",
+          "risposta": "Cercare il vero può metterti in torto: Asaliah ti chiede di accettarlo. Ripensa all'ultima discussione in cui hai difeso la tua posizione per comodità. Scrivi oggi su un foglio il punto in cui l'altra persona aveva ragione e rileggilo prima della prossima discussione.",
+          "cosaFare": "Accanto a quel punto oggi non aggiungere le tue ragioni: lascia il riconoscimento intero, senza nessun però. Nella prossima discussione, prima di difendere la tua posizione, chiediti ad alta voce se la difendi perché è vera o perché ti conviene.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Habuhiah",
+          "titolo": "Habuhiah",
+          "risposta": "La generosità vera ha un sapore semplice, quasi domestico: un piatto in più, un passaggio offerto, un'ora regalata. Habuhiah te la fa sentire come gioia, non come dovere. Ti alleggerisce la giornata finché il dono non diventa una rivendicazione da far pesare.",
+          "cosaFare": "Scegli un gesto domestico da regalare questa settimana, piccolo e concreto: fallo con gioia invece che per dovere. Se ti accorgi che stai per ricordarlo a qualcuno, fermati: il dono rivendicato smette di essere dono. Tieni leggero il gesto, così resta leggera anche la giornata.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Vasariah",
+          "titolo": "Vasariah",
+          "risposta": "Tenere il conto dei torti e fare giustizia sembrano parenti, ma divergono. Vasariah ti mostra che il conto guarda indietro e non si chiude mai; la giustizia guarda il torto una volta, decide e lo lascia alle spalle. Lasciar correre tutto, all'estremo opposto, è rinunciare a un limite.",
+          "cosaFare": "Chiudi oggi un conto aperto: guarda il torto una volta, decidi che cosa chiedere e poi lascialo alle spalle. Non tenerlo in serbo per la prossima lite. Evita anche l'errore opposto: se una cosa supera il limite, dillo invece di lasciar correre.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-30",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Compro casa adesso o aspetto un anno?",
+      "ambitoDellaDomanda": "scelte",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "68 Habuhiah",
+          "coro": "Angeli",
+          "dominioDelCoro": "il fondamento e la materia che si compie",
+          "angeloDellaPersona": "Mebahiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "46 Ariel",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Rochel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "47 Asaliah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Ierathel",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Comprare casa adesso o aspettare un anno: decidi con un consulente",
+        "risposta": "La casa: decidi con un consulente. Habuhiah ti incoraggia a concederti con generosità il tempo e l'aiuto che ti servono. In questa situazione, quanto al Cuore, Ariel ti dà la serenità di sapere, non di supporre. Quanto all'Intelletto, Asaliah ti rende chiaro che la verità aiuta più dell'illusione.",
+        "cosaFare": "Sulla scelta fra comprare casa adesso e aspettare un anno chiedi un parere a un consulente indipendente e fatti spiegare i rischi per iscritto. Chiedi oggi un aiuto pratico a chi ti è vicino per preparare le domande da portare a chi ti segue.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Habuhiah",
+          "titolo": "Habuhiah",
+          "risposta": "Quando doni aspettando un grazie, il dono si irrigidisce e pesa su chi lo riceve. Habuhiah scioglie il gesto dall'attesa di riconoscimento: dare senza contare è la sua generosità pratica. Questa settimana fai tre piccoli favori senza firma e non raccontarli a nessuno.",
+          "cosaFare": "Fra un favore e l'altro, non controllare se qualcuno ha capito che venivano da te. Se ti accorgi di aspettare un grazie, scrivi su un foglio quel bisogno e strappalo. A fine settimana scegli un quarto gesto, più impegnativo, per una persona che non ti è simpatica.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Ariel",
+          "titolo": "Ariel",
+          "risposta": "Forse diffidi delle tue percezioni e aspetti che qualcun altro le confermi. Ariel porta un permesso: sentire la fiducia che nasce quando un piccolo indizio, colto in tempo, si rivela fondato. Quella fiducia non è presunzione. È rispetto per il modo in cui ti accorgi delle cose.",
+          "cosaFare": "Non aspettare che qualcuno confermi ciò che hai percepito prima di prenderlo sul serio. Scrivi la tua impressione in una riga, poi verificala da te con un fatto semplice. Quando risulta fondata, prendine nota: così impari a fidarti del tuo modo di accorgerti delle cose.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Asaliah",
+          "titolo": "Asaliah",
+          "risposta": "Tolleranza e indifferenza hanno lo stesso aspetto da fuori. La tolleranza ha ascoltato fino in fondo e ha scelto di lasciare spazio; l'indifferenza non ha preso posizione per non esporsi. Asaliah ti fa distinguere le due dal punto di partenza, non dal risultato.",
+          "cosaFare": "Prima di lasciar correre, ascolta fino in fondo la posizione che non condividi: fai una domanda in più invece di chiudere. Solo dopo decidi se lasciare spazio. Non tacere per non esporti: la tolleranza che nasce dall'ascolto regge, quella che nasce dalla fuga si svuota.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-31",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+      "ambitoDellaDomanda": "lavoro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "21 Nelchael",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Haiaiel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "46 Ariel",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Haiaiel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "19 Leuviah",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Mahasiah",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "La promozione: l'esito non è scritto, conta ciò che fai tu",
+        "risposta": "L'esito della promozione non è scritto nelle carte: Nelchael ti insegna a reggere il non sapere ancora, imparando ciò che puoi nel frattempo. Mentre aspetti, nel Cuore, Ariel ti porta la quiete di verificare prima di temere. Nell'Intelletto, Leuviah ti svela che ricostruire il passato chiarisce il presente.",
+        "cosaFare": "Per la promozione chiedi a chi decide un riscontro concreto su ciò che ti manca. Scrivi la domanda a cui non hai ancora risposta e accanto ciò che puoi imparare intanto. Ciò che prepari adesso resta tuo, qualunque sia l'esito.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Nelchael",
+          "titolo": "Nelchael",
+          "risposta": "Ciò che hai imparato acquista senso quando lo passi a qualcun altro. Nelchael lega lo studio alla trasmissione, non al bisogno di avere ragione. Questa settimana spiega a una persona un concetto che hai capito di recente, usando un esempio tuo.",
+          "cosaFare": "Chiedi alla persona di farti una domanda su ciò che hai spiegato e rispondi senza difendere la tua versione. Non usare la teoria per mostrare quanto sai: lo scopo è che capisca, non che ti ammiri. Annota la domanda più spinosa e studiala in settimana.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Ariel",
+          "titolo": "Ariel",
+          "risposta": "Forse diffidi delle tue percezioni e aspetti che qualcun altro le confermi. Ariel porta un permesso: sentire la fiducia che nasce quando un piccolo indizio, colto in tempo, si rivela fondato. Quella fiducia non è presunzione. È rispetto per il modo in cui ti accorgi delle cose.",
+          "cosaFare": "Non aspettare che qualcuno confermi ciò che hai percepito prima di prenderlo sul serio. Scrivi la tua impressione in una riga, poi verificala da te con un fatto semplice. Quando risulta fondata, prendine nota: così impari a fidarti del tuo modo di accorgerti delle cose.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Leuviah",
+          "titolo": "Leuviah",
+          "risposta": "Rimuovere non è chiudere. Ciò che rimuovi in blocco torna sotto forma di errore ripetuto; ciò che ricostruisci con precisione si chiude davvero. La memoria esatta non è un peso: è lo strumento che ti permette di non rifare la stessa strada.",
+          "cosaFare": "Non archiviare in blocco ciò che ti ha fatto male. Ricostruisci invece un episodio preciso: dove eri, che cosa è accaduto, che cosa hai scelto. Poi scrivi in una riga l'errore da non ripetere e tienila a portata di mano nei giorni in cui torni su quella strada.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-32",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Quale strada scelgo tra i due corsi di laurea?",
+      "ambitoDellaDomanda": "scelte",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "18 Caliel",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Mebahiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "52 Imamiah",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Mumiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": null,
+          "coro": null,
+          "dominioDelCoro": null,
+          "angeloDellaPersona": null,
+          "coperta": true
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Fra i due corsi di laurea: scegli con il criterio di Caliel",
+        "risposta": "Fra i due corsi di laurea le carte danno un criterio, non un nome: Caliel ti consiglia quella sostenuta dai fatti, non dalle opinioni altrui. Davanti a questa scelta, nel Cuore, Imamiah ti infonde la fiducia di poter sbagliare senza crollare. L'Intelletto resta coperto senza la tua ora di nascita.",
+        "cosaFare": "Prima di scegliere fra i due corsi di laurea, raccogli i fatti che ti mancano. Separa per ciascuna strada i fatti che conosci dalle opinioni che hai sentito, poi rileggi con calma. Dai a questa scelta i giorni che il suo peso richiede, senza farti mettere fretta.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Caliel",
+          "titolo": "Caliel",
+          "risposta": "In una discussione accesa, separa ciò che è accaduto da ciò che se ne pensa. Caliel insegna a pronunciarsi sui fatti senza bisogno di alzare la voce. Prima di rispondere, scrivi su un foglio due elenchi, fatti e opinioni, poi parla soltanto del primo con tono basso.",
+          "cosaFare": "Quando hai parlato, lascia cadere le opinioni anche se l'altra persona insiste sulle sue: resta sui fatti. Non ripetere lo stesso fatto alzando la voce per farlo pesare di più. Stasera rileggi l'elenco e segna quale fatto ha cambiato davvero il corso della discussione.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Imamiah",
+          "titolo": "Imamiah",
+          "risposta": "Riconoscere un tuo errore porta un rimorso onesto, che brucia ma non distrugge. Imamiah ti permette di sentirlo senza trasformarlo in condanna. Accanto al rimorso c'è un sollievo che forse non ti aspettavi: averlo ammesso è già la prima parte della riparazione.",
+          "cosaFare": "Se c'è un errore che riconosci come tuo, dillo a voce alta, con parole semplici. Non aggiungere sentenze su chi sei: l'errore è un fatto, non un nome. Se poi arriva il sollievo, non diffidarne: non è una scorciatoia, è il segno che hai cominciato a riparare.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": null,
+          "risposta": "La terza carta resta coperta: l'Angelo dell'Intelletto si rivela quando conosco la tua ora di nascita. Aggiungila e la carta si girerà."
+        }
+      ]
+    },
+    {
+      "id": "oracolo-33",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Come gestisco il conflitto con il mio capo?",
+      "ambitoDellaDomanda": "lavoro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "63 Anauel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Ierathel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "25 Nithhaiah",
+          "coro": "Dominazioni",
+          "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+          "angeloDellaPersona": "Vehuiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "14 Mebahel",
+          "coro": "Cherubini",
+          "dominioDelCoro": "la sapienza e la luce che mette ordine",
+          "angeloDellaPersona": "Mumiah",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Per gestire il conflitto con il tuo capo: la strada che indica Anauel",
+        "risposta": "Per gestire il conflitto con il tuo capo, Anauel ti raccomanda di partire da un interesse che condividi con l'altra persona. Per riuscirci, il Cuore risponde così: Nithhaiah ti porta la calma di ascoltare senza rispondere subito. L'Intelletto aggiunge: Mebahel ti mostra che la sincerità non è durezza.",
+        "cosaFare": "Con il tuo capo comincia da una cosa semplice: ascolta fino in fondo ciò che ha da dire, senza preparare la risposta. Annota per te un interesse che condividi con questa persona e tienilo davanti quando ci pensi. Il passo successivo si vede solo dopo il primo.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Anauel",
+          "titolo": "Anauel",
+          "risposta": "Anauel unisce logica e calore: un accordo non è una partita da chiudere a tuo favore. Se una discussione si è inceppata, scrivi oggi una soluzione che dia qualcosa a entrambe le parti, poi rileggila togliendo ogni frase che suona come un ultimatum.",
+          "cosaFare": "Fatta la proposta, invita l'altra parte a migliorarla con una sua aggiunta invece di rispondere soltanto sì o no. Non irrigidirti se la prima reazione è fredda: lascia passare una notte prima di tornare sul tema. Un accordo condiviso nasce da due mani sulla stessa proposta.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Nithhaiah",
+          "titolo": "Nithhaiah",
+          "risposta": "Smettere di cercare una risposta ti porta prima un'ansia, poi una resa morbida. Nithhaiah accoglie entrambe. L'ansia è il bisogno di controllo che si allenta; la resa è il luogo dove le intuizioni trovano spazio. Puoi lasciarti attraversare dal mistero senza paura.",
+          "cosaFare": "Metti da parte fino a domani la domanda che ti assilla. Fai qualcosa di semplice con le mani, una passeggiata o un po' di riordino, senza tornarci col pensiero. Se l'ansia di controllo sale, lasciala allentare senza combatterla: le intuizioni di Nithhaiah trovano spazio quando la presa si scioglie.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Mebahel",
+          "titolo": "Mebahel",
+          "risposta": "Prima di misurare gli altri, Mebahel misura te. Questa è la sua distinzione più netta: la giustizia che parte da sé è credibile; quella che parte sempre dagli altri diventa un processo che non finisce. Il criterio vale anche negli accordi che firmi.",
+          "cosaFare": "Applica a te, oggi, la stessa misura che usi per un'altra persona. Elenca la tua parte nella questione prima di quella altrui e riconoscila ad alta voce, se serve. Non aprire un processo agli altri finché il tuo conto non è chiaro.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-34",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Il cambiamento che sento arrivare sarà positivo?",
+      "ambitoDellaDomanda": "attese",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "36 Menadel",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Mikael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "59 Harahel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Elemiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "37 Aniel",
+          "coro": "Potenze",
+          "dominioDelCoro": "la forza e il rigore che pone confini",
+          "angeloDellaPersona": "Lelahel",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Il cambiamento: nessuna carta lo promette, conta il tuo passo",
+        "risposta": "L'esito del cambiamento non è scritto nelle carte e nessuno può promettertelo: Menadel ti raccomanda di fare bene ogni giorno ciò che ti spetta, imparando mentre aspetti. Nel Cuore, Harahel ti fa provare stima per la strada già fatta. Nell'Intelletto, Aniel ti fa capire che rimuginare non è pensare.",
+        "cosaFare": "Se vuoi una lettura più precisa, rifai la domanda dicendo di che cambiamento si tratta. Intanto separa ciò che dipende da te da ciò che non dipende da te. Scrivi stasera che cosa hai imparato oggi da ciò che fai ogni giorno, mentre aspetti.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Menadel",
+          "titolo": "Menadel",
+          "risposta": "Identificarti col ruolo fino a sparirci dentro è l'ombra di Menadel; la sua luce è crescere attraverso ciò che fai. Stasera, chiusa la giornata, scrivi una riga su chi sei fuori da quel ruolo e una su ciò che il tuo posto ti sta facendo diventare.",
+          "cosaFare": "Difendi la riga su chi sei fuori da quel ruolo con un impegno fisso della settimana che non lo riguarda. Non allungare la giornata per abitudine: restare oltre non dimostra il tuo valore. Domenica sera rileggi le due righe e correggi quella che è cambiata.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Harahel",
+          "titolo": "Harahel",
+          "risposta": "Accumulare nozioni dà una sicurezza che a volte somiglia all'ansia: un'altra pagina, un altro libro, senza mai fermarti a gustarne uno. Harahel ti permette di riconoscere quella fame senza giudicarla. Sotto c'è un desiderio bellissimo di capire, che chiede soltanto di rallentare.",
+          "cosaFare": "Ferma per una settimana l'accumulo: niente libri nuovi, niente corsi nuovi. Riprendi una cosa già letta e approfondiscila fino a poterla spiegare senza appunti. Non giudicare la tua fame di sapere: dalle soltanto un ritmo più lento, perché possa diventare comprensione.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Aniel",
+          "titolo": "Aniel",
+          "risposta": "Il punto da capire è questo: un problema che torna identico non è un caso, è uno schema. Ha un innesco, un percorso e un ritorno sempre uguali. La tradizione lega Aniel ai meccanismi da capire per poterne uscire: finché non vedi l'innesco, giri intorno alla stessa cosa chiamandola novità.",
+          "cosaFare": "Cerca l'innesco, non il problema. La prossima volta che la stessa situazione si accende, fermati al primo segnale e annota dove ti trovi, con chi, in quale momento della giornata. Oggi basta questo: dare un nome all'innesco toglie al cerchio la sua aria di novità.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-35",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "La mia relazione può durare nonostante la distanza?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "47 Asaliah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Iahhel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "57 Nemamiah",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Nithhaiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "23 Melahel",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Nemamiah",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "La tua relazione: l'esito non è scritto, conta ciò che fai tu",
+        "risposta": "Se la tua relazione può durare non è scritto nelle carte: Asaliah vuole che tu sappia dove sei davvero, non dove vorresti essere. In questo rapporto, nel Cuore, Nemamiah ti dà una calma che le apparenze non scuotono. Nell'Intelletto, Melahel ti insegna che l'esito si prepara nei dettagli quotidiani.",
+        "cosaFare": "Per la tua relazione concorda con l'altra persona un ritmo di contatto sostenibile per entrambe le parti. Dividi su due colonne ciò che speri e ciò che sai, poi lascia guidare i fatti. Ciò che prepari adesso resta tuo, qualunque sia l'esito.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Asaliah",
+          "titolo": "Asaliah",
+          "risposta": "Cercare il vero può metterti in torto: Asaliah ti chiede di accettarlo. Ripensa all'ultima discussione in cui hai difeso la tua posizione per comodità. Scrivi oggi su un foglio il punto in cui l'altra persona aveva ragione e rileggilo prima della prossima discussione.",
+          "cosaFare": "Accanto a quel punto oggi non aggiungere le tue ragioni: lascia il riconoscimento intero, senza nessun però. Nella prossima discussione, prima di difendere la tua posizione, chiediti ad alta voce se la difendi perché è vera o perché ti conviene.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Nemamiah",
+          "titolo": "Nemamiah",
+          "risposta": "L'indecisione, mentre il momento utile passa, ha un sapore di paralisi e di rimorso anticipato. Nemamiah non te la rimprovera. Ti invita a sentirla per intero, poi a riconoscere il coraggio quieto che le sta accanto: la fedeltà a ciò che hai capito, anche quando il tempo stringe.",
+          "cosaFare": "Decidi entro questa sera la questione che lasci in sospeso mentre il momento utile passa. Rileggi ciò che hai capito e fidati di quello, anche se non hai tutte le risposte. Non aspettare una certezza che non arriva: il rimorso anticipato si scioglie quando agisci.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Melahel",
+          "titolo": "Melahel",
+          "risposta": "Un'attenzione ripetuta vale più di un intervento eccezionale. Melahel insegna il meccanismo: ciò che accudisci poco ma spesso resta in ordine; ciò che trascuri a lungo chiede poi uno sforzo raro e costoso. Il tuo tempo lavora a favore o contro, secondo il ritmo che gli dai.",
+          "cosaFare": "Stabilisci un ritmo fisso per prenderti cura di ciò che ti è affidato: poco, ma spesso. Segna sul calendario un controllo breve ogni settimana invece di una grande pulizia ogni tanto. Non rimandare il gesto di oggi pensando di recuperare tutto in una volta più avanti.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-36",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Dimmi qualcosa.",
+      "ambitoDellaDomanda": "trabocchetto, vaga",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "54 Nithael",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Haheuiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "41 Hahahel",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Poyel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "23 Melahel",
+          "coro": "Troni",
+          "dominioDelCoro": "la comprensione profonda e la fermezza",
+          "angeloDellaPersona": "Elemiah",
+          "coperta": false
+        }
+      ],
+      "variante": 2,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Per oggi, un orientamento con Nithael accanto",
+        "risposta": "Senza una domanda precisa le carte danno un orientamento: Nithael ti orienta verso la bellezza che dura e verso il piacere di mostrarla. Per questo periodo, il Cuore risponde così: Hahahel ti dà la pace di chi non recita. L'Intelletto aggiunge: Melahel ti mostra che prevenire costa meno che riparare.",
+        "cosaFare": "Se c'è una situazione che ti sta a cuore, rifai la domanda nominandola: le carte leggono meglio ciò che nomini. Nota oggi una cosa bella che altri non guardano e mostrala a una persona cara. Un gesto piccolo, fatto oggi, vale più di molte previsioni.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Nithael",
+          "titolo": "Nithael",
+          "risposta": "Mostra agli altri ciò che rende bello il tuo angolo di mondo. Nithael lega la bellezza alla durata: si trasmette, non si accumula. Entro sabato condividi con qualcuno un oggetto, un luogo o un mestiere che ti è arrivato da prima, raccontandone la storia.",
+          "cosaFare": "Raccontata quella storia, chiedi a chi ti ascolta se c'è qualcosa che ha ricevuto da chi c'era prima e lascia che ne parli. Non confrontare le due storie per stabilire quale sia più bella: la bellezza che si trasmette non ha bisogno di primati.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Hahahel",
+          "titolo": "Hahahel",
+          "risposta": "Tenere alle tue convinzioni quando nessuno le vede praticate può lasciare una certa solitudine. Hahahel te la rende abitabile: puoi sentirne il peso e insieme la dignità. Ciò che fai di nascosto, coerente con ciò che credi, ti dà una pace che non dipende dall'approvazione degli altri.",
+          "cosaFare": "Tieni la tua convinzione anche oggi, in una scelta concreta che nessuno nota. Non cercare chi ti dia ragione per sentirti meno in disparte. Scrivi in una riga a che cosa serve la tua parola e rileggila quando la solitudine pesa: ti ricorda per chi lo fai.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Melahel",
+          "titolo": "Melahel",
+          "risposta": "Un'attenzione ripetuta vale più di un intervento eccezionale. Melahel insegna il meccanismo: ciò che accudisci poco ma spesso resta in ordine; ciò che trascuri a lungo chiede poi uno sforzo raro e costoso. Il tuo tempo lavora a favore o contro, secondo il ritmo che gli dai.",
+          "cosaFare": "Stabilisci un ritmo fisso per prenderti cura di ciò che ti è affidato: poco, ma spesso. Segna sul calendario un controllo breve ogni settimana invece di una grande pulizia ogni tanto. Non rimandare il gesto di oggi pensando di recuperare tutto in una volta più avanti.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-37",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Posso fidarmi del mio compagno?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "60 Mitzrael",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Hahahel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "31 Lecabel",
+          "coro": "Dominazioni",
+          "dominioDelCoro": "la misericordia e l'abbondanza che si apre",
+          "angeloDellaPersona": "Vehuiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "2 Ieliel",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Sealiah",
+          "coperta": false
+        }
+      ],
+      "variante": 0,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Sulla fiducia contano i gesti nel tempo",
+        "risposta": "Se puoi fidarti del tuo compagno lo dicono i suoi gesti: Mitzrael ti consiglia di costruire con pazienza la tua serenità, senza farla dipendere dall'altra persona. Nel Cuore, Lecabel ti fa sentire un'attenzione affettuosa ai piccoli segni. Nell'Intelletto, Ieliel ti fa capire che un legame si vede nel tempo.",
+        "cosaFare": "Guarda se le parole e i gesti del tuo compagno vanno nella stessa direzione, senza indagare di nascosto. Annota un piccolo gesto di pazienza che puoi avere in questo rapporto, senza aspettarti nulla in cambio. Le sue scelte sono sue: tu puoi curare le tue.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Mitzrael",
+          "titolo": "Mitzrael",
+          "risposta": "Quando qualcosa si incrina fra te e un'altra persona, la tentazione è di restituire il torto. Mitzrael chiede pazienza al posto della rivincita. Se ti succede, scrivi oggi per te una frase che parte dal pezzo da riparare, non da chi ha cominciato: poi rileggila a mente calma.",
+          "cosaFare": "Tieni quella frase con te e usala soltanto se vi capita di parlarne, senza cercare l'occasione. Se arriva una parola dura, non rispondere sul torto: torna al pezzo da riparare con una frase breve. Tieni da parte ogni voglia di rivincita finché la tensione non cala.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Lecabel",
+          "titolo": "Lecabel",
+          "risposta": "Se il perfezionismo ti porta un'ansia minuziosa, quella del dettaglio che non torna mai, Lecabel la accoglie senza ironia e senza rimprovero: sa quanto ti importa che le cose siano fatte bene. Accanto c'è la soddisfazione precisa di quando il dettaglio trova posto nell'insieme.",
+          "cosaFare": "Consegna oggi ciò che è pronto, anche se un dettaglio non ti convince. Prima rileggi l'insieme dall'alto e chiediti se quel dettaglio cambia davvero il risultato. Se non lo cambia, lascialo e annotalo per la prossima versione. Lecabel tiene insieme precisione e misura: il progetto regge anche senza perfezione.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Ieliel",
+          "titolo": "Ieliel",
+          "risposta": "Capisci la differenza fra un disaccordo e una rottura. Il disaccordo riguarda un punto; la rottura riguarda il legame intero. Ieliel mostra che un legame tiene proprio perché sopporta il primo senza scivolare nella seconda: tornare alla stessa persona dopo una discussione non smentisce ciò che hai detto.",
+          "cosaFare": "Se c'è una persona con cui hai discusso, separa per iscritto il punto del disaccordo dal legame intero: due righe distinte. Il punto resta dove sta, non serve rinunciarci né chiuderlo adesso. Ieliel ti chiede di vedere che il legame può reggere anche con una questione ancora aperta.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-38",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Come posso ritrovare l'intesa con mio marito?",
+      "ambitoDellaDomanda": "amore",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "64 Mehiel",
+          "coro": "Arcangeli",
+          "dominioDelCoro": "la gloria e la parola che annuncia",
+          "angeloDellaPersona": "Caliel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "4 Elemiah",
+          "coro": "Serafini",
+          "dominioDelCoro": "l'amore che arde e la volontà che accende",
+          "angeloDellaPersona": "Nithhaiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "48 Mihael",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Hariel",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Per ritrovare l'intesa con tuo marito: la strada che indica Mehiel",
+        "risposta": "Per ritrovare l'intesa con tuo marito, Mehiel ti insegna a dire ciò che senti con parole ragionate, né fredde né travolgenti. Per riuscirci, il Cuore risponde così: Elemiah ti lascia ascoltare l'intuito, non il tumulto. L'Intelletto aggiunge: Mihael ti rivela che un legame si nutre di presenza.",
+        "cosaFare": "Con tuo marito comincia da una cosa semplice: ascolta fino in fondo ciò che ha da dire, senza preparare la risposta. Scrivi in due righe ciò che senti e in due righe ciò che pensi di questo rapporto, poi confrontale.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Mehiel",
+          "titolo": "Mehiel",
+          "risposta": "Il ragionamento senza sentire suona freddo, il sentire senza ragionamento si disperde. Mehiel tiene insieme le due cose. Scrivi oggi in poche righe un'idea a cui tieni e aggiungi accanto a ogni argomento un esempio vissuto: poi leggila ad alta voce, anche soltanto per te.",
+          "cosaFare": "Finita la lettura, scegli l'esempio che ricordi meglio e mettilo in apertura. Se la leggi a qualcuno, non cambiare la sostanza del ragionamento per compiacere chi ascolta: accogli le osservazioni sul modo di dirlo, non sul contenuto che hai vagliato con la tua testa.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Elemiah",
+          "titolo": "Elemiah",
+          "risposta": "Dentro di te si muove un'agitazione che somiglia alla paura di un ostacolo. Puoi accoglierla senza obbedirle: a volte l'ostacolo è vero, altre volte è il tuo tumulto a fare rumore. Elemiah ti lascia sentire il sollievo di saperli distinguere, invece di temere tutto allo stesso modo.",
+          "cosaFare": "Concediti un giorno prima di reagire all'ostacolo che senti. Oggi osserva soltanto: quando arriva l'agitazione, segna l'ora e che cosa stava succedendo intorno. Stasera rileggi le note. Se l'agitazione sale anche quando non accade niente, Elemiah ti mostra che il rumore viene da dentro, non dalla strada che hai davanti.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Mihael",
+          "titolo": "Mihael",
+          "risposta": "Il controllo si presenta spesso come cura, ma il meccanismo è opposto. La cura lascia spazio all'altra persona e resta presente; il controllo riempie lo spazio per non sentire l'incertezza. Mihael ti insegna a distinguere la fedeltà come pratica dalla sorveglianza: la prima costruisce fiducia, la seconda la consuma.",
+          "cosaFare": "Rinuncia oggi a un controllo su qualcuno a cui tieni, se ti viene la tentazione: una domanda di troppo, un messaggio per sapere dove si trova. Lascia l'incertezza che senti senza riempirla: la fiducia cresce nello spazio che lasci, non in quello che sorvegli.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-39",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+      "ambitoDellaDomanda": "lavoro",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "44 Ielahiah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Achaiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "49 Vehuel",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Ielahiah",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": "56 Poyel",
+          "coro": "Principati",
+          "dominioDelCoro": "la vittoria e lo slancio che persiste",
+          "angeloDellaPersona": "Lauviah",
+          "coperta": false
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "Lasciare il lavoro per tornare a studiare: decidi con il criterio di Ielahiah",
+        "risposta": "Alla domanda se lasciare il lavoro per tornare a studiare, Ielahiah risponde sì se puoi mantenere questa scelta anche quando costa; se no, aspetta. Davanti a questa scelta, nel Cuore, Vehuel ti restituisce fiducia nel tuo giudizio, senza durezza. Nell'Intelletto, Poyel ti fa vedere la differenza fra necessario e superfluo.",
+        "cosaFare": "Prima di decidere se lasciare il lavoro per tornare a studiare, separa i fatti dalle paure e parlane con una persona di cui ti fidi. Scrivi quale delle due strade ti chiede di più e quale ritieni giusta, poi rileggi fra qualche giorno.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Ielahiah",
+          "titolo": "Ielahiah",
+          "risposta": "Sotto pressione la rettitudine non alza la voce, resta dove ha detto che sarebbe stata. Ielahiah è la fermezza che non diventa durezza. Scrivi l'impegno che oggi ti costa di più mantenere e accanto il prezzo che accetti: poi rispettalo fino a sera.",
+          "cosaFare": "Domattina rileggi quel foglio e decidi se il prezzo è ancora sostenibile: se lo è, rinnova l'impegno a voce con chi lo riguarda. Non confondere la fermezza con la durezza. Puoi mantenere la parola e restare gentile con chi ti chiede di cambiarla.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Vehuel",
+          "titolo": "Vehuel",
+          "risposta": "L'ammirazione è un'emozione nobile e spesso trascurata. Vehuel la porta: riconoscere ciò che vale in un'altra persona e sentirne gioia invece di invidia. Accogli quel calore quando arriva: ti apre agli altri, a patto che il tuo metro alto non si trasformi in vanità.",
+          "cosaFare": "Esprimi l'ammirazione che provi invece di tenerla per te: una frase sincera, rivolta a chi la merita, senza paragoni con la tua strada. Se senti affiorare l'invidia, non inseguirla e non vergognartene. Torna al valore che hai visto: è quello ad aprirti agli altri.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": "Poyel",
+          "titolo": "Poyel",
+          "risposta": "Rialzarsi e salire sono due movimenti diversi. Salire misura la distanza da chi sta sotto; rialzarsi misura solo la distanza dal punto della caduta. La tradizione lega Poyel al rialzarsi più che al salire. Capirlo cambia il metro: il tuo cammino si confronta con te, non con gli altri.",
+          "cosaFare": "Misura il tuo cammino dal punto della caduta, non dalla posizione degli altri. Scrivi che cosa hai recuperato da allora, anche poco. Evita oggi i confronti con chi sembra più in alto: rialzarsi ha un metro solo, la distanza da dove ti trovavi quel giorno.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        }
+      ]
+    },
+    {
+      "id": "oracolo-40",
+      "arte": "Oracolo degli Angeli",
+      "domanda": "Arriverà presto la risposta che aspetto?",
+      "ambitoDellaDomanda": "attese",
+      "simboli": [
+        {
+          "ruolo": "Angelo Custode",
+          "posizione": "Cosa fare",
+          "angelo": "45 Sealiah",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Aniel",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "posizione": "Cosa sentire",
+          "angelo": "48 Mihael",
+          "coro": "Virtu'",
+          "dominioDelCoro": "la bellezza e l'armonia che guarisce",
+          "angeloDellaPersona": "Nithael",
+          "coperta": false
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "posizione": "Cosa capire",
+          "angelo": null,
+          "coro": null,
+          "dominioDelCoro": null,
+          "angeloDellaPersona": null,
+          "coperta": true
+        }
+      ],
+      "variante": 1,
+      "profondita": "Breve",
+      "dalModello": false,
+      "responso": {
+        "titolo": "La risposta che aspetti: l'esito non è scritto, conta ciò che fai tu",
+        "risposta": "Se e quando arriva la risposta che aspetti non è scritto nelle carte: Sealiah ti chiede di tenere in moto la tua parte, anche se va piano. Mentre aspetti, nel Cuore, Mihael ti fa sentire la fiducia di chi resta fedele. L'Intelletto resta coperto senza la tua ora di nascita.",
+        "cosaFare": "Se vuoi una lettura più precisa, rifai la domanda dicendo di che risposta si tratta. Intanto separa ciò che dipende da te da ciò che non dipende da te. Rimetti in moto ogni giorno un piccolo pezzo di ciò che dipende da te, anche dieci minuti.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "I 72 nomi vengono dal versetto triplice dell'Esodo, 14, 19-21; i loro cori e i loro salmi da Lenain, La Science cabalistique, 1823. I tuoi angeli vengono dal grado del Sole e dal giorno della tua nascita; l'Angelo dell'Intelletto, quando la conosci, dalla sua ora. La risposta la compone Medora dal dono e dalla via di ogni angelo uscito; i messaggi e i consigli delle carte li ha scritti lei per ogni angelo."
+      },
+      "singole": [
+        {
+          "ruolo": "Angelo Custode",
+          "angelo": "Sealiah",
+          "titolo": "Sealiah",
+          "risposta": "Le cose lente non si sbloccano con la fretta, si scaldano con la costanza. Sealiah spinge piano un ingranaggio arrugginito finché torna a girare. Dedica dieci minuti al giorno, per tutta la settimana, alla cosa che hai lasciato in sospeso: non di più.",
+          "cosaFare": "Tieni un timer accanto e fermati davvero allo scadere dei dieci minuti, anche quando avresti voglia di continuare: la costanza nasce dal rispetto del limite. Domenica sera guarda quanto si è mosso l'ingranaggio e decidi se allungare di poco il tempo la settimana dopo.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo del Cuore",
+          "angelo": "Mihael",
+          "titolo": "Mihael",
+          "risposta": "Nella fedeltà di ogni giorno abita a volte un'amarezza che non osi dire: dare, esserci, ricordare, senza che torni indietro molto. Mihael non ti chiede di nasconderla. Accoglila come parte del legame. Accanto a lei, piano, cresce la dignità di una presenza che non dipende dal ricambio.",
+          "cosaFare": "Non nasconderti l'amarezza: scrivila in una riga, con precisione, senza accusare nessuno. Poi decidi se dirla all'altra persona con calma, in un momento tranquillo. Continua a esserci, ma smetti di contare: una presenza che non dipende dal ricambio ti pesa meno da portare.",
+          "approfondimento": null,
+          "rito": null,
+          "titoloDelRito": null,
+          "daDoveViene": null
+        },
+        {
+          "ruolo": "Angelo dell'Intelletto",
+          "angelo": null,
+          "risposta": "La terza carta resta coperta: l'Angelo dell'Intelletto si rivela quando conosco la tua ora di nascita. Aggiungila e la carta si girerà."
+        }
+      ]
+    }
+  ]
+}

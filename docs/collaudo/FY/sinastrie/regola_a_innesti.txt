@@ -1,0 +1,50 @@
+REGOLA A, ORDINE FY PARTE B, innesti sulle prove nuove (16 ottobre 2026)
+
+== Innesto 1: la scelta della persona scende di 150 punti sotto il fondo
+   prova: test/la_sinastria_evolutiva_si_apre_sulla_scena_test.dart
+sha1 prima 5092b3687e2fbbe4cd13a8006e7d8f36fca4e9b0
+sha1 con innesto 6cb3b6c12b3f9a8580ef63aeb8babfc3033c050c
+grep dell'innesto: 1
+Expected: exactly one matching candidate
+  Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'nascita_altra_codice'>]: []>
+Expected: a value less than or equal to <760.0>
+  Actual: <894.0>
+Expected: a value less than or equal to <797.0>
+  Actual: <931.0>
+Expected: a value less than or equal to <844.0>
+  Actual: <978.0>
+Expected: a value less than or equal to <915.0>
+  Actual: <1049.0>
+Expected: a value less than or equal to <932.0>
+  Actual: <1066.0>
+00:07 +3 -6: Some tests failed.
+sha1 ripristinato 5092b3687e2fbbe4cd13a8006e7d8f36fca4e9b0
+grep dopo il ripristino: 0
+
+== Innesto 2: il velo della barra della Sinastria evolutiva a 0,9
+   prova: test/le_barre_delle_sinastrie_restano_semitrasparenti_test.dart
+sha1 prima 5092b3687e2fbbe4cd13a8006e7d8f36fca4e9b0
+sha1 con innesto 5c97ee9fe4a3af8f4dd7688afe31cc7fbc09db87
+grep dell'innesto: 1
+FY.20 Sinastria evolutiva: opacita' della barra 0.900 all'apertura, 0.900 scorrendo
+FY.20 Sinastria evolutiva, la scelta: opacita' della barra 0.900 all'apertura, 0.900 scorrendo
+FY.20 La sua nascita: opacita' della barra 0.450 all'apertura, 0.450 scorrendo
+FY.20 La tua nascita: opacita' della barra 0.450 all'apertura, 0.450 scorrendo
+FY.20 Sinastria VIP, la porta: opacita' della barra 0.350 all'apertura, 0.350 scorrendo
+FY.20 Sinastria VIP, la galleria: opacita' della barra 0.350 all'apertura, 0.350 scorrendo
+FY.20 Sinastria VIP, il responso: opacita' della barra 0.000 all'apertura, 0.000 scorrendo
+FY.20 Sinastria VIP, la collezione: opacita' della barra 0.000 all'apertura, 0.000 scorrendo
+00:05 +6 -2: Some tests failed.
+sha1 ripristinato 5092b3687e2fbbe4cd13a8006e7d8f36fca4e9b0
+grep dopo il ripristino: 0
+
+== Innesto 3: il cuore del responso VIP torna a 90 punti dalla cima, come prima di FY.12
+   prova: test/il_cuore_sta_fra_le_due_carte_test.dart (la porta era gia' rossa sul difetto vero, fy12_misure_prima.txt)
+sha1 prima f18d92c118dc9d260c1579d076d2e953677192b8
+sha1 con innesto 9459275c7db219dec9f758d56f7339dd4f9db004
+grep dell'innesto: 1
+FY.12 il responso, 360x792: cuore Offset(180.0, 215.0), meta' fra le carte (180.00, 219.25), scarto orizzontale 0.00, verticale -4.25, fra i centri delle carte 0.00 punti
+FY.12 il responso, 390x858: cuore Offset(195.0, 215.0), meta' fra le carte (195.00, 230.50), scarto orizzontale 0.00, verticale -15.50, fra i centri delle carte 0.00 punti
+00:41 +26 -22: Some tests failed.
+sha1 ripristinato f18d92c118dc9d260c1579d076d2e953677192b8
+grep dopo il ripristino: 0

@@ -1,0 +1,3 @@
+REGOLA A, ordine EU voce 14, 1 ottobre 2026: la guardia i_testi_non_tornano vista rossa.
+INNESTO A1 il Giorno senza il conto delle fasce, solo lo scarto: grep del difetto nel file SI; prova test/i_testi_non_tornano_test.dart ROSSA; Voci del Giorno tornate entro 30 giorni, stessa persona, tradizione e dominio: senza carta 5568, con la carta 6248.; file rimesso sha1 041fc2180408 -> 041fc2180408 IDENTICO
+INNESTO A2 la Settimana senza il numero della settimana: grep del difetto nel file SI; prova test/i_testi_non_tornano_test.dart ROSSA; Voci della Settimana, del Mese e dell'Anno tornate nei 90 giorni: 1500.; file rimesso sha1 041fc2180408 -> 041fc2180408 IDENTICO

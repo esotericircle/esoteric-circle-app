@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- IL MANIFESTO DELLA PRIVACY DI ESOTERIC CIRCLE. Ordine DQ voce 12, 15
+     settembre 2026.
+
+     Dichiara cio' che l'APP raccoglie sui suoi server. Non riscrive cio' che
+     si dichiara da solo: il motore di Flutter, Firebase 12.15.0 (via Swift
+     Package Manager, Crashlytics compreso coi dati dei guasti), ML Kit 9.0 e
+     i plugin che portano il loro manifesto nel pod. L'elenco e' nella
+     guardia test/il_manifesto_della_privacy_test.dart.
+
+     La fonte dei dati raccolti e' la privacy policy dell'app,
+     lib/core/legal/privacy_policy.dart, ancorata al codice dalla sua guardia:
+     una voce qui per ogni cosa che quella pagina dice che teniamo. Gli
+     identificativi sono quelli della documentazione Apple
+     NSPrivacyCollectedDataType e NSPrivacyCollectedDataTypePurposes.
+
+     Non ci sono: la posizione (le coordinate del cielo restano sul
+     telefono), le foto e le immagini del viso (si elaborano sul dispositivo),
+     l'audio (il soffio non si registra). -->
+<plist version="1.0">
+<dict>
+	<!-- Nessun tracciamento: la policy dice che non vendiamo i dati e non li
+	     condividiamo con terzi per pubblicita'. -->
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array>
+		<!-- L'email dell'account, e anche la sua impronta SHA-256 che resta
+		     contro le frodi del dono di benvenuto: Apple conta l'email cifrata
+		     come email. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeEmailAddress</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+		<!-- Il nome che la persona sceglie, con cui i Maestri le parlano. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeName</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+				<string>NSPrivacyCollectedDataTypePurposeProductPersonalization</string>
+			</array>
+		</dict>
+		<!-- L'identificativo dell'account di Firebase Auth. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeUserID</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+		<!-- Le domande ai Maestri e le loro risposte, la memoria che ne
+		     distillano, i responsi custoditi, e il congedo anonimo di chi se ne
+		     va. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeOtherUserContent</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+				<string>NSPrivacyCollectedDataTypePurposeProductPersonalization</string>
+			</array>
+		</dict>
+		<!-- Il cammino, i Sigilli, gli Eos, l'indice dei Ricordi del Cerchio;
+		     e, solo col consenso, i cinque gesti contati per giorno della
+		     misura del ritorno, che non sono legati a nessuno. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeProductInteraction</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+			</array>
+		</dict>
+		<!-- Il gettone dell'apparecchio per le notifiche ad app chiusa, che
+		     sparisce quando le notifiche si spengono. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeDeviceID</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+			</array>
+		</dict>
+		<!-- Giorno, ora e luogo di nascita per la carta natale; il fuso orario
+		     e le ore scelte per le notifiche. Apple non ha un tipo per la
+		     nascita, e la sua documentazione manda qui cio' che non e' nominato
+		     altrove. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeOtherDataTypes</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
+				<string>NSPrivacyCollectedDataTypePurposeProductPersonalization</string>
+			</array>
+		</dict>
+	</array>
+	<!-- LE INTERFACCE A MOTIVO OBBLIGATORIO. Il codice nativo del Runner non
+	     ne chiama nessuna, cercate nei suoi sorgenti il 15 settembre 2026. Le
+	     preferenze dell'app vivono in NSUserDefaults attraverso
+	     shared_preferences: il pacchetto lo dichiara nel suo manifesto, e
+	     l'app lo dice anche qui col motivo CA92.1, perche' sono dati che legge
+	     e scrive solo lei. Le altre, cioe' la data dei file e il tempo
+	     dall'accensione, le usano il motore di Flutter, package_info_plus e
+	     sensors_plus, e le dichiarano nei loro. -->
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

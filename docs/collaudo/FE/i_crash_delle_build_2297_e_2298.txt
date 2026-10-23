@@ -1,0 +1,10 @@
+Letti il 6 ottobre 2026 con tool/i_crash_degli_utenti.py (API Crashlytics v1alpha, finestra di default dell'API).
+
+== python tool/i_crash_degli_utenti.py --build 2297
+(nessun evento)
+
+== python tool/i_crash_degli_utenti.py --build 2298
+2026-10-05T23:49:38 NON_FATAL RMX3081 build 2298 | package:esoteric_circle/main.dart - main.<fn> | evento 227178077003
+2026-10-05T23:46:31 NON_FATAL RMX3081 build 2298 | package:esoteric_circle/main.dart - main.<fn> | evento 227177996688
+2026-10-05T23:25:31 NON_FATAL RMX3081 build 2298 | package:esoteric_circle/main.dart - main.<fn> | evento 227177455522
+2026-10-05T19:19:37 ANR 24090RA29G build 2298 | Native method - android.os.MessageQueue.nativePollOnce | evento 227171118570

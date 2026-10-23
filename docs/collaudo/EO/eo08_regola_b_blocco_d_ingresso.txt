@@ -1,0 +1,72 @@
+innesto in lib/features/santuario/santuario_screen.dart: il vecchio compare 0 volte, il nuovo 1 volte ('        final carouselBottom = entryBottom + entryZone + 8.0' -> '        final carouselBottom = entryBottom + 8.0 + h * 0.008')
+  Expected: <0>
+    Actual: <199493>
+  00:03 +0 -1: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Il pulsante non copre la carta di medora, in cima [E]
+  Expected: a numeric value within <1.0> of <299.216>
+    Actual: <295.76000000000005>
+  00:04 +0 -2: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Lo spazio che avanza sopra la carta di medora lo prende la carta, in cima [E]
+  Expected: a value less than or equal to <0.5>
+    Actual: <27.998346968205624>
+  00:06 +0 -3: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_test.dart: A 844 la bolla non morde il Maestro [E]
+  Expected: <0>
+    Actual: <199493>
+  00:06 +0 -4: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Il pulsante non copre la carta di medora, a meta [E]
+  Expected: a numeric value within <1.0> of <299.216>
+    Actual: <295.76000000000005>
+  00:07 +0 -5: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Lo spazio che avanza sopra la carta di medora lo prende la carta, a meta [E]
+  Expected: a value less than or equal to <0.5>
+    Actual: <28.374346968205714>
+  00:08 +0 -6: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_test.dart: A 797 la bolla non morde il Maestro [E]
+  Expected: <0>
+    Actual: <199430>
+  00:08 +0 -7: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Il pulsante non copre la carta di aura, in cima [E]
+  Expected: a numeric value within <1.0> of <299.216>
+    Actual: <295.76000000000005>
+  00:09 +0 -8: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Lo spazio che avanza sopra la carta di aura lo prende la carta, in cima [E]
+  Expected: a value less than or equal to <0.5>
+    Actual: <28.67034696820565>
+  00:09 +0 -9: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_test.dart: A 760 la bolla non morde il Maestro [E]
+  Expected: <0>
+    Actual: <199430>
+  00:10 +0 -10: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Il pulsante non copre la carta di aura, a meta [E]
+  Expected: a value less than or equal to <0.5>
+    Actual: <29.150346968205668>
+  00:11 +0 -11: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_test.dart: A 700 la bolla non morde il Maestro [E]
+  Expected: a numeric value within <1.0> of <299.216>
+    Actual: <295.76000000000005>
+  00:11 +0 -12: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Lo spazio che avanza sopra la carta di aura lo prende la carta, a meta [E]
+  Expected: <0>
+    Actual: <200401>
+  00:12 +0 -13: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Il pulsante non copre la carta di caligo, in cima [E]
+  Expected: a value less than or equal to <0.5>
+    Actual: <29.630346968205743>
+  00:13 +0 -14: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_test.dart: A 640 la bolla non morde il Maestro [E]
+  Expected: a numeric value within <1.0> of <299.216>
+    Actual: <295.76000000000005>
+  00:13 +0 -15: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Lo spazio che avanza sopra la carta di caligo lo prende la carta, in cima [E]
+  Expected: <0>
+    Actual: <200401>
+  00:14 +0 -16: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Il pulsante non copre la carta di caligo, a meta [E]
+  Expected: a numeric value within <1.0> of <299.216>
+    Actual: <295.76000000000005>
+  00:15 +0 -17: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/pulsante_non_copre_carta_test.dart: Lo spazio che avanza sopra la carta di caligo lo prende la carta, a meta [E]
+  Expected: <0>
+    Actual: <83916>
+  00:17 +0 -18: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_avatar_test.dart: A 1080 per 2392 la bolla non copre la figura [E]
+  Expected: a value greater than or equal to <8>
+    Actual: <-45.57653333333337>
+  00:18 +0 -19: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_avatar_test.dart: A 1080 per 2392 la bolla sta sotto la carta con otto punti d'aria [E]
+  Expected: <0>
+    Actual: <89990>
+  00:20 +1 -20: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_avatar_test.dart: A 1170 per 2532 la bolla non copre la figura [E]
+  Expected: a value greater than or equal to <8>
+    Actual: <-45.203199999999924>
+  00:20 +1 -21: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_avatar_test.dart: A 1170 per 2532 la bolla sta sotto la carta con otto punti d'aria [E]
+  Expected: <0>
+    Actual: <88040>
+  00:22 +2 -22: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_avatar_test.dart: A 1080 per 2532 la bolla non copre la figura [E]
+  Expected: a value greater than or equal to <8>
+    Actual: <-45.203199999999924>
+  00:22 +2 -23: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/test/bolla_non_copre_avatar_test.dart: A 1080 per 2532 la bolla sta sotto la carta con otto punti d'aria [E]
+  00:23 +3 -23: Some tests failed.
+ripristino lib/features/santuario/santuario_screen.dart: sha1 60effdf129b1 -> 60effdf129b1, IDENTICO

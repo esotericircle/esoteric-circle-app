@@ -1,0 +1,16 @@
+LE SETTE SERE DELLA RUNA, E LA VOCE CHE NASCE NEL DIARIO
+Ordine EI voce 05, che riapre la voce EE.03.
+
+La serie e la riga a video erano gia' provate. Quello che nessuna prova guardava era il RICORDO che alla settima sera entra da solo nel Cosmic Journal.
+
+--- sette rune tutte diverse
+    le sere: Fehu, Uruz, Thurisaz, Ansuz, Raidho, Kenaz, Gebo
+    la frase: Sette segni diversi in sette sere: nessuno ha insistito, la settimana ti ha parlato una volta sola per volta.
+    la voce nel diario: titolo "Sette sere di fila: le tue rune si sono legate", maestro caligo, nata come evento e non come gesto della persona
+
+--- una runa che torna tre volte
+    le sere: Isa, Fehu, Isa, Raidho, Isa, Gebo, Fehu
+    la frase: La settimana lega Isa e Fehu: due segni che tornano, un legame solo.
+    la voce nel diario: titolo "Sette sere di fila: le tue rune si sono legate", maestro caligo, nata come evento e non come gesto della persona
+
+E UNA SERIE INTERROTTA NON FA SETTIMANA: la prova che lo misura e' sette_sere_di_fila_test.dart, che salta una sera e verifica che la striscia riparta da capo.

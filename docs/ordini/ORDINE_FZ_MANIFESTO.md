@@ -1,0 +1,455 @@
+# MANIFESTO DELL'ORDINE FZ, L'ANIMALE DI POTERE CHE SI RIVELA NEL VIAGGIO
+
+Testo dell'ordine, parola per parola: `docs/ordini/ORDINE_FZ_TESTO.md` (porta
+anche l'aggiunta FZA, eseguita dentro l'ordine e consegnata con la sua
+consegna, voce FZ.15). Rapporto: `docs/ordini/RAPPORTO_ORDINE_FZ.md`. Una
+voce CHIUSA porta sotto di se' DOMANDA, PROVA e MISURA; una voce aperta dice
+che cosa aspetta e porta le sue prove. **Le voci dell'aggiunta FZA (nel testo
+originale, FZA.01-FZA.05) continuano qui la numerazione di FZ**, come l'ordine
+FX fece con la sua aggiunta FXA: un manifesto, una sigla sola.
+
+VOCI_TOTALI: 15
+VOCI_CHIUSE: 15
+VOCI_APERTE: 0
+VOCI_DA_FARE: 0
+
+## VOCE FZ.01
+
+**CHIUSA.** L'animale si trova, non si calcola. Esce la derivazione dal
+segno solare: l'animale si riconosce quando la stessa ombra e' stata seguita
+quattro volte, non per forza di fila, con le ombre gia' seguite che tornano
+sempre fra le proposte della discesa successiva. Porta unica nuova
+`AnimaleDiPotere`, logica pura in `LeOmbreCheRitornano`
+(`lib/core/viaggio/le_ombre_che_ritornano.dart`). **Il numero delle ombre
+proposte a ogni discesa, tre nella prima stesura, sale a nove con FZ.10**
+(voce sotto, FZA.01 nel testo originale dell'aggiunta): la regola del
+riconoscimento alla quarta volta e del ritorno delle ombre gia' seguite
+resta la stessa, verificata di nuovo con nove. Nel file di prova, il gruppo
+"FZ.01: il riconoscimento arriva alla quarta, mai prima".
+
+DOMANDA: "La 2." (l'animale che si rivela nel viaggio, con la regola delle
+quattro apparizioni di Harner); "3 si" alla domanda dell'Architetto
+"L'animale viene riconosciuto quando la persona ha seguito la stessa ombra
+quattro volte, come dice Harner?"
+PROVA: `test/le_ombre_che_ritornano_test.dart`
+MISURA: su 100 persone con scelte diverse (12 sempre la stessa ombra, 88
+con due ombre alternate), il riconoscimento non arriva mai prima della
+quarta volta della stessa ombra e arriva sempre esattamente a quella
+quarta volta; su un giro completo dei dodici animali ripetuto quattro
+volte, nessun riconoscimento prima del trentasettesimo passo
+
+## VOCE FZ.02
+
+**CHIUSA.** Una sola porta, fissa dal riconoscimento. L'animale riconosciuto
+diventa fisso e unico in tutta l'app; prima del riconoscimento ovunque si
+mostrerebbe l'animale compare la sua sagoma in ombra con "Non ancora
+rivelato". `GuideAnimalDerivation.forSign` non decide piu' l'animale di
+nessuno: resta viva solo per la migrazione una tantum
+(`DiarioDeiViaggi.completaMigrazioneFZ02`). Esce anche la regola delle
+quattro impronte sul segno (`le_quattro_impronte.dart`): le impronte restano
+il disegno del cammino, la regola e' quella di FZ.01. La migrazione una
+tantum ha la sua prova diretta in `test/la_migrazione_delle_ombre_test.dart`.
+
+DOMANDA: "1 si. 2 si. 3 si. 4 si." alle domande dell'Architetto: "1.
+L'animale, una volta riconosciuto alla quarta discesa, resta fisso per
+sempre e vale in tutta l'app? 2. Prima che sia riconosciuto, nel
+Passaporto, nel Bosco e nella card social si vede un'ombra con scritto
+'non ancora rivelato'? 4. Chi ha gia' concluso il viaggio, te compreso,
+tiene il suo animale? E chi e' a meta' riparte."
+PROVA: `test/l_animale_guida_ha_una_porta_sola_test.dart`
+MISURA: i punti del codice che derivavano l'animale dal segno solare, da 11 (commit `8dfe2b55`) a 0; la guardia della porta unica
+scansiona oltre 500 file di `lib/`, zero colpevoli; alla migrazione,
+chi aveva gia' concluso (vecchia chiave a vero) tiene l'animale del suo
+segno senza avviso, chi era a meta' riparte da zero con un avviso di una
+riga, chi apre l'app per la prima volta non riceve nessun avviso
+
+## VOCE FZ.03
+
+**CHIUSA.** Le impronte e il cammino raccontano le scelte. Il cammino di
+impronte mostra le ombre seguite davvero, una impronta per discesa, con la
+sagoma di quell'ombra; alla quarta impronta dello stesso animale il cammino
+arriva all'animale.
+
+DOMANDA: "La 2." (FZ.01), e le impronte dell'ordine DE voce 09
+PROVA: `test/la_soglia_e_una_scena_piena_test.dart`
+MISURA: con due discese su quattro fatte, le impronte lasciate sono 2 su 4
+(`viaggio_impronta_0`, `viaggio_impronta_1`) e le restanti 2 l'anello vuoto
+(`viaggio_impronta_vuota_2`, `viaggio_impronta_vuota_3`)
+
+## VOCE FZ.04
+
+**CHIUSA.** La carta intera da grattare. `IlVeloDellAnimale` (sagoma, testa
+protetta fino alla quarta) e' sostituito da `LaCartaInQuattroPezzi`: quattro
+fasce uguali su una carta intera, nessuna protetta, ogni pezzo si gratta
+col dito, anche il volto. Riusa senza modifiche il pittore della cenere, la
+grana e le braci.
+
+**Riaperta e rifatta il 20 ottobre 2026** dalla seconda simulazione da
+persona, col si' del fondatore ("Rifalla adesso"): alla prima discesa il
+dito scopriva tutta la carta (cura nel solco e nel pennello, guardia
+`la_cenere_resta_sui_pezzi_di_domani`); al terzo pezzo la testa del Cavallo
+si vedeva gia', perche' i pezzi erano quattro fasce uguali: ora il quarto
+pezzo e' il volto di ciascun animale, misurato immagine per immagine
+(guardia `il_volto_si_scopre_per_ultimo`); la carta stava dietro le barre;
+le carte a meta' nel Diario dei viaggi non c'erano (ora ci sono, senza nome
+prima della carta intera, guardia `le_carte_a_meta_stanno_nel_diario`); e,
+per parola del fondatore, si gratta l'immagine dell'animale di lato, con la
+sua proporzione vera, non il fotogramma del video. Vista a video sul Realme
+(`docs/collaudo/FZ/simulazioni/catture/v2_d8c_lente.png`,
+`v2_d8c_volto.png`).
+
+DOMANDA: "vorrei migliorare il 'gratta e scopri' con una card tutta da
+scoprire a pezzi, ma non l'animale da scoprire, ma una card intera, una
+schermata quasi intera. La card dell'animale da grattare"; "Stile A"
+PROVA: `test/il_gesto_che_scosta_test.dart`
+MISURA: ogni pezzo grattato manualmente, controllati oltre 12*5 casi (ogni
+animale del catalogo, piu' discese ciascuno), nessun pezzo cade da solo;
+il pittore della cenere resta continuo su oltre 12*3*500 celle controllate,
+con oltre 12*3*25 punti del tracciato dentro la forma vera di ogni pezzo
+
+## VOCE FZ.05
+
+**CHIUSA.** Il video dell'animale al posto degli zoom. `LaSequenzaDelCammino`
+(pura) decide quali pezzi far girare per ognuno dei tre gesti del segno e
+per la rivelazione; `IlCamminoDellAnimale` fa girare i pezzi uno dopo
+l'altro con dissolvenza di 0,3s alla giuntura e 0,5s sulla scena vuota alla
+fine; niente video con Riduci Movimento, la posa resta lo strato di fondo
+sempre. `IlCamminoDellAnimale` ha la sua prova diretta in
+`test/il_cammino_dell_animale_test.dart`.
+
+DOMANDA: "per risparmiare anche sul peso, direi un solo video: un terzo con
+l'animale che si avvicina, un terzo che si ferma e si mette in posa e un
+terzo che si gira e torna indietro"; "nel secondo terzo... fa il suo verso
+(ululato per il lupo) e poi si allontana"
+PROVA: `test/la_sequenza_del_cammino_test.dart`
+MISURA: i 3 pezzi del video (arrivo, centro, uscita) si incatenano per
+ciascuno dei 3 gesti dal fotogramma esatto del file dei tagli di ognuno
+dei 12 animali; con Riduci Movimento acceso i video in esecuzione
+scendono da 1 a 0, resta la sola posa ferma
+
+## VOCE FZ.06
+
+**CHIUSA.** Il peso dei video. I 12 video, ricompressi da
+`tool/gli_asset_dell_ordine_fz.py`, scendono da 13-14 MB a 3,6-4,3 MB
+ciascuno con scarto visivo di 3,3-3,7 su 255, misurato su catture
+affiancate. `IVideoDelCamminoScaricati` scarica i tre pezzi e la posa
+insieme dal manifesto, verifica ogni file con la sua impronta SHA-256,
+riscarica un file sbagliato una volta. Senza rete: la carta resta ferma
+sulla posa.
+
+**Due difetti trovati il 20 ottobre 2026 e curati**: i video non erano
+mai stati pubblicati sul bucket (il manifesto rispondeva 404; pubblicati col
+si' del fondatore con `tool/pubblica_i_video_del_cammino.py`, 48 file con
+misura e impronta verificate); il video si scaricava solo nel segno, dopo
+il riconoscimento, e non alla carta che si sta scoprendo (guardia
+`il_video_della_carta_si_scarica_mentre_si_scopre`); e dopo un riavvio
+l'app dimenticava i video gia' scaricati (guardia
+`i_video_gia_scaricati_si_ritrovano`). Sul Realme il video del Cavallo e
+del Lupo si scarica in circa dieci secondi.
+
+DOMANDA: "teme che il peso dei video sia eccessivo e vuole che vengano
+ottimizzati"; "per risparmiare anche sul peso, direi un solo video"
+PROVA: `test/i_video_del_cammino_si_scaricano_test.dart`
+MISURA: peso dei 12 video, da 13-14 MB a 3,6-4,3 MB ciascuno (tutti sotto
+la soglia dei 4-5 MB puntata); scarto visivo 3,3-3,7/255; un file con
+impronta sbagliata viene riscaricato una volta prima di arrendersi
+
+## VOCE FZ.07
+
+**CHIUSA.** Fonti e metodo detti giusti. Il pannello "Fonti e metodo" del
+Viaggio cita Michael Harner (The Way of the Shaman, 1980) e le quattro
+apparizioni; dice che le ombre fra cui scegliere sono la messa in scena di
+questa app, non la tradizione di Harner (una visione libera); non nomina
+piu' il legame fra segno solare e animale ne lo stile in metallo.
+
+DOMANDA: "Non c'e' bisogno di dichiarare lo stile metallico"; regola del
+progetto, ogni funzione esoterica su tradizioni reali con disclaimer
+PROVA: `test/le_fonti_del_viaggio_dicono_il_vero_test.dart`
+MISURA: il foglio cita Harner e le quattro apparizioni (1 su 1); righe sul
+legame segno solare/animale nel foglio, da assenti restano assenti (la
+riga non c'era, non andava tolta); parole proibite (stile, metallico,
+bronzo, ecc.) cercate nel testo del foglio, 0 trovate
+
+## VOCE FZ.08
+
+**CHIUSA.** La rivelazione si condivide come video. La card della
+rivelazione si condivide anche come video verticale: il centro del video
+dell'animale (il verso), col titolo del giorno e la data sovrascritti via
+FFmpeg (`ffmpeg_kit_flutter_new_min_gpl`, nota di licenza GPL/x264 per il
+fondatore prima di uno store). Nella schermata, un secondo pulsante
+"Condividi come video" accanto a "Di' chi sei", visibile solo se il pezzo
+centro e' gia' scaricato. **La meta' rimasta aperta dal primo commit**, la
+risalita che rivela, e' stata chiusa subito dopo: `_laRisalita` monta
+`IlCamminoDellAnimale` con `LaSequenzaDelCammino.rivelazione` al posto
+dell'illustrazione ferma, solo sulla discesa che rivela, provata in
+`test/il_cammino_a_strati_test.dart`. Il filtro del titolo ha la sua prova
+diretta nella prova del filtro di testo, tolta il 20 ottobre 2026 insieme
+al filtro (vedi sotto).
+
+**Il 20 ottobre 2026 "Condividi come video" non funzionava sul telefono**:
+il filtro `drawtext` non esiste nella libreria Android della variante
+`min-gpl`, FFmpeg cadeva subito e il pulsante non faceva niente. Curato: il
+titolo si disegna in un PNG e FFmpeg lo sovrappone con `overlay`, con
+l'attesa visibile e un messaggio se non riesce. **Persona (g) completata
+sul Realme**: in circa dieci secondi il foglio di sistema con
+`rivelazione_Lupo.mp4`, annullato senza inviare; il video scaricato dal
+telefono e' 1080x1920, h264, col titolo sopra
+(`docs/collaudo/FZ/simulazioni/catture/v2_g_fotogramma_video.png`). La
+prova `condividi_la_rivelazione_in_video_test.dart` misura ora i filtri del
+comando contro quelli della libreria vera.
+
+DOMANDA: risposte dell'Architetto alle domande delle funzionalita', punto
+9, approvate dal fondatore il 17 ottobre 2026 alle 20:16 ("Procedi con
+l'ordine")
+PROVA: `test/condividi_la_rivelazione_in_video_test.dart`
+MISURA: 5 controlli su 5 sul comando FFmpeg generato (contiene il pezzo
+centro, "MI HA TROVATO", il nome dell'animale, la data e la codifica video
+corretta, libx264 con audio copiato); alla risalita che rivela, il
+widget del cammino video sostituisce l'illustrazione ferma, da assente a
+presente (vista rossa prima, verde dopo); le 106 prove della zona del
+Viaggio restano tutte verdi a quel commit
+
+## VOCE FZ.09
+
+**CHIUSA.** La simulazione da persona, obbligatoria e
+permanente. La regola e' scritta in CLAUDE.md (Regole non negoziabili).
+Completate sul Realme 767f596c: persona (a) chi segue sempre la stessa
+ombra; persona (b) chi cambia ombra ogni volta; persona (f) chi apre il
+Viaggio senza rete. Parziali: persona (e), un solo gesto su tre provato
+("Chiedigli un segno" con rete disattivata, via di riserva confermata);
+persona (g), solo il preambolo (nessun pezzo video scaricato mostra solo
+"Di' chi sei", mai "Condividi come video"). **Non completate**: persona (c),
+fermata a meta' dall'arrivo dell'aggiunta FZA (punto 1 confermato, nessun
+avviso bloccante al riavvio con la chiave legacy scritta a mano; punti 2 e
+3, lo stesso animale nel Passaporto/Ritratto/Bosco e la possibilita' di
+continuare a scendere, non piu' verificabili: vedi l'incidente sotto);
+persona (d), chi era a meta' e riparte, non avviata sul device (coperta
+pero' da `la_migrazione_delle_ombre_test.dart`, automatica e rigorosa, che
+replica esattamente questo scenario). **Durante il lavoro e' stato trovato,
+isolato e corretto un difetto critico preesistente**, non causato da
+quest'ordine (PROVENIENZA IGNOTA: nessuna voce di FZ tocca i file
+coinvolti): un consumo di CPU anomalo (80-126%) dovuto a due
+`VideoPlayerController` mai smaltiti (`SequenzaIntro`, il lettore comune
+delle scene) bloccava i tocchi sulle schermate con sfondo animato;
+risolto, confermato a video con un giro di navigazione reale e completo
+senza un solo blocco. **Incidente operativo durante la pulizia del
+device**: nel tentativo di ripristinare il backup delle preferenze della
+persona (c) (`/sdcard/prefs_persona_c.xml`), un comando di copia mal
+costruito ha cancellato quel backup e poi troncato a zero byte il file
+`FlutterSharedPreferences.xml` live dell'account di prova "ProvaFZ":
+errore di Code, non un difetto del codice dell'app. L'app ha reagito nel
+modo corretto (mostra l'onboarding "Il Risveglio" con "Faccio gia' parte
+del Cerchio", la custodia sull'account dell'ordine EE resta viva su
+Firestore), ma il rientro richiede le credenziali dell'account di prova,
+che Code non ha: il device e' stato lasciato sulla schermata di apertura,
+pulito e stabile, senza altri tentativi.
+
+**Aggiornamento del 20 ottobre 2026, la seconda simulazione** (profilo
+anonimo nuovo, catture `v2_*`, note in
+`docs/collaudo/FZ/simulazioni/note_di_percorso.md`): completate le persone
+(c), (d) e (g), e la (e) per la parte che non dipende dal modello; trovati e
+curati undici difetti veri, ognuno col suo padre e la sua guardia (vedi il
+rapporto, righe in coda). **Resta aperta per una ragione sola**: la parte
+"modello vero" della persona (e). Sulla build di debug App Check rifiuta la
+chiamata ("App attestation failed"), quindi i segni sono venuti tutti dalla
+riserva e nessuna risposta del modello si e' potuta guardare.
+
+**Aggiornamento, lo stesso 20 ottobre 2026: la persona (e) col modello
+vero.** Col si' del fondatore a lavorare senza il token di debug, una build
+release fatta sul PC (in release l'app non installa App Check,
+`Attestazione.installaSempre` falso, come le build di App Distribution),
+installata sul Realme al posto della debug. Persona nuova dall'inizio del
+Risveglio, quattro discese con la rete spenta fino al riconoscimento del
+Gufo, poi dieci segni chiesti col modello vero: **nove sono arrivati a
+Gemini**, il decimo l'ha preso la riserva perche' il tetto tecnico dei
+segni era pieno (vedi il rapporto). Due difetti veri trovati e curati, con
+una guardia nuova vista rossa (`il_segno_non_dice_no_sulla_salute`, 839):
+il modello rispondeva col gesto del no a *"Mio padre e' malato,
+guarira'?"* e a una domanda aperta (padri DJ voce 08 e la cura FZ
+`036dffda`, commit `1451117f`), e con un si' a lettere a caso (commit
+`1437df7e`); rifatte col modello vero sulle build curate, le tre domande
+hanno avuto "si volta". Completata anche la persona (l) di FZ.13, che ha
+trovato il bordo della cenere sopra il titolo (commit `c8cb31fe`).
+**Si chiude**: tutte le persone di FZ.09 sono state simulate e guardate.
+Le previsioni scritte prima stanno in
+`docs/collaudo/FZ/simulazioni/previsioni.md` e nelle note, le catture in
+`docs/collaudo/FZ/simulazioni/catture/`.
+
+DOMANDA: "Voglio che prima della consegna... Code deve fare sempre
+obbligatoriamente e per ogni funzionalita', una simulazione realistica
+dell'ordine... si metta nei panni di un utente e simuli i suoi
+comportamenti e scelte e preveda decisioni, cosi' da rilevare eventuali
+Bug"
+PROVA: `docs/collaudo/FZ/simulazioni/note_di_percorso.md`
+MISURA: persone simulate con esito completo, da 3 a 7 su 7 (a, b, c, d, e,
+f, g); risposte del modello vero guardate, da 0 a 9; difetti veri trovati e
+curati dalle simulazioni del 20 ottobre, 14 (11 della seconda simulazione,
+il bordo della cenere della persona l, i due del segno della persona e),
+guardie da 827 a 839
+
+## VOCE FZ.10
+
+**CHIUSA.** Nove ombre, se ne segue una (FZA.01 nel testo originale
+dell'aggiunta). A ogni discesa compaiono nove ombre al posto di tre
+(`LeOmbreCheRitornano.ombreProposte`, `quanteOmbreSiPropongono = 9`, quante
+il catalogo ne ha se sono meno di nove). Restano le regole di FZ.01.
+`viaggio_dello_sciamano_screen.dart`, `_lIncontro`: da una `Column` di tre
+sagome a una griglia tre per tre, tutte visibili senza scorrere a ogni
+larghezza fra 320 e 430 punti, ogni bersaglio ben oltre i 44 punti minimi.
+Il numero delle proposte ha la sua prova diretta nel gruppo "FZA.01" di
+`test/le_ombre_che_ritornano_test.dart`.
+
+DOMANDA: "ma si che base vengono scelte? Non mi piace il fatto che siano
+cmq riconoscibili e, quindi, pensavo di farli diventare 9 e l'utente puo'
+sceglierne solo 1"; "Preferisco 9 ombre, anche se riconoscibili, perche'
+con lince, volpe e lupo cmq sarebbero simili e mettono piu' curiosita'"
+PROVA: `test/le_nove_ombre_stanno_tutte_a_schermo_test.dart`
+MISURA: sagome a schermo, da 3 a 9, sempre `findsNWidgets(9)` a 320, 375 e
+430 punti, senza scorrere; bersaglio di ogni sagoma, da non misurato a
+sempre oltre i 44 punti minimi (larghezza e altezza); le nove proposte sono
+sempre nove nomi diversi, anche senza nessuna discesa fatta o con il
+catalogo ridotto a sette animali (allora le proposte sono sette)
+
+## VOCE FZ.11
+
+**CHIUSA.** Le ombre nuove a caso per ogni persona (FZA.02 nel testo
+originale dell'aggiunta). Le ombre mai viste che completano il gruppo, e il
+posto di tutte e nove nella griglia, nascono da un seme FNV-1a su identita'
+del dispositivo (`DeviceId.corrente()`, gia' usato per i Doni
+deterministici) piu' numero della discesa. Stessa persona, stessa discesa:
+stesso gruppo, negli stessi posti. Persone diverse: gruppi diversi. Prova
+diretta nel gruppo "FZA.02" di `test/le_ombre_che_ritornano_test.dart`.
+
+DOMANDA: il rilievo dell'Architetto, 19 ottobre 2026, leggendo che le
+ombre nuove completavano il gruppo "nell'ordine del catalogo" (quindi alla
+prima discesa tutti vedevano le stesse ombre), approvato dal fondatore
+("Vai")
+PROVA: `test/le_ombre_che_ritornano_test.dart`
+MISURA: su 100 persone diverse alla prima discesa, gruppi diversi visti da
+1 (il difetto segnalato: tutti uguali) a 100 su 100; la stessa persona che
+rientra nella stessa discesa, stesso gruppo negli stessi posti (identico);
+la stessa persona a discese diverse, gruppo diverso (il seme include il
+numero della discesa); due persone con la stessa unica ombra gia' seguita,
+gruppi comunque diversi (padre del difetto: FZ.01, che non specificava
+l'ordine delle ombre nuove)
+
+## VOCE FZ.12
+
+**CHIUSA.** Nessun numero di animali in vista (FZA.03 nel testo originale
+dell'aggiunta). Due testi visibili corretti: `sentiero_albero.dart` ("I
+dodici Animali Guida" -> "Gli Animali Guida del catalogo"),
+`bosco_del_cerchio.dart` ("Dodici animali accompagnano..." -> "Gli animali
+accompagnano..."); le fonti del Viaggio e il pannello dell'Animale Guida,
+"le tre ombre" -> "le ombre". `GirandolaDegliAnimali` resa iniettabile
+(`animali`, di serie `AnimalCatalog.animals`) per poterla misurare con un
+catalogo esteso.
+
+DOMANDA: "un domani, ne potrei aggiungere altri, visto che da nessuna
+parte viene indicato il numero degli animali"
+PROVA: `test/nessun_numero_di_animali_in_vista_test.dart`
+MISURA: scansione di oltre 500 file di `lib/` nel perimetro del Viaggio
+per "dodici animal..." o "12 animal..." in stringhe visibili (i commenti
+non contano), da testi trovati (il sentiero e il bosco) a 0; con un
+tredicesimo animale finto aggiunto al catalogo in prova,
+`LeOmbreCheRitornano.ombreProposte` propone 13 ombre (non piu' bloccato a
+12) e `GirandolaDegliAnimali` disegna 26 immagini (13 animali, dorso piu'
+illustrazione ciascuno, da `findsNWidgets(26)`)
+
+## VOCE FZ.13
+
+**CHIUSA.** La simulazione delle nove ombre (FZA.04
+nel testo originale dell'aggiunta). Persona (h), chi guarda tutte le nove
+ombre alla prima discesa, esce e rientra: **completata**, griglia tre per
+tre confermata, uscita vera (`am force-stop`) e rientro hanno ritrovato le
+nove ombre identiche, nella stessa identica disposizione, confrontate
+pixel per pixel. Persona (i), chi segue un'ombra e il giorno dopo ne segue
+un'altra fino a riconoscere un animale diverso: **parziale**, due discese
+su (almeno) quattro necessarie alla quarta ombra diversa; confermato che
+le due griglie sono diverse fra loro, che l'ombra gia' seguita torna fra
+le nove, e che gli strati narrativi del Diario contano le discese totali.
+Persona (l), chi sceglie sempre ombre diverse per sei discese:
+**interrotta**, un episodio di tocco non risposto sul pulsante "Scendi"
+(`uiautomator dump` falliva con "could not get idle state"), verificato
+con la controprova (un altro elemento sulla stessa schermata ha risposto
+subito) e non confermato come difetto vero: PROVENIENZA IGNOTA, non
+investigato oltre per restare nel tempo della consegna. Nessuna delle tre
+persone ha potuto proseguire oltre l'incidente operativo descritto in
+FZ.09 (perdita delle preferenze locali dell'account di prova).
+
+**Aggiornamento del 20 ottobre 2026**: persona (i) **completata**: dopo la
+Lince, seguito il Cavallo fino al riconoscimento, un animale diverso dal
+primo, con la carta scoperta pezzo per pezzo e il volto per ultimo.
+Persona (l) **a meta'**: tre giorni di fila con tre ombre mai seguite, le
+ombre gia' seguite che tornano fra le nove, nessun riconoscimento; gli altri
+tre giorni non sono stati fatti.
+
+**Aggiornamento, lo stesso 20 ottobre 2026: persona (l) completata**,
+rifatta per intero su un Viaggio pulito, sei giorni di fila (date del
+telefono di collaudo dal 20 al 25 ottobre) con la rete spenta: Lince,
+Cavallo, Orso, Serpente, Cervo, Gufo. Ogni giorno tornano fra le nove
+tutte le ombre gia' seguite, nessun riconoscimento, la soglia dice sempre
+"Si e' mostrato una volta, ne mancano tre". Trovato e curato un difetto:
+sulle carte alte il bordo della cenere copriva la terza riga del titolo
+(padre FZ.04, commit `c8cb31fe`).
+
+DOMANDA: "Sul Realme, con la stessa regola di FZ.09, almeno queste persone
+in piu': h) chi alla prima discesa guarda tutte le nove ombre, esce,
+rientra e ritrova le stesse; i) chi segue un'ombra... fino a riconoscere un
+animale diverso dal primo; l) chi sceglie sempre ombre diverse per sei
+giorni di fila"
+PROVA: `docs/collaudo/FZ/simulazioni/note_di_percorso.md`
+MISURA: persone completate, da 1 a 3 su 3 (h, i, l); giorni della persona
+(l), da 3 a 6 su 6, con 6 animali diversi e 0 riconoscimenti
+
+## VOCE FZ.14
+
+**CHIUSA.** Il riquadro dell'animale segue la forma vera della carta, non
+taglia le gambe (FZA.05, voce aggiunta da Code fuori dal testo scritto
+dell'aggiunta). Richiesta arrivata in chat durante l'esecuzione di
+quest'ordine, con screenshot: il Cavallo appariva tagliato alle zampe nella
+risalita. Causa: `AspectRatio` del riquadro a 1,35 (orizzontale), mentre le
+dodici carte (`assets/img/mondo_di_sotto/carte/*_carta_da_grattare_v1.
+webp`) sono tutte 1080x1920 (verticali); con `BoxFit.cover` il riquadro
+largo mostrava solo una fetta centrale stretta dell'immagine. Corretto a
+1080/1920, il rapporto vero della carta: ora l'animale si vede per intero
+o quasi, a ogni larghezza.
+
+DOMANDA: "Vorrei che l'animale non fosse tagliato alle gambe, anche perche'
+con gli altri animali piu' piccoli, ne verrebbe tagliato molto del corpo.
+Assicurati che tutti gli animali si vedano interamente o quasi, puoi
+tagliare sia in alto che in basso, trova la soluzione migliore"
+PROVA: `test/il_riquadro_dell_animale_segue_la_carta_test.dart`
+MISURA: rapporto larghezza/altezza del riquadro della risalita, da 1,35 a
+0,5625 (1080/1920, misurato `closeTo` con tolleranza 0,01), lo stesso
+rapporto nativo delle dodici carte
+
+## VOCE FZ.15
+
+**CHIUSA.** La consegna. Dipendeva da FZ.09 e FZ.13, chiuse il 20 ottobre
+2026; prima di quel giorno erano entrambe aperte: il testo dell'ordine lo dice esplicitamente
+("L'ordine si consegna solo col verde di GitHub e con le simulazioni di
+FZ.09 fatte e guardate"). Fatto: manifesto, guardia del manifesto
+(`test/ordine_fz_guard_test.dart`), rapporto, STATO_VIVO e registro delle
+guardie aggiornati; codice e test pushati sul ramo canonico. **Il verde di
+GitHub e' arrivato**, sul commit `a56d9a57` (`refs/verde/a56d9a572b5485b19
+f09d188bba88c6c9935ec43`), dopo due giri del cancello: il primo caduto su
+una forma sbagliata delle righe PROVA del manifesto (corretta, commit
+`0a9bfced`), il secondo su dieci rossi (nove debito preesistente di ordini
+precedenti, uno proprio: le voci dell'aggiunta FZA rinumerate FZ.10-FZ.14,
+vedi il rapporto; corretti tutti, commit `59c96d34`). **Resta da
+verificare**: le simulazioni rimaste aperte di FZ.09 e FZ.13.
+
+**Aggiornamento del 20 ottobre 2026**: chiuse FZ.09 e FZ.13 (vedi sopra),
+il verde di GitHub e' arrivato su ogni commit della giornata fino a
+`1437df7e` (`refs/verde/1437df7ec9e459bc3c49366777e096abead8cf15`), l'ultimo
+che tocca il codice; il verde sul commit consegnato, che porta questi
+documenti, e' dichiarato in coda al rapporto. Nessuna build consegnata,
+come vuole R3: la build release fatta per la persona (e) e' rimasta sul
+telefono di collaudo.
+
+DOMANDA: regole fisse R3, R6, R11; FZ.09
+PROVA: `docs/ordini/RAPPORTO_ORDINE_FZ.md`
+MISURA: voci dell'ordine con DOMANDA, PROVA e MISURA, 15 su 15; voci chiuse,
+da 12 a 15, aperte in attesa di verifica, da 3 a 0; verde di GitHub sul
+commit che chiude il codice, da assente a presente
+(`refs/verde/1437df7ec9e459bc3c49366777e096abead8cf15`)

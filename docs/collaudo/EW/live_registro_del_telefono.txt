@@ -1,0 +1,106 @@
+10-02 06:17:30.660 I/flutter (30017): LIVE: primo suono al volto dopo 2821 ms, audio di 6312 ms, scritto in 3412 ms
+10-02 06:17:35.257 I/flutter (30017): LIVE VIDEO: ricevuto 384x384 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 579x724 px veri, ritaglio 788x985 millesimi del video
+10-02 06:17:37.327 I/flutter (30017): LIVE: il volto ha finito dopo 10079 ms, lo ha detto lui
+10-02 06:17:38.515 I/flutter (30017): LIVE: la voce del volto tace dopo altri 1187 ms
+10-02 06:17:43.101 I/flutter (30017): LIVE: trascrizione anticipata in 1681 ms, pausa 1: «»
+10-02 06:17:45.415 I/flutter (30017): LIVE: controllo 1 della frase 1 in 1210 ms: «», scarta, sottofondo null
+10-02 06:17:45.415 I/flutter (30017): LIVE: la frase 1 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-02 06:17:47.543 I/flutter (30017): LIVE: trascrizione anticipata in 1263 ms, pausa 2: «»
+10-02 06:17:51.242 I/flutter (30017): LIVE: controllo 2 della frase 1 in 1280 ms: «», scarta, sottofondo null
+10-02 06:17:52.252 I/flutter (30017): LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 579x724 px veri, ritaglio 788x985 millesimi del video
+10-02 06:18:13.443 I/flutter (30017): LIVE: trascrizione anticipata in 1238 ms, pausa 1: «»
+10-02 06:18:14.866 I/flutter (30017): LIVE: frase di 2800 ms in 1 pezzi, trascritta in 1066 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:18:14.866 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:18:33.847 I/flutter (30017): LIVE: trascrizione anticipata in 1080 ms, pausa 1: «»
+10-02 06:18:34.362 I/flutter (30017): LIVE: frase di 3200 ms in 1 pezzi, trascritta in 1 ms dalla chiusura, in pausa: «» (si ascolta ancora)
+10-02 06:18:49.453 I/flutter (30017): LIVE: controllo 1 della frase 4 in 1809 ms: «Medora, il mio capo mi ha offerto un nuovo», aspetta, sottofondo -48
+10-02 06:18:51.172 I/flutter (30017): LIVE: trascrizione anticipata in 1851 ms, pausa 1: «Il mio capo mi ha offerto un ruolo nuovo in un'altra città.»
+10-02 06:18:51.905 I/flutter (30017): LIVE: controllo 2 della frase 4 in 1218 ms: «Medora, il mio capo mi ha offerto un nuovo ruolo in un'altra città. Devo accettare?», aspetta, sottofondo -48
+10-02 06:18:53.022 I/flutter (30017): LIVE: trascrizione anticipata in 1936 ms, pausa 2: «Medora, il mio capo mi ha offerto un nuovo ruolo in un'altra città. Devo accettare.»
+10-02 06:18:53.022 I/flutter (30017): LIVE: frase di 8720 ms in 1 pezzi, trascritta in 337 ms dalla chiusura, in pausa: «Medora, il mio capo mi ha offerto un nuovo ruolo in un'altra città. Devo accettare.» (parte)
+10-02 06:18:54.767 I/flutter (30017): LIVE: la chat ha risposto in 1566 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+10-02 06:18:54.767 I/flutter (30017): LIVE: voce della prima frase anticipata
+10-02 06:18:57.363 I/flutter (30017): LIVE ATTESA dalla fine del parlato: frase chiusa 1998 ms, trascritta 2336 ms, primo testo 3269 ms, prima frase chiusa 3594 ms, domanda scritta 3934 ms, prima lettera della risposta 3934 ms, risposta 4080 ms, voce pronta 4258 ms, flusso aperto in anticipo 4273 ms, primo audio al volto 4273 ms, si sente 6068 ms, il volto parla 6676 ms
+10-02 06:19:09.259 I/flutter (30017): LIVE: primo suono al volto dopo 192 ms, audio di 28655 ms, scritto in 14492 ms
+10-02 06:19:24.569 I/flutter (30017): LIVE: il volto ha finito dopo 29801 ms, lo ha detto lui
+10-02 06:19:25.752 I/flutter (30017): LIVE: la voce del volto tace dopo altri 1182 ms
+10-02 06:19:53.936 I/flutter (30017): LIVE: trascrizione anticipata in 1129 ms, pausa 1: «»
+10-02 06:19:56.170 I/flutter (30017): LIVE: controllo 1 della frase 7 in 1194 ms: «», scarta, sottofondo null
+10-02 06:19:56.170 I/flutter (30017): LIVE: la frase 7 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-02 06:19:58.296 I/flutter (30017): LIVE: trascrizione anticipata in 1086 ms, pausa 2: «»
+10-02 06:20:00.083 I/flutter (30017): LIVE: frase di 7840 ms in 1 pezzi, trascritta in 1273 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:20:00.083 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:20:15.160 I/flutter (30017): LIVE: trascrizione anticipata in 1144 ms, pausa 1: «»
+10-02 06:20:16.678 I/flutter (30017): LIVE: frase di 3920 ms in 1 pezzi, trascritta in 1068 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:20:16.678 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:20:22.144 I/flutter (30017): LIVE: trascrizione anticipata in 1254 ms, pausa 1: «»
+10-02 06:20:22.378 I/flutter (30017): LIVE: controllo 1 della frase 9 in 1084 ms: «», scarta, sottofondo -56
+10-02 06:20:22.378 I/flutter (30017): LIVE: la frase 9 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-02 06:20:23.694 I/flutter (30017): LIVE: frase di 4880 ms in 1 pezzi, trascritta in 1205 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:20:23.694 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:20:25.809 I/flutter (30017): LIVE: trascrizione anticipata in 1238 ms, pausa 1: «»
+10-02 06:20:27.413 I/flutter (30017): LIVE: frase di 8560 ms in 2 pezzi, trascritta in 1233 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:20:27.413 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:20:38.311 I/flutter (30017): LIVE: controllo 1 della frase 11 in 3021 ms: «E che cosa dice la luna di stasera per me?», aspetta, sottofondo null
+10-02 06:20:39.486 I/flutter (30017): LIVE: controllo 2 della frase 11 in 1154 ms: «E che cosa dice la luna di stasera per me?», chiudi, sottofondo null
+10-02 06:20:39.488 I/flutter (30017): LIVE: frase di 8160 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, al controllo: «E che cosa dice la luna di stasera per me?» (parte)
+10-02 06:20:41.569 I/flutter (30017): LIVE: la chat ha risposto in 1905 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+10-02 06:20:41.569 I/flutter (30017): LIVE: voce della prima frase anticipata
+10-02 06:20:45.755 I/flutter (30017): LIVE ATTESA dalla fine del parlato: frase chiusa 34 ms, trascritta 34 ms, domanda scritta 938 ms, primo testo 1625 ms, prima lettera della risposta 1664 ms, prima frase chiusa 1871 ms, risposta 2115 ms, voce pronta 2561 ms, flusso aperto in anticipo 2583 ms, primo audio al volto 2583 ms, si sente 5779 ms, il volto parla 6301 ms
+10-02 06:20:49.988 I/flutter (30017): LIVE: primo suono al volto dopo 467 ms, audio di 21063 ms, scritto in 8418 ms
+10-02 06:21:04.121 I/flutter (30017): LIVE: il volto ha finito dopo 22551 ms, lo ha detto lui
+10-02 06:21:07.443 I/flutter (30017): LIVE: la voce del volto tace dopo altri 3321 ms
+10-02 06:21:11.485 I/flutter (30017): LIVE: trascrizione anticipata in 1298 ms, pausa 1: «»
+10-02 06:21:12.194 I/flutter (30017): LIVE: controllo 1 della frase 14 in 1129 ms: «», scarta, sottofondo null
+10-02 06:21:12.194 I/flutter (30017): LIVE: la frase 14 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-02 06:21:12.850 I/flutter (30017): LIVE: trascrizione anticipata in 1063 ms, pausa 2: «»
+10-02 06:21:14.515 I/flutter (30017): LIVE: frase di 5680 ms in 1 pezzi, trascritta in 1129 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:21:14.515 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:21:19.644 I/flutter (30017): LIVE: controllo 1 della frase 15 in 1058 ms: «», scarta, sottofondo null
+10-02 06:21:19.644 I/flutter (30017): LIVE: la frase 15 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-02 06:21:21.106 I/flutter (30017): LIVE: trascrizione anticipata in 1238 ms, pausa 1: «»
+10-02 06:21:22.846 I/flutter (30017): LIVE: controllo 2 della frase 15 in 1221 ms: «», scarta, sottofondo null
+10-02 06:21:29.823 I/flutter (30017): LIVE: trascrizione anticipata in 1073 ms, pausa 1: «»
+10-02 06:21:29.838 I/flutter (30017): LIVE: controllo 1 della frase 16 in 1071 ms: «», scarta, sottofondo -52
+10-02 06:21:29.838 I/flutter (30017): LIVE: la frase 16 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-02 06:21:32.702 I/flutter (30017): LIVE: trascrizione anticipata in 1230 ms, pausa 2: «»
+10-02 06:21:33.154 I/flutter (30017): LIVE: controllo 2 della frase 16 in 1369 ms: «Mia sorella e io non ci parliamo da Natale. Come posso fare il primo passo?», aspetta, sottofondo -52
+10-02 06:21:34.562 I/flutter (30017): LIVE: frase di 8000 ms in 1 pezzi, trascritta in 1492 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «Mia sorella e io non ci parliamo da Natale. Come posso fare il primo passo?» (parte)
+10-02 06:21:36.257 I/flutter (30017): LIVE: la chat ha risposto in 1561 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+10-02 06:21:36.258 I/flutter (30017): LIVE: voce della prima frase anticipata
+10-02 06:21:40.552 I/flutter (30017): LIVE ATTESA dalla fine del parlato: frase chiusa 1987 ms, trascritta 3480 ms, primo testo 4358 ms, prima frase chiusa 4533 ms, domanda scritta 4902 ms, prima lettera della risposta 4902 ms, risposta 5175 ms, voce pronta 5178 ms, flusso aperto in anticipo 5221 ms, primo audio al volto 5221 ms, si sente 8884 ms, il volto parla 9469 ms
+10-02 06:21:48.938 I/flutter (30017): LIVE: primo suono al volto dopo 44 ms, audio di 26055 ms, scritto in 12680 ms
+10-02 06:22:03.371 I/flutter (30017): LIVE: il volto ha finito dopo 27112 ms, lo ha detto lui
+10-02 06:22:07.741 I/flutter (30017): LIVE: la voce del volto tace dopo altri 4369 ms
+10-02 06:22:25.267 I/flutter (30017): LIVE: controllo 1 della frase 19 in 1233 ms: «Grazie Medora. Un mondo», aspetta, sottofondo null
+10-02 06:22:28.459 I/flutter (30017): LIVE: controllo 2 della frase 19 in 1378 ms: «Grazie Medora. Un'ultima cosa, come ritrovo la calma prima di dormire?», aspetta, sottofondo null
+10-02 06:22:29.230 I/flutter (30017): LIVE: trascrizione anticipata in 1753 ms, pausa 1: «Grazie Medora. Un'ultima cosa, come ritrovo la calma prima di dormire?»
+10-02 06:22:29.230 I/flutter (30017): LIVE: frase di 9040 ms in 1 pezzi, trascritta in 151 ms dalla chiusura, in pausa: «Grazie Medora. Un'ultima cosa, come ritrovo la calma prima di dormire?» (parte)
+10-02 06:22:31.035 I/flutter (30017): LIVE: la chat ha risposto in 1602 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+10-02 06:22:31.036 I/flutter (30017): LIVE: voce della prima frase anticipata
+10-02 06:22:34.560 I/flutter (30017): LIVE ATTESA dalla fine del parlato: frase chiusa 1998 ms, trascritta 2150 ms, primo testo 3139 ms, prima frase chiusa 3399 ms, prima lettera della risposta 3549 ms, domanda scritta 3576 ms, risposta 3955 ms, voce pronta 4030 ms, flusso aperto in anticipo 4033 ms, primo audio al volto 4033 ms, si sente 7134 ms, il volto parla 7480 ms
+10-02 06:22:45.897 I/flutter (30017): LIVE: primo suono al volto dopo 77 ms, audio di 31255 ms, scritto in 14860 ms
+10-02 06:23:03.323 I/flutter (30017): LIVE: il volto ha finito dopo 32286 ms, lo ha detto lui
+10-02 06:23:05.928 I/flutter (30017): LIVE: la voce del volto tace dopo altri 2604 ms
+10-02 06:23:09.491 I/flutter (30017): LIVE: trascrizione anticipata in 1202 ms, pausa 1: «»
+10-02 06:23:11.217 I/flutter (30017): LIVE: frase di 3680 ms in 1 pezzi, trascritta in 1329 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:23:11.217 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:23:13.422 I/flutter (30017): LIVE: trascrizione anticipata in 971 ms, pausa 1: «»
+10-02 06:23:15.188 I/flutter (30017): LIVE: frase di 2960 ms in 1 pezzi, trascritta in 1133 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:23:15.188 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:23:19.485 I/flutter (30017): LIVE: trascrizione anticipata in 878 ms, pausa 1: «»
+10-02 06:23:21.829 I/flutter (30017): LIVE: trascrizione anticipata in 2016 ms, pausa 2: «»
+10-02 06:23:23.383 I/flutter (30017): LIVE: controllo 1 della frase 24 in 1097 ms: «», scarta, sottofondo null
+10-02 06:23:23.383 I/flutter (30017): LIVE: la frase 24 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-02 06:23:26.599 I/flutter (30017): LIVE: controllo 2 della frase 24 in 1273 ms: «», scarta, sottofondo null
+10-02 06:23:40.080 I/flutter (30017): LIVE: trascrizione anticipata in 990 ms, pausa 1: «»
+10-02 06:23:47.936 I/flutter (30017): LIVE: trascrizione anticipata in 7251 ms, pausa 2: «»
+10-02 06:23:48.999 I/flutter (30017): LIVE: frase di 6240 ms in 1 pezzi, trascritta in 6712 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «» (si ascolta ancora)
+10-02 06:23:48.999 I/flutter (30017): LIVE: voce chiara senza parole, il silenzio riparte da zero
+10-02 06:23:49.039 I/flutter (30017): LIVE: controllo 1 della frase 26 in 1312 ms: «», scarta, sottofondo null
+10-02 06:23:49.039 I/flutter (30017): LIVE: la frase 26 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-02 06:23:52.117 I/flutter (30017): LIVE: controllo 2 della frase 26 in 1349 ms: «», scarta, sottofondo null
+10-02 06:24:10.276 I/flutter (30017): LIVE: trascrizione anticipata in 1350 ms, pausa 1: «»
+10-02 06:24:11.164 I/flutter (30017): LIVE: trascrizione anticipata in 1033 ms, pausa 2: «»
+10-02 06:24:11.727 I/flutter (30017): LIVE: frase di 4800 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «» (si ascolta ancora)
+10-02 06:24:25.248 I/flutter (30017): LIVE: chiusa dopo 30 secondi di silenzio

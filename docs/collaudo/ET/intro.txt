@@ -1,0 +1,69 @@
+ORDINE ET VOCE 10: LA NUOVA INTRO, OTTIMIZZATA. 28 settembre 2026.
+
+La voce vale per Intro-Test-5, dall'aggiunta 2 del fondatore del 28
+settembre sera ("Ho creato una nuova cersione della intro da sostituire e
+la 5"). Intro-Test-4 e' entrata nel pacchetto nel pomeriggio ed e' uscita la
+sera, sostituita dalla 5: le sue misure restano qui sotto, nella colonna
+sua, perche' si veda che la 5 e' stata trattata allo stesso modo.
+
+Della cartella D:\Clienti Roogly\Rituali Cartomanzia\App\Intro si e' letto
+solo Intro-Test-4.mp4 nel pomeriggio e solo Intro-Test-5.mp4 la sera; i
+sorgenti restano dove sono, fuori dal repository.
+
+LE MISURE (ffprobe e ffmpeg volumedetect, 28 settembre)
+
+                       Intro-Test-3 (prima)  Intro-Test-5 sorgente   Intro-Test-5 nel pacchetto
+risoluzione            1080x1920             1080x1920               1080x1920
+fotogrammi al secondo  24                    24                      24
+fotogrammi             336                   336                     336
+durata                 14,000 s              14,000 s                14,000 s
+video                  H.264 High, 3,32 Mb/s H.264 Main, 13,00 Mb/s  H.264 High, 3,30 Mb/s
+audio                  AAC 48 kHz stereo     AAC 48 kHz stereo       AAC 48 kHz stereo, copiato
+                       188,8 kb/s            188,8 kb/s              188,8 kb/s
+livello dell'audio     -13,9 dB media        -14,2 dB media          -14,2 dB media
+                       -1,7 dB picco         -1,7 dB picco           -1,7 dB picco
+peso                   6.152.840 byte        23.104.762 byte         6.116.324 byte
+
+Differenza di livello dell'audio fra sorgente e file nel pacchetto: 0 dB
+(l'audio e' copiato, non ricodificato).
+Somiglianza del video col sorgente, fotogramma per fotogramma: SSIM 0,995,
+PSNR medio 47,7 dB, minimo 42,3 dB.
+
+Intro-Test-4, nel pomeriggio, con lo stesso comando: sorgente 23.104.667
+byte, H.264 Main a 13,00 Mb/s, audio -14,1 dB di media e -1,7 di picco;
+convertita 6.122.280 byte, SSIM 0,995, PSNR medio 47,7 dB, minimo 42,3 dB,
+0 dB di differenza nell'audio.
+
+IL COMANDO (ffmpeg, due passate dal sorgente, mai dal convertito di prima)
+
+ffmpeg -i Intro-Test-5.mp4 -map 0:v:0 -c:v libx264 -preset veryslow -profile:v high -level 4.0 -pix_fmt yuv420p -b:v 3300k -x264-params aq-mode=3:aq-strength=1.0 -pass 1 -passlogfile passo -an -f mp4 NUL
+ffmpeg -i Intro-Test-5.mp4 -map 0:v:0 -map 0:a:0 -c:v libx264 -preset veryslow -profile:v high -level 4.0 -pix_fmt yuv420p -b:v 3300k -x264-params aq-mode=3:aq-strength=1.0 -pass 2 -passlogfile passo -c:a copy -movflags +faststart Intro-Test-5.mp4
+
+Perche' cosi': la stessa misura di bit dell'intro di prima (3,3 Mb/s, il
+peso vicino ai 6,15 MB); due passate per dare i bit dove servono;
+aq-mode=3, la quantizzazione adattiva che protegge le zone scure e sfumate,
+dove nascono le bande; il profilo High dell'intro di prima; faststart,
+perche' il lettore cominci senza leggere il file intero.
+
+I FOTOGRAMMI AFFIANCATI (a sinistra il sorgente, a destra il file nel
+pacchetto), di Intro-Test-5, in docs/collaudo/ET/intro/:
+inizio_sorgente_e_ottimizzata.png (0,5 s, la scritta che entra),
+meta_sorgente_e_ottimizzata.png (7 s, la nebulosa),
+fine_sorgente_e_ottimizzata.png (13,5 s, il sigillo e il nome), e
+meta_ingrandita_nebulosa.png, un ritaglio al cento per cento di una zona di
+nebulosa scura (480 per 480 punti, da x 300 e y 1150 in tutti e due):
+guardato anche con la luminosita' triplicata, nessuna banda e nessun blocco
+che il sorgente non abbia gia'. I fotogrammi di Intro-Test-4 sono stati
+sostituiti da questi.
+
+NEL PACCHETTO: brand_assets/intro/Intro-Test-5.mp4 (sha1 d09125ddfaa07923...),
+SequenzaIntro.video lo nomina; Intro-Test-3.mp4 e Intro-Test-4.mp4 sono
+fuori dalla cartella, che entra intera nel pacchetto (la prova intro_test
+vuole un video solo). File dell'intro nel pacchetto diversi da Intro-Test-5
+ottimizzata: 0.
+
+LA REGISTRAZIONE DAL REALME: da fare. Il Realme ha le animazioni di sistema
+a zero e l'app, in quel caso, salta l'intro per scelta
+(SequenzaIntro._riduciMovimento, lib/features/intro/sequenza_intro.dart); le
+impostazioni del telefono non si toccano. La registra il fondatore, o da' il
+si' a riaccendere le animazioni per la prova.

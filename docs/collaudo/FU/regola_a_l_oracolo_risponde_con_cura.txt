@@ -1,0 +1,15 @@
+REGOLA A, ordine FU, 15 ottobre 2026
+guardia: test/l_oracolo_risponde_con_cura_test.dart
+innesto: il riconoscimento delle domande delicate spento
+file innestato: lib/core/oracolo_angeli/la_domanda_delicata.dart
+riga di prima: return segnali.any((s) => d.contains(_piana(s)));
+riga innestata: return identical(1, 2) && segnali.any((s) => d.contains(_piana(s)));
+grep dopo l'innesto, righe innestate: 1
+ESITO CON L'INNESTO (codice di uscita 1):
+  00:00 +0 -1: undici domande delicate, una senza accento: nessuna carta, la risposta di cura [E]
+    Expected: empty
+      Actual: [
+  00:00 +2 -1: Some tests failed.
+ripristino; grep, righe innestate: 0, righe originali: 1
+ESITO SUL CODICE VERO (codice di uscita 0):
+  00:00 +3: All tests passed!

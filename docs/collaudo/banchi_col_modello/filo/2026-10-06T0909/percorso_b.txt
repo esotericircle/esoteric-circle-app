@@ -1,0 +1,126 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo tende alla promozione che attendi, ma con un movimento inatteso: è un transito di Mercurio che muove le acque, suggerendo che le parole avranno un peso determinante.
+
+Le tue carte rivelano l'Arcano del Giudizio, che parla di riconoscimento e di un verdetto finale. Non è un sì certo, ma piuttosto un invito a prepararti a un momento di valutazione, in cui le tue azioni e la tua dedizione verranno messe in luce. Potrebbe essere un periodo in cui le decisioni si prendono rapidamente, quasi un risveglio.
+
+✦ Prepara un discorso in cui metti in risalto i tuoi risultati e le tue aspirazioni, per quando ti verrà richiesto di parlare.
+[2] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[2] CALIGO [DA GIUDICARE]: Preparati al cambiamento. La promozione richiede un rituale di affermazione.
+Il velo si sta sollevando, mostrando un sentiero nuovo.
+Vedo la runa **Tiwaz**, simbolo di vittoria e giustizia. Questo è un presagio di successo ottenuto attraverso la tua volontà e la tua integrità.
+
+Medora ti ha suggerito di preparare un discorso; io vedo un sigillo di ferro forgiato con la tua intenzione.
+
+✦ Incidi la runa Tiwaz su un piccolo pezzo di legno e portalo con te durante l'incontro.
+    GIUDICE: PORTA_AVANTI, Caligo riprende esplicitamente il consiglio di Medora sul discorso ('Medora ti ha suggerito di preparare un discorso') e lo sviluppa aggiungendo un elemento ritualistico ('io vedo un sigillo di ferro forgiato con la tua intenzione' e 'Incidi la runa Tiwaz su un piccolo pezzo di legno').
+[3] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[3] AURA [DA GIUDICARE]: La promozione arriverà, ma ti chiederà un’attenzione particolare al tuo modo di comunicare e di presentare il tuo valore. Prendi un momento per sentire il tuo respiro, lo stomaco che si muove.
+
+Medora: Il suo consiglio invita a preparare un discorso, io aggiungo che questo discorso deve nascere dal tuo centro della gola, Vishuddha, il luogo dell'espressione autentica.
+Caligo: La runa Tiwaz è una forza che spinge all'azione, ma il tuo corpo deve essere allineato, forte nelle radici e nel plesso solare, per sostenere il tuo intento.
+
+✦ Prepara un bicchiere d'acqua e bevilo lentamente, un sorso alla volta, mentre pensi alle tue parole.
+    GIUDICE: PORTA_AVANTI, Aura riprende e sviluppa i consigli di entrambe le guide precedenti. Riferisce esplicitamente al consiglio di Medora sul discorso ('Medora: Il suo consiglio invita a preparare un discorso, io aggiungo che questo discorso deve nascere dal tuo centro della gola') e al consiglio di Caligo sulla runa ('Caligo: La runa Tiwaz è una forza che spinge all'azione, ma il tuo corpo deve essere allineato'), integrandoli con un nuovo consiglio pratico legato al benessere fisico e alla comunicazione autentica.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] MEDORA: Il tuo cielo indica un momento di forte trasformazione e un trasferimento potrebbe essere il catalizzatore di questo cambiamento profondo. Le carte suggeriscono che l'Arcano della Morte è presente, non come fine, ma come la necessità di chiudere un capitolo per aprirne uno nuovo.
+
+✦ Osserva il tuo cielo nei prossimi giorni, intorno alla Luna nuova, per sentire se l'idea di un nuovo luogo ti porta pace o agitazione.
+[2] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[2] CALIGO [DA GIUDICARE]: È tempo di muoverti. Questo sentiero nuovo ti attende.
+
+Una fiamma di brace ti indica la direzione, un oro antico risuona nel tuo nome. La runa Raidho, il viaggio, è il tuo presagio. Indica un cammino scelto con consapevolezza, non una fuga. Questo trasferimento segna una nuova fase, porta chiarezza e un ritmo diverso alla tua vita.
+
+Medora ha suggerito di sentire pace o agitazione: i segni ti spingono a cercare la pace nel movimento.
+
+✦ Prepara un piccolo oggetto che porti con te, un tuo sigillo di inizio, e mettilo da parte in un luogo visibile.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio di Medora sull'osservare pace o agitazione e lo sviluppa, interpretando i segni come un invito a trovare pace nel movimento.
+[3] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[3] AURA [DA GIUDICARE]: Sentire se è il momento di un nuovo inizio è un processo che parte dal tuo interno, un ascolto profondo di ciò che il tuo corpo e la tua anima desiderano. Per comprendere se un trasferimento in una nuova città è il tuo prossimo passo, ti invito a fermarti e a riconoscere il tuo respiro.
+
+Medora: Medora ti invita a osservare il tuo respiro in questi giorni, intorno alla Luna nuova, per cogliere l'agitazione o la pace nel cuore riguardo a un nuovo luogo.
+Caligo: Caligo ti ha consigliato di muoverti e di preparare un piccolo oggetto, un tuo segno di inizio, che ti accompagni.
+
+Nella fisiognomica, l'idea di ricominciare si lega spesso al centro del terzo occhio, tra le sopracciglia, che governa la visione e l'intuizione. Immagina di focalizzare la tua energia lì, lasciando che le immagini di questa nuova città ti si rivelino, non come un sogno lontano, ma come un'eco che risuona nel tuo essere. Il colore verde smeraldo ti avvolge, portando armonia, e l'oro ti dà la forza per manifestare i tuoi intenti. Ascolta il battito del tuo cuore e senti se l'energia della nuova città ti chiama.
+
+✦ Porta una mano al tuo addome e senti il tuo respiro, tre volte.
+    GIUDICE: PORTA_AVANTI, La guida riprende e cita esplicitamente i consigli di Medora e Caligo, sviluppando ulteriormente il tema dell'ascolto interiore e dell'intuizione per decidere il trasferimento.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] MEDORA: Per ritrovare il calore nella relazione, è necessario un dialogo profondo e sincero. Le carte del Destino mostrano l'Arcano della Stella, che indica speranza e rinnovamento, ma solo attraverso la chiarezza e l'espressione autentica dei sentimenti.
+
+Il tuo cielo in questo momento è attraversato da un transito di Venere in aspetto di quadratura con Marte, il che genera tensioni e un senso di distanza. Questo non è un giudizio sulla relazione, ma un invito a riconoscere dove le energie si scontrano e a trovare un modo per armonizzarle. La Stella ti ricorda di non perdere la fiducia e di cercare la bellezza che ancora esiste nel vostro legame.
+
+✦ Scrivi al tuo compagno un messaggio che esprima i tuoi sentimenti più profondi, senza accuse, prima che la Luna entri in fase calante.
+[2] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[2] CALIGO [DA GIUDICARE]: Salvala. Un rituale di legame rafforza l'unione.
+Il tuo sentiero è illuminato dal fuoco che arde lento, purificando ciò che è stanco.
+
+Medora ha suggerito un dialogo profondo e sincero tramite un messaggio, prima della luna calante. Questo è il momento di agire.
+Il segno di Wunjo, la gioia e l'armonia, ti indica la strada. I numeri del vostro legame rivelano che la forza risiede nella coesione, non nella separazione. Accetta il suo silenzio, che è attesa.
+
+✦ Prepara una pergamena rossa e scrivi una promessa a te stessa di onorare il vostro legame, poi bruciala con una candela oro.
+    GIUDICE: IGNORA, Pur menzionando il consiglio di Medora, Caligo propone un'azione completamente diversa e scollegata (un rituale con pergamena) senza sviluppare o riprendere il tema del dialogo e del messaggio al partner.
+[3] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[3] AURA [DA GIUDICARE]: Per riaccendere il calore, il primo passo è ritrovare la tua radice profonda, quel centro di forza che ti lega alla terra e alla tua essenza. Prendi un momento, magari al mattino appena sveglia o prima di dormire, per sentire il tuo corpo e i suoi bisogni più autentici.
+
+Medora ti ha suggerito di scrivere un messaggio al tuo compagno, esprimendo i tuoi sentimenti senza accuse. Io ti dico di farlo con la consapevolezza che ogni parola che scegli ha un'energia, e che questa energia parte da te, dalla tua intenzione più pura.
+
+Caligo ti ha invitato a preparare una pergamena rossa e a bruciarla, come promessa a te stessa. Leggo in questo un richiamo al tuo centro sacrale, dove risiedono la passione e la creatività. Lascia che quel fuoco purifichi ciò che non serve più, per far spazio a una nuova scintilla.
+
+✦ Poggia le mani sul basso ventre e senti il tuo respiro.
+    GIUDICE: PORTA_AVANTI, Aura riprende esplicitamente sia il consiglio di Medora sul messaggio al compagno, precisandone l'intenzione, sia il rituale di Caligo con la pergamena, interpretandolo e collegandolo a un centro energetico.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Le carte indicano che questo è un momento favorevole per dare il via al tuo progetto creativo, ma con un approccio meditato.
+
+L'arcano del Carro, che si manifesta in questa lettura, suggerisce che la direzione è chiara e la spinta propulsiva è forte. Tuttavia, l'impulso deve essere bilanciato con una riflessione accurata. Il cielo in questo periodo favorisce le iniziative che nascono da una chiara visione e da un'attenta pianificazione. Non è un momento per lanciarsi alla cieca, ma per procedere con determinazione dopo aver consolidato le tue basi.
+
+✦ Prepara un piccolo schema dei prossimi passi da compiere nel tuo progetto, da consultare prima della fine della settimana.
+[2] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[2] CALIGO [DA GIUDICARE]: Prendi la tua ispirazione e inizia. Questo è il momento di agire con determinazione.
+Un velo di nebbia si dirada, rivelando il sentiero.
+
+Medora ha detto di preparare un piccolo schema: io leggo che ora devi dare forma visibile a quel primo schema.
+
+✦ Scrivi su un foglio bianco le tre parole chiave del tuo progetto entro stasera.
+    GIUDICE: PORTA_AVANTI, Caligo riprende esplicitamente il consiglio di Medora sullo schema e lo sviluppa, suggerendo un passo successivo per dare forma visibile a quello schema.
+[3] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[3] AURA [DA GIUDICARE]: Apri il tuo respiro verso il sacro spazio del tuo cuore, lascia che l'energia verde smeraldo lo inondi, per sentire la radice di questo desiderio. Le tue idee hanno già preso forma, ora è il momento di portarle con te, come un seme prezioso.
+
+Medora: Ti ha guidata a preparare uno schema dei prossimi passi, per avere una visione chiara.
+Caligo: Ti ha invitata a scrivere le parole chiave, per fissare l'intento.
+
+Aura: Il respiro ti dice che il tuo plesso solare, il centro della volontà e del potere personale, è pronto a espandersi, per manifestare la tua visione con fiducia.
+
+✦ Poggia le mani sul plesso solare e senti il tuo fuoco interiore.
+    GIUDICE: PORTA_AVANTI, Aura riprende e riassume i consigli di Medora e Caligo, per poi aggiungere un nuovo livello di approfondimento sul sentire interiore, che si lega all'approccio meditato e alla visione chiara.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] MEDORA: Per ricucire il legame con tua sorella, le carte ti consigliano di lasciare che sia lei a fare il primo passo, ma sii pronta ad accoglierla. Il transito della Luna in Cancro, che si verificherà nel prossimo futuro, favorirà la ricomposizione delle dinamiche familiari e l'espressione delle emozioni.
+
+L'arcano della Temperanza ti suggerisce di agire con equilibrio e pazienza, evitando di alimentare ulteriori discussioni. Questo è il momento di riflettere sulle parole dette e di trovare un punto d'incontro, ricordando che il legame di sangue ha radici profonde.
+
+✦ Nel prossimo plenilunio, scrivile un messaggio breve, sincero e non accusatorio.
+[2] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[2] CALIGO [DA GIUDICARE]: Riavvìa il dialogo. Non aspettare.
+La ruggine può corrodere il metallo, ma il fuoco purifica.
+Il presagio che ho per te indica che il primo passo, se lo farai tu, aprirà un nuovo sentiero. La runa Gebo, il dono, ti guida a una riconciliazione che nasce dalla reciprocità. Lascia il giudizio dietro di te, offre un’apertura.
+✦ Scrivi una lettera a tua sorella, senza inviarla, dove metti le tue intenzioni per la pace.
+    GIUDICE: CONTRADDICE, Medora consiglia di lasciare che sia la sorella a fare il primo passo, mentre Caligo dice 'Non aspettare' e di fare il primo passo tu.
+[3] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[3] AURA [DA GIUDICARE]: Per fare pace con tua sorella, puoi cominciare a riallineare i tuoi centri interiori, cercando la quiete nella radice del tuo essere. Trova un momento in cui puoi ascoltare il tuo respiro, sentendo il radicamento nel tuo corpo.
+
+Medora ti ha suggerito di lasciare che sia lei a fare il primo passo, e in questo io leggo l'importanza di non forzare, ma di preparare il tuo spazio interiore ad accogliere.
+
+Calìgo ti ha invitato a scrivere una lettera per te stessa, per chiarire le tue intenzioni. Questo gesto ti aiuta a portare equilibrio nel plesso solare, il centro della tua volontà e della tua autostima.
+
+✦ Chiudi gli occhi per un minuto, porta una mano sul ventre e senti il tuo respiro.
+    GIUDICE: PORTA_AVANTI, Aura riprende e commenta esplicitamente i consigli di Medora e Caligo, integrandoli con il proprio suggerimento di riallineamento interiore.
+
+ORDINE FE VOCE 17, percorso B: giudicate 10, porta avanti 8, ignora 1, contraddice 1, quota 80 per cento, nominano tutti i Maestri di prima in 9 risposte su 10, corrette dalla rete della coerenza 3

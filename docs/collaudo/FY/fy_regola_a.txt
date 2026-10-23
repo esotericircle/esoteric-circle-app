@@ -1,0 +1,78 @@
+Ordine FY, parte A (Calendario Lunare e Respiro della Luna) e FY.21-FY.22:
+le guardie nuove viste rosse, 16 ottobre 2026. Ogni innesto verificato col
+grep prima di leggere l'esito, ogni file ripristinato con lo sha1 identico.
+
+1. test/ogni_arte_si_apre_senza_quadro_grigio_test.dart (FY.01)
+   ROSSA SUL DIFETTO VERO, non su un innesto. L'eccezione vera letta dai
+   registri del Realme 767f596c sulla build 2312, aprendo il Calendario
+   Lunare Personale dal dominio di Medora:
+     I flutter : Invalid argument(s): 134.66666666666666
+     #0 double.clamp (dart:core-patch/double.dart:225)
+     #1 _CalendarioLunareScreenState._laScena
+        (calendario_lunare_screen.dart:593)
+   Prima stesura della guardia coi margini di 24 punti in alto: verde, non
+   riproduceva (la barra dell'identita' aggiunge la sua altezza al margine).
+   Coi margini veri del Realme (75 in alto, 48 in basso): 4 rosse su 4,
+   "QUESTE ARTI SI APRONO SUL QUADRO GRIGIO: [lunar_calendar: Invalid
+   argument(s): 173.0]". Dopo la correzione: 5 su 5 verdi (14 arti aperte
+   in ogni combinazione).
+
+2. test/la_luna_non_ha_la_cornice_nera_test.dart (FY.03)
+   Innesto: il filtro della luce in opacita' sostituito da un filtro nullo
+   (ColorFilter.mode(Colors.transparent, BlendMode.dst)), grep 1.
+   Esito: ROSSO, luce del bordo 0,51 contro 41,92 del cielo.
+   Ripristino: sha1 af52585a0c04 prima e dopo.
+   Dopo: luce del bordo 41,92, del cielo 41,92, la piu' chiara della Luna
+   252,07 (la foto si disegna davvero).
+
+3. test/scorre_tutto_e_la_luna_resta_test.dart (FY.04, FY.05)
+   Innesto 1: la voce Respiro non riporta la scena in cima (if (false && ...)),
+   grep 1. Esito: ROSSO, "toccando Respiro la scena con Medora torna intera".
+   Innesto 2: la Luna fissa sempre spenta (opacity: 0), grep 1. Esito:
+   ROSSO, "scorre la schermata intera, Medora compresa, e la Luna resta".
+   Ripristino: sha1 af52585a0c04 prima e dopo.
+
+4. test/il_respiro_si_compie_test.dart (FY.06)
+   Innesto 1: il dito sulla Luna non conta (if (nelRito && false)), grep 1.
+   Esito: ROSSO, "Expected: 'Inspira' Actual: 'Tieni premuto sulla Luna'".
+   Innesto 2: la soglia del microfono a 1,5, grep 1. Esito: ROSSO,
+   "Expected: 'Respiro compiuto' Actual: 'Tieni premuto sulla Luna'".
+   Ripristino: sha1 4cae15c6b718 prima e dopo.
+   E un difetto vero preso dalla prima stesura: tenendo premuto, sulla scena
+   restava "Tieni premuto sulla Luna", perche' lo stato del gesto cambiava
+   senza ridisegnare la schermata.
+
+5. test/la_collana_si_legge_test.dart (FY.08)
+   ROSSA SUL DIFETTO VERO al primo giro: il nome del ciclo, "Collana di
+   ottobre", nel velluto arrivava a 8,2 punti a 320, 8,9 a 360, 9,3 a 390.
+   Dopo (solo il mese, in grande): 4 su 4 verdi, ogni testo sopra i 12 punti.
+
+6. test/gli_avvisi_e_le_date_si_capiscono_test.dart (FY.09, FY.22)
+   Innesto 1: la spiegazione dell'avviso della Luna piena cambiata in "Ora
+   esatta, all'ora esatta...", grep 1. Esito: ROSSO, "avvisi che non dicono
+   che cosa arriva e quando: [Luna piena, nuova e Superluna]".
+   Innesto 2: il filtro delle date com'era (x < -120 || x > larghezza + 120),
+   grep 1. Esito: ROSSO, 4 su 4 larghezze.
+   Ripristino: sha1 885ce10ea381 e 7f8cef5f70cf prima e dopo.
+   Un primo innesto scritto con la shell non era entrato (grep 0): il verde
+   letto allora non e' stato contato, l'innesto e' stato rifatto.
+
+7. test/le_righe_dei_dati_sono_centrate_test.dart (FY.10)
+   ROSSA SUL DIFETTO VERO al primo giro: le righe senza medaglione stavano
+   6 punti sopra il centro della striscia (Eta' della Luna, Distanza,
+   Prossima Luna piena), 3 punti col testo a 1,3. Lo Stack della riga non
+   aveva allineamento e metteva il contenuto in alto. Dopo: 8 su 8.
+
+8. test/il_giro_della_luna_fy_test.dart (FY.21, FY.07)
+   Il giro intero, nove catture in docs/collaudo/FY/giro_della_luna/. La
+   prima stesura e' caduta sul tocco del pulsante della Collana, coperto
+   dalla barra in basso appena entrato nella vista: una persona scorre un
+   poco di piu', la prova lo fa.
+
+9. test/la_collana_si_vede_intera_test.dart (FY.08, pitture v2)
+   Innesto: la finestra sulla pittura stretta sull'ovale (_cimaDellaFinestra
+   600 invece di 400), grep 1. Esito: ROSSO, "l'ovale e' tagliato in alto"
+   a ogni larghezza. Ripristino: sha1 90b2c3dee153 prima e dopo.
+   La misura della pittura (niente argento sulle colonne di bordo) e' vera
+   sulla v2 (0 righe) e falsa sulla v1 (40-45 righe), misurata dallo
+   strumento tool/gli_asset_della_collana_v2.py.

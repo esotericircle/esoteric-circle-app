@@ -1,0 +1,9 @@
+innesto in lib/features/santuario/santuario_screen.dart: il vecchio compare 0 volte, il nuovo 1 volte ('          label: etichetta,\n' -> "          label: '',\n")
+  Expected: exactly one matching candidate
+    Actual: _ElementPredicateWidgetFinder:<Found 0 widgets with a semantics label named "Consulta
+  00:03 +0 -1: EO.08: sul telefono del fondatore "Consulta" sta accanto a "Entra", in tondo, dice il suo nome alla voce e apre la chat [E]
+  Expected: exactly one matching candidate
+    Actual: _ElementPredicateWidgetFinder:<Found 0 widgets with a semantics label named "Consulta
+  00:09 +1 -2: EO.08: girato il cerchio, "Consulta" cambia col Maestro [E]
+  00:12 +3 -2: Some tests failed.
+ripristino lib/features/santuario/santuario_screen.dart: sha1 c7daf1aaa5b3 -> c7daf1aaa5b3, IDENTICO

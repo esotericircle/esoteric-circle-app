@@ -1,0 +1,242 @@
+[
+ {
+  "scheda": 1,
+  "id": "tarocchi-1",
+  "scambiato": false,
+  "simboliDi": "tarocchi-1"
+ },
+ {
+  "scheda": 2,
+  "id": "tarocchi-2",
+  "scambiato": true,
+  "simboliDi": "tarocchi-26"
+ },
+ {
+  "scheda": 3,
+  "id": "tarocchi-3",
+  "scambiato": true,
+  "simboliDi": "tarocchi-27"
+ },
+ {
+  "scheda": 4,
+  "id": "tarocchi-4",
+  "scambiato": false,
+  "simboliDi": "tarocchi-4"
+ },
+ {
+  "scheda": 5,
+  "id": "tarocchi-5",
+  "scambiato": true,
+  "simboliDi": "tarocchi-9"
+ },
+ {
+  "scheda": 6,
+  "id": "tarocchi-6",
+  "scambiato": false,
+  "simboliDi": "tarocchi-6"
+ },
+ {
+  "scheda": 7,
+  "id": "tarocchi-7",
+  "scambiato": true,
+  "simboliDi": "tarocchi-3"
+ },
+ {
+  "scheda": 8,
+  "id": "tarocchi-8",
+  "scambiato": false,
+  "simboliDi": "tarocchi-8"
+ },
+ {
+  "scheda": 9,
+  "id": "tarocchi-9",
+  "scambiato": true,
+  "simboliDi": "tarocchi-37"
+ },
+ {
+  "scheda": 10,
+  "id": "tarocchi-10",
+  "scambiato": true,
+  "simboliDi": "tarocchi-34"
+ },
+ {
+  "scheda": 11,
+  "id": "tarocchi-11",
+  "scambiato": false,
+  "simboliDi": "tarocchi-11"
+ },
+ {
+  "scheda": 12,
+  "id": "tarocchi-12",
+  "scambiato": false,
+  "simboliDi": "tarocchi-12"
+ },
+ {
+  "scheda": 13,
+  "id": "tarocchi-13",
+  "scambiato": true,
+  "simboliDi": "tarocchi-25"
+ },
+ {
+  "scheda": 14,
+  "id": "tarocchi-14",
+  "scambiato": false,
+  "simboliDi": "tarocchi-14"
+ },
+ {
+  "scheda": 15,
+  "id": "tarocchi-15",
+  "scambiato": false,
+  "simboliDi": "tarocchi-15"
+ },
+ {
+  "scheda": 16,
+  "id": "tarocchi-16",
+  "scambiato": false,
+  "simboliDi": "tarocchi-16"
+ },
+ {
+  "scheda": 17,
+  "id": "tarocchi-17",
+  "scambiato": false,
+  "simboliDi": "tarocchi-17"
+ },
+ {
+  "scheda": 18,
+  "id": "tarocchi-18",
+  "scambiato": true,
+  "simboliDi": "tarocchi-22"
+ },
+ {
+  "scheda": 19,
+  "id": "tarocchi-19",
+  "scambiato": true,
+  "simboliDi": "tarocchi-23"
+ },
+ {
+  "scheda": 20,
+  "id": "tarocchi-20",
+  "scambiato": false,
+  "simboliDi": "tarocchi-20"
+ },
+ {
+  "scheda": 21,
+  "id": "tarocchi-21",
+  "scambiato": true,
+  "simboliDi": "tarocchi-29"
+ },
+ {
+  "scheda": 22,
+  "id": "tarocchi-22",
+  "scambiato": true,
+  "simboliDi": "tarocchi-10"
+ },
+ {
+  "scheda": 23,
+  "id": "tarocchi-23",
+  "scambiato": true,
+  "simboliDi": "tarocchi-35"
+ },
+ {
+  "scheda": 24,
+  "id": "tarocchi-24",
+  "scambiato": false,
+  "simboliDi": "tarocchi-24"
+ },
+ {
+  "scheda": 25,
+  "id": "tarocchi-25",
+  "scambiato": true,
+  "simboliDi": "tarocchi-5"
+ },
+ {
+  "scheda": 26,
+  "id": "tarocchi-26",
+  "scambiato": true,
+  "simboliDi": "tarocchi-18"
+ },
+ {
+  "scheda": 27,
+  "id": "tarocchi-27",
+  "scambiato": true,
+  "simboliDi": "tarocchi-19"
+ },
+ {
+  "scheda": 28,
+  "id": "tarocchi-28",
+  "scambiato": false,
+  "simboliDi": "tarocchi-28"
+ },
+ {
+  "scheda": 29,
+  "id": "tarocchi-29",
+  "scambiato": true,
+  "simboliDi": "tarocchi-13"
+ },
+ {
+  "scheda": 30,
+  "id": "tarocchi-30",
+  "scambiato": false,
+  "simboliDi": "tarocchi-30"
+ },
+ {
+  "scheda": 31,
+  "id": "tarocchi-31",
+  "scambiato": false,
+  "simboliDi": "tarocchi-31"
+ },
+ {
+  "scheda": 32,
+  "id": "tarocchi-32",
+  "scambiato": false,
+  "simboliDi": "tarocchi-32"
+ },
+ {
+  "scheda": 33,
+  "id": "tarocchi-33",
+  "scambiato": false,
+  "simboliDi": "tarocchi-33"
+ },
+ {
+  "scheda": 34,
+  "id": "tarocchi-34",
+  "scambiato": true,
+  "simboliDi": "tarocchi-2"
+ },
+ {
+  "scheda": 35,
+  "id": "tarocchi-35",
+  "scambiato": true,
+  "simboliDi": "tarocchi-39"
+ },
+ {
+  "scheda": 36,
+  "id": "tarocchi-36",
+  "scambiato": false,
+  "simboliDi": "tarocchi-36"
+ },
+ {
+  "scheda": 37,
+  "id": "tarocchi-37",
+  "scambiato": true,
+  "simboliDi": "tarocchi-21"
+ },
+ {
+  "scheda": 38,
+  "id": "tarocchi-38",
+  "scambiato": false,
+  "simboliDi": "tarocchi-38"
+ },
+ {
+  "scheda": 39,
+  "id": "tarocchi-39",
+  "scambiato": true,
+  "simboliDi": "tarocchi-7"
+ },
+ {
+  "scheda": 40,
+  "id": "tarocchi-40",
+  "scambiato": false,
+  "simboliDi": "tarocchi-40"
+ }
+]

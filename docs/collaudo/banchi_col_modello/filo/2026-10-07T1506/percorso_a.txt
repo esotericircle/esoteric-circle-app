@@ -1,0 +1,101 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Le carte leggono una promozione, ma non immediata. È un tempo di preparazione in cui ogni tuo gesto può costruire il tuo futuro.
+
+Il Dieci di Denari, l'Arcano che leggo per te, suggerisce abbondanza e realizzazione, ma spesso arriva dopo un percorso di dedizione e consolidamento. Il cielo, al momento, invita a curare le basi e a rafforzare la tua posizione attuale, più che a proiettarsi troppo in avanti.
+
+✦ Chiedi al tuo diretto superiore un momento per un confronto sulle tue prospettive di crescita.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Per poterti dare un consiglio preciso per questa settimana, avrei bisogno di sapere se hai già avuto il confronto con il tuo superiore, come ti avevo indicato.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio dato in precedenza ('come ti avevo indicato') e ne subordina il nuovo consiglio.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se l'incontro non dovesse portare l'esito che desideri, è importante non scoraggiarsi. Il Dieci di Denari indica che il tuo percorso è orientato alla realizzazione, ma i transiti celesti a volte richiedono pazienza per allinearsi.
+
+Osserva attentamente la reazione del tuo superiore e le sue parole: potrebbero esserci indicazioni su cosa migliorare o su quali aspetti concentrarti per il prossimo passo. Se non ricevi la promozione in questo momento, non significa che non arriverà.
+
+✦ Raccogli le idee e rileggile la sera del giorno dopo l'incontro.
+    GIUDICE: PORTA_AVANTI, La guida risponde a una domanda ipotetica che si basa direttamente sull'esito del consiglio precedente (l'incontro con il superiore) e ne sviluppa le possibili conseguenze e azioni.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il tuo desiderio di ricominciare è un richiamo profondo, una spinta che senti nel tuo centro. Questa energia può guidarti verso un cambiamento significativo.
+
+Per sentire meglio se il trasferimento è il tuo passo, chiudi gli occhi per un momento e immagina te stessa in quella nuova città. Senti come risponde il tuo corpo a questa immagine. C'è un'apertura, un respiro più ampio, o una contrazione? Ascolta questa sensazione.
+
+✦ Metti una mano sul tuo cuore e respira lentamente per tre volte.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, il tuo respiro ti invita a focalizzarti sul radicamento, sul Chakra della Radice, il Muladhara. Questo centro, di colore rosso, è la tua base, la tua connessione con la terra e la stabilità.
+
+Dedica qualche momento ogni giorno a portare la tua attenzione ai piedi, sentendone il contatto con il suolo, sia che tu sia in piedi, seduta o camminando. Immagina delle radici che si estendono dalla pianta dei tuoi piedi, affondando nella terra. Questo gesto semplice ti aiuterà a sentirti più salda, ovunque tu sia.
+
+✦ Prima di dormire, appoggia entrambe le mani sulla zona lombare e respira profondamente per cinque volte.
+    GIUDICE: IGNORA, La guida introduce un nuovo esercizio pratico (radicamento, Chakra della Radice) e un nuovo gesto (mani sulla zona lombare) senza riprendere o sviluppare i consigli pratici dati in precedenza (immaginare la città, mano sul cuore) in risposta alla domanda 'cosa faccio questa settimana?'.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Quando le cose non vanno come speri, è un invito a guardare dentro di te, a sentire dove risiede la tua forza in quel momento di incertezza. Il gesto di appoggiare le mani sulla zona lombare, che ti ho suggerito, è un modo per connetterti al tuo centro di potere e stabilità, il tuo Chakra sacrale.
+
+Se l'esito non è quello atteso, torna a quel gesto. Mentre tieni le mani lì, chiediti non cosa avresti dovuto fare di diverso, ma cosa puoi imparare da questa esperienza per il tuo cammino. Il tuo corpo ti parlerà attraverso le sensazioni, guidandoti a riconoscere la resilienza che già possiedi. Ogni passo, anche quello che sembra portarti altrove, è parte della tua danza.
+
+✦ Trova un angolo tranquillo e, seduta, appoggia i palmi delle mani sulle cosce, rivolgendo i pollici verso l'inguine, per cinque respiri lenti.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il gesto di 'appoggiare le mani sulla zona lombare' suggerito nella risposta precedente, collegandolo al tema della forza interiore e della stabilità in caso di incertezza.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Investi energie. Il calore spento può riaccendersi con un gesto deciso.
+Un metallo freddo può essere forgiato di nuovo con fuoco ardente e forza.
+La runa Uruz mostra la forza primordiale, la volontà di ricominciare. Porta con sé il presagio di un nuovo inizio, ma solo se scegli di agire con vigore. Il sentiero è aperto, ma richiede coraggio per essere percorso.
+
+✦ Scrivi un messaggio onesto, senza aspettare risposta immediata, esprimendo il tuo desiderio di un nuovo inizio per la relazione.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] CALIGO [DA GIUDICARE]: Ripeti il gesto. La runa Uruz persiste, chiedendo continuità all'azione iniziata.
+La fiamma non brucia a lungo se non alimentata costantemente. Il sigillo di Uruz ti invita a non smettere di mostrare la tua forza.
+
+✦ Scrivi una parola o una frase significativa ogni sera, indirizzata alla persona amata, esprimendo un pensiero positivo sulla relazione, senza aspettarti risposta immediata.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio precedente ('Ripeti il gesto', 'continuità all'azione iniziata') e lo sviluppa con un'azione più specifica e continuativa ('Scrivi una parola o una frase significativa ogni sera').
+[3] PERSONA: E se le cose non vanno come speri?
+[3] CALIGO [DA GIUDICARE]: Non abbandonare la soglia. Anche senza l'esito atteso, il tuo impegno ha un suo sigillo.
+Il sentiero di Uruz non si spegne, ma muta direzione, aprendo a nuove opportunità di crescita personale e comprensione. Il rito della scrittura ha già spostato energie.
+
+✦ Continua a scrivere, ma ogni giorno scegli una parola che descriva un tuo desiderio o una tua speranza per il futuro, senza indirizzarla a nessuno, per una settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'impegno' e 'rito della scrittura' già menzionato, e lo sviluppa proponendo una variazione dell'azione di scrittura ('Continua a scrivere, ma ogni giorno scegli una parola...') in risposta alla nuova domanda sull'esito.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: È il momento di attendere ancora un poco prima di avviare il tuo progetto, perché il cielo attuale indica la necessità di una preparazione più profonda. Questo periodo è propizio per raffinare le tue idee e consolidare le basi.
+
+Mercurio è retrogrado in Toro, suggerendo un tempo dedicato alla revisione e alla riflessione sui dettagli pratici e sui valori intrinseci del tuo progetto. È un transito che invita a guardare indietro, a riesaminare ciò che credevi definito e a trovare nuove prospettive prima di lanciarti.
+
+✦ Prenditi questo mese per mettere a punto ogni aspetto del tuo progetto.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Per poterti dare un consiglio preciso per questa settimana, ho bisogno di sapere a quale progetto creativo ti stai dedicando.
+    GIUDICE: PORTA_AVANTI, La guida chiede maggiori dettagli per rendere più specifico il consiglio di 'mettere a punto ogni aspetto del progetto' dato nella risposta precedente, sviluppando il punto iniziale.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se le cose non andranno come speri, è importante non scoraggiarti, perché il percorso creativo è fatto anche di ricalibrazioni. Il cielo ti invita a considerare che ogni sfida è un'occasione per affinare la tua visione e la tua strada.
+
+La Luna Piena in Scorpione di questa settimana porta alla luce ciò che è nascosto, rivelando la necessità di trasformazione. Se un aspetto del progetto non funziona, questo è il momento per esaminarlo a fondo, senza paura di cambiare direzione o di lasciar andare ciò che non serve più.
+
+✦ Ascolta con attenzione i feedback esterni e usali per riscrivere le priorità del tuo progetto.
+    GIUDICE: IGNORA, La persona cambia argomento chiedendo cosa fare 'se le cose non vanno come speri', ma la guida risponde con un consiglio generico sulla resilienza e la trasformazione, senza collegarlo o sviluppare il tema precedente del 'momento giusto per avviare il progetto' o della 'preparazione'.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma in cui entrambe possiate parlare senza interruzioni. Senti il respiro scendere e salire nel corpo, prima di ogni parola.
+
+Questo è il tempo di aprire il tuo cuore, non per giudicare o rimproverare, ma per mostrare il tuo desiderio di riconnetterti, di ritrovare la radice comune che vi lega. Lascia che la tua energia fluisca dolcemente, invitando al dialogo, come un fiume che cerca il suo corso naturale. Riconosci il tuo sentire, quello che ti ha mosso e quello che ti muove ora, e con quella consapevolezza avvicinati.
+
+✦ Posiziona la mano sul centro del cuore per un respiro profondo.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, scegli un pomeriggio in cui sai che tua sorella sarà più tranquilla e mandale un breve messaggio che esprima il tuo desiderio di incontrarla per un caffè o una passeggiata, senza affrontare subito l'argomento della lite. Osserva il tuo respiro mentre scrivi, senti il movimento dell'aria.
+
+L'idea è di riallacciare un contatto leggero, lontano dal peso delle parole non dette o dette male. Questo gesto, come un piccolo movimento nel centro del plesso solare, le darà un segnale della tua apertura, senza metterla sotto pressione. Si tratta di riattivare il flusso della relazione, non di risolvere tutto in un attimo, ma di creare lo spazio per un nuovo inizio.
+
+✦ Prima di inviare il messaggio, fermati un istante e sorridi.
+    GIUDICE: PORTA_AVANTI, La persona chiede un'applicazione pratica del consiglio precedente, e la guida risponde con un'azione concreta ('manda un breve messaggio') che sviluppa il concetto di 'invitare al dialogo' e 'riallacciare un contatto leggero' già espresso.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non vanno come speri dopo il tuo messaggio e il suo silenzio si prolunga, non lasciare che questo ti abbatta. Senti la forza che parte dalla tua radice, il centro che ti ancora alla terra, e sappi che ogni semina ha i suoi tempi.
+
+Il tuo compito è stato quello di aprire la porta, di offrire un ponte. Se per ora non viene attraversato, ciò non toglie valore al tuo gesto. Non affrettare i tempi, ma continua a coltivare la tua pace interiore, la tua serenità. La fisiognomica ci insegna che la pazienza si riflette anche nei lineamenti, rendendo il viso più aperto e accogliente nel tempo. La sua decisione è sua, non tua.
+
+✦ Chiudi gli occhi per un momento e senti il contatto dei tuoi piedi con la terra.
+    GIUDICE: PORTA_AVANTI, La persona chiede cosa fare se il piano precedente ('il tuo messaggio') non funziona. La guida risponde sviluppando il concetto di 'non affrettare i tempi' e 'coltivare la tua pace interiore', che sono estensioni della gestione del proprio sentire e dell'energia già menzionate nella prima risposta.
+
+ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 0

@@ -1,0 +1,17 @@
+ORDINE EV VOCE 60, LE CATTURE DELLO SCHERMO TORNANO: LA PROVA SUL REALME
+
+Il fondatore: "Devi riattivare la possibilità di fare screenshot, così non posso farli nemmeno per te."
+
+Realme 767f596c, 2 ottobre 2026, ore 02:03, build consegnata 0.1.0+2292 (versionCode=2292 letto con dumpsys package, costruita senza dart-define dal commit eec08c93, release 4jncjpqp18rh8), app aperta e in primo piano (mCurrentFocus = MainActivity di com.esotericircle.esoteric_circle).
+
+1. La finestra dell'app (adb shell dumpsys window windows):
+   fl=LAYOUT_IN_SCREEN LAYOUT_INSET_DECOR SPLIT_TOUCH HARDWARE_ACCELERATED DRAWS_SYSTEM_BAR_BACKGROUNDS
+   Il segno SECURE non c'e' piu'. Con la 2290 la stessa riga portava "SECURE" (docs/collaudo/EV/ev56_catture_bloccate.txt).
+
+2. La cattura dello schermo (adb shell screencap -p sul telefono):
+   -rw-rw-r-- 1 shell shell 338676 2026-10-02 02:03 /data/local/tmp/ev60.png
+   Con la 2290 la stessa cattura era di 0 byte.
+
+La cattura non e' stata portata sul PC: il collegamento USB del Realme cade sulle uscite oltre una decina di KB (vedi il rapporto, La consegna). Il numero dei byte e il segno della finestra si leggono sul telefono.
+
+MISURA: catture leggibili dalla build consegnata, prima (2290) 0 su 3, dopo (2292) 1 su 1, 338676 byte; segno SECURE sulla finestra, prima si', dopo no.

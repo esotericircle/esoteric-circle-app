@@ -1,0 +1,8 @@
+maestro medora, inizio 02:12:12
+sessione chiesta a 1.6 s
+saluto finito a 15.2 s (1 voci finite)
+domanda 1 detta a 16.5 s (02:12:28): Medora, riceverò la promozione che aspetto al lavoro?
+  voce finita a 68.6 s
+domanda 2 detta a 70.5 s (02:13:22): E in pratica, cosa faccio questa settimana?
+  voce finita a 112.2 s
+croce toccata a 131.0 s

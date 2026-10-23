@@ -1,0 +1,194 @@
+{
+ "S01": {
+  "giro": "corta",
+  "caso": "X04"
+ },
+ "S02": {
+  "giro": "piena",
+  "caso": "X17"
+ },
+ "S03": {
+  "giro": "corta",
+  "caso": "X13"
+ },
+ "S04": {
+  "giro": "corta",
+  "caso": "X23"
+ },
+ "S05": {
+  "giro": "corta",
+  "caso": "X15"
+ },
+ "S06": {
+  "giro": "piena",
+  "caso": "X24"
+ },
+ "S07": {
+  "giro": "piena",
+  "caso": "X08"
+ },
+ "S08": {
+  "giro": "piena",
+  "caso": "X14"
+ },
+ "S09": {
+  "giro": "piena",
+  "caso": "X05"
+ },
+ "S10": {
+  "giro": "piena",
+  "caso": "X06"
+ },
+ "S11": {
+  "giro": "piena",
+  "caso": "X12"
+ },
+ "S12": {
+  "giro": "corta",
+  "caso": "X17"
+ },
+ "S13": {
+  "giro": "piena",
+  "caso": "X01"
+ },
+ "S14": {
+  "giro": "piena",
+  "caso": "X19"
+ },
+ "S15": {
+  "giro": "piena",
+  "caso": "X16"
+ },
+ "S16": {
+  "giro": "piena",
+  "caso": "X02"
+ },
+ "S17": {
+  "giro": "piena",
+  "caso": "X11"
+ },
+ "S18": {
+  "giro": "piena",
+  "caso": "X07"
+ },
+ "S19": {
+  "giro": "corta",
+  "caso": "X22"
+ },
+ "S20": {
+  "giro": "corta",
+  "caso": "X21"
+ },
+ "S21": {
+  "giro": "corta",
+  "caso": "X08"
+ },
+ "S22": {
+  "giro": "corta",
+  "caso": "X11"
+ },
+ "S23": {
+  "giro": "piena",
+  "caso": "X04"
+ },
+ "S24": {
+  "giro": "corta",
+  "caso": "X19"
+ },
+ "S25": {
+  "giro": "piena",
+  "caso": "X13"
+ },
+ "S26": {
+  "giro": "corta",
+  "caso": "X16"
+ },
+ "S27": {
+  "giro": "corta",
+  "caso": "X12"
+ },
+ "S28": {
+  "giro": "corta",
+  "caso": "X20"
+ },
+ "S29": {
+  "giro": "corta",
+  "caso": "X24"
+ },
+ "S30": {
+  "giro": "corta",
+  "caso": "X09"
+ },
+ "S31": {
+  "giro": "corta",
+  "caso": "X03"
+ },
+ "S32": {
+  "giro": "corta",
+  "caso": "X01"
+ },
+ "S33": {
+  "giro": "piena",
+  "caso": "X15"
+ },
+ "S34": {
+  "giro": "corta",
+  "caso": "X18"
+ },
+ "S35": {
+  "giro": "corta",
+  "caso": "X05"
+ },
+ "S36": {
+  "giro": "piena",
+  "caso": "X18"
+ },
+ "S37": {
+  "giro": "piena",
+  "caso": "X21"
+ },
+ "S38": {
+  "giro": "piena",
+  "caso": "X23"
+ },
+ "S39": {
+  "giro": "piena",
+  "caso": "X09"
+ },
+ "S40": {
+  "giro": "piena",
+  "caso": "X10"
+ },
+ "S41": {
+  "giro": "corta",
+  "caso": "X07"
+ },
+ "S42": {
+  "giro": "corta",
+  "caso": "X14"
+ },
+ "S43": {
+  "giro": "piena",
+  "caso": "X03"
+ },
+ "S44": {
+  "giro": "corta",
+  "caso": "X02"
+ },
+ "S45": {
+  "giro": "piena",
+  "caso": "X22"
+ },
+ "S46": {
+  "giro": "corta",
+  "caso": "X10"
+ },
+ "S47": {
+  "giro": "corta",
+  "caso": "X06"
+ },
+ "S48": {
+  "giro": "piena",
+  "caso": "X20"
+ }
+}

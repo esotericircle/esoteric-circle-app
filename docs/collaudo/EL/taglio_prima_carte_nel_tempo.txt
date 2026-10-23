@@ -1,0 +1,66 @@
+ORDINE EL VOCE 02, LE CARTE DEL TAVOLO NEL TEMPO, dalla raffica di screencap del Realme 767f596c.
+Tempo dal tocco su Taglia. Nella fascia del tavolo (y da 1050 a 1800 pixel) una colonna e' carta se porta almeno 8 pixel
+dell'oro delle cornici. AMPIEZZA: da quale colonna a quale ci sono carte. GRUPPI: blocchi di colonne
+separati da piu' di 12 pixel vuoti; un mazzo o un tavolo steso fanno 1, due pacchetti affiancati 2.
+
+EVENTI (istante del telefono):
+     0.00 s  tocco su Taglia
+     6.08 s  fine della raffica
+
+FOTOGRAMMI: 55 in 7.83 secondi
+
+  -1.63 s  ampiezza   849 px  gruppi 1  0000.png
+  -1.46 s  ampiezza   849 px  gruppi 1  0001.png
+  -1.41 s  ampiezza   849 px  gruppi 1  0002.png
+  -1.24 s  ampiezza   849 px  gruppi 1  0003.png
+  -1.20 s  ampiezza   849 px  gruppi 1  0004.png
+  -1.04 s  ampiezza   849 px  gruppi 1  0005.png
+  -0.98 s  ampiezza   849 px  gruppi 1  0006.png
+  -0.83 s  ampiezza   849 px  gruppi 1  0007.png
+  -0.76 s  ampiezza   849 px  gruppi 1  0008.png
+  -0.59 s  ampiezza   849 px  gruppi 1  0009.png
+  -0.57 s  ampiezza   849 px  gruppi 1  0010.png
+  -0.38 s  ampiezza   849 px  gruppi 1  0011.png
+  -0.34 s  ampiezza   849 px  gruppi 1  0012.png
+  -0.12 s  ampiezza   849 px  gruppi 1  0013.png
+  -0.11 s  ampiezza   849 px  gruppi 1  0014.png
+   0.09 s  ampiezza   849 px  gruppi 1  0015.png
+   0.10 s  ampiezza   849 px  gruppi 1  0016.png
+   0.35 s  ampiezza   849 px  gruppi 1  0017.png
+   0.38 s  ampiezza   849 px  gruppi 1  0018.png
+   0.60 s  ampiezza     0 px  gruppi 0  0019.png
+   0.64 s  ampiezza     0 px  gruppi 0  0020.png
+   1.61 s  ampiezza   849 px  gruppi 1  0021.png
+   1.70 s  ampiezza   849 px  gruppi 1  0022.png
+   1.83 s  ampiezza   849 px  gruppi 1  0023.png
+   1.92 s  ampiezza   849 px  gruppi 1  0024.png
+   2.06 s  ampiezza   849 px  gruppi 1  0025.png
+   2.14 s  ampiezza   849 px  gruppi 1  0026.png
+   3.45 s  ampiezza   849 px  gruppi 1  0027.png
+   3.45 s  ampiezza   849 px  gruppi 1  0028.png
+   3.67 s  ampiezza   849 px  gruppi 1  0029.png
+   3.68 s  ampiezza   849 px  gruppi 1  0030.png
+   3.93 s  ampiezza   849 px  gruppi 1  0031.png
+   3.94 s  ampiezza   849 px  gruppi 1  0032.png
+   4.15 s  ampiezza   849 px  gruppi 1  0033.png
+   4.16 s  ampiezza   849 px  gruppi 1  0034.png
+   4.37 s  ampiezza   849 px  gruppi 1  0035.png
+   4.37 s  ampiezza   849 px  gruppi 1  0036.png
+   4.57 s  ampiezza   849 px  gruppi 1  0037.png
+   4.58 s  ampiezza   849 px  gruppi 1  0038.png
+   4.76 s  ampiezza   849 px  gruppi 1  0039.png
+   4.78 s  ampiezza   849 px  gruppi 1  0040.png
+   4.96 s  ampiezza   849 px  gruppi 1  0041.png
+   5.01 s  ampiezza   849 px  gruppi 1  0042.png
+   5.16 s  ampiezza   849 px  gruppi 1  0043.png
+   5.21 s  ampiezza   849 px  gruppi 1  0044.png
+   5.35 s  ampiezza   849 px  gruppi 1  0045.png
+   5.41 s  ampiezza   849 px  gruppi 1  0046.png
+   5.55 s  ampiezza   849 px  gruppi 1  0047.png
+   5.59 s  ampiezza   849 px  gruppi 1  0048.png
+   5.74 s  ampiezza   849 px  gruppi 1  0049.png
+   5.80 s  ampiezza   849 px  gruppi 1  0050.png
+   5.94 s  ampiezza   849 px  gruppi 1  0051.png
+   6.00 s  ampiezza   849 px  gruppi 1  0052.png
+   6.16 s  ampiezza   849 px  gruppi 1  0053.png
+   6.20 s  ampiezza   849 px  gruppi 1  0054.png

@@ -1,0 +1,16 @@
+== ORDINE EQ innesto 1: una voce sparisce dal manifesto
+   file docs/ordini/ORDINE_EQ_MANIFESTO.md, sha1 prima d835b6174dbd, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -2: Some tests failed.
+   Expected: empty
+   Actual: ['EQ.09']
+   Expected: empty
+   Actual: ['EQ.08, I MESSAGGI SOTTO LA CASELLA E SOTTO IL MENU\'']
+   ripristinato: sha1 d835b6174dbd, uguale
+== ORDINE EQ innesto 2: il marcatore delle aperte non dice il vero
+   file docs/ordini/ORDINE_EQ_MANIFESTO.md, sha1 prima d835b6174dbd, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +1 -1: Some tests failed.
+   Expected: <6>
+   Actual: <7>
+   ripristinato: sha1 d835b6174dbd, uguale

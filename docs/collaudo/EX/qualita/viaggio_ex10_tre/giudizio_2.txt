@@ -1,0 +1,40 @@
+S01|SI|NA|NA|SI|NA|al limite: riprendere un compito rimandato lega l'azione alla fiducia, gesto concreto e pertinente
+S02|SI|NA|NA|NO|NA|al limite: invitare qualcuno a vedere la casa non dice se conviene cambiarla, nessuna indicazione sulla scelta
+S03|SI|NA|NA|SI|NA|dice sì con un limite, fissare una cifra che si può dare senza ritorno: chiaro cosa fare col fratello
+S04|SI|NA|NA|NO|NA|"sì" senza senso per un'attesa, riordinare una stanza è un invito che andrebbe bene a chiunque
+S05|SI|NA|NA|SI|NA|chiedere direttamente alla persona che posto ha, chiamarla martedì: chi, cosa e quando
+S06|SI|NA|NA|SI|NA|al limite: sì condizionato, esplorare Torino prima di partire dà un criterio legato alla scelta
+S07|SI|NA|NA|NO|NA|alla domanda quando risponde sì, il gesto di un'ora da sola non riguarda il matrimonio
+S08|SI|NA|NA|SI|NA|al limite: nessun testo, ma il gesto indica di cercare il blocco nelle persone al lavoro
+S09|SI|NA|NA|NO|NA|"sì" a un'attesa, guardare vecchie fotografie è generico e non dice nulla di ciò che non arriva
+S10|SI|NA|NA|SI|NA|raccogliere pareri sulla zona e rivedere case scartate: passi concreti sulla decisione di cambiare casa
+S11|SI|NA|NA|SI|NA|al limite: nomina una causa precisa del non dormire e un rito serale preciso che la affronta
+S12|SI|NA|NA|NO|NA|nessun testo, preparare una colazione per altri non riguarda la fiducia in sé
+S13|SI|NA|NA|SI|NA|al limite: dice cosa farne, prenderlo a pezzi e riporre un oggetto di ciò che è finito
+S14|SI|NA|NA|SI|NA|sì condizionato a dire i dubbi, chiamare un'amica all'estero per consigli pratici sul trasferimento
+S15|SI|NA|NA|SI|NA|sì a patto di fissare le modalità del prestito, parlarne col fratello entro domani
+S16|SI|NA|NA|SI|NA|al limite: chiarire cosa trattiene il progetto parlandone con una persona fidata
+S17|SI|NA|NA|SI|NA|al limite su A: dice no ma riconosce che non si può prevedere; sposta su un progetto suo
+S18|SI|NA|NA|SI|NA|sì condizionato, gesto preciso con la sorella: momento e luogo tranquilli per parlare
+S19|SI|NA|NA|SI|NA|al limite: testo generico, ma il gesto di rileggere la descrizione del ruolo è preparazione concreta
+S20|SI|NA|NA|SI|NA|fare la prima mossa con Marco, proporgli caffè o passeggiata con giorno e ora
+S21|SI|NA|NA|SI|NA|nomina il blocco come mancanza di prospettiva e indica un collega di fiducia con cui parlarne
+S22|SI|NA|NA|NO|NA|dare un nome al blocco è generico, osservare un oggetto bloccato non dice nulla sul suo problema
+S23|SI|NA|NA|SI|NA|al limite: il sì non ha senso, ma dà una causa e un gesto serale legato al sonno
+S24|SI|NA|NA|NO|NA|alla domanda quando dice no per ora, il gesto sull'incertezza non riguarda il matrimonio
+S25|SI|NA|NA|NO|NA|guardare dove sei e chi sei vale per chiunque, tenere un oggetto caro non orienta la scelta
+S26|SI|NA|NA|SI|NA|chiedere perdono e scrivere alla sorella per incontrarsi: cosa fare e a chi
+S27|SI|NA|NA|SI|NA|non contare sul suo ritorno, togliere un oggetto che lega a lui: indicazione chiara
+S28|SI|NA|NA|NO|NA|chiede ad altri cosa è finito mentre lei lo sa già, non dice cosa farne
+S29|SI|NA|NA|NO|NA|al limite: parlare sinceramente con qualcuno non riguarda il progetto, la frase sull'esporsi è generica
+S30|SI|NA|NA|NO|NA|silenzio: nessuna risposta alla domanda sulla madre
+S31|SI|NA|NA|SI|NA|ascoltare l'infanzia della madre, messaggio senza rimproveri: cosa fare e quando
+S32|SI|NA|NA|SI|NA|sì preparando il terreno, contattare chi ha già una bottega di ceramica
+S33|SI|NA|NA|NO|NA|un'ora in silenzio vale per chiunque, scadenze incoerenti fra domani e domenica, nessuna direzione
+S34|SI|NA|NA|NO|NA|nessun testo, scegliere una cosa che blocca e allontanarsene è un invito generico
+S35|SI|NA|NA|SI|NA|al limite: nessun testo, ma il gesto mette nei panni di chi seleziona, preparazione concreta al colloquio
+S36|SI|NA|NA|NO|NA|cambiare prospettiva è massima generica, bere un bicchiere d'acqua non riguarda ciò che non supera
+S37|SI|NA|NA|SI|NA|chiedere alla persona che posto ha, parlarne sabato mattina per mezz'ora
+S38|SI|NA|NA|SI|NA|al limite: indica di osservare la reazione di Marco stasera quando parla dei suoi interessi
+S39|NO|NA|NA|SI|NA|al limite su A: la bottega "aspetta di manifestarsi" suona come certezza; il gesto dei nomi è concreto
+S40|SI|NA|NA|NO|NA|non nasconderti e guardarti allo specchio vale per chiunque, non dice da che parte guardare

@@ -1,0 +1,78 @@
+ORDINE FX AGGIUNTA FXA, LE GUARDIE NUOVE VISTE ROSSE (REGOLA A), 16 ottobre 2026
+
+1. test/i_comandi_del_respiro_sono_dipinti_test.dart (FXA.02)
+   Verde sul codice corretto (1 su 1).
+   Innesto in lib/features/respiro_della_luna/gli_eos_del_respiro.dart, due
+   righe in coda al file, verificate col grep (grep -c '_innestoFxa02' = 2):
+       final _innestoFxa02 = TextButton.new;
+       final _innestoFxa02b = BoxDecoration(color: Color(0xFF000000));
+   Esito: ROSSO, +0 -1, nominando le due colpe:
+       lib/features/respiro_della_luna/gli_eos_del_respiro.dart: TextButton
+       lib/features/respiro_della_luna/gli_eos_del_respiro.dart: BoxDecoration con colore pieno
+   Ripristino: il primo cp e' caduto su un blocco momentaneo di Windows del
+   file (Permission denied), ripetuto finche' e' passato; sha1 prima
+   1fd33c4b2642552ee0cebe796bff2a25ad5a415c, dopo
+   1fd33c4b2642552ee0cebe796bff2a25ad5a415c, identico; grep dell'innesto 0.
+
+2. test/la_collana_dipinta_test.dart (FXA.01)
+   Verde sul codice corretto (5 su 5).
+   Innesto in lib/features/respiro_della_luna/le_perle_della_collana.g.dart:
+   la perla del giorno 15 spostata di un pixel, 512 -> 513 (grep '513, 2065'
+   = 1).
+   Esito: ROSSO, +4 -1, "Expected: <512.0> Actual: <513.0>" (la copia Dart
+   non dice piu' cio' che dice il file JSON accanto alle pitture).
+   Ripristino: sha1 60635423af36 prima e dopo, identico; di nuovo 5 su 5.
+
+3. test/il_titolo_del_respiro_non_tocca_i_comandi_test.dart (FXA.04)
+   ROSSO SUL DIFETTO VERO, non su un innesto: scritta la prova, sul codice
+   di allora (barra alta 56 punti), sei combinazioni su sedici cadevano con
+   "il titolo esce dalla barra in alto": il Respiro a 360 e 430 punti col
+   testo a 1,3; la Collana a 320, 360, 390 e 430 col testo a 1,3. Corretto
+   con altezzaDellaBarraDelRespiro (la barra cresce con l'ingrandimento del
+   testo, fino a 1,4 volte): 16 su 16 verdi.
+   ROSSO UNA SECONDA VOLTA, SUL DIFETTO VERO VISTO SUL TELEFONO: sul
+   Realme, build 2312, il titolo del Respiro andava a capo in tre righe e
+   "Luna" spariva. La prova montava il Respiro senza SogliaArte, quindi
+   senza il cuore nella barra. Riscritta sulla rotta vera (SogliaArte con
+   lo scaffale delle arti preferite) e col titolo che non deve superare le
+   sue righe (didExceedMaxLines): sul codice di allora cinque combinazioni
+   del Respiro su otto cadevano con "titolo tagliato:Il Respiro della
+   Luna" (320 e 360 col testo a 1,0 e a 1,3, 390 a 1,3). Corretto portando
+   "Altro" fuori dalla barra, nel cielo in alto a destra: 16 su 16 verdi.
+
+4. Un difetto vero preso dalla prova della schermata, non da un innesto:
+   test/la_collana_delle_lune_test.dart toccava la perla del 13 ottobre e la
+   ricucitura scriveva il 14 (stampa di prova: "ricucita true giorno
+   2026-10-14"). Le zone di tocco larghe 44 punti si sovrapponevano fra perle
+   distanti meno di un dito. Corretto con un tocco solo sulla pittura che
+   sceglie la perla ricucibile piu' vicina, entro 26 punti dal centro.
+
+5. Un difetto vero preso dall'anteprima del pulsante: centerSlice di Flutter
+   sa solo allungare, e il pannello piu' basso della sua misura naturale
+   faceva cadere l'asserzione del motore ("centerSlice was used with a
+   BoxFit that does not guarantee that the image is fully visible").
+   Corretto con ImmagineANoveParti, nove ritagli della stessa pittura che si
+   allungano o si accorciano, angoli fissi.
+
+6. test/il_respiro_parte_dal_luogo_vero_test.dart (FXA.06)
+   Il difetto, sulla testa vista dall'Architetto, col comando:
+       git grep -n "dalDispositivo\|DoveSonoAdesso.scrivi\|latitudine: _luogo" 0bb56a93 -- lib
+   risponde che LuogoAttuale.dalDispositivo esiste solo come definizione
+   (luogo_attuale.dart:66, nessuna chiamata), che l'unico punto che scrive il
+   luogo e' dati_di_nascita_screen.dart:222 con la citta' scelta a mano, e
+   che il Respiro chiedeva la foto con "latitudine: _luogo?.lat ?? 0"
+   (il_respiro_della_luna_screen.dart:186), per di piu' prima che il luogo
+   fosse letto (initState lanciava insieme lettura del luogo e foto).
+   Verde sul codice corretto: 4 su 4 (GPS concesso, ultima posizione del
+   telefono, citta' scelta a mano, nessun luogo con l'invito).
+   Innesto: in _aggiornaFoto il luogo vuoto sostituito da un luogo a
+   latitudine 0 (grep 'INNESTO_FXA06' = 1).
+   Esito, sulla prima stesura: ROSSO, +3 -1, "senza luogo un calcolo e'
+   partito lo stesso: [0.0]" (sha1 5a6aed3fe438 prima e dopo).
+   Sulla stesura finale, quella che mostra subito la Luna col ripiego e poi
+   ricalcola quando il GPS risponde, rifatto: ROSSO, +2 -2, "[0.0, 0.0]":
+   cade anche il caso del GPS concesso, perche' il calcolo provvisorio
+   prima della risposta sarebbe partito da latitudine 0. Il primo tentativo
+   di innesto e' caduto su un blocco di Windows del file (grep 0, quel verde
+   non contava) ed e' stato ripetuto. Ripristino: sha1 93da0025f1a2 prima e
+   dopo, identico; di nuovo 4 su 4.

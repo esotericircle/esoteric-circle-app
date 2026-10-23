@@ -1,0 +1,60 @@
+S01|SI|NO|NA|SI|NA|B NO: ignora che dorme male prima delle scadenze; respiro concreto e pertinente alla domanda.
+S02|NO|NA|NA|SI|SI|al limite A: Luna in Gemelli detta nella sesta casa, con Ascendente Scorpione è l'ottava; resto giusto, seguito aggiunge Tre di Spade.
+S03|SI|SI|NA|NO|SI|D NO: ripartire dalla verità del sentire è massima per chiunque; il seguito nomina la sorella e aggiunge.
+S04|NO|NA|NA|SI|NA|al limite: riga finale troncata, prendi un quaderno senza scopo; il non ancora è motivato.
+S05|SI|NA|SI|SI|SI|Giove in Vergine giusto; seguito aggiunge banca, ceramica e il Cercatore.
+S06|SI|NA|NA|SI|NO|E NO: il seguito cambia argomento e parla del colloquio invece di chi è Aura.
+S07|SI|NA|NA|SI|SI|al limite E: sì condizionato e chiedere una settimana al capo; seguito aggiunge poco ma coerente.
+S08|SI|NA|SI|SI|SI|Luna in Cancro, Saturno retrogrado in Ariete e quadratura Luna Saturno coincidono.
+S09|SI|NA|NA|SI|NO|E NO: il seguito ripete con altre parole chi è Aura, generico.
+S10|SI|NA|SI|SI|NA|al limite: apertura sulla calma prima di dormire fuori posto; Luna in Gemelli giusta.
+S11|SI|NA|NA|NO|NA|al limite D: decidere entro domani è consiglio valido per qualunque scelta.
+S12|SI|NA|NA|SI|SI|al limite D: sì passo per passo con priorità scritte; seguito aggiunge confini e negoziare.
+S13|SI|NA|NA|SI|SI|sì con patto sulla data di restituzione, Gebo corretta; rimanda il denaro a un consulente.
+S14|SI|SI|NA|SI|SI|parla con la sorella dicendo cosa senti; seguito aggiunge Marte in Leone e non rimandare.
+S15|SI|SI|NA|SI|NO|E NO: il seguito devia sulla paura di deludere la madre, fuori tema rispetto a Ombra.
+S16|SI|NA|SI|SI|SI|al limite E: i quattro retrogradi giusti; seguito aggiunge poco sull'Ascendente.
+S17|SI|NA|SI|SI|SI|Giove in Vergine e Luna in Pesci giusti; seguito aggiunge ceramica e intuizione.
+S18|SI|NA|SI|SI|SI|al limite E: Saturno in Toro retrogrado giusto; seguito aggiunge poco.
+S19|SI|NO|NA|SI|NA|B NO: ignora che dorme male prima delle scadenze; respiro quattro sei concreto.
+S20|SI|NA|SI|SI|SI|Luna in Gemelli Gibbosa calante giusta; seguito aggiunge senso della fase.
+S21|SI|SI|NA|SI|NO|al limite: non nomina la ceramica ma la intende; seguito generico sulla creatività che fluisce.
+S22|SI|SI|NA|SI|NA|cose precise da portare: pietra liscia, penna blu, taccuino.
+S23|SI|NA|NO|NO|SI|al limite C: la risposta non dice alcun fatto del cielo di oggi, solo il seguito; risposta generica.
+S24|SI|NA|SI|SI|SI|al limite E: retrogradi giusti; seguito aggiunge solo Saturno in Ariete.
+S25|SI|NA|NA|SI|NO|al limite: D partire dalla radice e osservare le spese; seguito generico sul valore oltre il denaro.
+S26|SI|NA|SI|SI|SI|Bilancia crescente al trenta per cento coincide con l'elongazione; aspetti del Sole giusti.
+S27|SI|SI|NA|SI|SI|al limite D: sì con Kenaz; seguito nomina la ceramica e il piccolo passo.
+S28|SI|SI|NA|SI|NO|E NO: il seguito dice la Luna natale in Cancro, è in Bilancia.
+S29|SI|NA|NA|SI|SI|annotare ogni spesa per una settimana; seguito aggiunge il perché.
+S30|SI|NO|NA|SI|SI|al limite: non nomina Marco né mostra di sapere chi è; sì condizionato al sentire.
+S31|SI|SI|NA|SI|SI|usa Berlino, ceramica, madre e sorella; seguito aggiunge Plutone e la bottega.
+S32|SI|NA|SI|SI|SI|Luna in Gemelli Gibbosa calante giusta; seguito aggiunge Mercurio governatore.
+S33|SI|NA|SI|SI|SI|Sole Scorpione, Luna crescente in Acquario quadrata a Mercurio giusti; seguito aggiunge preparare le carte.
+S34|SI|NA|SI|SI|NA|Luna in Gemelli giusta, invito a scrivere i pensieri.
+S35|SI|SI|NA|NO|NA|al limite D: nessuna cosa concreta da portare, solo la ricerca di senso del sette.
+S36|SI|NA|SI|SI|SI|al limite E: Bilancia crescente giusta; seguito aggiunge il Sole in Cancro.
+S37|SI|NA|NA|SI|SI|sceglie la periferia col perché; seguito aggiunge Othila e il Cercatore.
+S38|SI|SI|NA|SI|SI|al limite D: rito delle tre preoccupazioni bruciate; seguito lega la tensione alle scadenze.
+S39|SI|SI|NA|SI|NA|cercarla di persona e dirle che ti manca, concreto.
+S40|NO|NA|NA|SI|NO|A NO: troverai la tua libertà detto come certezza; il seguito ripete ti attende un nuovo inizio.
+S41|SI|NA|NA|SI|SI|al limite E: bagno caldo col sale e respiri; seguito aggiunge l'immagine dell'acqua.
+S42|SI|SI|NA|NO|NA|D NO: solo visualizzare e mandare un pensiero, nessun primo passo verso la sorella.
+S43|SI|SI|NA|SI|SI|al limite B: non nomina Berlino ma usa sorella e Ombra; seguito aggiunge Saturno.
+S44|SI|SI|NA|SI|NO|E NO: il seguito è generico, la scelta è scritta nel respiro.
+S45|SI|NA|SI|SI|SI|al limite D: Sole Bilancia e Luna Gemelli calante giusti; consiglio poco preciso.
+S46|SI|NA|SI|SI|SI|Sole Scorpione, Luna Acquario, Mercurio quadrato a Plutone e a Luna coincidono.
+S47|SI|NA|NA|SI|SI|no con Fehu corretta; rimanda il denaro a un consulente; seguito aggiunge il colloquio.
+S48|SI|NA|NA|SI|NA|al limite D: sì passo per passo; chiamare Marco per il lavoro poco pertinente.
+S49|SI|NA|NA|SI|SI|niente schermi e respiro sulla pancia; seguito aggiunge il perché.
+S50|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione giusta.
+S51|SI|SI|NA|SI|SI|al limite: non usa la meditazione ma il colloquio; seguito aggiunge poco.
+S52|SI|SI|NA|NO|SI|al limite D: parla con lei con la tua voce è invito generico, non dice cosa dire.
+S53|SI|NA|NA|NO|NA|al limite D: scrivere il vero desiderio va bene per qualunque scelta.
+S54|SI|NA|SI|SI|SI|al limite E: Luna in Cancro quadrata al Sole in Bilancia giusta; seguito spiega la tensione.
+S55|SI|NA|NA|SI|NO|al limite: D diario ogni sera; seguito generico su lacrime e rinascita.
+S56|SI|NA|SI|SI|SI|Saturno in Toro retrogrado giusto; seguito aggiunge Berlino e ceramica.
+S57|SI|SI|NA|NO|SI|al limite: ignora la meditazione mattutina; ciotola d'acqua per Ombra non risponde a come usare l'ora.
+S58|SI|NA|SI|SI|SI|Venere a 8 Scorpione e congiunzione con Mercurio a 6 gradi giusti.
+S59|SI|SI|NA|NO|NO|D NO: devia sul riavvicinarsi alla sorella; seguito dice la Luna in Cancro, oggi è in Gemelli.
+S60|SI|SI|NA|SI|NO|al limite E: il seguito ripete l'urgenza senza un passo nuovo.

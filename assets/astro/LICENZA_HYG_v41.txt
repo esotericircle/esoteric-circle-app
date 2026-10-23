@@ -1,0 +1,21 @@
+Catalogo delle stelle del Real Time Cosmo di Esoteric Circle
+
+I file stelle_hyg_v41.bin, stelle_hyg_v41_nomi.json e
+stelle_hyg_v41_costellazioni.json di questa cartella sono un'opera derivata
+dal catalogo HYG v4.1 (Hipparcos, Yale Bright Star, Gliese) di astronexus,
+https://github.com/astronexus/HYG-Database, file hyg/CURRENT/hygdata_v41.csv.
+
+Il catalogo HYG v4.1 e' distribuito sotto licenza Creative Commons
+Attribution-ShareAlike 4.0 International (CC BY-SA 4.0),
+http://creativecommons.org/licenses/by-sa/4.0/
+
+Questi file derivati sono distribuiti sotto la stessa licenza, CC BY-SA 4.0.
+
+Modifiche rispetto all'originale: tenute le sole stelle fino alla magnitudine
+6,0 compresa, tolto il Sole; ascensione retta convertita da ore a gradi;
+ascensione retta e declinazione arrotondate al millesimo di grado, magnitudine
+e indice di colore al centesimo; stelle ordinate per magnitudine crescente;
+tenuti i soli campi ra, dec, mag, ci, proper, bayer, flam e con.
+
+La licenza riguarda questi file di dati e non il codice dell'applicazione.
+Il generatore e' tool/il_catalogo_delle_stelle_hyg.py.

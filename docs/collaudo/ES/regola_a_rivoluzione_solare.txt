@@ -1,0 +1,13 @@
+ORDINE ES VOCE 04, Regola A di la_rivoluzione_solare_test.dart, 29 settembre 2026.
+
+Riferimento: docs/collaudo/ES/rivoluzione_solare_jpl.csv, dieci nascite, ritorno del 2026, calcolato con skyfield e il JPL DE421 (tool/rivoluzione_solare_jpl.py).
+
+Il primo giro, col Sole di Meeus (IlSoleDiNascita) e le Effemeridi di Meeus per i pianeti, era ROSSO sul difetto vero:
+    ritorni del 2026 con un segno o una casa diversi dal JPL 1 su 10 (Giove in casa 2 invece di 1); scarto massimo dell'istante 638 s, di Ascendente e Medio Cielo 2,738 gradi, dei corpi 0,213 gradi
+Un centesimo di grado sul Sole sono quattordici minuti sull'istante del ritorno, e l'Ascendente si muove di un grado ogni quattro minuti.
+
+Cura: i polinomi di Chebyshev adattati sul JPL DE421 (tool/genera_effemeridi_del_jpl.py; errore misurato fuori dai nodi: Sole 0,037 secondi d'arco, Venere 0,35, Giove 1,87, Saturno 1,21), il tempo siderale apparente e l'obliquità vera.
+
+Dopo, VERDE:
+    ritorni del 2026 con un segno o una casa diversi dal JPL 0 su 10; scarto massimo dell'istante 10 s, di Ascendente e Medio Cielo 0,044 gradi, dei corpi 0,002 gradi
+Soglie strette sul nuovo: istante sotto 20 secondi, angoli sotto 0,1 gradi (il Meeus di prima le passava di trenta volte).

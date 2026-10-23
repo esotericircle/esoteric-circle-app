@@ -1,0 +1,80 @@
+ORDINE DEL 14 OTTOBRE 2026, DOVE SI FERMA LA SCENA E COL CHE RALLENTAMENTO.
+
+DOMANDA: "nel video di animazione, Medora deve fermarsi poco prima della
+fine del video, quando ha la mano sul petto e non quando la allontana. Cerca
+di rallentare l'ultimo secondo in modo che non si fermi di botto."
+
+Metodo: lettura diretta del file vero usato dalla scena,
+brand_assets/tavolo/medora_mazzo_in_vortice_v1.mp4 (lo stesso nominato in
+ScenaDellaStesaInVideo._file), con OpenCV.
+
+1. Geometria del filmato (misurata, non assunta):
+   fps = 24.0, fotogrammi totali = 192, durata = 192/24 = 8,000 s.
+   Coincide con ScenaDellaStesaInVideo.durata = Duration(seconds: 8).
+
+2. Moto fra fotogrammi consecutivi (differenza media assoluta in scala di
+   grigi, 0-255) negli ultimi due secondi, per trovare dove la mano smette
+   di muoversi verso il petto e dove riprende a muoversi per aprirsi:
+
+   fotogramma  tempo    moto
+   163         6,792s   3,456
+   164         6,833s   1,541   <- crollo del moto: la mano arriva al petto
+   165         6,875s   1,537
+   166         6,917s   1,144
+   167         6,958s   1,012
+   ...         (il moto resta basso, 0,5-1,5, fino alla fine: non c'e'
+                un secondo picco netto, il gesto di apertura e' lento e
+                continuo fino all'ultimo fotogramma)
+   191         7,958s   0,584   (ultimo fotogramma)
+
+   Il moto non torna mai a salire quanto nella salita (164: 1,5 contro 192:
+   3-5 dei fotogrammi precedenti), quindi il taglio non si vede nel numero
+   da solo: serve l'occhio sui fotogrammi.
+
+3. Ispezione visiva dei fotogrammi estremi (catturati con lo stesso script,
+   salvati qui sotto):
+   - a4_fotogramma_166_mano_sul_petto.jpg: la mano destra di Medora e'
+     ferma sul petto, il gesto e' quello della domanda del fondatore.
+   - a4_fotogramma_191_ultimo_mano_aperta.jpg (l'ultimo fotogramma del
+     filmato): la mano si e' gia' aperta verso il tavolo, il gesto
+     dell'invito. E' il fotogramma su cui la scena si fermava prima di
+     questa correzione (la fine vera del filmato).
+
+   Il confronto fra i due conferma per immagini cio' che il fondatore
+   aveva visto a video: fermarsi all'ultimo fotogramma mostra la mano gia'
+   allontanata, non piu' sul petto.
+
+4. Scelta dei valori:
+   fermaA = Duration(milliseconds: 6917)  (fotogramma 166, 166/24 = 6,9167s)
+   Frame scelto fra 164 e 167, tutti con la mano ancora chiaramente sul
+   petto nel fotogramma estratto; 166 e' al centro di quella finestra,
+   abbastanza vicino alla fine da restare "poco prima della fine" (dista
+   1,083s dalla fine di 8s, l'ultimo 13,5% del filmato) ma dentro il tratto
+   dove il gesto e' gia' composto.
+
+   rallentamento = Duration(seconds: 1)
+   Un secondo pieno prima di fermaA, come chiesto ("rallentare l'ultimo
+   secondo"): la velocita' scende con continuita' da 1,0 a velocitaMinima
+   nell'intervallo [fermaA - 1s, fermaA], invece di fermarsi di colpo.
+
+   velocitaMinima = 0.1
+   Non zero: setPlaybackSpeed(0.0) su video_player non e' un valore valido
+   su tutte le piattaforme (il lettore puo' fermarsi in modo brusco o
+   generare un errore); 0,1 resta un rallentamento quasi fermo senza
+   rischiare quel caso limite. La pausa vera (c.pause()) arriva comunque
+   a parte quando ScenaDellaStesaInVideo.fermo(posizione) diventa vero.
+
+MISURA: fermaA passa da "fine vera del filmato, 8,000s, mano gia' aperta"
+a "6,917s, fotogramma 166, mano sul petto" (fotogrammi di prova allegati).
+
+PROVA: test/la_scena_si_ferma_col_rallentamento_test.dart, quattro prove
+pure su ScenaDellaStesaInVideo.velocitaA/fermo (nessun decodificatore video
+necessario in una prova headless); Regola A su tre innesti verificata in
+docs/collaudo/FS/aggiunta_video/regola_a_fermata.py, esito in
+regola_a_fermata.txt (tre innesti, tutti genuinamente rossi, file ripristinato
+al byte ogni volta).
+
+Non ancora verificato a video sul Realme: la lettura `_LettoreDellaScenaVero`
+userebbe la nuova logica a runtime, ma il comportamento del vero
+setPlaybackSpeed su Android (fluidita' della rampa) va guardato di persona
+alla prossima build, come da principio "verificare a video, non simulare".

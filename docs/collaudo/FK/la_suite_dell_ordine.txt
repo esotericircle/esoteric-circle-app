@@ -1,0 +1,12 @@
+LA SUITE INTERA DELL'ORDINE FK, 11 ottobre 2026
+Copia LF del worktree in C:/Users/user/fi0, commit 0916131a, flutter test -r expanded
+
+22:21 +2796 -1: C:/Users/user/fi0/test/i_rapporti_consegnati_non_si_correggono_test.dart: FB.03: il corpo di ogni rapporto consegnato e' quello consegnato [E]
+
+68:47 +7100 -1: Some tests failed.
+
+Failing tests:
+  C:/Users/user/fi0/test/i_rapporti_consegnati_non_si_correggono_test.dart: FB.03: il corpo di ogni rapporto consegnato e' quello consegnato
+FINE 1
+
+L'unico rosso e' la guardia dei rapporti consegnati, che chiede di registrare RAPPORTO_ORDINE_FK.md: si registra alla consegna.

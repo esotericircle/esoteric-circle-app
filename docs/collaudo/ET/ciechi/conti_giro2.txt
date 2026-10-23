@@ -1,0 +1,40 @@
+ORDINE ET VOCI 01 E 03: I CONTI ALLA CIECA, fascicolo "giro2"
+Ogni riga: fase, Maestro, canale, esecuzione; poi i conti su 30 risposte (sulle coppie, su 5 seconde).
+Correzione a macchina dichiarata: una prima frase che e' una presentazione ("Aura è qui.") non risponde.
+Voci giudicate 360, senza giudizio 0.
+
+giro2 aura chat esecuzione 1: prima frase che risponde 21; nel merito 20; risposte con una certezza 5; frasi di certezza 5; errori di italiano 7; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+giro2 aura chat esecuzione 2: prima frase che risponde 22; nel merito 23; risposte con una certezza 4; frasi di certezza 4; errori di italiano 8; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 2; posizioni cambiate senza perché 0; seconde nel merito 3
+giro2 aura live esecuzione 1: prima frase che risponde 15; nel merito 17; risposte con una certezza 3; frasi di certezza 3; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 1
+giro2 aura live esecuzione 2: prima frase che risponde 14; nel merito 11; risposte con una certezza 0; frasi di certezza 0; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 3
+giro2 caligo chat esecuzione 1: prima frase che risponde 19; nel merito 21; risposte con una certezza 0; frasi di certezza 0; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+giro2 caligo chat esecuzione 2: prima frase che risponde 26; nel merito 29; risposte con una certezza 14; frasi di certezza 15; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 5
+giro2 caligo live esecuzione 1: prima frase che risponde 19; nel merito 20; risposte con una certezza 2; frasi di certezza 2; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 4
+giro2 caligo live esecuzione 2: prima frase che risponde 22; nel merito 23; risposte con una certezza 4; frasi di certezza 4; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 2; seconde nel merito 4
+giro2 medora chat esecuzione 1: prima frase che risponde 28; nel merito 27; risposte con una certezza 4; frasi di certezza 4; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 2; seconde nel merito 4
+giro2 medora chat esecuzione 2: prima frase che risponde 26; nel merito 28; risposte con una certezza 1; frasi di certezza 1; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+giro2 medora live esecuzione 1: prima frase che risponde 25; nel merito 26; risposte con una certezza 0; frasi di certezza 0; errori di italiano 12; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+giro2 medora live esecuzione 2: prima frase che risponde 24; nel merito 25; risposte con una certezza 0; frasi di certezza 0; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 5
+
+TOTALE giro2: prima frase che risponde 261; nel merito 270; risposte con una certezza 37; frasi di certezza 38; errori di italiano 69; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 7; posizioni cambiate senza perché 7; seconde nel merito 44 (su 360 risposte)
+
+LE CERTEZZE E GLI ERRORI CITATI DAI GIUDICI
+CERTEZZA giro2 aura chat esecuzione 1:
+   29. avrai la promozione quest'anno
+   28. il tuo capo ti apprezza, ma non sempre lo manifesta nel modo che tu desideri
+   21. riuscirai a uscire dai debiti
+   22. quella forza che ti lega alla terra e ti dà la certezza che il tuo luogo arriverà
+   16. Non ha ancora parlato, ma il suo sguardo è già una forma di comunicazione, un tentativo di avvicinarsi.
+CERTEZZA giro2 aura chat esecuzione 2:
+   25. ti prenderanno al colloquio di giovedì
+   29. avrai la promozione quest'anno
+   7. l'amore arriverà quando sarai allineata con ciò che il tuo cuore cerca davvero
+   16. il suo silenzio, per ora, è un desiderio di osservarti, di coglierti nella tua interezza prima di avvicinarsi
+CERTEZZA giro2 aura live esecuzione 1:
+   7. Quest'anno, l'amore si manifesterà se ti apri a riceverlo
+   8. La persona giusta arriverà quando la tua energia sarà allineata per accoglierla
+   29. avrai la promozione quest'anno
+CERTEZZA giro2 caligo chat esecuzione 2:
+   21. Ti indica che ogni sacrificio sarà ripagato
+   26. Il tuo Leone splenderà.
+   3. Il suo cuore è avvolto in un velo di incertezza

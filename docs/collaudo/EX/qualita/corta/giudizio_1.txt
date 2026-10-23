@@ -1,0 +1,48 @@
+S01|SI|SI|NA|SI|NA|Risposta condizionata, nomina Marco e da' un gesto concreto: scrivergli due righe.
+S02|SI|NA|NA|SI|NA|Al limite sulle opportunita' che si presenteranno; azione concreta sul colloquio per Berlino.
+S03|NO|SI|NA|SI|NA|Previsione certa: la mente si alleggerira' dopo il colloquio; usa le scadenze e da' un esercizio preciso.
+S04|SI|NA|NA|SI|NA|Si condizionato, gesto datato alla Luna Piena del 28 settembre.
+S05|SI|SI|NA|SI|NA|Al limite sul merito: dice cosa significa la natura mutevole di Marco e cosa osservare.
+S06|SI|SI|NA|SI|NA|Usa colloquio, ceramica e madre; consiglio concreto: portare un oggetto creato.
+S07|SI|NA|NA|SI|NA|Dice di no e quando rileggere il contratto.
+S08|SI|NO|NA|NO|NA|Al limite sulla memoria: non usa la paura di deludere la madre; il consiglio finale va bene per chiunque.
+S09|NO|SI|NA|SI|NA|Previsione certa: Ombra si adattera'; per il resto nomina Ombra e da' un gesto concreto.
+S10|SI|NA|NA|NO|NA|Al limite: non risponde se tornera', solo l'invito generico a non legarsi all'attesa e un respiro.
+S11|SI|SI|NA|SI|NA|Dice di no per ora e lega l'esame del trasferimento al colloquio.
+S12|SI|NA|NA|SI|NA|Si condizionato e lettera concreta per il colloquio sulla ceramica.
+S13|SI|NO|NA|SI|NA|Non mostra di sapere che lui e' Marco; risponde chiaramente di andare.
+S14|SI|NA|NA|SI|NA|Dice di no con il perche' e quando rileggere.
+S15|SI|SI|NA|SI|NA|Al limite sulla previsione, temperata dal dipende da te; nomina Ombra e la nuova citta'.
+S16|NO|SI|NA|SI|NA|Previsione certa: il sonno tornera' dopo il colloquio; usa la scadenza.
+S17|SI|SI|NA|SI|NA|Al limite sul merito: indica di parlarle per prima offrendo comprensione.
+S18|SI|SI|NA|SI|NA|Al limite sulla memoria: non nomina Berlino ma usa colloquio e ceramica; azione concreta.
+S19|NO|SI|NA|SI|NA|Previsione certa: la pace arrivera' dopo il colloquio; usa sorella e colloquio.
+S20|SI|NA|NA|SI|NA|Si condizionato, quando e come parlare all'amico.
+S21|SI|NA|NA|SI|NA|Dice di no e quando rileggere il contratto.
+S22|SI|SI|NA|NO|NA|Al limite: offrire il perdono con un gesto del cuore resta vago, il resto e' visualizzazione generica.
+S23|SI|SI|NA|SI|NA|Non ancora, con un gesto concreto su Marco.
+S24|SI|NA|NA|SI|NA|Dice di no e quando rileggere.
+S25|NO|SI|NA|SI|NA|Previsione certa: la mente si quietera' dopo il colloquio; usa la scadenza.
+S26|NO|SI|NA|SI|NA|Previsione certa: Ombra si adattera'; usa Ombra e Berlino con gesto concreto.
+S27|SI|SI|NA|SI|NA|Dice di no per ora su Berlino, con una lista da fare.
+S28|NO|NA|NA|SI|NA|Previsione certa: supererai l'esame; voce di Caligo piatta, non solenne.
+S29|NO|SI|NA|SI|NA|Al limite: qualita' che saranno notate detto come certezza; usa colloquio e ceramica.
+S30|SI|SI|NA|SI|NA|Pace condizionata all'espressione; lettera alla sorella dopo il colloquio.
+S31|SI|NO|NA|SI|NA|Al limite sulla memoria: non usa la paura di deludere la madre; indica come e quando parlarle.
+S32|SI|NO|NA|SI|NA|Non mostra di sapere che lui e' Marco; indica di accettare l'invito.
+S33|SI|SI|NA|SI|NA|Al limite sul merito: si condizionato e cosa osservare in Marco questa settimana.
+S34|SI|NA|NA|SI|NA|Al limite: risponde non ancora, il gesto finale e' generico.
+S35|SI|SI|NA|SI|NA|Nomina Ombra, indica come accompagnarla ogni giorno.
+S36|SI|NA|NA|SI|NA|Risponde non ancora con il perche' e un gesto sul plesso solare.
+S37|SI|NA|NA|SI|NA|Si condizionato, chiedere in modo diretto all'amico.
+S38|SI|NA|NA|SI|NA|Al limite sul merito: si condizionato con un gesto rituale concreto.
+S39|SI|SI|NA|SI|NA|Al limite sui tre mesi, condizionati al passo di riconciliazione; lettera alla sorella.
+S40|SI|SI|NA|SI|NA|Al limite sulla memoria: il colloquio e' nella domanda; azione concreta sul curriculum.
+S41|SI|SI|NA|SI|NA|Usa Berlino e la madre, gesto concreto e mirato.
+S42|SI|SI|NA|SI|NA|Usa la paura di deludere la madre, dice quando e come parlarle.
+S43|SI|SI|NA|SI|NA|Al limite: attribuisce alla madre il Sole in Cancro senza saperlo; regalo di ceramica concreto.
+S44|SI|SI|NA|SI|NA|Lega il sonno all'agire sul colloquio, esercizio preciso.
+S45|SI|SI|NA|SI|NA|Al limite: non prima del colloquio; usa sorella e colloquio con lettera da scrivere.
+S46|SI|SI|NA|SI|NA|Si condizionato, gesto la mattina del colloquio.
+S47|SI|NA|NA|SI|NA|Al limite: risponde non ancora, gesto finale generico.
+S48|SI|NA|NA|SI|NA|Si condizionato alla preparazione, gesto serale concreto.

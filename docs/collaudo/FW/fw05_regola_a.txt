@@ -1,0 +1,15 @@
+REGOLA A, ordine FV voce FW.05, 15 ottobre 2026
+guardia: test/ogni_video_dei_maestri_e_nel_suo_posto_test.dart
+
+innesto: scambiati i contenuti di brand_assets/maestri_scena/caligo_dominio_v1.mp4
+e caligo_chat_v1.mp4 (copiando l'uno sull'altro)
+verifica dell'innesto: sha256sum sui due file dopo lo scambio
+  caligo_dominio_v1.mp4 -> 5965a25b... (prima era di caligo_chat)
+  caligo_chat_v1.mp4 -> 05b6636e... (prima era di caligo_dominio)
+esito con l'innesto (uscita 1):
+  ogni video ha l'impronta misurata, nessuno scambiato [E]
+  Actual: [caligo_dominio: impronta 5965a25b..., attesa 05b6636e...;
+           caligo_chat: impronta 05b6636e..., attesa 5965a25b...]
+ripristino: ricopiati i due file dalle copie di backup; sha256sum confermato
+uguale ai valori dichiarati
+esito sul codice vero (uscita 0): All tests passed! (2 su 2)

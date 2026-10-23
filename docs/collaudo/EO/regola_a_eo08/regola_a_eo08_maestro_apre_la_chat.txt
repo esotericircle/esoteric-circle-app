@@ -1,0 +1,6 @@
+innesto in lib/features/santuario/santuario_screen.dart: il vecchio compare 0 volte, il nuovo 1 volte ('                  onTapCentral: () => _enterDomain(context, ' -> '                  onTapCentral: () => _consulta(context, cen')
+  Expected: exactly one matching candidate
+    Actual: _TypeWidgetFinder:<Found 0 widgets with type "DomainScreen": []>
+  00:09 +2 -1: EO.08: il tocco sul Maestro apre ancora il dominio [E]
+  00:09 +3 -1: Some tests failed.
+ripristino lib/features/santuario/santuario_screen.dart: sha1 7c3e674cae68 -> 7c3e674cae68, IDENTICO

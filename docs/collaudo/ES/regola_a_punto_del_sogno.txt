@@ -1,0 +1,2 @@
+REGOLA A, ordine ES, 30 settembre 2026: il foglio "Da dove nasce questo dono" del Sigillo del Sogno scriveva "racconto.)." (visto sul Realme). La prova nuova, vista rossa sul codice di prima.
+INNESTO D1 la frase del segno lunare fra parentesi col suo punto, come prima: grep del difetto nel file SI; prova test/il_sigillo_del_sogno_dice_il_vero_test.dart ROSSA; IL SIGILLO DEL SOGNO: fogli col punto dentro la parentesi 210 su 210, segni della Luna 12; file rimesso sha1 213137e95122 -> 213137e95122 IDENTICO

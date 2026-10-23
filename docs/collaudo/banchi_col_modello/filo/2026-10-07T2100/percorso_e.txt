@@ -1,0 +1,104 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Le carte indicano che la promozione che attendi al lavoro è vicina e il tuo impegno sarà riconosciuto. Questo momento è favorevole per mettere in luce le tue capacità.
+
+Il Dieci di Denari, arcano di stabilità e realizzazione, annuncia un periodo di sicurezza e gratificazione professionale. È un segno di abbondanza che si manifesta nel tuo ambiente di lavoro, suggerendo che gli sforzi passati stanno per dare i loro frutti e portare a un consolidamento della tua posizione.
+
+✦ Prepara un piccolo riepilogo dei tuoi successi recenti da presentare al tuo superiore, idealmente sotto l'influsso del prossimo novilunio.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso che hai preparato il riepilogo, il cielo suggerisce di presentarlo al tuo superiore con fiducia, scegliendo un momento in cui l'atmosfera sia distesa.
+
+Il Dieci di Denari ti invita a concretizzare le tue ambizioni, sfruttando la chiarezza e la solidità che questo arcano porta. Non c'è bisogno di affrettarsi, ma nemmeno di rimandare oltre: l'energia del transito ti sostiene nel manifestare il tuo valore.
+
+✦ Cerca l'occasione giusta per un confronto sereno con il tuo superiore, preferibilmente all'inizio della settimana lavorativa.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio precedente ('Adesso che hai preparato il riepilogo') e lo sviluppa, indicando il passo successivo da compiere (presentarlo al superiore).
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Quando sarà il momento di capire, ti arriverà un segnale chiaro dalle conversazioni che avrai avuto, un'eco delle tue richieste.
+
+L'arcano Dieci di Denari sottolinea che il riconoscimento arriverà attraverso un consolidamento, un accordo che ti darà sicurezza. Non è un evento improvviso, ma la naturale conseguenza del tuo impegno.
+
+✦ Osserva le reazioni del tuo superiore nei giorni successivi al colloquio, specialmente durante un momento di relax, come una pausa caffè.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando lo capirò' riprendendo il contesto delle 'conversazioni che avrai avuto', che si riferiscono al colloquio suggerito nelle risposte precedenti, e specifica come avverrà il riconoscimento ('un consolidamento, un accordo').
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Questo desiderio di un nuovo inizio è il richiamo della tua energia vitale, un'onda che ti spinge verso un cambiamento profondo. Ascolta il centro della tua radice, il punto di connessione con la terra e con il tuo senso di sicurezza: se la sua voce è ferma, allora il passo è giusto.
+
+Accogli questa spinta come un invito a muovere il corpo, a sentire dove la tua presenza può fiorire al meglio. Non è una questione di "dove", ma di "come" porti te stessa in quel nuovo spazio.
+
+✦ Poggia i piedi a terra, senti il contatto, e immagina la nuova città.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Ora che hai immaginato la nuova città, lascia che quel respiro si espanda dal centro della radice fino al plesso solare, il centro della tua volontà e del tuo potere personale. Senti l'energia che si risveglia in te, e riconosci che la forza per ricominciare è già lì.
+
+Non è un gesto da compiere subito, ma una preparazione interiore, un raccogliere la tua essenza.
+
+✦ Inspira profondamente, portando l'aria fino al centro del tuo plesso solare, e poi espira lentamente.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione suggerita alla fine della risposta precedente ('Ora che hai immaginato la nuova città') e la sviluppa, introducendo un nuovo esercizio di respirazione e chiarendo che si tratta di una 'preparazione interiore' piuttosto che un'azione immediata.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Sentirai il momento giusto per agire quando il respiro nel plesso solare si farà più calmo e ampio, un segno che la tua energia si è allineata con l'intenzione. Questo stato di centratura ti darà la chiarezza necessaria per distinguere il desiderio passeggero dal tuo vero proposito.
+
+Non c'è una data precisa, ma un sentire profondo che ti guida, un'armonia che si crea tra il tuo corpo e la tua intenzione più autentica.
+
+✦ Chiudi gli occhi per un istante e lascia che il respiro ti porti al centro di te.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' riprendendo il concetto di 'respiro nel plesso solare' introdotto nella risposta precedente e lo usa come indicatore per il momento giusto per agire, sviluppando ulteriormente l'idea di preparazione interiore e allineamento.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rianima la fiamma. Il sentiero si manifesta attraverso un gesto decisivo.
+Un bagliore rosso come brace ti guida.
+
+Osserva il sigillo **Inguz**, presagio di nuova terra e di unione. Questo segno indica un completamento necessario prima di un nuovo inizio, una fase di gestazione che prepara il terreno per la fioritura. Non è una fine, ma una trasformazione.
+
+✦ Manda un messaggio scritto a mano, oggi stesso, con solo tre parole che rievocano un ricordo felice di voi due.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Continua a nutrire il legame. Il messaggio che hai inviato è solo il primo seme.
+La rugiada del mattino bagna la terra.
+
+Il sentiero è ancora **Inguz**, che ora ti chiede di attendere con fiducia. Il presagio non si consuma in un solo istante, ma germoglia nel tempo. La tua azione ha aperto una soglia, ora osserva ciò che ne nasce.
+
+✦ Scrivi su un foglio bianco una data importante per voi, e conservala nella tua borsa.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione del messaggio inviato ('il messaggio che hai inviato è solo il primo seme') e sviluppa il concetto di 'Inguz' come un processo che germoglia nel tempo, non un evento singolo.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Non interrogare il quando, ma il come. Il tempo si dispiega in attesa.
+Una nebbia argentea avvolge il cammino.
+
+Il segno **Inguz** ti spinge a cogliere ogni segnale. Non cercare una risposta immediata o un'illuminazione improvvisa, ma presta attenzione alle piccole aperture, ai sottili cambiamenti nell'atmosfera del vostro legame. Ogni interazione è un filo che si annoda.
+
+✦ Porta con te il foglio nella tasca sinistra, per sentire il peso del ricordo ogni volta che cerchi una risposta.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'Inguz' e lo sviluppa in relazione alla domanda sul 'quando', suggerendo di non cercare una risposta immediata ma di prestare attenzione ai segnali, che è un'estensione del 'attendere con fiducia' e 'osserva ciò che ne nasce' della risposta precedente.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Ti invito a rimandare l'avvio del tuo progetto, perché il cielo ti chiede ancora prudenza. Questo non è un tempo adatto per gettare le fondamenta di qualcosa di nuovo e ambizioso, ma piuttosto per rifinire i dettagli e consolidare le tue idee.
+
+✦ Prepara un piccolo quaderno dove annotare ogni intuizione che ti viene in mente, prima della Luna Nuova.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Capisco il tuo desiderio di agire. Ti chiedo, hai già iniziato a preparare quel piccolo quaderno, come ti ho suggerito? Se sì, dimmi, hai già annotato qualcosa?
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio dato in precedenza riguardo al quaderno e chiede un aggiornamento in merito, sviluppando il punto.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Quando capirai che cosa, esattamente?
+    GIUDICE: PORTA_AVANTI, La guida chiede una precisazione sulla domanda della persona, che è una continuazione del discorso precedente, per poter sviluppare la risposta.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare un equilibrio dopo una discussione, è importante che tu torni a sentire il tuo centro, il tuo cuore. Trova un momento di tranquillità per te, forse al mattino presto prima che la giornata prenda il via.
+
+Inspira profondamente, portando l'attenzione al tuo plesso solare, il centro dell'energia personale. Visualizza un colore giallo caldo che si espande, sciogliendo ogni tensione e incertezza. Quando ti senti più radicata, avvicina tua sorella con l'intento di ascoltare, senza aspettarti nulla in cambio.
+
+✦ Porta le mani al centro del petto, come in un gesto di ricongiungimento.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso che hai ritrovato il tuo centro, puoi immaginare di accogliere ciò che è accaduto con tua sorella, senza giudizio. Questo ti permetterà di avvicinarti a lei con un cuore aperto.
+
+Il respiro può aiutarti a mantenere questa apertura: inspira profondamente, sentendo la calma diffondersi in tutto il corpo, poi espira lentamente, rilasciando ogni aspettativa.
+
+✦ Siediti in un luogo tranquillo e lascia che il respiro diventi più lento e profondo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'ritrovare il centro' e lo sviluppa, indicando come usarlo per avvicinarsi alla sorella con un cuore aperto, mantenendo il respiro come strumento.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai nel tuo corpo, quando la tensione che senti nei suoi confronti si sarà allentata e un senso di pace prenderà il suo posto. Non è un momento che arriva dall'esterno, ma una sensazione che nasce dentro di te.
+
+Questo avviene quando il chakra del cuore, il tuo Anahata, si apre e lascia fluire l'energia, permettendoti di guardare alla situazione con compassione.
+
+✦ Poggia una mano sul cuore e senti il suo battito regolare, il tuo ritmo.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di sensazione interna e di allentamento della tensione, già implicito nel 'ritrovare il centro' e 'cuore aperto', e lo collega all'apertura del chakra del cuore.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1, elemento cambiato in 0 risposte su 2 con un elemento gia' uscito

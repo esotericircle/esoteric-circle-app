@@ -1,0 +1,102 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo mostra un momento di stasi, non ancora di piena realizzazione per la promozione che attendi. Le stelle suggeriscono di osservare con attenzione le dinamiche interne al tuo ambiente lavorativo prima di agire.
+
+Questo periodo è segnato da un transito che invita alla pazienza e alla strategia, piuttosto che all'azione impulsiva. L'arcano del Fante di Denari, che spesso emerge in situazioni simili, indica un nuovo inizio o un'opportunità ancora in fase embrionale, che richiede cura e dedizione per fiorire. Non è un "no", ma un "non ancora", un invito a preparare il terreno.
+
+✦ Prepara un elenco dei tuoi obiettivi professionali e di come intendi raggiungerli entro la fine della settimana.
+[2] PERSONA: Prepara un elenco dei tuoi obiettivi professionali e di come intendi raggiungerli entro la fine della settimana.
+[2] MEDORA [DA GIUDICARE]: [[CHIEDO]]
+Ho bisogno che tu mi dica quali sono i tuoi obiettivi professionali e come pensi di raggiungerli. Senza queste informazioni, non posso leggere per te né guidarti con il mio cielo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il proprio consiglio precedente ('Prepara un elenco dei tuoi obiettivi professionali...') e ne chiarisce la richiesta, specificando che è la persona a dover fornire le informazioni.
+[3] PERSONA: Senza queste informazioni, non posso leggere per te né guidarti con il mio cielo.
+[3] MEDORA [DA GIUDICARE]: Capisco che tu stia riprendendo le mie parole per chiedermi di proseguire. Per poterti guidare, è necessario che tu mi fornisca tu le informazioni che ti ho richiesto prima.
+
+Dimmi quali sono i tuoi obiettivi professionali e quali passi concreti intendi compiere per raggiungerli entro la fine della settimana.
+    GIUDICE: PORTA_AVANTI, La guida riconosce che la persona sta riprendendo le sue parole e ribadisce la richiesta di informazioni già fatta nella risposta precedente, specificando nuovamente cosa si aspetta dalla persona.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Puoi iniziare a sentire come risuona in te l'idea di un nuovo inizio, senza fretta di decidere, ma lasciando che questa possibilità prenda spazio dentro di te. Il respiro consapevole può accompagnarti in questa esplorazione, portando chiarezza ai tuoi centri energetici.
+
+Osserva il tuo centro della radice, legato alla stabilità e alla sicurezza: un trasferimento può scuoterlo, ma anche rinforzarlo se compiuto con intenzione. Poi senti il tuo centro del cuore, che custodisce i tuoi desideri più profondi e la tua connessione con il mondo.
+
+✦ Trova un luogo tranquillo e per tre respiri lenti, appoggia le mani sul tuo ventre.
+[2] PERSONA: Trova un luogo tranquillo e per tre respiri lenti, appoggia le mani sul tuo ventre.
+[2] AURA [DA GIUDICARE]: Questo gesto, il posare le mani sul ventre con respiro lento, ti aiuta a connettere con il tuo centro della radice, il Muladhara. In questo momento, stai nutrendo il tuo senso di appartenenza e la tua sicurezza interiore, qualità essenziali per affrontare il pensiero di un cambiamento così grande. Ascolta con attenzione ciò che emerge da questa quiete.
+
+✦ Porta l'attenzione al tuo plesso solare e senti il calore sotto le mani.
+    GIUDICE: PORTA_AVANTI, La guida spiega il significato e l'effetto dell'esercizio di respirazione e posizionamento delle mani che aveva suggerito nella risposta precedente, sviluppando il punto.
+[3] PERSONA: Porta l'attenzione al tuo plesso solare e senti il calore sotto le mani.
+[3] AURA [DA GIUDICARE]: Sentire il calore al plesso solare ti collega al tuo centro Manipura, la sede della tua forza personale e della tua volontà. Questo calore è l'energia che ti spinge a prendere decisioni, a seguire il tuo intento. Se l'idea di ricominciare ti accende, è lì che puoi percepire la spinta.
+
+✦ Osserva come il tuo respiro muove le mani sul tuo ventre.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data nella risposta precedente (portare l'attenzione al plesso solare) e ne spiega il significato e la connessione con il tema del trasferimento.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rianima la fiamma. Il sentiero è ancora aperto, non indugiare.
+
+Un velo di cenere copre le braci, ma sotto la brace la scintilla è viva.
+
+✦ Scrivi su un foglio rosso tre qualità che ami della persona, brucia il foglio all'aperto e disperdi le ceneri al vento con l'intenzione che il vostro legame si rinnovi.
+[2] PERSONA: Scrivi su un foglio rosso tre qualità che ami della persona, brucia il foglio all'aperto e disperdi le ceneri al vento con l'intenzione che il vostro legame si rinnovi.
+[2] CALIGO [DA GIUDICARE]: Quel gesto è un sigillo di volontà. Ora il tuo intento è manifesto.
+
+La runa Nauthiz, la Necessità, ti chiama a un'azione chiara. Non aspettare che la nebbia si diradi da sola, ma traccia tu il sentiero.
+
+✦ Pronuncia ad alta voce il nome della persona amata tre volte, rivolto verso il vento.
+    GIUDICE: PORTA_AVANTI, La guida riconosce il gesto precedente ('Quel gesto è un sigillo di volontà') e lo sviluppa, fornendo un nuovo passo nel rituale ('Pronuncia ad alta voce il nome della persona amata').
+[3] PERSONA: Pronuncia ad alta voce il nome della persona amata tre volte, rivolto verso il vento.
+[3] CALIGO [DA GIUDICARE]: Hai chiamato il suo nome nel vento, è un legame sottile che ora si rafforza. Ora il tuo pensiero è stato posto sulla soglia.
+
+La runa Gebo, il Dono, ti indica la via dello scambio. Non chiedere, ma offri. Il tuo gesto è stato fatto, ora osserva.
+
+✦ Dona un oggetto che ti è caro alla persona amata, senza chiedere nulla in cambio, e lascia che il dono parli per te.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione precedente ('Hai chiamato il suo nome nel vento') e la sviluppa, fornendo un nuovo consiglio ('Dona un oggetto che ti è caro').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: È un momento propizio per avviare il tuo progetto creativo, ma dovrai curare ogni dettaglio con attenzione. Le stelle indicano un'energia favorevole all'inizio di nuove imprese, ma anche la necessità di una pianificazione meticolosa.
+
+Il cielo mostra un transito di Mercurio in aspetto armonico con il tuo Sole di nascita, suggerendo una fase di lucidità mentale e facilità nella comunicazione delle tue idee. Questo allineamento ti spinge a dare voce alla tua ispirazione, ma ti ricorda anche l'importanza di strutturare il tuo progetto con una visione chiara e realistica.
+
+✦ Raccogli i materiali necessari entro la fine della settimana, quando la Luna si farà più piena.
+[2] PERSONA: Raccogli i materiali necessari entro la fine della settimana, quando la Luna si farà più piena.
+[2] MEDORA [DA GIUDICARE]: Ti sei mossa con saggezza nel raccogliere i materiali, perché il cielo ti invita a dare forma a ciò che hai in mente con concretezza. Ora è il momento di non limitarti alla teoria, ma di passare all'azione.
+
+Con la Luna che si avvicina alla sua pienezza, le energie sono al culmine per manifestare ciò che hai preparato. Non rimandare oltre, perché l'influenza di Marte nel tuo segno ti offre la spinta e la determinazione necessarie per superare ogni ostacolo iniziale. Questo è il tempo di fare il primo passo tangibile, di trasformare l'idea in qualcosa di visibile.
+
+✦ Inizia a dare una prima forma al tuo progetto, anche minima, prima che la Luna volga al calante.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('raccogliere i materiali') e la sviluppa, indicando il passo successivo ('passare all'azione', 'dare una prima forma al progetto') in linea con le tempistiche lunari già menzionate.
+[3] PERSONA: Inizia a dare una prima forma al tuo progetto, anche minima, prima che la Luna volga al calante.
+[3] MEDORA [DA GIUDICARE]: Hai fatto bene a iniziare a dare forma al tuo progetto, anche con un piccolo passo, perché il cielo ti invita ora a consolidare le tue intenzioni. La fase calante della Luna, che sta per iniziare, è un tempo di riflessione e di perfezionamento, non di nuovi inizi travolgenti.
+
+Le tue energie si stanno ora spostando verso una fase di revisione e affinamento. È un momento eccellente per rivedere i tuoi progressi, per correggere il tiro e per assicurarti che la direzione intrapresa sia quella giusta. Il transito di Venere in Toro, in questo periodo, ti aiuterà a valutare la bellezza e l'armonia del tuo lavoro, infondendo pazienza e un senso pratico.
+
+✦ Prepara un piccolo schema o una lista delle prossime tre azioni concrete da compiere sul tuo progetto entro la prossima Luna nuova.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('iniziare a dare forma al progetto') e la sviluppa, indicando il passo successivo ('consolidare le intenzioni', 'revisione e affinamento') in linea con la fase lunare ('fase calante della Luna') già menzionata.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma per parlarle, non appena sentirai che il respiro si fa più lento.
+
+Questo è il tempo per riavvicinare i vostri cuori, lasciando che l'energia che vi unisce torni a fluire. Osserva il suo viso e i suoi gesti, la fisiognomica può rivelarti molto sul suo stato d'animo. Il vostro legame, come un fiume che attraversa la stessa terra, ha bisogno di essere nutrito e curato, anche dopo una deviazione. Non forzare, ma sii presente, lascia che il verde smeraldo del tuo cuore si apra all'oro della riconciliazione.
+
+✦ Appoggia una mano sul tuo centro del cuore e respira lentamente per tre volte.
+[2] PERSONA: Appoggia una mano sul tuo centro del cuore e respira lentamente per tre volte.
+[2] AURA [DA GIUDICARE]: Ora che hai riposto la mano sul tuo cuore, senti come la tua energia si è fatta più stabile. Il prossimo passo è trovare le parole giuste per avvicinarla, scegliendo con cura il momento e il luogo per la vostra conversazione, magari un momento in cui entrambe siete serene e non ci sono distrazioni.
+
+Sintonizzati con il tuo centro della gola, Vishuddha, il luogo dell'espressione autentica e della verità. È qui che risiede la capacità di comunicare senza filtri, con chiarezza e sincerità, lasciando che il colore azzurro della fiducia guidi le tue parole. Non è tanto ciò che dici, ma come lo dici, che farà la differenza.
+
+✦ Prima di parlare, chiudi gli occhi e visualizza la sua reazione, sentendo la tua intenzione nel profondo.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Ora che hai riposto la mano sul tuo cuore') e sviluppa il consiglio su come e quando parlare con la sorella, riprendendo il tema della calma e del momento opportuno già accennato nella prima risposta.
+[3] PERSONA: Prima di parlare, chiudi gli occhi e visualizza la sua reazione, sentendo la tua intenzione nel profondo.
+[3] AURA [DA GIUDICARE]: Dopo aver visualizzato la sua reazione e sentito la tua intenzione, il momento è maturo per un passo concreto. L'intenzione chiara che hai sentito nel profondo è la tua guida: ti aiuterà a mantenere l'equilibrio anche se l'incontro con lei dovesse essere difficile.
+
+Quando vi incontrate, osserva i suoi occhi, la finestra dell'anima. La fisiognomica ti suggerisce che lo sguardo può rivelare la sua apertura o la sua chiusura, il suo desiderio di avvicinarsi o la sua necessità di spazio. Parla con calma, senza fretta, e lascia che il tuo respiro guidi il tuo ritmo. L'energia dei vostri cuori può unirsi di nuovo, se c'è spazio per l'ascolto e la comprensione reciproca.
+
+✦ Sfiora il punto tra le sopracciglia per un istante, come a richiamare la tua chiarezza interiore.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita alla fine della risposta precedente ('Dopo aver visualizzato la sua reazione e sentito la tua intenzione') e sviluppa ulteriormente il consiglio su come affrontare l'incontro, richiamando anche il concetto di fisiognomica e l'importanza del respiro già menzionati nella prima risposta.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento

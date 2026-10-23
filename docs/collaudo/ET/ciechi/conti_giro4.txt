@@ -1,0 +1,40 @@
+ORDINE ET VOCI 01 E 03: I CONTI ALLA CIECA, fascicolo "giro4"
+Ogni riga: fase, Maestro, canale, esecuzione; poi i conti su 30 risposte (sulle coppie, su 5 seconde).
+Correzione a macchina dichiarata: una prima frase che e' una presentazione ("Aura è qui.") non risponde.
+Voci giudicate 360, senza giudizio 0.
+
+giro4 aura chat esecuzione 1: prima frase che risponde 22; nel merito 21; risposte con una certezza 3; frasi di certezza 3; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 3
+giro4 aura chat esecuzione 2: prima frase che risponde 19; nel merito 18; risposte con una certezza 3; frasi di certezza 3; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 3
+giro4 aura live esecuzione 1: prima frase che risponde 21; nel merito 19; risposte con una certezza 0; frasi di certezza 0; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+giro4 aura live esecuzione 2: prima frase che risponde 17; nel merito 17; risposte con una certezza 1; frasi di certezza 1; errori di italiano 7; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 2; seconde nel merito 3
+giro4 caligo chat esecuzione 1: prima frase che risponde 21; nel merito 23; risposte con una certezza 7; frasi di certezza 9; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+giro4 caligo chat esecuzione 2: prima frase che risponde 25; nel merito 27; risposte con una certezza 4; frasi di certezza 4; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 4
+giro4 caligo live esecuzione 1: prima frase che risponde 18; nel merito 18; risposte con una certezza 1; frasi di certezza 1; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+giro4 caligo live esecuzione 2: prima frase che risponde 23; nel merito 24; risposte con una certezza 2; frasi di certezza 2; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+giro4 medora chat esecuzione 1: prima frase che risponde 24; nel merito 28; risposte con una certezza 5; frasi di certezza 7; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+giro4 medora chat esecuzione 2: prima frase che risponde 25; nel merito 26; risposte con una certezza 4; frasi di certezza 5; errori di italiano 7; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 5
+giro4 medora live esecuzione 1: prima frase che risponde 26; nel merito 25; risposte con una certezza 1; frasi di certezza 1; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+giro4 medora live esecuzione 2: prima frase che risponde 24; nel merito 26; risposte con una certezza 2; frasi di certezza 3; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+
+TOTALE giro4: prima frase che risponde 265; nel merito 272; risposte con una certezza 33; frasi di certezza 39; errori di italiano 44; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 3; posizioni cambiate senza perché 5; seconde nel merito 45 (su 360 risposte)
+
+LE CERTEZZE E GLI ERRORI CITATI DAI GIUDICI
+CERTEZZA giro4 aura chat esecuzione 1:
+   8. l'incontro con l'anima affine avverrà quando questa ricerca sarà arrivata a un punto di equilibrio
+   28. mentre in realtà è una forma di fiducia
+   16. c'è un velo di incertezza o riservatezza che lo frena
+CERTEZZA giro4 aura chat esecuzione 2:
+   16. Questa attrazione si manifesta prima nel silenzio, un'attesa quasi reverente che la tua presenza evoca in lui.
+   28. Questo apprezzamento, anche se non sempre espresso con parole, si manifesta nel riconoscimento del tuo impegno e della tua stabilità.
+   8. Sarà il momento in cui la giusta connessione si manifesterà
+CERTEZZA giro4 aura live esecuzione 2:
+   7. L'amore arriverà, non come un'attesa, ma come un incontro con un'energia che risuona con la tua.
+CERTEZZA giro4 caligo chat esecuzione 1:
+   5. È la tua percezione che vacilla, non la sua lealtà.
+   5. Il suo sentiero è ancora unito al tuo.
+   2. Non è amore spento, ma coperto da un velo di incertezza.
+   28. Il suo apprezzamento è un fuoco che arde, ma a volte nascosto.
+   22. Sarà un luogo tuo, un ancoraggio.
+   14. Il tuo corpo è fertile, la tua mente deve seguirlo.
+   1. Non è rifiuto, ma un impedimento che oscura il suo sentire.
+   16. Ma un velo gli impedisce di agire.

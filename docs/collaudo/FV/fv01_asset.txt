@@ -1,0 +1,63 @@
+GLI ASSET DELL'ORDINE FV, generato da tool/gli_asset_dell_ordine_fv.py
+
+== P1, Calendario Lunare Scena
+lunario_almanacco_aperto_v1.jpg 768x1376 RGB: 668332 byte -> 76736 byte WebP
+lunario_almanacco_chiuso_v1.jpg 768x1376 RGB: 639812 byte -> 74096 byte WebP
+lunario_primo_fotogramma_v1.jpg 1080x1920 RGB: 472509 byte -> 169148 byte WebP
+lunario_ultimo_fotogramma_v1.jpg 1080x1920 RGB: 440081 byte -> 145078 byte WebP
+medora_apre_l_almanacco_v1.jpg 768x1376 RGB: 566803 byte -> 86224 byte WebP
+medora_regge_il_mese_v1.jpg 768x1376 RGB: 546799 byte -> 75444 byte WebP
+
+== P2, Elementi (fuori: foglio_emblemi_a_v1.jpg, foglio_emblemi_b_v1.jpg, foglio_sigilli_v1.jpg, foglio_luci_v1.jpg, card_mese_sfondo_v1.png)
+card_mese_sfondo_v1.jpg 768x1376 RGB: 519291 byte -> 48752 byte WebP
+castone_luna_v1.png 512x512 RGBA, alfa identico (172544 pixel trasparenti, 0 cambiati): 210580 byte -> 43612 byte WebP
+emb_amore_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 356879 byte -> 40120 byte WebP
+emb_bellezza_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 385054 byte -> 45068 byte WebP
+emb_capelli_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 375877 byte -> 42702 byte WebP
+emb_casa_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 398996 byte -> 44162 byte WebP
+emb_conserve_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 399379 byte -> 43182 byte WebP
+emb_inizi_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 389261 byte -> 43886 byte WebP
+emb_orto_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 389573 byte -> 43374 byte WebP
+emb_pesca_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 382438 byte -> 47934 byte WebP
+emb_piante_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 373104 byte -> 43834 byte WebP
+emb_viaggi_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 462512 byte -> 55748 byte WebP
+emb_vino_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 391829 byte -> 47504 byte WebP
+luce_alone_oro_v1.png 512x512 RGB: 236803 byte -> 9974 byte WebP
+luce_scia_oro_v1.png 498x280 RGB: 155194 byte -> 16114 byte WebP
+seme_di_luce_v1.png 260x300 RGB: 66036 byte -> 3846 byte WebP
+sig_luna_fuori_corso_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 309391 byte -> 34054 byte WebP
+sig_luna_nel_tuo_segno_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 344304 byte -> 35902 byte WebP
+sig_luna_sul_tuo_sole_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 379292 byte -> 39838 byte WebP
+sig_thun_fiore_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 333197 byte -> 37686 byte WebP
+sig_thun_foglia_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 323659 byte -> 37148 byte WebP
+sig_thun_frutto_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 315184 byte -> 33468 byte WebP
+sig_thun_radice_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 311419 byte -> 35246 byte WebP
+sig_tua_fase_di_nascita_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 391878 byte -> 43214 byte WebP
+sig_tuo_ritorno_lunare_v1.png 512x512 RGBA, alfa identico (57497 pixel trasparenti, 0 cambiati): 329341 byte -> 34086 byte WebP
+pezzi di P2 nel ramo: 25
+
+== card_mese_sfondo_v1.png, consegnato in piu' e lasciato fuori
+768x1376 RGBA, 1151460 byte; alfa da 0 a 255: pixel con alfa 0 352, con alfa sotto 255 898 (0.08 per cento), con alfa 255 1055870; riquadro dei pixel non opachi (0, 0, 768, 1376); scarto medio dei colori dal JPG 150.04 su 255
+pixel non opachi dentro i quattro angoli di 40 pixel: 898 su 898
+colore medio RGB del PNG (206, 204, 198) contro quello del JPG (50, 58, 77): il PNG e' la tavola chiara, color madreperla, che il fondatore ha scartato ("Ma perche' la tavola e' bianca?"); il JPG e' la tavola notturna che l'ordine porta nel ramo. I pixel non opachi del PNG stanno negli angoli arrotondati.
+cattura: docs/collaudo/FV/fv01_card_png_contro_jpg.png (a sinistra il PNG lasciato fuori, a destra il JPG nel ramo)
+
+== FV.02, il video
+medora_almanacco_di_luce_v1.mp4: 7761187 byte -> 3557679 byte (7.76 MB -> 3.56 MB), SHA-256 585ac4b3d93495ce30ad7ac5ca69d83937b4e6388d018594d81a0bebd6493450; fotogramma a 4 s prima e dopo, scarto medio 2.07 su 255 (fv02_fotogramma_4s_prima.png, fv02_fotogramma_4s_dopo.png)
+stream|codec_name=h264|codec_type=video|width=1080|height=1920|r_frame_rate=24/1|duration=8.000000|bit_rate=3453885|nb_frames=192
+stream|codec_name=aac|codec_type=audio|r_frame_rate=0/0|duration=8.000000|bit_rate=96547|nb_frames=376
+ultimo fotogramma contro lunario_ultimo_fotogramma_v1.jpg: video d'origine 9.49 su 255, video ricompresso 9.35 su 255 (docs/collaudo/FV/fv02_ultimo_fotogramma_dopo.png)
+
+== Il velo sull'ultimo fotogramma (1080x1920)
+filo sinistro: colonna 239, dalla riga 307 alla 1086
+filo destro: colonna 836, dalla riga 240 alla 1094
+velo misurato: Rect.fromLTRB(239, 307, 837, 1087), dal 22.1 al 77.5 per cento della larghezza, dal 16.0 al 56.6 per cento dell'altezza
+velo dell'Architetto: Rect.fromLTRB(226.8, 364.8, 842.4, 1228.8)
+cattura di controllo: docs/collaudo/FV/fv02_il_velo_misurato.png (oro: il velo misurato; rosso: il rettangolo dell'Architetto)
+
+== Le tre luci in fusione schermo sull'ultimo fotogramma
+luce_alone_oro_v1.png 512x512 posata a (284, 360): scarto fra scena e composizione sul bordo del riquadro media 0.000 massimo 0.00 su 255, sulla fascia di 4 pixel media 0.000; il canale piu' alto del bordo della luce vale al massimo 0 su 255; dentro, scarto medio 19.30
+luce_scia_oro_v1.png 498x280 posata a (291, 880): scarto fra scena e composizione sul bordo del riquadro media 0.118 massimo 1.01 su 255, sulla fascia di 4 pixel media 0.152; il canale piu' alto del bordo della luce vale al massimo 3 su 255; dentro, scarto medio 6.73
+seme_di_luce_v1.png 260x300 posata a (410, 1400): scarto fra scena e composizione sul bordo del riquadro media 0.000 massimo 0.00 su 255, sulla fascia di 4 pixel media 0.000; il canale piu' alto del bordo della luce vale al massimo 0 su 255; dentro, scarto medio 22.25
+cattura: docs/collaudo/FV/fv01_luci_in_fusione_schermo.png
+

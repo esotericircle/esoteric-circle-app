@@ -1,0 +1,6 @@
+REGOLA B, ordine ES, 30 settembre 2026: prima di sostituire il suono che parte alla comparsa del responso dell'Oroscopo (richiesta del fondatore), la guardia della zona vista rossa sul codice di prima.
+INNESTO B1 il responso compare senza suono: grep del difetto nel file SI; prova test/la_soglia_e_la_rivelazione_dell_oroscopo_test.dart ROSSA; file rimesso sha1 59dbab47bba7 -> 59dbab47bba7 IDENTICO
+INNESTO B2 il suono del responso parte due volte: grep del difetto nel file SI; prova test/la_soglia_e_la_rivelazione_dell_oroscopo_test.dart ROSSA; file rimesso sha1 59dbab47bba7 -> 59dbab47bba7 IDENTICO
+REGOLA A della pretesa nuova (il suono del fondatore alla comparsa del responso, quello di prima mai):
+INNESTO A1 alla comparsa del responso torna il suono di prima: grep del difetto nel file SI; prova test/la_soglia_e_la_rivelazione_dell_oroscopo_test.dart ROSSA; file rimesso sha1 aba5f769a79f -> aba5f769a79f IDENTICO
+INNESTO A2 il file del responso tolto dal catalogo: grep del difetto nel file SI; prova test/il_suono_dice_il_vero_test.dart ROSSA; file rimesso sha1 5b0cb378a180 -> 5b0cb378a180 IDENTICO

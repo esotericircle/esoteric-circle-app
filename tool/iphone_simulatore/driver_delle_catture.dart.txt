@@ -1,0 +1,21 @@
+// IL DRIVER DELLE CATTURE, sul Mac del giro. Ordine GA voce 12.
+//
+// Gira sulla macchina di GitHub, non sul simulatore: riceve le catture che
+// la prova del percorso scatta con binding.takeScreenshot e le scrive nella
+// cartella indicata dalla variabile CATTURE, che il lavoro carica come
+// artifact. Estensione .txt per la stessa ragione della prova: flutter_driver
+// e integration_test non stanno nel pubspec del repository.
+import 'dart:io';
+
+import 'package:integration_test/integration_test_driver_extended.dart';
+
+Future<void> main() => integrationDriver(
+      onScreenshot: (String nome, List<int> byte,
+          [Map<String, Object?>? argomenti]) async {
+        final cartella = Platform.environment['CATTURE'] ?? 'catture_iphone';
+        final file = File('$cartella/percorso_$nome.png');
+        file.parent.createSync(recursive: true);
+        file.writeAsBytesSync(byte);
+        return true;
+      },
+    );

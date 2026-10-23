@@ -1,0 +1,75 @@
+ORDINE EX AGGIUNTA 4, VOCE EX.05, LA CACHE GARANTITA CHE SI ACCENDE SOPRA LA SOGLIA. 2 ottobre 2026.
+
+DOMANDA: "Voglio tutto sistemato." (EX Aggiunta 4: "una cache garantita che si accende sopra la soglia e si spegne sotto, senza costi fissi quando non serve. La soglia la calcola Code e la dichiara.")
+MISURA chiesta: traffico simulato sotto e sopra la soglia, 2 casi su 2; costo al mese a 10, 50 e 200 richieste all'ora con e senza cache; risparmio in per cento sopra la soglia.
+
+COME E' FATTA
+1. La funzione del server laCacheDelContesto (functions/src/la_cache_del_contesto.ts), ogni dieci minuti:
+   - conta le richieste della chat dell'ultima ora: i messaggi salvati nell'ultima ora (gruppo "messages", campo "createdAt", l'indice c'e' gia') diviso due; il conto comprende anche il LIVE, quindi sbaglia per eccesso e la cache si accende un poco prima del pareggio;
+   - decide con la soglia (sotto) e, se la cache e' accesa, crea su Vertex (europe-west1, gemini-2.5-flash) una CachedContent per ogni variante con venti minuti di vita, o la rinnova se c'e' gia';
+   - scrive lo stato in Firestore, configurazione/cache: accesa, impronta, i nomi delle cache, l'ora in cui scadono.
+   Spenta, non crea e non rinnova: le cache scadono da sole in venti minuti. Se la funzione si fermasse, scadrebbero lo stesso. Nessun costo fisso resta acceso.
+2. La regola di Firestore che lascia leggere configurazione/cache a chi ha l'accesso e' scritta qui sotto, ma NON e' nel repository: la via della cache non si accende (sotto), e una regola nel repository diversa da quella pubblicata farebbe due verita'. Il testo, da rimettere in firestore.rules prima di match /{documento=**}:
+     match /configurazione/cache {
+       allow read: if request.auth != null;
+       allow write: if false;
+     }
+3. Il telefono (lib/services/ai/la_cache_del_contesto.dart e FirebaseMaestroAiProvider._conLaCache): per la prima risposta della chat scritta, se la cache della sua variante e' viva e l'impronta e' la sua, chiede la risposta al template di Firebase AI Logic "maestro-con-la-cache", che porta il nome della cache. Altrimenti, o se qualcosa non va, risponde la via di sempre: la cache non e' mai la sola strada.
+4. Le varianti sono sei: i tre Maestri, nella chat col seguito e senza. Il LIVE resta sulla via di sempre (risponde a flusso). La parte comune dell'istruzione (MaestroPersona.parteComune) e' quella che la cache tiene; il file functions/src/la_cache_prefissi.json la porta alla funzione, scritto da tool/i_prefissi_della_cache.dart, e la guardia test/i_prefissi_della_cache_sono_quelli_dell_app_test.dart lo vuole uguale all'app (nata rossa, A24).
+
+IL LIMITE DI FIREBASE CHE HA DECISO LA FORMA
+La documentazione di Firebase AI Logic (firebase.google.com/docs/ai-logic/context-caching): la cache esplicita dal telefono passa SOLO dai template ("Firebase AI Logic allows access to explicit content caches only when using server prompt templates"), e i template "do not yet support function calling (or chat)". Per questo nella via della cache:
+- la conversazione entra come testo nella richiesta (gli ultimi otto messaggi, come la via di sempre);
+- il cielo di oggi e dei giorni nominati nella domanda entra gia' calcolato (EX.07);
+- una domanda sul cielo di un periodo ("Quando torna diretto Mercurio?") resta sulla via di sempre, che ha le funzioni (LeFunzioniDelCielo.serveUnaFunzione).
+
+LA SOGLIA, CALCOLATA E DICHIARATA
+- Ogni variante tiene in cache circa 4.820 token (la parte comune misurata dall'ordine EX voce 05); sei varianti, 28.920 token.
+- Conservazione: 1 dollaro al milione di token all'ora per Flash, 0,0289 dollari all'ora.
+- Risparmio per richiesta: 4.820 token al 90 per cento di 0,30 dollari al milione, 0,0013 dollari.
+- Pareggio: 0,0289 / 0,0013 = 22,2 richieste all'ora. La cache si accende a 23 richieste all'ora e si spegne sotto 18 (il 20 per cento piu' in basso, perche' il traffico che oscilla intorno alla soglia non la faccia accendere e spegnere a ogni giro). L'ordine diceva "circa 33": era il conto con nove varianti, LIVE compreso.
+
+IL TRAFFICO SIMULATO (functions/src/la_cache_del_contesto.test.ts, npm test dentro functions: 153 prove su 153 verdi; nate rosse, A22)
+CASO 1, sotto la soglia: un giorno a 10 richieste all'ora, un giro ogni dieci minuti: cache mai accesa, 0 ore, 0 accensioni. SI.
+CASO 2, sopra la soglia: un giorno a 50 richieste all'ora: accesa 24 ore su 24, 1 accensione. SI.
+2 casi su 2. In piu': un giorno vero (poco la notte, 40 all'ora dalle 18 alle 23) si accende alle 18 e si spegne a mezzanotte, una volta; il traffico che oscilla fra 24 e 19 la accende una volta sola.
+
+IL COSTO AL MESE DELL'INIZIO DELL'ISTRUZIONE (730 ore, richieste costanti)
+| Richieste all'ora | Senza cache | Cache sempre accesa | Con l'interruttore | Risparmio |
+|---|---|---|---|---|
+| 10 | 10,56 $ | 22,17 $ | 10,56 $ (spenta) | 0 per cento |
+| 50 | 52,78 $ | 26,39 $ | 26,39 $ (accesa) | 50 per cento |
+| 200 | 211,12 $ | 42,22 $ | 42,22 $ (accesa) | 80 per cento |
+Sotto la soglia la cache sempre accesa costerebbe piu' del doppio: l'interruttore la tiene spenta e il costo e' quello di oggi.
+
+LA VIA DELLA CACHE NON PEGGIORA LE RISPOSTE (banco della qualita' con CACHE=simulata: la stessa richiesta della via della cache mandata a Vertex senza cache, cioe' cio' che il modello legge col template, senza creare niente su Google)
+Giro ex05a contro ex07h (la via di sempre, stesso codice), due giudici alla cieca, docs/collaudo/EX/qualita/chat_ex05/:
+| | A regole | B memoria | C cielo | D merito | E seguito |
+|---|---|---|---|---|---|
+| giudice 1, via della cache | 29/30 | 9/11 | 9/10 | 27/30 | 12/24 |
+| giudice 1, via di sempre | 30/30 | 9/11 | 9/10 | 24/30 | 15/24 |
+| giudice 2, via della cache | 30/30 | 8/11 | 10/11 | 28/30 | 14/24 |
+| giudice 2, via di sempre | 29/30 | 10/11 | 10/11 | 25/30 | 18/24 |
+Il merito sale (27 e 28 contro 24 e 25), il seguito scende (12 e 14 contro 15 e 18): i giudici lo dicono piu' generico. Difetto trovato e curato dentro la voce (padre: questa voce): nella richiesta della cache l'istruzione del seguito stava prima della conversazione e della domanda, mentre nella via di sempre e' l'ultima cosa che il modello legge; adesso va dopo la domanda. La misura dopo la cura e' sotto, nella sezione LA CURA DEL SEGUITO.
+
+LA CURA DEL SEGUITO, E IL CIELO
+Giro ex05b (via della cache, col seguito dopo la domanda) contro ex07j (via di sempre, stesso codice), due giudici alla cieca, docs/collaudo/EX/qualita/chat_ex05b/:
+| | A regole | B memoria | C cielo | D merito | E seguito |
+|---|---|---|---|---|---|
+| giudice 1, via della cache | 30/30 | 10/11 | 7/10 | 26/30 | 18/24 |
+| giudice 1, via di sempre | 30/30 | 10/11 | 10/10 | 26/30 | 22/24 |
+| giudice 2, via della cache | 29/30 | 9/11 | 7/10 | 26/30 | 12/24 |
+| giudice 2, via di sempre | 30/30 | 8/11 | 10/10 | 25/30 | 18/24 |
+Chiamate per risposta: via della cache 1,12, via di sempre 1,33.
+Il merito resta pari, ma il seguito resta sotto (18 e 12 contro 22 e 18) e il CIELO PEGGIORA con tutti e due i giudici (7 contro 10 su 10): a "Il 15 novembre è un buon giorno per firmare un contratto?" la via della cache dice "il Sole in Bilancia", che e' il Sole di oggi (il 15 novembre e' in Scorpione), e a "Com'è il cielo di oggi per me?" mette il Sole in una casa impossibile. Nella richiesta della cache il cielo di oggi e quello del giorno nominato stanno vicini, nello stesso testo; nella via di sempre il cielo di oggi sta nella descrizione della funzione.
+
+LA DECISIONE (scelta consigliata, scritta qui come vuole la regola)
+Per la regola NESSUNA RISPOSTA PEGGIORA la via della cache NON si accende:
+- l'interruttore dell'app LaCacheDelContesto.accesaNellApp e' spento: il telefono non legge nemmeno configurazione/cache, nessuna attesa in piu' sulla risposta;
+- la funzione laCacheDelContesto e' scritta e provata ma NON e' esportata in functions/src/index.ts: un deploy di tutte le funzioni non la accende per sbaglio;
+- la regola di Firestore non e' nel repository (sopra).
+Quando la via della cache reggera' la lettura alla cieca (il cielo dei giorni separato da quello di oggi, il seguito alla pari), si accendono insieme l'interruttore, l'esportazione e la regola, e il fondatore pubblica.
+
+COSA RESTA AL FONDATORE: niente da pubblicare in quest'ordine. Quando la cache si accendera': pubblicare la funzione e la regola dalla copia di lavoro, e creare il template nella console di Firebase (AI Logic, Prompt templates, europe-west1) col testo di docs/collaudo/EX/il_template_della_cache.txt.
+
+STATO: APERTA. La soglia e' calcolata e dichiarata, il traffico simulato da' 2 casi su 2, i costi e il risparmio sono misurati; ma la via della cache peggiora il cielo e il seguito alla lettura alla cieca, e non si accende.

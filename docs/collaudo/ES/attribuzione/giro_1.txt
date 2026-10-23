@@ -1,0 +1,52 @@
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/tool/attribuzione_cieca.dart
+00:00 +0: Attribuzione cieca dei tre Maestri
+Shell: Chiedo 60 risposte, 20 domande per tre Maestri...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: Faccio giudicare 60 risposte...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: 
+Shell: MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+Shell:            medora     aura   caligo     totale   giusti
+Shell: medora         19        1        0       20    95.0%
+Shell: aura            0       20        0       20   100.0%
+Shell: caligo          1        2       17       20    85.0%
+Shell: 
+Shell: Attribuzione corretta: 56 su 60, cioe' 93.3 per cento.
+Shell: Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Shell: Verdetti illeggibili: 0.
+Shell: 
+Shell: LE FRASI SU CUI IL GIUDICE SI E' PERSO
+Shell: --- medora: 1 risposte attribuite ad altri
+Shell:   [creduto aura] domanda: ho la testa piena e le mani vuote
+Shell:      prima frase: ✦ Prendi un foglio e scrivi tutti i pensieri che ti affollano la mente, poi piegalo e riponilo.
+Shell: --- caligo: 3 risposte attribuite ad altri
+Shell:   [creduto aura] domanda: non mi fido di me
+Shell:      prima frase: Non cercare la fiducia, cerca la direzione.
+Shell:   [creduto medora] domanda: mi sento distante da chi amo
+Shell:      prima frase: Avvicinati, non restare in attesa.
+Shell:   [creduto aura] domanda: mi sento invisibile
+Shell:      prima frase: Il tuo valore non dipende dallo sguardo altrui.
+Shell: 
+Shell: RITMO DELLE VOCI, sulle risposte di questo giro
+Shell: medora   frasi contate 99, frase mediana 18.0 parole, domande 0, parole che ammorbidiscono 3
+Shell: aura     frasi contate 106, frase mediana 18.0 parole, domande 0, parole che ammorbidiscono 5
+Shell: caligo   frasi contate 107, frase mediana 9.0 parole, domande 0, parole che ammorbidiscono 1
+00:55 +1: All tests passed!

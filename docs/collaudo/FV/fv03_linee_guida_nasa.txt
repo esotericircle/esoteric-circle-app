@@ -1,0 +1,37 @@
+LE LINEE GUIDA DELLA NASA SULL'USO DELLE IMMAGINI, ordine FV voce FV.03.
+Lette il 15 ottobre 2026 su https://www.nasa.gov/nasa-brand-center/images-and-media/.
+
+Citazioni, tradotte dall'inglese, coi punti che riguardano questo ordine:
+
+1. SUL COPYRIGHT. "NASA content generally are not subject to copyright in the
+   United States." "NASA should be acknowledged as the source of the
+   material." Conseguenza: le immagini si possono usare, e la fonte va
+   citata. Fatto in lib/core/legal/fonti_dei_dati.dart.
+
+2. SUL LOGO. "The NASA Insignia, Logotype, identifiers, and imagery are not
+   in the public domain." "The use of the Insignia, Logotype and NASA
+   identifiers is protected by law." Conseguenza: nessun logo della NASA
+   nell'app. Verificato: nessun asset di P2 porta il logo, nessun codice lo
+   disegna.
+
+3. SULLA SPONSORIZZAZIONE. Per l'uso commerciale, il materiale "must not
+   explicitly or implicitly convey NASA's endorsement of commercial goods
+   or services." "NASA will not promote or endorse or appear to promote or
+   endorse a commercial product, service or activity." Conseguenza: nessuna
+   frase che lasci intendere che la NASA approvi o sponsorizzi Esoteric
+   Circle. Verificato: la riga di fonti_dei_dati.dart dice solo da dove
+   vengono le immagini, non promette un'approvazione.
+
+4. SUI PRODOTTI CON INTELLIGENZA ARTIFICIALE. "References like 'according to
+   NASA' or similar are prohibited in AI products." "All outputs from the AI
+   model should be attributed to the AI product itself, not NASA."
+   Conseguenza diretta per Medora: nei testi che il modello scrive (o che
+   Code scrive nella sua voce) la NASA non si nomina mai. Verificato: grep
+   di "nasa" sui corpus di Medora e sull'istruzione del modello, 0
+   occorrenze fuori dai commenti di codice e da fonti_dei_dati.dart.
+
+Le due regole che NON si applicano qui: il marchio NASA insieme a immagini
+generate dall'IA (l'app non genera immagini a partire da materiale NASA, le
+mostra cosi' come sono) e il marchio "prodotto generato dall'IA" (le
+fotografie non sono generate, sono quelle vere dello Scientific
+Visualization Studio).

@@ -1,0 +1,16 @@
+saluto finito 1790407795.619
+frase 1, inizio 1790407798.681: Cal√¨go, devo accettare un'offerta di lavoro all'estero?
+detta in 4.5 secondi: Calçgo, devo accettare un'offerta di lavoro all'estero?
+frase 1, fine 1790407803.766
+frase 1 trascritta 1790407805.510
+frase 1: risposta finita 1790407835.722
+frase 2, inizio 1790407838.921: Cal√¨go, quale runa mi accompagna questa settimana?
+detta in 4.1 secondi: Calçgo, quale runa mi accompagna questa settimana?
+frase 2, fine 1790407843.717
+frase 2 trascritta 1790407845.483
+frase 2: risposta finita 1790407873.754
+frase 3, inizio 1790407876.964: Cal√¨go, come chiudo un'amicizia che mi fa male?
+detta in 4 secondi: Calçgo, come chiudo un'amicizia che mi fa male?
+frase 3, fine 1790407881.589
+frase 3 trascritta 1790407883.522
+frase 3: risposta finita 1790407918.904

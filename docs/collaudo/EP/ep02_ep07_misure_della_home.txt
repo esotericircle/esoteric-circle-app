@@ -1,0 +1,13 @@
+ORDINE EP, voci EP.02-EP.08: uscita di test/la_home_piu_fitta_test.dart, 26 settembre 2026
+EP.02 MISURA (testo a 1.0): schede montate 24, arti della home 30, la parola piu' lunga "Interpretazione" 161.3 punti su 162.0
+EP.02 MISURA (testo a 1.3): schede montate 20, arti della home 30, la parola piu' lunga "Interpretazione" 204.3 punti su 210.6
+EP.03 MISURA a 360.0 punti: quadrata: 2 intere e 0% della successiva; verticale: 2 intere e 0% della successiva; orizzontale: 1 intere e 31% della successiva
+EP.03 MISURA a 390.0 punti: quadrata: 2 intere e 16% della successiva; verticale: 2 intere e 16% della successiva; orizzontale: 1 intere e 43% della successiva
+EP.03 MISURA a 412.0 punti: quadrata: 2 intere e 30% della successiva; verticale: 2 intere e 30% della successiva; orizzontale: 1 intere e 52% della successiva
+EP.04 MISURA (testo a 1.0): vuoti fra le righe 24.0, 24.0, 24.0, 24.0, 24.0, 24.0, 24.0, 24.0, 24.0; a riposo, dal titolo piu' basso in vista, 28.1, 28.8, 36.4, 26.3, 46.2, 33.6, 28.8, 26.3, 50.4
+EP.04 MISURA (testo a 1.3): vuoti fra le righe 24.0, 24.0, 24.0, 24.0, 24.0, 24.0, 24.0, 24.0, 24.0; a riposo, dal titolo piu' basso in vista, 29.1, 36.3, 55.8, 24.8, 24.8, 36.4, 29.6, 24.8, 56.3
+EP.07 MISURA a 360.0 punti, testo 1.0: righe dei titoli Le arti preferite: 1; Trova una risposta: 1; Da condividere: 1; Amore e affinità: 1; Le stelle parlano: 1; Conosci te stesso: 1; Il tuo corpo: 1; La tua serenità: 1; La tua intenzione: 1; La tua energia: 1
+EP.07 MISURA a 360.0 punti, testo 1.3: righe dei titoli Le arti preferite: 2; Trova una risposta: 2; Da condividere: 2; Amore e affinità: 2; Le stelle parlano: 2; Conosci te stesso: 2; Il tuo corpo: 1; La tua serenità: 2; La tua intenzione: 2; La tua energia: 1
+EP.07 MISURA a 390.0 punti, testo 1.0: righe dei titoli Le arti preferite: 1; Trova una risposta: 1; Da condividere: 1; Amore e affinità: 1; Le stelle parlano: 1; Conosci te stesso: 1; Il tuo corpo: 1; La tua serenità: 1; La tua intenzione: 1; La tua energia: 1
+EP.07 MISURA a 390.0 punti, testo 1.3: righe dei titoli Le arti preferite: 2; Trova una risposta: 2; Da condividere: 1; Amore e affinità: 1; Le stelle parlano: 2; Conosci te stesso: 2; Il tuo corpo: 1; La tua serenità: 1; La tua intenzione: 2; La tua energia: 1
+00:11 +18: All tests passed!

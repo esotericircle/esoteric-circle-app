@@ -1,0 +1,22 @@
+LA CROCE CELTICA ALLA PROFONDITA' LUNGA, ordine FS
+Modello: gemini-2.5-flash, regione europe-west1, 2026-10-13T21:22:38.564893Z
+Pazienza dell'app: 10 s
+
+== seme 501, BREVE, tetto 2224 gettoni
+  chiamate al modello: 1, tempi ms [21421], totale ms 25758
+  esito: LETTURA DI CASA (fuori dal confine: previsione data per certa ("diventerai") | la chiamata non è tornata: TimeoutException after 0:00:04.262153: Future not completed)
+
+== seme 501, LUNGA, tetto 2504 gettoni
+  chiamate al modello: 5, tempi ms [6128, 5718, 5443, 6031, 5565], totale ms 17154
+  esito: LETTURA DI CASA (fuori dal confine: previsione data per certa ("diventerai") | fuori dal confine: previsione data per certa ("Troverai") | fuori dal confine: previsione data per certa ("diventerai"))
+
+== seme 502, BREVE, tetto 2224 gettoni
+  chiamate al modello: 1, tempi ms [4605], totale ms 5561
+  esito: dal modello
+
+== seme 502, LUNGA, tetto 2504 gettoni
+  chiamate al modello: 4, tempi ms [4625, 5936, 6385, 1895], totale ms 12480
+  esito: dal modello
+  approfondimento1 (262 car.): Dedica tempo a esaminare le tue attuali responsabilità: identifica quelle essenziali e quelle che puoi alleggerire. Parla con i tuoi superiori o colleghi per capire se ci sono margini per delegare o ridefinire il tuo ruolo, prima di prendere decisioni drastiche.
+  approfondimento2 (234 car.): Sii consapevole che le opportunità che sembrano 'nuove' potrebbero non essere così vantaggiose come appaiono. Fai ricerche approfondite e parla con persone fidate del settore per ottenere una prospettiva obiettiva prima di impegnarti.
+

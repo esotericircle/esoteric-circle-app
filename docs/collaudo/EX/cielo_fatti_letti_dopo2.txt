@@ -1,0 +1,28 @@
+LETTURA A MANO DEI FATTI DEL CIELO, cielo_dopo2.txt (banco di Medora e del cielo, eseguito 2026-10-02T10:55:50, letto il 2026-10-02).
+Regola: ogni fatto astronomico affermato nella risposta a video confrontato coi FATTI DALLE EFFEMERIDI DELL'APP sotto la stessa domanda.
+SBAGLIATO = contraddice le effemeridi. NEGATO = dice di non sapere o rifiuta un fatto che le effemeridi contengono.
+NON VERIFICABILE = fatto preciso (data, grado, percentuale) che le effemeridi sotto non coprono. Le interpretazioni simboliche e i dati natali della persona (Ascendente, Sole di nascita) non si contano. Le omissioni non si contano.
+Controllati anche: blocco grezzo delle effemeridi incollato a video (nessuno) e risposte troncate a meta' frase (nessuna, tutte le venti finiscono con STOP).
+
+dopo2|1|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Urano retrogrado oggi: giusto
+dopo2|2|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna a 25 gradi in Gemelli, Gibbosa calante: giusto
+dopo2|3|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Saturno, Urano, Nettuno, Plutone retrogradi: giusto
+dopo2|4|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Venere a 8 gradi in Scorpione: giusto
+dopo2|5|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|diciassette aspetti detti in prosa, tutti presenti nelle effemeridi; omesso Sole opposizione Nettuno (omissione, non contata); niente blocco grezzo, niente troncatura (era la risposta rotta in "dopo")
+dopo2|6|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Marte a 2 gradi in Leone: giusto
+dopo2|7|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Sole 9 Bilancia, Luna in Gemelli gibbosa calante, Mercurio e Venere in Scorpione, Marte e Giove in Leone, quattro retrogradi: giusto
+dopo2|8|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Sole 0 Capricorno congiunto Mercurio, trigono Marte e Urano; Luna 24 Pesci Primo quarto, sestile Giove e Saturno, congiunta Nettuno; Urano retrogrado a 6 Toro: tutto giusto
+dopo2|9|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Saturno a 10 gradi in Toro, retrogrado: giusto
+dopo2|10|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 1|Luna crescente in Bilancia: giusto; "il 30% della sua pienezza" non coperto (plausibile: Sole 27 Cancro, Luna 3 Bilancia, circa 66 gradi di distanza)
+dopo2|11|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|eclissi solare totale, Luna in Ariete: giusto
+dopo2|12|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 1|retrogrado a inizio agosto e diretto l'11 agosto 2025: giusto; "il primo del mese a 8 gradi in Leone" non coperto dagli eventi
+dopo2|13|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Giove a 1 grado in Cancro: giusto
+dopo2|14|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|molti retrogradi (cinque, con Venere) e Luna in Cancro: giusto; la frase "Domani la Luna entra nel segno del Cancro" tolta dalla rete, non a video; non nomina la stazione di Venere del 3 (omissione)
+dopo2|15|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Urano diretto l'8 febbraio 2027, in Gemelli: giusto
+dopo2|16|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Venere in Scorpione il 4, Luna nuova in Sagittario l'8, Saturno diretto l'11, Giove e Nettuno "invertiranno il loro moto" il 13 (vero per entrambi: Giove diventa retrogrado, Nettuno torna diretto; formula vaga ma non sbagliata), Sole in Capricorno il 22, Luna piena in Cancro il 24, Mercurio in Capricorno il 26: giusto; omesso Mercurio in Sagittario il 6
+dopo2|17|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|quattro eclissi: solare anulare 6 febbraio, lunare di penombra 20 febbraio, solare totale 2 agosto, lunare di penombra 17 agosto: conformi alle effemeridi, anche nel tipo
+dopo2|18|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna piena il 26 ottobre in Toro: giusto
+dopo2|19|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|retrogrado a inizio novembre in Scorpione, diretto il 14: giusto (la retrogradazione dal 24 ottobre e il segno stanno nel blocco della domanda 15)
+dopo2|20|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Giove a 27 gradi in Vergine: giusto
+
+TOTALE dopo2|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 2|domande con almeno un fatto sbagliato: 0 su 20; risposte che negano il cielo: 0; blocchi grezzi incollati: 0; risposte troncate: 0

@@ -1,0 +1,3 @@
+ORDINE ES VOCE 19, REGOLA B: la guardia la_posizione_e_una_lettura vista rossa prima di toccare il blocco del "quando" (30 settembre 2026, dopo il LIVE sul Realme).
+
+INNESTO REGOLA B, prima di toccare il blocco del "quando": il quando senza il tempo: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 662382c04214 -> 662382c04214 IDENTICO

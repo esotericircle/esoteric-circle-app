@@ -1,0 +1,40 @@
+S01|SI|NA|NA|SI|NA|Si condizionato a stabilire le modalità del prestito, gesto concreto: parlare col fratello entro domani.
+S02|SI|NA|NA|SI|NA|Al limite: non dice cosa prova Marco ma indica di chiederglielo entro la settimana in un luogo tranquillo.
+S03|SI|NA|NA|NO|NA|Al limite in A. Alla domanda quando risponde no per ora; il gesto sull'incertezza non riguarda il matrimonio.
+S04|SI|NA|NA|SI|NA|Al limite: si condizionato a esplorare tre quartieri di Torino, condizione arbitraria e senza un perché, ma gesto chiaro.
+S05|SI|NA|NA|NO|NA|Silenzio: il mondo di sotto non ha parlato, nessuna risposta.
+S06|SI|NA|NA|NO|NA|Un si senza oggetto e una massima; il gesto andrebbe bene a qualunque scelta.
+S07|SI|NA|NA|SI|NA|Gesto preciso e pertinente: chiamare la madre questa settimana solo per chiederle come sta.
+S08|SI|NA|NA|SI|NA|Al limite: indica come decidere, informarsi da tre residenti e rivedere case scartate; non dice se conviene.
+S09|SI|NA|NA|SI|NA|Dice cosa fare: chiedere direttamente il posto nel rapporto, contattarla oggi pomeriggio.
+S10|SI|NA|NA|SI|NA|Al limite: il testo indica di presentare il progetto a un collaboratore, ma il gesto della canzone è scollegato.
+S11|SI|NA|NA|SI|NA|Al limite: testo generico sull'ostacolo, ma il gesto è concreto: parlare del progetto a una persona fidata domani.
+S12|SI|NA|NA|SI|NA|Indica la prima mossa: scrivere a Marco proponendo caffè o passeggiata con giorno e ora precisi.
+S13|SI|NA|NA|NO|NA|Un si senza senso e una massima; cercare immagini di fiumi non aiuta a superare il blocco.
+S14|SI|NA|NA|NO|NA|Massima generica su chi sei; il gesto dell'oggetto di valore non orienta la scelta.
+S15|SI|NA|NA|SI|NA|Al limite in A: non puoi contare sul ritorno, sposta l'attenzione su di te, togli un oggetto che ti lega.
+S16|SI|NA|NA|SI|NA|Chiedere alla persona il proprio posto, sabato mattina, mezz'ora: chiaro e pertinente.
+S17|SI|NA|NA|NO|NA|Testo vuoto; la colazione per chi è con te non riguarda la fiducia in sé.
+S18|SI|NA|NA|NO|NA|Massima sul muoversi; riordinare una stanza andrebbe bene a chiunque, non dice cosa aspetta.
+S19|SI|NA|NA|SI|NA|Gesto pertinente: ricordare tre momenti di difficoltà superata per ritrovare la fiducia.
+S20|SI|NA|NA|SI|NA|Si condizionato a una ricerca; gesto concreto: visitare tre botteghe di ceramica entro sabato.
+S21|SI|NA|NA|SI|NA|Si se prepari il terreno; contattare entro una settimana chi ha già una bottega.
+S22|SI|NA|NA|SI|NA|Al limite: parlarle senza aspettarsi nulla; il gesto di rileggere i messaggi è debole ma pertinente.
+S23|SI|NA|NA|NO|NA|Al limite: massime su vuoto e nuovo inizio; spostare un oggetto non dice cosa farne.
+S24|SI|NA|NA|SI|NA|Al limite in A sul contratto scritto; indica condizioni precise: piano di restituzione con date e cifre.
+S25|SI|NA|NA|NO|NA|Non dice cosa blocca nel lavoro; il gesto della maschera è generico.
+S26|SI|NA|NA|NO|NA|Si senza oggetto e frasi oscure sul punto di rottura; il gesto non dà una direzione.
+S27|SI|NA|NA|NO|NA|Massima sul riconoscere il valore del blocco; osservare un oggetto bloccato è simbolico e generico.
+S28|SI|NA|NA|SI|NA|Al limite: un pezzo alla volta e mettere via un oggetto di ciò che è finito; pertinente ma tenue.
+S29|SI|NA|NA|SI|NA|Al limite: il si non ha senso, dà un perché generico e un gesto serale per il sonno.
+S30|NO|NA|NA|SI|NA|Al limite in A: i segni dicono di no detto come certezza sul ritorno; gesto finale generico.
+S31|SI|NA|NA|NO|NA|Alla domanda quando risponde si con una massima sul desiderio; non dice nulla sul matrimonio.
+S32|SI|NA|NA|SI|NA|Indica come decidere: elencare i costi del trasloco e confrontarli con le risorse.
+S33|SI|NA|NA|NO|NA|Contraddittoria: si a partire ma il gesto è cercare lavoro a Torino; nessun perché.
+S34|SI|NA|NA|SI|NA|Al limite: testo vuoto, ma il gesto prepara il colloquio pensando come chi seleziona.
+S35|SI|NA|NA|SI|NA|Gesto preciso sul colloquio: chiedere punti di forza e riscontro prima di uscire.
+S36|SI|NA|NA|NO|NA|Al limite: il si non ha senso, peso che non ti appartiene generico; il gesto non riguarda il sonno.
+S37|SI|NA|NA|SI|NA|Al limite: testo vuoto, ma il gesto è sul lavoro: annotare chi genera disagio.
+S38|SI|NA|NA|SI|NA|Chiedere perdono e scrivere entro domani sera alla sorella per incontrarsi.
+S39|SI|NA|NA|NO|NA|Testo vuoto; il gesto generico non dice nulla su ciò che aspetta.
+S40|SI|NA|NA|NO|NA|Massima generica; allontanarsi da una cosa che blocca andrebbe bene a chiunque.

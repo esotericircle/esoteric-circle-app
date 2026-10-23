@@ -1,0 +1,10 @@
+file di prova: 220
+gruppo sinB_gruppo_aa: uscita 0 03:01 +236: All tests passed!
+gruppo sinB_gruppo_ab: uscita 0 02:44 +235: All tests passed!
+gruppo sinB_gruppo_ac: uscita 0 02:30 +203: All tests passed!
+gruppo sinB_gruppo_ad: uscita 0 01:40 +209: All tests passed!
+gruppo sinB_gruppo_ae: uscita 0 01:44 +159: All tests passed!
+gruppo sinB_gruppo_af: uscita 0 14:49 +310: All tests passed!
+FINE
+
+[exited with code 0]

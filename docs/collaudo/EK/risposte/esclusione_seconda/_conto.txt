@@ -1,0 +1,10 @@
+PROVA PER ESCLUSIONE, ordine EK voce 02.
+Su 6 risposte per giro, stessi giudici del collaudo EJ.
+
+medora_oggi                non dirette 1, 2, 0 = 3 su 18;  senza passo 1, 1, 1 = 3 su 18
+medora_registro_diretto    non dirette 0, 1, 1 = 2 su 18;  senza passo 1, 2, 1 = 4 su 18
+medora_lente_al_servizio   non dirette 1, 4, 0 = 5 su 18;  senza passo 3, 3, 2 = 8 su 18
+medora_chiusura_precisa    non dirette 1, 3, 2 = 6 su 18;  senza passo 0, 0, 0 = 0 su 18
+medora_cura                non dirette 3, 0, 2 = 5 su 18;  senza passo 0, 1, 1 = 2 su 18
+caligo_oggi                non dirette 0, 0, 1 = 1 su 18;  senza passo 0, 1, 0 = 1 su 18
+caligo_cura                non dirette 2, 4, 1 = 7 su 18;  senza passo 1, 0, 1 = 2 su 18

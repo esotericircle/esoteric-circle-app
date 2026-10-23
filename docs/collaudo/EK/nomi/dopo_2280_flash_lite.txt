@@ -1,0 +1,34 @@
+ORDINE EK VOCE 03, LA TRASCRIZIONE DEL LIVE CON L'ELENCO DEI NOMI, ANCORA SU FLASH-LITE.
+Realme 767f596c, build 2280 installata per le prove (non consegnata), LIVE di Medora, 24 settembre 2026, 15:09-15:14.
+Stesse frasi e stessa voce della prova prima (Microsoft Elsa dal portatile, scratchpad parla_nomi.ps1).
+Righe "LIVE: frase ... trascritta ..." del registro del telefono, cosi' come le ha scritte l'app.
+
+LE TRASCRIZIONI:
+  09-24 15:09:43.615 LIVE: frase di 6080 ms in 1 pezzi, trascritta in 1353 ms: «» (si ascolta ancora)
+  09-24 15:10:04.382 LIVE: frase di 17520 ms in 1 pezzi, trascritta in 2273 ms: «Medora ho pescato la Torre e poi l'Appeso. Cosa vogliono dire per me» (parte)
+  09-24 15:11:18.898 LIVE: frase di 10640 ms in 1 pezzi, trascritta in 1469 ms: «Calìgo stamattina ho tirato Fehu, tu tiri Algiz» (parte)
+  09-24 15:11:41.811 LIVE: frase di 6240 ms in 1 pezzi, trascritta in 1766 ms: «Medora Aura Calìgo» (si ascolta ancora)
+  09-24 15:11:45.576 LIVE: frase di 10080 ms in 2 pezzi, trascritta in 1455 ms: «Ora sento un blocco ad alata e anche a viada.» (parte)
+  09-24 15:12:13.689 LIVE: frase di 6960 ms in 1 pezzi, trascritta in 1366 ms: «Sono del Scorpione con ascendente Sagittario e la luna in Capricorno.» (parte)
+  09-24 15:12:42.700 LIVE: frase di 6640 ms in 1 pezzi, trascritta in 1296 ms: «Medora, la Papessa e l'Imperatrice sono uscite insieme.» (parte)
+  09-24 15:13:56.461 LIVE: frase di 10480 ms in 1 pezzi, trascritta in 1562 ms: «Calìgo che cosa significa la luna Eihwaz accanto a Perthro» (parte)
+
+I NOMI, UNO PER UNO (giusto se la parola c'e', senza badare alle maiuscole):
+  1. Medora si, Torre si, Appeso si
+  2. Calìgo si, Fehu si, Thurisaz NO (tu tiri), Algiz si
+  3. Aura NO (Ora), Anahata NO (alata), Vishuddha NO (viada)
+  4. Scorpione si, Sagittario si, Capricorno si
+  5. Medora si, Papessa si, Imperatrice si
+  6. Calìgo si, Eihwaz si, Perthro si
+  TOTALE: 15 nomi giusti su 19 (prima della cura, build 2279: 7 su 19).
+
+IL GUASTO NUOVO. Alle 15:11:41 il primo pezzo della frase 3, ancora in ascolto, e' tornato
+«Medora Aura Calìgo»: il modello ha scritto l'inizio dell'elenco dei nomi dell'istruzione
+invece di cio' che sentiva. Non e' partito come domanda (la frase intera e' stata ritrascritta
+quattro secondi dopo), ma lo stesso errore su una frase finita sarebbe partito. Padre: ordine EK
+voce 03, l'elenco dei nomi nell'istruzione di LaTrascrizione. Al banco (banco_orecchio.txt) il
+difetto si riproduce su Flash-Lite e non su Flash: da li' la cura.
+
+ALTRO: la frase 4 e' tornata "Sono del Scorpione" (detto "dello"), e la frase 6 "la luna Eihwaz"
+(detto "la runa"). La sessione si e' chiusa dalla croce e lo schermo e' rimasto acceso fino alla
+fine (2 righe KEEP_SCREEN_ON, schermo Awake).

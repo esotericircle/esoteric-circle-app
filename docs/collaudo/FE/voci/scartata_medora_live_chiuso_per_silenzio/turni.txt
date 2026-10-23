@@ -1,0 +1,10 @@
+maestro medora, inizio 23:05:36
+domanda 1 detta a 4.1 s (23:05:40): Medora, sto pensando di cambiare lavoro. Cosa dice il mio cielo?
+  voce finita a 80.8 s
+domanda 2 detta a 80.9 s (23:06:57): E per quanto riguarda il momento giusto, conviene aspettare?
+  voce finita a 157.8 s
+domanda 3 detta a 160.0 s (23:08:16): Cosa posso fare questa settimana per prepararmi?
+  voce finita a 236.6 s
+domanda 4 detta a 236.8 s (23:09:32): Grazie Medora, cosa mi consigli di tenere a mente?
+  voce finita a 313.9 s
+fine a 313.9 s

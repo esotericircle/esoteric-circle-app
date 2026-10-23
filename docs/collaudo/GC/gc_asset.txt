@@ -1,0 +1,31 @@
+GLI ASSET DELL'ORDINE GC, da D:\Clienti Roogly\Rituali Cartomanzia\App\Asset GC
+
+sig_seme_bastoni_v1 512x512 RGBA, trasparenti 81.3%, perimetro trasparente, alfa identico (0 pixel cambiati): 165320 byte PNG -> 45918 byte WebP
+sig_seme_coppe_v1 512x512 RGBA, trasparenti 68.2%, perimetro trasparente, alfa identico (0 pixel cambiati): 265176 byte PNG -> 64596 byte WebP
+sig_seme_spade_v1 512x512 RGBA, trasparenti 81.7%, perimetro trasparente, alfa identico (0 pixel cambiati): 163130 byte PNG -> 44872 byte WebP
+sig_seme_denari_v1 512x512 RGBA, trasparenti 41.9%, perimetro trasparente, alfa identico (0 pixel cambiati): 459465 byte PNG -> 92084 byte WebP
+sig_arcani_maggiori_v1 512x512 RGBA, trasparenti 60.2%, perimetro trasparente, alfa identico (0 pixel cambiati): 325946 byte PNG -> 70782 byte WebP
+sig_coro_serafini_v1 512x512 RGBA, trasparenti 61.4%, perimetro trasparente, alfa identico (0 pixel cambiati): 324752 byte PNG -> 82834 byte WebP
+sig_coro_cherubini_v1 512x512 RGBA, trasparenti 61.8%, perimetro trasparente, alfa identico (0 pixel cambiati): 325560 byte PNG -> 80590 byte WebP
+sig_coro_troni_v1 512x512 RGBA, trasparenti 55.1%, perimetro trasparente, alfa identico (0 pixel cambiati): 352712 byte PNG -> 79540 byte WebP
+sig_coro_dominazioni_v1 512x512 RGBA, trasparenti 74.3%, perimetro trasparente, alfa identico (0 pixel cambiati): 209469 byte PNG -> 51624 byte WebP
+sig_coro_potesta_v1 512x512 RGBA, trasparenti 70.8%, perimetro trasparente, alfa identico (0 pixel cambiati): 203062 byte PNG -> 39102 byte WebP
+sig_coro_virtu_v1 512x512 RGBA, trasparenti 55.2%, perimetro trasparente, alfa identico (0 pixel cambiati): 338820 byte PNG -> 60236 byte WebP
+sig_coro_principati_v1 512x512 RGBA, trasparenti 66.7%, perimetro trasparente, alfa identico (0 pixel cambiati): 254217 byte PNG -> 58980 byte WebP
+sig_coro_arcangeli_v1 512x512 RGBA, trasparenti 68.4%, perimetro trasparente, alfa identico (0 pixel cambiati): 269593 byte PNG -> 69612 byte WebP
+sig_coro_angeli_v1 512x512 RGBA, trasparenti 69.7%, perimetro trasparente, alfa identico (0 pixel cambiati): 260943 byte PNG -> 57688 byte WebP
+
+portati 14 su 14, mancanti: nessuno
+
+IL FOTOGRAMMA DI ARRIVO DELLA STESA (GC.03)
+fotogramma 189 di 190 di medora_mazzo_in_vortice_v2.mp4, 720x1280, -> stesa_ultimo_fotogramma_v1.webp, 184046 byte
+posa del salto di prima: medora_invito_v1.webp 1120x958, scontornata dall ultimo fotogramma del filmato v1 (la mano tesa di lato, non verso il tavolo)
+
+IL FILMATO V2 DELL ORACOLO DEGLI ANGELI (GC Aggiunta)
+consegnato: medora_scala_di_luce_v2.mp4, 17265367 byte, SHA-256 46685e36de824aec9e785d5ac62ad0a568af838219217758115fcfe7eb4a889e
+durata 10.000 s, 1080x1920, 24/1 fotogrammi al secondo, 240 fotogrammi, audio aac 48000 Hz 2 canali
+nel ramo: brand_assets/oracolo_angeli/medora_scala_di_luce_v2.mp4, 720x1280, 2892584 byte, SHA-256 99ec7f2a99ff9e924fee1c91d88f6ad5cdb101fadb8443f2f0428b57475fb6c1
+tolto dal ramo: medora_scala_di_luce_v1.mp4 (resta sul PC del fondatore, non si usa piu)
+fotogramma 0 -> oracolo_primo_fotogramma_v2.webp, 1080x1920, 160336 byte
+fotogramma 239 -> oracolo_ultimo_fotogramma_v2.webp, 1080x1920, 213882 byte
+altare nell ultimo fotogramma contro il primo (fascia dei dorsi, pixel 1505-1715): scarto medio 13.2 livelli su 255 (nel v1, con i tre dorsi dipinti, 28,1)

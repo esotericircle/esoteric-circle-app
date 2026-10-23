@@ -1,0 +1,40 @@
+ORDINE ES, BLOCCO 1: LA REGOLA A SULLE GUARDIE NUOVE. 29 settembre 2026.
+
+Ogni riga: il difetto innestato a mano, se l'innesto e' entrato nel file (lo
+script si ferma con un assert se il testo cercato non c'e'; per gli innesti
+su piu' righe il conteggio del grep conta le singole righe e non e' la
+prova), l'esito della prova, e se il file e' tornato identico (cmp).
+
+TRE INNESTI AL PRIMO GIRO NON ERANO ENTRATI (Capodanno, consulto sotto il
+segno in arrivo, lucchetto): dart format aveva cambiato l'impaginazione del
+testo cercato. Il loro verde non misurava niente. Rifatti col testo vero
+(righe in fondo), sono rossi.
+
+Maya con la correlazione 584285 | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+Capodanno del 1990 spostato di un giorno | innesto nel file (grep): 0 | esito: 00:00 +1: All tests passed! | file rimesso identico: si
+dimore arabe siderali (tolta l'ayanamsa) | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+vedica senza ayanamsa (tropicale) | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+Graves: Betulla fino al 21 gennaio | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+segno cinese dal primo gennaio | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+Luna senza nutazione | innesto nel file (grep): 2 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+Luna troncata di Effemeridi al posto di quella intera | innesto nel file (grep): 2 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+in cima resta sempre l'occidentale | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+sotto il segno in arrivo torna il consulto | innesto nel file (grep): 0 | esito: 00:02 +1: All tests passed! | file rimesso identico: si
+il lucchetto sulle tradizioni | innesto nel file (grep): 1 | esito: 00:01 +1: All tests passed! | file rimesso identico: si
+senza la nota della tradizione | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+senza l'invito in vista | innesto nel file (grep): 4 | esito: 00:01 +0 -1: Some tests failed. | file rimesso identico: si
+l'invito anche a chi ha la carta | innesto nel file (grep): 694 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+senza il metodo sulla scheda | innesto nel file (grep): 1 | esito: 00:03 +0 -1: Some tests failed. | file rimesso identico: si
+il cognome sulla card | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+FINITO
+Capodanno del 1901 spostato di un giorno | innesto nel file (grep): 18 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+sotto il segno in arrivo torna il consulto | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+il lucchetto sulle tradizioni | innesto nel file (grep): 7 | esito: 00:01 +0 -1: Some tests failed. | file rimesso identico: si
+FINITO
+tolti un emblema e un segno | 00:00 +4 -2: Some tests failed. | rimessi: 2 su 2
+
+IL GESTO SOTTO LA PIEGA (voce 31): l'invito rimesso sopra 'Interroga il
+cielo'. A 390x844 la guardia restava verde (gesto a circa 720 punti): e'
+stata cambiata la grandezza, non la soglia, misurando sulla finestra del
+Realme, 360x797 punti. Con l'innesto: Some tests failed; senza: il gesto
+finisce a 673 punti, l'invito comincia a 685.

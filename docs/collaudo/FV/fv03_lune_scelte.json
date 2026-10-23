@@ -1,0 +1,248 @@
+{
+  "serie": "Moon Phase and Libration, 2026",
+  "pagina": "https://svs.gsfc.nasa.gov/5587/",
+  "luna_nuova_di_inizio_utc": "2026-10-10T16:00:00.000Z",
+  "luna_nuova_di_fine_utc": "2026-11-09T08:00:00.000Z",
+  "scelte": [
+    {
+      "giorno_lunare": 1,
+      "centro_del_settore": 6.0,
+      "fotogramma": 6797,
+      "istante_utc": "2026-10-11T04:00:00.000Z",
+      "elongazione": 6.065,
+      "illuminazione_dal_motore": 0.28
+    },
+    {
+      "giorno_lunare": 2,
+      "centro_del_settore": 18.0,
+      "fotogramma": 6821,
+      "istante_utc": "2026-10-12T04:00:00.000Z",
+      "elongazione": 17.848,
+      "illuminazione_dal_motore": 2.41
+    },
+    {
+      "giorno_lunare": 3,
+      "centro_del_settore": 30.0,
+      "fotogramma": 6846,
+      "istante_utc": "2026-10-13T05:00:00.000Z",
+      "elongazione": 29.865,
+      "illuminazione_dal_motore": 6.64
+    },
+    {
+      "giorno_lunare": 4,
+      "centro_del_settore": 42.0,
+      "fotogramma": 6872,
+      "istante_utc": "2026-10-14T07:00:00.000Z",
+      "elongazione": 42.098,
+      "illuminazione_dal_motore": 12.9
+    },
+    {
+      "giorno_lunare": 5,
+      "centro_del_settore": 54.0,
+      "fotogramma": 6898,
+      "istante_utc": "2026-10-15T09:00:00.000Z",
+      "elongazione": 54.1,
+      "illuminazione_dal_motore": 20.68
+    },
+    {
+      "giorno_lunare": 6,
+      "centro_del_settore": 66.0,
+      "fotogramma": 6924,
+      "istante_utc": "2026-10-16T11:00:00.000Z",
+      "elongazione": 65.934,
+      "illuminazione_dal_motore": 29.61
+    },
+    {
+      "giorno_lunare": 7,
+      "centro_del_settore": 78.0,
+      "fotogramma": 6951,
+      "istante_utc": "2026-10-17T14:00:00.000Z",
+      "elongazione": 78.135,
+      "illuminazione_dal_motore": 39.72
+    },
+    {
+      "giorno_lunare": 8,
+      "centro_del_settore": 90.0,
+      "fotogramma": 6977,
+      "istante_utc": "2026-10-18T16:00:00.000Z",
+      "elongazione": 89.904,
+      "illuminazione_dal_motore": 49.92
+    },
+    {
+      "giorno_lunare": 9,
+      "centro_del_settore": 102.0,
+      "fotogramma": 7003,
+      "istante_utc": "2026-10-19T18:00:00.000Z",
+      "elongazione": 101.804,
+      "illuminazione_dal_motore": 60.23
+    },
+    {
+      "giorno_lunare": 10,
+      "centro_del_settore": 114.0,
+      "fotogramma": 7029,
+      "istante_utc": "2026-10-20T20:00:00.000Z",
+      "elongazione": 113.946,
+      "illuminazione_dal_motore": 70.29
+    },
+    {
+      "giorno_lunare": 11,
+      "centro_del_settore": 126.0,
+      "fotogramma": 7054,
+      "istante_utc": "2026-10-21T21:00:00.000Z",
+      "elongazione": 125.948,
+      "illuminazione_dal_motore": 79.35
+    },
+    {
+      "giorno_lunare": 12,
+      "centro_del_settore": 138.0,
+      "fotogramma": 7078,
+      "istante_utc": "2026-10-22T21:00:00.000Z",
+      "elongazione": 137.845,
+      "illuminazione_dal_motore": 87.07
+    },
+    {
+      "giorno_lunare": 13,
+      "centro_del_settore": 150.0,
+      "fotogramma": 7102,
+      "istante_utc": "2026-10-23T21:00:00.000Z",
+      "elongazione": 150.153,
+      "illuminazione_dal_motore": 93.37
+    },
+    {
+      "giorno_lunare": 14,
+      "centro_del_settore": 162.0,
+      "fotogramma": 7124,
+      "istante_utc": "2026-10-24T19:00:00.000Z",
+      "elongazione": 161.806,
+      "illuminazione_dal_motore": 97.5
+    },
+    {
+      "giorno_lunare": 15,
+      "centro_del_settore": 174.0,
+      "fotogramma": 7146,
+      "istante_utc": "2026-10-25T17:00:00.000Z",
+      "elongazione": 173.79,
+      "illuminazione_dal_motore": 99.71
+    },
+    {
+      "giorno_lunare": 16,
+      "centro_del_settore": 186.0,
+      "fotogramma": 7168,
+      "istante_utc": "2026-10-26T15:00:00.000Z",
+      "elongazione": 186.053,
+      "illuminazione_dal_motore": 99.72
+    },
+    {
+      "giorno_lunare": 17,
+      "centro_del_settore": 198.0,
+      "fotogramma": 7189,
+      "istante_utc": "2026-10-27T12:00:00.000Z",
+      "elongazione": 197.943,
+      "illuminazione_dal_motore": 97.57
+    },
+    {
+      "giorno_lunare": 18,
+      "centro_del_settore": 210.0,
+      "fotogramma": 7210,
+      "istante_utc": "2026-10-28T09:00:00.000Z",
+      "elongazione": 209.93,
+      "illuminazione_dal_motore": 93.33
+    },
+    {
+      "giorno_lunare": 19,
+      "centro_del_settore": 222.0,
+      "fotogramma": 7231,
+      "istante_utc": "2026-10-29T06:00:00.000Z",
+      "elongazione": 221.925,
+      "illuminazione_dal_motore": 87.2
+    },
+    {
+      "giorno_lunare": 20,
+      "centro_del_settore": 234.0,
+      "fotogramma": 7252,
+      "istante_utc": "2026-10-30T03:00:00.000Z",
+      "elongazione": 233.848,
+      "illuminazione_dal_motore": 79.5
+    },
+    {
+      "giorno_lunare": 21,
+      "centro_del_settore": 246.0,
+      "fotogramma": 7274,
+      "istante_utc": "2026-10-31T01:00:00.000Z",
+      "elongazione": 246.194,
+      "illuminazione_dal_motore": 70.18
+    },
+    {
+      "giorno_lunare": 22,
+      "centro_del_settore": 258.0,
+      "fotogramma": 7295,
+      "istante_utc": "2026-10-31T22:00:00.000Z",
+      "elongazione": 257.799,
+      "illuminazione_dal_motore": 60.57
+    },
+    {
+      "giorno_lunare": 23,
+      "centro_del_settore": 270.0,
+      "fotogramma": 7317,
+      "istante_utc": "2026-11-01T20:00:00.000Z",
+      "elongazione": 269.745,
+      "illuminazione_dal_motore": 50.22
+    },
+    {
+      "giorno_lunare": 24,
+      "centro_del_settore": 282.0,
+      "fotogramma": 7340,
+      "istante_utc": "2026-11-02T19:00:00.000Z",
+      "elongazione": 282.001,
+      "illuminazione_dal_motore": 39.6
+    },
+    {
+      "giorno_lunare": 25,
+      "centro_del_settore": 294.0,
+      "fotogramma": 7363,
+      "istante_utc": "2026-11-03T18:00:00.000Z",
+      "elongazione": 294.031,
+      "illuminazione_dal_motore": 29.64
+    },
+    {
+      "giorno_lunare": 26,
+      "centro_del_settore": 306.0,
+      "fotogramma": 7386,
+      "istante_utc": "2026-11-04T17:00:00.000Z",
+      "elongazione": 305.855,
+      "illuminazione_dal_motore": 20.71
+    },
+    {
+      "giorno_lunare": 27,
+      "centro_del_settore": 318.0,
+      "fotogramma": 7410,
+      "istante_utc": "2026-11-05T17:00:00.000Z",
+      "elongazione": 317.993,
+      "illuminazione_dal_motore": 12.85
+    },
+    {
+      "giorno_lunare": 28,
+      "centro_del_settore": 330.0,
+      "fotogramma": 7434,
+      "istante_utc": "2026-11-06T17:00:00.000Z",
+      "elongazione": 329.943,
+      "illuminazione_dal_motore": 6.72
+    },
+    {
+      "giorno_lunare": 29,
+      "centro_del_settore": 342.0,
+      "fotogramma": 7459,
+      "istante_utc": "2026-11-07T18:00:00.000Z",
+      "elongazione": 342.198,
+      "illuminazione_dal_motore": 2.39
+    },
+    {
+      "giorno_lunare": 30,
+      "centro_del_settore": 354.0,
+      "fotogramma": 7483,
+      "istante_utc": "2026-11-08T18:00:00.000Z",
+      "elongazione": 353.782,
+      "illuminazione_dal_motore": 0.29
+    }
+  ]
+}

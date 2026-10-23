@@ -1,0 +1,162 @@
+ORDINE GA VOCI 03, 04 E 05, L'OROSCOPO NELLA FORMA NUOVA. REGOLA A E REGOLA B, 20 ottobre 2026.
+
+LA GUARDIA NUOVA: test/l_oroscopo_ha_la_forma_nuova_test.dart
+Sul codice consegnato: responsi guardati 288, riti guardati 144, schede a video 63, difetti 0; 29 prove verdi.
+(Tre persone di dodiciPersone, le tre tradizioni, i quattro periodi, Breve e Lunga, quattro domini; a video
+le schede della Settimana e del Mese montate con IlPeriodoView nelle tre tradizioni in Breve e in Lunga, e
+l'Oroscopo montato nel Giorno delle tre tradizioni, quattro schede in Breve e la Generale in Lunga, il
+martedi' 20 ottobre 2026.)
+
+REGOLA A, tre innesti, ognuno verificato col grep prima di leggere l'esito, poi tolto:
+
+A1. Il rito del giorno sbagliato.
+    Innesto: lib/core/horoscope/il_responso_dell_oroscopo.dart riga 67,
+    "TradizioneEu.occidentale => pianetiDeiGiorni[giorno.weekday % 7]," (al posto di "weekday - 1":
+    il martedi' diventa Mercurio).
+    Grep: "INNESTO A1 PRESENTE: riga 67".
+    Esito: ORDINE GA, L'OROSCOPO HA LA FORMA NUOVA: responsi guardati 288, riti guardati 144, schede a video 63,
+    difetti 105; 00:29 +28 -1: Some tests failed. Prima colpa: "4/1/1958 (Capricorno, con la carta)
+    occidentale giorno Lunga Generale: il rito non e' quello di [Marte, Generale, giorno], «Oggi è il giorno
+    di Mercurio, il messaggero»".
+
+A2. Il riquadro "Cosa fare adesso" tolto.
+    Innesto: lib/design_system/components/il_responso_interpretato.dart riga 99,
+    ": colonna;" al posto di ": RiquadroInEvidenza(palette: p, child: colonna);".
+    Grep: "INNESTO A2 PRESENTE: riga 99".
+    Esito: difetti 63 (tutte le schede a video); 00:27 +28 -1: Some tests failed. Prima colpa:
+    "occidentale Settimana Breve Generale: il secondo paragrafo non sta nel riquadro".
+
+A3. La fonte del rito tolta dal "Da dove viene".
+    Innesto: lib/core/horoscope/il_responso_dell_oroscopo.dart riga 158, "fonteDelRito: null," al posto di
+    "fonteDelRito: fonte,".
+    Grep: "INNESTO A3 PRESENTE: riga 158".
+    Esito: difetti 144 (tutti i responsi Lunghi); 00:32 +28 -1: Some tests failed. Prima colpa:
+    "4/1/1958 (Capricorno, con la carta) occidentale giorno Lunga Generale: il "Da dove viene" non chiude
+    con la fonte del rito «Il verso viene dall'Inno orfico a Marte, numero sessantacinque, ...»".
+
+Ripristino: grep degli innesti sul codice, 0 righe; il componente il_responso_interpretato.dart senza
+differenze dal commit di partenza; la guardia di nuovo verde (288, 144, 63, difetti 0).
+
+REGOLA B, le guardie principali della zona viste rosse prima del lavoro.
+Fatta sulla copia del commit di partenza 297cd46f (cartella %TEMP%\gab), cioe' sulla zona com'era prima
+del lavoro: la copia esiste perche' le prove di partenza della zona giravano li'. NOTA DI METODO: nel ramo
+di lavoro le prime modifiche al codice sono arrivate prima di questa prova; la prova e' stata fatta sul
+codice di partenza, che e' quello che la Regola B chiede di guardare.
+
+B1. test/i_testi_eu_sono_quelli_dell_architetto_test.dart
+    Innesto: lib/core/horoscope/i_testi_eu_occidentale_data.dart riga 96, il titolo "Partenza leggera"
+    cambiato in "Partenza pesante". Grep: "INNESTO B1 PRESENTE riga 96".
+    Esito: "ogni testo del codice e' il testo del corpus, carattere per carattere [E]". ROSSA.
+
+B2. test/oroscopo_widget_test.dart
+    Innesto: lib/features/horoscope/oroscopo_screen.dart riga 4266, la chiave 'oroscopo_opening' cambiata in
+    'oroscopo_opening_innesto_b'. Grep: "INNESTO B2 PRESENTE riga 4266".
+    Esito: "Schermata personalizzata L'apertura personalizzata porta il nome della persona [E]";
+    00:22 +19 -2: Some tests failed. ROSSA.
+
+Ripristino della copia: git checkout dei due file, nessuna differenza in lib.
+
+
+SECONDA SESSIONE, 20 ottobre 2026 sera (dopo l'interruzione delle 17:01).
+
+REGOLA A SULLE TRE PROVE DELLA REGOLA VECCHIA RISCRITTE PER LA FORMA NUOVA.
+Le tre prove verdi sul codice consegnato prima degli innesti:
+il_terzo_paragrafo_della_lunga "schede 72, difetti 0"; i_paragrafi_dicono_risposte "864 schede; paragrafi
+fuori misura 0, parole del cielo nei paragrafi 0, cielo detto due volte 0"; il_titolo_sta_sopra "schede
+guardate" 8 su 8 (a 1.0 dopo 0, a 1.3 dopo 5, come prima); con l_oroscopo_ha_la_forma_nuova: 01:01 +53: All
+tests passed!
+
+A4. La Lunga senza l'approfondimento (il terzo paragrafo).
+    Innesto: lib/core/horoscope/il_responso_dell_oroscopo.dart riga 155, "approfondimento: null, // INNESTO A4"
+    al posto di "approfondimento: lunga ? voce.rispostaLunga : null,".
+    Grep: "155:      approfondimento: null, // INNESTO A4".
+    Esito, lanciate insieme ad A5 (21:39): il_terzo_paragrafo_della_lunga "schede 72, difetti 36", prima colpa
+    "occidentale generale Lunga: manca il terzo paragrafo", ROSSA; i_paragrafi_dicono_risposte "864 schede;
+    paragrafi fuori misura 432", Lunga con "paragrafi 3 3 3 3", ROSSA.
+
+A5. Il titolo della scheda del Giorno mai sopra il selettore.
+    Innesto: lib/features/horoscope/oroscopo_screen.dart riga 4138, "final sopra = false &&
+    TitoloDellaSchedaDelGiorno.vaSopra(card.title, // INNESTO A5".
+    Grep: "4138:            final sopra = false && TitoloDellaSchedaDelGiorno.vaSopra(card.title, // INNESTO A5".
+    Esito: il_titolo_sta_sopra_quando_si_spezzerebbe ROSSA, 00:42 +21 -3: Some tests failed; prima colpa
+    'a 1.0 amore: "Lontananza vicina" dovrebbe stare sopra'.
+
+A6. Perche' il cardinale "schede guardate" calava: la scheda sotto la piega non si scorre.
+    Innesto: test/il_titolo_sta_sopra_quando_si_spezzerebbe_test.dart riga 154,
+    "if (false && titolo.evaluate().isEmpty) { // INNESTO A6" (lo scorrimento fino al titolo spento).
+    Grep: "154:        if (false && titolo.evaluate().isEmpty) { // INNESTO A6".
+    Esito: "manca il titolo di fortuna" alla scala 1.3, e "QUESTA GUARDIA HA GUARDATO 7 schede guardate, e ne
+    pretende almeno 8": la causa scritta nella prova e' quella vera (le schede allungate dalla forma nuova
+    portano la Fortuna oltre i 5600 punti della finestra a 1.3, e la lista non la costruisce). Il cardinale
+    resta 8.
+
+Ripristino: grep "INNESTO A" sui tre file, 0 righe; git diff di il_responso_dell_oroscopo.dart e
+oroscopo_screen.dart vuoto.
+
+REGOLA B, prima di toccare i corpora dell'Oroscopo per i participi (GA.07).
+B3. test/i_testi_eu_sono_quelli_dell_architetto_test.dart
+    Innesto: docs/corpus/eu/oroscopo_eu_cinese_mese.md riga 101, "proponi un tè" cambiato in "proponi un
+    caffè". Grep: "INNESTO B3: 101". Ore 21:37.
+    Esito: "EU AGGIUNTA: 12 corpora, 1548 voci e 207 aperture confrontate, differenze 1", Actual: ['cinese
+    mese Amore favorevole 2, Che cosa fare']. ROSSA, sulla sola differenza dell'innesto (i dati erano gia'
+    allineati al corpus).
+    Ripristino: grep dell'innesto 0, git diff del file vuoto.
+
+LE PROVE DELLA ZONA CHE IL GIRO DELLA ZONA HA TROVATO ROSSE PER LA FORMA NUOVA, RISCRITTE E VISTE ROSSE.
+(Il giro della zona, 178 file scelti col grep su oroscopo, horoscope, ITestiEu, VoceEu, HoroscopeCard, i_riti,
+IRitiPropiziatori: queste erano rosse prima della cura, che vale da Regola B per ciascuna.)
+
+A7. test/l_oroscopo_e_uno_solo_test.dart, "FC.02: l'oroscopo mostra le stesse cose ...".
+    Rossa prima della cura: "QUESTA GUARDIA HA GUARDATO 4 infografiche dell'oroscopo proprio con la carta, e ne
+    pretende almeno 5" (l'ora d'oro della Generale non costruita dalla lista pigra quando la prova contava in
+    fondo). Cura: le infografiche si segnano scorrendo, una per scheda; verde, per se' 5, per l'amico 3 piu'
+    le 2 tolte senza la carta, 00:17 +6: All tests passed!
+    Innesto: lib/features/horoscope/oroscopo_screen.dart riga 4312, "if (false && oraDOro != null && ...
+    // INNESTO A7" (l'ora d'oro tolta). Grep: "4312: ... // INNESTO A7". Ore 22:10.
+    Esito: "QUESTA GUARDIA HA GUARDATO 4 infografiche ...", ROSSA. Ripristino: grep 0.
+
+A8. test/oroscopo_tipografia_test.dart, "Il responso si legge a diciotto punti".
+    Rossa prima della cura: '"Cosa fare adesso" sta a 14.0 punti invece di 20.0' (il titolo del riquadro e'
+    un'etichetta, non prosa). Cura: si misurano i paragrafi del responso per chiave (risposta, cosa_fare,
+    approfondimento, rito), aspettando che la scheda appena entrata in vista finisca di scriversi; verde,
+    00:18 +9: All tests passed!
+    Innesto: lib/features/horoscope/oroscopo_screen.dart riga 2934, "final stile =
+    stileDelResponso.copyWith(fontSize: 17); // INNESTO A8". Grep: "2934: ... // INNESTO A8". Ore 22:15.
+    Esito: 'il responso di generale non e' nel ruolo lettura: "La giornata è in equilibrio ..."', ROSSA.
+    Ripristino: grep 0.
+
+A9. test/medora_sa_il_cielo_e_il_responso_test.dart, "l'Oroscopo passa a Medora le schede con Da dove viene".
+    Rossa prima della cura: cercava nel sorgente "'Da dove viene: ${c.rigaDelLivello}'", e dall'ordine GA
+    Medora riceve "${c.daDoveViene}" (la riga del cielo e, nella Lunga, la fonte del rito). Cura: la prova
+    cerca la forma nuova.
+    Innesto: lib/features/horoscope/oroscopo_screen.dart riga 2190, il sorgente rimesso a
+    "'Da dove viene: ${c.rigaDelLivello}', // INNESTO A9". Grep: "2190: ... // INNESTO A9". Ore 22:18.
+    Esito: -1, Some tests failed. ROSSA. Ripristino: grep 0, git diff di oroscopo_screen.dart vuoto.
+
+test/oroscopo_widget_test.dart: quattro prove rosse ("Ogni scheda mostra il livello col numero" 3 su 4,
+"Cinque icone" 3 su 4, "L'infografica sta sotto titolo e categoria" e "Ogni bolla ha il selettore": la
+Fortuna fuori dalla lista). Cura: la finestra della prova da 3600 a 5200 punti, come gia' fatto due volte
+(2000, 2600, 3600) quando le schede si sono allungate; la misura delle prove non cambia.
+
+test/le_lunghezze_dei_responsi_test.dart: la tabella docs/responsi/lunghezze.md non era stata rigenerata
+dopo i corpora riscritti dell'Oroscopo (padre: commit 297cd46f, ordine GA voci 04 e 07). Rigenerata con
+AGGIORNA_LUNGHEZZE=1: cambiano solo le quattro righe dell'Oroscopo (la piu' lunga da 401 a 579 caratteri).
+
+docs/collaudo/EU/livello_e_testo.txt e ripetizioni_90_giorni.txt: il commit messo in salvo (7869e4a7) li
+portava scritti a meta' lavoro ("schede con un paragrafo di una fascia diversa dal livello 1116 su 1476",
+voci NON TROVATA, coi dati non ancora allineati al corpus). Riscritti dal giro della zona: "0 su 1476", e
+identici byte per byte a quelli di prima del lavoro (git diff 7869e4a7^ vuoto).
+
+IL GIRO DELLA ZONA, 20 ottobre 2026, 21:43-22:20 (uscita %TEMP%\oro_zona.txt): 178 file, 37:36 +1329 -11.
+Otto rossi della forma nuova, curati qui sopra (A7, A8, A9, la finestra della prova dei widget, la tabella
+delle lunghezze) e rifatti insieme: 00:54 +57: All tests passed!
+Tre rossi non dell'Oroscopo, lasciati a chi li ha causati:
+- entitlement_test "La mappa comparativa ha le righe attese con quattro valori", 67 righe contro 66: la riga
+  RigaDelPiano.runeLunga, commit a533412c (ordine GA voci 03, 04, 05 e 07, le Rune).
+- la_carta_natale_sopravvive_test "chi avvisa di dati mancanti legge tutto la stessa porta":
+  lib/core/rituals/il_corpus_del_presagio.g.dart, tre testi con "senza ora" o "ora e luogo" entrati col
+  commit fae20893 (ordine GA voce 07, le Rune: zero nel commit prima, tre dopo).
+- i_nomi_del_menu_e_del_diario_test "a) i nomi vecchi non restano in un testo mostrato": il verbo
+  "Custodisci" nei corpora riscritti: il_corpus_del_presagio.g.dart (fae20893, ordine GA voce 07, Rune),
+  le_carte_nella_posizione_dati.dart (ad0c8269, ordine GA voce 07, Tarocchi), il_corpus_dell_oracolo.g.dart
+  (89ae8a24, ordine GA voci 03, 04, 05 e 08, Oracolo degli Angeli).

@@ -1,0 +1,60 @@
+S01|NO|SI|NA|SI|NA|la prima frase è una massima di premessa, poi la lettera alla sorella risponde bene e usa il litigio di Natale.
+S02|SI|NA|SI|SI|SI|Luna in Leone congiunta a Giove e Venere retrograda in Scorpione concordano, gesto concreto verso la sorella e seguito che scende sui legami.
+S03|NO|SI|NA|SI|SI|apre con "Agisci" e una frase di presagio invece della risposta, il passo vero (il veterinario) arriva solo nella riga finale.
+S04|SI|NA|SI|SI|SI|Luna calante in Leone congiunta a Giove corretta, risponde con un passo concreto per la settimana e il seguito approfondisce la chiusura del ciclo.
+S05|SI|NA|SI|SI|SI|Luna in Bilancia crescente il 20 luglio 1969 è esatta, risposta diretta e seguito che approfondisce.
+S06|SI|NA|NA|SI|SI|risponde con un respiro preciso per stasera e il seguito spiega il gesto senza ripeterlo.
+S07|SI|SI|NA|SI|SI|scrivere le risposte temute per il colloquio è un passo concreto e il seguito ne scende sul perché.
+S08|SI|SI|NA|SI|SI|riparte dal respiro e il seguito porta il messaggio alla sorella, usando il fatto del litigio.
+S09|SI|NO|NA|SI|NA|gesto concreto per la calma ma ignora che dorme male prima delle scadenze, fatto che la domanda chiama.
+S10|SI|NA|NA|SI|SI|posizione precisa (sì con confini e orari) e seguito che approfondisce il valore del tempo.
+S11|SI|NA|SI|SI|SI|sceglie la casa grande con la runa Othala, Luna in Leone congiunta a Giove corretta, seguito sullo spazio per la ceramica.
+S12|SI|NA|SI|SI|SI|Luna crescente in Acquario congiunta a Plutone il 15 novembre concorda, posizione netta e passo datato.
+S13|SI|NA|SI|SI|SI|Luna in Acquario in quadratura a Mercurio e unita a Plutone, Sole in Scorpione: concorda, no motivato e passo concreto sul contratto.
+S14|SI|SI|NA|SI|SI|usa la paura di deludere la madre con un esercizio corporeo concreto e il seguito scende sulla Luna in Bilancia.
+S15|SI|NA|SI|SI|SI|i cinque retrogradi sono esatti e il seguito li legge uno per uno.
+S16|SI|NA|NA|SI|NO|presentazione corretta, ma il seguito resta generico e non scende su niente di nuovo.
+S17|NO|SI|SI|NO|NA|apre con due massime ("Apri la soglia. Guarda al dentro") e non dice davvero che cosa portare al colloquio.
+S18|SI|NO|NA|SI|NA|respiro preciso e gesto concreto, ma non usa il fatto che dorme male prima delle scadenze.
+S19|SI|NA|NA|SI|SI|presentazione chiara delle arti e dei Maestri, il seguito scende in un esercizio concreto.
+S20|SI|NA|NA|NO|NA|"Decidi, ora" non aiuta a scegliere e ignora del tutto il non dormire.
+S21|SI|NO|SI|NO|SI|dice sì al trasferimento ma lo lega al colloquio e alla madre, non nomina Berlino e il gesto finale riguarda il colloquio.
+S22|SI|NA|NA|NO|NA|ripete la scadenza con la runa Nauthiz ma liquida il non dormire e non aiuta nel merito della scelta.
+S23|NO|NA|SI|SI|SI|i fatti del cielo concordano ma il secondo paragrafo ripete il primo (Luna con Giove, Venere retrograda) e la riga finale è un vago "osserva".
+S24|SI|SI|SI|SI|SI|sì condizionato, Venere retrograda in Scorpione corretta, gesto concreto su Berlino e la ceramica.
+S25|SI|NA|SI|SI|NA|Luna in Leone congiunta a Giove corretta, lettura personale e gesto concreto.
+S26|SI|NA|SI|SI|SI|Saturno in Toro il primo gennaio 2000 è esatto, risposta diretta e seguito che approfondisce.
+S27|SI|NA|SI|SI|SI|Luna in Leone calante esatta, gesto concreto e seguito su segno e fase.
+S28|NO|NA|NO|NO|SI|domani la Luna è in Vergine, non in Leone, e la riga finale è un vago "rifletti".
+S29|SI|SI|NA|SI|SI|sì condizionato, gesto concreto prima di rispondere a Marco, seguito sul centro del cuore.
+S30|SI|NA|NA|SI|SI|no netto con rimando a un consulente per il denaro, gesto concreto e seguito con la runa Nauthiz.
+S31|NO|NA|SI|SI|SI|Venere a 8 gradi in Scorpione retrograda è esatta, ma la riga finale è un vago "osserva" senza gesto concreto.
+S32|SI|NA|SI|SI|SI|no motivato da Venere retrograda, Luna in Leone congiunta a Giove corretta, chiedere tempo al capo è concreto.
+S33|SI|NA|NA|SI|NA|sì condizionato con passo concreto (le domande al capo sul ruolo e sulla città).
+S34|SI|NA|NA|SI|SI|no prudente con Hagalaz, rimando al consulente e gesto concreto, il seguito aggiunge la lettura della runa.
+S35|SI|NA|NA|NO|SI|parla di valore e di corpo senza dire da dove cominciare a rimettere ordine nelle spese.
+S36|SI|NO|NA|SI|SI|sì condizionato e gesto concreto con la madre, ma non nomina mai la ceramica che la domanda chiama.
+S37|SI|SI|NA|SI|SI|usa la paura di deludere la madre, gesto concreto e seguito che scende sull'equilibrio.
+S38|SI|SI|SI|SI|SI|Sole opposto a Saturno retrogrado, Mercurio e Venere in quadratura a Marte: concorda, e scrivere le paure è concreto.
+S39|SI|NA|NA|SI|SI|luce soffusa e respiro contato sono passi concreti per stasera, il seguito spiega il gesto.
+S40|SI|NA|SI|SI|NA|sì condizionato, Venere retrograda corretta, lista entro venerdì concreta.
+S41|NO|SI|NA|SI|NA|la prima frase è una massima ("Non lasciare che la paura ti fermi"), poi il sigillo di Wunjo risponde.
+S42|NO|NA|SI|SI|SI|Giove in Vergine nel 2028 è esatto, ma la riga finale è un vago "osserva" senza gesto concreto.
+S43|SI|NA|SI|SI|SI|Giove in Vergine nel 2028 è esatto, gesto concreto e seguito che approfondisce.
+S44|SI|NA|SI|SI|SI|Luna in Bilancia crescente nel 1969 esatta, guardare il cielo stasera è un gesto concreto.
+S45|SI|SI|NA|SI|SI|usa la meditazione del mattino, gesto concreto e seguito che scende sul colloquio e sull'intuizione.
+S46|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione retrograda è esatta, gesto concreto e seguito sulle relazioni.
+S47|SI|NA|NA|NO|SI|risponde col corpo e con rimandi al colloquio e al veterinario, ma non dice da dove cominciare a rimettere ordine nelle spese.
+S48|SI|NA|SI|SI|SI|i cinque retrogradi sono esatti e il seguito li legge uno per uno.
+S49|SI|SI|NA|SI|SI|sì netto, l'argilla porta la ceramica, gesto concreto e seguito su numero e paure.
+S50|SI|NO|SI|NO|SI|solo respiro e mani sul corpo: non nomina la sorella e non dice da dove ripartire con lei.
+S51|SI|NO|SI|SI|SI|propone la ceramica con un passo concreto ma ignora che medita la mattina presto, fatto chiamato dalla domanda.
+S52|SI|SI|NA|SI|SI|chiama il veterinario subito per Ombra, netto e concreto, il seguito aggiunge le rune.
+S53|SI|NA|NA|SI|SI|sceglie la periferia con un motivo e un gesto concreto, il seguito scende sullo spazio per la ceramica.
+S54|NO|NA|SI|SI|SI|Saturno in Toro nel 2000 è esatto, ma la riga finale è un "rifletti" senza gesto concreto.
+S55|SI|NA|NO|SI|NA|parla di "attesa della Luna calante" quando la Luna di stasera è già calante.
+S56|SI|NO|NA|SI|SI|sì condizionato con gesto concreto, ma non usa Marco né i tre mesi che la domanda chiama.
+S57|SI|NA|SI|SI|SI|passo concreto (la sorella a cena), Venere retrograda e Luna in Leone corrette.
+S58|SI|NA|NO|NO|SI|risposta vaga sul cielo di domani e il seguito mette la Luna in Leone quando domani è in Vergine.
+S59|SI|NA|SI|SI|SI|Luna in Leone calante esatta, gesto concreto e seguito che approfondisce.
+S60|SI|SI|NA|SI|NA|chiamare la sorella è un primo passo concreto e usa il litigio di Natale.

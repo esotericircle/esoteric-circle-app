@@ -1,0 +1,14 @@
+LA REGOLA B DELLA PARTE 3, prima di toccare lib/core/tarot/tarot_card.dart
+== il_genere_non_si_indovina: un participio maschile rivolto a chi legge nella Regina di Denari capovolta
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== language_rule: il trattino lungo nel Re di Coppe capovolta
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== tarot_accordo_rovescio: la parola del rovescio scritta a mano nel Fante di Coppe capovolta
+innesto entrato (grep): si
+esito: VERDE
+ripristinato al byte: si
+   (innesto fuori zona, mio: tarot_accordo_rovescio sorveglia le schermate in lib/features/tarot, non i testi di lib/core/tarot/tarot_card.dart; la parola del rovescio nei testi del corpus la ferma il tool del corpus)

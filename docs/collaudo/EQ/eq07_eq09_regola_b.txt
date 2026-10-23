@@ -1,0 +1,16 @@
+== EQ.07 Regola B sulla versione di HEAD: il residuo dei confronti non scende mai
+   file lib/core/entitlement/question_allowance.dart, sha1 prima 51361b0f8468, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +8 -1: Some tests failed.
+   Expected: 'Oggi te ne restano 2 su 3'
+   Actual: 'Oggi te ne restano 3 su 3'
+   Expected: ... e restano 2 su 3
+   Actual: ... e restano 3 su 3
+   ripristinato: sha1 51361b0f8468, uguale, compagni tornati: True
+== EQ.09 Regola B: la pastiglia non e' piu' centrata sulle due righe dei contatori
+   file lib/features/maestri/chat/maestro_chat_screen.dart, sha1 prima cf2997cb8a4c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:05 +0 -1: Some tests failed.
+   Expected: a value less than <2>
+   Actual: <13.0>
+   ripristinato: sha1 cf2997cb8a4c, uguale

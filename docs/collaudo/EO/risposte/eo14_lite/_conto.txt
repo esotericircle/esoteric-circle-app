@@ -1,0 +1,19 @@
+EN eo14_lite chat medora altro_maestro: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 397/232, nomina aura si
+EN eo14_lite chat medora chi_sono: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 177, altri nominati 2 su 2, lettura non chiesta no
+EN eo14_lite chat medora moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 553/115, riti sulla volonta 0, parte legale indicata 1 su 2, parole in comune fra le due risposte 0 per cento
+EN eo14_lite chat aura altro_maestro: inventati 0, fuori dai tre a macchina 2, rifiuti 0, caratteri 542/482, nomina caligo si
+EN eo14_lite chat aura chi_sono: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 182, altri nominati 2 su 2, lettura non chiesta no
+EN eo14_lite chat aura moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 604/626, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 15 per cento
+EN eo14_lite chat caligo altro_maestro: inventati 0, fuori dai tre a macchina 2, rifiuti 0, caratteri 281/201, nomina medora si
+EN eo14_lite chat caligo chi_sono: inventati 0, fuori dai tre a macchina 2, rifiuti 0, caratteri 176, altri nominati 2 su 2, lettura non chiesta no
+EN eo14_lite chat caligo moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 370/201, riti sulla volonta 0, parte legale indicata 1 su 2, parole in comune fra le due risposte 0 per cento
+EN eo14_lite live medora altro_maestro: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 163/258, nomina aura si
+EN eo14_lite live medora chi_sono: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 235, altri nominati 2 su 2, lettura non chiesta no
+EN eo14_lite live medora moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 289/304, riti sulla volonta 0, parte legale indicata 1 su 2, parole in comune fra le due risposte 0 per cento
+EN eo14_lite live aura altro_maestro: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 208/207, nomina caligo si
+EN eo14_lite live aura chi_sono: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 369, altri nominati 2 su 2, lettura non chiesta SI
+EN eo14_lite live aura moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 473/428, riti sulla volonta 0, parte legale indicata 1 su 2, parole in comune fra le due risposte 12 per cento
+EN eo14_lite live caligo altro_maestro: inventati 1, fuori dai tre a macchina 2, rifiuti 0, caratteri 191/198, nomina medora si
+EN eo14_lite live caligo chi_sono: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 311, altri nominati 2 su 2, lettura non chiesta no
+EN eo14_lite live caligo moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 478/357, riti sulla volonta 0, parte legale indicata 1 su 2, parole in comune fra le due risposte 22 per cento
+Chiamate a Gemini per i Maestri 41, domande al giudice 126. Modello gemini-2.5-flash, europe-west1.

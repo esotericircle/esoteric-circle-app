@@ -1,0 +1,19 @@
+EN consegna chat medora altro_maestro: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 324/225, nomina aura si
+EN consegna chat medora chi_sono: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 206, altri nominati 2 su 2, lettura non chiesta no
+EN consegna chat medora moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 618/721, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 23 per cento
+EN consegna chat aura altro_maestro: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 540/282, nomina caligo si
+EN consegna chat aura chi_sono: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 233, altri nominati 2 su 2, lettura non chiesta no
+EN consegna chat aura moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 414/476, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 14 per cento
+EN consegna chat caligo altro_maestro: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 297/316, nomina medora si
+EN consegna chat caligo chi_sono: inventati 0, fuori dai tre a macchina 3, rifiuti 0, caratteri 202, altri nominati 2 su 2, lettura non chiesta no
+EN consegna chat caligo moglie: inventati 1, fuori dai tre a macchina 0, rifiuti 0, caratteri 433/346, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 24 per cento
+EN consegna live medora altro_maestro: inventati 0, fuori dai tre a macchina 3, rifiuti 0, caratteri 362/219, nomina aura si
+EN consegna live medora chi_sono: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 156, altri nominati 2 su 2, lettura non chiesta no
+EN consegna live medora moglie: inventati 1, fuori dai tre a macchina 0, rifiuti 0, caratteri 360/343, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 16 per cento
+EN consegna live aura altro_maestro: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 346/414, nomina caligo si
+EN consegna live aura chi_sono: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 210, altri nominati 2 su 2, lettura non chiesta no
+EN consegna live aura moglie: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 262/231, riti sulla volonta 1, parte legale indicata 1 su 2, parole in comune fra le due risposte 13 per cento
+EN consegna live caligo altro_maestro: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 283/170, nomina medora si
+EN consegna live caligo chi_sono: inventati 0, fuori dai tre a macchina 3, rifiuti 0, caratteri 203, altri nominati 2 su 2, lettura non chiesta no
+EN consegna live caligo moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 283/269, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 33 per cento
+Chiamate a Gemini per i Maestri 40, domande al giudice 126. Modello gemini-2.5-flash, europe-west1.

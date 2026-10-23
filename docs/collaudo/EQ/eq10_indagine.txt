@@ -1,0 +1,40 @@
+EQ.10, LA PILLOLA BIANCA DELLA DETTATURA: l'indagine (27 settembre 2026, 05:13-05:18)
+
+Sul Realme 767f596c, con la build 2284 gia' installata, nella chat di Caligo.
+Cattura del fondatore: chat_caligo_04_pillola_bianca_dettatura.jpg, una
+pillola bianca vuota di circa 650 per 180 pixel (216 per 60 punti), centrata,
+sopra la casella di scrittura, col microfono di sistema acceso.
+
+CIO' CHE NEL NOSTRO CODICE NON LA DISEGNA
+- La casella e' opaca e scura (ChatComposer, `chat_campo`); il riconoscitore
+  (`speech_to_text`, servizio di Google, `GoogleTTSRecognitionService`) parte
+  senza interfaccia: `DettaturaVera.ascolta` non apre niente a schermo.
+- Le snackbar dell'app hanno il fondo scuro dall'ordine L voce 1c
+  (`app_theme.dart`, `snackBarTheme`).
+- Il tooltip del microfono ("Smetti di dettare") avrebbe il testo scuro su
+  fondo chiaro: non sarebbe vuoto.
+
+CIO' CHE HO PROVATO SUL TELEFONO
+1. Ascolto appena acceso: nessuna pillola, solo il pallino verde del sistema e
+   lo stop d'oro nella casella (realme/eq10_build_2284_in_ascolto_nessuna_pillola.png).
+2. Ascolto in silenzio per sette secondi, dodici fotogrammi presi dal telefono
+   ogni 0,4 secondi: nella zona della pillola 0 pixel bianchi su 128.000 in
+   tutti e dodici. Finestre visibili durante l'ascolto: l'app, la tastiera
+   nascosta, le barre di sistema; nessun toast, nessuna finestra del
+   riconoscitore.
+3. La lente del testo di Flutter (pressione lunga nel campo): piccola, circa
+   76 per 30 punti, e mostra il testo ingrandito, non e' bianca
+   (realme/eq10_build_2284_la_lente_del_testo.png).
+4. La barra di selezione (Taglia, Copia, Condividi): scura con le scritte
+   chiare, a sinistra, non centrata (realme/eq10_build_2284_la_barra_di_selezione.png).
+
+CONCLUSIONE, PER ORA
+La pillola compare quando il riconoscitore riceve voce vera, che da qui non
+si puo' produrre: parlare al telefono non si puo', e alle cinque del mattino
+non si fa uscire una voce dalle casse del PC. Candidati rimasti: un toast o un
+indicatore del riconoscitore di Google o di Realme UI quando arriva il primo
+risultato parziale, oppure qualcosa che la tastiera SwiftKey mostra quando il
+testo del campo cambia da solo mentre lei e' collegata e nascosta.
+La voce resta APERTA: la prova vera e' una dettatura con la voce, sul Realme,
+con una raffica di fotogrammi e l'elenco delle finestre, per sapere chi la
+disegna prima di toccare qualunque cosa.

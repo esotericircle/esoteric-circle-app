@@ -1,0 +1,6 @@
+innesto in lib/features/schede/la_scheda_dell_arte.dart: il vecchio compare 0 volte, il nuovo 1 volte ('                        right: retro ? null : 0,\n           ' -> '                        right: 0,\n')
+  Expected: empty
+    Actual: ['rune_draw']
+  00:01 +0 -1: EO.04: la "i" gira la scheda, lo stesso angolo la rigira, il resto del retro entra [E]
+  00:01 +0 -1: Some tests failed.
+ripristino lib/features/schede/la_scheda_dell_arte.dart: sha1 10885c7fe871 -> 10885c7fe871, IDENTICO

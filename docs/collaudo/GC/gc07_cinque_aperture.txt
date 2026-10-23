@@ -1,0 +1,5 @@
+apertura_1.mp4: fotogrammi 1212, apertura a 3.46 s, ultimo movimento della scena a 13.88 s, durata 10.41 s
+apertura_2.mp4: fotogrammi 1211, apertura a 3.99 s, ultimo movimento della scena a 13.51 s, durata 9.52 s
+apertura_3.mp4: fotogrammi 1212, apertura a 4.01 s, ultimo movimento della scena a 13.40 s, durata 9.39 s
+apertura_4.mp4: fotogrammi 1214, apertura a 3.81 s, ultimo movimento della scena a 13.27 s, durata 9.46 s
+apertura_5.mp4: fotogrammi 1209, apertura a 3.96 s, ultimo movimento della scena a 13.53 s, durata 9.57 s

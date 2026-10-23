@@ -1,0 +1,64 @@
+Estratto del registro di Firebase Test Lab, giro 1 (matrice matrix-1rh64u6ryqgzm, Xiaomi 14 houji, Android 15 API 35).
+Registro intero: gs://test-lab-fbt34a4rtt0j6-hdmtwm4twzy7z/2026-10-06_00:16:52.030033_kgOd/houji-35-it-portrait/logcat
+Righe del processo dell'app (pid 23234) e del gestore delle attivita' che lo riguardano.
+
+10-05 15:22:48.261  5823  5883 W PreviewDisappear: getIcon info intent: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.esotericircle.esoteric_circle/.MainActivity (has extras) }
+10-05 15:22:48.345  5823  5884 W PreviewDisappear: getIcon info intent: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.esotericircle.esoteric_circle/.MainActivity (has extras) }
+10-05 15:22:57.606 23234 23234 E Zygote  : process_name_ptr:23234 com.esotericircle.esoteric_circle
+10-05 15:22:57.606 23234 23234 E Zygote  : SetMemoryProtected process_name_ptr:23234 com.esotericircle.esoteric_circle
+10-05 15:22:57.611 23234 23234 I esoteric_circle: Late-enabling -Xcheck:jni
+10-05 15:22:57.625 23234 23234 I esoteric_circle: Using CollectorTypeCMC GC.
+10-05 15:22:57.630 23234 23234 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+10-05 15:22:57.632 23234 23234 I MessageMonitor: Load libmiui_runtime
+10-05 15:22:57.643 23234 23250 D MiuiDownscaleImpl: set override inverted scale : 1.0
+10-05 15:22:57.644 23234 23234 D MiuiMonitorThread: Shared singleton Thread for stability monitor start
+10-05 15:22:57.657 23234 23234 D ActivityThread: setEmbeddedParam packageName=com.esotericircle.esoteric_circle processName=com.esotericircle.esoteric_circle isEmbedded=false isIsolated=false
+10-05 15:22:57.660 23234 23234 W ActivityThread: Package uses different ABI(s) than its instrumentation: package[com.esotericircle.esoteric_circle]: arm64-v8a, null instrumentation[com.esotericircle.esoteric_circle.test]: null, null
+10-05 15:22:57.661 23234 23234 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+10-05 15:22:57.661 23234 23234 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+10-05 15:22:57.935 23234 23234 D nativeloader: Configuring clns-7 for other apk /data/app/~~s8ChADI2ZeSDtxz5PB0kgg==/com.esotericircle.esoteric_circle.test-XbcuVu-DKxpVtSwHyoq63A==/base.apk:/data/app/~~eMHZ4nA4txE-TDqnAe1Q2Q==/com.esotericircle.esoteric_circle-Wm0SufizGG1LZPh9TTsBfQ==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~s8ChADI2ZeSDtxz5PB0kgg==/com.esotericircle.esoteric_circle.test-XbcuVu-DKxpVtSwHyoq63A==/lib/arm64:/data/app/~~eMHZ4nA4txE-TDqnAe1Q2Q==/com.esotericircle.esoteric_circle-Wm0SufizGG1LZPh9TTsBfQ==/lib/arm64:/data/app/~~s8ChADI2ZeSDtxz5PB0kgg==/com.esotericircle.esoteric_circle.test-XbcuVu-DKxpVtSwHyoq63A==/base.apk!/lib/arm64-v8a:/data/app/~~eMHZ4nA4txE-TDqnAe1Q2Q==/com.esotericircle.esoteric_circle-Wm0SufizGG1LZPh9TTsBfQ==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.esotericircle.esoteric_circle
+10-05 15:22:57.940 23234 23234 I Perf    : Connecting to perf service.
+10-05 15:22:57.943 23234 23234 V GraphicsEnvironment: Currently set values for:
+10-05 15:22:57.944 23234 23234 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[com.android.angle, com.linecorp.b612.android, com.campmobile.snow, com.google.android.apps.tachyon]
+10-05 15:22:57.944 23234 23234 V GraphicsEnvironment:   angle_gl_driver_selection_values=[angle, native, native, native]
+10-05 15:22:57.944 23234 23234 V GraphicsEnvironment: com.esotericircle.esoteric_circle is not listed in per-application setting
+10-05 15:22:57.944 23234 23234 V GraphicsEnvironment: App is not on the allowlist for updatable production driver.
+10-05 15:22:57.946 23234 23252 I ActivityThread: TrafficStats init done
+10-05 15:22:58.203 23234 23252 I ForceDarkHelperStubImpl: initialize for com.esotericircle.esoteric_circle , ForceDarkOrigin
+10-05 15:22:58.205 23234 23252 D nativeloader: Load libforcedarkimpl.so using system ns (caller=/system_ext/framework/miui-framework.jar): ok
+10-05 15:22:58.205 23234 23252 D HWUI    : JNI_OnLoad success
+10-05 15:22:58.205 23234 23252 I MiuiForceDarkConfig: setConfig density:3.000000, mainRule:0, secondaryRule:0, tertiaryRule:0
+10-05 15:22:58.213 23234 23252 I ActivityThread: Miui Feature Init done
+10-05 15:22:58.216 23234 23234 D FirebaseSessions: Dependency to CRASHLYTICS added.
+10-05 15:22:58.219 23234 23234 I FirebaseApp: Device unlocked: initializing all Firebase APIs for app [DEFAULT]
+10-05 15:22:58.295 23234 23234 D nativeloader: Load /data/app/~~eMHZ4nA4txE-TDqnAe1Q2Q==/com.esotericircle.esoteric_circle-Wm0SufizGG1LZPh9TTsBfQ==/base.apk!/lib/arm64-v8a/libdatastore_shared_counter.so using ns clns-7 from class loader (caller=/data/app/~~eMHZ4nA4txE-TDqnAe1Q2Q==/com.esotericircle.esoteric_circle-Wm0SufizGG1LZPh9TTsBfQ==/base.apk!classes23.dex): ok
+10-05 15:22:58.309 23234 23234 D FirebaseSessions: Initializing Firebase Sessions 3.0.6.
+10-05 15:22:58.311 23234 23234 I FirebaseCrashlytics: Initializing Firebase Crashlytics 20.0.6 for com.esotericircle.esoteric_circle
+10-05 15:22:58.317 23234 23234 D FirebaseSessions: Subscriber CRASHLYTICS registered.
+10-05 15:22:58.330 23234 23275 D FirebaseSessions: Notified CRASHLYTICS of new session 8c05b84917d74829a0fbb814992c49ca
+10-05 15:22:58.335 23234 23234 I FirebaseInitProvider: FirebaseApp initialization successful
+10-05 15:22:58.336 23234 23234 D FLTFireContextHolder: received application context.
+10-05 15:22:58.341 23234 23277 E FirebaseCrashlytics: Settings request failed.
+10-05 15:22:58.345 23234 23234 W libc    : Access denied finding property "vendor.boostfwk.frameprefetcher"
+10-05 15:22:58.348 23234 23234 I MonitoringInstr: Instrumentation started!
+10-05 15:22:58.394 23234 23234 D FramePredict: FramePredict init: false
+10-05 15:22:58.395 23234 23234 I MonitoringInstr: No JSBridge.
+10-05 15:22:58.400 23234 23279 I FirebaseCrashlytics: No version control information found
+10-05 15:22:58.410 23234 23293 I InstrConnection: Could not send broadcast or register receiver (isolatedProcess?)
+10-05 15:22:58.417 23234 23293 I UsageTrackerFacilitator: Usage tracking enabled
+10-05 15:22:58.419 23234 23293 I TestRequestBuilder: Scanning classpath to find tests in paths [/data/app/~~s8ChADI2ZeSDtxz5PB0kgg==/com.esotericircle.esoteric_circle.test-XbcuVu-DKxpVtSwHyoq63A==/base.apk]
+10-05 15:22:58.419 23234 23293 W esoteric_circle: Opening an oat file without a class loader. Are you using the deprecated DexFile APIs?
+10-05 15:22:58.425 23234 23293 D TestExecutor: Adding listener androidx.test.internal.runner.listener.LogRunListener
+10-05 15:22:58.425 23234 23293 D TestExecutor: Adding listener androidx.test.internal.runner.listener.InstrumentationResultPrinter
+10-05 15:22:58.425 23234 23293 D TestExecutor: Adding listener androidx.test.internal.runner.listener.ActivityFinisherRunListener
+10-05 15:22:58.425 23234 23293 I TestRunner: run started: 1 tests
+10-05 15:22:58.426 23234 23293 W ActivityTestRule: getActivityIntent() returned null using default: Intent(Intent.ACTION_MAIN)
+10-05 15:22:58.432  2330  6874 D ActivityStarterImpl: MIUILOG- Permission Denied Activity : Intent { act=android.intent.action.MAIN flg=0x14000000 cmp=com.esotericircle.esoteric_circle/.MainActivity } pkg : com.esotericircle.esoteric_circle uid : 10347 tuid : 10346
+10-05 15:22:58.437  2330  6874 D WindowManager: Collecting in transition 28: ActivityRecord{ce7eaa7 u0 com.esotericircle.esoteric_circle/.MainActivity init visibleRequested:false
+10-05 15:22:58.437  2330  6874 E ActivityTaskManager: Abort background activity starts from 10347
+10-05 15:22:58.438  2330  6874 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN flg=0x14000000 cmp=com.esotericircle.esoteric_circle/.MainActivity} with LAUNCH_SINGLE_TOP from uid 10347 from pid 23234 callingPackage com.esotericircle.esoteric_circle (BAL_ALLOW_PERMISSION) result code=102
+10-05 15:22:58.871 23234 23279 D FirebaseSessions: Fetching settings from server.
+10-05 15:22:58.874 23234 23283 E FirebaseSessions: Error failed to fetch the remote configs: Unable to resolve host "firebase-settings.crashlytics.com": No address associated with hostname
+10-05 15:23:03.633 23234 23368 D ProfileInstaller: Installing profile for com.esotericircle.esoteric_circle
+10-05 15:23:43.445 23234 23293 V FlutterTestRunner: launchActivity failed, possibly because the activity was already running. java.lang.RuntimeException: Could not launch intent Intent { act=android.intent.action.MAIN flg=0x14000000 cmp=com.esotericircle.esoteric_circle/.MainActivity } within 45000 milliseconds. Perhaps the main thread has not gone idle within a reasonable amount of time? There could be an animation or something constantly repainting the screen. Or the activity is doing network calls on creation? See the threaddump logs. For your reference the last time the event queue was idle before your activity launch request was 1791238978398 and now the last time the queue went idle was: 1791238993445. If these numbers are the same your activity might be hogging the event queue.
+10-05 15:23:43.445 23234 23293 V FlutterTestRunner: Try disabling auto-launch of the activity, e.g. ActivityTestRule<>(MainActivity.class, true, false);

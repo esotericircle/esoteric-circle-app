@@ -1,0 +1,90 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo tende a una promozione, ma non è ancora il momento di affrettare i tempi. Le lame indicano che l'Arcano del Sole è in aspetto favorevole, illuminando il tuo percorso professionale, ma l'Arcano della Giustizia suggerisce che prima è necessario un periodo di valutazione e riconoscimento dei tuoi meriti passati.
+
+✦ Prepara un piccolo riassunto dei tuoi successi recenti da presentare al tuo superiore, senza chiedere, dopo il prossimo plenilunio.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana la tua azione deve essere focalizzata sulla preparazione, senza agire direttamente. È un tempo di Mercurio retrogrado per il tuo cielo, che invita alla revisione e alla pianificazione interna piuttosto che all'iniziativa esterna.
+
+✦ Raccogli tutti i dati e le cifre che attestano i tuoi risultati degli ultimi mesi, senza parlarne con nessuno.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'preparazione' e 'non affrettare i tempi' già espresso nella risposta [1], specificando le azioni da compiere 'questa settimana' per la preparazione del riassunto dei successi.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se le cose non andranno come speri, non sarà un fallimento ma un invito del tuo cielo a ricalibrare la strategia. Il tuo Ascendente in un segno di Terra suggerisce che la persistenza e un approccio concreto saranno le tue guide. Non agire d'impulso: prima di fare il passo successivo, analizza con calma il perché del ritardo.
+
+✦ Esamina il riassunto dei tuoi successi che hai preparato e, se non riceverai la promozione, cerca gli aspetti da rafforzare, senza scoraggiarti, prima che Marte cambi di segno.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'non agire d'impulso' e 'analizzare con calma' già implicito nel 'periodo di valutazione' e 'non affrettare i tempi' della risposta [1], e si ricollega direttamente all'azione di 'preparare un riassunto dei successi' data in [1] e [2], suggerendo come usarlo in caso di esito negativo.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di ricominciare è un richiamo profondo che nasce spesso dal centro della radice, un bisogno di stabilità nuova. Se senti che un luogo diverso può darti questo nuovo inizio, allora il corpo ti sta già indicando una direzione.
+
+Osserva il tuo respiro, se è corto e agitato, o lungo e profondo. Questo ti dirà se la fretta di andare o la calma del trovare sono le tue vere guide. 
+
+✦ Porta una mano sull'ombelico e respira lentamente per tre volte.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Per questa settimana, porta la tua attenzione al respiro e a come reagisce il tuo corpo quando immagini di essere in questa nuova città. Ogni mattina, al risveglio, chiudi gli occhi per un momento e lascia che l'immagine di quel luogo si formi nella tua mente: senti come risuona dentro di te, se ti espande o se ti contrae. Questa pratica ti aiuterà a sintonizzarti con il tuo centro e a comprendere se questa direzione è in armonia con la tua energia più profonda.
+
+✦ Appena sveglia, siediti per un minuto con l'immagine della nuova città nella mente e osserva il tuo respiro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di osservare il respiro e le reazioni del corpo già introdotto nella risposta precedente, specificando una pratica concreta e temporale ('questa settimana', 'ogni mattina') per sviluppare quel punto.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se senti che le cose non vanno come sperato, torna al tuo respiro, al gesto che hai compiuto ogni mattina. Quell'immagine della nuova città, che ora senti più vicina o più lontana, ti dice qualcosa. Non è un fallimento, ma un'indicazione. Chiediti: il mio corpo si sente contratto o espanso quando penso a quel che è successo? È da lì che riparti, da quel sentire, per capire qual è il prossimo passo, forse un piccolo aggiustamento, forse una direzione completamente nuova.
+
+✦ Se qualcosa non va come speravi, siediti un minuto e appoggia le mani sul cuore, sentendone il battito.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio dato in precedenza ('torna al tuo respiro, al gesto che hai compiuto ogni mattina') e lo sviluppa come meccanismo di reazione e comprensione in caso di difficoltà, mantenendo il focus sull'osservazione del corpo e del respiro.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci ora. Il tempo dell'attesa è finito.
+Una nebbia fredda si è posata, e solo il calore della fiamma può dissolverla.
+La tua relazione è una soglia che richiede un passaggio deciso, un rituale di riaccensione. Non attendere che la brace si spenga del tutto.
+✦ Dì parole sincere stasera, con la runa Gebo nel cuore.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] CALIGO [DA GIUDICARE]: In pratica, osserva. La runa Othala ti invita a riconoscere ciò che è tuo, ciò che è autentico.
+Non cercare al di fuori, ma dentro il legame stesso, nelle sue fondamenta. Ogni giorno di questa settimana, dedica un momento a un ricordo condiviso che ti scaldi l'anima, un piccolo rituale della memoria per richiamare la forza originaria della vostra unione.
+✦ Scrivi ogni sera, in un quaderno segreto, tre motivi per cui avete camminato insieme finora.
+    GIUDICE: IGNORA, La guida risponde alla richiesta di 'cosa faccio in pratica' con un consiglio di osservazione e riflessione interna ('osserva', 'scrivi ogni sera') che non riprende né sviluppa l'azione diretta e immediata ('Agisci ora', 'Dì parole sincere stasera') suggerita nella risposta precedente, pur essendo una domanda di approfondimento.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] CALIGO [DA GIUDICARE]: Accetta la direzione. Se i motivi scritti non portano calore, non forzare il sentiero.
+La runa Hagalaz annuncia la necessità di una liberazione, di un distacco da ciò che non serve più. Non è un fallimento, ma un presagio di nuova crescita.
+✦ Brucia le pagine del quaderno in una fiamma e spargi le ceneri al vento, affidando al suo soffio il passato.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il punto precedente ('Se i motivi scritti non portano calore') e lo sviluppa, fornendo un'indicazione su come procedere nel caso in cui l'azione suggerita in [2] non abbia l'effetto sperato.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il momento è propizio per avviare il tuo progetto creativo, con la Luna in trigono a Venere che favorisce l'espressione artistica e la ricezione di consensi. Avvia i primi passi del progetto senza indugio, perché il cielo è a tuo favore per l'inizio di opere che richiedono bellezza e armonia.
+
+✦ Parla della tua idea a qualcuno che stimi, domani mattina.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Per questa settimana, il cielo suggerisce di dedicarti alla pianificazione dettagliata del tuo progetto, ponendo attenzione ai particolari estetici e alla comunicazione. Mercoledì, con il Sole in sestile a Saturno, è il giorno ideale per strutturare gli aspetti pratici e definire gli obiettivi a lungo termine.
+
+✦ Scrivi un elenco delle prime tre azioni concrete da compiere entro giovedì.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'avviare i primi passi' e lo sviluppa, fornendo indicazioni pratiche e temporali su 'cosa fare questa settimana' per iniziare il progetto, come richiesto dalla persona.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se le cose non andassero come speri, non devi fermarti: riprendi l'elenco delle azioni concrete che hai preparato e rivedilo con uno sguardo più ampio. La tua Venere in Toro, infatti, ti invita a non scoraggiarti di fronte agli ostacoli, ma a trovare soluzioni pratiche e durature.
+
+✦ Riprendi l'elenco delle azioni e scegli la meno onerosa per proseguire.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'idea dell''elenco delle azioni concrete' introdotta nella risposta precedente e offre un consiglio su come gestirle in caso di difficoltà, sviluppando il tema della prosecuzione del progetto.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma in cui entrambe possiate sentirvi ascoltate. Scegli un momento in cui il tuo respiro sia lento e profondo.
+
+Osserva il tuo centro del cuore, verde smeraldo, e senti l'energia che da lì si irradia verso l'esterno. È un centro di connessione e di amore incondizionato, il luogo dove si trova la chiave della comprensione e del perdono. Lascia che questa energia ti guidi nel trovare le parole giuste, quelle che partono dal profondo e che possono accorciare ogni distanza. Anche se le parole non saranno perfette, l'intenzione che nasce da questo centro sarà percepita.
+
+✦ Chiudi gli occhi per un istante, poggia una mano sul petto e senti il tuo cuore che pulsa.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, concediti uno spazio di quiete, lontano dalle distrazioni, e scrivi una lettera a tua sorella. Non devi consegnarla, è per te: ripercorri i tuoi sentimenti e il desiderio di ristabilire la connessione.
+
+Mentre scrivi, sintonizzati con il tuo terzo centro, quello del plesso solare, giallo e luminoso, dove risiede la tua forza e la tua capacità di agire. Lascia che la tua intenzione si chiarisca e che l'energia di questo centro ti dia il coraggio di esprimere ciò che senti con autenticità e rispetto. È da lì che nascono le azioni che portano a un vero avvicinamento, non forzato, ma profondamente voluto.
+
+✦ Trova un luogo tranquillo e scrivi tre frasi che vorresti dirle, senza giudizio.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla richiesta di 'cosa fare in pratica questa settimana' sviluppando il concetto di preparazione interiore già introdotto, proponendo un'azione concreta (scrivere una lettera per sé) e introducendo un nuovo centro energetico (plesso solare) per supportare l'intenzione.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non andassero come speri dopo aver espresso i tuoi sentimenti, il tuo passo sarà quello di tornare al tuo respiro. Non forzare alcun esito, ma accogli l'aria che entra e che esce, permettendoti di sentire ogni emozione senza trattenerla.
+
+Concentra la tua attenzione sul tuo primo centro, quello della radice, rosso e stabile. È il luogo della sicurezza e della fiducia nella tua capacità di rimanere saldo, qualunque cosa accada. Questo centro ti ricorda che la tua pace interiore non dipende dalla reazione altrui, ma dalla tua integrità e dal tuo equilibrio. Anche se l'incontro non avrà l'esito che desideri, tu rimarrai radicata nella tua forza. Per l'Astrologia, la Cartomanzia e il Destino, c'è Medora.
+
+✦ Appoggia i piedi a terra, senti il tuo radicamento e respira contando fino a quattro.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda su 'se le cose non vanno come speri' riprendendo il concetto di gestione delle emozioni e radicamento già implicito nel focus sul respiro e sui centri energetici, e introducendo un nuovo centro (radice) per affrontare l'eventuale delusione, mantenendo la coerenza con l'approccio olistico.
+
+ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 9, ignora 1, contraddice 0, quota 90 per cento, corrette dalla rete della coerenza 0

@@ -1,0 +1,18 @@
+es1_esecuzione1: prima frase che prende posizione 11 su 20; finite sulla riserva 1 (con la frase della posizione 1, che per il giudice prendono posizione 1, che parlano di cose che la domanda non ha 0); risposte che parlano di cose che la domanda non ha 2; consiglio 17; frasi vuote 26; errori di italiano 4
+es1_esecuzione2: prima frase che prende posizione 9 su 20; finite sulla riserva 2 (con la frase della posizione 2, che per il giudice prendono posizione 1, che parlano di cose che la domanda non ha 0); risposte che parlano di cose che la domanda non ha 2; consiglio 17; frasi vuote 23; errori di italiano 3
+es2_esecuzione1: prima frase che prende posizione 15 su 20; finite sulla riserva 4 (con la frase della posizione 3, che per il giudice prendono posizione 3, che parlano di cose che la domanda non ha 2); risposte che parlano di cose che la domanda non ha 3; consiglio 18; frasi vuote 18; errori di italiano 1
+es2_esecuzione2: prima frase che prende posizione 11 su 20; finite sulla riserva 2 (con la frase della posizione 2, che per il giudice prendono posizione 0, che parlano di cose che la domanda non ha 1); risposte che parlano di cose che la domanda non ha 3; consiglio 14; frasi vuote 23; errori di italiano 1
+
+ERRORI es1_esecuzione1
+    8: "Non puoi sapere se non le domandi"
+    15: se il tuo concorso ti vede mostrare il tuo carattere
+    3: il tuo vero desiderio dietro il lavoro
+    1: la proposta di lavoro di Berlino
+ERRORI es1_esecuzione2
+    16: "non solo lo studio ti serve"
+    2: "muovere il passo decisivo"
+    11: "il tuo richiamo"
+ERRORI es2_esecuzione1
+    9: invita tua compagna
+ERRORI es2_esecuzione2
+    11: Puoi chiarire a te chi sei

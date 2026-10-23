@@ -1,0 +1,170 @@
+ORDINE GA VOCI 03, 04, 05 E 07, LE RUNE: REGOLA A E REGOLA B
+20 ottobre 2026, worktree aspetta-testo-riallineamento-5a7bfd, ramo locale
+lavoro-riallineamento-1014.
+
+Ogni innesto si mette con lo strumento della sessione (innesti.py), si
+verifica col conteggio della stringa nel file (grep: 1 innesto, 0 buono)
+PRIMA di leggere l'esito, poi si toglie e si riverifica (0 innesto, 1 buono).
+
+======================================================================
+REGOLA B: LE ZONE VISTE ROSSE PRIMA DI TOCCARLE (20/10/2026)
+======================================================================
+Base della zona (73 prove delle rune piu' 12 dei piani), prima di toccare:
++781 -5. Rossi gia' presenti: accenti_veri (5 salmi di Martini, "se'"),
+il_corpus_delle_rune (forma in caratteri), il_genere_non_si_indovina (10
+voci delle rune piu' "sarai sdegnato" nei riti e una riga del cinese),
+il_giallo_delle_rune_parla_adesso (2 prose dorate: il GESTO a 40-50 parole
+si spezzava in due paragrafi dorati nello stesso riquadro),
+le_lunghezze_dei_responsi (tabella dell'Oroscopo, fuori zona).
+
+Innesti di Regola B, uno per zona, verificati col grep (1 innesto per file):
+- il_presagio_dal_corpus.dart: la scelta ignora la memoria dei 60 giorni.
+- rune_draw_screen.dart: Key('rune_presage') diventa Key('rune_presagX') e
+  Key('rune_meaning_') diventa Key('rune_meanin_').
+- plan_catalog.dart: le gettate del Viandante da 1 a 2 al giorno.
+Esito, 12 rossi:
+  il_presagio_dal_corpus_test: SESSANTA GIORNI [E]
+  il_presagio_e_la_prima_bolla_test: il presagio dichiarato prima [E]
+  la_domanda_scelta_arriva_al_responso_test: fino al PRESAGIO [E]
+  la_gettata_a_tre_rune_risponde_test: la prosa ha una misura sola [E]
+  la_gettata_a_tre_rune_risponde_test: la bolla porta tre paragrafi [E]
+  le_rune_non_chiamano_il_modello_test [E]
+  rune_draw_screen_test: Getta le rune porta al responso [E]
+  rune_draw_screen_test: Getta ancora resta nel responso [E]
+  il_conto_delle_gettate_test: i due stati del conto [E]
+  il_limite_delle_gettate_test: al terzo getto il gratuito e' fermo [E]
+  il_limite_delle_gettate_test: il numero uno vive nel dato [E]
+  nessuna_cella_resta_senza_tetto_test: i tetti dell'Illuminato [E]
+Non coperte da questi innesti: il_responso_si_legge_ovunque (guarda un
+punto del sorgente, `rune_presage_text`, e cade col codice nuovo: vista
+rossa nella prima corsa dopo il codice), e il file
+il_titolo_della_gettata.dart, che nessuna guardia copriva: lo copre la prova
+nuova.
+il_giallo_delle_rune_parla_adesso era rossa per il motivo detto sopra.
+
+======================================================================
+REGOLA A: LA PROVA NUOVA test/le_rune_hanno_la_forma_nuova_test.dart
+======================================================================
+Verde sul codice nuovo: +5, 0 rossi. Presagi composti 4.224 (lunghi
+2.112), schede 15.840, valori di {cosa} 20, difetti 0. A video
+(Iniziato): parole dei paragrafi 44, 44, 41, 47. Il lampo: mentre il disco
+scrive la bolla mostra [l'attesa, l'attesa].
+
+Giro 1, innesti A1 A2 A6 A8 A9 (grep: 1 innesto, 0 buono per ognuno):
+  A1 Getta ancora non azzera il presagio di prima
+  A2 il titolo dalla runa a meta' elenco (scoperte[length ~/ 2])
+  A6 il "Da dove viene" anche nella bolla
+  A8 niente lucchetto della Lunga per il Viandante
+  A9 la memoria di prima letta come se fosse della forma nuova
+  esito: 5 rossi su 5.
+  - LA FORMA SUI PRESAGI VERI [E]: difetti 3168, "il titolo «Tempo di
+    attesa e di chiarezza: non forzare.» non e' la riga della pietra che
+    decide, Wunjo" (A2)
+  - LA MEMORIA DI PRIMA [E]: Expected {'risposta/Fehu/dritta/3':
+    '2026-10-19'}, Actual {} (A9)
+  - A VIDEO, L'INIZIATO [E]: Found 2 widgets with text "Da dove viene" (A6)
+  - A VIDEO, IL VIANDANTE [E]: Found 0 widgets with key
+    rune_lucchetto_lunga (A8)
+  - GETTA ANCORA [E]: "mentre il disco scrive la bolla mostra [IL PRESAGIO
+    DI PRIMA, IL PRESAGIO DI PRIMA]" (A1)
+  Tolti: 0 innesto, 1 buono per ognuno.
+
+Giro 2, innesti A3 A7 (grep: 1 innesto):
+  A3 il galdr sempre della runa dritta
+  A7 la schermata chiama il modello a ogni gettata
+  esito: LA FORMA SUI PRESAGI VERI [E] difetti 638 (i galdr delle pietre
+  in ombra); A VIDEO L'INIZIATO [E] e IL VIANDANTE [E]: "le rune hanno
+  chiamato il modello". Tolti.
+
+Giro 3, innesto A4 (la risposta senza il verdetto): LA FORMA [E], "la
+risposta ha 23 parole". Tolto.
+
+Giro 4, innesto A5 (la Runa di Odino con una scheda): LA FORMA [E], "la
+Runa di Odino ha una scheda in piu'". Tolto.
+
+Prima di scegliere il disco lento: col disco istantaneo delle prove la
+composizione tornava nello stesso fotogramma del tocco e il lampo non si
+vedeva ("il primo fotogramma mostra un presagio"): si e' cambiata la
+grandezza misurata, il disco iniettabile della schermata
+(RuneDrawScreen.preferenze) con trecento millesimi, e il lampo e' diventato
+visibile e misurabile (giro 1, A1).
+
+======================================================================
+REGOLA A: LE PROVE DELLA REGOLA VECCHIA, RISCRITTE E VISTE ROSSE
+======================================================================
+Innesti (lo stesso strumento): R1 la prosa del presagio dorata; R2 il
+riquadro del presagio con la tavolozza neutra; R5 la Voce della Runa fuori
+dalla porta (chiave rune_vocx_); R7 la domanda non arriva al compositore
+(cosaDellaDomanda('')); R8 il presagio cambia chiave (rune_presagx); R4b il
+significato del segno nel riquadro a vista; RB la scelta ignora la memoria
+dei sessanta giorni; A4, A5, A7 come sopra; C1 una voce del CONSIGLIO
+allungata a 53 parole nel corpus generato (Fehu dritta 1).
+
+== giro X: R1 R5 R7 A5 A4
+R1 INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+R5 INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+R7 INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+A5 INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+A4 INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+test/il_giallo_delle_rune_parla_adesso_test.dart: LA PROSA DORATA E NESSUNA: l'oro sta nei riquadri [E]
+test/il_presagio_dal_corpus_test.dart: il presagio ha la forma nuova, con gli spazi riempiti [E]
+test/il_presagio_e_la_prima_bolla_test.dart: il presagio resta lungo: nessuno lo accorcia per uniformita' [E]
+test/il_sigillo_del_giorno_dice_a_cosa_serve_test.dart: a una runa sola il corpo della scheda sta dietro una porta [E]
+test/la_domanda_scelta_arriva_al_responso_test.dart: la domanda arriva fino al PRESAGIO, non solo alla sua scatola [E]
+test/la_gettata_a_tre_rune_risponde_test.dart: la bolla della runa porta tre paragrafi, e le fonti stanno dietro [E]
+test/la_runa_singola_non_e_una_lezione_test.dart: a una runa sola il responso e' quello principale, breve, senza scheda [E]
+00:46 +22 -7
+R1 pezzo buono presente (grep: 0 innesto, 1 buono)
+R5 pezzo buono presente (grep: 0 innesto, 1 buono)
+R7 pezzo buono presente (grep: 0 innesto, 1 buono)
+A5 pezzo buono presente (grep: 0 innesto, 1 buono)
+A4 pezzo buono presente (grep: 0 innesto, 1 buono)
+== giro Y: R2 R8 A7 A7i RB R4b
+R2 INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+R8 INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+A7 INNESTO PRESENTE (grep: 1 innesto, 1 buono)
+A7i INNESTO PRESENTE (grep: 1 innesto, 1 buono)
+RB INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+R4b INNESTO PRESENTE (grep: 1 innesto, 0 buono)
+test/il_giallo_delle_rune_parla_adesso_test.dart: REGOLA H: ogni riquadro "Cosa fare adesso" ha il titolo dorato e la sua prosa dentro [E]
+test/il_presagio_dal_corpus_test.dart: SESSANTA GIORNI AL MASSIMO DELL'ILLUMINATO: nessuna voce torna alla stessa persona [E]
+test/il_responso_si_legge_ovunque_test.dart: BV.06, lo standard del responso su tutte le schermate Gli otto responsi portano la misura e il colore della lettura [E]
+test/la_runa_singola_non_e_una_lezione_test.dart: a una runa sola il responso e' quello principale, breve, senza scheda [E]
+test/la_runa_singola_non_e_una_lezione_test.dart: e la lezione sta dietro la porta, non nei paragrafi a vista [E]
+test/le_rune_non_chiamano_il_modello_test.dart: una gettata delle tre Norne: zero chiamate al modello [E]
+test/rune_draw_screen_test.dart: Getta le rune porta al responso col presagio [E]
+00:41 +19 -7
+R4b pezzo buono presente (grep: 0 innesto, 1 buono)
+RB pezzo buono presente (grep: 0 innesto, 1 buono)
+A7i pezzo buono presente (grep: 0 innesto, 1 buono)
+A7 pezzo buono presente (grep: 0 innesto, 1 buono)
+R8 pezzo buono presente (grep: 0 innesto, 1 buono)
+R2 pezzo buono presente (grep: 0 innesto, 1 buono)
+innesto C1: 1 innesto, 0 buono
+ra_z1.txt:    Actual: ['consiglio.md, Fehu/dritta, voce 1: da 53 a 53 parole fuori da 40-50']
+ra_z1.txt:  consiglio.md, Fehu/dritta, voce 1: da 53 a 53 parole fuori da 40-50
+ra_z1.txt:00:03 +0 -1: 1. LA FORMA: gruppi, spazi, parole, nomi di runa [E]
+ra_z1.txt:ORDINE GA VOCE 07: voci guardate 7380, il paragrafo della risposta da 40 a 50 parole, difetti 1
+ra_z2.txt:00:00 +0 -1: 4. PAROLA PER PAROLA: il codice dice i file dell'Architetto [E]
+ra_z2.txt:ORDINE EX VOCE 03: file del codice diversi da quelli dell'Architetto 1 su 6
+ripristinato: 0 modifiche
+
+Il corpus generato e' tornato quello del commit col checkout del file.
+
+Esiti finali col codice nuovo e gli innesti tolti:
+- le prove dello schermo e la prova nuova (6 file): +32, 0 rossi;
+- la corsa della zona (73 prove delle rune, 12 dei piani, 4 della forma e
+  dei paragrafi, il corpus delle rune): +790 -11, poi i quattro rossi del
+  timer del disco (dopo_il_responso_niente_scelte 2, il_pozzo_in_attesa,
+  la_scheda_della_runa_non_si_ripete: un limite di tempo sul disco lasciava
+  un timer aperto nelle prove senza disco finto; il limite e' stato tolto)
+  rifatti verdi. I sette rossi che restano sono fuori zona: accenti_veri
+  (cinque salmi di Martini), i_paragrafi_dicono_risposte e
+  le_lunghezze_dei_responsi (Oroscopo), il_genere_non_si_indovina (una riga
+  del cinese e "sarai sdegnato" in un salmo di Martini),
+  il_pavimento_della_somiglianza e due catture di screenshot_capture
+  (Tarocchi).
+- il_corpus_delle_rune_test: voci guardate 7380, il paragrafo della
+  risposta da 40 a 50 parole, difetti 0; gruppi 180, sotto il numero 0;
+  file diversi 0 su 6; sessanta giorni sul corpus vero: persone 2000,
+  gettate 359931, voci ripetute 0, rientrate uscite 2 su 2.

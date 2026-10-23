@@ -1,0 +1,25 @@
+LE PROVE DI VISTA DOPO LA C5, ordine FH, 10 ottobre 2026, giro parziale: C13 C14
+
+C13 la bussola ignora la schermata orizzontale
+  file: lib/core/motion/l_orientamento_del_telefono.dart
+  innesto entrato (grep): si
+  prova: test/real_time_cosmo_il_telefono_orizzontale_test.dart
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/real_time_cosmo_il_telefono_orizzontale_test.dart: cima
+    Expected: a numeric value within <0.000001> of <1>
+    Actual: <0.0>
+    Expected: a numeric value within <0.000001> of <1>
+  ripristinato al byte: si
+
+C14 il nome dell'eclittica parla sempre
+  file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+  innesto entrato (grep): si
+  prova: test/le_anteprime_dell_ordine_fh_test.dart | FH.13
+  esito: ROSSA
+  ultima riga: C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/riallineamento-cerchio-esoterico-caf5d1/test/le_anteprime_dell_ordine_fh_test.dart: FH.13: l'eclitti
+    Expected: false
+    Actual: <true>
+    il nome del filo parla senza che nessuno l'abbia acceso
+  ripristinato al byte: si
+
+TUTTE ROSSE COI DIFETTI ENTRATI E I FILE RIPRISTINATI: SI

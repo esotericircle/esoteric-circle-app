@@ -1,0 +1,38 @@
+ORDINE FX, REGOLA A SULLA GUARDIA test/la_grafica_del_respiro_e_dipinta_test.dart
+16 ottobre 2026
+
+INNESTO. Aggiunta la riga seguente in cima a
+lib/features/respiro_della_luna/gli_eos_del_respiro.dart, dopo il primo
+import:
+
+    // INNESTO_REGOLA_A_FX12: Icons.star_rounded
+
+VERIFICATO COL GREP che il difetto fosse davvero entrato nel file:
+
+    $ grep -n "INNESTO_REGOLA_A_FX12" lib/features/respiro_della_luna/gli_eos_del_respiro.dart
+    3:// INNESTO_REGOLA_A_FX12: Icons.star_rounded
+
+PRIMO GIRO, ROSSO PER UNA RAGIONE DIVERSA DALL'INNESTO. La guardia e' caduta
+su un difetto vero trovato per strada, non sull'innesto: il commento di
+lib/features/respiro_della_luna/la_bussola_della_luna.dart diceva "nessun
+disegno procedurale: nessun `CustomPainter`, nessun cerchio finto", e la
+guardia (come la sua gemella del lunario, la_grafica_del_lunario_e_dipinta
+_test.dart) scorre il TESTO del file, non l'albero sintattico: la parola
+"CustomPainter" scritta per dire che NON si usa viene letta come se si
+usasse. Corretto riscrivendo il commento senza nominare la classe per
+nome ("nessun pennello scritto a mano o un cerchio finto").
+
+SECONDO GIRO, ROSSO SULL'INNESTO VERO:
+
+    00:00 +0 -1: nessun CustomPainter, nessun cerchio o alone finto, solo icone di interfaccia dichiarate [E]
+      Expected: empty
+        Actual: ['lib/features/respiro_della_luna/gli_eos_del_respiro.dart: Icons.star_rounded']
+
+RIMOSSO L'INNESTO, TERZO GIRO VERDE:
+
+    00:00 +0: nessun CustomPainter, nessun cerchio o alone finto, solo icone di interfaccia dichiarate
+    00:00 +1: All tests passed!
+
+Il ciclo e' completo: la guardia vede il difetto quando c'e' davvero, e non
+lo vede quando non c'e'. Il difetto trovato per strada (il commento della
+bussola) e' stato corretto come parte di questa stessa voce, non rimandato.

@@ -1,0 +1,44 @@
+dopo aura: nel merito 7 su 24; domande con piu parti toccate tutte 8 su 13; risposte con una certezza 3 (frasi 3)
+dopo caligo: nel merito 18 su 24; domande con piu parti toccate tutte 11 su 14; risposte con una certezza 4 (frasi 4)
+dopo medora: nel merito 17 su 24; domande con piu parti toccate tutte 9 su 13; risposte con una certezza 6 (frasi 6)
+dopo tutti: nel merito 42 su 72; domande con piu parti toccate tutte 28 su 40; risposte con una certezza 13 (frasi 13)
+es1 aura: nel merito 12 su 24; domande con piu parti toccate tutte 11 su 13; risposte con una certezza 4 (frasi 4)
+es1 caligo: nel merito 19 su 24; domande con piu parti toccate tutte 13 su 14; risposte con una certezza 5 (frasi 6)
+es1 medora: nel merito 19 su 24; domande con piu parti toccate tutte 9 su 12; risposte con una certezza 6 (frasi 9)
+es1 tutti: nel merito 50 su 72; domande con piu parti toccate tutte 33 su 39; risposte con una certezza 15 (frasi 19)
+
+CERTEZZE dopo
+    L003 aura: il tuo corpo e i tuoi centri ti daranno il segnale
+    L012 medora: un periodo che ti darà la chiarezza necessaria
+    L014 caligo: Il lavoro seguirà il tuo movimento.
+    L019 caligo: Le pietre rispondono che il tuo è il mese giusto.
+    L059 medora: il successo nel lavoro arriverà solo dopo
+    L070 caligo: Non è la solitudine il tuo presagio, ma la scoperta.
+    L078 medora: Il tuo cielo dice che è una scelta chiara, nata da una riflessione profonda che ti porterà a un nuovo inizio.
+    L089 medora: quando la Luna in Ariete ti darà la chiarezza necessaria
+    L101 caligo: Le sue lacrime sono il sigillo di un legame profondo
+    L107 aura: Le parole di tua madre nascono dal suo amore e dal suo desiderio di proteggerti
+    L109 medora: la sua opinione nasce dalla preoccupazione
+    L116 medora: Il transito di Venere che retrocederà fra pochi giorni ti chiederà di rivedere i tuoi desideri e i valori più profondi
+    L139 aura: Il pianto di tua madre è un'emozione che ora si muove nel suo corpo
+
+CERTEZZE es1
+    L004 aura: un ritmo che il tuo corpo ti suggerirà quando avrai integrato tutte le parti di te
+    L007 medora: il suo pianto è una reazione emotiva che ha bisogno di tempo per essere elaborata
+    L017 medora: una compagna arriverà, se saprai riconoscerla come pari
+    L017 medora: l'Australia ti attende
+    L023 medora: in Australia ti sentirai solo solo all'inizio
+    L023 medora: il tuo Sole in Leone ti darà la forza di socializzare e creare nuovi legami
+    L037 aura: la sua reazione è un'espressione del suo amore per te, un timore profondo per ciò che non conosce e non controlla
+    L048 medora: Le carte e il tuo cielo leggono nel pianto di tua madre un profondo legame e la paura di un distacco, più che un rifiuto della tua scelta
+    L055 medora: la decisione maturerà da sola con il passare dei giorni
+    L057 caligo: il sentiero si apre per il viaggio e per il lavoro
+    L061 caligo: Le pietre rispondono che non sarai solo.
+    L061 caligo: La tua partenza aprirà nuove soglie, non sentirai la mancanza.
+    L062 medora: l'amore e la possibilità di una compagna sono vicini
+    L062 medora: per il successo nel lavoro la via è già tracciata
+    L065 caligo: La decisione è già chiara in te.
+    L085 aura: tocca in lei un punto profondo di legame e protezione
+    L090 caligo: La solitudine è un presagio che non ti segue in questo viaggio.
+    L100 caligo: Il suo pianto è un sigillo di paura
+    L103 aura: Le sue preoccupazioni nascono dal desiderio di proteggerti

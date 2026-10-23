@@ -1,0 +1,14 @@
+ASSET DELL'AGGIUNTA FXA, da tool/gli_asset_dell_aggiunta_fxa.py
+
+collana_nello_scrigno_spenta_v1: 1438x2576, da 410257 a 316524 byte
+collana_nello_scrigno_accesa_v1: 1438x2576, da 414695 a 324500 byte
+ritagli delle perle accese: 33 (30 giorni, 2 del compimento, la medaglia), WebP senza perdita, riletti identici
+cinque perle composte contro la prova dell'Architetto: scarto medio 0.51 su 255 sull'immagine intera, massimo per canale nel 99,9 percentile 99.0
+scarto fra pittura spenta e accesa nell'anello sfumato dei ritagli (raggio 40-48): medio 36.07, massimo 52.29 su 255
+scarto subito fuori dal ritaglio (6 pixel oltre il raggio della maschera): medio 24.73, massimo 39.04 su 255
+pulsante_largo_v1: 1133x323, da 295544 a 176588 byte, identico True, alfa da 0 a 255
+pulsante_largo_premuto_v1: 1132x323, da 277384 a 163336 byte, identico True, alfa da 0 a 255
+pulsante_tondo_v1: 356x356, da 159190 a 94614 byte, identico True, alfa da 0 a 255
+pannello_v1: 731x915, da 454005 a 265236 byte, identico True, alfa da 0 a 255
+ago_e_filo_v1: 373x382, da 125096 a 82850 byte, identico True, alfa da 0 a 255
+cattura del fondatore copiata in docs/collaudo/FX/catture_fondatore/fx_fondatore_collana_01.jpg

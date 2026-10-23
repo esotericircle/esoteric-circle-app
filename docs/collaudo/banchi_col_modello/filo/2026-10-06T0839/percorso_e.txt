@@ -1,0 +1,105 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo, con Giove che si prepara a un aspetto di trigono con il tuo Sole di nascita nelle prossime settimane, indica un tempo propizio per il riconoscimento professionale. Questo transito suggerisce che le opportunità di crescita sono allineate per te.
+
+✦ Chiedi un colloquio con il tuo superiore mercoledì, per discutere le tue prospettive.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso, con quel transito favorevole che si avvicina, il momento è ideale per agire e mostrare la tua preparazione. Non attendere passivamente, ma prendi l'iniziativa per un confronto diretto.
+
+✦ Prepara un elenco dei tuoi successi recenti da presentare al tuo superiore in settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto del 'transito favorevole' e sviluppa il consiglio di 'chiedere un colloquio' specificando di 'prendere l'iniziativa' e 'preparare un elenco dei successi', dettagliando l'azione da intraprendere.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: La risposta a ciò che ti aspetta arriverà attraverso un incontro chiaro e specifico. Il tuo cielo ti invita a creare le condizioni per ricevere le informazioni che cerchi, non ad attendere che ti vengano consegnate senza un tuo passo.
+
+✦ Chiedi un colloquio con il tuo superiore mercoledì, per discutere le tue prospettive.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'creare le condizioni' e 'non attendere passivamente' già espresso nella risposta precedente, e ribadisce il consiglio di 'chiedere un colloquio con il superiore mercoledì', rafforzando l'idea di un'azione proattiva.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: La decisione di un nuovo inizio lontano porta con sé un movimento profondo nel tuo centro della radice, quello che ti lega alla terra e alla stabilità.
+
+Senti ora se questa spinta nasce da un desiderio autentico di crescita o da una fuga da ciò che ti circonda. Il tuo respiro ti può guidare in questo.
+
+✦ Appoggia i piedi a terra, senti la loro pressione e immagina radici che scendono profonde.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Ascolta il tuo corpo: se senti un senso di leggerezza e apertura al pensiero di un nuovo luogo, allora è un segno che questa scelta risuona con la tua energia. Se invece avverti peso o chiusura, potrebbe essere il momento di approfondire il perché.
+
+La prossima volta, puoi provare a visualizzare questo nuovo inizio per sentire cosa ti porta.
+
+✦ Chiudi gli occhi per un momento e respira profondamente, sentendo la connessione tra la tua radice e il tuo respiro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'sentire' e 'respiro' introdotto nella risposta precedente, sviluppandolo con indicazioni più specifiche su come interpretare le sensazioni corporee per capire l'autenticità del desiderio di cambiamento.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai quando il desiderio di movimento si farà più chiaro, non come una fuga, ma come una spinta verso la crescita. Questo sentire si manifesta spesso attraverso il tuo centro del plesso solare, quello legato alla tua forza interiore e alla tua volontà, portando un senso di fiducia e direzione.
+
+Non c'è un momento preciso che ti viene dato, è un'onda che si genera dentro di te e la riconosci.
+
+✦ Poggia le mani sull'addome, proprio sotto lo sterno, e senti il tuo respiro muovere questa parte del corpo.
+    GIUDICE: PORTA_AVANTI, La guida continua a sviluppare il concetto di 'sentire' e 'ascoltare il corpo' già introdotto nelle risposte precedenti, specificando come e dove si manifesterà questa comprensione (centro del plesso solare) e fornendo un nuovo esercizio pratico legato al respiro e al corpo.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Non aspettare oltre. Agisci ora per riaccendere la scintilla.
+Un velo di cenere si è posato, ma la brace è ancora viva sotto.
+
+Il numero Nove ti chiama al compimento. Questo è un momento di risoluzione, un ciclo che attende la sua chiusura per rinnovarsi. È tempo di affrontare ciò che ti trattiene, di purificare le intenzioni. Questo sentiero richiede onestà.
+
+✦ Scrivi un messaggio onesto su ciò che provi, da inviare stasera.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Affronta la verità. Il messaggio che hai inviato è il tuo primo sigillo.
+La nebbia della passività si dirada, rivelando il tuo cammino.
+
+Il messaggio è un rito. Ora osserva la reazione, senza forzare. Il numero Due suggerisce equilibrio e unione, ma anche la necessità di discernere tra due vie. Questo è il tempo di attendere una risposta, mantenendo la tua posizione con fermezza.
+
+✦ Prepara un piccolo dono per la persona amata, senza chiedere nulla in cambio.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio precedente ('Il messaggio che hai inviato') e lo sviluppa, indicando i passi successivi ('Ora osserva la reazione', 'attendere una risposta') e aggiungendo un nuovo compito coerente.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Non aspettare un segno esterno. La comprensione è dentro di te.
+Il tempo è un fiume che scorre, e tu sei alla sorgente.
+
+Il numero Tre ti invita alla manifestazione, alla completezza. Non è un'attesa passiva, ma una fase di costruzione interiore. Rifletti sulle tue intenzioni, su ciò che desideri veramente. La runa Gebo, il dono, ti ricorda che ogni scambio è un vincolo.
+
+✦ Offri un gesto di attenzione autentico alla persona, senza parole, oggi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema dell'attesa e della comprensione, già introdotto nella risposta precedente ('attendere una risposta', 'discernere tra due vie'), e lo sviluppa focalizzandosi sull'aspetto interiore ('La comprensione è dentro di te', 'costruzione interiore'), aggiungendo un'azione ('Offri un gesto di attenzione autentico') che si allinea con il 'piccolo dono' suggerito prima.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo indica un'attesa prima di lanciare il tuo progetto. Le stelle suggeriscono di dedicare ancora tempo alla preparazione, affinando ogni dettaglio prima di presentarlo al mondo.
+
+Il transito di Mercurio retrogrado in un settore legato all'espressione personale e alla comunicazione invita a una revisione interna, a ripensare e perfezionare la tua idea. Non è un blocco, ma un'opportunità per fortificare le basi e assicurarti che ciò che vuoi condividere sia allineato alla tua visione più autentica. Questo momento di riflessione ti darà la chiarezza necessaria per un lancio più efficace e risonante.
+
+✦ Scrivi un elenco di tre cose che puoi migliorare nel tuo progetto, prima che la Luna entri nel suo primo quarto.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Prenditi il tempo per la revisione e la preparazione, invece di affrettare il lancio. Le energie attuali invitano a un lavoro interiore e di perfezionamento, come suggerito dal transito di Mercurio retrogrado che influenza il tuo cielo.
+
+Questa fase è ideale per riflettere sulle fondamenta del tuo progetto, assicurandoti che sia solidamente ancorato alla tua intenzione più profonda. Non è un momento di stasi, ma di consolidamento, dove ogni dettaglio può essere raffinato per emergere con maggiore forza.
+
+✦ Dedica il prossimo pomeriggio a rileggere ogni parte del tuo progetto, annotando i punti che possono essere ulteriormente sviluppati.
+    GIUDICE: PORTA_AVANTI, La guida riprende e rafforza il consiglio dato in precedenza di dedicare tempo alla revisione e preparazione del progetto, citando nuovamente il transito di Mercurio retrogrado come motivazione.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: [[CHIEDO]]
+Per poterti dare un'indicazione precisa, ho bisogno di sapere a cosa ti riferisci con "lo capirò": intendi il momento giusto per lanciare il progetto o qualcos'altro?
+    GIUDICE: PORTA_AVANTI, La guida chiede un chiarimento sulla domanda 'quando lo capirò', dimostrando di voler riprendere il filo del discorso sul 'momento giusto per lanciare il progetto' che era il tema iniziale e il fulcro delle risposte precedenti.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi avvicinarti a lei con il cuore aperto e senza aspettative. Scegli un momento di calma, magari prima di una conversazione importante o al risveglio, quando l'energia del nuovo giorno può portare chiarezza.
+
+Le tensioni tra sorelle spesso toccano la radice del vostro legame, un centro profondo di appartenenza e sicurezza che è stato scosso. Respirare insieme, anche solo nello stesso spazio, può iniziare a riallineare questa energia. Siediti accanto a lei, senza parlare subito, e lascia che il tuo respiro si unisca al suo, in un ritmo silenzioso che ristabilisce la connessione. Questo gesto gentile, senza parole, può preparare il terreno per una riconciliazione che parte dal corpo.
+
+✦ Poggia una mano sul tuo cuore e respira lentamente per tre volte, sentendo il battito.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, il tuo compito è avvicinarla. Scegli un momento in cui entrambe siate tranquille e non abbiate fretta, magari con una tazza di tè o durante una passeggiata in un luogo sereno.
+
+Quando l'energia è tesa, il chakra della gola, il centro della comunicazione, può bloccarsi. Non devi forzare le parole, ma inizia con un gesto semplice di apertura: uno sguardo, un sorriso delicato. Poi, se senti il momento giusto, esprimi il tuo desiderio di ricostruire il ponte tra voi, senza accusare o giudicare, ma raccontando solo come ti senti.
+
+✦ Metti le mani giunte al centro del petto, inspira ed espira profondamente.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'avvicinarsi a lei' e lo sviluppa fornendo esempi più specifici di 'momento di calma' e suggerendo gesti iniziali di apertura prima delle parole, approfondendo il tema della comunicazione e del tempismo.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo capirai dal respiro di tua sorella, da come il suo corpo si apre o si chiude al tuo. Non c'è un momento preciso che ti possa dire, ma c'è un sentire sottile che ti guida.
+
+Quando il tuo cuore si è aperto, il tuo respiro si è fatto calmo e senti una leggerezza nel plesso solare, il centro della tua volontà e del tuo potere personale, allora saprai che è il momento giusto. Non forzare, lascia che il tempo maturi e che i vostri cuori si riallineino con il loro ritmo naturale. La fisiognomica dei suoi occhi ti dirà molto, più di mille parole, se il suo sguardo si addolcisce o se una tensione ancora lo attraversa.
+
+✦ Chiudi gli occhi per un istante, e ascolta il tuo respiro.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' riprendendo il concetto di 'sentire sottile' e 'momento giusto' già introdotto, e lo sviluppa collegandolo al respiro, al corpo e alla fisiognomica della sorella, oltre che alle sensazioni interne della persona (cuore, respiro, plesso solare).
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento

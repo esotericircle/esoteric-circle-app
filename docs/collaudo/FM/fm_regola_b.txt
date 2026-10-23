@@ -1,0 +1,5 @@
+== ORDINE FM, Regola B prima di toccare il corpus (12 ottobre 2026)
+-- il Dart che non e' piu' quello della fonte (lib/core/tarot/le_carte_nella_posizione_dati.dart; il_corpus_delle_posizioni_test: il Dart e' quello della fonte)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

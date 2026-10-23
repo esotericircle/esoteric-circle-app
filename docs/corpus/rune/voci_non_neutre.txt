@@ -1,0 +1,77 @@
+# Le voci che una lettura ha escluso dalle coppie neutre. Ordine GA voce GA.06,
+# riapertura, 21 ottobre 2026. Lo legge tool/genera_le_voci_neutre_delle_rune.py.
+#
+# Una voce entra qui quando presuppone un fatto, una persona o un futuro che la
+# domanda non porta (il lettore cieco indipendente: "presuppongono controparte",
+# "presuppone una richiesta rifiutata"), anche se la regola delle parole non la
+# ferma. Una riga per voce: campo | Runa/verso | numero (della voce scelta, del
+# campo PIETRA o RISPOSTA) | motivo.
+#
+pietra|Fehu/dritta|25|presuppone un compenso maturato
+pietra|Fehu/ombra|5|discordia dei beni fra parenti
+pietra|Fehu/ombra|15|presuppone qualcosa che si e' allontanato
+pietra|Fehu/ombra|21|presuppone un talento abbandonato
+pietra|Fehu/ombra|23|presuppone qualcosa che e' andato
+pietra|Fehu/ombra|24|presuppone chi approfitta
+pietra|Fehu/ombra|25|contesa su un'eredita'
+pietra|Fehu/ombra|29|presuppone qualcosa che si sta sciogliendo
+pietra|Fehu/ombra|31|presuppone un dono controllato
+pietra|Fehu/ombra|38|presuppone chi chiede ore senza misura
+pietra|Uruz/dritta|33|presuppone un cambiamento in corso
+pietra|Uruz/dritta|43|annuncia un cambiamento in arrivo
+pietra|Uruz/dritta|66|presuppone una caduta
+pietra|Uruz/ombra|21|presuppone uno sforzo senza risultato
+pietra|Uruz/ombra|30|presuppone una posizione difesa con durezza
+pietra|Uruz/ombra|32|presuppone un periodo caotico
+pietra|Thurisaz/dritta|21|presuppone chi sfiora il confine
+pietra|Thurisaz/dritta|28|presuppone uno scossone e chi si allontana
+pietra|Thurisaz/dritta|33|presuppone una confidenza fatta alla persona sbagliata
+pietra|Thurisaz/dritta|47|presuppone un rifiuto incontrato
+pietra|Thurisaz/dritta|55|presuppone un segnale atteso
+pietra|Thurisaz/dritta|56|presuppone questioni caricate addosso
+pietra|Thurisaz/dritta|62|presuppone un evento brusco
+pietra|Thurisaz/ombra|6|presuppone una porta chiusa per orgoglio
+pietra|Thurisaz/ombra|11|presuppone un messaggio scritto
+pietra|Thurisaz/ombra|15|presuppone un limite che ha ferito qualcuno
+pietra|Thurisaz/ombra|24|presuppone chi critica
+pietra|Thurisaz/ombra|28|presuppone una chiusura in un momento di irritazione
+pietra|Ansuz/dritta|10|presuppone la lettera mai scritta
+pietra|Ansuz/dritta|25|presuppone chi ha un parere da dare
+pietra|Ansuz/dritta|34|annuncia un'informazione in arrivo
+pietra|Ansuz/dritta|40|presuppone documenti e messaggi
+pietra|Ansuz/dritta|50|presuppone un incontro di gruppo
+pietra|Ansuz/dritta|63|la coppia non si segue
+pietra|Ansuz/ombra|1|presuppone un messaggio arrivato storto
+pietra|Ansuz/ombra|17|presuppone un gruppo
+pietra|Ansuz/ombra|21|presuppone una replica nata dalla rabbia
+pietra|Ansuz/ombra|23|presuppone un pettegolezzo
+pietra|Ansuz/ombra|25|presuppone un'idea da dire
+pietra|Ansuz/ombra|26|presuppone una lezione applicata in parte
+pietra|Ansuz/ombra|39|presuppone una frase sfuggita
+pietra|Ansuz/ombra|41|presuppone una risposta che tarda
+pietra|Ehwaz/dritta|8|presuppone un lavoro comune
+pietra|Ehwaz/dritta|17|presuppone una discussione in corso
+pietra|Ehwaz/dritta|42|presuppone una proposta ricevuta
+pietra|Ehwaz/ombra|15|presuppone un dialogo inceppato
+pietra|Ehwaz/ombra|17|presuppone un sospetto
+pietra|Ehwaz/ombra|19|presuppone un compagno distratto
+pietra|Ehwaz/ombra|23|presuppone un compagno da cambiare
+pietra|Ehwaz/ombra|33|presuppone una fiducia rotta
+pietra|Ehwaz/ombra|36|presuppone un passo falso dell'altro
+pietra|Othala/dritta|14|la coppia non si segue
+pietra|Othala/dritta|18|la coppia non si segue
+pietra|Othala/dritta|20|la coppia non si segue
+pietra|Othala/dritta|22|presuppone un trasloco
+pietra|Othala/dritta|29|la coppia non si segue
+pietra|Othala/dritta|30|la coppia non si segue
+pietra|Othala/dritta|34|presuppone una decisione che tocca chi vive con te
+pietra|Othala/dritta|55|la coppia non si segue
+pietra|Othala/ombra|2|la coppia non si segue
+pietra|Othala/ombra|3|la coppia non si segue
+pietra|Othala/ombra|32|presuppone un ruolo di mediatore in famiglia
+pietra|Othala/ombra|36|presuppone il giudizio della famiglia
+pietra|Othala/ombra|41|presuppone una contesa su una casa
+pietra|Kenaz/ombra|19|la coppia non si segue
+pietra|Kenaz/ombra|23|la coppia non si segue
+pietra|Wunjo/dritta|5|frase criptica: "si alza una bandiera sul legno"
+pietra|Uruz/dritta|38|presuppone una paura che la domanda non porta

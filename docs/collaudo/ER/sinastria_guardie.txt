@@ -1,0 +1,132 @@
+ORDINE ER, VOCI 05, 16, 17, 18 E 19: LE GUARDIE DELLA SINASTRIA VISTE ROSSE
+27 settembre 2026. Regola B: la guardia della zona vista rossa prima di toccarla. Regola A: la guardia nuova vista rossa con un innesto verificato col grep, poi il file ripristinato e controllato con lo sha1.
+
+===================== regola_b_vip =====================
+== Regola B, catalogo VIP: un nome con l'apostrofo al posto dell'accento
+   file lib/core/synastry/vip_catalog.dart, sha1 prima d6a8b4ff23e7, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   ripristinato: sha1 d6a8b4ff23e7, uguale
+== Regola B, catalogo VIP: la ricerca per nome non trova piu' nessuno
+   file lib/core/synastry/vip_catalog.dart, sha1 prima d6a8b4ff23e7, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +10 -3: Some tests failed.
+   ripristinato: sha1 d6a8b4ff23e7, uguale
+
+===================== regola_b_vip_2 =====================
+== Regola B, catalogo VIP, rifatta: un nome con l'apostrofo al posto dell'accento (scritto giusto, compila)
+   file lib/core/synastry/vip_catalog.dart, sha1 prima d6a8b4ff23e7, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:02 +3: All tests passed!
+   ripristinato: sha1 d6a8b4ff23e7, uguale
+
+===================== regola_a_vip_2 =====================
+== Regola A, ER.16: Margot Robbie senza genere
+   file lib/core/synastry/vip_catalog.dart, sha1 prima bfd0fc4e92f8, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: <true>
+   Actual: <false>
+   ripristinato: sha1 bfd0fc4e92f8, uguale
+== Regola A, ER.16: il pronome del distacco torna fisso
+   file lib/core/synastry/gemello_astrale.dart, sha1 prima 60138b34032a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 60138b34032a, uguale
+
+===================== regola_b_incontro =====================
+== Regola B, ER.05: la barra dell'incontro sulla percentuale vera
+   file lib/core/synastry/synastry_report.dart, sha1 prima 42eaad08a1a3, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +6 -2: Some tests failed.
+   Expected: a value greater than or equal to <30>
+   Actual: <3>
+   Expected: <94>
+   Actual: <3>
+   ripristinato: sha1 42eaad08a1a3, uguale
+== Regola B, ER.05: la stessa barra, contro la guardia dell'ordine BX
+   file lib/core/synastry/synastry_report.dart, sha1 prima 42eaad08a1a3, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +6: All tests passed!
+   ripristinato: sha1 42eaad08a1a3, uguale
+
+===================== regola_a_incontro =====================
+== Regola A, ER.05: la barra torna sulla scala di chi guarda
+   file lib/core/synastry/synastry_report.dart, sha1 prima 6c27db16fcd1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: a value less than or equal to <2.102015973261069>
+   Actual: <57.99999999999999>
+   ripristinato: sha1 6c27db16fcd1, uguale
+== Regola A, ER.05: a destra torna la parola
+   file lib/features/synastry/sinastria_share_card.dart, sha1 prima f03e1c8a9687, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: exactly one matching candidate
+   Actual: _TextWidgetFinder:<Found 0 widgets with text "3,4%": []>
+   ripristinato: sha1 f03e1c8a9687, uguale
+== Regola A, ER.05: l'etichetta stretta a 70 punti, come nella cattura
+   file lib/features/synastry/sinastria_share_card.dart, sha1 prima f03e1c8a9687, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: ['Possibili', 'incontr']
+   ripristinato: sha1 f03e1c8a9687, uguale
+
+===================== regola_b_distanza =====================
+== Regola B, ER.17: la nota del luogo ignoto tolta, contro il corpus della sinastria
+   file lib/core/synastry/responso_della_sinastria.dart, sha1 prima c813bd4702d6, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +7: All tests passed!
+   ripristinato: sha1 c813bd4702d6, uguale
+== Regola B, ER.17: la stessa, contro i nove rilievi della sinastria
+   file lib/core/synastry/responso_della_sinastria.dart, sha1 prima c813bd4702d6, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +14: All tests passed!
+   ripristinato: sha1 c813bd4702d6, uguale
+== Regola B, ER.17: la stessa, contro l'incontro che si spiega
+   file lib/core/synastry/responso_della_sinastria.dart, sha1 prima c813bd4702d6, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +10: All tests passed!
+   ripristinato: sha1 c813bd4702d6, uguale
+
+===================== regola_b_cielo =====================
+== Regola B, ER.18: la riga del cielo promette un incontro
+   file lib/core/synastry/cielo_del_giorno_sulla_coppia.dart, sha1 prima e51991a810ea, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +10 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 e51991a810ea, uguale
+
+===================== regola_a_er17_er18 =====================
+== Regola A, ER.17: la nota del luogo ignoto torna
+   file lib/core/synastry/responso_della_sinastria.dart, sha1 prima ea1ee6055a8e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 ea1ee6055a8e, uguale
+== Regola A, ER.18: la frase torna col titolo dell'aspetto
+   file lib/core/synastry/cielo_del_giorno_sulla_coppia.dart, sha1 prima 3dad62fdf5a8, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 3dad62fdf5a8, uguale
+
+===================== I VERDI, LETTI =====================
+- regola_b_vip_2: la guardia degli accenti della sinastria non vede un
+  apostrofo in mezzo alla parola (cerca solo le vocali con l'apostrofo in
+  fondo). Era cieca a quel difetto prima dell'ordine ER: PROVENIENZA IGNOTA.
+  La copre adesso la guardia nuova i_vip_hanno_nome_e_genere (Regola A qui
+  sopra: ROSSA).
+- regola_b_incontro, seconda: la guardia dell'ordine BX misura l'etichetta,
+  non la lunghezza della barra: verde per costruzione, la zona la copre la
+  guardia dell'ordine CA, che e' diventata ROSSA.
+- regola_b_distanza: nessuna delle tre guardie vicine guardava quante volte
+  si dice che la distanza non entra nel conto. La copre adesso
+  la_sinastria_dice_le_cose_una_volta_e_in_italiano (Regola A qui sopra:
+  ROSSA).

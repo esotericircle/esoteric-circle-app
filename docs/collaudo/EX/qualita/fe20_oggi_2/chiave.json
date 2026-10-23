@@ -1,0 +1,242 @@
+{
+ "S01": {
+  "giro": "fe_oggi_2",
+  "caso": "L3"
+ },
+ "S02": {
+  "giro": "fe_oggi_2",
+  "caso": "R6"
+ },
+ "S03": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "L6"
+ },
+ "S04": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "R4"
+ },
+ "S05": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "C5"
+ },
+ "S06": {
+  "giro": "fe_oggi_2",
+  "caso": "R8"
+ },
+ "S07": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "C2"
+ },
+ "S08": {
+  "giro": "fe_oggi_2",
+  "caso": "C3"
+ },
+ "S09": {
+  "giro": "fe_oggi_2",
+  "caso": "M4"
+ },
+ "S10": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "M5"
+ },
+ "S11": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "R3"
+ },
+ "S12": {
+  "giro": "fe_oggi_2",
+  "caso": "L5"
+ },
+ "S13": {
+  "giro": "fe_oggi_2",
+  "caso": "C5"
+ },
+ "S14": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "L2"
+ },
+ "S15": {
+  "giro": "fe_oggi_2",
+  "caso": "M7"
+ },
+ "S16": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "M3"
+ },
+ "S17": {
+  "giro": "fe_oggi_2",
+  "caso": "M8"
+ },
+ "S18": {
+  "giro": "fe_oggi_2",
+  "caso": "L4"
+ },
+ "S19": {
+  "giro": "fe_oggi_2",
+  "caso": "R2"
+ },
+ "S20": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "L4"
+ },
+ "S21": {
+  "giro": "fe_oggi_2",
+  "caso": "M6"
+ },
+ "S22": {
+  "giro": "fe_oggi_2",
+  "caso": "M1"
+ },
+ "S23": {
+  "giro": "fe_oggi_2",
+  "caso": "C2"
+ },
+ "S24": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "R2"
+ },
+ "S25": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "C3"
+ },
+ "S26": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "M8"
+ },
+ "S27": {
+  "giro": "fe_oggi_2",
+  "caso": "L2"
+ },
+ "S28": {
+  "giro": "fe_oggi_2",
+  "caso": "C4"
+ },
+ "S29": {
+  "giro": "fe_oggi_2",
+  "caso": "C1"
+ },
+ "S30": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "C1"
+ },
+ "S31": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "M1"
+ },
+ "S32": {
+  "giro": "fe_oggi_2",
+  "caso": "M2"
+ },
+ "S33": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "C7"
+ },
+ "S34": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "M7"
+ },
+ "S35": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "L3"
+ },
+ "S36": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "M4"
+ },
+ "S37": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "R7"
+ },
+ "S38": {
+  "giro": "fe_oggi_2",
+  "caso": "C8"
+ },
+ "S39": {
+  "giro": "fe_oggi_2",
+  "caso": "R3"
+ },
+ "S40": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "M2"
+ },
+ "S41": {
+  "giro": "fe_oggi_2",
+  "caso": "M3"
+ },
+ "S42": {
+  "giro": "fe_oggi_2",
+  "caso": "L6"
+ },
+ "S43": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "C8"
+ },
+ "S44": {
+  "giro": "fe_oggi_2",
+  "caso": "C6"
+ },
+ "S45": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "R5"
+ },
+ "S46": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "R1"
+ },
+ "S47": {
+  "giro": "fe_oggi_2",
+  "caso": "R5"
+ },
+ "S48": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "C4"
+ },
+ "S49": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "L5"
+ },
+ "S50": {
+  "giro": "fe_oggi_2",
+  "caso": "R4"
+ },
+ "S51": {
+  "giro": "fe_oggi_2",
+  "caso": "M5"
+ },
+ "S52": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "C6"
+ },
+ "S53": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "R6"
+ },
+ "S54": {
+  "giro": "fe_oggi_2",
+  "caso": "R1"
+ },
+ "S55": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "L1"
+ },
+ "S56": {
+  "giro": "fe_oggi_2",
+  "caso": "L1"
+ },
+ "S57": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "M6"
+ },
+ "S58": {
+  "giro": "fe_oggi_2",
+  "caso": "R7"
+ },
+ "S59": {
+  "giro": "fe_prima_del_taglio_2",
+  "caso": "R8"
+ },
+ "S60": {
+  "giro": "fe_oggi_2",
+  "caso": "C7"
+ }
+}

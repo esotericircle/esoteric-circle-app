@@ -1,0 +1,3 @@
+REGOLA B, 30 settembre 2026, ordine ES voce 19 quarto giro: la guardia la_posizione_e_una_lettura vista rossa prima di toccare il blocco del turno e la correzione.
+INNESTO il blocco del turno non dice con che parole cominciare: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 aa97b5030a70 -> aa97b5030a70 IDENTICO
+INNESTO il controller non chiede di nuovo la prima frase senza posizione: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 6f5df5818367 -> 6f5df5818367 IDENTICO

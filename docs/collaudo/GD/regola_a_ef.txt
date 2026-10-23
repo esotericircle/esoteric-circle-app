@@ -1,0 +1,126 @@
+ORDINE GD, PARTE EF (GD.23, GD.24, GD.25): GLI INNESTI DELLA REGOLA A E DELLA REGOLA B
+Ramo gd-ef, partito da 02522987. 23 ottobre 2026.
+Ogni innesto: scritto con lo strumento (sostituzione con assert, una sola occorrenza),
+verificato col grep sulla riga innestata, prova fatta girare, file rimesso dalla copia
+buona e verificato col grep (zero righe INNESTO).
+
+======================================================================
+REGOLA B, PRIMA DI TOCCARE LE ZONE
+======================================================================
+
+B-RESPIRO
+ file: lib/features/respiro_della_luna/il_respiro_della_luna_screen.dart
+ innesto: in _tocca, "_tenutoGiu = giu;" -> "_tenutoGiu = giu && false; // INNESTO_B"
+ grep: riga 409 "_tenutoGiu = giu && false; // INNESTO_B"
+ prova: test/il_respiro_si_compie_test.dart
+ esito: ROSSA, "col dito: tieni premuto e lascia" Expected 'Inspira' Actual
+        'Tieni premuto sulla Luna, poi lascia' (il dito non arriva al rito)
+ tolto: git checkout del file, grep INNESTO_B = 0
+
+B-CIELO
+ file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+ innesto: in _accorda, "_ticker.start();" -> "// INNESTO_B _ticker.start();"
+ grep: riga 389 "// INNESTO_B _ticker.start();"
+ prova: test/real_time_cosmo_si_ferma_fuori_scena_test.dart
+ esito: ROSSA, "in scena disegna" Expected true Actual false
+ tolto: git checkout del file, grep INNESTO_B = 0
+
+Prima degli innesti la zona era verde: 10 file del Respiro, 71 prove passate.
+
+======================================================================
+REGOLA A, LE PROVE NUOVE
+======================================================================
+
+A1 (GD.23, il microfono torna)
+ file: il_respiro_della_luna_screen.dart
+ innesto: in initState "unawaited(BreathDetector(soloAria: true).start()); // INNESTO_A1"
+          e l'import "import '../../services/breath_detector.dart'; // INNESTO_A1"
+ grep: righe 33 e 199 con INNESTO_A1
+ prova: test/gd23_il_respiro_col_solo_dito_test.dart
+ esito: ROSSA due volte
+   - "il sorgente del Respiro non nomina piu' il microfono": Expected false Actual true
+   - "respirando col dito il microfono non si apre": Expected empty
+     Actual ['create', 'hasPermission', 'startStream'] (le chiamate al canale
+     com.llfbandit.record/messages)
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+A2 (GD.23, il dito sollevato non ferma)
+ file: il_respiro_della_luna_screen.dart
+ innesto: in _tocca "_luce.stop();" -> "// INNESTO_A2 _luce.stop();"
+ grep: riga 356 con INNESTO_A2
+ prova: test/gd23_il_respiro_col_solo_dito_test.dart, "i tre stati"
+ esito: ROSSA, Expected 0.7908087253570557 Actual 1.0 (la Luna continua ad
+        accendersi col dito sollevato)
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+A5 (GD.23, la scena non dice di tenere premuto)
+ file: il_respiro_della_luna_screen.dart
+ innesto: l'istruzione prima del primo tocco "'per inspirare e per espirare';"
+          -> "null; // INNESTO_A5"
+ grep: riga 1559 con INNESTO_A5
+ prova: test/gd23_il_respiro_col_solo_dito_test.dart, "i tre stati"
+ esito: ROSSA (la scritta sulla scena non c'e')
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+A3 (GD.24, il video fermo in cima)
+ file: il_respiro_della_luna_screen.dart
+ innesto: ")..addListener(() => _medora?.segui(_respiro));"
+          -> ")..addListener(() => _medora?.segui(1.0)); // INNESTO_A3"
+ grep: riga 140 con INNESTO_A3
+ prova: test/gd24_medora_segue_il_respiro_test.dart
+ esito: ROSSA, misura "meta' inspiro 4458 ms, cima 4458 ms, meta' espiro 4458 ms",
+        Expected greater than 0:00:04.458333 Actual 0:00:04.458333
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+A4 (GD.24, il video va solo avanti, come un video che suona)
+ file: il_respiro_della_luna_screen.dart
+ innesto: "_medora?.segui(_versoLInspiro ? _respiro : 1.0)); // INNESTO_A4"
+ grep: riga 141 con INNESTO_A4
+ prova: test/gd24_medora_segue_il_respiro_test.dart
+ esito: ROSSA, misura "meta' inspiro 2166 ms, cima 4458 ms, meta' espiro 4458 ms",
+        Expected less than 0:00:04.458333 Actual 0:00:04.458333
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+B1 (GD.25, la scritta non montata)
+ file: lib/features/real_time_cosmo/cielo_reale_screen.dart
+ innesto: "if (_alzaIlTelefono) const AlzaIlTelefonoAlCielo()," commentata // INNESTO_B1
+ grep: riga 2552 con INNESTO_B1
+ prova: test/gd25_alza_il_telefono_al_cielo_test.dart
+ esito: ROSSA nel cielo in tempo reale e nell'onboarding (a mezzo secondo la
+        scritta non c'e'). La prova delle sorgenti resta verde perche' il testo
+        dell'innesto contiene ancora il nome nel commento: il rosso lo danno le
+        due misure a video.
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+B2 (GD.25, niente dissolvenza)
+ file: lib/features/real_time_cosmo/alza_il_telefono_al_cielo.dart
+ innesto: "if (t <= piena) return 1;" -> "if (t < piena + dissolvenza) return 1; // INNESTO_B2"
+ grep: riga 40 con INNESTO_B2
+ prova: test/gd25_alza_il_telefono_al_cielo_test.dart
+ esito: ROSSA nelle due schermate, misura {0,5 s: 1.0, 2 s: 1.0, 3,5 s: 1.0, 4 s: 0.0}
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+B3 (GD.25, la scritta resta un secondo invece di tre)
+ file: alza_il_telefono_al_cielo.dart
+ innesto: "piena = Duration(seconds: 3);" -> "Duration(seconds: 1); // INNESTO_B3"
+ grep: riga 31 con INNESTO_B3
+ prova: test/gd25_alza_il_telefono_al_cielo_test.dart
+ esito: ROSSA nelle due schermate, misura {0,5 s: 1.0, 2 s: 0.0, 3,5 s: null, 4 s: 0.0}
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+B4 (GD.25, l'onboarding escluso)
+ file: cielo_reale_screen.dart
+ innesto: "(widget.modo == ModoDelCielo.adesso || widget.nascita != null);"
+          -> "(widget.modo == ModoDelCielo.adesso); // INNESTO_B4"
+ grep: riga 420 con INNESTO_B4
+ prova: test/gd25_alza_il_telefono_al_cielo_test.dart
+ esito: ROSSA la sola prova dell'onboarding; il cielo in tempo reale resta verde
+ tolto: copia buona rimessa, grep INNESTO = 0
+
+GUARDIA DI CASA COLTA DAL CODICE NUOVO (non un innesto, un rosso vero)
+ test/nessuna_sorgente_resta_accesa_in_sottofondo_test.dart e' caduta su
+ lib/features/respiro_della_luna/medora_che_respira.dart (un VideoPlayerController
+ senza ciclo di vita). Curata con un AppLifecycleListener che mette in pausa il
+ lettore quando l'app va in fondo; rivista verde.
+ test/stato_asset_test.dart e' caduta sul conteggio di brand_assets/respiro_della_luna
+ (2 dichiarati, 3 reali): docs/stato_asset.json portato a 3 con la nota del file nuovo.

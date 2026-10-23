@@ -1,0 +1,49 @@
+Ordine FX aggiunta, voci FXA.07, FXA.08 (Respiro e Collana) e FXA.09:
+le guardie nuove viste rosse, 16 ottobre 2026.
+
+Guardia test/la_luna_di_quest_ora_e_una_sola_test.dart
+
+1. "la Luna vera sta nel disco dipinto" (360x797 e 430x932), FXA.09
+   Innesto: la Luna vera spostata di 60 punti sotto il disco
+   (Rect.fromCenter(center: disco.center.translate(0, 60), ...)),
+   verificato col grep: 1 occorrenza.
+   Esito: ROSSO, +0 -2, "Expected: a value less than <1.0> Actual: <60.0>".
+   Ripristino: sha1 6c0b89a761c9 prima e dopo, identico.
+
+2. "a scena ferma la Luna e' una sola" (360x797 e 430x932), FXA.09
+   Innesto: il primo fotogramma, con la sua Luna dipinta, lasciato anche a
+   scena ferma (if (ferma || !ferma)), verificato col grep: 1 occorrenza.
+   Esito: ROSSO, +0 -2, "Expected: empty Actual:
+   ['assets/img/respiro_della_luna/respiro_primo_fotogramma_v1.webp']".
+   Ripristino: sha1 6c0b89a761c9 prima e dopo, identico.
+
+3. "a video in corso si vede solo il video, poi il resto", FXA.08
+   Innesto: la riga della fase disegnata e visibile anche a video in corso
+   (final luna = 1.0; e if (true) al posto di if (ferma)), verificato col
+   grep: 1 occorrenza di "final luna = 1.0;".
+   Esito: ROSSO, +0 -1, "Expected: empty Actual: ['Primo quarto']".
+   Ripristino: sha1 6c0b89a761c9 prima e dopo, identico.
+
+4. "la consegna della collana: a video in corso niente pannello", FXA.08
+   Innesto: il pannello della consegna montato anche a video in corso
+   (if (ferma || !ferma)), verificato col grep: 1 occorrenza.
+   Esito: ROSSO, +0 -1, "Expected: no matching candidates Actual: Found 1
+   widget with key [<'consegna_continua'>]", "il pulsante della consegna
+   copre il video mentre gira".
+   Ripristino: sha1 9c4cf625b5f8 prima e dopo, identico.
+   E' anche il DIFETTO VERO prima della correzione: la scena della consegna
+   non ascoltava la regia e il pannello stava sopra il video dal primo
+   fotogramma (padre FX.05, vestito dipinto FXA.02).
+
+5. "nessun testo coi puntini", 320, 360, 390 e 430 punti, testo a 1,0 e 1,3,
+   FXA.09 punto 5. Cardinale minimo: piu' di 20 paragrafi guardati.
+   ROSSO SUL DIFETTO VERO, al primo giro e non su un innesto: col testo a
+   1,3, a tutte e quattro le larghezze, le date sotto il righello ("16 ott
+   2026", "17 ott 2026", "18 ott 2026") superavano la loro riga nei 120
+   punti dell'etichetta (+9 -4). Corretto con un FittedBox: 8 su 8.
+
+Un difetto vero preso dalla prova di calcolo, prima di qualunque guardia:
+il sorgere del 24 ottobre 2026 a Piacenza usciva "00:00", perche'
+prossimoSorgere torna l'istante stesso quando la Luna e' gia' sopra
+l'orizzonte; la cattura di Dora dice 17:14. Corretto cercando il sorgere
+dopo il tramonto che viene (e viceversa): 17:15, tramonto 05:40 come Dora.

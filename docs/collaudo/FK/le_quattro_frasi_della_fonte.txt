@@ -1,0 +1,40 @@
+LE QUATTRO FRASI DELLA FONTE CORRETTE A MANO, ordine FK voci 2 e 27, 11 ottobre 2026
+
+Il fondatore, nello scambio riportato dall'ordine FK: "In ordine di importanza:
+1 Code, 2 agenti e subagenti, 3 tu." Le quattro frasi fermavano la Parte 1
+(le prime due fermano il tool, le altre due la guardia del genere sui testi
+nuovi). Ognuna e' corretta con la parola piu' piccola che tiene il senso, a
+mano e senza modello. I testi restano dell'Architetto: queste righe dicono
+che cosa e' cambiato e perche', perche' l'Architetto possa rifarle a modo suo.
+
+1. docs/corpus/tarocchi_posizione/carta_sola.md riga 361, Il Giudizio capovolta, variante 2.
+   Padre: commit 3aa3ba33 (la posizione carta sola).
+   Difetto: la parola del rovescio dentro il testo, che il tool ferma ("il verso nominato").
+   Prima: "L'ordine delle operazioni ti si è rovesciato: ..."
+   Dopo:  "L'ordine delle operazioni ti si è invertito: ..."
+
+2. docs/corpus/tarocchi_posizione/esito.md riga 623, Cinque di Coppe dritta, variante 3.
+   Padre: commit 6b313596 (le posizioni consultante ed esito).
+   Difetto: la parola del rovescio, su una carta dritta.
+   Prima: "... perché non tutto quello che avevi si è rovesciato."
+   Dopo:  "... perché non tutto quello che avevi si è versato."
+   (Le coppe del Cinque sono versate: la parola nuova e' l'immagine della carta.)
+
+3. docs/corpus/tarocchi_posizione/lato.md, Nove di Denari capovolta, variante 1.
+   Padre: commit f5d6fced (il riallineamento dei 198 testi del lato).
+   Difetto: un participio maschile riferito a chi legge (il_genere_non_si_indovina).
+   Prima: "L'agio che ti sei conquistato col tuo lavoro chiede ..."
+   Dopo:  "L'agio conquistato col tuo lavoro chiede ..."
+
+4. docs/corpus/tarocchi_posizione/esito.md, Il Giudizio capovolta.
+   Padre: commit 6b313596.
+   Difetto: un participio maschile riferito a chi legge.
+   Prima: "... dalla condanna di quello che sei stato, ..."
+   Dopo:  "... dalla condanna di quello che eri, ..."
+
+Dopo le quattro: python tool/genera_carte_nella_posizione.py, uscita 0, scheletri
+2.340 su 7.020; i controlli di casa sulle stringhe di lib (genere, parola voce,
+virgola e trattino, memoria, parola del rovescio, apostrofo) verdi
+(docs/collaudo/FK/i_controlli_di_casa_prima_della_suite.txt e il giro dopo).
+Falsi allarmi dei controlli di casa sui 1.404 testi nuovi: zero. Allarmi veri: due,
+la terza e la quarta frase qui sopra.

@@ -1,0 +1,1885 @@
+{
+ "istruzione": "Per ogni scheda: i simboli indicati sono quelli da cui e nato il responso? Rispondi si o no con una riga di ragione.",
+ "schede": [
+  {
+   "scheda": 1,
+   "domanda": "Come gestisco il conflitto con il mio capo?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Eihwaz",
+     "verso": "dritta",
+     "parolaChiave": "Resilienza",
+     "significato": "Il tasso, l'asse del mondo: radici salde reggono il vento.",
+     "rigaDelVerso": "Reggi: ciò che sembra piegarti non ti spezza."
+    }
+   ],
+   "responso": {
+    "titolo": "Reggi: ciò che sembra piegarti non ti spezza.",
+    "risposta": "Lascia cadere qualche foglia: sotto il lavoro lavorano radici profonde e perdere qualcosa in superficie non mette in pericolo l'albero intero. La gettata intera parla di maturazione: il frutto arriva presto, coglilo quando è davvero pronto e non un solo giorno prima.",
+    "cosaFare": "Cammina fino a un albero vecchio del tuo quartiere e appoggia la schiena al tronco per qualche minuto. Senti quanto regge senza sforzo apparente. Porta quella postura nella difficoltà di questi giorni: radici profonde, spalle aperte, nessun bisogno di dimostrare la tua forza.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Eihwaz, nel verso in cui è uscita, viene dal poema runico anglosassone."
+   }
+  },
+  {
+   "scheda": 2,
+   "domanda": "Andrà tutto bene?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Wunjo",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto.",
+     "rigaDelVerso": "Cura il legame: la pienezza torna."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce.",
+     "rigaDelVerso": "Energia piena: tieni la rotta che hai scelto."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Raidho",
+     "verso": "dritta",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro.",
+     "rigaDelVerso": "Muoviti con la tua cadenza, dentro e fuori."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura.",
+     "rigaDelVerso": "Dirigi la forza con misura, senza temerla."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    }
+   ],
+   "responso": {
+    "titolo": "Un nuovo giorno: cambia stato con lui.",
+    "risposta": "Apri gli occhi al giorno pieno: alla luce di adesso ciò che hai chiesto mostra tutte le sue possibilità, scegline una e comincia prima di sera. Intorno alla gettata si raccolgono presenze amiche: oggi chiedere aiuto è un segno di forza, quindi chiedilo a voce alta senza vergogna.",
+    "cosaFare": "Chiama la persona con cui hai chiuso male l'ultima conversazione e riparti da un saluto semplice, senza riaprire subito la questione. Chiedi come sta. Un nuovo giorno può valere anche per un legame: dagli la possibilità di ricominciare da un tono diverso.",
+    "approfondimento": "Le tre pietre in luce dicono che il momento è maturo per ciò che hai chiesto. Non è un inizio improvviso: è il punto d'arrivo di un lavoro lungo. Riconosci la fatica fatta per arrivare qui e permettiti di raccoglierne i frutti senza sensi di colpa.",
+    "rito": "Al mattino o in un momento di luce, apri le braccia lentamente come un'alba che si allarga. Dagli voce piano, «Dagaz, dagaz, dagaz», per tre volte, allargando il respiro a ogni ripetizione. Rivolgi il pensiero alla svolta luminosa, al nuovo giorno che risveglia.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Nauthiz, Othala e Dagaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 3,
+   "domanda": "Devo accettare l'offerta della nuova azienda?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Wunjo",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto.",
+     "rigaDelVerso": "Cura il legame: la pienezza torna."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito.",
+     "rigaDelVerso": "Ciò che crolla libera spazio per il nuovo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene.",
+     "rigaDelVerso": "Si va lontano solo in armonia con l’altro."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera.",
+     "rigaDelVerso": "Una luce si accende dove prima era buio."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce.",
+     "rigaDelVerso": "Energia piena: tieni la rotta che hai scelto."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio.",
+     "rigaDelVerso": "Tempo di attesa e di chiarezza: non forzare."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "Per ciò che hai chiesto la gettata parla di un'opera interiore quasi compiuta: tieni il segreto ancora un poco e lascia che si consolidi. La via è percorribile e il ritmo buono, tranne un tratto storto: le pietre rovesciate chiedono di correggere la rotta adesso.",
+    "cosaFare": "Tieni per te ancora una settimana il progetto che ti sta a cuore, senza annunciarlo a nessuno. Lavoraci in silenzio e prendi nota dei progressi. Le parole dette troppo presto disperdono l'energia che serve a crescere: lascia che sia il risultato a parlare quando è maturo.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Wunjo, Sowilo, Raidho, Thurisaz e Ingwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 4,
+   "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio.",
+     "rigaDelVerso": "Tempo di attesa e di chiarezza: non forzare."
+    }
+   ],
+   "responso": {
+    "titolo": "Cura il legame: la pienezza torna.",
+    "risposta": "Dopo lo sforzo manca ancora la ricompensa per l’amore: non è un rifiuto, è un raccolto che chiede un'altra stagione. Le pietre nette e quelle sfumate convivono: le prime dicono cosa fare subito, le seconde cosa rimandare senza sensi di colpa.",
+    "cosaFare": "Ripensa a un'abitudine che ti univa a una persona cara: la passeggiata della domenica, la cena del venerdì, una telefonata fissa. Proponi oggi di riprenderla, senza rimproveri per il tempo passato. I legami si curano con i riti che li tenevano insieme.",
+    "approfondimento": "Le rondini tornano anche se qualche tetto non è ancora sistemato per loro: scelgono la gronda più riparata. Il centro del getto è quella gronda. Non aspettare che tutta la casa sia in ordine per tornare a ciò che ti sta a cuore. Fai il nido dove già si può.",
+    "rito": "Pensa a una persona con cui il legame si è incrinato e tieni a mente il suo nome. Mormora «Wunjo, wunjo, wunjo» tre volte, lasciando tra un giro e l'altro un respiro intero. Con il canto guarda il legame che chiede cura, perché l'armonia possa ricomporsi.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Wunjo, Hagalaz, Ehwaz, Kenaz, Sowilo, Ingwaz e Isa, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 5,
+   "domanda": "Passerò l'esame di stato a dicembre?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio.",
+     "rigaDelVerso": "Tempo di attesa e di chiarezza: non forzare."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "Qui la pazienza è potere: aspetta con metodo."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Othala",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo.",
+     "rigaDelVerso": "Tieni ciò che sostiene, lascia ciò che trattiene."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Berkano",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia.",
+     "rigaDelVerso": "Nutri la radice: il germoglio riparte."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Kenaz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera.",
+     "rigaDelVerso": "La fiamma c’è: dalle tempo di prendere."
+    }
+   ],
+   "responso": {
+    "titolo": "Tempo di attesa e di chiarezza: non forzare.",
+    "risposta": "Per lo studio si apre un tempo di sosta: fermare il passo adesso lascia posare l'acqua torbida e mostra il fondo com'è davvero. L'insieme premia chi va piano: oggi la lentezza raccoglie ciò che la fretta lascerebbe cadere per strada, quindi non accelerare il passo.",
+    "cosaFare": "Tieni le mani sotto l'acqua fresca per un minuto pieno e lascia che il pensiero rallenti insieme al respiro. Ripetilo ogni volta che oggi senti l'urgenza di sbloccare qualcosa a forza. Ciò che è gelato si scioglie con il tempo, non con le spinte.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Isa, nel verso in cui è uscita, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 6,
+   "domanda": "Conviene investire i miei risparmi in borsa adesso?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura.",
+     "rigaDelVerso": "Dirigi la forza con misura, senza temerla."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Fai muovere ciò che hai: fermo si consuma."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Qualcosa si muove sotto, non ancora visibile."
+    }
+   ],
+   "responso": {
+    "titolo": "Qualcosa si muove sotto, non ancora visibile.",
+    "risposta": "Fai domande: per ciò che hai chiesto oggi conta la curiosità più della certezza, apri le porte socchiuse e accogli ciò che sorprende. La gettata è tutta dritta e punta all'azione: hai il vento favorevole, quindi comincia oggi stesso ciò che rimandi da settimane.",
+    "cosaFare": "Scrivi la tua domanda per ciò che hai chiesto su un biglietto, chiudilo in una scatola e riaprilo fra una settimana. Nel frattempo non cercare risposte e non chiedere pareri. Lascia lavorare ciò che si muove sotto la superficie: quando riapri il biglietto, nota che cosa è cambiato.",
+    "approfondimento": "Le tre pietre stanno tutte dritte: ciò che hai vissuto, ciò che vivi e ciò che si apre vanno nella stessa direzione. Non c'è un tempo che contraddice l'altro. Puoi fidarti dell'esperienza accumulata e usarla come base per il prossimo passo, senza ricominciare da capo.",
+    "rito": "Unisci le mani a coppa davanti a te, come per raccogliere qualcosa. Mentre guardi dentro le mani vuote, canta piano «Perthro, perthro, perthro» per tre volte. Pensa al mistero della coppa, alla sorte ancora nascosta, a ciò che si muove sotto e non è ancora visibile.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Thurisaz, Fehu e Perthro, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 7,
+   "domanda": "Cosa prova davvero Marco per me?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Mannaz",
+     "verso": "dritta",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità.",
+     "rigaDelVerso": "Conosci chi sei attraverso gli altri."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Uruz",
+     "verso": "dritta",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco.",
+     "rigaDelVerso": "Hai la forza per rialzarti: usala adesso."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva.",
+     "rigaDelVerso": "Ascolta il segno: una voce ti raggiunge."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura.",
+     "rigaDelVerso": "Ciò che hai seminato matura a suo tempo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura.",
+     "rigaDelVerso": "Dirigi la forza con misura, senza temerla."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene.",
+     "rigaDelVerso": "Si va lontano solo in armonia con l’altro."
+    }
+   ],
+   "responso": {
+    "titolo": "La fiamma c’è: dalle tempo di prendere.",
+    "risposta": "Non preoccuparti per lo slancio perso: verso ciò che hai chiesto la fiamma creativa fa una pausa, poi torna se le dai tempo. La gettata è in ombra e il movimento è congelato per ora: non spingere adesso, osserva dove il blocco comincia a cedere.",
+    "cosaFare": "Metti su carta l'idea che ancora non riesci a spiegare, anche a frammenti, senza ordinarla né correggerla. Chiudi il foglio in un cassetto e riaprilo fra tre giorni. Una fiamma giovane non va soffiata di continuo: ha bisogno di tempo per attecchire.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Isa, Nauthiz, Othala, Berkano e Kenaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 8,
+   "domanda": "Devo lasciare Roma, e se lo faccio la mia famiglia capirà?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Wunjo",
+     "verso": "dritta",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto.",
+     "rigaDelVerso": "Un momento di pienezza vera: prendilo."
+    }
+   ],
+   "responso": {
+    "titolo": "Conosci chi sei attraverso gli altri.",
+    "risposta": "Mostra il tuo limite: per la tua famiglia la tua umanità vale più della bravura e ammettere ciò che non sai ti avvicina agli altri. L'insieme protegge i legami che durano: la cura di ogni giorno vale più dei grandi gesti, dedica tempo a chi resta.",
+    "cosaFare": "Annota tre cose che sai fare bene e tre che stai ancora imparando, poi rileggile con calma. Accanto a ognuna scrivi il nome di chi te l'ha insegnata o può aiutarti adesso. Ogni capacità che hai porta il segno di qualcun altro.",
+    "approfondimento": "Non devi scegliere fra la cosa grande e quelle piccole: il telo le tiene insieme. Dedica la mattina all'essenziale e il pomeriggio ai dettagli, o viceversa, ma non sacrificare né l'una né gli altri. In questa gettata vanno di pari passo.",
+    "rito": "Guardati in uno specchio, oppure osserva le tue mani aperte davanti agli occhi. Sostenendo lo sguardo, ripeti a voce bassa «Mannaz, mannaz, mannaz» in tre giri lenti. Pensa all'essere umano in mezzo agli altri, al sé e alla comunità: ti conosci meglio attraverso chi ti sta accanto.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Mannaz, Uruz, Ansuz, Ingwaz, Jera, Thurisaz e Ehwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 9,
+   "domanda": "Ha senso riprovarci con la mia ex?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Perthro",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Non forzare la sorte: lasciala maturare."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Berkano",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia.",
+     "rigaDelVerso": "Nutri la radice: il germoglio riparte."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce.",
+     "rigaDelVerso": "Energia piena: tieni la rotta che hai scelto."
+    }
+   ],
+   "responso": {
+    "titolo": "Un momento di pienezza vera: prendilo.",
+    "risposta": "Si apre un tempo di armonia e ciò che hai chiesto trova il suo posto, come una pietra che si incastra nel muro a secco. La gettata ha il clima di una festa riuscita: affronta il resto con leggerezza, quello che conta ce l'hai già con te.",
+    "cosaFare": "Fissa una data per il prossimo passo che riguarda ciò che hai chiesto e stabilisci subito come lo celebri: con chi, dove, con quale piatto. Annotalo. Sapere che la gioia ha già un posto nel tempo dà energia al cammino che ti separa da lei.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Wunjo, nel verso in cui è uscita, viene dal poema runico anglosassone."
+   }
+  },
+  {
+   "scheda": 10,
+   "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Uruz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco.",
+     "rigaDelVerso": "Ritrova il ritmo prima di caricare di nuovo."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Fai muovere ciò che hai: fermo si consuma."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito.",
+     "rigaDelVerso": "Ciò che crolla libera spazio per il nuovo."
+    }
+   ],
+   "responso": {
+    "titolo": "Energia piena: tieni la rotta che hai scelto.",
+    "risposta": "Per la tua famiglia hai il vento in poppa e il timone in mano: è il momento di avanzare senza chiedere il permesso a nessuno. La prova in corso stringe più di quanto pensavi: tenere duro con pazienza non è arrendersi, è resistere nel modo più solido.",
+    "cosaFare": "Esci a camminare a passo svelto per venti minuti verso un punto preciso che scegli prima di partire. Raggiunta la meta, torna senza fermarti. È un piccolo allenamento alla direzione: sapere dove vai e andarci dritto è la forza che questo momento ti mette in mano.",
+    "approfondimento": "Un vecchio peso scende lungo il filo fino a oggi. Posarlo è possibile e alleggerisce anche ciò che si apre. Quel peso non ti appartiene più per forza: puoi scegliere di non portarlo oltre, a partire da un gesto concreto fatto oggi.",
+    "rito": "Volgi il viso verso la luce del giorno o verso la finestra più luminosa. Canta a voce bassa «Sowilo, sowilo, sowilo» per tre volte, con un respiro ampio che apre il petto. Rivolgi il pensiero al sole che guida, alla volontà che tiene la rotta che hai scelto.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Perthro, Berkano e Sowilo, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 11,
+   "domanda": "Devo dirle che sono innamorato di lei?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce.",
+     "rigaDelVerso": "Energia piena: tieni la rotta che hai scelto."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Uruz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco.",
+     "rigaDelVerso": "Ritrova il ritmo prima di caricare di nuovo."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Nauthiz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "La prova insegna: la pazienza è la chiave."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Tiwaz",
+     "verso": "dritta",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo.",
+     "rigaDelVerso": "Prendi ciò che ti spetta, non ciò che si strappa."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "Un cerchio si completa dentro l’amore: quanto hai seminato in silenzio raccoglie le sue forze per il momento di uscire. Un giudizio esterno pesa, ma la gettata lo bilancia con chi ti stima per quello che fai: dai retta a questi ultimi.",
+    "cosaFare": "Scrivi una lettera da riaprire fra un anno: racconta che cosa stai coltivando adesso e che cosa speri che diventi. Sigillala in una busta con la data sopra e mettila via. Affidare al tempo ciò che matura ti libera dall'ansia di vederlo subito.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Sowilo, Uruz, Nauthiz, Tiwaz e Ingwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 12,
+   "domanda": "Devo chiudere l'amicizia con Giulia?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere.",
+     "rigaDelVerso": "Tieni in equilibrio ciò che dai con ciò che ricevi."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva.",
+     "rigaDelVerso": "Ascolta il segno: una voce ti raggiunge."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Uruz",
+     "verso": "dritta",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco.",
+     "rigaDelVerso": "Hai la forza per rialzarti: usala adesso."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Berkano",
+     "verso": "dritta",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia.",
+     "rigaDelVerso": "Qualcosa di nuovo germoglia: dagli cura."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "dritta",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo.",
+     "rigaDelVerso": "Prendi ciò che ti spetta, non ciò che si strappa."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Qualcosa si muove sotto, non ancora visibile."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre.",
+     "rigaDelVerso": "Un nuovo giorno: cambia stato con lui."
+    }
+   ],
+   "responso": {
+    "titolo": "Tieni in equilibrio ciò che dai con ciò che ricevi.",
+    "risposta": "Quello che serve per l’amicizia è già nelle mani di qualcuno vicino: basta chiedere con la stessa franchezza con cui daresti. Desiderio e vigore vanno insieme in tutta la gettata: insisti sulla porta che credi chiusa, cede prima di quanto immagini.",
+    "cosaFare": "Regala oggi qualcosa a cui tieni a una persona che lo apprezza davvero, accompagnato da una dedica scritta a mano. Non aspettarti nulla in cambio adesso. Il dono vero non chiede ricompensa immediata: crea un legame che, col tempo, trova da sé il suo equilibrio.",
+    "approfondimento": "Ciò che pesa di più e ciò che sfiora appena vanno nella stessa direzione. Vuol dire che la decisione importante e i dettagli pratici non si ostacolano. Prendi la decisione grande e subito dopo sistema due o tre cose piccole che la rendono concreta.",
+    "rito": "Porta le mani davanti al petto e incrociale ai polsi, come il segno della runa. Canta piano «Gebo, gebo, gebo» per tre giri, inspirando a fondo e restituendo l'aria lentamente. Rivolgi il pensiero al dono e al patto, all'equilibrio fra ciò che dai e ciò che ricevi.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Gebo, Ansuz, Uruz, Berkano, Tiwaz, Perthro e Dagaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 13,
+   "domanda": "Vincerò la causa contro il mio ex socio?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Raidho",
+     "verso": "dritta",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro.",
+     "rigaDelVerso": "Muoviti con la tua cadenza, dentro e fuori."
+    }
+   ],
+   "responso": {
+    "titolo": "Muoviti con la tua cadenza, dentro e fuori.",
+    "risposta": "Avanza senza timore: verso ciò che hai chiesto nessun ostacolo vero sbarra la strada, le pietre del sentiero sono piccole e sai già come superarle. La gettata è tutta dritta e punta all'azione: hai il vento favorevole, quindi comincia oggi stesso ciò che rimandi da settimane.",
+    "cosaFare": "Fai a piedi oggi un tragitto che di solito percorri in auto o in autobus, scegliendo un passo che puoi tenere fino in fondo senza affanno. Lascia che il ritmo dei piedi metta in ordine i pensieri. Arrivi un po' più tardi, ma con la testa al posto giusto.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Raidho, nel verso in cui è uscita, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 14,
+   "domanda": "La mia relazione può durare nonostante la distanza?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Ansuz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva.",
+     "rigaDelVerso": "Ascolta meglio prima di dar peso a ciò che senti."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere.",
+     "rigaDelVerso": "Tieni in equilibrio ciò che dai con ciò che ricevi."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio.",
+     "rigaDelVerso": "Tempo di attesa e di chiarezza: non forzare."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Othala",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo.",
+     "rigaDelVerso": "Tieni ciò che sostiene, lascia ciò che trattiene."
+    }
+   ],
+   "responso": {
+    "titolo": "Ciò che crolla libera spazio per il nuovo.",
+    "risposta": "Sgombera: con l’amore separa ciò che si è spezzato da ciò che ha retto all'urto, butta il primo e conserva il secondo. Una parte della via è solida e una incerta: sulla prima avanza con decisione, sulla seconda procedi piano verificando ogni appoggio.",
+    "cosaFare": "Riordina la scrivania partendo da zero: togli tutto, pulisci il piano e rimetti sopra soltanto ciò che usi ogni giorno. Il resto va in una scatola o nel cestino. Lavorare su una superficie sgombra ti mostra che cosa è caduto davvero e che cosa invece regge ancora.",
+    "approfondimento": "Un tratto della strada è in piena luce, uno è coperto di nebbia. Cammina dove vedi e lascia che il resto si diradi. Per oggi fai solo ciò che è chiaro; le decisioni che dipendono dalla parte velata possono attendere qualche giorno.",
+    "rito": "Apri una finestra e ascolta per un momento i suoni di fuori, il vento o la pioggia. Intona a voce bassa «Hagalaz, hagalaz, hagalaz», tre volte di seguito, lasciando scendere il respiro fino al ventre. Il pensiero va alla grandine che scuote: ciò che crolla lascia spazio al nuovo.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Uruz, Fehu e Hagalaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 15,
+   "domanda": "Che cosa mi aspetta?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Uruz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco.",
+     "rigaDelVerso": "Ritrova il ritmo prima di caricare di nuovo."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Eihwaz",
+     "verso": "dritta",
+     "parolaChiave": "Resilienza",
+     "significato": "Il tasso, l'asse del mondo: radici salde reggono il vento.",
+     "rigaDelVerso": "Reggi: ciò che sembra piegarti non ti spezza."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera.",
+     "rigaDelVerso": "Una luce si accende dove prima era buio."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Berkano",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia.",
+     "rigaDelVerso": "Nutri la radice: il germoglio riparte."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Fai muovere ciò che hai: fermo si consuma."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere.",
+     "rigaDelVerso": "Tieni in equilibrio ciò che dai con ciò che ricevi."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Nauthiz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "La prova insegna: la pazienza è la chiave."
+    }
+   ],
+   "responso": {
+    "titolo": "Tieni ciò che sostiene, lascia ciò che trattiene.",
+    "risposta": "Scegli un modo tuo: dentro ciò che hai chiesto segui un'abitudine ricevuta che non ti assomiglia più, ringraziala e lasciala andare senza sensi di colpa. Il giusto e il facile qui si separano: la via diritta ha qualche ostacolo in più e porta dove vuoi arrivare.",
+    "cosaFare": "Di' di no con gentilezza a un invito o a un impegno che accetti solo per abitudine familiare. Spiega in una frase, senza giustificarti troppo. Ogni volta che scegli invece di ripetere, la radice smette di trattenerti e ricomincia a nutrirti.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Ingwaz, Ansuz, Gebo, Isa e Othala, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 16,
+   "domanda": "Devo trasferirmi a Milano o restare a Bari?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre.",
+     "rigaDelVerso": "Un nuovo giorno: cambia stato con lui."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Perthro",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Non forzare la sorte: lasciala maturare."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Berkano",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia.",
+     "rigaDelVerso": "Nutri la radice: il germoglio riparte."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce.",
+     "rigaDelVerso": "Energia piena: tieni la rotta che hai scelto."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva.",
+     "rigaDelVerso": "Ascolta il segno: una voce ti raggiunge."
+    }
+   ],
+   "responso": {
+    "titolo": "Ritrova il ritmo prima di caricare di nuovo.",
+    "risposta": "Rallenta prima di muoverti: verso la casa una carica a testa bassa può travolgere anche le persone vicine, guarda bene dove metti i piedi. L'insieme è propizio all'iniziativa con una cautela precisa: non accettare tutto ciò che ti viene offerto, scegli solo ciò che ti somiglia.",
+    "cosaFare": "Cancella dall'agenda di questa settimana una sfida che hai accettato solo per orgoglio o per non sembrare debole. Avvisa chi deve sapere con una frase semplice, senza scuse lunghe. Usa il tempo liberato per riposare. La forza spesa per dimostrare qualcosa manca poi dove serviva davvero.",
+    "approfondimento": "L'argilla sul tornio è morbida in un punto e secca in un altro. Il vasaio bagna le mani e insiste nel mezzo: lì il vaso prende forma, il bordo si rifinisce dopo. Per la casa lavora dove la materia risponde, non dove si è indurita.",
+    "rito": "Resta in piedi senza muoverti e conta quattro respiri prima di cominciare. Poi canta sottovoce «Uruz, uruz, uruz» tre volte, con un ritmo lento e regolare. Il canto ti aiuta a guardare dove la tua forza si è spesa di slancio e a ritrovare la cadenza giusta.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Uruz, Eihwaz, Kenaz, Berkano, Fehu, Gebo e Nauthiz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 17,
+   "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "Quel silenzio che circonda il lavoro non è vuoto ma pienezza in attesa: dentro si prepara qualcosa di solido e tuo. Intorno alla gettata si raccolgono presenze amiche: oggi chiedere aiuto è un segno di forza, quindi chiedilo a voce alta senza vergogna.",
+    "cosaFare": "Pianta un seme o un bulbo in un vaso e mettilo dove lo vedi ogni mattina. Annaffialo senza scavare per controllare se ha germogliato. È il promemoria concreto di questi giorni: ciò che matura sotto terra non si mostra, ma lavora. Concedi lo stesso tempo a ciò che porti dentro.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Ingwaz, nel verso in cui è uscita, viene dal poema runico anglosassone."
+   }
+  },
+  {
+   "scheda": 18,
+   "domanda": "Posso fidarmi del mio compagno?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Fai muovere ciò che hai: fermo si consuma."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "Qui la pazienza è potere: aspetta con metodo."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva.",
+     "rigaDelVerso": "Ascolta il segno: una voce ti raggiunge."
+    }
+   ],
+   "responso": {
+    "titolo": "Ascolta il segno: una voce ti raggiunge.",
+    "risposta": "Cogli il segno nelle parole: per ciò che hai chiesto può arrivare da una canzone, da un biglietto o da una battuta sentita per strada. La gettata intera è dalla tua parte: i mezzi che ti servono li hai già, mettili al lavoro senza aspettarne altri.",
+    "cosaFare": "Stasera prendi un libro che ami e leggine una pagina ad alta voce, lentamente, come se qualcuno la stesse dettando per te. Fermati sulla frase che ti colpisce di più e copiala. Spesso il messaggio che cerchi arriva in una voce che già conosci.",
+    "approfondimento": "La gettata non mostra fratture fra chi eri e chi stai diventando. Puoi cambiare senza rinnegare nulla. Se qualcosa di nuovo ti attira, seguilo con serenità: nasce dalla stessa radice di ciò che hai già costruito e non la tradisce.",
+    "rito": "Siedi in un luogo silenzioso, porta due dita alle labbra e poi abbassale piano. Canta a voce bassa «Ansuz, ansuz, ansuz» per tre giri, ascoltando come il suono vibra nella bocca. Rivolgi il pensiero al soffio della parola, al messaggio che arriva e chiede ascolto.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Fehu, Nauthiz e Ansuz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 19,
+   "domanda": "Lui tornerà da me dopo quello che è successo?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    }
+   ],
+   "responso": {
+    "titolo": "Ascolta il segno: una voce ti raggiunge.",
+    "risposta": "Presta attenzione alle frasi casuali: verso l’amore è in cammino un messaggio e una parola detta di passaggio indica la strada. Nodi che si sciolgono e nodi che si stringono: separa ciò che va fatto oggi da ciò che va soltanto atteso.",
+    "cosaFare": "Ripensa al miglior consiglio che hai ricevuto quest'anno e scrivi oggi alla persona che te l'ha dato, riportando le sue parole esatte. Dille che cosa ne hai fatto. Riconoscere un messaggio arrivato ti rende più capace di accogliere il prossimo.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Dagaz, Perthro, Berkano, Sowilo e Ansuz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 20,
+   "domanda": "Compro casa adesso o aspetto un anno?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio.",
+     "rigaDelVerso": "Tempo di attesa e di chiarezza: non forzare."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura.",
+     "rigaDelVerso": "Ciò che hai seminato matura a suo tempo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "dritta",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo.",
+     "rigaDelVerso": "Prendi ciò che ti spetta, non ciò che si strappa."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere.",
+     "rigaDelVerso": "Tieni in equilibrio ciò che dai con ciò che ricevi."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Nauthiz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "La prova insegna: la pazienza è la chiave."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene.",
+     "rigaDelVerso": "Si va lontano solo in armonia con l’altro."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Algiz",
+     "verso": "dritta",
+     "parolaChiave": "Protezione",
+     "significato": "L'alce, lo scudo alzato: la difesa c'è, resta in contatto al sacro.",
+     "rigaDelVerso": "Hai più difese di quanto credi: alza lo sguardo."
+    }
+   ],
+   "responso": {
+    "titolo": "Tempo di attesa e di chiarezza: non forzare.",
+    "risposta": "La gettata chiede immobilità verso la casa: non spingere ora, perché il ghiaccio regge chi aspetta e cede sotto chi corre. Le forze si bilanciano quasi alla pari, con un lieve vantaggio per ciò che si muove: il cambiamento c'è, solo lento.",
+    "cosaFare": "Fai una passeggiata senza musica e senza meta precisa, contando i passi finché il respiro rallenta. Se un pensiero insiste, lascialo passare come un'auto sulla strada. Oggi non serve capire tutto: serve fermare il movimento interno perché l'acqua torni limpida.",
+    "approfondimento": "Chi cuce una toppa sa che il tessuto nuovo e quello vecchio non hanno lo stesso colore: la toppa regge lo stesso. Per la casa non cercare la riparazione invisibile. Cuci partendo dal centro, con punti fitti: accetta che la differenza si veda.",
+    "rito": "Resta immobile per qualche respiro, le mani aperte sulle cosce e lo sguardo basso. Lascia uscire piano «Isa, isa, isa» tre volte, tenendo il suono lungo e uniforme, quasi una nota sola. Il pensiero va al ghiaccio che ferma: tempo di attesa e di chiarezza.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Isa, Jera, Tiwaz, Gebo, Nauthiz, Ehwaz e Algiz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 21,
+   "domanda": "Il colloquio di giovedì andrà bene?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere.",
+     "rigaDelVerso": "Tieni in equilibrio ciò che dai con ciò che ricevi."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio.",
+     "rigaDelVerso": "Tempo di attesa e di chiarezza: non forzare."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Laguz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Intuizione",
+     "significato": "L'acqua, il flusso profondo: fidati di ciò che senti sotto.",
+     "rigaDelVerso": "Lascia posare la corrente: il fondo si vede."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "Per il lavoro il passo più importante sta avvenendo sotto terra: ciò che oggi non si vede è già radice in crescita. Su tutta la gettata si apre un mattino largo: è il tempo di ricominciare con occhi nuovi, lasciando cadere i vecchi pregiudizi.",
+    "cosaFare": "Rimanda ogni annuncio importante alla prossima settimana e usa questi giorni per rifinire i dettagli in silenzio. Controlla, correggi, completa, senza mostrare nulla a nessuno. Ciò che si mostra prima di essere compiuto perde forza: ciò che arriva intero, nel suo momento, si fa ascoltare.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Ingwaz, nel verso in cui è uscita, viene dal poema runico anglosassone."
+   }
+  },
+  {
+   "scheda": 22,
+   "domanda": "Il cambiamento che sento arrivare sarà positivo?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura.",
+     "rigaDelVerso": "Ciò che hai seminato matura a suo tempo."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio.",
+     "rigaDelVerso": "Tempo di attesa e di chiarezza: non forzare."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito.",
+     "rigaDelVerso": "Ciò che crolla libera spazio per il nuovo."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Fai muovere ciò che hai: fermo si consuma."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Eihwaz",
+     "verso": "dritta",
+     "parolaChiave": "Resilienza",
+     "significato": "Il tasso, l'asse del mondo: radici salde reggono il vento.",
+     "rigaDelVerso": "Reggi: ciò che sembra piegarti non ti spezza."
+    }
+   ],
+   "responso": {
+    "titolo": "Lascia posare la corrente: il fondo si vede.",
+    "risposta": "Con ciò che hai chiesto l'intuito oggi parla attraverso una nebbia sottile: aspetta che si diradi prima di prendere per vero ogni timore. Una parte della gettata va avanti spedita, un'altra resta indietro: conviene aspettare per un poco chi condivide con te lo stesso impegno.",
+    "cosaFare": "Rimanda di due giorni la decisione che ti agita per ciò che hai chiesto e scrivi sul calendario la nuova data. Fino ad allora tienila per te senza raccogliere opinioni. L'acqua torbida si schiarisce solo se smetti di mescolarla: dai al fondo il tempo di posarsi.",
+    "approfondimento": "Il filo è buono ma ha un nodo in un punto. Con pazienza lo puoi allentare senza spezzare ciò che regge il resto. Non buttare via tutto per un solo punto difficile: separa la parte che funziona da quella che chiede cura e lavora solo su quest'ultima.",
+    "rito": "Agita appena un bicchiere d'acqua e posalo sul tavolo davanti a te. Mormora «Laguz, laguz, laguz» tre volte, mentre l'acqua si posa. Con il canto guarda un'emozione confusa e un intuito da schiarire: lascia posare la corrente finché il fondo si vede.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Gebo, Isa e Laguz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 23,
+   "domanda": "Incontrerò qualcuno di importante quest'anno?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Mannaz",
+     "verso": "dritta",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità.",
+     "rigaDelVerso": "Conosci chi sei attraverso gli altri."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Uruz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco.",
+     "rigaDelVerso": "Ritrova il ritmo prima di caricare di nuovo."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura.",
+     "rigaDelVerso": "Ciò che hai seminato matura a suo tempo."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito.",
+     "rigaDelVerso": "Ciò che crolla libera spazio per il nuovo."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Raidho",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro.",
+     "rigaDelVerso": "Rallenta: ritrovata la cadenza, la strada si spiana."
+    }
+   ],
+   "responso": {
+    "titolo": "Rallenta: ritrovata la cadenza, la strada si spiana.",
+    "risposta": "Per un poco ciò che hai chiesto non segue la tabella di marcia che avevi in mente: rivedi le tappe e lascia margine alle soste. Gran parte della gettata è fertile e operosa, una piccola parte è inerte: lì basta una spinta tua per rimettere in circolo.",
+    "cosaFare": "Scrivi oggi a chi aspetta da te una risposta che non sei in grado di dare subito: spiega con chiarezza che arriva fra qualche giorno. Così il tempo torna nelle tue mani. Rispondere in fretta per sfuggire alla pressione fa perdere la strada più di quanto la accorci.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Mannaz, Uruz, Jera, Hagalaz e Raidho, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 24,
+   "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera.",
+     "rigaDelVerso": "Una luce si accende dove prima era buio."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Algiz",
+     "verso": "dritta",
+     "parolaChiave": "Protezione",
+     "significato": "L'alce, lo scudo alzato: la difesa c'è, resta in contatto al sacro.",
+     "rigaDelVerso": "Hai più difese di quanto credi: alza lo sguardo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "Qui la pazienza è potere: aspetta con metodo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Perthro",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Non forzare la sorte: lasciala maturare."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito.",
+     "rigaDelVerso": "Ciò che crolla libera spazio per il nuovo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Othala",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo.",
+     "rigaDelVerso": "Tieni ciò che sostiene, lascia ciò che trattiene."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Laguz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Intuizione",
+     "significato": "L'acqua, il flusso profondo: fidati di ciò che senti sotto.",
+     "rigaDelVerso": "Lascia posare la corrente: il fondo si vede."
+    }
+   ],
+   "responso": {
+    "titolo": "Una luce si accende dove prima era buio.",
+    "risposta": "Crea: dentro il lavoro c'è una scintilla che chiede di uscire in un progetto, in un disegno o in una pagina scritta. La foschia si apre a strappi: nei tratti limpidi muoviti con fiducia, in quelli velati riduci la velocità senza fermarti del tutto.",
+    "cosaFare": "Prendi un foglio grande e disegna il progetto che hai in mente con frecce, riquadri e schemi, senza preoccuparti che sia bello. Appendilo dove lo vedi ogni giorno. Un'idea messa davanti agli occhi rivela da sola i passaggi che mancano.",
+    "approfondimento": "L'uva non matura tutta lo stesso giorno: in vendemmia si passa più volte fra i filari. Il grappolo centrale è da cogliere, quelli ai margini aspettano il loro turno. Prendi quello adesso e torna fra i filari tra qualche giorno, senza fretta.",
+    "rito": "Accendi una candela, se puoi, oppure guarda una luce accesa nella stanza. Canta con voce bassa «Kenaz, kenaz, kenaz» per tre volte, a ogni giro tenendo lo sguardo sulla fiamma. Pensa alla torcia che rivela, alla luce che si accende dove prima era buio.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Kenaz, Algiz, Nauthiz, Perthro, Hagalaz, Othala e Laguz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 25,
+   "domanda": "È il momento giusto per aprire la mia attività?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "La gettata vede ciò che hai chiesto in piena gestazione: lascia che ciò che cresce dentro trovi la sua forma prima di esporlo agli sguardi altrui. La risposta passa anche per le persone che hai intorno: un confronto con loro fa nascere idee che nessuno trova in solitudine.",
+    "cosaFare": "Rimanda ogni annuncio importante alla prossima settimana e usa questi giorni per rifinire i dettagli in silenzio. Controlla, correggi, completa, senza mostrare nulla a nessuno. Ciò che si mostra prima di essere compiuto perde forza: ciò che arriva intero, nel suo momento, si fa ascoltare.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Ingwaz, nel verso in cui è uscita, viene dal poema runico anglosassone."
+   }
+  },
+  {
+   "scheda": 26,
+   "domanda": "Come posso ritrovare l'intesa con mio marito?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Laguz",
+     "verso": "dritta",
+     "parolaChiave": "Intuizione",
+     "significato": "L'acqua, il flusso profondo: fidati di ciò che senti sotto.",
+     "rigaDelVerso": "Fidati di ciò che senti sotto la superficie."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre.",
+     "rigaDelVerso": "Un nuovo giorno: cambia stato con lui."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "Come le fondamenta di una casa, invisibili ma decisive, l'impegno silenzioso verso l’amore regge tutto ciò che si alza dopo. Il segno sta tutto dalla parte della giustizia: la scelta corretta è anche quella che regge più a lungo, preferiscila sempre.",
+    "cosaFare": "Riordina un angolo della casa e fanne il tuo luogo di raccoglimento per questi giorni: una sedia, una luce, un quaderno. Siediti lì ogni sera per dieci minuti. Un lavoro interiore ha bisogno di un posto fisso dove compiersi, lontano dagli sguardi e dalle richieste.",
+    "approfondimento": "Ciò che hai lasciato andare ha fatto spazio. In quello spazio sta crescendo qualcosa di tuo. Non riempirlo con impegni nuovi per paura del vuoto: proteggi ciò che nasce, dagli tempo e attenzione e lascia che prenda la sua forma.",
+    "rito": "Chiudi le mani una dentro l'altra, come per custodire un seme. Canta sottovoce «Ingwaz, ingwaz, ingwaz» per tre volte, a voce bassissima, quasi solo dentro di te. Tieni il pensiero sul seme in attesa, sul lavoro interiore che si compie prima di mostrarsi.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Laguz, Dagaz e Ingwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 27,
+   "domanda": "Quando finirà questo periodo di stallo?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Wunjo",
+     "verso": "dritta",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto.",
+     "rigaDelVerso": "Un momento di pienezza vera: prendilo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura.",
+     "rigaDelVerso": "Dirigi la forza con misura, senza temerla."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Qualcosa si muove sotto, non ancora visibile."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera.",
+     "rigaDelVerso": "Una luce si accende dove prima era buio."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Raidho",
+     "verso": "dritta",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro.",
+     "rigaDelVerso": "Muoviti con la tua cadenza, dentro e fuori."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo.",
+     "rigaDelVerso": "Ritrova il tuo giusto: la mira torna ferma."
+    }
+   ],
+   "responso": {
+    "titolo": "Reggi: ciò che sembra piegarti non ti spezza.",
+    "risposta": "Per ciò che hai chiesto conta la pazienza dell'albero antico: crescere piano, spingere le radici lontano e cambiare pelle senza perdere il centro. La gettata intera parla di maturazione: il frutto arriva presto, coglilo quando è davvero pronto e non un solo giorno prima.",
+    "cosaFare": "Per ciò che hai chiesto scrivi una frase che comincia con «resto perché» e completala con sincerità, senza abbellirla. Rileggila ad alta voce stasera. Le ragioni vere per cui tieni duro sono le tue radici: quando le vedi scritte, la spinta del vento fa meno paura.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Jera, Isa, Hagalaz, Fehu e Eihwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 28,
+   "domanda": "Il progetto che ho presentato verrà approvato?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "Conserva ancora un poco: dentro ciò che hai chiesto c'è una forza intera messa da parte, come il grano chiuso nel granaio in attesa della semina. Nel complesso la gettata ti sostiene: l'energia per agire c'è, ma qualche pietra capovolta chiede di dosarla invece di spenderla subito.",
+    "cosaFare": "Fai un elenco di ciò che stai covando per ciò che hai chiesto: idee, desideri, progetti abbozzati. Scegli il primo seme da curare e scrivi un gesto piccolo da fare ogni giorno. Lascia gli altri a riposare: il terreno nutre meglio pochi semi alla volta.",
+    "approfondimento": "Il vento attraversa il telo, piega alcune pietre e ne lascia altre immobili. Chi tiene ferma la vela al centro usa anche le raffiche che arrivano storte. Non ammainare per una raffica contraria. Tieni la direzione e regola la vela, poco alla volta.",
+    "rito": "Chiudi le mani una dentro l'altra, come per custodire un seme. Canta sottovoce «Ingwaz, ingwaz, ingwaz» per tre volte, a voce bassissima, quasi solo dentro di te. Tieni il pensiero sul seme in attesa, sul lavoro interiore che si compie prima di mostrarsi.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Ingwaz, Wunjo, Thurisaz, Perthro, Kenaz, Raidho e Tiwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 29,
+   "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Qualcosa si muove sotto, non ancora visibile."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura.",
+     "rigaDelVerso": "Ciò che hai seminato matura a suo tempo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Fai muovere ciò che hai: fermo si consuma."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene.",
+     "rigaDelVerso": "Si va lontano solo in armonia con l’altro."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Mannaz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità.",
+     "rigaDelVerso": "Torna al legame: negli altri ti riconosci meglio."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito.",
+     "rigaDelVerso": "Ciò che crolla libera spazio per il nuovo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Othala",
+     "verso": "dritta",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo.",
+     "rigaDelVerso": "Ciò che viene da lontano ti sostiene: appoggiati."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "Ciò che custodisci in segreto per l’amore ha già la sua forma completa: manca solo il giorno giusto per lasciarlo uscire. La gettata intera premia la parola mantenuta: la lealtà ti apre porte che nessuna astuzia trova, resta fedele agli impegni.",
+    "cosaFare": "Chiudi davvero un capitolo rimasto aperto: restituisci un oggetto che non è tuo, mantieni una piccola promessa sospesa, rispondi a una lettera dimenticata. Fallo senza clamore. Ogni chiusura pulita lascia spazio al nuovo che si sta formando e ne protegge la crescita.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Ingwaz, nel verso in cui è uscita, viene dal poema runico anglosassone."
+   }
+  },
+  {
+   "scheda": 30,
+   "domanda": "Arriverà presto la risposta che aspetto?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre.",
+     "rigaDelVerso": "Un nuovo giorno: cambia stato con lui."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura.",
+     "rigaDelVerso": "Ciò che hai seminato matura a suo tempo."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Ansuz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva.",
+     "rigaDelVerso": "Ascolta meglio prima di dar peso a ciò che senti."
+    }
+   ],
+   "responso": {
+    "titolo": "Ascolta meglio prima di dar peso a ciò che senti.",
+    "risposta": "Semplifica: verso ciò che hai chiesto anche le tue parole possono confondere, quindi taglia ciò che è superfluo e resta sul punto che ti preme. La chiarezza arriva fino al prossimo passo e non oltre: basta questo, la gettata non chiede di vedere tutto il percorso.",
+    "cosaFare": "Hai ricevuto da poco un consiglio che ti spinge ad agire in fretta: tienilo in sospeso per ventiquattro ore. Scrivilo, poi domani chiediti se ti convince ancora e chi te l'ha dato che cosa ci guadagna. Un consiglio buono resiste a un giorno di attesa.",
+    "approfondimento": "Il bastone che ti accompagna ha un nodo proprio dove la mano lo stringe. È lì che la presa si fa più ferma. La difficoltà che senti adesso può diventare il tuo punto d'appoggio, se smetti di evitarla e la usi per fare leva.",
+    "rito": "Spegni ciò che fa rumore intorno a te e chiudi gli occhi per qualche respiro. Mormora «Ansuz, ansuz, ansuz» tre volte, sempre più piano, fino a sentirne solo il fiato. Lascia che il canto accompagni l'attenzione a una parola fraintesa, da ascoltare meglio prima di darle peso.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Dagaz, Jera e Ansuz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 31,
+   "domanda": "L'operazione al ginocchio del mese prossimo andrà bene?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Wunjo",
+     "verso": "dritta",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto.",
+     "rigaDelVerso": "Un momento di pienezza vera: prendilo."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce.",
+     "rigaDelVerso": "Energia piena: tieni la rotta che hai scelto."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva.",
+     "rigaDelVerso": "Ascolta il segno: una voce ti raggiunge."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito.",
+     "rigaDelVerso": "Ciò che crolla libera spazio per il nuovo."
+    }
+   ],
+   "responso": {
+    "titolo": "Ciò che crolla libera spazio per il nuovo.",
+    "risposta": "Una scossa attraversa ciò che hai chiesto e porta via ciò che era già incrinato: lo spazio che resta è pulito per ricominciare. Il responso dice che l'essenziale basta: la sobrietà di questo periodo non è una perdita, ti alleggerisce il passo e la mente.",
+    "cosaFare": "Prendi la lista delle cose da fare e cancella tre voci che dopo la scossa non hanno più senso. Non sentirti in colpa per ciò che lasci cadere. Usa lo spazio che si apre per ciò che hai chiesto, già dalla prima ora libera di domani.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Wunjo, Ingwaz, Sowilo, Ansuz e Hagalaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 32,
+   "domanda": "Quale strada scelgo tra i due corsi di laurea?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "Qui la pazienza è potere: aspetta con metodo."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere.",
+     "rigaDelVerso": "Tieni in equilibrio ciò che dai con ciò che ricevi."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Tiwaz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo.",
+     "rigaDelVerso": "Ritrova il tuo giusto: la mira torna ferma."
+    }
+   ],
+   "responso": {
+    "titolo": "Qualcosa si muove sotto, non ancora visibile.",
+    "risposta": "Hai fra le mani un dado ancora in aria per ciò che hai chiesto: goditi l'attesa senza pretendere di sapere già come cade. Il velo che copre la situazione ha già cominciato a ritirarsi, dicono le pietre: lascia che si alzi senza strapparlo con impazienza.",
+    "cosaFare": "Prendi oggi una strada diversa per tornare a casa e nota tre cose che non avevi mai visto. Scrivile la sera. Il nuovo che si sta muovendo non si mostra sul percorso abituale: cambiare strada è il modo più semplice per dargli occasione di farsi incontrare.",
+    "approfondimento": "Il centro del telo è la stanza dove si vive, i margini sono il corridoio. Che il corridoio sia in luce o in ombra pesa poco: conta come abiti la stanza. Metti ordine lì prima di tutto, nei prossimi giorni. Il corridoio si sistema quando la stanza è in ordine.",
+    "rito": "Unisci le mani a coppa davanti a te, come per raccogliere qualcosa. Mentre guardi dentro le mani vuote, canta piano «Perthro, perthro, perthro» per tre volte. Pensa al mistero della coppa, alla sorte ancora nascosta, a ciò che si muove sotto e non è ancora visibile.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Perthro, Jera, Fehu, Ehwaz, Mannaz, Hagalaz e Othala, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 33,
+   "domanda": "Come posso fare pace con mia sorella?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Fai muovere ciò che hai: fermo si consuma."
+    }
+   ],
+   "responso": {
+    "titolo": "Fai muovere ciò che hai: fermo si consuma.",
+    "risposta": "Sì, scambia: con la tua famiglia la crescita nasce dal dare e dal ricevere con uguale semplicità, senza tenere il conto di chi deve cosa. L'insieme non trattiene niente per sé: accogli quello che ti viene offerto con mani larghe, senza sospettare secondi fini dietro il dono.",
+    "cosaFare": "Rimetti in uso entro domenica uno strumento fermo da mesi: la bicicletta in cantina, la macchina da cucire, la chitarra appesa al muro. Puliscilo, sistemalo, usalo almeno una volta. Se scopri che non ti serve più, regalalo a chi può usarlo subito.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Fehu, nel verso in cui è uscita, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 34,
+   "domanda": "Dimmi qualcosa.",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene.",
+     "rigaDelVerso": "Si va lontano solo in armonia con l’altro."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura.",
+     "rigaDelVerso": "Dirigi la forza con misura, senza temerla."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Mannaz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità.",
+     "rigaDelVerso": "Torna al legame: negli altri ti riconosci meglio."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce.",
+     "rigaDelVerso": "Energia piena: tieni la rotta che hai scelto."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Uruz",
+     "verso": "dritta",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco.",
+     "rigaDelVerso": "Hai la forza per rialzarti: usala adesso."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Perthro",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Non forzare la sorte: lasciala maturare."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo.",
+     "rigaDelVerso": "Ritrova il tuo giusto: la mira torna ferma."
+    }
+   ],
+   "responso": {
+    "titolo": "Ritrova il tuo giusto: la mira torna ferma.",
+    "risposta": "Scegli un solo bersaglio: con ciò che hai chiesto la mano trema perché la meta non è chiara, fissala e torna a tendere. L'eredità che porti ha valore e non ti somiglia in tutto: conserva quello che senti tuo e restituisci al passato il resto.",
+    "cosaFare": "Lancia un sasso in un'acqua tranquilla mirando a un punto preciso, poi a un altro, finché la mano si fa ferma. Se non hai acqua vicina, usa un foglio appallottolato e un cestino. È un modo concreto per ricordare al corpo che cosa vuol dire tenere la mira.",
+    "approfondimento": "Delle tre pietre una sola è in ombra: il nodo sta in un tempo preciso, non in tutto il percorso. Guarda quale tempo ti indica la gettata, passato, presente o ciò che si apre: concentra lì il lavoro. Gli altri due reggono.",
+    "rito": "Fissa un punto lontano davanti a te e tienilo con lo sguardo per qualche respiro. Mormora «Tiwaz, tiwaz, tiwaz» tre volte, riportando gli occhi su quel punto a ogni ripetizione. Con il canto guarda un coraggio incerto, per ritrovare il tuo giusto finché la mira torna ferma.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Nauthiz, Gebo e Tiwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 35,
+   "domanda": "È giusto andare a vivere lontano dai miei genitori?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Othala",
+     "verso": "dritta",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo.",
+     "rigaDelVerso": "Ciò che viene da lontano ti sostiene: appoggiati."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera.",
+     "rigaDelVerso": "Una luce si accende dove prima era buio."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Wunjo",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto.",
+     "rigaDelVerso": "Cura il legame: la pienezza torna."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Mannaz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità.",
+     "rigaDelVerso": "Torna al legame: negli altri ti riconosci meglio."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio.",
+     "rigaDelVerso": "Un lavoro interiore si compie prima di mostrarsi."
+    }
+   ],
+   "responso": {
+    "titolo": "Un lavoro interiore si compie prima di mostrarsi.",
+    "risposta": "Ciò che stai costruendo con ciò che hai chiesto ha radici più profonde di quanto appaia: il compimento si avvicina passo dopo passo. La tua storia familiare ti sostiene, ma una regola ereditata ti stringe: tieni le radici e allenta quel vincolo, poco alla volta.",
+    "cosaFare": "Pianta un seme o un bulbo in un vaso e mettilo dove lo vedi ogni mattina. Annaffialo senza scavare per controllare se ha germogliato. È il promemoria concreto di questi giorni: ciò che matura sotto terra non si mostra, ma lavora. Concedi lo stesso tempo a ciò che porti dentro.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Othala, Kenaz, Wunjo, Mannaz e Ingwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 36,
+   "domanda": "Come gestisco il conflitto con il mio capo?",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Qualcosa si muove sotto, non ancora visibile."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Raidho",
+     "verso": "dritta",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro.",
+     "rigaDelVerso": "Muoviti con la tua cadenza, dentro e fuori."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "dritta",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo.",
+     "rigaDelVerso": "Prendi ciò che ti spetta, non ciò che si strappa."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Othala",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo.",
+     "rigaDelVerso": "Tieni ciò che sostiene, lascia ciò che trattiene."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva.",
+     "rigaDelVerso": "Ascolta il segno: una voce ti raggiunge."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito.",
+     "rigaDelVerso": "Ciò che crolla libera spazio per il nuovo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Laguz",
+     "verso": "dritta",
+     "parolaChiave": "Intuizione",
+     "significato": "L'acqua, il flusso profondo: fidati di ciò che senti sotto.",
+     "rigaDelVerso": "Fidati di ciò che senti sotto la superficie."
+    }
+   ],
+   "responso": {
+    "titolo": "Qualcosa si muove sotto, non ancora visibile.",
+    "risposta": "Il mistero che avvolge il lavoro è un invito, non un muro: avvicinati con rispetto e qualche risposta arriva per conto suo. Quello che hai messo in piedi con impegno tiene, nonostante qualche crepa visibile: rinforzalo dove serve invece di buttarlo giù per rifarlo.",
+    "cosaFare": "Scrivi la tua domanda per il lavoro su un biglietto, chiudilo in una scatola e riaprilo fra una settimana. Nel frattempo non cercare risposte e non chiedere pareri. Lascia lavorare ciò che si muove sotto la superficie: quando riapri il biglietto, nota che cosa è cambiato.",
+    "approfondimento": "Il seme nella terra fa due cose insieme: spinge la radice al buio e il germoglio verso la luce. Così questo getto, con il centro che tiene e i bordi che cercano. Per il lavoro non spaventarti del buio sotto: lì la radice si fa forte.",
+    "rito": "Unisci le mani a coppa davanti a te, come per raccogliere qualcosa. Mentre guardi dentro le mani vuote, canta piano «Perthro, perthro, perthro» per tre volte. Pensa al mistero della coppa, alla sorte ancora nascosta, a ciò che si muove sotto e non è ancora visibile.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Perthro, Raidho, Tiwaz, Othala, Ansuz, Hagalaz e Laguz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 37,
+   "domanda": "Andrà tutto bene?",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere.",
+     "rigaDelVerso": "Tieni in equilibrio ciò che dai con ciò che ricevi."
+    }
+   ],
+   "responso": {
+    "titolo": "Tieni in equilibrio ciò che dai con ciò che ricevi.",
+    "risposta": "Dentro ciò che hai chiesto si apre uno scambio alla pari: ciò che porgi torna indietro con lo stesso peso, come pane spezzato a metà. Il verdetto dell'insieme è un sì pieno al movimento: esci allo scoperto e lascia che le tue intenzioni si vedano.",
+    "cosaFare": "Scegli oggi fra le tue cose un oggetto in buono stato che potrebbe rendere felice una persona precisa, non un destinatario qualunque. Pensa a lei mentre lo incarti. Consegnalo entro la settimana. Il dono scelto per qualcuno pesa più del dono di cui ci si libera.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Gebo, nel verso in cui è uscita, viene dal poema runico anglosassone."
+   }
+  },
+  {
+   "scheda": 38,
+   "domanda": "Devo accettare l'offerta della nuova azienda?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Fehu",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Apri la mano: ciò che trattieni troppo si perde."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Nauthiz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "La prova insegna: la pazienza è la chiave."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Algiz",
+     "verso": "dritta",
+     "parolaChiave": "Protezione",
+     "significato": "L'alce, lo scudo alzato: la difesa c'è, resta in contatto al sacro.",
+     "rigaDelVerso": "Hai più difese di quanto credi: alza lo sguardo."
+    }
+   ],
+   "responso": {
+    "titolo": "Hai più difese di quanto credi: alza lo sguardo.",
+    "risposta": "Sì, hai riparo: sopra ciò che hai chiesto c'è una protezione salda che regge anche quando il vento cambia e ti prende di fianco. L'insieme è scosso ma non spezzato: reggere adesso significa cedere un poco in superficie mentre tieni ben ferme le fondamenta profonde.",
+    "cosaFare": "Telefona a chi ti ha sempre coperto le spalle e ringrazia quella persona nominando un momento preciso in cui ti ha fatto da scudo. Ricordarlo ti mostra quante protezioni hai intorno. Non affrontare la questione di adesso come se mancasse ogni appoggio: quelle persone ci sono ancora.",
+    "approfondimento": "C'è un tempo per forzare e un tempo per sciogliere: questa gettata chiede il secondo. Rinuncia per ora alle soluzioni drastiche, agli ultimatum, alle rotture improvvise. Per ciò che hai chiesto la via è fatta di gesti lenti, attenti, ripetuti, che allentano il nodo senza strappare.",
+    "rito": "Alza le braccia aperte verso l'alto, come i rami della runa: tienile così per un respiro. Canta sottovoce «Algiz, algiz, algiz» per tre giri, poi abbassa le braccia lentamente. Il pensiero va allo scudo del sacro, al riparo che c'è e al legame con l'alto.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Fehu, Nauthiz e Algiz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  },
+  {
+   "scheda": 39,
+   "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Fehu",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere.",
+     "rigaDelVerso": "Apri la mano: ciò che trattieni troppo si perde."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Wunjo",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto.",
+     "rigaDelVerso": "Cura il legame: la pienezza torna."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Algiz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Protezione",
+     "significato": "L'alce, lo scudo alzato: la difesa c'è, resta in contatto al sacro.",
+     "rigaDelVerso": "Rialza la guardia e riascolta ciò che senti."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai.",
+     "rigaDelVerso": "Qualcosa si muove sotto, non ancora visibile."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Thurisaz",
+     "verso": "in ombra (merkstave)",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura.",
+     "rigaDelVerso": "Fermati un istante: qui la fretta ferisce."
+    }
+   ],
+   "responso": {
+    "titolo": "Fermati un istante: qui la fretta ferisce.",
+    "risposta": "Smetti di puntare i piedi: con l’amore un vecchio orgoglio ti tiene sulla difensiva e la tensione ricade su di te. L'ombra della gettata indica uno scambio squilibrato: stai dando molto più di quanto ricevi, riequilibralo con una richiesta chiara prima di continuare.",
+    "cosaFare": "Prima di un confronto che temi, esci e cammina per un quarto d'ora a passo regolare. Torna soltanto quando il respiro è lento e le spalle sono scese. Le parole dette con il corpo in allarme pungono anche quando vorrebbero spiegare.",
+    "approfondimento": null,
+    "rito": null,
+    "titoloDelRito": null,
+    "daDoveViene": "Il senso di Fehu, Wunjo, Algiz, Perthro e Thurisaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese."
+   }
+  },
+  {
+   "scheda": 40,
+   "domanda": "Passerò l'esame di stato a dicembre?",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza.",
+     "rigaDelVerso": "Qui la pazienza è potere: aspetta con metodo."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Othala",
+     "verso": "dritta",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo.",
+     "rigaDelVerso": "Ciò che viene da lontano ti sostiene: appoggiati."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre.",
+     "rigaDelVerso": "Un nuovo giorno: cambia stato con lui."
+    }
+   ],
+   "responso": {
+    "titolo": "Si va lontano solo in armonia con l’altro.",
+    "risposta": "Dentro lo studio si muove un'alleanza buona: chi cammina al tuo fianco tiene il tuo stesso ritmo e la fatica si divide in due. La fiducia scorre quasi ovunque e si inceppa in un punto: parla chiaramente proprio lì, dove le cose si fermano.",
+    "cosaFare": "Accorda il passo: per dieci minuti cammina al ritmo di un'altra persona, rallentando o accelerando senza dirlo. Nota che cosa ti costa e che cosa ti insegna. Chi sa adattarsi al passo dell'altro senza perdere il proprio arriva lontano in buona compagnia.",
+    "approfondimento": "Un vecchio legame ritrovato porta ricordi chiari e qualche ruggine. La mano tesa al centro scioglie la ruggine più di molte parole ai margini. Se c'è una persona da riavvicinare, fai un gesto semplice prima di un discorso lungo: una chiamata, un invito.",
+    "rito": "Pensa a una persona di cui ti fidi e immagina di camminare al suo fianco. Pronuncia sottovoce «Ehwaz, ehwaz, ehwaz» in tre giri, accordando il respiro a un passo immaginato in due. Rivolgi il pensiero ai due cavalli, alla fiducia che porta lontano in armonia.",
+    "titoloDelRito": "Il galdr propiziatorio",
+    "daDoveViene": "Il senso di Ehwaz, Thurisaz, Mannaz, Sowilo, Uruz, Perthro e Tiwaz, nel verso in cui sono uscite, viene dai poemi runici medievali, l’anglosassone, l’islandese e il norvegese. Il canto del nome della runa viene da Edred Thorsson, Futhark (1984), che riprende il galdr, il canto magico della tradizione norrena."
+   }
+  }
+ ]
+}

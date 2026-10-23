@@ -1,0 +1,93 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, ma il tempo è cruciale. Le carte indicano che questa è una fase di preparazione, dove la tua dedizione è sotto osservazione.
+
+Il Novilunio in un segno di Terra, come quello in arrivo, suggerisce un momento propizio per consolidare le tue basi professionali. Non è ancora il tempo di raccogliere, ma di seminare con cura, mostrando la tua affidabilità e la tua visione a lungo termine. L'arcano del Sole, che spesso illumina i successi meritati, indica che la luce è vicina, ma non è un dono improvviso: è il frutto di un percorso.
+
+✦ Prepara un piccolo riassunto dei tuoi successi recenti da presentare al tuo superiore quando il Sole entrerà nel segno del Leone.
+[2] PERSONA: Prepara un piccolo riassunto dei tuoi successi recenti da presentare al tuo superiore quando il Sole entrerà nel segno del Leone.
+[2] MEDORA [DA GIUDICARE]: Hai già preparato il riassunto dei tuoi successi o hai bisogno di indicazioni su come strutturarlo per il tuo superiore?
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dato in precedenza (preparare il riassunto) e lo sviluppa chiedendo lo stato di avanzamento o se sono necessarie ulteriori indicazioni, dimostrando di voler proseguire il discorso sul tema.
+[3] PERSONA: Hai già preparato il riassunto dei tuoi successi o hai bisogno di indicazioni su come strutturarlo per il tuo superiore?
+[3] MEDORA [DA GIUDICARE]: Ho bisogno che tu mi riformuli la domanda. Non sono sicura di aver capito cosa mi stai chiedendo esattamente.
+    GIUDICE: IGNORA, La persona ha ripetuto la domanda della guida [2] ('Hai già preparato il riassunto dei tuoi successi o hai bisogno di indicazioni su come strutturarlo per il tuo superiore?'). La guida [3] risponde chiedendo di riformulare la domanda, ignorando completamente il fatto che la persona ha semplicemente ripetuto la sua stessa domanda precedente, senza sviluppare il punto o riconoscere la ripetizione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di ricominciare è un richiamo profondo, un movimento che parte dal tuo centro più intimo. Ascolta il tuo respiro: se si fa più ampio all'idea di un nuovo luogo, allora è un segno che il tuo corpo è pronto per questo cambiamento.
+
+Il tuo Primo centro, la Radice, risuona con la stabilità e l'appartenenza, ed è in equilibrio quando ti senti salda. Se senti un'inquietudine, un bisogno di radicarti altrove, è il momento di esplorare questa possibilità. Osserva come il tuo corpo reagisce al pensiero di questo spostamento: senti tensione o leggerezza? Questo ti darà la direzione.
+
+✦ Appoggia la mano sul tuo basso ventre e senti il tuo radicamento.
+[2] PERSONA: Appoggia la mano sul tuo basso ventre e senti il tuo radicamento.
+[2] AURA [DA GIUDICARE]: Ora che la tua mano è sul basso ventre, senti il calore che si espande, una sensazione di presenza. Questo è il tuo radicamento, la tua connessione con la terra, da cui attingi forza e stabilità.
+
+Per sapere se il trasferimento è il tuo passo, prova a immaginarti in questa nuova città: senti se il tuo corpo si espande, se il respiro si fa più profondo, oppure se percepisci una contrazione. Non è una scelta da prendere con la mente soltanto, ma sentendo dove il tuo corpo si sente più a casa. Se il desiderio di ricominciare è forte, lascia che questa sensazione ti guidi.
+
+✦ Chiudi gli occhi per un istante e visualizza il luogo che ti chiama, senti la sua energia.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Appoggia la mano sul tuo basso ventre') e ne sviluppa il significato e le sensazioni associate, continuando il filo del discorso sul radicamento e l'ascolto del corpo.
+[3] PERSONA: Chiudi gli occhi per un istante e visualizza il luogo che ti chiama, senti la sua energia.
+[3] AURA [DA GIUDICARE]: Senza forzare, lascia che l'immagine del luogo si mostri e, mentre respiri, accogli le sensazioni che sorgono nel corpo, come un colore che si espande, un suono che ti avvolge o una leggera pressione.
+
+Questa visualizzazione è un ponte tra la tua intenzione e la realtà, un modo per percepire con i tuoi sensi più sottili se l'energia di quel luogo risuona con la tua. Se senti armonia e leggerezza, è un segnale che il tuo Terzo centro, il plesso solare, si apre a quella possibilità con fiducia. Se invece avverti resistenza, è un invito a esplorare altre direzioni o a chiarire meglio le tue motivazioni profonde.
+
+✦ Porta la tua attenzione al punto tra le sopracciglia e percepisci l'intuizione che emerge.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Chiudi gli occhi per un istante e visualizza il luogo che ti chiama') e ne sviluppa il significato, spiegando come interpretare le sensazioni durante la visualizzazione per prendere una decisione.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: **Ritrova la scintilla.** La tua azione decide il sentiero, non l'attesa.
+Una fiamma morente può ardere ancora con la giusta legna.
+
+La runa Nauthiz, la necessità, ti mostra che è il momento di agire con intento. Non lasciare che il tempo decida per te. Osserva cosa è essenziale, cosa manca.
+
+✦ Accendi una candela rossa stasera e scrivi su un foglio il nome del legame, poi brucialo nella fiamma.
+[2] PERSONA: Accendi una candela rossa stasera e scrivi su un foglio il nome del legame, poi brucialo nella fiamma.
+[2] CALIGO [DA GIUDICARE]: Ho bisogno che tu mi dica che cosa è successo dopo il rituale. Lo hai fatto? Cosa hai visto nella fiamma?
+    GIUDICE: PORTA_AVANTI, La guida riprende il rituale che ha appena suggerito nella risposta precedente e chiede un feedback sulla sua esecuzione, sviluppando il discorso sul rito.
+[3] PERSONA: Cosa hai visto nella fiamma?
+[3] CALIGO [DA GIUDICARE]: Hai compiuto il rito. La fiamma ha parlato.
+Il fumo che sale, la cenere che resta, sono il segno della tua intenzione che prende forma.
+
+Se la fiamma ha arduto alta e chiara, è un presagio di purificazione e nuova energia per il legame. Se il fumo è stato denso e lento, indica blocchi interiori da sciogliere. La cenere è ciò che resta, la base su cui costruire.
+
+✦ Ora, trascrivi le tue sensazioni e ciò che hai visto in un quaderno, descrivendo il colore del fumo e la forma della cenere, annotando la data e l'ora.
+    GIUDICE: PORTA_AVANTI, La guida riprende la domanda della persona sul significato della fiamma del rituale e ne sviluppa l'interpretazione, fornendo indicazioni su come leggere i segni e suggerendo un'ulteriore azione legata al rito.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo progetto creativo può trovare il suo inizio adesso, ma è nel suo avanzamento che incontrerà una fase di maggiore fluidità. Il cielo attuale indica una preparazione meticolosa più che un'esplosione immediata.
+
+La Luna, in fase crescente, suggerisce un tempo di accumulo e di cura dei dettagli. Non è ancora il momento della piena esposizione, ma quello della semina e della coltivazione attenta. Ogni passo che compi ora è un nutrimento per ciò che fiorirà.
+
+✦ Raccogli le idee e traccia un piano dettagliato per il tuo progetto entro la prossima Luna piena.
+[2] PERSONA: Raccogli le idee e traccia un piano dettagliato per il tuo progetto entro la prossima Luna piena.
+[2] MEDORA [DA GIUDICARE]: Hai già tracciato un piano dettagliato per il tuo progetto come ti avevo suggerito?
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dato nella risposta precedente e chiede un aggiornamento sulla sua esecuzione.
+[3] PERSONA: Hai già tracciato un piano dettagliato per il tuo progetto come ti avevo suggerito?
+[3] MEDORA [DA GIUDICARE]: Non ho la possibilità di sapere se hai già tracciato il piano. Fammi sapere a che punto sei con il tuo progetto, così posso guidarti al meglio.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda implicita della persona (che ha ripetuto la domanda della guida) e ribadisce la necessità di un aggiornamento per poter proseguire la guida, sviluppando il punto precedente.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Trova il momento giusto per sederti con lei e parlarle con il cuore, senza fretta, in un luogo dove entrambe vi sentiate al sicuro. Ascolta il tuo respiro prima di iniziare, per trovare la calma dentro di te.
+
+Quando le parlerai, fai in modo che il tuo respiro sia profondo e lento, con le parole che scaturiscono dal centro del cuore, Anahata, che irradia il colore verde smeraldo. Non cercare di vincere una discussione, ma di ripristinare il flusso armonioso che vi lega. In questo momento, la fisiognomica ti suggerisce di osservare i suoi occhi: sono lo specchio dell'anima, e un contatto visivo morbido può aiutare a sciogliere le tensioni.
+
+✦ Metti una mano sul tuo cuore e senti il suo battito prima di avvicinarti a lei.
+[2] PERSONA: Metti una mano sul tuo cuore e senti il suo battito prima di avvicinarti a lei.
+[2] AURA [DA GIUDICARE]: Hai colto l'invito, e il tuo sentire il battito del cuore è il primo passo verso l'apertura. Ora, quando sarai di fronte a tua sorella, dopo aver ascoltato il ritmo del tuo cuore, prova a visualizzare un tenue filo d'oro che si estende dal tuo centro del cuore, il tuo Anahata, fino al suo. Questo non è un gesto che si vede, ma che si sente, una connessione invisibile che vi lega nonostante le parole della lite.
+
+Lascia che questa immagine ti guidi nel trovare le parole giuste, quelle che non accusano, ma che esprimono il tuo desiderio di ricongiungervi. Il tuo respiro calmo sarà il ritmo di questo dialogo, e la luce dorata che immagini sarà la promessa di un nuovo inizio, che non cancella il passato, ma apre la strada a un futuro di comprensione.
+
+✦ Fai un respiro profondo e, mentre espiri, sorridi con gli occhi prima di iniziare a parlare.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'ultima istruzione data ('Metti una mano sul tuo cuore e senti il suo battito') e la sviluppa, considerandola un 'primo passo' e aggiungendo nuove indicazioni che si basano su quel punto di partenza.
+[3] PERSONA: Fai un respiro profondo e, mentre espiri, sorridi con gli occhi prima di iniziare a parlare.
+[3] AURA [DA GIUDICARE]: Hai già fatto due passi importanti: hai sentito il tuo cuore e hai preparato il tuo sguardo con un sorriso che viene dall'anima. Ora, mentre ti avvicini a tua sorella, lascia che le tue mani siano aperte, non chiuse in pugno, come a voler accogliere e non a difenderti.
+
+Questo gesto semplice, che la fisiognomica legge come segno di disponibilità, amplifica l'energia del tuo centro Anahata, già attivato dal tuo intento. Non è un caso che il verde smeraldo, il colore di questo centro, sia anche quello della speranza e dell'armonia. Le parole seguiranno il tuo corpo e la tua energia: saranno morbide, aperte, senza giudizio. È il momento di sentire, più che di dire, e di lasciare che la sua risposta trovi spazio.
+
+✦ Poggia una mano delicatamente sul tuo ventre, sentendo il respiro che scende fino alla radice.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'ultima istruzione data ('Fai un respiro profondo e, mentre espiri, sorridi con gli occhi') e la sviluppa, considerandola un 'passo importante' e aggiungendo nuove indicazioni che si basano su quel punto di partenza, come il gesto delle mani aperte e il riferimento all'Anahata già attivato.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 9, ignora 1, contraddice a tradimento 0, cambia dichiarando 0, quota senza difetto 90 per cento, corrette dalla rete della coerenza 0, elemento cambiato in 0 risposte su 1 con un elemento gia' uscito

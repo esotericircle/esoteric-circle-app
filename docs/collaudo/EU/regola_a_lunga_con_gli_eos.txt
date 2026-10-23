@@ -1,0 +1,6 @@
+REGOLA B, ordine EU voce 15, 1 ottobre 2026: la guardia della profondita' dei piani vista rossa (dopo aver scritto la voce, sul codice nuovo, e lo dice questa riga).
+INNESTO B1 la profondita' del piano per tutti, anche il Viandante: grep del difetto nel file SI; prova test/entitlement_soldi2_test.dart ROSSA; file rimesso sha1 5d03a5b5ebe9 -> 5d03a5b5ebe9 IDENTICO
+REGOLA A: la guardia la_lunga_si_apre_con_gli_eos vista rossa.
+INNESTO A1 la Lunga del giorno tolta dal listino: grep del difetto nel file SI; prova test/la_lunga_si_apre_con_gli_eos_test.dart ROSSA; ORDINE EU VOCE 15: voci dell'Oroscopo con un prezzo nella tabella ES.06 ma assenti dal listino 1 su 3 / ORDINE EU VOCE 15: due strade al Viandante: "La Lunga dell'Oroscopo occidentale del giorno, per la giornata e le quattro schede, 50 Eos" e "La Lunga ogni giorno con l'Iniziato"; file rimesso sha1 93529639e2f0 -> 93529639e2f0 IDENTICO
+INNESTO A2 il lucchetto della Lunga che apre solo il piano, come prima: grep del difetto nel file SI; prova test/la_lunga_si_apre_con_gli_eos_test.dart ROSSA; file rimesso sha1 7d7a2cc3f1d0 -> 7d7a2cc3f1d0 IDENTICO
+INNESTO A3 la Lunga comprata oggi che non apre la scelta: grep del difetto nel file SI; prova test/la_lunga_si_apre_con_gli_eos_test.dart ROSSA; file rimesso sha1 7d7a2cc3f1d0 -> 7d7a2cc3f1d0 IDENTICO

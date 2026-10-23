@@ -1,0 +1,9 @@
+# Dipendenze e build: mai versionate.
+node_modules/
+lib/
+
+# Secret e config locali di Firebase: mai nel repo.
+.env
+.env.*
+.runtimeconfig.json
+*.local

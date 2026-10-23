@@ -1,0 +1,117 @@
+== EQ.04 innesto 1: una carta perde i suoi testi nel corpus
+   file lib/core/tarot/le_carte_nella_posizione_dati.dart, sha1 prima 17ae72d4762b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: ['Il Matto|dritta']
+   ripristinato: sha1 17ae72d4762b, uguale
+== EQ.04 innesto 2: la carta nella posizione torna il significato generale
+   file lib/core/tarot/le_carte_nella_posizione.dart, sha1 prima 7f9d4f308f17, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 7f9d4f308f17, uguale
+== EQ.04 innesto 3: la lettura di casa rimette il significato sotto la carta
+   file lib/core/tarot/tarot_reading.dart, sha1 prima 47a45b9e54bc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 47a45b9e54bc, uguale
+== EQ.04 innesto 4: al modello non arriva il significato tradizionale
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima b9fcc08d15a9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'Passione, azione, avventura: parti con coraggio verso ciò che desideri. Tieni però un occhio alla meta, così l\'ardore non si perde per strada. È un tempo per osare, non per esitare.'
+   Actual: 'Domanda della persona: Devo accettare l\'offerta di lavoro a Milano?\n'
+   ripristinato: sha1 b9fcc08d15a9, uguale
+== EQ.04 innesto 5: il consiglio non comincia dalla risposta
+   file lib/core/tarot/tarot_reading.dart, sha1 prima 47a45b9e54bc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: a string starting with 'Le carte indicano che puoi accettare, a patto di chiarire prima le condizioni. Otto di Spade nel presente dice che la decisione e\' matura.'
+   Actual: 'Dal passato al futuro le carte vanno da una chiusura a un inizio.\n'
+   ripristinato: sha1 47a45b9e54bc, uguale
+== EQ.04 innesto 6: la guardia del genere tace
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima b9fcc08d15a9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 b9fcc08d15a9, uguale
+== EQ.04 innesto 7: la lettura non passa dalle regole di lingua
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima b9fcc08d15a9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 b9fcc08d15a9, uguale
+== EQ.04 innesto 8: un tentativo solo
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima b9fcc08d15a9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 b9fcc08d15a9, uguale
+== EQ.04 innesto 9: la schermata non mostra la lettura del modello
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima ff1ac02efd31, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:07 +0 -1: Some tests failed.
+   Expected: contains 'Le carte indicano che puoi accettare, a patto di chiarire prima le condizioni.
+   Actual: 'IL CONSIGLIO DI MEDORA Racconta una misura giusta. Le cose stanno dove devono. E chiedono
+   ripristinato: sha1 ff1ac02efd31, uguale
+== EQ.04 innesto 10: una parola del confine non arriva al modello
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima b9fcc08d15a9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'mutuo'
+   Actual: 'malattia, diagnosi, guarigione, morire, morte, gravidanza, incinta, divorzio, tribunale, processo penale, eredità, licenziato, licenziamento, investimenti'
+   ripristinato: sha1 b9fcc08d15a9, uguale
+== EQ.04 innesto 11: la riga senza genere arriva a tutti
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima b9fcc08d15a9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains '- Chi legge può essere un uomo o una donna. Nelle frasi su chi legge non scrivere mai essere, sentirsi, restare, rimanere, stare o diventare seguiti da un aggettivo o da un participio («sei passat
+   Actual: 'Sei Medora, la Maestra dell\'astrologia e della cartomanzia di Esoteric Circle. Una persona ha fatto una stesa di tre carte dei Tarocchi Rider-Waite, nelle posizioni passato, presente e futuro. Leggila in italia
+   ripristinato: sha1 b9fcc08d15a9, uguale
+== EQ.04 innesto 12: "solo" avverbio torna un genere (prova della stesa)
+   file lib/core/chat/le_forme_del_genere.dart, sha1 prima bc8a052dcaf9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: ['essere solo']
+   ripristinato: sha1 bc8a052dcaf9, uguale
+== EQ.04 innesto 13: lo stesso innesto davanti alla guardia del genere
+   file lib/core/chat/le_forme_del_genere.dart, sha1 prima bc8a052dcaf9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: ['essere solo']
+   ripristinato: sha1 bc8a052dcaf9, uguale
+== EQ.04 innesto 14: il prompt della stesa non e' dichiarato
+   file test/ogni_prompt_di_prosa_dichiara_la_forma_test.dart, sha1 prima 6968e3d4bfc6, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: Set:['lib/core/tarot/la_lettura_dal_modello.dart']
+   ripristinato: sha1 6968e3d4bfc6, uguale
+== EQ.04 innesto 15: la riscrittura non sostituisce niente
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima b9fcc08d15a9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 b9fcc08d15a9, uguale
+== EQ.04 innesto 16: l'ultima cura non cura
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima b9fcc08d15a9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 b9fcc08d15a9, uguale
+== EQ.04 innesto 17: la schermata non aspetta la lettura
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima ff1ac02efd31, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   ripristinato: sha1 ff1ac02efd31, uguale

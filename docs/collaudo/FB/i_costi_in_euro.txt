@@ -1,0 +1,13 @@
+I COSTI IN EURO DELL'ORDINE FB, scritti da tool/i_costi_dell_ordine_fb.py
+Prezzi Firestore Standard europe-west1 dal catalogo di Google, letti il 4 ottobre 2026: lettura 0,029 euro / 100.000, scrittura 0,0871 euro / 100.000.
+Un'ora con N persone presenti per tutta l'ora; il mese e' 720 ore cosi'.
+
+    1 presenti | prima (FA)      1992 letture     180 scritture = 0.0007 euro/ora,    0.53 euro/mese | dopo (FB)       369 letture     300 scritture = 0.0004 euro/ora,    0.27 euro/mese | differenza -0.26 euro/mese | nel caso peggiore dei frammenti (uno per presente) -0.26 euro/mese
+   10 presenti | prima (FA)      3820 letture     720 scritture = 0.0017 euro/ora,    1.25 euro/mese | dopo (FB)      1475 letture     840 scritture = 0.0012 euro/ora,    0.83 euro/mese | differenza -0.41 euro/mese | nel caso peggiore dei frammenti (uno per presente) -0.40 euro/mese
+  100 presenti | prima (FA)     13000 letture    6120 scritture = 0.0091 euro/ora,    6.55 euro/mese | dopo (FB)      8737 letture    6240 scritture = 0.0080 euro/ora,    5.74 euro/mese | differenza -0.81 euro/mese | nel caso peggiore dei frammenti (uno per presente) +0.03 euro/mese
+ 1000 presenti | prima (FA)     88120 letture   60120 scritture = 0.0779 euro/ora,   56.10 euro/mese | dopo (FB)     22200 letture   60240 scritture = 0.0589 euro/ora,   42.41 euro/mese | differenza -13.69 euro/mese | nel caso peggiore dei frammenti (uno per presente) -13.69 euro/mese
+ 5000 presenti | prima (FA)   1628840 letture  300120 scritture = 0.7338 euro/ora,  528.31 euro/mese | dopo (FB)     64200 letture  300240 scritture = 0.2801 euro/ora,  201.69 euro/mese | differenza -326.62 euro/mese | nel caso peggiore dei frammenti (uno per presente) -326.62 euro/mese
+
+Frammenti occupati attesi: con 10 presenti 9.5, con 100 62.3, con 1000 96.0; nel caso peggiore 10, 96, 96.
+Scale dove il dopo atteso costa piu' del prima: nessuna
+Le scritture del passo (60 all'ora per presente) sono le stesse prima e dopo: sono la parte piu' grande del costo, e l'ordine FB non le tocca.

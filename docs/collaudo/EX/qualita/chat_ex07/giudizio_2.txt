@@ -1,0 +1,60 @@
+S01|SI|SI|NA|SI|NO|al limite: il seguito dice che il trasferimento segnerà l'inizio di una nuova fase come certezza; Berlino non nominato ma il contesto è capito
+S02|SI|NA|NA|SI|SI|al limite il merito: diario ogni sera è concreto per la settimana; seguito aggiunge ascendente e Luna natale
+S03|SI|NA|NA|SI|SI|al limite: consiglia il patto di restituzione e poi rimanda al consulente; il seguito spiega Gebo e il patto come protezione
+S04|SI|SI|NA|SI|SI|usa il colloquio e il lavoro in banca; seguito aggiunge opposizione Sole Saturno e trigono a Urano
+S05|SI|NA|SI|SI|NO|Venere a 8 Scorpione giusta, Luna verso il Cancro giusta; al limite il seguito resta generico e ripete l'intensità dei legami
+S06|SI|NA|NA|SI|SI|sì con condizione e azione concreta (una settimana per riflettere); al limite il seguito, perché dal Cercatore
+S07|SI|NA|NA|SI|NO|dice chi è e le sue arti; il seguito ripete con altre parole la presentazione
+S08|SI|SI|NA|SI|SI|al limite B: usa la ceramica ma non la meditazione mattutina né la banca; seguito confonde il colloquio con domattina
+S09|SI|NA|SI|SI|SI|Giove in Vergine e Luna in Pesci crescente coincidono con le effemeridi
+S10|SI|SI|NA|SI|SI|nomina la sorella e cosa dirle; seguito aggiunge Marte in Leone e la comunicazione
+S11|SI|SI|NA|SI|NA|al limite il merito: tre parole su un foglio da portare al colloquio
+S12|SI|NA|SI|SI|NO|retrogradi giusti; al limite il seguito resta generico su questioni irrisolte e revisione
+S13|SI|NA|SI|SI|SI|Sole Scorpione, Luna Acquario, Mercurio quadrato Plutone, Luna quadrato Mercurio: tutto coincide
+S14|SI|NA|SI|SI|NA|Luna in Gemelli giusta; azione concreta verso la madre
+S15|SI|SI|NA|NO|SI|al limite D: sentire la paura nel plesso solare vale per chiunque, non dice come gestire la madre; seguito aggiunge il perché
+S16|SI|NO|NA|NO|NA|non usa il dormire male prima delle scadenze; respirare lentamente è generico, la riga finale è monca
+S17|SI|SI|NA|NO|SI|risposta generica su silenzio e respiro; solo il seguito porta alla sorella; al limite B
+S18|SI|NA|SI|SI|SI|Saturno in Toro retrogrado coincide; seguito lega a Berlino e bottega
+S19|SI|NO|NA|SI|SI|al limite B: non nomina Marco né mostra di sapere chi sia; al limite il seguito
+S20|SI|SI|NA|NO|SI|al limite: alla domanda su come prepararsi al colloquio risponde di parlare alla sorella, cambia tema
+S21|SI|SI|NA|SI|NO|veterinario per Ombra va bene; il seguito rimanda a Medora e Fehu resta generico
+S22|SI|NA|NA|SI|SI|no per ora con motivo e attesa fino alla Luna piena; seguito aggiunge Venere e Sole in Cancro
+S23|SI|NA|NA|NO|NA|non rimandare e la decisione è chiara vale per chiunque, non sa quale sia la scelta
+S24|SI|SI|NA|SI|NA|cercare la sorella di persona e dirle che le manca, con la paura per la madre
+S25|SI|NA|NA|SI|NO|al limite D: osservare le spese senza giudizio; seguito generico sul valore oltre il denaro
+S26|SI|NA|SI|SI|SI|Luna in Gemelli gibbosa calante giusta; al limite il seguito ripete l'azione
+S27|SI|NA|SI|SI|SI|Luna crescente in Bilancia giusta; al limite il seguito
+S28|SI|SI|NA|SI|NA|sigillo e una parola da portare al colloquio, concreto
+S29|NO|NA|NA|NO|SI|al limite A: indicazione vaga e voce piatta; risposta generica; il seguito porta ascendente e tisana
+S30|SI|NO|NA|SI|NA|non usa il dormire male prima delle scadenze; al limite D: respiro quattro e sei è concreto
+S31|SI|NA|SI|SI|SI|Venere a 8 gradi Scorpione coincide; seguito lega all'ascendente
+S32|SI|NA|SI|SI|SI|Sole Scorpione quadrato Marte e Giove coincide; seguito aggiunge come scegliere il giorno
+S33|SI|SI|NA|SI|SI|nomina la ceramica, azione concreta con l'argilla; seguito aggiunge Gebo e la madre
+S34|SI|SI|NA|SI|NO|il seguito inventa una Luna natale in Cancro, è in Bilancia
+S35|SI|SI|NA|SI|SI|al limite B e D: non nomina Berlino; non ancora con motivo; seguito aggiunge sorella e Ombra
+S36|SI|NA|NA|SI|SI|respiro di cinque minuti concreto; seguito aggiunge il rosso della radice e la madre
+S37|SI|SI|NA|SI|NO|nomina Marco e dice di andare; il seguito è vago, la scelta già scritta nel respiro
+S38|SI|NA|NA|NO|NA|decidere entro domani vale per chiunque, non sa quale sia la scelta
+S39|SI|SI|NA|SI|SI|al limite B: usa il colloquio, non la meditazione né la banca; al limite il seguito breve
+S40|NO|NA|SI|SI|SI|al limite A: l'azione presuppone una sala d'attesa di un medico inventata; Sole Bilancia, Mercurio e Venere Scorpione giusti
+S41|SI|NA|SI|SI|SI|Luna in Cancro domani e quadratura a Saturno retrogrado coincidono
+S42|SI|NA|SI|SI|SI|Luna in Gemelli gibbosa calante giusta; seguito aggiunge Mercurio governatore
+S43|SI|NA|NA|SI|SI|al limite A: no per ora con Fehu e rimando al consulente; seguito aggiunge le motivazioni dell'amico
+S44|SI|NA|SI|SI|SI|retrogradi giusti, Venere non citata; seguito lega Saturno e Urano alle scelte di lavoro
+S45|SI|NO|NA|SI|NO|al limite B: non nomina ceramica né bottega; seguito generico sul fluire della creatività
+S46|SI|NA|NA|SI|SI|sceglie la casa grande con Othala; al limite il seguito
+S47|SI|NA|SI|SI|SI|Bilancia, crescente al trenta per cento, Sole in Cancro con i pianeti esterni: coincide
+S48|NO|NA|NA|NO|NA|non ancora e non decidere in fretta vale per chiunque; la riga finale è monca
+S49|NO|NA|NA|SI|NO|lì troverai la tua libertà e ti attende un nuovo inizio sono previsioni certe
+S50|SI|NA|SI|SI|NA|Luna in Gemelli giusta; al limite D: lista di preoccupazioni e gratitudine
+S51|SI|SI|NA|SI|NA|chiamare la sorella subito, concreto
+S52|SI|NA|NO|SI|NO|il seguito dice Luna in Pesci congiunta a Nettuno in Ariete, falso; e lega il 2028 al colloquio
+S53|SI|SI|NA|SI|SI|veterinario subito per Ombra; al limite il seguito
+S54|SI|NA|NO|NO|SI|la risposta non dice nessun fatto del cielo di oggi ed è generica; il seguito porta Sole opposto a Saturno
+S55|SI|NA|SI|SI|SI|Saturno in Toro coincide; al limite il seguito
+S56|SI|NA|NA|SI|SI|bagno caldo e respiro concreti; al limite il seguito
+S57|SI|NA|NA|NO|SI|riconoscere le paure e respirare non dice da dove ricominciare con le spese; il seguito propone gratificazioni senza denaro
+S58|SI|NA|NA|SI|NO|al limite: il seguito cambia argomento e passa al colloquio
+S59|SI|NA|SI|SI|SI|Luna in Cancro quadrata al Sole in Bilancia coincide
+S60|SI|NA|NA|SI|NA|al limite D: sì se lasci le paure, con lista pro e contro

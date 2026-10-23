@@ -1,0 +1,49 @@
+ORDINE EM VOCI 09 E 10, IL VOLTO E LA DOMANDA NEL LIVE DI AURA, Realme 767f596c, build 2281 di collaudo, 25 settembre 2026 alle 04:05
+Raffica di 43 catture PNG durante la scena tv3 del banco (televisione finta e domanda con due pause), dall'ascolto alla risposta.
+Per ogni cattura il rettangolo dei pixel dorati dell'arco che incornicia il volto, fra y 380 e 1390 (sotto comincia la domanda in oro).
+Secondi dal lancio della traccia: la frase si chiude a 32,5 s, la domanda va a video a 33,1 s, la risposta comincia a 40,3 s.
+
+  16.6 s  arco x 174-905  y 428-1343  731x915
+  17.3 s  arco x 174-905  y 428-1343  731x915
+  18.0 s  arco x 174-905  y 428-1343  731x915
+  18.7 s  arco x 174-905  y 428-1343  731x915
+  19.4 s  arco x 174-905  y 428-1343  731x915
+  20.2 s  arco x 174-905  y 428-1343  731x915
+  20.9 s  arco x 174-905  y 428-1343  731x915
+  21.7 s  arco x 174-905  y 428-1343  731x915
+  22.4 s  arco x 174-905  y 428-1343  731x915
+  23.1 s  arco x 174-905  y 428-1343  731x915
+  23.9 s  arco x 174-905  y 428-1343  731x915
+  24.6 s  arco x 174-905  y 428-1343  731x915
+  25.4 s  arco x 174-905  y 428-1343  731x915
+  26.1 s  arco x 174-905  y 428-1343  731x915
+  26.8 s  arco x 174-905  y 428-1343  731x915
+  27.6 s  arco x 174-905  y 428-1343  731x915
+  28.3 s  arco x 174-905  y 428-1343  731x915
+  29.1 s  arco x 174-905  y 428-1343  731x915
+  29.9 s  arco x 174-905  y 428-1343  731x915
+  30.6 s  arco x 174-905  y 428-1343  731x915
+  31.3 s  arco x 174-905  y 428-1343  731x915
+  32.4 s  arco x 174-905  y 428-1343  731x915
+  33.1 s  arco x 174-905  y 428-1343  731x915
+  33.9 s  arco x 174-905  y 428-1343  731x915
+  34.6 s  arco x 174-905  y 428-1343  731x915
+  35.3 s  arco x 174-905  y 428-1343  731x915
+  36.1 s  arco x 174-905  y 428-1343  731x915
+  36.8 s  arco x 174-905  y 428-1343  731x915
+  37.6 s  arco x 174-905  y 428-1343  731x915
+  38.3 s  arco x 174-905  y 428-1343  731x915
+  39.1 s  arco x 174-905  y 428-1343  731x915
+  39.9 s  arco x 174-905  y 428-1343  731x915
+  40.7 s  arco x 174-905  y 428-1343  731x915
+  41.5 s  arco x 174-905  y 428-1343  731x915
+  42.3 s  arco x 174-905  y 428-1343  731x915
+  43.0 s  arco x 174-905  y 428-1343  731x915
+  43.7 s  arco x 174-905  y 428-1343  731x915
+  44.4 s  arco x 174-905  y 428-1343  731x915
+  45.2 s  arco x 174-905  y 428-1343  731x915
+  46.0 s  arco x 174-905  y 428-1343  731x915
+  46.7 s  arco x 174-905  y 428-1343  731x915
+  47.5 s  arco x 174-905  y 428-1343  731x915
+  48.3 s  arco x 174-905  y 428-1343  731x915
+rettangoli diversi: 1 su 43 fotogrammi con l'arco

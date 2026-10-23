@@ -1,0 +1,28 @@
+IL CONSIGLIO, LA SINTESI E IL GENERE DELLE CARTE
+Ordine EI voce 06, che riapre la voce EE.10.
+
+LA REGOLA, che vive in un punto solo, la_lingua_del_modello.dart:65:
+  "I numeri delle carte sono maschili: si scrive il Tre di Denari,
+   il Dieci di Spade, l'Asso di Coppe, mai la Tre o la Dieci.
+   Le figure seguono il loro genere: il Re, il Cavaliere, il Fante, la Regina."
+
+--- MISURATO SU TUTTO CIO' CHE GEMINI HA SCRITTO NEI NOVE GIRI
+
+  nomi di carte con numero trovati nelle trascrizioni: 11
+  con l'articolo femminile sbagliato: 0
+      (nessuno)
+
+--- LA SINTESI VERA DEL CONSIGLIO
+
+  La pagina intera sta accanto a questo file, in
+  docs/collaudo/EI/il_consiglio_e_la_sintesi.md, ed e' nata dalle TRE
+  LETTURE VERE della cattura del fondatore del 23 settembre 2026, sulla
+  domanda "Denaro e fortuna".
+
+  I controlli automatici di quel giro: 104 parole, 3 Maestri chiamati
+  per nome, 1 sola sequenza di cinque parole ripresa dalle letture,
+  e nomina almeno una relazione fra gli sguardi.
+
+  SE LA SINTESI CONFRONTI DAVVERO I TRE SGUARDI INVECE DI RIASSUMERLI
+  LO GIUDICA IL FONDATORE LEGGENDO QUELLA PAGINA: qui non si da' per
+  fatto, e la voce lo dichiara.

@@ -1,0 +1,48 @@
+S01|SI|SI|NA|SI|NA|Si condizionato, nomina Marco e da' un gesto concreto: scrivergli due righe senza chiedere niente.
+S02|SI|NA|NA|SI|NA|Si condizionato, voce di Medora, azione concreta sul colloquio di fine mese.
+S03|NO|SI|NA|SI|NA|Al limite: dice per certo che la mente si alleggerira' dopo il colloquio; usa le scadenze e da' un esercizio.
+S04|SI|NA|NA|SI|NA|Si condizionato, nomina la paura di deludere la madre, gesto concreto alla Luna Piena.
+S05|SI|SI|NA|SI|NA|Al limite: risposta condizionata sulla natura di Marco con un gesto concreto di osservazione.
+S06|SI|SI|NA|SI|NA|Usa il colloquio e la ceramica, azione concreta: portare un oggetto creato da lei.
+S07|SI|NA|NA|SI|NA|No per ora motivato dalla Luna calante e Venere retrograda, giorno preciso per rileggere.
+S08|SI|NO|NA|NO|NA|Al limite su A; non usa la paura di deludere la madre e la riga finale e' un invito generico.
+S09|SI|SI|NA|SI|NA|Al limite su A: la previsione su Ombra e' legata alla serenita' di lei; gesto concreto con Ombra.
+S10|SI|NA|NA|SI|NA|Al limite su D: indica di non legare le scelte all'attesa, voce di Aura e respiro concreto.
+S11|SI|SI|NA|SI|NA|Al limite su D: no per ora su Berlino motivato, azione prima del colloquio un po' generica.
+S12|SI|NA|NA|SI|NA|Al limite su D: si legato all'attesa, ma azione concreta sulla lettera per il colloquio.
+S13|SI|NO|NA|SI|NA|Al limite su B: non mostra di sapere che lui e' Marco; risposta chiara di andare.
+S14|SI|NA|NA|SI|NA|No per ora motivato da Venere retrograda, azione concreta giovedi'.
+S15|SI|SI|NA|SI|NA|Al limite su A e D: l'adattamento di Ombra dipende da come lei vivra' il cambiamento.
+S16|NO|SI|NA|SI|NA|Dice la Luna natale in Cancro mentre e' in Bilancia, e prevede per certo il sonno dopo il colloquio.
+S17|SI|SI|NA|SI|NA|Al limite su B: dice di parlarle a cuore aperto offrendo comprensione, gesto concreto prima.
+S18|SI|SI|NA|SI|NA|Al limite su B e D: non nomina Berlino ma lega il cambio al colloquio e alla ceramica.
+S19|NO|SI|NA|SI|NA|Previsione certa: la pace con la sorella arrivera' dopo il colloquio; B al limite.
+S20|SI|NA|NA|SI|NA|Si condizionato alla chiarezza, azione concreta martedi' prossimo.
+S21|SI|NA|NA|SI|NA|No per ora motivato dalla Luna, azione concreta giovedi' mattina.
+S22|SI|SI|NA|NO|NA|Al limite: confonde chi perdona e resta su visualizzazione del verde, nessun passo verso la sorella.
+S23|SI|SI|NA|SI|NA|Al limite su D: non ancora su Marco con gesto concreto della lista da rileggere.
+S24|SI|NA|NA|SI|NA|No motivato da Venere retrograda, azione concreta sabato.
+S25|NO|SI|NA|SI|NA|Previsione certa: la mente si quietera' dopo il colloquio e allora dormira'.
+S26|NO|SI|NA|SI|NA|Al limite: passeggiata a Berlino non fattibile ora e Aura parla in voce astrologica.
+S27|SI|SI|NA|SI|NA|No per ora su Berlino motivato, lista dei pro e contro.
+S28|NO|NA|NA|SI|NA|Previsione certa: supererai l'esame.
+S29|NO|SI|NA|SI|NA|Al limite: Luna natale in Capricorno congiunta a Marte, falsa rispetto alla Luna in Bilancia.
+S30|SI|SI|NA|SI|NA|Al limite su A e B: pace condizionata a una chiara espressione, Ansuz corretta, lettera.
+S31|SI|NO|NA|SI|NA|Al limite su B: non usa la paura di deludere la madre; azione concreta di parlarle.
+S32|SI|NO|NA|SI|NA|Al limite su B: non mostra di sapere che lui e' Marco; indica di accettare l'invito.
+S33|SI|SI|NA|SI|NA|Si condizionato su Marco con gesto di osservazione nella settimana.
+S34|SI|NA|NA|SI|NA|Al limite su D: non ancora e non forzare la sua volonta', poi respiro al cuore.
+S35|SI|SI|NA|SI|NA|Usa Ombra, passi concreti per accompagnarla nella nuova casa.
+S36|SI|NA|NA|SI|NA|Al limite: non ancora detto al presente, indica di riportare l'energia su di se'.
+S37|SI|NA|NA|SI|NA|Si condizionato a una richiesta diretta, azione concreta verso l'amico.
+S38|SI|NA|NA|NO|NA|Non affrettare e osservare il fluire, bruciare le paure: andrebbe bene a chiunque.
+S39|NO|SI|NA|SI|NA|Previsione certa: non prima di tre mesi; B al limite, Gebo corretta.
+S40|SI|SI|NA|SI|NA|Al limite su D: si condizionato alla preparazione, rivedere il curriculum.
+S41|SI|SI|NA|SI|NA|Usa Berlino, azione precisa: chiedere alla madre cosa significa casa.
+S42|SI|SI|NA|SI|NA|Usa la paura di deludere la madre, indica di parlarle da sola in serata.
+S43|NO|SI|NA|SI|NA|Al limite: attribuisce alla madre il Sole in Cancro, fatto inventato; B al limite.
+S44|SI|SI|NA|SI|NA|Il sonno tornera' quando lei sciogliera' le tensioni del colloquio, respiro concreto.
+S45|NO|SI|NA|SI|NA|Al limite: tempo dato per certo, non prima del colloquio; B al limite.
+S46|SI|SI|NA|SI|NA|Al limite su D: si condizionato, meditazione la mattina del colloquio.
+S47|SI|NA|NA|SI|NA|Al limite su D: non ancora e non legare le scelte all'attesa.
+S48|SI|NA|NA|SI|NA|Al limite su D: si condizionato alla costanza, Uruz corretta, altare ogni sera.

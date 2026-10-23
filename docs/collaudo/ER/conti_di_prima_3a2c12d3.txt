@@ -1,0 +1,81 @@
+COMMIT DI PARTENZA: 3a2c12d3 ("EQ: le risposte del fondatore nel rapporto, nel manifesto, nel registro e nello stato vivo...")
+Il conto di prima misurato su quel commit, in un worktree staccato (git worktree add --detach, nessun ramo), il 28 settembre 2026.
+Stessi VIP (VipCatalog.vips, 50), stessi profili e stesse regole di misura delle prove di dopo:
+  perche' proprio lui: test/i_difetti_visti_sul_realme_alla_2285_test.dart, persona Gemelli nata il 15 giugno 1990 a ora non nota, cielo del 28 settembre 2026;
+  ER.17: test/la_sinastria_dice_le_cose_una_volta_e_in_italiano_test.dart, cielo del decimo VIP del catalogo, 28 agosto 2026.
+Sul commit di partenza SchermataDelGemello.cieloPer non esiste: il cielo e' costruito con CieloDiSinastria.perNascita e gli stessi argomenti.
+
+== PRIMA, sul commit 3a2c12d3 (uscita della prova qui sotto)
+PRIMA 3a2c12d3, PERCHE PROPRIO LUI: VIP 50, con aspetti 50, titoli dentro la frase 50; primi tre: Angelina Jolie: "Luna Congiunzione Marte"; Ariana Grande: "Venere Congiunzione Venere"; Bad Bunny: "Mercurio Trigono Sole"
+PRIMA 3a2c12d3, ER.17: VIP senza luogo pubblico 21, responsi che non lo dicono una volta sola 21; Angelina Jolie: 2; Ariana Grande: 2; Billie Eilish: 2; Brad Pitt: 2; Damiano David: 2
+00:00 +2: All tests passed!
+
+== DOPO, sul codice dell'ordine ER (le due prove del ramo)
+ORDINE ER VOCE 17: VIP senza luogo pubblico 21, responsi che non lo dicono una volta sola 0
+ORDINE ER, 2285: VIP con aspetti nel perche' 50, titoli dentro la frase 0
+00:06 +12: All tests passed!
+
+== LA PROVA FATTA GIRARE SUL COMMIT DI PARTENZA (test/zz_conti_di_prima_er_test.dart, solo nel worktree di misura)
+import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/synastry/cielo_della_sinastria.dart';
+import 'package:esoteric_circle/core/synastry/perche_proprio_lui.dart';
+import 'package:esoteric_circle/core/synastry/synastry_report.dart';
+import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+/// I conti di prima dell'ordine ER, sul commit di partenza 3a2c12d3, con gli
+/// stessi VIP, gli stessi profili e le stesse regole di misura delle prove
+/// di dopo: test/i_difetti_visti_sul_realme_alla_2285_test.dart (il perche'
+/// proprio lui) e test/la_sinastria_dice_le_cose_una_volta_e_in_italiano_test.dart
+/// (ER.17). Questo file vive solo nel worktree di misura, non nel ramo.
+void main() {
+  test('il perche\' proprio lui, prima', () {
+    const segno = Zodiac.gemini;
+    final nascita = DateTime(1990, 6, 15);
+    // Lo stesso cielo di SchermataDelGemello.cieloPer di dopo, che sul
+    // commit di partenza non esiste ancora: stessi argomenti.
+    final cielo = CieloDiSinastria.perNascita(
+      momentoUtc: DateTime.utc(nascita.year, nascita.month, nascita.day, 12),
+      oraNota: false,
+      latitudine: null,
+      longitudineDelLuogo: null,
+      segnoDichiarato: segno,
+    );
+    final titolo = RegExp(r'\b[A-Z][a-zà-ù]+ (?:Congiunzione|Sestile|'
+        r'Quadratura|Trigono|Opposizione) [A-Z][a-zà-ù]+');
+    final colpe = <String>[];
+    var conAspetti = 0;
+    for (final v in VipCatalog.vips) {
+      final r = SynastryReport.perCieli(
+          tuo: cielo, vip: v, quando: DateTime(2026, 9, 28));
+      if (r.aspettiPiuForti.isNotEmpty) conAspetti++;
+      final t = PercheProprioLui.tecnica(r, segno, v.sign);
+      final m = titolo.firstMatch(t);
+      if (m != null) colpe.add('${v.name}: "${m.group(0)}"');
+    }
+    // ignore: avoid_print
+    print('PRIMA 3a2c12d3, PERCHE PROPRIO LUI: VIP ${VipCatalog.vips.length}, '
+        'con aspetti $conAspetti, titoli dentro la frase ${colpe.length}; '
+        'primi tre: ${colpe.take(3).join('; ')}');
+  });
+
+  test('ER.17, prima', () {
+    final tuo = CieloDiSinastria.perVip(VipCatalog.vips[9]);
+    var senzaLuogo = 0;
+    final dueVolte = <String>[];
+    for (final vip in VipCatalog.vips) {
+      if (vip.luogoDiOggi != null || vip.eScomparso) continue;
+      senzaLuogo++;
+      final r = SynastryReport.perCieli(
+          tuo: tuo, vip: vip, quando: DateTime(2026, 8, 28));
+      final responso = [...r.bars.map((b) => b.quip), r.nota].join(' ');
+      final volte =
+          'la distanza non entra nel conto'.allMatches(responso).length;
+      if (volte != 1) dueVolte.add('${vip.name}: $volte');
+    }
+    // ignore: avoid_print
+    print('PRIMA 3a2c12d3, ER.17: VIP senza luogo pubblico $senzaLuogo, '
+        'responsi che non lo dicono una volta sola ${dueVolte.length}; '
+        '${dueVolte.take(5).join('; ')}');
+  });
+}

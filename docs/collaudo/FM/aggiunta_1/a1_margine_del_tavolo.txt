@@ -1,0 +1,37 @@
+Ricerca del margine del campo per le carte appoggiate sul tavolo, 12 ottobre 2026.
+Richiesta del fondatore: "anche quando le carte sono posizionate appoggiate sul
+tavolo, cerca di ingrandirle in modo da occupare quasi tutta la superficie del
+tavolo".
+
+Misura: per ogni frazione del piano (il margine "utile" dentro il bordo
+ricamato), il margine minimo residuo fra la carta piu' vicina al bordo e il
+bordo ricamato, su tutte e quattro le stese, nel sistema di coordinate del
+piano piatto (prima dell'omografia; e' lo stesso sistema che la guardia
+"le carte di ogni stesa stanno dentro il campo del velluto" misura).
+
+fattore 0.86 (il margine di prima): margine minimo 20.00 (treCarte)
+fattore 0.90: margine minimo 14.28 (treCarte)
+fattore 0.93: margine minimo 10.00 (treCarte)
+fattore 0.95: margine minimo  7.14 (treCarte)
+fattore 0.96: margine minimo  5.71 (dieciCarte)
+fattore 0.97: margine minimo  4.29 (treCarte)   <- scelto
+fattore 0.98: margine minimo  2.86 (treCarte)
+fattore 0.99: margine minimo  1.43 (treCarte)
+
+Scelto 0.97: resta un margine di sicurezza di oltre quattro punti su tutte le
+stese, con un calo trascurabile (circa un punto su cento) rispetto al massimo
+teorico (0.99). Oltre 0.99 la guardia del campo cadrebbe.
+
+Il tetto di larghezza (larghezzaMassima, prima 0,34 volte il piano) e' stato
+tolto: per le stese con poche colonne (la carta sola, 1 colonna) il vero
+limite era SEMPRE l'altezza del piano (il tetto non vincolava mai), quindi
+rimuoverlo ingrandisce la carta sola senza bisogno di toccare il margine.
+Per le stese su piu' righe logiche (la croce a quattro, la Croce Celtica) il
+limite resta l'altezza del campo reale, non modificabile senza cambiare la
+forma del velluto disegnato.
+
+Larghezze nel piano piatto, a 360 punti di schermo, col fattore scelto 0.97:
+  unaCarta:     203.2 punti
+  treCarte:      84.0 punti
+  croceQuattro:  64.9 punti
+  dieciCarte:    46.2 punti

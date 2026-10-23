@@ -1,0 +1,13 @@
+IL PUNTO DI PARTENZA, ordine FK voce 1, 11 ottobre 2026
+
+Cartella prima del pull: HEAD d169c7ec, nessuna modifica non salvata (git status: solo i due video locali docs/collaudo/FH/aggiunta_i07 e aggiunta_i08, fuori dal repo per scelta, con dati personali).
+Remoto (git ls-remote): 24cf424cba44e9eb21a1f82474b9e3522581c584.
+Commit del remoto che la cartella non aveva (git log --oneline d169c7ec..24cf424): SEI, non due:
+  24cf424c la fonte di Waite verificata alla lettera: la glossa della quinta carta nomina due stati, non uno
+  019612d3 stato vivo: il corpus posizionale contato sul ramo, e lo scarto fra la fonte e il codice
+  3aa3ba33 corpus tarocchi: la posizione carta sola, 468 testi al 93,8 per cento in un giro
+  f5d6fced corpus tarocchi: riallinea 198 testi alle ventidue voci riscritte della fonte
+  8611673f corpus tarocchi: il reperto sulle collisioni dice lo stato vero della fonte
+  6b313596 corpus tarocchi: le posizioni consultante ed esito, 936 testi
+
+Portata a 24cf424 con git merge --ff-only, senza conflitti.

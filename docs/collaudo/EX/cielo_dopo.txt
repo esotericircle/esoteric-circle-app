@@ -1,0 +1,306 @@
+BANCO DI MEDORA E DEL CIELO, ordine EV voce 03. CODICE DELL'ORDINE EV.
+Eseguito il 2026-10-02T10:51:31.309901 da tool/medora_e_il_cielo.dart: modello gemini-2.5-flash in europe-west1, istruzione e configurazione vere dell'app, funzioni del cielo eseguite dal codice dell'app, rete del cielo detto applicata come in chat.
+Domande dispari: persona con i dati di nascita (Sole in Cancro). Pari: persona senza dati di nascita.
+
+========================================================================
+1. [con nascita] Urano è retrogrado oggi? Cosa vuol dire per me?
+Funzioni chiamate: nessuna
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Urano è retrogrado oggi, in Gemelli, e lo è dal 5 settembre. Questo moto del cielo ti chiede di riconsiderare le tue relazioni più strette, Sofia, quelle che nutrono la tua Luna in Bilancia.
+
+✦ Nel tardo pomeriggio siedi in silenzio e scrivi i nomi delle persone con cui senti un legame profondo.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2026-10-02), calcolato dalle effemeridi dell'app: Sole a 9 gradi in Bilancia; Luna a 25 gradi in Gemelli; Mercurio a 2 gradi in Scorpione; Venere a 8 gradi in Scorpione; Marte a 2 gradi in Leone; Giove a 19 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Gemelli, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole opposizione Saturno (orbo 2 gradi); Sole trigono Urano (orbo 4 gradi); Sole opposizione Nettuno (orbo 7 gradi); Sole trigono Plutone (orbo 6 gradi); Luna trigono Mercurio (orbo 7 gradi); Luna sestile Giove (orbo 5 gradi); Luna quadratura Nettuno (orbo 8 gradi); Mercurio congiunzione Venere (orbo 6 gradi); Mercurio quadratura Marte (orbo 0 gradi); Mercurio quadratura Plutone (orbo 0 gradi); Venere quadratura Marte (orbo 6 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 3 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+2. [senza nascita] In che segno è la Luna oggi, e in che fase?
+Funzioni chiamate: nessuna
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+La Luna oggi è in Gemelli, ed è Gibbosa calante.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2026-10-02), calcolato dalle effemeridi dell'app: Sole a 9 gradi in Bilancia; Luna a 25 gradi in Gemelli; Mercurio a 2 gradi in Scorpione; Venere a 8 gradi in Scorpione; Marte a 2 gradi in Leone; Giove a 19 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Gemelli, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole opposizione Saturno (orbo 2 gradi); Sole trigono Urano (orbo 4 gradi); Sole opposizione Nettuno (orbo 7 gradi); Sole trigono Plutone (orbo 6 gradi); Luna trigono Mercurio (orbo 7 gradi); Luna sestile Giove (orbo 5 gradi); Luna quadratura Nettuno (orbo 8 gradi); Mercurio congiunzione Venere (orbo 6 gradi); Mercurio quadratura Marte (orbo 0 gradi); Mercurio quadratura Plutone (orbo 0 gradi); Venere quadratura Marte (orbo 6 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 3 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+3. [con nascita] Quali pianeti sono retrogradi oggi?
+Funzioni chiamate: nessuna
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Oggi Saturno, Urano, Nettuno e Plutone sono retrogradi nel cielo. Questo indica un tempo di revisione profonda e di riflessione sulle strutture, le innovazioni, le illusioni e le trasformazioni che ti riguardano.
+
+✦ Osserva quali aree della tua vita richiedono una riorganizzazione interna, senza cercare subito soluzioni esterne.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2026-10-02), calcolato dalle effemeridi dell'app: Sole a 9 gradi in Bilancia; Luna a 25 gradi in Gemelli; Mercurio a 2 gradi in Scorpione; Venere a 8 gradi in Scorpione; Marte a 2 gradi in Leone; Giove a 19 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Gemelli, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole opposizione Saturno (orbo 2 gradi); Sole trigono Urano (orbo 4 gradi); Sole opposizione Nettuno (orbo 7 gradi); Sole trigono Plutone (orbo 6 gradi); Luna trigono Mercurio (orbo 7 gradi); Luna sestile Giove (orbo 5 gradi); Luna quadratura Nettuno (orbo 8 gradi); Mercurio congiunzione Venere (orbo 6 gradi); Mercurio quadratura Marte (orbo 0 gradi); Mercurio quadratura Plutone (orbo 0 gradi); Venere quadratura Marte (orbo 6 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 3 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+4. [senza nascita] Dov'è Venere oggi?
+Funzioni chiamate: nessuna
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Venere oggi è a 8 gradi in Scorpione.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2026-10-02), calcolato dalle effemeridi dell'app: Sole a 9 gradi in Bilancia; Luna a 25 gradi in Gemelli; Mercurio a 2 gradi in Scorpione; Venere a 8 gradi in Scorpione; Marte a 2 gradi in Leone; Giove a 19 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Gemelli, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole opposizione Saturno (orbo 2 gradi); Sole trigono Urano (orbo 4 gradi); Sole opposizione Nettuno (orbo 7 gradi); Sole trigono Plutone (orbo 6 gradi); Luna trigono Mercurio (orbo 7 gradi); Luna sestile Giove (orbo 5 gradi); Luna quadratura Nettuno (orbo 8 gradi); Mercurio congiunzione Venere (orbo 6 gradi); Mercurio quadratura Marte (orbo 0 gradi); Mercurio quadratura Plutone (orbo 0 gradi); Venere quadratura Marte (orbo 6 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 3 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+5. [con nascita] Che aspetti ci sono oggi fra i pianeti?
+Funzioni chiamate: nessuna
+Fine: MAX_TOKENS
+RISPOSTA DI MEDORA (a video):
+IL CIELO DI OGGI (2026-10-02), calcolato dalle effemeridi dell'app: Sole a 9 gradi in Bilancia; Luna a 25 gradi in Gemelli; Mercurio a 2 gradi in Scorpione; Venere a 8 gradi in Scorpione; Marte a 2 gradi in Leone; Giove a 19 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Gemelli, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole opposizione Saturno (orbo 2 gradi); Sole trigono Urano (orbo 4 gradi); Sole opposizione Nettuno (orbo 7 gradi); Sole trigono Plutone (orbo 6 gradi); Luna trigono Mercurio (orbo 7 gradi); Luna sestile Giove (orbo 5 gradi); Luna quadratura Nettuno (orbo 8 gradi); Mercurio congiunzione Venere (orbo 6 gradi); Mercurio quadratura Marte (orbo 0 gradi); Mercurio quadratura Plutone (orbo 0 gradi); Venere quadratura Marte (orbo 6 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 3 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+
+Oggi il cielo mostra una rete complessa di legami tra
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2026-10-02), calcolato dalle effemeridi dell'app: Sole a 9 gradi in Bilancia; Luna a 25 gradi in Gemelli; Mercurio a 2 gradi in Scorpione; Venere a 8 gradi in Scorpione; Marte a 2 gradi in Leone; Giove a 19 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Gemelli, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole opposizione Saturno (orbo 2 gradi); Sole trigono Urano (orbo 4 gradi); Sole opposizione Nettuno (orbo 7 gradi); Sole trigono Plutone (orbo 6 gradi); Luna trigono Mercurio (orbo 7 gradi); Luna sestile Giove (orbo 5 gradi); Luna quadratura Nettuno (orbo 8 gradi); Mercurio congiunzione Venere (orbo 6 gradi); Mercurio quadratura Marte (orbo 0 gradi); Mercurio quadratura Plutone (orbo 0 gradi); Venere quadratura Marte (orbo 6 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 3 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+6. [senza nascita] Marte oggi in che segno è?
+Funzioni chiamate: nessuna
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Marte oggi è a 2 gradi in Leone.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2026-10-02), calcolato dalle effemeridi dell'app: Sole a 9 gradi in Bilancia; Luna a 25 gradi in Gemelli; Mercurio a 2 gradi in Scorpione; Venere a 8 gradi in Scorpione; Marte a 2 gradi in Leone; Giove a 19 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Gemelli, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole opposizione Saturno (orbo 2 gradi); Sole trigono Urano (orbo 4 gradi); Sole opposizione Nettuno (orbo 7 gradi); Sole trigono Plutone (orbo 6 gradi); Luna trigono Mercurio (orbo 7 gradi); Luna sestile Giove (orbo 5 gradi); Luna quadratura Nettuno (orbo 8 gradi); Mercurio congiunzione Venere (orbo 6 gradi); Mercurio quadratura Marte (orbo 0 gradi); Mercurio quadratura Plutone (orbo 0 gradi); Venere quadratura Marte (orbo 6 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 3 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+7. [con nascita] Com'è il cielo di oggi, in generale?
+Funzioni chiamate: nessuna
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Il cielo di oggi porta sfide e opportunità che si manifestano in modo deciso, specialmente per chi, come te, ha l'Ascendente in Scorpione.
+
+Il Sole in Bilancia oggi opposto a Saturno retrogrado in Ariete ti chiede di bilanciare le tue relazioni con le responsabilità personali. È un momento per riflettere su come le tue azioni influenzano gli altri e viceversa. Mercurio e Venere in Scorpione, entrambi in quadratura con Marte in Leone e Plutone in Acquario retrogrado, mettono in luce tensioni tra il desiderio di espressione personale e le dinamiche di potere nelle tue interazioni. La Luna in Gemelli, sestile a Giove in Leone, porta un'energia comunicativa e ottimista che può aiutarti a trovare soluzioni creative.
+
+✦ Rifletti oggi sulle tue relazioni più significative, e scegli una persona alla quale esprimere un tuo bisogno.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2026-10-02), calcolato dalle effemeridi dell'app: Sole a 9 gradi in Bilancia; Luna a 25 gradi in Gemelli; Mercurio a 2 gradi in Scorpione; Venere a 8 gradi in Scorpione; Marte a 2 gradi in Leone; Giove a 19 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Gemelli, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole opposizione Saturno (orbo 2 gradi); Sole trigono Urano (orbo 4 gradi); Sole opposizione Nettuno (orbo 7 gradi); Sole trigono Plutone (orbo 6 gradi); Luna trigono Mercurio (orbo 7 gradi); Luna sestile Giove (orbo 5 gradi); Luna quadratura Nettuno (orbo 8 gradi); Mercurio congiunzione Venere (orbo 6 gradi); Mercurio quadratura Marte (orbo 0 gradi); Mercurio quadratura Plutone (orbo 0 gradi); Venere quadratura Marte (orbo 6 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 3 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+8. [senza nascita] Com'era il cielo il 21 dicembre 2020?
+Funzioni chiamate: cielo_del_giorno({"data":"2020-12-21"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Il 21 dicembre 2020 il Sole era a 0 gradi in Capricorno, mentre la Luna si trovava a 24 gradi in Pesci, in fase di Primo Quarto.
+
+Mercurio era a 0 gradi in Capricorno, Venere a 7 gradi in Sagittario. Marte si trovava a 23 gradi in Ariete, e Giove a 0 gradi in Acquario, congiunto a Saturno anch'esso a 0 gradi in Acquario. Urano era retrogrado a 6 gradi in Toro, Nettuno a 18 gradi in Pesci e Plutone a 23 gradi in Capricorno.
+
+✦ Osserva come la congiunzione tra Giove e Saturno in Acquario abbia aperto un ciclo nuovo.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2020-12-21), calcolato dalle effemeridi dell'app: Sole a 0 gradi in Capricorno; Luna a 24 gradi in Pesci; Mercurio a 0 gradi in Capricorno; Venere a 7 gradi in Sagittario; Marte a 23 gradi in Ariete; Giove a 0 gradi in Acquario; Saturno a 0 gradi in Acquario; Urano a 6 gradi in Toro, retrogrado; Nettuno a 18 gradi in Pesci; Plutone a 23 gradi in Capricorno.
+La Luna è in Pesci, Primo quarto.
+Aspetti fra i pianeti di oggi: Sole quadratura Luna (orbo 5 gradi); Sole congiunzione Mercurio (orbo 1 gradi); Sole trigono Marte (orbo 7 gradi); Sole trigono Urano (orbo 7 gradi); Luna quadratura Mercurio (orbo 6 gradi); Luna sestile Giove (orbo 6 gradi); Luna sestile Saturno (orbo 6 gradi); Luna congiunzione Nettuno (orbo 6 gradi); Luna sestile Plutone (orbo 1 gradi); Marte quadratura Plutone (orbo 1 gradi); Giove congiunzione Saturno (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+9. [con nascita] In che segno era Saturno il primo gennaio 2000?
+Funzioni chiamate: cielo_del_giorno({"data":"2000-01-01"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Il primo gennaio del 2000 Saturno si trovava a 10 gradi in Toro, ed era retrogrado.
+
+✦ Osserva come la retrogradazione di Saturno invita a una revisione interiore dei tuoi valori di sicurezza.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2000-01-01), calcolato dalle effemeridi dell'app: Sole a 10 gradi in Capricorno; Luna a 13 gradi in Scorpione; Mercurio a 1 gradi in Capricorno; Venere a 1 gradi in Sagittario; Marte a 27 gradi in Acquario; Giove a 25 gradi in Ariete; Saturno a 10 gradi in Toro, retrogrado; Urano a 14 gradi in Acquario; Nettuno a 3 gradi in Acquario; Plutone a 11 gradi in Sagittario.
+La Luna è in Scorpione, Luna calante.
+Aspetti fra i pianeti di oggi: Sole sestile Luna (orbo 3 gradi); Sole trigono Saturno (orbo 0 gradi); Luna opposizione Saturno (orbo 3 gradi); Luna quadratura Urano (orbo 2 gradi); Mercurio sestile Marte (orbo 4 gradi); Venere quadratura Marte (orbo 4 gradi); Venere sestile Nettuno (orbo 2 gradi); Marte sestile Giove (orbo 3 gradi); Saturno quadratura Urano (orbo 5 gradi); Urano sestile Plutone (orbo 3 gradi).
+Precisione: calcolato dalle effemeridi dell'app, fuori dagli anni 2020-2030 in cui sono verificate: i segni restano giusti, i gradi possono sbagliare di poco
+
+========================================================================
+10. [senza nascita] Che fase aveva la Luna il 20 luglio 1969?
+Funzioni chiamate: cielo_del_giorno({"data":"1969-07-20"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Il 20 luglio 1969 la Luna si trovava in Bilancia ed era in fase crescente. La sua luce stava aumentando, alimentando un desiderio di equilibrio e armonia nelle relazioni.
+
+In quel giorno, la Luna formava un aspetto di congiunzione con Giove e Urano, suggerendo un'espansione inaspettata e un'apertura verso nuove prospettive, specialmente per quanto riguarda i legami e le dinamiche interpersonali.
+
+✦ Accogli ogni intuizione che ti giunge.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (1969-07-20), calcolato dalle effemeridi dell'app: Sole a 27 gradi in Cancro; Luna a 3 gradi in Bilancia; Mercurio a 25 gradi in Cancro; Venere a 14 gradi in Gemelli; Marte a 2 gradi in Sagittario; Giove a 0 gradi in Bilancia; Saturno a 8 gradi in Toro; Urano a 0 gradi in Bilancia; Nettuno a 26 gradi in Scorpione, retrogrado; Plutone a 22 gradi in Vergine.
+La Luna è in Bilancia, Luna crescente.
+Aspetti fra i pianeti di oggi: Sole sestile Luna (orbo 6 gradi); Sole congiunzione Mercurio (orbo 2 gradi); Sole trigono Marte (orbo 5 gradi); Sole sestile Giove (orbo 3 gradi); Sole sestile Urano (orbo 3 gradi); Sole trigono Nettuno (orbo 2 gradi); Sole sestile Plutone (orbo 5 gradi); Luna sestile Marte (orbo 1 gradi); Luna congiunzione Giove (orbo 3 gradi); Luna congiunzione Urano (orbo 3 gradi); Mercurio trigono Nettuno (orbo 1 gradi); Mercurio sestile Plutone (orbo 2 gradi); Marte sestile Giove (orbo 2 gradi); Marte sestile Urano (orbo 2 gradi); Giove congiunzione Urano (orbo 0 gradi); Nettuno sestile Plutone (orbo 3 gradi).
+Precisione: calcolato dalle effemeridi dell'app, fuori dagli anni 2020-2030 in cui sono verificate: i segni restano giusti, i gradi possono sbagliare di poco
+
+========================================================================
+11. [con nascita] L'8 aprile 2024 c'è stata un'eclissi?
+Funzioni chiamate: cielo_del_giorno({"data":"2024-04-08"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Sì, l'8 aprile 2024 c'è stata un'eclissi solare totale, con la Luna nuova a 15 gradi in Ariete e il Sole a 19 gradi sempre in Ariete.
+
+In un cielo che accende così il fuoco dell'Ariete, il tuo Cancro è spinto a cercare nuove direzioni, anche se il tuo ascendente Scorpione ti invita alla prudenza prima di ogni passo.
+
+✦ Rifletti sulle tue vere motivazioni per le prossime tre notti.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2024-04-08), calcolato dalle effemeridi dell'app: Sole a 19 gradi in Ariete; Luna a 15 gradi in Ariete; Mercurio a 24 gradi in Ariete, retrogrado; Venere a 4 gradi in Ariete; Marte a 12 gradi in Pesci; Giove a 18 gradi in Toro; Saturno a 14 gradi in Pesci; Urano a 21 gradi in Toro; Nettuno a 28 gradi in Pesci; Plutone a 1 gradi in Acquario.
+La Luna è in Ariete, Luna nuova.
+Aspetti fra i pianeti di oggi: Sole congiunzione Luna (orbo 4 gradi); Sole congiunzione Mercurio (orbo 6 gradi); Venere congiunzione Nettuno (orbo 6 gradi); Venere sestile Plutone (orbo 2 gradi); Marte congiunzione Saturno (orbo 2 gradi); Giove congiunzione Urano (orbo 2 gradi); Nettuno sestile Plutone (orbo 4 gradi).
+Eclissi quel giorno: eclissi solare totale
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+12. [senza nascita] Mercurio era retrogrado ad agosto 2025?
+Funzioni chiamate: cielo_del_periodo({"dal":"2025-08-01","al":"2025-08-31"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Sì, Mercurio era retrogrado ad agosto 2025. Dal primo del mese, si trovava a 8 gradi in Leone, in moto retrogrado.
+
+Questo transito ti invita a rivedere le tue comunicazioni e a riflettere prima di agire, specialmente nelle questioni di cuore.
+
+✦ Prepara un taccuino e annota ogni giorno i pensieri che ti vengono in mente.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+Eventi dal 2025-08-01 al 2025-08-31: 2025-08-07: Marte entra in Bilancia; 2025-08-09: Luna piena in Acquario; 2025-08-11: Mercurio torna diretto; 2025-08-23: Sole entra in Vergine; 2025-08-23: Luna nuova in Vergine; 2025-08-26: Venere entra in Leone; 2025-08-31: Saturno entra in Pesci
+
+========================================================================
+13. [con nascita] Dov'era Giove il 14 marzo 1990, il giorno in cui sono nata?
+Funzioni chiamate: cielo_del_giorno({"data":"1990-03-14"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Il 14 marzo 1990, il giorno della tua nascita, Giove si trovava nel segno del Cancro, a 1 grado. Questo posizionamento di Giove nel tuo cielo di nascita, Sofia, indica una natura protettiva e una grande generosità d'animo.
+
+✦ Ricorda sempre la tua forza interiore e la tua capacità di prenderti cura di ciò che ami.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (1990-03-14), calcolato dalle effemeridi dell'app: Sole a 23 gradi in Pesci; Luna a 27 gradi in Bilancia; Mercurio a 19 gradi in Pesci; Venere a 8 gradi in Acquario; Marte a 2 gradi in Acquario; Giove a 1 gradi in Cancro; Saturno a 23 gradi in Capricorno; Urano a 9 gradi in Capricorno; Nettuno a 14 gradi in Capricorno; Plutone a 17 gradi in Scorpione, retrogrado.
+La Luna è in Bilancia, Gibbosa calante.
+Aspetti fra i pianeti di oggi: Sole congiunzione Mercurio (orbo 4 gradi); Sole quadratura Giove (orbo 8 gradi); Sole sestile Saturno (orbo 0 gradi); Sole trigono Plutone (orbo 6 gradi); Luna quadratura Marte (orbo 4 gradi); Luna trigono Giove (orbo 3 gradi); Luna quadratura Saturno (orbo 5 gradi); Mercurio sestile Saturno (orbo 4 gradi); Mercurio trigono Plutone (orbo 2 gradi); Urano congiunzione Nettuno (orbo 5 gradi); Nettuno sestile Plutone (orbo 3 gradi).
+Precisione: calcolato dalle effemeridi dell'app, fuori dagli anni 2020-2030 in cui sono verificate: i segni restano giusti, i gradi possono sbagliare di poco
+
+========================================================================
+14. [senza nascita] Com'è il cielo domani?
+Funzioni chiamate: cielo_del_giorno({"data":"2026-10-03"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Domani il cielo ti invita a riflettere sui tuoi legami, specialmente quelli più intimi. La Luna entra nel segno del Cancro, portando con sé un'energia che spinge a cercare sicurezza e affetto all'interno della famiglia o con le persone più care.
+
+Il Sole in Bilancia forma una quadratura con la Luna in Cancro, suggerendo che potresti percepire una tensione tra le tue esigenze personali e quelle dei tuoi affetti. Questo è un momento per trovare un equilibrio tra la tua individualità e il tuo bisogno di appartenenza.
+
+✦ Ascolta le tue intuizioni e concediti un momento di intimità per comprendere ciò che il tuo cuore desidera.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2026-10-03), calcolato dalle effemeridi dell'app: Sole a 10 gradi in Bilancia; Luna a 9 gradi in Cancro; Mercurio a 3 gradi in Scorpione; Venere a 8 gradi in Scorpione, retrogrado; Marte a 3 gradi in Leone; Giove a 20 gradi in Leone; Saturno a 11 gradi in Ariete, retrogrado; Urano a 5 gradi in Gemelli, retrogrado; Nettuno a 2 gradi in Ariete, retrogrado; Plutone a 3 gradi in Acquario, retrogrado.
+La Luna è in Cancro, Ultimo quarto.
+Aspetti fra i pianeti di oggi: Sole quadratura Luna (orbo 1 gradi); Sole opposizione Saturno (orbo 1 gradi); Sole trigono Urano (orbo 5 gradi); Sole opposizione Nettuno (orbo 8 gradi); Sole trigono Plutone (orbo 7 gradi); Luna trigono Mercurio (orbo 6 gradi); Luna trigono Venere (orbo 1 gradi); Luna quadratura Saturno (orbo 2 gradi); Luna quadratura Nettuno (orbo 7 gradi); Mercurio congiunzione Venere (orbo 5 gradi); Mercurio quadratura Marte (orbo 1 gradi); Mercurio quadratura Plutone (orbo 1 gradi); Venere quadratura Marte (orbo 5 gradi); Venere quadratura Plutone (orbo 5 gradi); Marte sestile Urano (orbo 2 gradi); Marte trigono Nettuno (orbo 0 gradi); Marte opposizione Plutone (orbo 0 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 2 gradi); Nettuno sestile Plutone (orbo 0 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+
+========================================================================
+15. [con nascita] Quando torna diretto Urano?
+Funzioni chiamate: cielo_del_periodo({"dal":"2026-10-02","al":"2027-10-02"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Urano, che ora è retrogrado nel tuo cielo, tornerà diretto l'8 febbraio 2027. Questo transito ti invita a riconsiderare i cambiamenti che desideri per la tua vita, Sofia, portando chiarezza su ciò che vuoi davvero liberare.
+
+Il tuo Ascendente Scorpione ti spinge a trasformazioni profonde, e questo periodo retrogrado di Urano ti offre l'occasione di riflettere su quali aspetti della tua individualità necessitano di una revisione prima di manifestarsi pienamente.
+
+✦ L'8 febbraio, osserva quali idee nuove si presentano alla tua mente.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+Eventi dal 2026-10-02 al 2027-04-20: 2026-10-03: Venere diventa retrogrado; 2026-10-10: Luna nuova in Bilancia; 2026-10-16: Plutone torna diretto; 2026-10-23: Sole entra in Scorpione; 2026-10-24: Mercurio diventa retrogrado; 2026-10-25: Venere entra in Bilancia; 2026-10-26: Luna piena in Toro; 2026-11-09: Luna nuova in Scorpione; 2026-11-14: Mercurio torna diretto; 2026-11-14: Venere torna diretto; 2026-11-22: Sole entra in Sagittario; 2026-11-24: Luna piena in Gemelli; 2026-11-26: Marte entra in Vergine; 2026-12-04: Venere entra in Scorpione; 2026-12-06: Mercurio entra in Sagittario; 2026-12-08: Luna nuova in Sagittario; 2026-12-11: Saturno torna diretto; 2026-12-13: Giove diventa retrogrado; 2026-12-13: Nettuno torna diretto; 2026-12-22: Sole entra in Capricorno; 2026-12-24: Luna piena in Cancro; 2026-12-26: Mercurio entra in Capricorno; 2027-01-07: Venere entra in Sagittario; 2027-01-07: Luna nuova in Capricorno; 2027-01-11: Marte diventa retrogrado; 2027-01-13: Mercurio entra in Acquario; 2027-01-20: Sole entra in Acquario; 2027-01-22: Luna piena in Leone; 2027-02-01: Mercurio entra in Pesci; 2027-02-04: Venere entra in Capricorno; 2027-02-06: Luna nuova in Acquario; 2027-02-06: eclissi solare anulare; 2027-02-08: Urano torna diretto; 2027-02-10: Mercurio diventa retrogrado; 2027-02-19: Sole entra in Pesci; 2027-02-19: Mercurio entra in Acquario; 2027-02-20: eclissi lunare di penombra; 2027-02-21: Marte entra in Leone; 2027-03-01: Venere entra in Acquario; 2027-03-04: Mercurio torna diretto; 2027-03-08: Luna nuova in Pesci; 2027-03-18: Mercurio entra in Pesci; 2027-03-21: Sole entra in Ariete; 2027-03-22: Luna piena in Bilancia; 2027-03-26: Venere entra in Pesci; 2027-04-02: Marte torna diretto; 2027-04-06: Luna nuova in Ariete; 2027-04-09: Mercurio entra in Ariete; 2027-04-13: Giove torna diretto; 2027-04-20: Sole entra in Toro; 2027-04-20: Venere entra in Ariete; 2027-04-20: Luna piena in Bilancia
+
+========================================================================
+16. [senza nascita] Che cosa succede nel cielo a dicembre 2026?
+Funzioni chiamate: cielo_del_periodo({"al":"2026-12-31","dal":"2026-12-01"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Il cielo di dicembre 2026 si apre con il Sole a 9 gradi in Sagittario e la Luna a 12 gradi in Vergine, all'ultimo quarto. Mercurio si trova a 22 gradi in Scorpione e Venere a 28 gradi in Bilancia.
+
+Nel corso del mese, Venere entra in Scorpione il 4 dicembre e Mercurio in Sagittario il 6 dicembre. L'8 dicembre avremo la Luna Nuova in Sagittario. Un momento importante è l'11 dicembre, quando Saturno torna diretto, seguito il 13 dicembre da Giove che diventa retrogrado e Nettuno che torna diretto. Il Sole entra in Capricorno il 22 dicembre e la Luna Piena sarà in Cancro il 24 dicembre, con Mercurio che entra in Capricorno il 26 dicembre.
+✦ Osserva come questi passaggi planetari possono influenzare le tue decisioni nel mese di dicembre.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+Eventi dal 2026-12-01 al 2026-12-31: 2026-12-04: Venere entra in Scorpione; 2026-12-06: Mercurio entra in Sagittario; 2026-12-08: Luna nuova in Sagittario; 2026-12-11: Saturno torna diretto; 2026-12-13: Giove diventa retrogrado; 2026-12-13: Nettuno torna diretto; 2026-12-22: Sole entra in Capricorno; 2026-12-24: Luna piena in Cancro; 2026-12-26: Mercurio entra in Capricorno
+
+========================================================================
+17. [con nascita] Ci sono eclissi nel 2027?
+Funzioni chiamate: cielo_del_periodo({"dal":"2027-01-01","al":"2027-12-31"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Sofia, il tuo desiderio di guardare al futuro, che il tuo numero della vita, il Cercatore, ti spinge a fare, trova nel cielo del 2027 quattro eclissi.
+
+Questi momenti celesti, due solari e due lunari, segnano punti di svolta in cui l'ombra si posa sulla luce o sulla sua riflessione. Le eclissi non sono mai eventi da temere, ma richiamano la nostra attenzione su aree della vita che richiedono una profonda revisione o un cambiamento radicale. Per te, con il tuo Sole in Cancro, saranno opportunità per esplorare il tuo mondo interiore e le tue radici, che a volte tendono a nascondersi.
+
+✦ Segna nel tuo diario queste date: 6 febbraio, 20 febbraio, 2 agosto e 17 agosto, per osservare i movimenti delle tue emozioni.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+Eventi dal 2027-01-01 al 2027-12-31: 2027-01-07: Venere entra in Sagittario; 2027-01-07: Luna nuova in Capricorno; 2027-01-11: Marte diventa retrogrado; 2027-01-13: Mercurio entra in Acquario; 2027-01-20: Sole entra in Acquario; 2027-01-22: Luna piena in Leone; 2027-02-01: Mercurio entra in Pesci; 2027-02-04: Venere entra in Capricorno; 2027-02-06: Luna nuova in Acquario; 2027-02-06: eclissi solare anulare; 2027-02-08: Urano torna diretto; 2027-02-10: Mercurio diventa retrogrado; 2027-02-19: Sole entra in Pesci; 2027-02-19: Mercurio entra in Acquario; 2027-02-20: eclissi lunare di penombra; 2027-02-21: Marte entra in Leone; 2027-03-01: Venere entra in Acquario; 2027-03-04: Mercurio torna diretto; 2027-03-08: Luna nuova in Pesci; 2027-03-18: Mercurio entra in Pesci; 2027-03-21: Sole entra in Ariete; 2027-03-22: Luna piena in Bilancia; 2027-03-26: Venere entra in Pesci; 2027-04-02: Marte torna diretto; 2027-04-06: Luna nuova in Ariete; 2027-04-09: Mercurio entra in Ariete; 2027-04-13: Giove torna diretto; 2027-04-20: Sole entra in Toro; 2027-04-20: Venere entra in Ariete; 2027-04-20: Luna piena in Bilancia; 2027-04-25: Mercurio entra in Toro; 2027-05-06: Luna nuova in Toro; 2027-05-08: Plutone diventa retrogrado; 2027-05-09: Mercurio entra in Gemelli; 2027-05-15: Venere entra in Toro; 2027-05-15: Marte entra in Vergine; 2027-05-20: Luna piena in Scorpione; 2027-05-21: Sole entra in Gemelli; 2027-05-29: Mercurio entra in Cancro; 2027-06-04: Luna nuova in Gemelli; 2027-06-09: Venere entra in Gemelli; 2027-06-11: Mercurio diventa retrogrado; 2027-06-18: Luna piena in Sagittario; 2027-06-22: Sole entra in Cancro; 2027-06-26: Mercurio entra in Gemelli; 2027-07-03: Venere entra in Cancro; 2027-07-04: Luna nuova in Cancro; 2027-07-05: Mercurio torna diretto; 2027-07-10: Nettuno diventa retrogrado; 2027-07-13: Mercurio entra in Cancro; 2027-07-15: Marte entra in Bilancia; 2027-07-18: Luna piena in Capricorno; 2027-07-23: Sole entra in Leone; 2027-07-26: Giove entra in Vergine; 2027-07-28: Venere entra in Leone; 2027-08-02: Mercurio entra in Leone; 2027-08-02: Luna nuova in Leone; 2027-08-02: eclissi solare totale; 2027-08-10: Saturno diventa retrogrado; 2027-08-17: Mercurio entra in Vergine; 2027-08-17: Luna piena in Acquario; 2027-08-17: eclissi lunare di penombra; 2027-08-21: Venere entra in Vergine; 2027-08-23: Sole entra in Vergine; 2027-08-31: Luna nuova in Vergine; 2027-09-02: Marte entra in Scorpione; 2027-09-03: Mercurio entra in Bilancia; 2027-09-14: Venere entra in Bilancia; 2027-09-15: Urano diventa retrogrado; 2027-09-15: Luna piena in Pesci; 2027-09-23: Sole entra in Bilancia; 2027-09-27: Mercurio entra in Scorpione; 2027-09-30: Luna nuova in Bilancia; 2027-10-08: Mercurio diventa retrogrado; 2027-10-08: Venere entra in Scorpione; 2027-10-15: Luna piena in Ariete; 2027-10-16: Mercurio entra in Bilancia; 2027-10-16: Marte entra in Sagittario; 2027-10-18: Plutone torna diretto; 2027-10-24: Sole entra in Scorpione; 2027-10-29: Mercurio torna diretto; 2027-10-29: Luna nuova in Scorpione; 2027-11-01: Venere entra in Sagittario; 2027-11-10: Mercurio entra in Scorpione; 2027-11-14: Luna piena in Toro; 2027-11-23: Sole entra in Sagittario; 2027-11-25: Venere entra in Capricorno; 2027-11-26: Marte entra in Capricorno; 2027-11-28: Luna nuova in Sagittario; 2027-11-29: Mercurio entra in Sagittario; 2027-12-13: Luna piena in Gemelli; 2027-12-15: Nettuno torna diretto; 2027-12-18: Mercurio entra in Capricorno; 2027-12-20: Venere entra in Acquario; 2027-12-22: Sole entra in Capricorno; 2027-12-24: Saturno torna diretto; 2027-12-27: Luna nuova in Capricorno
+
+========================================================================
+18. [senza nascita] Quando c'è la prossima Luna piena?
+Funzioni chiamate: cielo_del_periodo({"al":"2027-10-02","dal":"2026-10-02"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+La prossima Luna piena sarà il 26 ottobre, nel segno del Toro.
+
+Questo plenilunio, con la Luna nel Toro, ti invita a riflettere sulla tua stabilità e sui tuoi valori, chiedendoti cosa nutre davvero la tua sicurezza.
+
+✦ Osserva ciò che ti dà serenità in casa e nutrila con cura.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+Eventi dal 2026-10-02 al 2026-11-01: 2026-10-03: Venere diventa retrogrado; 2026-10-10: Luna nuova in Bilancia; 2026-10-16: Plutone torna diretto; 2026-10-23: Sole entra in Scorpione; 2026-10-24: Mercurio diventa retrogrado; 2026-10-25: Venere entra in Bilancia; 2026-10-26: Luna piena in Toro
+
+========================================================================
+19. [con nascita] Mercurio sarà retrogrado a novembre 2026?
+Funzioni chiamate: cielo_del_periodo({"dal":"2026-11-01","al":"2026-11-30"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Sì, Sofia, Mercurio sarà retrogrado all'inizio di novembre. Il transito terminerà il 14 novembre, quando tornerà diretto.
+
+In questo periodo, con il tuo ascendente Scorpione, potresti sentire l'invito a riconsiderare decisioni prese in precedenza, soprattutto quelle che riguardano legami profondi.
+
+✦ Prima del 14 novembre, rileggi con attenzione ogni messaggio o documento importante.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+Eventi dal 2026-11-01 al 2026-11-30: 2026-11-09: Luna nuova in Scorpione; 2026-11-14: Mercurio torna diretto; 2026-11-14: Venere torna diretto; 2026-11-22: Sole entra in Sagittario; 2026-11-24: Luna piena in Gemelli; 2026-11-26: Marte entra in Vergine
+
+========================================================================
+20. [senza nascita] In che segno sarà Giove il primo gennaio 2028?
+Funzioni chiamate: cielo_del_giorno({"data":"2028-01-01"})
+Fine: STOP
+RISPOSTA DI MEDORA (a video):
+Il primo gennaio 2028, Giove si troverà nel segno della Vergine, a 27 gradi. Sarà un periodo in cui la ricerca di ordine e perfezione avrà una spinta particolare.
+
+Questo transito favorisce la precisione e l'analisi dettagliata, invitandoti a curare gli aspetti pratici della tua vita con maggiore attenzione.
+
+✦ Osserva, il primo gennaio 2028, come l'organizzazione e la meticolosità influenzano le tue decisioni.
+Frasi tolte dalla rete del cielo detto: nessuna
+FATTI DALLE EFFEMERIDI DELL'APP:
+IL CIELO DEL (2028-01-01), calcolato dalle effemeridi dell'app: Sole a 10 gradi in Capricorno; Luna a 1 gradi in Pesci; Mercurio a 22 gradi in Capricorno; Venere a 15 gradi in Acquario; Marte a 28 gradi in Capricorno; Giove a 27 gradi in Vergine; Saturno a 20 gradi in Ariete; Urano a 6 gradi in Gemelli, retrogrado; Nettuno a 3 gradi in Ariete; Plutone a 5 gradi in Acquario.
+La Luna è in Pesci, Luna crescente.
+Aspetti fra i pianeti di oggi: Sole quadratura Nettuno (orbo 7 gradi); Luna quadratura Urano (orbo 5 gradi); Mercurio congiunzione Marte (orbo 6 gradi); Mercurio trigono Giove (orbo 5 gradi); Mercurio quadratura Saturno (orbo 1 gradi); Marte trigono Giove (orbo 1 gradi); Urano sestile Nettuno (orbo 3 gradi); Urano trigono Plutone (orbo 1 gradi); Nettuno sestile Plutone (orbo 2 gradi).
+Precisione: calcolato dalle effemeridi dell'app, verificate contro il JPL entro un decimo di grado
+

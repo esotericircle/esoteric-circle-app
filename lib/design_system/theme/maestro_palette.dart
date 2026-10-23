@@ -37,6 +37,31 @@ class MaestroPalette {
   final List<Color> backgroundGradient;
   final Color surface;
   final Color surfaceElevated;
+
+  /// **IL PRIMARIO E' UN COLORE DI MARCHIO, E NON PORTA MAI TESTO.**
+  /// Ordine CL voce 08, misurato dall'ordine CI.
+  ///
+  /// I quattro primari delle tavolozze, contro i sette fondi veri del
+  /// censimento dei grigi, fanno ventotto coppie: **ventisei non arrivano
+  /// nemmeno a 4,5 di contrasto**, cioe' alla soglia dei titoli grandi,
+  /// figurarsi ai 7 che questo progetto pretende dai testi piccoli. Solo
+  /// `aura.primary` regge, e solo su due fondi su sette.
+  ///
+  /// **Sta benissimo su un bordo, su un riempimento, su un anello, su un
+  /// alone.** Non deve mai essere il colore di una parola che qualcuno deve
+  /// leggere.
+  ///
+  /// **Il modo in cui il difetto entra non e' scriverlo**, ed e' la parte da
+  /// ricordare: nessuno ha mai scritto `color: palette.primary` su un testo.
+  /// La riga "I giorni prima" era viola perche' un `TextButton` senza stile
+  /// prende il primario dello SCHEMA MATERIAL, che e' quello della tavolozza
+  /// neutra. Il colore arriva **per eredita'**, e per questo la guardia che
+  /// lo sorveglia non cerca una stringa nel sorgente: enumera i comandi che
+  /// il colore non lo dichiarano.
+  ///
+  /// Sorvegliato da `test/il_censimento_dei_grigi_test.dart`, due prove: "il
+  /// primario non porta mai testo" e "nessun comando di testo prende il
+  /// colore dal tema senza dirlo".
   final Color primary;
 
   /// Colore dell'alone luminoso, usato per bagliori e ombre colorate.
@@ -82,7 +107,12 @@ class MaestroPalette {
     glow: ColorTokens.auraGlow,
     gold: ColorTokens.gold,
     goldSoft: ColorTokens.goldLight,
-    onPrimary: ColorTokens.textPrimary,
+    // **L'INCHIOSTRO SULLO SMERALDO E' SCURO, ordine GA voce GA.10.** Il
+    // crema sul verde di Aura faceva 2,84 a 1 ("SCEGLI IL SINTOMO",
+    // "Comincia", "Inquadra il tuo volto"): il verde e' il piu' luminoso dei
+    // tre primari; l'inchiostro scuro gli da' 5,89. PROVENIENZA IGNOTA: la
+    // tavolozza ha sempre dichiarato lo stesso crema per tutti i Maestri.
+    onPrimary: ColorTokens.auraDeepest,
     textPrimary: ColorTokens.textPrimary,
     textSecondary: ColorTokens.textSecondary,
   );
@@ -108,7 +138,7 @@ class MaestroPalette {
 
   static const MaestroPalette neutral = MaestroPalette(
     key: ThemeKey.neutral(),
-    label: 'Il Santuario',
+    label: 'Il Cerchio',
     backgroundGradient: [
       ColorTokens.neutralDeepest,
       ColorTokens.neutralDeep,
@@ -141,6 +171,20 @@ class MaestroPalette {
 
   /// Colore dominante per gli sfondi e le ombre (il piu' saturo del gradiente).
   Color get deepest => backgroundGradient.first;
+
+  /// **L'INCHIOSTRO SULL'ORO, ordine GA voce GA.10.** Il testo di un
+  /// pulsante pieno d'oro e' scuro, mai il crema di [onPrimary]: il crema sta
+  /// sul primario viola, blu, verde o rosso del Maestro; sull'oro
+  /// (`D4AF37`) fa 1,86 a 1, cioe' non si legge (visto sul Realme in "Chiama
+  /// nel tuo Cerchio", "Apri la rubrica", "Manda il link" e "Compila il
+  /// Ritratto"). Il fondo piu' scuro del Maestro sull'oro fa da 9,3 a 9,9.
+  ///
+  /// **PROVENIENZA IGNOTA** per i dodici pulsanti che avevano
+  /// `backgroundColor: palette.gold` con `foregroundColor: palette.onPrimary`:
+  /// l'accoppiata e' entrata copiando lo stile del pulsante primario, e
+  /// nessuna voce l'ha mai misurata. Sorvegliata da
+  /// `i_testi_da_leggere_hanno_il_contrasto_test`.
+  Color get onGold => deepest;
 
   /// Interpola due palette. E' il cuore della dissolvenza cromatica al cambio
   /// di Maestro: interpolando ogni ruolo di colore, l'intera interfaccia

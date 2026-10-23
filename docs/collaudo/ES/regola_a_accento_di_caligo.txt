@@ -1,0 +1,4 @@
+REGOLA A, 30 settembre 2026, ordine ES voce 17: il nome di Calìgo con l accento nelle testate.
+INNESTO il nome a video torna senza accento: grep del difetto nel file SI; prova test/il_nome_di_caligo_ha_l_accento_test.dart ROSSA; file rimesso sha1 9bcad568ee22 -> 9bcad568ee22 IDENTICO
+INNESTO la testata del dominio prende il nome del modello: grep del difetto nel file SI; prova test/il_nome_di_caligo_ha_l_accento_test.dart ROSSA; file rimesso sha1 8c075e1faa65 -> 8c075e1faa65 IDENTICO
+INNESTO la testata del LIVE prende il nome del modello: grep del difetto nel file SI; prova test/il_nome_di_caligo_ha_l_accento_test.dart ROSSA; file rimesso sha1 c0499ede1102 -> c0499ede1102 IDENTICO

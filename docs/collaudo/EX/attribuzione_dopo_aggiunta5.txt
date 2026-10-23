@@ -1,0 +1,151 @@
+ATTRIBUZIONE ALLA CIECA DEI TRE MAESTRI, EX AGGIUNTA 5. 3 ottobre 2026.
+
+Prova: flutter test tool/attribuzione_cieca.dart, tre giri, Gemini vero in europe-west1. L'istruzione dei Maestri e la prova sono identiche al commit c0ceacf8 (git diff vuoto su lib/services/ai/maestro_persona.dart, lib/core/maestro/voce_del_maestro.dart e tool/attribuzione_cieca.dart): l'EX.07 di quest'aggiunta cambia solo la correzione di una risposta gia' scritta, che questa prova non attraversa.
+Esito: 57, 58 e 56 su 60 (95,0, 96,7 e 93,3 per cento), media 57; l'EX Aggiunta 4 aveva 58 in un giro. Ogni Maestro sopra l'85 per cento in ogni giro. La soglia dell'ordine, 58 su 60 o piu', e' raggiunta in 1 giro su 3.
+
+GIRO_1
+Chiedo 60 risposte, 20 domande per tre Maestri...
+  6/60
+  12/60
+  18/60
+  24/60
+  30/60
+  36/60
+  42/60
+  48/60
+  54/60
+  60/60
+Faccio giudicare 60 risposte...
+  6/60
+  12/60
+  18/60
+  24/60
+  30/60
+  36/60
+  42/60
+  48/60
+  54/60
+  60/60
+
+MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+           medora     aura   caligo     totale   giusti
+medora         19        0        1       20    95.0%
+aura            0       20        0       20   100.0%
+caligo          1        1       18       20    90.0%
+
+Attribuzione corretta: 57 su 60, cioe' 95.0 per cento.
+Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Verdetti illeggibili: 0.
+
+LE FRASI SU CUI IL GIUDICE SI E' PERSO
+--- medora: 1 risposte attribuite ad altri
+  [creduto caligo] domanda: ho la testa piena e le mani vuote
+     prima frase: Ti serve un gesto per fissare i tuoi pensieri e dare corpo alle tue intenzioni.
+--- caligo: 2 risposte attribuite ad altri
+  [creduto aura] domanda: sono stanco di aspettare
+     prima frase: Non aspettare ancora.
+  [creduto medora] domanda: non riesco a dire di no
+     prima frase: Non chiudere la porta a un nuovo inizio.
+
+RITMO DELLE VOCI, sulle risposte di questo giro
+medora   frasi contate 109, frase mediana 17.0 parole, domande 0, parole che ammorbidiscono 4
+aura     frasi contate 116, frase mediana 20.0 parole, domande 0, parole che ammorbidiscono 8
+caligo   frasi contate 119, frase mediana 9.0 parole, domande 0, parole che ammorbidiscono 1
+
+GIRO_2
+Chiedo 60 risposte, 20 domande per tre Maestri...
+  6/60
+  12/60
+  18/60
+  24/60
+  30/60
+  36/60
+  42/60
+  48/60
+  54/60
+  60/60
+Faccio giudicare 60 risposte...
+  6/60
+  12/60
+  18/60
+  24/60
+  30/60
+  36/60
+  42/60
+  48/60
+  54/60
+  60/60
+
+MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+           medora     aura   caligo     totale   giusti
+medora         20        0        0       20   100.0%
+aura            0       20        0       20   100.0%
+caligo          0        2       18       20    90.0%
+
+Attribuzione corretta: 58 su 60, cioe' 96.7 per cento.
+Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Verdetti illeggibili: 0.
+
+LE FRASI SU CUI IL GIUDICE SI E' PERSO
+--- caligo: 2 risposte attribuite ad altri
+  [creduto aura] domanda: sono stanco di aspettare
+     prima frase: Non aspettare ancora.
+  [creduto aura] domanda: non so cosa voglio davvero
+     prima frase: Non cercare fuori.
+
+RITMO DELLE VOCI, sulle risposte di questo giro
+medora   frasi contate 112, frase mediana 19.0 parole, domande 0, parole che ammorbidiscono 7
+aura     frasi contate 125, frase mediana 19.0 parole, domande 0, parole che ammorbidiscono 9
+caligo   frasi contate 117, frase mediana 9.0 parole, domande 0, parole che ammorbidiscono 0
+
+GIRO_3
+Chiedo 60 risposte, 20 domande per tre Maestri...
+  6/60
+  12/60
+  18/60
+  24/60
+  30/60
+  36/60
+  42/60
+  48/60
+  54/60
+  60/60
+Faccio giudicare 60 risposte...
+  6/60
+  12/60
+  18/60
+  24/60
+  30/60
+  36/60
+  42/60
+  48/60
+  54/60
+  60/60
+
+MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+           medora     aura   caligo     totale   giusti
+medora         19        1        0       20    95.0%
+aura            0       20        0       20   100.0%
+caligo          2        1       17       20    85.0%
+
+Attribuzione corretta: 56 su 60, cioe' 93.3 per cento.
+Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Verdetti illeggibili: 0.
+
+LE FRASI SU CUI IL GIUDICE SI E' PERSO
+--- medora: 1 risposte attribuite ad altri
+  [creduto aura] domanda: ho la testa piena e le mani vuote
+     prima frase: ✦ Il tuo cielo è in un momento di stasi, ma è nelle tue mani sbloccare le energie.
+--- caligo: 3 risposte attribuite ad altri
+  [creduto medora] domanda: non so se restare
+     prima frase: La tua scelta è rimanere.
+  [creduto aura] domanda: non so cosa voglio davvero
+     prima frase: Non cercare risposte lontane.
+  [creduto medora] domanda: come faccio a fidarmi di nuovo
+     prima frase: Ricostruisci un sentiero con passi misurati.
+
+RITMO DELLE VOCI, sulle risposte di questo giro
+medora   frasi contate 106, frase mediana 17.5 parole, domande 0, parole che ammorbidiscono 10
+aura     frasi contate 118, frase mediana 19.0 parole, domande 0, parole che ammorbidiscono 7
+caligo   frasi contate 107, frase mediana 10.0 parole, domande 0, parole che ammorbidiscono 0
+

@@ -1,0 +1,124 @@
+ORDINE ET VOCI 01 E 03: LE TRENTA DOMANDE AI TRE MAESTRI, I CONTI. 28 settembre 2026.
+
+Il banco: tool/collaudo_et01.dart. Le trenta domande dell'ordine, nell'ordine
+scritto, una conversazione per Maestro, per canale (chat e LIVE) e per
+esecuzione; esecuzione 1 una donna (Scorpione, Luna in Pesci, ascendente
+Cancro, numero 7), esecuzione 2 un uomo (Leone, Luna in Toro, ascendente
+Capricorno, numero 4). Il controller vero dell'app (MaestroChatController,
+con tutte le sue reti) e il modello vero (gemini-2.5-flash, europe-west1). Le
+trascrizioni stanno in docs/collaudo/ET/trenta_domande/<fase>/; nel LIVE la
+risposta salvata e' gia' quella detta (voce ET.02).
+
+Le fasi: PRIMA = il codice di partenza (commit ec88e0d9); GIRO2 = la
+posizione detta come lettura e la rete della prima frase; GIRO4 = le
+aperture che girano, la rete delle certezze, le riparazioni dell'italiano;
+GIRO5 = il codice che resta (le frasi certe che restano si tolgono, la
+posizione non lascia frasi spezzate). Il giro1 e il giro3 sono stati letti a
+macchina e non giudicati.
+
+La lettura alla cieca: quattro agenti per fase, novanta voci ciascuno,
+mescolate, con lo scambio di prima; fascicoli, chiavi e giudizi in
+docs/collaudo/ET/ciechi/. Una sola correzione a macchina, dichiarata: una
+prima frase che e' una presentazione ("Aura è qui.") non risponde.
+
+TOTALI (su 360 risposte, 60 seconde di coppia)
+TOTALE prima: prima frase che risponde 79; nel merito 162; risposte con una certezza 18; frasi di certezza 18; errori di italiano 49; presentazione in apertura 30; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 10; posizioni cambiate senza perché 1; seconde nel merito 25 (su 360 risposte)
+TOTALE giro2: prima frase che risponde 261; nel merito 270; risposte con una certezza 37; frasi di certezza 38; errori di italiano 69; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 7; posizioni cambiate senza perché 7; seconde nel merito 44 (su 360 risposte)
+TOTALE giro4: prima frase che risponde 265; nel merito 272; risposte con una certezza 33; frasi di certezza 39; errori di italiano 44; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 3; posizioni cambiate senza perché 5; seconde nel merito 45 (su 360 risposte)
+TOTALE giro5: prima frase che risponde 256; nel merito 262; risposte con una certezza 22; frasi di certezza 24; errori di italiano 47; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 6; posizioni cambiate senza perché 2; seconde nel merito 41 (su 360 risposte)
+
+LE COPPIE DI DOMANDE SIMILI DI FILA (voce ET.03): A 1/2, B 3/4, C 7/8, D 23/24,
+E 25/26. Le seconde che rispondono alla domanda di prima: 0 in ogni fase. Le
+seconde che ripetono la prima: 10 prima, 6 al giro5. Le posizioni cambiate
+senza dire perche': 1 prima (quando quasi nessuna prima frase prendeva
+posizione), 2 al giro5.
+
+IL COSTO DI UN GIRO DEL BANCO (giro5, modello; la voce del LIVE non c'e' al
+banco): 531 chiamate per 360 risposte, 4262729 gettoni in ingresso e 53452 in
+uscita; al listino di gemini-2.5-flash (0,30 dollari per milione in ingresso,
+2,50 in uscita) circa 1.41 dollari. Al codice di partenza erano 409
+chiamate: le reti nuove ne aggiungono 122 su 360 risposte, circa un terzo.
+
+PER MAESTRO E CANALE (i due numeri sono le due esecuzioni)
+
+PRIMA FRASE CHE RISPONDE (su 30 per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       7 e 15        28 e 26       24 e 25       26 e 24       
+medora live       14 e 12       25 e 24       26 e 24       23 e 22       
+aura chat         0 e 5         21 e 22       22 e 19       19 e 15       
+aura live         1 e 1         15 e 14       21 e 17       16 e 20       
+caligo chat       8 e 8         19 e 26       21 e 25       23 e 24       
+caligo live       5 e 3         19 e 22       18 e 23       22 e 22       
+
+NEL MERITO (su 30 per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       19 e 21       27 e 28       28 e 26       26 e 26       
+medora live       24 e 19       26 e 25       25 e 26       24 e 23       
+aura chat         9 e 10        20 e 23       21 e 18       20 e 16       
+aura live         4 e 4         17 e 11       19 e 17       15 e 17       
+caligo chat       17 e 12       21 e 29       23 e 27       24 e 24       
+caligo live       8 e 15        20 e 23       18 e 24       25 e 22       
+
+RISPOSTE CON UNA CERTEZZA (su 30 per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       1 e 4         4 e 1         5 e 4         2 e 4         
+medora live       3 e 2         0 e 0         1 e 2         2 e 2         
+aura chat         1 e 3         5 e 4         3 e 3         2 e 2         
+aura live         1 e 0         3 e 0         0 e 1         0 e 0         
+caligo chat       2 e 0         0 e 14        7 e 4         3 e 2         
+caligo live       1 e 0         2 e 4         1 e 2         2 e 1         
+
+ERRORI DI ITALIANO (su 30 per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       1 e 3         6 e 4         2 e 7         2 e 7         
+medora live       7 e 3         12 e 3        5 e 1         1 e 5         
+aura chat         7 e 4         7 e 8         4 e 3         9 e 4         
+aura live         10 e 5        4 e 6         5 e 7         9 e 1         
+caligo chat       4 e 3         6 e 5         1 e 2         2 e 5         
+caligo live       1 e 1         2 e 6         3 e 4         0 e 2         
+
+PRESENTAZIONE IN APERTURA (su 30 per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       0 e 0         0 e 0         0 e 0         0 e 0         
+medora live       0 e 0         0 e 0         0 e 0         0 e 0         
+aura chat         30 e 0        0 e 0         0 e 0         0 e 0         
+aura live         0 e 0         0 e 0         0 e 0         0 e 0         
+caligo chat       0 e 0         0 e 0         0 e 0         0 e 0         
+caligo live       0 e 0         0 e 0         0 e 0         0 e 0         
+
+SECONDE CHE RISPONDONO ALLA PRIMA (su 5 seconde per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       0 e 0         0 e 0         0 e 0         0 e 0         
+medora live       0 e 0         0 e 0         0 e 0         0 e 0         
+aura chat         0 e 0         0 e 0         0 e 0         0 e 0         
+aura live         0 e 0         0 e 0         0 e 0         0 e 0         
+caligo chat       0 e 0         0 e 0         0 e 0         0 e 0         
+caligo live       0 e 0         0 e 0         0 e 0         0 e 0         
+
+SECONDE CHE RIPETONO (su 5 seconde per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       1 e 0         1 e 0         0 e 0         0 e 0         
+medora live       0 e 0         1 e 0         1 e 1         1 e 1         
+aura chat         1 e 2         1 e 2         0 e 0         1 e 1         
+aura live         1 e 1         0 e 0         0 e 0         1 e 0         
+caligo chat       1 e 1         1 e 1         0 e 0         0 e 1         
+caligo live       1 e 1         0 e 0         1 e 0         0 e 0         
+
+POSIZIONI CAMBIATE SENZA PERCHÉ (su 5 seconde per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       0 e 0         2 e 0         0 e 1         0 e 0         
+medora live       0 e 0         0 e 1         0 e 0         0 e 0         
+aura chat         0 e 0         0 e 0         1 e 0         0 e 0         
+aura live         0 e 0         0 e 1         0 e 2         0 e 0         
+caligo chat       0 e 0         0 e 0         0 e 1         0 e 2         
+caligo live       1 e 0         1 e 2         0 e 0         0 e 0         
+
+SECONDE NEL MERITO (su 5 seconde per esecuzione)
+Maestro e canale  prima         giro2         giro4         giro5         
+medora chat       2 e 4         4 e 5         5 e 5         4 e 4         
+medora live       4 e 3         4 e 5         4 e 3         4 e 3         
+aura chat         1 e 1         3 e 3         3 e 3         4 e 2         
+aura live         1 e 0         1 e 3         4 e 3         2 e 3         
+caligo chat       3 e 3         3 e 5         4 e 4         4 e 3         
+caligo live       1 e 2         4 e 4         3 e 4         4 e 4         
+

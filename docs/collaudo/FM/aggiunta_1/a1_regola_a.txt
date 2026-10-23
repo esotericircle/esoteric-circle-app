@@ -1,0 +1,113 @@
+== FM aggiunta 1, Regola A della guardia il_sigillo_si_dirada_solo_con_l_aria
+-- il Sigillo che ascolta il volume (lib/features/rituals/dream_rite_screen.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- l'aria decisa dal volume e non dalla forma (lib/core/sensi/l_aria_che_dirada.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+
+DOPO IL FONDO DELLA STANZA (la prova ha un ventilatore che la regola vecchia apriva e una canzone che parte dopo la quiete):
+-- il Sigillo che ascolta il volume
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- senza il fondo della stanza
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- senza la forma
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- senza l'ascolto iniziale
+innesto entrato (grep): si
+esito: VERDE
+ripristinato al byte: si
+   (l'ascolto iniziale e' stato tolto: nessun suono lo rendeva necessario, il fondo vale gia' dalla seconda finestra)
+
+== FM aggiunta 1, Regola A della guardia il_cielo_reale_prende_il_posto
+-- la luna della home apre la nascita
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il pulsante sottile non c'e'
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il pulsante non accende la macchina
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la nascita dell'onboarding ignorata
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+
+== DOPO LA SUITE INTERA, un difetto vero trovato in FH.10 e corretto (12 ottobre 2026)
+-- clamp con i limiti invertiti in altezzaCheCede, quando il pie' di pagina del cielo di adesso supera lo schermo (lib/features/real_time_cosmo/la_scritta_che_cede.dart; test/la_scritta_cede_senza_lanciare_test.dart)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+(padre: FM.10, il pulsante "Attiva macchina del tempo" allunga il pie' di pagina, che su scene basse spingeva il limite sotto sopra quello alto; la stessa correzione rifatta in _posizioneDellaGuida, lib/features/real_time_cosmo/cielo_reale_screen.dart)
+== FM aggiunta 1, Regola A sulla forma in piedi
+-- la croce a quattro diventa una fila sola
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la Croce Celtica in una riga sola
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il dietro a sinistra come prima
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+== FM aggiunta 1, seconda richiesta: righe bilanciate e carte sul tavolo piu' grandi
+-- la Croce Celtica torna a cinque per riga
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il tetto di larghezza torna a 0,34
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il margine del campo torna a 0,86
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- il galleggio cresce troppo (ampiezza 4)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+
+== DOPO LE RICHIESTE SU CROCE/TAVOLO/DISTANZA/GALLEGGIO (aggiunta 2), Regola A
+-- ordine_fm_guard: il marcatore delle chiuse alzato (18 voci ora)
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- ordine_fm_guard: una voce rinominata
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+
+== DOPO LA SUITE DELL'AGGIUNTA 2, quattro rossi corretti
+-- la Croce Celtica torna al vecchio ordine dietro/davanti
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si
+-- la distanza carta-scritta torna a sedici
+innesto entrato (grep): si
+esito: VERDE
+ripristinato al byte: si
+   (il secondo e' verde di proposito: la prova non verifica piu' un valore
+   fisso, sedici punti, scelto a mano, ma il solo invariante tecnico che
+   conta ora che la distanza e' una scelta estetica del fondatore, "la
+   scritta non tocca la carta" (>=0). Tornare a sedici rispetta ancora
+   quell'invariante, quindi resta verde: e' la grandezza misurata che e'
+   cambiata, come vuole la Regola A, non un difetto della prova.)
+-- la distanza negativa, la scritta sotto la carta: un vero difetto
+innesto entrato (grep): si
+esito: ROSSA
+ripristinato al byte: si

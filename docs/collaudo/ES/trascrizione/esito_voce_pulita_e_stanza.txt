@@ -1,0 +1,164 @@
+pulita prima giro 1 1: uguale  «Lui mi ama davvero.»
+pulita prima giro 1 2: uguale  «Ma mi ama ancora, dopo tutto quello che è successo?»
+pulita prima giro 1 3: uguale  «Il mio ex tornerà da me?»
+pulita prima giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita prima giro 1 5: uguale  «Il mio compagno mi tradisce.»
+pulita prima giro 1 6: SBAGLIATE 11  «»
+pulita prima giro 1 7: SBAGLIATE 5  «»
+pulita prima giro 1 8: SBAGLIATE 5  «»
+pulita prima giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita prima giro 1 10: SBAGLIATE 8  «»
+pulita prima giro 1 11: uguale  «È giusto che lo sposi.»
+pulita prima giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+pulita prima giro 1 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+pulita prima giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+pulita prima giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita prima giro 1 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+pulita prima giro 1 17: SBAGLIATE 8  «»
+pulita prima giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita prima giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+pulita prima giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+pulita prima giro 2 1: uguale  «Lui mi ama davvero.»
+pulita prima giro 2 2: uguale  «Ma mi ama ancora, dopo tutto quello che è successo?»
+pulita prima giro 2 3: uguale  «Il mio ex tornerà da me?»
+pulita prima giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita prima giro 2 5: uguale  «Il mio compagno mi tradisce.»
+pulita prima giro 2 6: SBAGLIATE 11  «»
+pulita prima giro 2 7: SBAGLIATE 5  «»
+pulita prima giro 2 8: SBAGLIATE 5  «»
+pulita prima giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita prima giro 2 10: SBAGLIATE 8  «»
+pulita prima giro 2 11: uguale  «È giusto che lo sposi.»
+pulita prima giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+pulita prima giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+pulita prima giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+pulita prima giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita prima giro 2 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+pulita prima giro 2 17: SBAGLIATE 8  «»
+pulita prima giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita prima giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+pulita prima giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE pulita prima: uguali parola per parola 30 su 40, parole sbagliate 74 su 292
+pulita oggi giro 1 1: uguale  «Lui mi ama davvero.»
+pulita oggi giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+pulita oggi giro 1 3: uguale  «Il mio ex tornerà da me?»
+pulita oggi giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita oggi giro 1 5: uguale  «Il mio compagno mi tradisce»
+pulita oggi giro 1 6: uguale  «Perché non ho più desiderio con la persona che ho accanto?»
+pulita oggi giro 1 7: SBAGLIATE 5  «»
+pulita oggi giro 1 8: uguale  «Quando incontrerò la persona giusta?»
+pulita oggi giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita oggi giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+pulita oggi giro 1 11: uguale  «È giusto che lo sposi?»
+pulita oggi giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+pulita oggi giro 1 13: uguale  «Mia madre non accetta la persona che amo, come faccio?»
+pulita oggi giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+pulita oggi giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita oggi giro 1 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+pulita oggi giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+pulita oggi giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita oggi giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+pulita oggi giro 1 20: uguale  «Questa settimana mi conviene giocare?»
+pulita oggi giro 2 1: uguale  «Lui mi ama davvero.»
+pulita oggi giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+pulita oggi giro 2 3: uguale  «Il mio ex tornerà da me?»
+pulita oggi giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+pulita oggi giro 2 5: uguale  «Il mio compagno mi tradisce»
+pulita oggi giro 2 6: uguale  «Perché non ho più desiderio con la persona che ho accanto?»
+pulita oggi giro 2 7: SBAGLIATE 5  «»
+pulita oggi giro 2 8: uguale  «Quando incontrerò la persona giusta?»
+pulita oggi giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+pulita oggi giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+pulita oggi giro 2 11: uguale  «È giusto che lo sposi?»
+pulita oggi giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+pulita oggi giro 2 13: uguale  «Mia madre non accetta la persona che amo, come faccio?»
+pulita oggi giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+pulita oggi giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+pulita oggi giro 2 16: uguale  «Gli piaccio? Mi guarda sempre, ma non mi dice niente.»
+pulita oggi giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+pulita oggi giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+pulita oggi giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+pulita oggi giro 2 20: uguale  «Questa settimana mi conviene giocare?»
+TOTALE pulita oggi: uguali parola per parola 38 su 40, parole sbagliate 10 su 292
+stanza prima giro 1 1: SBAGLIATE 4  «»
+stanza prima giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza prima giro 1 3: uguale  «Il mio ex tornerà da me?»
+stanza prima giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui.»
+stanza prima giro 1 5: uguale  «Il mio compagno mi tradisce.»
+stanza prima giro 1 6: SBAGLIATE 11  «»
+stanza prima giro 1 7: SBAGLIATE 1  «Trovo l'amore quest'anno»
+stanza prima giro 1 8: SBAGLIATE 5  «»
+stanza prima giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza prima giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza prima giro 1 11: SBAGLIATE 5  «»
+stanza prima giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza prima giro 1 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza prima giro 1 14: uguale  «Riuscirò ad avere un figlio?»
+stanza prima giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza prima giro 1 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+stanza prima giro 1 17: SBAGLIATE 8  «»
+stanza prima giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+stanza prima giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+stanza prima giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+stanza prima giro 2 1: SBAGLIATE 4  «»
+stanza prima giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza prima giro 2 3: uguale  «Il mio ex tornerà da me?»
+stanza prima giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui.»
+stanza prima giro 2 5: uguale  «Il mio compagno mi tradisce.»
+stanza prima giro 2 6: SBAGLIATE 11  «»
+stanza prima giro 2 7: SBAGLIATE 1  «Trovo l'amore quest'anno»
+stanza prima giro 2 8: SBAGLIATE 5  «»
+stanza prima giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza prima giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza prima giro 2 11: SBAGLIATE 5  «»
+stanza prima giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza prima giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza prima giro 2 14: uguale  «Riuscirò ad avere un figlio?»
+stanza prima giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza prima giro 2 16: uguale  «Gli piaccio. Mi guarda sempre, ma non mi dice niente.»
+stanza prima giro 2 17: SBAGLIATE 8  «»
+stanza prima giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+stanza prima giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+stanza prima giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE stanza prima: uguali parola per parola 28 su 40, parole sbagliate 68 su 292
+stanza oggi giro 1 1: uguale  «Lui mi ama davvero»
+stanza oggi giro 1 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza oggi giro 1 3: uguale  «Il mio ex tornerà da me?»
+stanza oggi giro 1 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+stanza oggi giro 1 5: uguale  «Il mio compagno mi tradisce?»
+stanza oggi giro 1 6: uguale  «Perché non ho più desiderio con la persona che ho accanto.»
+stanza oggi giro 1 7: SBAGLIATE 1  «Trovo l'amore quest'anno»
+stanza oggi giro 1 8: uguale  «Quando incontrerò la persona giusta?»
+stanza oggi giro 1 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza oggi giro 1 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza oggi giro 1 11: uguale  «È giusto che lo sposi?»
+stanza oggi giro 1 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza oggi giro 1 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza oggi giro 1 14: uguale  «Riuscirò ad avere un figlio»
+stanza oggi giro 1 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza oggi giro 1 16: uguale  «Gli piaccio? Mi guarda sempre, ma non mi dice niente.»
+stanza oggi giro 1 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+stanza oggi giro 1 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+stanza oggi giro 1 19: uguale  «Quando cambierà la mia fortuna?»
+stanza oggi giro 1 20: uguale  «Questa settimana mi conviene giocare.»
+stanza oggi giro 2 1: uguale  «Lui mi ama davvero»
+stanza oggi giro 2 2: uguale  «Ma mi ama ancora dopo tutto quello che è successo?»
+stanza oggi giro 2 3: uguale  «Il mio ex tornerà da me?»
+stanza oggi giro 2 4: uguale  «Devo scrivergli io o aspettare che si faccia vivo lui?»
+stanza oggi giro 2 5: uguale  «Il mio compagno mi tradisce»
+stanza oggi giro 2 6: uguale  «Perché non ho più desiderio con la persona che ho accanto.»
+stanza oggi giro 2 7: SBAGLIATE 1  «Trovo l'amore quest'anno»
+stanza oggi giro 2 8: uguale  «Quando incontrerò la persona giusta?»
+stanza oggi giro 2 9: uguale  «Sono innamorata di due persone, chi devo scegliere?»
+stanza oggi giro 2 10: uguale  «Perché attiro sempre persone che mi fanno soffrire?»
+stanza oggi giro 2 11: uguale  «È giusto che lo sposi?»
+stanza oggi giro 2 12: uguale  «Mi sento sola anche in coppia. Che cosa mi manca?»
+stanza oggi giro 2 13: uguale  «Mia madre non accetta la persona che amo. Come faccio?»
+stanza oggi giro 2 14: uguale  «Riuscirò ad avere un figlio»
+stanza oggi giro 2 15: uguale  «Posso fidarmi di nuovo dopo un tradimento?»
+stanza oggi giro 2 16: uguale  «Gli piaccio? Mi guarda sempre, ma non mi dice niente.»
+stanza oggi giro 2 17: uguale  «Come faccio a dimenticare chi mi ha lasciata?»
+stanza oggi giro 2 18: uguale  «Sono felice nella mia relazione o mi sto accontentando?»
+stanza oggi giro 2 19: uguale  «Quando cambierà la mia fortuna?»
+stanza oggi giro 2 20: uguale  «Questa settimana mi conviene giocare.»
+TOTALE stanza oggi: uguali parola per parola 38 su 40, parole sbagliate 2 su 292

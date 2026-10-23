@@ -1,0 +1,8 @@
+DOVE SI ROMPE LA VOCE, docs/collaudo/FE/voci/prima_2298_medora
+fondo della stanza -43 dB, soglia della voce -31 dB, rottura da 800 ms di silenzio
+risposta di 6.3 s dal secondo 8.5 al 14.8, voce nel 0 per cento del tratto, scritta in 3.4 s: nessuna rottura
+risposta di 39.0 s dal secondo 25.0 al 64.0, voce nel 0 per cento del tratto, scritta in 17.4 s: nessuna rottura
+risposta di 24.9 s dal secondo 78.5 al 103.4, voce nel 0 per cento del tratto, scritta in 9.5 s: nessuna rottura
+risposta di 20.2 s dal secondo 119.9 al 140.1, voce nel 0 per cento del tratto, scritta in 8.2 s: nessuna rottura
+risposta di 24.1 s dal secondo 157.1 al 181.2, voce nel 0 per cento del tratto, scritta in 11.1 s: nessuna rottura
+ORDINE FE VOCE 05: 0 rotture in 5 tratti di voce

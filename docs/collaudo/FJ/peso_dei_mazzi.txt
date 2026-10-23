@@ -1,0 +1,31 @@
+IL PESO DEI MAZZI, ordine FJ voce 10, 11 ottobre 2026
+
+Metodo: tool temporaneo misura_fj10.py (os.path.getsize sui webp definitivi; Marsiglia
+dalle voci di assets/Mazzo Marsiglia/ELENCO_DEFINITIVO.md, Thoth l'ultima versione di
+ogni file come nella misura FI.13; Rider-Waite da assets/img e assets/img_thumb del
+worktree; la riconversione con PIL, WebP qualita' 88 metodo 6, i parametri di
+tool/converti_webp.py). L'archivio e' l'APK della build 2305.
+
+CIASCUN MAZZO
+- Marsiglia: 80 file definitivi (78 carte, cornice, dorso), 23.486.770 byte; le 78 carte
+  23.092.566 byte, media per carta 296.058 byte; 853x1280.
+- Thoth: 80 file definitivi (78 carte, cornice, dorso), 24.695.910 byte; le 78 carte
+  24.111.992 byte, media per carta 309.128 byte; 853x1280.
+- Rider-Waite (il predefinito, quello del corpus): 79 file (78 carte e dorso),
+  26.292.806 byte, media 332.820 byte; 853x1280; miniature 500 px 4.535.868 byte;
+  insieme 30.828.674 byte.
+
+LA DIMENSIONE CHE SERVE DAVVERO
+La carta piu' grande a schermo e' quella ingrandita (lib/features/tarot/carta_ingrandita.dart):
+larga il 62 per cento dello schermo, al massimo 320 punti. A densita' 3 (gli iPhone Pro
+Max e i grandi Android) servono 960x1440 pixel. I master di tutti e tre i mazzi sono
+853x1280: non c'e' sorgente piu' grande, e ingrandire inventerebbe pixel. Riconvertito
+dai master a lato lungo 1440, il Rider-Waite resta 853x1280 e pesa 26.292.806 byte,
+identico a oggi. A 320 punti su densita' 3 la carta si mostra a 0,89 pixel di sorgente
+per pixel di schermo: e' il limite delle definitive, non della compressione.
+
+IL PREDEFINITO E' GIA' NELL'APP
+Il Rider-Waite sta gia' negli asset dell'app in WebP (pubspec.yaml: assets/img/mazzo-tarocchi/
+e assets/img_thumb/mazzo-tarocchi/). Con le miniature pesa 30,8 MB: sotto la soglia di
+40 MB. L'archivio oggi (2305): 260.267.304 byte, e col predefinito dentro resta quello,
+perche' il predefinito c'e' gia'. Marsiglia e Thoth non sono nell'app: vanno sul bucket.

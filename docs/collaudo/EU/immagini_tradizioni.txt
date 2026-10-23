@@ -1,0 +1,36 @@
+LE IMMAGINI DELLE TRADIZIONI IN ARRIVO, ordine EU voce 06, 1 ottobre 2026.
+
+Il rilievo del fondatore: "Se seleziono un oroscopo non sbloccato, ad esempio maya, mi compare il mio segno calcolato, ma l'icona in alto che compare non c'entra nulla, code ha rubato l'asset da altre grafiche, se non sbaglio."
+
+Come si e' cercato: il codice che sceglie l'immagine in testa (lib/features/horoscope/la_testa_della_tradizione.dart, GliSfondiDelleSchede.emblemaDellaTradizione); l'impronta sha1 di ogni file confrontata con tutti i file di assets/ e brand_assets/ del repository e con tutte le immagini della cartella del progetto sul PC (fuori da .claude, .git, build); la somiglianza visiva (impronta media a 32x32 punti) di ciascuna contro tutti gli sfondi delle schede della cartella del fondatore "assets/Sfondi Schede"; ogni uso dei file nel codice di lib.
+
+LE QUATTRO RIGHE.
+
+1. MAYA. File mostrato: assets/schede/Tradizione-Maya-Square-1.webp (nella testa; Oriz e Vert esistono per le altre forme). Figura: un medaglione d'oro quadrato con la testa di giaguaro al centro e i glifi dei giorni intorno. Voce e commit: ordine ES voce 11, commit a9e52f66 del 29 settembre 2026, dopo la risposta del fondatore alla domanda dell'Architetto ("i sei emblemi delle tradizioni [...] Li aggiungo all'ordine ES?", "Si inseriscili nell'ordine."). Origine: uguale byte per byte al file del fondatore C:\Users\user\Desktop\esoteric-circle-app\assets\Sfondi Schede\webp\Tradizione-Maya-Square-1.webp, che nella stessa cartella ha il PNG Tradizione-Maya-Square-1.png. Altri usi nell'app: nessuno. Somiglianza con altri sfondi: la piu' vicina e' Carta-Natale (90 bit diversi su 1.024): un'altra immagine.
+
+2. EGIZIA. File: assets/schede/Tradizione-Egizia-Square-1.webp. Figura: il sole alato d'oro. Voce e commit: ES.11, a9e52f66. Origine: uguale byte per byte a assets\Sfondi Schede\webp\Tradizione-Egizia-Square-1.webp del fondatore. Altri usi: nessuno. La piu' vicina: Ritorni-Planetari (138 bit su 1.024): un'altra immagine.
+
+3. CELTICA. File: assets/schede/Tradizione-Celtica-Square-1.webp. Figura: l'albero dentro il nodo circolare. Voce e commit: ES.11, a9e52f66. Origine: uguale byte per byte a assets\Sfondi Schede\webp\Tradizione-Celtica-Square-1.webp del fondatore. Altri usi: nessuno. La piu' vicina: Oroscopo-Mese (212 bit su 1.024); l'Albero della Vita della cartella del fondatore e' un'altra immagine.
+
+4. ARABA. File: assets/schede/Tradizione-Araba-Square-1.webp. Figura: il medaglione d'oro ad astrolabio con le stelle. Voce e commit: ES.11, a9e52f66. Origine: uguale byte per byte a assets\Sfondi Schede\webp\Tradizione-Araba-Square-1.webp del fondatore. Altri usi: nessuno. La piu' vicina: Oroscopo-Anno (30 bit su 1.024, la piu' vicina delle quattro): guardate affiancate sono due immagini diverse dello stesso stile, il medaglione d'oro sul blu delle costellazioni (l'Anno ha il sole al centro e le dodici case, l'Araba l'astrolabio con le stelle).
+
+IL CONTO. Immagini delle tradizioni in arrivo usate anche da un'altra funzione dell'app: 0 su 4. Immagini uguali, byte per byte, a un file di un'altra funzione: 0 su 4. Sono gli sfondi "Tradizione-*" della cartella del fondatore, fatti per queste tradizioni.
+
+LA REGOLA DELL'ORDINE: "un'immagine presa da un'altra funzione esce da queste tradizioni". Nessuna lo e', quindi restano finche' l'Architetto e il fondatore non preparano gli emblemi nuovi; il giorno che arrivano, si cambia un nome solo per tradizione, in GliSfondiDelleSchede.emblemiDelleTradizioni.
+
+Una nota che spiega perche' l'immagine puo' sembrare fuori posto: in testa a Vedica e Cinese c'e' la figura del SEGNO (il rashi, l'animale in bronzo); in testa a Maya, Egizia, Celtica e Araba c'e' l'emblema della TRADIZIONE, perche' i segni di queste quattro (venti giorni maya, trentasei decani, tredici alberi, ventotto dimore) non hanno ancora una figura ciascuno. L'immagine dice la tradizione, la scritta sotto dice il segno: "Il tuo albero celtico e' la Quercia".
+
+EU AGGIUNTA 2, GLI EMBLEMI SENZA SFONDO, 1 ottobre 2026 sera.
+
+L'Architetto ha ritagliato i quattro emblemi senza sfondo, e il fondatore li ha messi nella cartella del progetto sul PC, assets/Segni Zodiacali/Tradizioni. Le immagini di prima (gli sfondi Tradizione-*-Square-1.webp descritti qui sopra, presi dalla voce ES.11) escono dalla testa delle quattro tradizioni in arrivo e restano nel repository, usate da nessuno in testa.
+
+IL CONFRONTO BYTE PER BYTE (sha256 del file del PC, sha256 del file nel ramo, byte):
+maya    9f571425361c4ca1b2fa15d04503775d165bed90e2e02472895eca0439c07cfa  uguale  193.140 byte
+egizia  a34459d2b91006a75c32898212bf9da6745af2a06cfccbbbce0eacd5f7197733  uguale  131.196 byte
+celtica 2b6c63654368ceaea9c28a7793b3dcdcd3f295af6e603acae2baab7a02ea9319  uguale  252.486 byte
+araba   fe0de4147ca8a37ece92fb0621c102c0789a6fe907c2b11593257567a6633889  uguale  201.826 byte
+Webp nel ramo uguali a quelli del PC: 4 su 4. Nel ramo stanno in assets/img/zodiac/emblema_tradizione_{maya,egizia,celtica,araba}.webp, con lo stesso nome, e nel manifesto degli asset (docs/stato_asset.json, piene_oltre_le_miniature).
+
+LO SFONDO. Tutti e quattro sono RGBA con il canale alpha vero: pixel del tutto trasparenti, maya 75.741 su 654.360, egizia 270.445 su 473.140, celtica 277.725 su 667.480, araba 140.287 su 670.760. Tradizioni non sbloccate con un'immagine con lo sfondo in testa: prima 4 (gli sfondi quadrati Tradizione-*), dopo 0. Lo pretende la guardia test/le_tradizioni_in_arrivo_hanno_l_emblema_senza_sfondo_test.dart (637), anche nell'oroscopo dell'amico.
+
+SUL REALME: docs/collaudo/EU/realme/eu06_{maya,egizia,celtica,araba}_emblema_senza_sfondo.jpg, build di prova dal commit cd31e52f.

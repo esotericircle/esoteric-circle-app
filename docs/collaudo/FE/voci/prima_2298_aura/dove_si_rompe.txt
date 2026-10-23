@@ -1,0 +1,8 @@
+DOVE SI ROMPE LA VOCE, docs/collaudo/FE/voci/prima_2298_aura
+fondo della stanza -42 dB, soglia della voce -30 dB, rottura da 800 ms di silenzio
+risposta di 5.7 s dal secondo 12.9 al 18.6, scritta in 0.4 s: nessuna rottura
+risposta di 29.9 s dal secondo 38.0 al 67.9, scritta in 14.4 s: nessuna rottura
+risposta di 26.3 s dal secondo 84.1 al 110.4, scritta in 11.1 s: nessuna rottura
+risposta di 25.9 s dal secondo 128.3 al 154.2, scritta in 11.2 s: nessuna rottura
+risposta di 26.6 s dal secondo 170.3 al 196.8, scritta in 12.1 s: nessuna rottura
+ORDINE FE VOCE 05: 0 rotture in 5 tratti di voce

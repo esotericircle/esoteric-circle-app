@@ -1,0 +1,28 @@
+ORDINE EX VOCE 09, LA MEMORIA COMPATTA. 2 ottobre 2026.
+
+DOMANDA: "Inserisci tutto tranne la 5 di Protoface, è un costo fisso che si ammortizza col tempo e col numero di abbonati. Voglio corpus grandi, non voglio ripetizioni per almeno 60gg e voglio tenere alta l'esperienza utente e non voglio critiche per le risposte, mi raccomando."
+MISURA chiesta: token; fatti della memoria usati quando servono, prima e dopo; confronto alla cieca prima e dopo.
+
+LA SCELTA DI CODE (l'ordine: "un riassunto breve più gli ultimi 4-6 turni... Il numero dei turni lo sceglie Code, guardando la regola NESSUNA RISPOSTA PEGGIORA")
+- Storia al modello: gli ultimi 8 messaggi, cioe' 4 scambi (FirebaseMaestroAiProvider.kHistoryWindow, era 20).
+- Il riassunto breve: la sintesi della memoria e i fatti, che l'istruzione portava gia', piu' cio' che la persona ha scritto in questa conversazione prima della finestra, fino a venti messaggi indietro, ogni messaggio accorciato a 160 caratteri e senza le risposte del Maestro (FirebaseMaestroAiProvider.scrittoPrimaDellaFinestra, nell'istruzione sotto la memoria: "PRIMA, IN QUESTA CONVERSAZIONE, LA PERSONA TI HA SCRITTO"). Nessun modello lo scrive: nessuna chiamata in piu'.
+- Il primo tentativo era la sola finestra di 8 senza riassunto: la sintesi della memoria la aggiorna il lavoro settimanale del server, non il turno, e un dettaglio detto cinque scambi prima si sarebbe perso. Per questo la prova mirata qui sotto.
+
+1. LA PROVA MIRATA (tool/la_memoria_compatta_a_confronto.dart, docs/collaudo/EX/qualita/mc_prima.jsonl e mc_dopo.jsonl)
+Dieci conversazioni, una per caso: la persona dice un dettaglio (l'esame del 14 novembre, il padre operato al cuore, la pietra di Sperlonga, i diciotto anni di Sara, il turno di notte, Andrea, il mutuo di Bologna, l'allergia all'incenso, il gatto Pepe, l'insegnante di musica) da 5 a 9 scambi prima, e la domanda di adesso lo chiama senza ripeterlo. Il dettaglio non sta ne' nei fatti ne' nella sintesi. Stesso codice, due regole: mc_prima con FINESTRA=20 RIASSUNTO=0 (la regola di prima dell'ordine EX: il dettaglio sta nella storia), mc_dopo con la regola dell'app.
+
+Confronto alla cieca (docs/collaudo/EX/qualita/memoria_compatta/, due giudici, il secondo all'indietro, 20 schede):
+| | A regole | B memoria (il dettaglio usato) | D merito |
+|---|---|---|---|
+| Giudice 1, prima | 9 su 10 | 4 su 10 | 7 su 10 |
+| Giudice 1, dopo | 9 su 10 | 7 su 10 | 8 su 10 |
+| Giudice 2, prima | 9 su 10 | 4 su 10 | 5 su 10 |
+| Giudice 2, dopo | 9 su 10 | 7 su 10 | 8 su 10 |
+Il dettaglio scritto nell'istruzione arriva meglio dello stesso dettaglio sepolto in venti messaggi di storia. K05 (il turno di notte) e' una risposta da programma (l'invito alla meditazione), uguale nei due giri: nessuno dei due usa il dettaglio.
+
+2. I TOKEN
+- Banco della qualita' (venti scambi di storia per caso; python tool/i_conti_della_qualita.py): ingresso medio di una richiesta della chat 8.800 token (prima2) contro 8.307 (fine2, con tutte le voci EX), -493.
+- Stima per una conversazione lunga dell'app: uno scambio vale circa 110 token (domanda media 57 caratteri, risposta media 333 al giro fine2). Venti messaggi sono circa 1.100 token; otto messaggi piu' il riassunto circa 590. Risparmio circa 500 token d'ingresso a richiesta, circa il 6 per cento: la parte grande dell'ingresso e' l'istruzione, e la sua parte comune la prende la cache (EX.05).
+- Nella prova mirata l'ingresso e' uguale nei due giri (8.096 contro 8.121 al K01): i messaggi di mezzo sono corti.
+
+3. IL CONFRONTO ALLA CIECA SUL BANCO INTERO: giro finale contro prima2, docs/collaudo/EX/qualita/finale/ (misura B sui casi M1-M8).

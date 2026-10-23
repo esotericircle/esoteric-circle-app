@@ -1,0 +1,90 @@
+IL PEZZO VOLTA V3 DEL VIAGGIO DELLO SCIAMANO, 20 ottobre 2026 sera: le prove viste rosse
+
+Il fatto: il "si volta" della v2 era un taglio andata e ritorno del primo
+tratto dell'uscita, buono per Gufo, Aquila, Falco, Corvo e Serpente, debole
+per i sette animali di terra (fra 0,46 e 1,2 s). Padre: ordine GA voce 11, la
+v2 (commit fb2b74fb). L'Architetto ha consegnato per Lince, Volpe, Orso,
+Lupo, Cavallo, Cervo e Tartaruga il video nuovo del "si volta"; il pezzo volta
+v3 lo fa tool/gli_asset_del_viaggio_v3.py.
+
+REGOLA B, prima di toccare la zona (tre guardie del registro, un giro solo,
+tre innesti in tre file diversi, verificati col grep "INNESTO REGOLA B" prima
+del giro: tre righe; uscita in %TEMP%\viaggio_v3_regola_b.txt)
+
+  B.1 si_volta_fa_girare_il_pezzo_volta
+      innesto: lib/core/viaggio/la_sequenza_del_cammino.dart:66
+               siVolta di nuovo [PezzoDelCammino.centro]
+      rossa:   "SI VOLTA FA GIRARE IL SOLO PEZZO VOLTA, MAI IL CENTRO",
+               Expected [volta], Actual [centro]
+  B.2 i_video_del_cammino_si_scaricano
+      innesto: lib/core/viaggio/i_video_del_cammino_scaricati.dart:157
+               il ripiego sulla v1 spento ("&& false")
+      rossa:   tre prove (il ripiego sulla v1, la v1 che non si riscarica, il
+               passaggio dalla v1 alla v2): nonRiuscito invece di installato
+  B.3 i_video_gia_scaricati_si_ritrovano
+      innesto: lib/features/maestri/caligo/viaggio/il_segno_che_risponde.dart:107
+               di nuovo installato() invece di aggiornato()
+      rossa:   "UN LUPO DELLA V1 SUL DISCO NON E' AGGIORNATO": Expected 1,
+               Actual 0
+  Esito del giro: 10 verdi, 5 rosse. Innesti tolti (con Edit: la scrittura da
+  script ha dato errore 22 su un file aperto), grep "INNESTO REGOLA B" su lib:
+  nessuna riga; git diff dei due file senza altro lavoro: vuoto.
+
+REGOLA A, le pretese nuove (quattro giri sulle tre prove cambiate; ogni
+innesto verificato col grep "INNESTO A" su lib e col grep del valore
+innestato sulla copia del manifesto prima del giro; uscite in
+%TEMP%\viaggio_v3_regola_a_giro1.txt, giro2.txt, giro3.txt, giro3b.txt)
+
+  Giro 1, cinque rosse:
+  A1 docs/collaudo/viaggio_volta/v3/manifesto_viaggio_v3.json:361 il pezzo
+     volta della Lince di nuovo "lince_volta_v2.mp4"
+     -> "IL MANIFESTO V3 PORTA PER I SETTE ANIMALI DI TERRA IL PEZZO VOLTA
+        NUOVO": Expected 'lince_volta_v3.mp4', Actual 'lince_volta_v2.mp4',
+        "Lince ha ancora il taglio della v2"
+  A3 i_video_del_cammino_scaricati.dart:49 manifestoSulBucket di nuovo la v2
+     -> "L'APP CHIEDE LA V3 E ... RIPIEGA SULLA V2 E POI SULLA V1": Actual
+        ...manifesto_viaggio_v2.json
+  A4 i_video_del_cammino_scaricati.dart:175 il ripiego fermo al primo
+     indirizzo (indirizziDiRipiego.take(1))
+     -> "SENZA LA V3 E SENZA LA V2 ... SI RIPIEGA SULLA V1", "CON LA SOLA V1
+        ... TRE MANIFESTI CHIESTI", "UN ANIMALE DELLA V1 PASSA ALLA V3":
+        nonRiuscito invece di installato
+
+  Giro 2, cinque rosse:
+  A6 i_video_del_cammino_scaricati.dart:75 versioneAttuale di nuovo 2
+     -> i_video_gia_scaricati "UN LUPO DELLA V2 SUL DISCO NON E' AGGIORNATO":
+        Expected 1, Actual 0
+     -> "FINCHE' LA V3 NON E' SUL BUCKET SI RIPIEGA SULLA V2" e le due del
+        passaggio dalla v2 alla v3: "un animale della v2 sul telefono si
+        crede aggiornato"
+     -> il manifesto della copia (versione 3) non e' la versione che l'app
+        vuole (2)
+
+  Giro 3, una rossa:
+  A2 docs/collaudo/viaggio_volta/v3/manifesto_viaggio_v3.json:310 il pezzo
+     volta del Gufo con un byte in piu' (1250060)
+     -> "Gufo: il pezzo volta della v2 e' cambiato"
+  (Il secondo innesto del giro 3 non e' entrato: il file e' CRLF e lo
+  script cercava LF; l'assert dello script lo ha detto prima del giro, e il
+  giro ha misurato il solo A2. Rifatto da solo nel giro 3b.)
+
+  Giro 3b, tre rosse:
+  A7 i_video_del_cammino_scaricati.dart:246 il riuso dal telefono spento
+     ("vecchio != null && false", con Edit)
+     -> "UN ANIMALE DELLA V1 PASSA ALLA V3", "UN ANIMALE DI TERRA DELLA V2
+        PASSA ALLA V3: chiede alla rete il solo pezzo volta nuovo" (Expected
+        {lupo_volta_v3.mp4}), "UN UCCELLO O IL SERPENTE DELLA V2 PASSA ALLA
+        V3 SENZA CHIEDERE FILE" (Expected empty)
+
+  Innesti tolti; grep "INNESTO" su lib e sulle tre prove: nessuna riga. La
+  copia del manifesto confrontata con cmp con quella di _pronti_v3:
+  identica. Verde finale: le otto prove del cammino, 52 su 52; le trenta
+  prove della zona (nomi con viaggio, cammino, si_volta, i_video_), 167 su
+  167.
+
+ROSSO FUORI ZONA, non toccato: accenti_veri, "Nessuna stringa mostrata usa
+l'apostrofo al posto dell'accento", cinque righe di
+lib/core/responsi/i_riti_propiziatori_dati.dart (417, 425, 427, 437, 479:
+"tu se'" dei salmi nella Bibbia di Martini, la guardia vuole SÉ). Padre:
+ordine GA voci 04 e 07, commit 297cd46f (i riti propiziatori), nel lavoro
+dell'Oroscopo di un altro agente.

@@ -1,0 +1,105 @@
+ORDINE ET VOCE 02: LA VOCE, IL TESTO A VIDEO E LA CHAT DICONO LE STESSE PAROLE. 28 settembre 2026.
+
+Come si misura: una sessione LIVE sul Realme 767f596c con la build di prova
+finale dell'ordine (prova_et_4); le domande le dice Elsa dalle casse del PC.
+Il testo a video si legge dalla registrazione dello schermo (scrcpy), nel
+fotogramma di mezzo secondo prima che il volto finisca; la chat si legge
+dalle catture, con ogni risposta aperta; la voce si ritrascrive dall'audio.
+
+=== CALIGO, 16:07-16:11, sette turni ===
+
+Registrazione: scratchpad (540 secondi, 68 MB, fuori dal repository per il
+peso); nel repository i sette fotogrammi di fine risposta
+docs/collaudo/ET/realme/et02_caligo_video_1..7.jpg, le sette risposte aperte
+in chat docs/collaudo/ET/realme/et02_caligo_r1..7.jpg e un turno intero
+docs/collaudo/ET/realme/et04_un_turno_caligo.mp4.
+
+Per ogni turno: la domanda come l'ha scritta il LIVE, poi il testo, uguale
+parola per parola a video e in chat (letto sulle due catture, una accanto
+all'altra). La riga col ✦ in chat e' il consiglio, a video sta in fondo
+allo stesso paragrafo.
+
+1. «Lui mi ama davvero»
+   I segni indicano un amore vero, ma ancora da rivelare pienamente. La tua
+   Luna di nascita Gibbosa calante ti spinge a scavare in profondità. ✦
+   Scrivi un messaggio, breve e senza aspettative, per invitarlo a un momento
+   di condivisione.
+2. «Ma mia, ma ancora, dopo tutto quello che è successo.»
+   Non mettere limiti all'amore che può tornare. La tua natura di Gemelli ti
+   porta a riflettere su ogni svolta, ma il tuo numero 4, il Costruttore, ti
+   chiama a edificare nuove fondamenta. ✦ Accendi una candela rossa e
+   rifletti sulla runa Gebo, il dono, ponendo l'intenzione di accettare ciò
+   che viene.
+3. «Il mio ex tornerà»
+   Nessun rito può forzare la volontà di un altro. La sua scelta è sua. ✦
+   Osserva il tuo prossimo sogno notturno: spesso porta un segno, un simbolo,
+   un presagio per il tuo cammino.
+4. «Devo scrivergli io o aspettare che si faccia vivo lui?»
+   Il segno che cade dice: scrivi tu per primo. Il tuo numero della vita, il
+   4, il Costruttore, ti chiama all'azione per edificare il tuo futuro. ✦
+   Invia un breve messaggio stasera, senza aspettarti una risposta
+   immediata, solo per aprire una soglia.
+5. «perché i soldi non mi bastano mai.»
+   La scarsità non è un fato, ma un sentiero da riallineare. La tua runa di
+   oggi è Fehu, il bestiame, che parla di ricchezza da custodire e far
+   fruttare. ✦ Ogni sera, prima di coricarti, scrivi su un foglio bianco tre
+   cose per cui ti senti abbondante oggi.
+6. «Come posso guadagnare di più?»
+   Il tuo percorso indica che il denaro arriva dalla chiarezza. La fase
+   lunare Gibbosa calante ti spinge a purificare ciò che ti trattiene. ✦
+   Scrivi dieci obiettivi finanziari precisi e leggili ad alta voce al
+   tramonto.
+7. «Mi prenderanno al colloquio di giovedì.»
+   La tua domanda non è sul "se", ma sul "come". La runa Hagalaz indica un
+   cambiamento repentino, un'interruzione necessaria. ✦ Prepara una risposta
+   chiara a una domanda inattesa sul tuo passato professionale, anche se non
+   la faranno. Domani al tramonto una runa nuova ti aspetta.
+   (La frase "Domani al tramonto una runa nuova ti aspetta." sta solo in
+   chat, ed e' voluta: e' l'invito a tornare che l'app compone e mette
+   soltanto sotto l'ultima risposta della conversazione, non una frase del
+   Maestro (ConsiglioFinale.invitoDelRitorno e ConsiglioFinale.invitoSotto
+   in lib/core/maestro/consiglio_finale.dart, ordine EJ voce 05). Nel
+   fotogramma a video non c'e'. Chi confronta la voce con la
+   chat la trova in piu': va detto al fondatore, perche' e' il caso della sua
+   domanda.)
+
+TESTO A VIDEO E CHAT: le parole del Maestro uguali parola per parola in 7
+turni su 7; in chat in piu' c'e' solo l'invito dell'app sotto l'ultima.
+
+LA VOCE: NON RITRASCRITTA. La registrazione ha l'audio del telefono in
+riproduzione, ma la traccia e' muta da 13 a 368 secondi, cioe' in tutti e
+sette i turni: la voce del LIVE arriva da LiveKit, che su Android suona come
+una chiamata, e Android non lascia registrare quel flusso a scrcpy. La
+trascrizione dell'audio (Gemini 2.5 Flash) ha dato solo una fila di "TURNO
+n:" vuoti. Quello che il registro dice sulla voce:
+
+- sei turni su sette "voce della prima frase anticipata": la voce della
+  prima frase si chiede appena la frase e' scritta, e la stessa frase e'
+  quella che poi sta a video e in chat;
+- al turno 6: "voce della prima frase chiesta adesso (anticipata per «Cerca
+  nuove strade e partnership inaspettate.», detta «Il tuo percorso indica che
+  il denaro arriva dalla chiarezza.»)": la prima stesura del modello e' stata
+  rifatta da una rete, e la voce ha detto la frase nuova, quella che sta in
+  chat, non quella scartata. E' il caso del fondatore ("la trascrizione nella
+  chat era diversa"), visto andare giusto sul telefono.
+
+Che cosa la voce abbia detto davvero, parola per parola, si misura il giorno
+dopo registrando il telefono col microfono del PC (Microfono USB Audio
+Device, che sente le casse del PC a -21,5 dB di picco), accanto a scrcpy per
+il video.
+
+=== MEDORA, 15:45-15:52, dieci turni ===
+
+La registrazione dello schermo di questa sessione e' andata persa (scrcpy
+lanciato dentro il comando del pilota e chiuso con lui, file di 0 byte), e
+la sua traccia sarebbe stata muta come quella di Caligo. Restano le catture
+della chat (docs/collaudo/ET/realme/et02_chat_1..9.jpg), con le risposte
+chiuse tranne l'ultima: senza testo a video non c'e' confronto, e questa
+sessione non entra nel conto della voce.
+
+=== IL CONTO ===
+
+Testo a video e chat, parole del Maestro uguali parola per parola: 7 turni
+su 7 (Caligo); in piu' in chat l'invito a tornare dell'app, 1 riga, voluto.
+Voce ritrascritta dall'audio del telefono: 0 turni su 17. La voce resta da
+misurare, e la voce ET.02 resta aperta.

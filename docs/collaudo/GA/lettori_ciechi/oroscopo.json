@@ -1,0 +1,1594 @@
+{
+  "ordine": "GA",
+  "voce": "GA.06",
+  "strumento": "test/ga06_campioni_per_i_lettori_ciechi_test.dart",
+  "seme": 606,
+  "senzaModello": true,
+  "quanti": 48,
+  "responsi": [
+    {
+      "id": "oroscopo-1",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Capricorno",
+        "nascita": "2002-12-26",
+        "oraDiNascita": null,
+        "tradizione": "occidentale",
+        "periodo": "giorno",
+        "dominio": "Generale",
+        "oggi": "2026-10-25",
+        "livello": 2,
+        "fascia": "salita"
+      },
+      "simboli": {
+        "livello": 2,
+        "fascia": "salita",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Ogni cosa chiede più tempo",
+        "risposta": "Oggi la giornata è in salita e la fatica si sente soprattutto nei tempi: ogni cosa chiede più minuti del previsto e i piccoli contrattempi possono sommarsi. Il nervosismo può arrivare facile, ma la fretta oggi non ti fa guadagnare nulla: conviene lasciare un margine a ogni passaggio.",
+        "cosaFare": "Prima di ogni cosa che fai oggi, stima quanto tempo ti serve e aggiungine la metà: è la misura vera della giornata. Se devi spostarti, parti con anticipo e tieni pronta un'alternativa; se ti accorgi di tardare a un appuntamento, avvisa subito con un messaggio breve invece di correre.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Oggi la Luna è in Ariete e fa attrito con il tuo segno: ti mette un po' alla prova. In generale il cielo di oggi è in salita.\nFonte: astrologia occidentale, che legge il cielo di oggi rispetto al tuo segno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-2",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Bilancia",
+        "nascita": "1994-10-22",
+        "oraDiNascita": null,
+        "tradizione": "occidentale",
+        "periodo": "giorno",
+        "dominio": "Amore",
+        "oggi": "2026-10-20",
+        "livello": 5,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 5,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Marte",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Dirlo a voce",
+        "risposta": "Oggi in amore la giornata è favorevole e calorosa, soprattutto per ciò che si dice a voce: le parole arrivano più dirette di quelle scritte. Se vivi una relazione, di' a chi ami che cosa provi, guardando negli occhi; se sei senza legame e qualcuno ti piace, diglielo a voce.",
+        "cosaFare": "Alla prima occasione di vedere o sentire chi ti sta a cuore, pronuncia una frase semplice e sincera: se ti aiuta, comincia con «Volevo dirti una cosa», poi lascia una pausa. Se nessuno occupa ancora i tuoi pensieri, rivolgi un apprezzamento a voce a una persona che ti incuriosisce.",
+        "approfondimento": "Le parole scritte si rileggono, quelle dette restano nell'aria e nella memoria. Pronunciarle costa un piccolo imbarazzo, ma in una giornata così aperta pesa meno e può lasciare una vicinanza nuova. Se uno sguardo si ferma più a lungo o la risposta è un sorriso, le parole sono arrivate.",
+        "rito": "Marte, che accende il desiderio, governa questa giornata degli affetti. Versa nel bicchiere qualcosa che ti piace e alzalo in un brindisi silenzioso a chi ami o a chi desideri incontrare. Poi sussurra due volte «Volgiti al desiderio di Cipride e alle feste di Lieo» (Afrodite e Dioniso).",
+        "titoloDelRito": "L'inno propiziatorio",
+        "daDoveViene": "Oggi la Luna è in Acquario e va d'accordo con il tuo segno: ti sostiene. Per l'amore il cielo di oggi è favorevole.\nIl rito del giorno: un verso di un antico inno greco ad Ares, il Marte dei Romani.\nFonte: astrologia occidentale, che legge il cielo di oggi rispetto al tuo segno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-3",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Ariete",
+        "nascita": "1970-04-10",
+        "oraDiNascita": null,
+        "tradizione": "occidentale",
+        "periodo": "giorno",
+        "dominio": "Carriera",
+        "oggi": "2026-10-25",
+        "livello": 4,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Capacità che viaggiano",
+        "risposta": "Oggi è una giornata favorevole nel lavoro e nello studio, soprattutto per ragionare sulla tua direzione. È più facile vedere quali capacità possono viaggiare con te anche in un ambiente nuovo e quali invece vanno ancora costruite. Se pensi a un cambiamento, oggi lo guardi con i piedi per terra.",
+        "cosaFare": "Scrivi le cinque cose che sai fare meglio e accanto a ciascuna un ambito diverso dal tuo in cui servirebbe. Ricava due parole chiave e usale per cercare annunci, corsi o persone in quel campo. Scegli una persona e chiedile venti minuti di conversazione.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Oggi la Luna è in Ariete e Marte, che guida l'azione e il lavoro, è in Leone: vanno d'accordo con il tuo segno e ti sostengono. Per il lavoro e lo studio il cielo di oggi è favorevole.\nFonte: astrologia occidentale, che legge il cielo di oggi rispetto al tuo segno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-4",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vergine",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
+        "tradizione": "occidentale",
+        "periodo": "giorno",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-20",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Marte",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Simpatia che nasce dalle parole",
+        "risposta": "Oggi la fortuna è serena e circola nelle parole gentili: un apprezzamento sincero detto a chi incontri, il barista, un vicino, chi ti serve allo sportello, crea un piccolo credito di simpatia. Niente di eclatante, ma da gesti così nascono spesso favori e segnalazioni.",
+        "cosaFare": "Scegli due persone che incroci oggi e di' a ciascuna una cosa precisa che apprezzi: la cura di un lavoro, la pazienza, un dettaglio. Niente frasi di circostanza. Annota stasera come hanno reagito e che cosa è cambiato nel modo di trattarti.",
+        "approfondimento": "Un complimento preciso dice all'altra persona che l'hai vista davvero e questo resta. In una giornata tranquilla la gentilezza ha tempo di posarsi senza sembrare interessata. Stai alla larga dall'adulazione: se non lo pensi, taci, perché il complimento falso si riconosce subito.",
+        "rito": "Sotto Marte, oggi, le occasioni chiedono un gesto pronto. Cammina con passo deciso fino a un giardino o a un'aiuola del quartiere. Lì rivolgi ad Ares, il Marte dei Romani, le ultime parole del verso, «nelle opere di Demetra» (dea del raccolto), poi tocca la terra.",
+        "titoloDelRito": "L'inno propiziatorio",
+        "daDoveViene": "Oggi i passaggi del cielo si bilanciano: nessuno spinge in modo netto su questo campo. Per la fortuna il cielo di oggi è in equilibrio.\nIl rito del giorno: un verso di un antico inno greco ad Ares, il Marte dei Romani.\nFonte: astrologia occidentale, che legge il cielo di oggi rispetto al tuo segno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-5",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Leone",
+        "nascita": "1986-08-18",
+        "oraDiNascita": null,
+        "tradizione": "occidentale",
+        "periodo": "settimana",
+        "dominio": "Generale",
+        "oggi": "2026-10-25",
+        "livello": 2.86,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 2.86,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Due sere tutte tue",
+        "risposta": "Settimana equilibrata e gestibile, che non spinge e non frena: l'unica cosa da sorvegliare è il tempo libero. Se gli impegni si fanno fitti, quel tempo tende a riempirsi delle cose degli altri prima che tu te ne accorga; conta quanto ne riservi a te.",
+        "cosaFare": "Apri oggi l'agenda e cerchia due sere di questi sette giorni da lasciare senza appuntamenti; scrivici sopra il tuo nome. Se arriva un invito per quelle sere, proponi con gentilezza un altro giorno, senza scusarti e senza dare troppe spiegazioni a nessuno.",
+        "approfondimento": "Il tempo libero lasciato come avanzo non resiste a nessuna richiesta. Dargli una data lo rende reale e ti permette di dire con naturalezza che quella sera hai già da fare. Usalo per qualcosa che ricarica e non produce nulla: un bagno lungo, un film scelto con cura.",
+        "rito": "Comincia oggi, domenica, una settimana che porta il calore del Sole. Accendi una candela gialla e guarda la fiamma finché il respiro rallenta. Ripeti a mezza voce «Occhio della giustizia, luce della vita» tre volte, poi spegnila con un soffio e scegli una cosa da tenere limpida per sette giorni.",
+        "titoloDelRito": "L'inno propiziatorio",
+        "daDoveViene": "Il momento chiave è lunedì 26 ottobre alle 05:11: in Toro c'è la Luna piena, quando ciò che era in corso si vede con più chiarezza. In generale il cielo della settimana è in equilibrio.\nIl rito della settimana: un verso di un antico inno greco al Sole.\nFonte: astrologia occidentale, che segue la Luna e i pianeti nel periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-6",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Pesci",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
+        "tradizione": "occidentale",
+        "periodo": "settimana",
+        "dominio": "Amore",
+        "oggi": "2026-10-20",
+        "livello": 4.14,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4.14,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Marte",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "La presentazione sincera",
+        "risposta": "Settimana favorevole agli incontri cercati con sincerità. Se sei senza legame, riaprire la porta alle occasioni per conoscere persone viene più facile, con un'app o di persona; se vivi una relazione, la stessa sincerità serve a raccontarti a chi ami senza filtri.",
+        "cosaFare": "Se cerchi e usi un'app, aggiorna la foto e scrivi tre cose che fai davvero nel tempo libero; se le app non fanno per te, cerca un'uscita in compagnia e presentati partendo da una passione vera. Se hai un legame, racconta a chi ami una passione che conosce poco.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Il momento chiave è sabato 24 ottobre alle 07:22: la Luna va d'accordo con il tuo modo di amare. Per l'amore il cielo della settimana è favorevole.\nFonte: astrologia occidentale, che segue la Luna e i pianeti nel periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-7",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vergine",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
+        "tradizione": "occidentale",
+        "periodo": "settimana",
+        "dominio": "Carriera",
+        "oggi": "2026-10-20",
+        "livello": 3.86,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 3.86,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Marte",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Il problema difficile",
+        "risposta": "Settimana lucida nel lavoro e nello studio per i problemi che resistono: ragioni con chiarezza e vedi collegamenti che di solito sfuggono. È il momento di affrontare la questione più ostica che hai davanti, invece di girarle intorno rifugiandoti nei compiti più comodi e già noti.",
+        "cosaFare": "In una mattina di questi giorni, prima di aprire la posta, prenditi un'ora per disegnare il problema a mano, con frecce e riquadri. Poi spiegalo ad alta voce in dieci minuti a qualcuno, anche a chi non conosce la materia: spesso il punto debole salta fuori lì.",
+        "approfondimento": "Un ostacolo resiste spesso perché lo si guarda sempre dallo stesso lato. Una domanda in apparenza ingenua può aprire la strada che gli altri non vedevano. Quando la soluzione prende forma, scrivila in mezza pagina e cita chi ha ragionato con te: il merito diviso pesa di più.",
+        "rito": "Comincia oggi, martedì, una settimana di Marte: il lavoro chiede coraggio più che fretta. Scrivi su un foglio il compito più pesante e piegalo in quattro. Leggi tre volte «mutando la forza delle armi nelle opere di Demetra» (dea del raccolto), poi tienilo in tasca per sette giorni.",
+        "titoloDelRito": "L'inno propiziatorio",
+        "daDoveViene": "Il momento chiave è sabato 24 ottobre alle 13:08: la Luna va d'accordo con la tua energia nel lavoro. Per il lavoro e lo studio il cielo della settimana è favorevole.\nIl rito della settimana: un verso di un antico inno greco ad Ares, il Marte dei Romani.\nFonte: astrologia occidentale, che segue la Luna e i pianeti nel periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-8",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cancro",
+        "nascita": "1982-07-16",
+        "oraDiNascita": "11:20",
+        "tradizione": "occidentale",
+        "periodo": "settimana",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-25",
+        "livello": 4.14,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4.14,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Gli incontri per strada",
+        "risposta": "Settimana fortunata negli incontri casuali: nei tragitti di questi giorni, in treno, in sala d'attesa, in coda, chi ti sta accanto può avere qualcosa da dirti. Una chiacchiera nata per caso può portarti un'indicazione utile, un nome, un'idea che cercavi senza saperlo.",
+        "cosaFare": "Per almeno un tragitto di questa settimana lascia le cuffie nella borsa e il telefono in tasca. Se chi ti sta vicino legge qualcosa che conosci o parla di un tema che ti incuriosisce, fai una domanda semplice e lascia che risponda. Se lo scambio decolla, chiedi un recapito.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Il momento chiave è venerdì 30 ottobre alle 04:39: la Luna va d'accordo con la tua fortuna di fondo. Per la fortuna il cielo della settimana è favorevole.\nFonte: astrologia occidentale, che segue la Luna e i pianeti nel periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-9",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Pesci",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
+        "tradizione": "occidentale",
+        "periodo": "mese",
+        "dominio": "Generale",
+        "oggi": "2026-10-25",
+        "livello": 4.47,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4.47,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Una tavola da aprire",
+        "risposta": "Mese favorevole alla compagnia, con un umore aperto e la voglia di stare fra persone a cui tieni. È il periodo adatto per invitare qualcuno a casa tua o fuori, anche chi non vedi da tempo, perché le serate condivise adesso ricaricano più di una sera sul divano.",
+        "cosaFare": "Entro dieci giorni scegli due o tre persone che ti fa piacere rivedere e proponi una data precisa, con il luogo già deciso: la tua tavola, una pizzeria, un parco. Chiedi a ognuno di portare qualcosa, così la serata non pesa su nessuno e resta leggera.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Il momento chiave è sabato 31 ottobre alle 07:42: la Luna va d'accordo con il tuo carattere di fondo. In generale il cielo del mese è favorevole.\nFonte: astrologia occidentale, che segue la Luna e i pianeti nel periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-10",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Pesci",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
+        "tradizione": "occidentale",
+        "periodo": "mese",
+        "dominio": "Amore",
+        "oggi": "2026-10-20",
+        "livello": 3.9,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 3.9,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Marte",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Insieme facendo qualcosa",
+        "risposta": "Mese propizio all'amore che nasce o si rinnova facendo qualcosa insieme. Una passione condivisa crea confidenza più in fretta di cento chiacchiere davanti a uno schermo: se sei senza legame è lì che le simpatie nascono con naturalezza, se vivi una relazione è lì che l'intesa si riaccende.",
+        "cosaFare": "Entro dieci giorni scegli un'attività che si ripete con regolarità, come un coro, un gruppo di cammino o un laboratorio di ceramica. Se hai un legame, iscrivetevi insieme e non saltate nessun incontro; se non hai un legame, dopo tre incontri proponi un caffè a chi ti sta simpatico.",
+        "approfondimento": "Quando le mani sono occupate la timidezza si scioglie e ci si mostra per come si è davvero. Chi ti incontra lì ti conosce mentre ridi di un errore, non mentre cerchi di fare bella figura. Un invito piccolo dentro un'abitudine comune toglie imbarazzo a entrambe le persone.",
+        "rito": "Sotto Marte nasce oggi un mese per gli affetti. Proponi una serata di festa a chi ami o, se sei senza legame, agli amici cari: una cena semplice o un ballo. Aprila con «Volgiti al desiderio di Cipride e alle feste di Lieo» (Afrodite e Dioniso).",
+        "titoloDelRito": "L'inno propiziatorio",
+        "daDoveViene": "Il momento chiave è mercoledì 28 ottobre alle 10:47: la Luna va d'accordo con il tuo modo di amare. Per l'amore il cielo del mese è favorevole.\nIl rito del mese: un verso di un antico inno greco ad Ares, il Marte dei Romani.\nFonte: astrologia occidentale, che segue la Luna e i pianeti nel periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-11",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Bilancia",
+        "nascita": "1994-10-22",
+        "oraDiNascita": null,
+        "tradizione": "occidentale",
+        "periodo": "mese",
+        "dominio": "Carriera",
+        "oggi": "2026-10-25",
+        "livello": 3.37,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.37,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Tre fronti scelti",
+        "risposta": "Nel lavoro il mese è stabile, non spinge e non frena: se i fronti aperti si moltiplicano, nessuno avanza come vorresti. Il periodo premia chi decide che cosa viene prima e lascia il resto in attesa, senza sensi di colpa e con date oneste per chi aspetta.",
+        "cosaFare": "Scrivi adesso su un foglio tutti i lavori o gli impegni di studio aperti e cerchiane tre. Se qualcuno aspetta gli altri, dagli una data realistica, così la pressione scende. Alla fine di ogni settimana guarda i tre fronti scelti e segna quello che è avanzato davvero.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Il momento chiave è lunedì 9 novembre alle 08:02: in Scorpione c'è la Luna nuova, il momento di cominciare qualcosa. Per il lavoro e lo studio il cielo del mese è in equilibrio.\nFonte: astrologia occidentale, che segue la Luna e i pianeti nel periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-12",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Bilancia",
+        "nascita": "1994-10-22",
+        "oraDiNascita": null,
+        "tradizione": "occidentale",
+        "periodo": "mese",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-20",
+        "livello": 4.1,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4.1,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Marte",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Occasioni sotto casa",
+        "risposta": "Per la buona sorte il mese è propizio vicino a casa: le occasioni utili possono stare più vicine di quanto pensi, come un corso aperto a tutti, un mercatino di scambio, un servizio del quartiere poco conosciuto. Guarda con attenzione le bacheche e i gruppi della zona.",
+        "cosaFare": "Entro dieci giorni passa in biblioteca, in un centro civico o in una bottega della zona e fotografa la bacheca degli annunci. A casa scegli due iniziative che ti interessano davvero e segna le date in agenda. Alla prima partecipazione chiedi il recapito di chi organizza.",
+        "approfondimento": "Chi abita la tua zona spesso possiede ciò che ti manca: un attrezzo, un'ora di tempo, un'informazione pratica. Il periodo favorisce i legami vicini, quelli che si stringono a due isolati da casa. Un nome nuovo in rubrica, legato a un posto che vedi ogni giorno, allarga la rete.",
+        "rito": "Oggi, martedì di Marte, prende avvio un mese in cui la buona sorte si coltiva. Riempi un vaso di terra e interra tre semi. Prega piano le ultime parole del verso, «nelle opere di Demetra» (dea del raccolto), poi annaffiali e guardali crescere in questi trenta giorni.",
+        "titoloDelRito": "L'inno propiziatorio",
+        "daDoveViene": "Il momento chiave è domenica 1 novembre alle 21:28: in Leone la Luna cala verso la nuova, il momento di chiudere e lasciare andare. Cade nell'area della tua vita che riguarda la fortuna. Per la fortuna il cielo del mese è favorevole.\nIl rito del mese: un verso di un antico inno greco ad Ares, il Marte dei Romani.\nFonte: astrologia occidentale, che segue la Luna e i pianeti nel periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-13",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Pesci",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
+        "tradizione": "occidentale",
+        "periodo": "anno",
+        "dominio": "Generale",
+        "oggi": "2026-10-25",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-03-08"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Doveri e desideri",
+        "risposta": "L'anno è in equilibrio fra doveri e desideri, ma quell'equilibrio va difeso con poche regole semplici. Se non lo proteggi, gli impegni degli altri tendono a occupare ogni spazio libero; se lo curi, resta posto per ciò che ti fa stare bene senza trascurare il resto.",
+        "cosaFare": "Scegli adesso un pomeriggio o una sera a settimana che appartiene a te e scrivilo subito in agenda, settimana per settimana, prima che arrivino altre richieste. Usalo per qualcosa che desideri, non per recuperare faccende. Se salta, spostalo entro tre giorni invece di cancellarlo.",
+        "approfondimento": "Un anno equilibrato non è immobile: ci sono settimane piene e settimane lente ed è giusto così. La misura sta nel non lasciare che una delle due mangi l'altra troppo a lungo. Se il tempo per te salta tre volte di fila, è ora di togliere un impegno ricorrente.",
+        "rito": "Il compleanno da cui parte il tuo anno cadeva di domenica, giorno del Sole, che dà misura e vigore. Adesso metti un fiore giallo, anche di campo, in un bicchiere vicino alla finestra. Pronuncia tre volte «Occhio della giustizia, luce della vita» e nomina una cosa che vuoi vedere meglio.",
+        "titoloDelRito": "L'inno propiziatorio",
+        "daDoveViene": "Nell'anno dall'8 marzo 2026 al 7 marzo 2027 il Sole tocca l'area del lavoro di ogni giorno da lontano: è un tema che nell'anno resta in secondo piano. In generale il cielo dell'anno è in equilibrio.\nIl rito dell'anno: un verso di un antico inno greco al Sole.\nFonte: astrologia occidentale, che legge l'anno dal cielo del tuo compleanno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-14",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Capricorno",
+        "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
+        "tradizione": "occidentale",
+        "periodo": "anno",
+        "dominio": "Amore",
+        "oggi": "2026-10-23",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-01-04"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Aspettative dette",
+        "risposta": "L'anno è stabile nella vita sentimentale e chiede chiarezza su ciò che cerchi e su ciò che non accetti. Un periodo tranquillo è il momento adatto per dare un nome alle aspettative, prima che restino implicite e si trasformino in piccole delusioni ripetute.",
+        "cosaFare": "Scrivi tre cose che per te contano in amore e una che non accetti più. Se vivi una relazione, proponi entro tre settimane una sera per confrontare le vostre liste con calma; se sei senza legame, rileggi le tue righe prima di ogni nuovo appuntamento e restaci fedele.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Nell'anno dal 4 gennaio 2026 al 3 gennaio 2027 Venere, il pianeta dell'amore, tocca l'area del lavoro di ogni giorno da lontano: è un tema che nell'anno resta in secondo piano. Per l'amore il cielo dell'anno è in equilibrio.\nFonte: astrologia occidentale, che legge l'anno dal cielo del tuo compleanno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-15",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vergine",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
+        "tradizione": "occidentale",
+        "periodo": "anno",
+        "dominio": "Carriera",
+        "oggi": "2026-10-25",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-09-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Il mestiere affinato",
+        "risposta": "Nel lavoro l'anno è stabile, senza svolte improvvise: il terreno regge e permette di affinare ciò che già sai fare invece di inseguire il nuovo a ogni costo. Vale per chi lavora e per chi studia: una capacità portata da buona a ottima vale più di molte competenze appena accennate.",
+        "cosaFare": "Scegli adesso una capacità che usi spesso e fai bene ma non benissimo: scrivere, spiegare, organizzare, calcolare. Dedicale due ore ogni quindici giorni con un manuale, un video serio o una persona esperta da osservare. Segna subito le prime quattro sessioni, in orari tranquilli.",
+        "approfondimento": "La stabilità ha un rischio sottile: scivolare nell'abitudine fino a non vedere più che cosa si potrebbe migliorare. Un anno tranquillo, usato bene, prepara il terreno alle occasioni future. Un compito che prima ti costava e adesso esce più rapido e pulito dice che la strada è giusta.",
+        "rito": "Dal compleanno il tuo anno porta il segno del Sole, che dà nitidezza al lavoro e allo studio. Adesso accendi la lampada della scrivania anche se c'è luce. Recita sottovoce «Occhio della giustizia, luce della vita» tre volte, poi svolgi una parte del compito che merita più attenzione.",
+        "titoloDelRito": "L'inno propiziatorio",
+        "daDoveViene": "Nell'anno dal 20 settembre 2026 al 19 settembre 2027 Saturno, il pianeta dei doveri, mette in primo piano l'area dei legami che contano e pesa molto: l'anno di lavoro chiede costanza. Al tuo compleanno Saturno era in Ariete. Per il lavoro e lo studio il cielo dell'anno è in equilibrio.\nIl rito dell'anno: un verso di un antico inno greco al Sole.\nFonte: astrologia occidentale, che legge l'anno dal cielo del tuo compleanno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-16",
+      "arte": "Oroscopo occidentale",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vergine",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
+        "tradizione": "occidentale",
+        "periodo": "anno",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-20",
+        "livello": 4,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Sole",
+        "primoGiornoDelPeriodo": "2026-09-20"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Volti che ritornano",
+        "risposta": "Per la buona sorte l'anno è favorevole alla presenza costante: farti vedere spesso negli stessi luoghi crea fiducia e dalla fiducia possono nascere inviti, segnalazioni e piccoli aiuti che non avresti chiesto. Conviene mettere radici in un ambiente vicino a casa e lasciarle crescere con calma.",
+        "cosaFare": "Scegli entro tre settimane un luogo da frequentare con regolarità: un'associazione, un coro, un gruppo di cammino, una biblioteca con incontri serali. Vacci sempre nello stesso giorno della settimana e tieni quell'orario come un appuntamento fisso. Quando il gruppo ti riconosce, offri una mano a chi organizza.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Nell'anno dal 20 settembre 2026 al 19 settembre 2027 Giove, il pianeta della fortuna, dà forza all'area degli amici e dei desideri: è un tema che nell'anno conta. Per la fortuna il cielo dell'anno è favorevole.\nFonte: astrologia occidentale, che legge l'anno dal cielo del tuo compleanno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-17",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Makara (Capricorno)",
+        "nascita": "1998-11-24",
+        "oraDiNascita": "15:20",
+        "tradizione": "vedica",
+        "periodo": "giorno",
+        "dominio": "Generale",
+        "oggi": "2026-10-25",
+        "livello": 2,
+        "fascia": "salita"
+      },
+      "simboli": {
+        "livello": 2,
+        "fascia": "salita",
+        "reggenteDelRito": "Surya",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "La lampada della sera",
+        "risposta": "Oggi la giornata è stancante e stasera la casa può sembrarti più disordinata, la testa più piena del solito. È facile portarsi dietro tutto fino al cuscino. Serve un gesto semplice che segni la fine del fare e l'inizio del riposo, senza pretendere di sistemare ogni cosa.",
+        "cosaFare": "Verso l'ora di cena accendi una lampada calda in un angolo e spegni le luci forti. Riordina una sola superficie (il tavolo d'ingresso o il piano della cucina) e lascia il resto dove sta. Prima di dormire scrivi su un foglio ciò che ti preoccupa e appoggialo lontano dal letto.",
+        "approfondimento": "La lampada accesa all'imbrunire è un'immagine antica: segna il passaggio fra il tempo del fare e quello del riposo. Una luce sola, scelta con cura, basta per dire alla casa che la giornata si chiude. Il foglio lasciato fuori dalla camera tiene quel pensiero lontano dal sonno.",
+        "rito": "Oggi è il giorno di Surya, il Sole che rischiara ogni cosa. Versa un filo d'acqua da un bicchiere guardando la luce: è l'arghya, l'offerta d'acqua al sole della tradizione. Recita a voce bassa nove volte «Om Suryaya namah» e porta quella luce nel resto della giornata.",
+        "titoloDelRito": "Il mantra propiziatorio",
+        "daDoveViene": "Oggi la Luna è nei Pesci, il terzo segno dalla tua Luna di nascita: per la tradizione indiana è una posizione favorevole. Ma la costellazione in cui sta la Luna è per te la più delicata, adatta alle chiusure e non agli inizi; in generale il cielo di oggi è in salita.\nIl rito del giorno: la formula che saluta il Sole, il pianeta che regge la domenica.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-18",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vrishabha (Toro)",
+        "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
+        "tradizione": "vedica",
+        "periodo": "giorno",
+        "dominio": "Amore",
+        "oggi": "2026-10-25",
+        "livello": 4,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Surya",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Un piacere mai provato",
+        "risposta": "Oggi in amore la giornata è luminosa e aperta alla gioia: favorisce chi fa spazio a un piacere nuovo invece di ripetere il solito. Se vivi una relazione, una prima volta condivisa può riaccendere la curiosità reciproca; se sei senza legame, un luogo nuovo può metterti davanti a volti diversi.",
+        "cosaFare": "Scegli per stasera una cosa che non hai mai fatto e che ti dà piacere. Se vivi una relazione, proponila all'altra persona: un piatto mai cucinato, una strada mai percorsa, un ballo in cucina. Se sei senza legame, portala dove c'è gente: una lezione aperta, una degustazione, un concerto.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Oggi la Luna è nei Pesci, una posizione favorevole: da lì tocca anche l'area che per la tradizione indiana riguarda l'amore. Per l'amore il cielo di oggi è favorevole.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-19",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Kumbha (Acquario)",
+        "nascita": "1962-02-06",
+        "oraDiNascita": null,
+        "tradizione": "vedica",
+        "periodo": "giorno",
+        "dominio": "Carriera",
+        "oggi": "2026-10-20",
+        "livello": 2,
+        "fascia": "salita"
+      },
+      "simboli": {
+        "livello": 2,
+        "fascia": "salita",
+        "reggenteDelRito": "Mangala",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "La tua parte prima",
+        "risposta": "Giornata faticosa nel lavoro e nello studio, soprattutto dove dipendi dalle risposte di altre persone: i tempi comuni si allungano e cresce la voglia di fare tutto per conto tuo. Oggi caricarti il peso degli altri costa più di quanto rende e non rimette in moto nessuno.",
+        "cosaFare": "Oggi metti al sicuro la tua parte: finisci per prima la cosa che dipende solo da te. Se non lavori più, vale per un impegno che porti avanti, in un'associazione o in casa. Se qualcuno tace su una cosa comune, scrivigli in privato e chiedi se serve una mano.",
+        "approfondimento": "Chi tace spesso è in difficoltà più che indifferente: una richiesta ordinata aiuta anche chi non sapeva da dove cominciare. Consegnare puntuale la tua parte dà il tono agli altri. Se una cosa comune resta ferma e c'è chi la coordina, avvisalo con un messaggio sobrio, solo fatti.",
+        "rito": "Mangala, signore del martedì, sostiene l'iniziativa e il lavoro che chiede energia. Prima di cominciare, togli dalla scrivania ogni cosa che non serve e lascia solo ciò che ti occorre per il compito più importante di oggi. Pronuncia sottovoce undici volte «Om Mangalaya namah» e mettiti all'opera.",
+        "titoloDelRito": "Il mantra propiziatorio",
+        "daDoveViene": "Oggi la Luna è nel Capricorno, il dodicesimo segno dalla tua Luna di nascita: per la tradizione indiana è una posizione sfavorevole. Per il lavoro e lo studio il cielo di oggi è in salita.\nIl rito del giorno: la formula che saluta Marte, il pianeta che regge il martedì.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-20",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vrishabha (Toro)",
+        "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
+        "tradizione": "vedica",
+        "periodo": "giorno",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-20",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Mangala",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Un sì, un no",
+        "risposta": "Oggi la sorte è in equilibrio e chiede scelte misurate. Che arrivino proposte o che la giornata resti quieta, dire un sì convinto e un no garbato, anche solo ai tuoi impegni, protegge il tempo per ciò che conta e lascia spazio alle occasioni migliori.",
+        "cosaFare": "Se oggi arriva una proposta o una richiesta, prenditi un minuto prima di rispondere e chiediti se ti avvicina a qualcosa che desideri: accetta quella che lo fa, rifiuta con garbo quella che ti allontana. Se non ne arriva nessuna, scegli tu un impegno da onorare e uno da lasciare.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Oggi la Luna è nel Capricorno, il nono segno dalla tua Luna di nascita: per la tradizione indiana è una posizione da prendere con attenzione. Per la fortuna il cielo di oggi è in equilibrio.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-21",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vrishabha (Toro)",
+        "nascita": "1970-04-10",
+        "oraDiNascita": null,
+        "tradizione": "vedica",
+        "periodo": "settimana",
+        "dominio": "Generale",
+        "oggi": "2026-10-20",
+        "livello": 3.57,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 3.57,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Mangala",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "La mano buona in casa",
+        "risposta": "Settimana favorevole e concreta, con la mano buona per le cose pratiche di casa. Se c'è una piccola cosa rotta che ogni giorno scegli di non vedere, una mensola storta, un'anta che non chiude, adesso puoi sistemarla in poco tempo; se tutto funziona, è il momento di una piccola manutenzione.",
+        "cosaFare": "Entro tre giorni dedica mezz'ora a un lavoro manuale in casa, con gli attrezzi stesi su un panno e senza fretta. Se hai una cosa da aggiustare, procurati viti, colla o ricambi; se non c'è niente di rotto, stringi le viti di una sedia, ungi una cerniera, pulisci un filtro.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "In generale il cielo della settimana è favorevole, con il giorno migliore mercoledì 21 ottobre.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-22",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Makara (Capricorno)",
+        "nascita": "1986-08-18",
+        "oraDiNascita": null,
+        "tradizione": "vedica",
+        "periodo": "settimana",
+        "dominio": "Amore",
+        "oggi": "2026-10-20",
+        "livello": 3.29,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.29,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Mangala",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "La prova prima della scelta",
+        "risposta": "È una settimana equilibrata in amore, adatta a provare le cose prima di deciderle. Se vivi una relazione e state valutando un passo importante, come vivere insieme o un viaggio lungo, questi giorni invitano a una prova; se sei senza legame, la prova riguarda un modo nuovo di incontrare persone.",
+        "cosaFare": "Scegli entro il fine settimana una prova breve. Se c'è un passo in discussione, passate due giorni come se fosse già fatto; se non c'è niente da decidere, provate per tre sere un'abitudine nuova insieme. Se sei senza legame, prova tre volte un modo nuovo di conoscere persone.",
+        "approfondimento": "Una prova mostra ciò che i discorsi non vedono, gli orari, le rinunce: se poi la voglia resta, la scelta poggia su qualcosa di vero. Dove non c'è niente da decidere, un'abitudine nuova rinfresca lo sguardo. Per chi è senza legame, tre tentativi dicono più di una prima impressione.",
+        "rito": "La settimana nasce oggi, martedì di Mangala, che scalda il desiderio. Metti un fiore rosso in un bicchiere d'acqua sul davanzale. Ripeti a mente sette volte «Om Mangalaya namah» pensando a una persona cara o a chi vorresti accanto; poi cambia l'acqua finché il fiore resta fresco.",
+        "titoloDelRito": "Il mantra propiziatorio",
+        "daDoveViene": "Per l'amore il cielo della settimana è in equilibrio, con il giorno migliore martedì 20 ottobre. La Luna è nel Capricorno, una posizione favorevole: da lì tocca anche l'area che per la tradizione indiana riguarda l'amore.\nIl rito della settimana: la formula che saluta Marte, il pianeta che regge il martedì.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-23",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Mesha (Ariete)",
+        "nascita": "1982-07-16",
+        "oraDiNascita": "11:20",
+        "tradizione": "vedica",
+        "periodo": "settimana",
+        "dominio": "Carriera",
+        "oggi": "2026-10-25",
+        "livello": 3.43,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.43,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Surya",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Il piano alleggerito",
+        "risposta": "Settimana di equilibrio nel lavoro, buona per rimettere in fila gli impegni più che per correre. È il momento di guardare con onestà quanto hai messo in programma. Se il piano supera il tempo che hai, togliere qualcosa adesso non è una sconfitta: è il modo di arrivare in fondo.",
+        "cosaFare": "Elenca tutte le cose previste per questi sette giorni e dividile in tre gruppi: indispensabile, utile, rinviabile. Sposta il terzo gruppo in una lista separata con una data più avanti. Se qualcuno attende quelle parti, avvisa entro due giorni spiegando in due righe il perché della scelta.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Per il lavoro e lo studio il cielo della settimana è in equilibrio, con il giorno migliore lunedì 26 ottobre.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-24",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Kumbha (Acquario)",
+        "nascita": "1962-02-06",
+        "oraDiNascita": null,
+        "tradizione": "vedica",
+        "periodo": "settimana",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-23",
+        "livello": 3.43,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.43,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Shukra",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Il pasto condiviso",
+        "risposta": "Settimana tranquilla per la fortuna, che passa dalla tavola più che dalle grandi occasioni. Un pasto condiviso, a casa, al lavoro o all'aperto, apre conversazioni che davanti a uno schermo non nascerebbero. Le piccole confidenze nate a tavola portano spesso informazioni e inviti utili.",
+        "cosaFare": "In due giorni di questa settimana mangia lontano dallo schermo e in compagnia. Invita qualcuno che conosci poco: un vicino, un collega, un compagno di studi, un conoscente. Se prepari qualcosa con le tue mani, portane un po' in più da offrire a tavola.",
+        "approfondimento": "La buona sorte di questa settimana sta nelle conversazioni a tavola, dove si parla con meno fretta e più sincerità. Un pasto condiviso crea una piccola confidenza che altrove nasce di rado. A fine settimana conta le conversazioni nuove: ti dicono se l'abitudine merita di restare.",
+        "rito": "Armonia per sette giorni: è il segno di Shukra su questo venerdì. Lucida un piccolo gioiello o un oggetto che brilla e portalo con te. Sussurra undici volte «Om Shukraya namah» mentre lo strofini, poi lascia spazio alle occasioni che arrivano con grazia.",
+        "titoloDelRito": "Il mantra propiziatorio",
+        "daDoveViene": "Per la fortuna il cielo della settimana è in equilibrio, con il giorno migliore venerdì 23 ottobre. La Luna è nell'Acquario, lo stesso segno della tua Luna di nascita: per la tradizione indiana è una posizione favorevole.\nIl rito della settimana: la formula che saluta Venere, il pianeta che regge il venerdì.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-25",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Kanya (Vergine)",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
+        "tradizione": "vedica",
+        "periodo": "mese",
+        "dominio": "Generale",
+        "oggi": "2026-10-23",
+        "livello": 3.8,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 3.8,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Shukra",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Mattine da costruire",
+        "risposta": "È un buon mese per cambiare un'abitudine: la prima da rinnovare è il risveglio. Se le tue mattine corrono in fretta fra telefono e commissioni, in queste settimane hai l'energia per dare all'inizio della giornata una forma nuova, più lenta e più tua. Basta un gesto ripetuto.",
+        "cosaFare": "Da domani punta la sveglia venti minuti prima e usali per una cosa sola: una camminata, una pagina scritta, una colazione con calma. Prepara la sera prima ciò che ti serve. Segna ogni mattina mantenuta e, se ne salti una, riprendi il giorno dopo senza recuperi.",
+        "approfondimento": "Un'abitudine nuova ha bisogno di ripetizione più che di slancio: trenta mattine uguali scavano un solco che regge anche nei periodi pieni. Una mattina saltata non merita rimproveri: il rimprovero pesa più dello sbaglio. La costanza si misura sul mese intero, non sul singolo giorno.",
+        "rito": "Trenta giorni di bellezza da coltivare: oggi è venerdì, giorno di Shukra. Scegli un angolo della casa e rendilo più bello con un oggetto o un colore. Recita nove volte «Om Shukraya namah» e tieni curato quell'angolo per tutto il mese, come un piccolo altare della bellezza.",
+        "titoloDelRito": "Il mantra propiziatorio",
+        "daDoveViene": "In generale il cielo del mese è favorevole, con il giorno migliore venerdì 23 ottobre. La Luna è nell'Acquario, il sesto segno dalla tua Luna di nascita: per la tradizione indiana è una posizione favorevole.\nIl rito del mese: la formula che saluta Venere, il pianeta che regge il venerdì.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-26",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Makara (Capricorno)",
+        "nascita": "1998-11-24",
+        "oraDiNascita": "15:20",
+        "tradizione": "vedica",
+        "periodo": "mese",
+        "dominio": "Amore",
+        "oggi": "2026-10-20",
+        "livello": 3.43,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.43,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Mangala",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "La bilancia del dare",
+        "risposta": "In amore il mese è stabile e adatto a guardare l'equilibrio fra dare e ricevere. Nella vita sentimentale chi offre sempre per primo finisce per svuotarsi, chi riceve senza accorgersene si abitua. Queste settimane calme aiutano a rimettere in pari la bilancia senza rancore e senza scenate.",
+        "cosaFare": "Se vivi una relazione, nota per una settimana chi propone, chi cerca, chi ricorda: poi chiedi con calma una cosa precisa che ti manca. Se sei senza legame, guarda gli ultimi incontri e smetti di inseguire chi si fa vivo solo quando gli fa comodo.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Per l'amore il cielo del mese è in equilibrio, con il giorno migliore domenica 1 novembre.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-27",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vrishabha (Toro)",
+        "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
+        "tradizione": "vedica",
+        "periodo": "mese",
+        "dominio": "Carriera",
+        "oggi": "2026-10-20",
+        "livello": 3.5,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 3.5,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Mangala",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Farsi avanti con garbo",
+        "risposta": "Nel lavoro il mese è favorevole a chi si fa avanti con chiarezza. Vale per chi lavora, per chi studia, per chi cerca e per chi porta avanti un progetto personale o un impegno scelto: una richiesta o una proposta precisa di solito trova più ascolto.",
+        "cosaFare": "Scrivi in mezza pagina che cosa vuoi proporre e perché sei la persona adatta, con due esempi concreti. Entro dieci giorni, se lavori o studi, portala a chi decide; se cerchi, invia una candidatura; se il progetto è tuo, presentalo a chi può sostenerlo, come un gruppo o un'associazione.",
+        "approfondimento": "Ci sono settimane adatte a cominciare e settimane adatte a proseguire: queste sono adatte a cominciare. Una proposta fatta adesso può partire col passo giusto, senza dover rincorrere nessuno. Se ottieni il sì, fissa tre traguardi da raggiungere entro la fine del mese e condividili con chi ti sostiene.",
+        "rito": "Oggi, martedì di Mangala, il mese di lavoro nasce sotto il segno della prontezza. Tempera una matita fino a farle una punta netta, come si affila un attrezzo prima dell'opera. Pronuncia undici volte «Om Mangalaya namah» e usala per segnare la prima azione da compiere oggi.",
+        "titoloDelRito": "Il mantra propiziatorio",
+        "daDoveViene": "Per il lavoro e lo studio il cielo del mese è favorevole, con il giorno migliore mercoledì 21 ottobre. La Luna è nell'Acquario, il decimo segno dalla tua Luna di nascita, proprio quello che per la tradizione indiana riguarda il lavoro: una posizione favorevole.\nIl rito del mese: la formula che saluta Marte, il pianeta che regge il martedì.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-28",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Vrishabha (Toro)",
+        "nascita": "1958-01-04",
+        "oraDiNascita": "05:20",
+        "tradizione": "vedica",
+        "periodo": "mese",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-23",
+        "livello": 3.53,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 3.53,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Shukra",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Inviti alla luce",
+        "risposta": "Il mese porta buona sorte alle occasioni che hai già a portata di mano. Se fra i tuoi messaggi restano inviti senza risposta o proposte messe da parte, lì può nascondersi qualcosa di buono; altrimenti cercala fra le persone e i luoghi di sempre.",
+        "cosaFare": "Dedica una sera di questa settimana a rileggere inviti, proposte e messaggi rimasti in sospeso: rispondi ai due che ti incuriosiscono di più con una domanda concreta su tempi e modi. Se non trovi nulla, chiedi a due persone di fiducia se hanno in vista qualcosa che fa per te.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Per la fortuna il cielo del mese è favorevole, con il giorno migliore sabato 24 ottobre.\nFonte: astrologia indiana, che conta i segni a partire dalla tua Luna di nascita."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-29",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Kumbha (Acquario)",
+        "nascita": "1962-02-06",
+        "oraDiNascita": null,
+        "tradizione": "vedica",
+        "periodo": "anno",
+        "dominio": "Generale",
+        "oggi": "2026-10-23",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Shukra",
+        "primoGiornoDelPeriodo": "2026-02-06"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Ciò che già regge",
+        "risposta": "È un anno stabile, in cui conviene custodire più che cambiare. Molte cose della tua vita probabilmente funzionano già: un'abitudine buona, un angolo di casa accogliente, un rapporto su cui contare. Dare loro attenzione adesso le rende più forti e capaci di durare anche quando il resto si muove.",
+        "cosaFare": "Scegli tre cose che vanno bene e dai a ciascuna una cura piccola e regolare: una telefonata ogni dieci giorni, un angolo di casa riordinato ogni settimana, una camminata fissa. Annotale in un promemoria e ogni settimana controlla di averle tenute, senza aggiungerne altre.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Nell'anno dal 6 febbraio 2026 al 5 febbraio 2027 Giove, il pianeta della crescita, ti aiuta. Saturno attraversa invece un lungo periodo di prove e di pazienza, che per te vuol dire andare più piano e costruire con calma; in generale il cielo dell'anno è in equilibrio.\nFonte: astrologia indiana, che guarda Giove e Saturno al tuo compleanno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-30",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Kanya (Vergine)",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
+        "tradizione": "vedica",
+        "periodo": "anno",
+        "dominio": "Amore",
+        "oggi": "2026-10-25",
+        "livello": 4,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Surya",
+        "primoGiornoDelPeriodo": "2026-09-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Il fascino curato",
+        "risposta": "In amore l'anno è favorevole alla seduzione e al piacere di piacere. Il fascino nasce dalla cura di te, dalla voce, dallo sguardo e dall'ascolto: chi ha un legame può ritrovare il gioco degli inizi, chi è senza legame può attirare attenzioni nuove senza forzare nulla.",
+        "cosaFare": "Entro tre settimane cura il tuo fascino senza spendere: indossa senza motivo il capo che tieni per le occasioni, cammina con calma, guarda negli occhi chi ti parla. Se vivi una relazione, prepara una sera di corteggiamento come agli inizi; se sei senza legame, porta questa cura fra persone nuove.",
+        "approfondimento": "Nella tradizione indiana la bellezza curata è un'offerta, non una vanità: si orna ciò che si rispetta. Chi si piace si muove con più libertà e quella libertà attira. Recitare una parte per conquistare stanca presto: il fascino che regge è quello che ti somiglia davvero.",
+        "rito": "Il compleanno ha dato al tuo anno il calore di Surya, che scalda chiunque gli stia accanto. Indossa adesso qualcosa di rosso o color oro e richiama alla mente chi ami o chi desideri incontrare. Sussurra sette volte «Om Suryaya namah» per gli affetti che l'anno custodisce.",
+        "titoloDelRito": "Il mantra propiziatorio",
+        "daDoveViene": "Nell'anno dal 20 settembre 2026 al 19 settembre 2027 Giove, il pianeta della crescita, ti aiuta. Per l'amore il cielo dell'anno è favorevole.\nIl rito dell'anno: la formula che saluta il Sole, il pianeta che regge la domenica.\nFonte: astrologia indiana, che guarda Giove e Saturno al tuo compleanno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-31",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Kumbha (Acquario)",
+        "nascita": "1962-02-06",
+        "oraDiNascita": null,
+        "tradizione": "vedica",
+        "periodo": "anno",
+        "dominio": "Carriera",
+        "oggi": "2026-10-23",
+        "livello": 2,
+        "fascia": "salita"
+      },
+      "simboli": {
+        "livello": 2,
+        "fascia": "salita",
+        "reggenteDelRito": "Shukra",
+        "primoGiornoDelPeriodo": "2026-02-06"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Crescere dove non si vede",
+        "risposta": "Nel lavoro e nei progetti l'anno procede lento, ma lento non vuol dire fermo. Riconoscimenti, risposte o risultati possono tardare: è il tempo di crescere dove ancora non si vede, preparando competenze e contatti utili quando le porte si riaprono, senza smettere di bussare.",
+        "cosaFare": "Scegli adesso una sola abilità da far crescere, per il lavoro che fai o cerchi oppure, se non lavori più, per un progetto o un impegno che ti sta a cuore. Dedicale un'ora fissa ogni settimana, con un libro, un video o una persona da cui imparare.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Nell'anno dal 6 febbraio 2026 al 5 febbraio 2027 Saturno attraversa un lungo periodo di prove e di pazienza, che per te vuol dire andare più piano e costruire con calma: per il lavoro e lo studio il cielo dell'anno è in salita.\nFonte: astrologia indiana, che guarda Giove e Saturno al tuo compleanno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-32",
+      "arte": "Oroscopo vedico",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Kanya (Vergine)",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
+        "tradizione": "vedica",
+        "periodo": "anno",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-20",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Surya",
+        "primoGiornoDelPeriodo": "2026-03-08"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Il consiglio di chi sa",
+        "risposta": "Quest'anno la sorte è quieta e passa dai consigli di chi ha più esperienza di te: una persona che ha già fatto la strada che ti interessa può indicarti la porta giusta o farti evitare un giro inutile. È una fortuna sobria, che premia chi chiede con umiltà.",
+        "cosaFare": "Entro tre settimane individua una persona che ha già percorso una strada che ti incuriosisce, un mestiere, un viaggio, una scelta di vita: chiedile mezz'ora. Porta una domanda precisa e concreta. Da qui al tuo prossimo compleanno ripeti il gesto ogni volta che stai per decidere qualcosa di nuovo.",
+        "approfondimento": "La tradizione indiana chiama satsang la compagnia di chi sa: stare vicino a chi ha esperienza è già una forma di buona sorte. In un anno senza grandi spinte, un consiglio giusto vale più di molte occasioni nuove. Ricambia raccontando com'è andata: chi aiuta ama conoscere il seguito.",
+        "rito": "Il compleanno da cui è nato il tuo anno cadeva di domenica, giorno di Surya, la luce che svela. Pulisci adesso un vetro o uno specchio finché riflette bene il giorno. Ripeti a mente nove volte «Om Suryaya namah» e tieni gli occhi aperti alle occasioni che la luce scopre.",
+        "titoloDelRito": "Il mantra propiziatorio",
+        "daDoveViene": "Nell'anno dall'8 marzo 2026 al 7 marzo 2027 Giove, il pianeta della crescita, non ti aiuta in modo particolare. Per la fortuna il cielo dell'anno è in equilibrio.\nIl rito dell'anno: la formula che saluta il Sole, il pianeta che regge la domenica.\nFonte: astrologia indiana, che guarda Giove e Saturno al tuo compleanno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-33",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cane",
+        "nascita": "1994-10-22",
+        "oraDiNascita": null,
+        "tradizione": "cinese",
+        "periodo": "giorno",
+        "dominio": "Generale",
+        "oggi": "2026-10-20",
+        "livello": 5,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 5,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Zhi",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Due passi dopo cena",
+        "risposta": "Oggi la giornata è favorevole alle conversazioni tranquille, soprattutto verso sera. Le parole che in casa non trovano spazio vengono meglio camminando, fianco a fianco, senza un tavolo in mezzo e senza fretta di arrivare: è il momento giusto per uscire a fare due passi in compagnia.",
+        "cosaFare": "Dopo cena proponi a una persona cara, o a chi vive con te, un giro dell'isolato senza una direzione precisa. Tenete il telefono in tasca e camminate piano. Se nessuno è disponibile, cammina per conto tuo per venti minuti e lascia che i pensieri si mettano in fila.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Il giorno lo guida il Coniglio: il suo animale e il tuo formano una delle sei armonie, due metà che si completano. In generale il cielo di oggi è favorevole.\nFonte: astrologia cinese, che legge il tuo carattere di nascita (il BaZi) e il calendario del giorno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-34",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cavallo",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
+        "tradizione": "cinese",
+        "periodo": "giorno",
+        "dominio": "Amore",
+        "oggi": "2026-10-25",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Kai",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Una poesia d'amore",
+        "risposta": "Oggi la vita sentimentale è in equilibrio e lascia spazio alle parole belle degli altri: una poesia d'amore letta con attenzione può dire ciò che senti meglio di te. In coppia, leggila ad alta voce all'altra persona; senza legame, tienila con te come un augurio.",
+        "cosaFare": "Cerca oggi una poesia d'amore breve di un autore che ami e copiala a mano su un cartoncino. Se hai un legame, leggila stasera a voce bassa, senza spiegarla né commentarla. Se sei single, mettila dove cade lo sguardo quando rientri a casa.",
+        "approfondimento": "I poeti hanno dato forma a sentimenti che tutti provano e pochi sanno dire. Prendere in prestito le loro parole non è un trucco: è un modo di riconoscersi. Versi troppo solenni stonano col momento. Basta una riga che ti resti in mente fino a sera.",
+        "rito": "Oggi governa Kai, il giorno che schiude, buono anche per le unioni secondo l'almanacco antico. Negli affetti scrivi un biglietto con due parole gentili per chi ami o per chi desideri conoscere, poi lascialo dove lo troverà e apri una finestra per far entrare aria.",
+        "titoloDelRito": "Il gesto propiziatorio",
+        "daDoveViene": "Per la tradizione cinese oggi il giorno porta una forza intensa, fatta di sfida e di energia. Per l'amore c'è intensità, fra attrazione e tensione: il giorno è in equilibrio.\nIl rito del giorno: un gesto del calendario cinese, quello legato al giorno che apre.\nFonte: astrologia cinese, che legge il tuo carattere di nascita (il BaZi) e il calendario del giorno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-35",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cavallo",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
+        "tradizione": "cinese",
+        "periodo": "giorno",
+        "dominio": "Carriera",
+        "oggi": "2026-10-23",
+        "livello": 3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Un lavoro alla volta",
+        "risposta": "Giornata piana nel lavoro, da mettere in fila e non da rincorrere: un compito alla volta, finito bene. Se oggi due impegni si contendono le stesse ore, scegliere quale viene prima evita di rovinarli entrambi e di arrivare a sera con due lavori a metà.",
+        "cosaFare": "Metti accanto a ogni impegno di oggi la sua scadenza vera. Se due impegni si contendono le ore, sposta quello che può aspettare e, se qualcuno lo attende, avvisalo subito con un orario preciso. Poi comincia dal passaggio più delicato, quando la mente è fresca.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Per la tradizione cinese oggi il giorno porta la forza di ciò che produci con calma e con le tue idee. Per il lavoro e lo studio conta più quello che sai fare del posto che occupi: il giorno è in equilibrio.\nFonte: astrologia cinese, che legge il tuo carattere di nascita (il BaZi) e il calendario del giorno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-36",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cavallo",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
+        "tradizione": "cinese",
+        "periodo": "giorno",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-20",
+        "livello": 2,
+        "fascia": "salita"
+      },
+      "simboli": {
+        "livello": 2,
+        "fascia": "salita",
+        "reggenteDelRito": "Zhi",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Le cose al loro posto",
+        "risposta": "Oggi la fortuna è in salita nelle piccole cose pratiche: chiavi, occhiali, documenti e caricatori possono cambiare posto con facilità e un oggetto smarrito può costarti tempo e nervosismo. Conviene rallentare nei passaggi da un luogo all'altro, quando la distrazione trova più spazio.",
+        "cosaFare": "Ogni volta che esci da un luogo oggi, fermati sulla porta e tocca con la mano le tre cose essenziali: chiavi, telefono, documenti. Non appoggiare nulla su sedie o banconi. Stasera rimetti tutto nello stesso posto prima di fare qualunque altra cosa.",
+        "approfondimento": "Nelle giornate storte le cose si perdono nei momenti di passaggio: alzarsi da un tavolo o scendere da un mezzo. Il controllo con la mano funziona perché non dipende dalla memoria. La fretta è la prima nemica: chi corre lascia indietro qualcosa. Rientrare con tutto in tasca è la conferma.",
+        "rito": "Oggi è Zhi, il giorno della presa salda. Per la fortuna non lasciar cadere un contatto prezioso: rispondi adesso a un messaggio rimasto aperto oppure ringrazia chi ti ha dato una mano. Le occasioni restano volentieri vicine a chi sa tenerle.",
+        "titoloDelRito": "Il gesto propiziatorio",
+        "daDoveViene": "Per la tradizione cinese oggi il giorno porta una forza di concorrenza, che contende ciò che hai. Per la fortuna le occasioni tendono a uscire più che a entrare: il giorno è in salita. La direzione fortunata di oggi, per la tradizione cinese, è sud-ovest.\nIl rito del giorno: un gesto del calendario cinese, quello legato al giorno che tiene.\nFonte: astrologia cinese, che legge il tuo carattere di nascita (il BaZi) e il calendario del giorno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-37",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Tigre",
+        "nascita": "1962-02-06",
+        "oraDiNascita": null,
+        "tradizione": "cinese",
+        "periodo": "settimana",
+        "dominio": "Generale",
+        "oggi": "2026-10-23",
+        "livello": 3.43,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.43,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "I pesi divisi",
+        "risposta": "La settimana è equilibrata e adatta a vedere come si dividono i pesi nei compiti che tornano ogni giorno. Se con altre persone condividi una cura, una casa o un impegno ricorrente, questi giorni aiutano a trasformare un eventuale malcontento silenzioso in un accordo chiaro e scritto.",
+        "cosaFare": "Entro tre giorni scrivi l'elenco dei compiti che porti tu ogni settimana. Se ne condividi qualcuno, proponi un turno semplice con un nome accanto a ogni giorno e chiedi conferma a ognuno. Se li porti tutti tu, scegline uno da semplificare o da affidare.",
+        "approfondimento": "Quando il peso è diviso, ciascuno arriva al proprio turno con più calore. Chi non si offre di solito aspetta soltanto un compito preciso per sentirsi parte. Se qualcosa non funziona, cambia un solo dettaglio dell'accordo: rifarlo da capo scoraggia tutti.",
+        "rito": "Cheng, che fa giungere al termine, regge oggi il primo dei sette giorni. Scegli un lavoro manuale da finire entro il settimo giorno: uno rimasto a metà, se ne hai, oppure uno nuovo e piccolo, un disegno, una cornice, un vaso da dipingere. Comincia adesso con il primo tratto.",
+        "titoloDelRito": "Il gesto propiziatorio",
+        "daDoveViene": "In generale il cielo della settimana è in equilibrio, con il giorno migliore mercoledì 28 ottobre. Il giorno lo guida il Maiale: il suo animale e il tuo formano una delle sei armonie, due metà che si completano.\nIl rito della settimana: un gesto del calendario cinese, quello legato al giorno che compie.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e i giorni del periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-38",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cavallo",
+        "nascita": "1966-03-08",
+        "oraDiNascita": "07:20",
+        "tradizione": "cinese",
+        "periodo": "settimana",
+        "dominio": "Amore",
+        "oggi": "2026-10-23",
+        "livello": 3.86,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 3.86,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Il punto di partenza",
+        "risposta": "In amore la settimana è dolce e favorisce i ritorni affettuosi alle origini. Se vivi una relazione, ritrovare i ricordi dell'inizio rimette in luce che cosa vi ha avvicinato; se sei senza legame, è il momento di ricordare che cosa ti ha fatto innamorare in passato, per riconoscerlo di nuovo.",
+        "cosaFare": "Se hai un legame, nel fine settimana tornate nel luogo del vostro primo incontro, o in uno che gli somiglia: raccontatevi a turno un dettaglio di quel giorno. Se non ce l'hai, scrivi tre qualità che in passato ti hanno fatto innamorare e rileggile prima di ogni incontro.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Per l'amore il cielo della settimana è favorevole, con il giorno migliore sabato 24 ottobre.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e i giorni del periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-39",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Tigre",
+        "nascita": "1974-05-12",
+        "oraDiNascita": "09:20",
+        "tradizione": "cinese",
+        "periodo": "settimana",
+        "dominio": "Carriera",
+        "oggi": "2026-10-23",
+        "livello": 3.14,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.14,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Il riposo programmato",
+        "risposta": "Settimana tranquilla nel lavoro e nello studio, adatta a programmare il riposo con anticipo. Fissare adesso i giorni in cui staccare, prima che il calendario si riempia di impegni altrui, permette di scegliere invece di accontentarsi: chi decide per tempo arriva al riposo con le cose in ordine.",
+        "cosaFare": "Scegli le date di un riposo vero, anche breve, con una data di riserva. Se dipendono da altri, chi ti coordina, i clienti, il calendario degli esami, comunicale entro tre giorni con una proposta già pensata. Prima di staccare prepara una nota con le cose aperte e le scadenze.",
+        "approfondimento": "Un riposo deciso all'ultimo momento spesso salta o arriva con il pensiero ancora al lavoro. La misura sta nel cedere sulle date secondarie per tenere ferma quella che conta. La nota lasciata prima di partire ti fa rientrare senza affanno e senza sorprese sulla scrivania.",
+        "rito": "Sotto Cheng, che perfeziona, la settimana di lavoro e di studio invita a portare a termine ciò che è avviato. Scegli la cosa più vicina alla fine, che sia un compito, una pratica o un capitolo: fissa adesso il passo che la chiude entro i sette giorni.",
+        "titoloDelRito": "Il gesto propiziatorio",
+        "daDoveViene": "Per il lavoro e lo studio il cielo della settimana è in equilibrio, con il giorno migliore venerdì 23 ottobre. Per la tradizione cinese quel giorno porta la forza della protezione, dello studio e della cura.\nIl rito della settimana: un gesto del calendario cinese, quello legato al giorno che compie.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e i giorni del periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-40",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cavallo",
+        "nascita": "1978-06-14",
+        "oraDiNascita": null,
+        "tradizione": "cinese",
+        "periodo": "settimana",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-23",
+        "livello": 3.14,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.14,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Chiedere se si può",
+        "risposta": "In questa settimana la buona sorte è stabile e risponde a chi chiede con garbo: un orario che si può spostare, un posto migliore, un'attesa più breve spesso arrivano solo dopo una domanda gentile. Niente colpi di fortuna, molte piccole cortesie a portata di voce.",
+        "cosaFare": "Una volta al giorno, per sette giorni, chiedi con gentilezza una piccola cosa che di solito non chiedi: un tavolo vicino alla finestra, un appuntamento anticipato, un'informazione in più allo sportello. Accetta il no con un sorriso. Prima che la settimana finisca conta i sì ricevuti.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Per la fortuna il cielo della settimana è in equilibrio, con il giorno migliore venerdì 23 ottobre.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e i giorni del periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-41",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Tigre",
+        "nascita": "1962-02-06",
+        "oraDiNascita": null,
+        "tradizione": "cinese",
+        "periodo": "mese",
+        "dominio": "Generale",
+        "oggi": "2026-10-20",
+        "livello": 3.1,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.1,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Zhi",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Una passione da riprendere",
+        "risposta": "Il mese è equilibrato e invita a ridare spazio a una passione, senza togliere nulla al resto. Uno strumento musicale, dei colori, una bicicletta, oppure qualcosa che non hai mai provato: tornare a un gesto che nutre adesso è possibile, purché trovi due momenti fissi.",
+        "cosaFare": "Ritaglia due ore fisse a settimana solo per quella passione e annotale in agenda come un impegno di lavoro. Se manca lo slancio, cerca un gruppo del quartiere o una persona con lo stesso interesse. Se nessuna passione ti chiama, prova un'attività nuova per tre volte.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "In generale il cielo del mese è in equilibrio, con il giorno migliore mercoledì 28 ottobre.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e i giorni del periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-42",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Tigre",
+        "nascita": "1998-11-24",
+        "oraDiNascita": "15:20",
+        "tradizione": "cinese",
+        "periodo": "mese",
+        "dominio": "Amore",
+        "oggi": "2026-10-25",
+        "livello": 3.6,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 3.6,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Kai",
+        "primoGiornoDelPeriodo": "2026-10-25"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "La bellezza dei luoghi",
+        "risposta": "In amore il mese è luminoso e favorevole ai luoghi belli: un giardino, una sala da concerto rendono più facile aprirsi. Se vivi una relazione, la bellezza intorno rinnova lo sguardo sull'altra persona; se sei senza legame, nei posti che ami è più facile incontrare chi ha gusti simili.",
+        "cosaFare": "Entro dieci giorni scegli un luogo che trovi bello e non frequenti da tempo, un parco, un belvedere, una strada alberata. Se vivi una relazione, portaci l'altra persona senza annunciare la meta; se sei senza legame, vacci in un'ora animata e lascia aperta la conversazione con chi incontri.",
+        "approfondimento": "Nella letteratura cinese l'amore nasce spesso in un giardino: nel Padiglione delle peonie tutto comincia da una passeggiata fra i fiori. La bellezza rallenta il passo e abbassa le difese: chi si sente bene in un posto si mostra con più naturalezza. Conta la calma, non la fama.",
+        "rito": "Sotto Kai, l'ufficiale dei varchi, cominciano oggi trenta giorni aperti agli incontri del cuore. Ogni settimana rivolgi una domanda nuova a chi ami oppure, se sei senza legame, a chi frequenti: un sogno, un ricordo, una paura. Ascolta la risposta. Ponila adesso per la prima volta.",
+        "titoloDelRito": "Il gesto propiziatorio",
+        "daDoveViene": "Per l'amore il cielo del mese è favorevole, con il giorno migliore sabato 31 ottobre. Per la tradizione cinese quel giorno porta la forza del guadagno regolare, di ciò che hai seminato.\nIl rito del mese: un gesto del calendario cinese, quello legato al giorno che apre.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e i giorni del periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-43",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cavallo",
+        "nascita": "1990-09-20",
+        "oraDiNascita": "13:20",
+        "tradizione": "cinese",
+        "periodo": "mese",
+        "dominio": "Carriera",
+        "oggi": "2026-10-20",
+        "livello": 3.4,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.4,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Zhi",
+        "primoGiornoDelPeriodo": "2026-10-20"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Archivio da riordinare",
+        "risposta": "Il mese è sereno nel lavoro e adatto al riordino, quello che non si vede ma rende più facile tutto il resto. Se hai cartelle con nomi vaghi, versioni doppie o appunti sparsi, ogni ricerca costa minuti: è il momento di sistemarli una volta per tutte.",
+        "cosaFare": "Dedica due pomeriggi ai tuoi documenti, sul computer o su carta: elimina gli eventuali doppioni, dai alle cartelle nomi chiari con la data davanti, sposta a parte ciò che è chiuso. Scrivi una regola breve per nominare i documenti e, se li condividi, falla conoscere a chi li usa.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Per il lavoro e lo studio il cielo del mese è in equilibrio, con il giorno migliore mercoledì 28 ottobre.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e i giorni del periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-44",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cavallo",
+        "nascita": "2002-12-26",
+        "oraDiNascita": null,
+        "tradizione": "cinese",
+        "periodo": "mese",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-23",
+        "livello": 3.3,
+        "fascia": "equilibrio"
+      },
+      "simboli": {
+        "livello": 3.3,
+        "fascia": "equilibrio",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-10-23"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "L'ora giusta",
+        "risposta": "Per la fortuna il mese è regolare: le piccole cose girano meglio quando scegli tu il momento invece di subirlo. Code più corte, uffici meno affollati, persone più disponibili: la buona sorte minuta di queste settimane premia chi esce nelle ore tranquille e chiede con garbo.",
+        "cosaFare": "Raggruppa le commissioni delle prossime settimane e falle nelle ore meno affollate, a metà mattina o nel primo pomeriggio. Prepara prima ciò che serve. Allo sportello o in negozio chiedi sempre se esiste un'alternativa più comoda: spesso c'è ma nessuno la propone.",
+        "approfondimento": "La fortuna quotidiana è fatta di tempi azzeccati più che di colpi di scena. Chi si muove quando gli altri non lo fanno trova persone meno affannate e più disposte ad aiutare. Tornare a casa con qualcosa in più di ciò che cercavi vuol dire che l'ora era quella giusta.",
+        "rito": "Il mese che parte oggi segue Cheng, che dà compimento e accompagna, secondo la tradizione, anche chi parte. Per la fortuna organizza nei trenta giorni una gita di un giorno verso un luogo che ti chiama da tempo: scegli adesso la meta e il mezzo.",
+        "titoloDelRito": "Il gesto propiziatorio",
+        "daDoveViene": "Per la fortuna il cielo del mese è in equilibrio, con il giorno migliore lunedì 26 ottobre. Per la tradizione cinese quel giorno porta la forza del guadagno regolare, di ciò che hai seminato.\nIl rito del mese: un gesto del calendario cinese, quello legato al giorno che compie.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e i giorni del periodo."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-45",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Tigre",
+        "nascita": "1986-08-18",
+        "oraDiNascita": null,
+        "tradizione": "cinese",
+        "periodo": "anno",
+        "dominio": "Generale",
+        "oggi": "2026-10-25",
+        "livello": 4,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-02-17"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "La casa rinnovata",
+        "risposta": "Anno luminoso per la casa e per l'umore di ogni giorno: è un tempo favorevole a rinnovare gli spazi in cui vivi, a cominciare dall'ingresso e dalla luce delle stanze. Piccoli cambiamenti, un angolo liberato, una lampada nuova, una pianta vicino alla porta, possono rendere più leggere le giornate.",
+        "cosaFare": "Entro tre settimane libera l'ingresso di casa da ciò che ingombra il passaggio e porta più luce nella stanza in cui passi più tempo, spostando una tenda o una lampada. Poi, ogni settimana, cambia una piccola cosa in un angolo diverso, finché la casa ti somiglia di più.",
+        "approfondimento": "Nella tradizione cinese l'ingresso è la bocca della casa, da cui entra l'energia che i maestri chiamano qi: tenerlo sgombro e luminoso è il primo gesto del feng shui. Una casa che accoglie bene restituisce calma a chi la abita. Rientrare la sera con piacere ne è la conferma.",
+        "rito": "Il Capodanno del tuo anno cinese portava il segno di Cheng, l'ufficiale che porta a termine le cose. Il gesto vale in qualunque punto dell'anno: scrivi adesso su un foglio una cosa che vuoi aver portato a termine entro il prossimo Capodanno e mettilo dove lo vedi ogni giorno.",
+        "titoloDelRito": "Il gesto propiziatorio",
+        "daDoveViene": "Nell'anno del Cavallo, dal 17 febbraio 2026 al 5 febbraio 2027, la tua Tigre e il Cavallo si sostengono: stanno nello stesso gruppo di tre animali. Con l'animale dell'anno non c'è attrito, quindi l'anno non chiede cautele particolari: in generale il cielo dell'anno è favorevole.\nIl rito dell'anno: un gesto del calendario cinese, quello legato al giorno che compie.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e quello dell'anno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-46",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cane",
+        "nascita": "1970-04-10",
+        "oraDiNascita": null,
+        "tradizione": "cinese",
+        "periodo": "anno",
+        "dominio": "Amore",
+        "oggi": "2026-10-25",
+        "livello": 4,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-02-17"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Ridere insieme",
+        "risposta": "In amore l'anno è leggero e favorevole al gioco, alle risate, alla complicità. Se vivi una relazione, ridere insieme può riaccendere il desiderio e alleggerire ciò che pesa; se sei senza legame, un approccio ironico e sereno negli incontri può renderti più attraente di qualunque strategia.",
+        "cosaFare": "Entro tre settimane organizza qualcosa di giocoso: una gara di cucina, un gioco da tavolo, una serata di karaoke, una gita senza meta. Se vivi una relazione, proponila all'altra persona come una sorpresa; se sei senza legame, vai con gente che ti mette allegria e lasciati andare.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Nell'anno del Cavallo, dal 17 febbraio 2026 al 5 febbraio 2027, il tuo Cane e il Cavallo si sostengono: stanno nello stesso gruppo di tre animali. Con l'animale dell'anno non c'è attrito, quindi l'anno non chiede cautele particolari: per l'amore il cielo dell'anno è favorevole.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e quello dell'anno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-47",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Cane",
+        "nascita": "1982-07-16",
+        "oraDiNascita": "11:20",
+        "tradizione": "cinese",
+        "periodo": "anno",
+        "dominio": "Carriera",
+        "oggi": "2026-10-20",
+        "livello": 4,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-02-17"
+      },
+      "profondita": "Lunga",
+      "responso": {
+        "titolo": "Il passo importante",
+        "risposta": "Sul lavoro quest'anno è favorevole ai passi importanti: una candidatura, una richiesta di più responsabilità, un cambio di settore, un esame decisivo. Le porte si aprono più facilmente per chi bussa con preparazione, non per chi aspetta che qualcuno noti il suo impegno.",
+        "cosaFare": "Scrivi adesso in poche righe dove vuoi arrivare da qui al prossimo Capodanno lunare e quali due competenze ti mancano. Per ognuna scegli un modo concreto di acquisirla e comincia entro tre settimane. Aggiorna il curriculum o il profilo professionale a ogni traguardo.",
+        "approfondimento": "Un anno favorevole non porta tutto subito: offre un terreno buono, su cui le cose seminate con ordine crescono meglio del solito. Le persone che incontri sul lavoro o nello studio possono diventare alleate. Ogni tre settimane chiedi un consiglio preciso a qualcuno più avanti di te.",
+        "rito": "Nel lavoro e nello studio conta il segno di Cheng, l'ufficiale delle opere finite: sotto di lui, a Capodanno, ha preso vita il tuo anno cinese. Scegli adesso un impegno di lavoro, di studio o personale che puoi chiudere in pochi giorni e portalo fino in fondo.",
+        "titoloDelRito": "Il gesto propiziatorio",
+        "daDoveViene": "Nell'anno del Cavallo, dal 17 febbraio 2026 al 5 febbraio 2027, il tuo Cane e il Cavallo si sostengono: stanno nello stesso gruppo di tre animali. Con l'animale dell'anno non c'è attrito, quindi l'anno non chiede cautele particolari: per il lavoro e lo studio il cielo dell'anno è favorevole.\nIl rito dell'anno: un gesto del calendario cinese, quello legato al giorno che compie.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e quello dell'anno."
+      },
+      "singole": []
+    },
+    {
+      "id": "oroscopo-48",
+      "arte": "Oroscopo cinese",
+      "domanda": null,
+      "senzaDomanda": {
+        "segno": "Tigre",
+        "nascita": "1998-11-24",
+        "oraDiNascita": "15:20",
+        "tradizione": "cinese",
+        "periodo": "anno",
+        "dominio": "Fortuna",
+        "oggi": "2026-10-20",
+        "livello": 4,
+        "fascia": "favorevole"
+      },
+      "simboli": {
+        "livello": 4,
+        "fascia": "favorevole",
+        "reggenteDelRito": "Cheng",
+        "primoGiornoDelPeriodo": "2026-02-17"
+      },
+      "profondita": "Breve",
+      "responso": {
+        "titolo": "Desideri detti",
+        "risposta": "Quest'anno la fortuna è generosa con chi dice ad alta voce che cosa cerca: un oggetto, un'occasione, un'esperienza, un aiuto. Chi tiene i desideri per sé chiude una strada alla sorte; chi li racconta con semplicità può moltiplicare le coincidenze utili, perché spesso qualcuno conosce chi può aiutare.",
+        "cosaFare": "Scegli adesso una cosa concreta che desideri trovare o realizzare da qui al prossimo Capodanno lunare. Nelle prossime tre settimane raccontala ad almeno cinque persone diverse, con una frase chiara e senza imbarazzo. Quando qualcuno ti dà un'indicazione, seguila entro pochi giorni e fai sapere com'è andata.",
+        "approfondimento": null,
+        "rito": null,
+        "titoloDelRito": null,
+        "daDoveViene": "Nell'anno del Cavallo, dal 17 febbraio 2026 al 5 febbraio 2027, la tua Tigre e il Cavallo si sostengono: stanno nello stesso gruppo di tre animali. Con l'animale dell'anno non c'è attrito, quindi l'anno non chiede cautele particolari: per la fortuna il cielo dell'anno è favorevole.\nFonte: astrologia cinese, che legge il rapporto fra il tuo animale e quello dell'anno."
+      },
+      "singole": []
+    }
+  ]
+}

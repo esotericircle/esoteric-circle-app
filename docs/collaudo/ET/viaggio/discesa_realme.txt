@@ -1,0 +1,48 @@
+ORDINE ET VOCE 08: UNA DISCESA DEL VIAGGIO SUL REALME. 28 settembre 2026.
+
+Build di prova finale dell'ordine (prova_et_4) sul Realme 767f596c, 16:38-16:41.
+Il Viaggio dello Sciamano, animale guida la Volpe, "Scrivila tu": «Devo
+trasferirmi a Berlino per lavoro?» (la domanda del banco del Viaggio,
+scritta a mano; senza accenti perche' adb non li scrive).
+
+Catture in docs/collaudo/ET/realme/:
+- et08_discesa_domanda.jpg, la domanda scritta prima di scendere;
+- et08_discesa_responso_1.jpg e _2.jpg, il responso intero.
+
+IL RESPONSO, sotto il titolo "Cosa cerchi ancora":
+
+  I segni del viaggio dicono di sì, se scegli attivamente il trasferimento.
+  Non è un caso. Non è una fuga.
+
+  Il gesto da compiere: oggi pomeriggio, scrivi una lettera a te che vivi a
+  Berlino. Descrivi la tua giornata lì, i luoghi che visiti e le persone che
+  incontri.
+
+  Nasce da qui. Sei alla cima sotto la pioggia, con la chiave. La Volpe
+  guarda in alto. Conservala: è tua.
+
+La prima frase prende posizione (si', a una condizione) e parla di cio' che
+la domanda chiede, il trasferimento. Viene dal modello, non dalla riserva:
+non e' nessuna delle dodici frasi della riserva
+(IlResponsoDelViaggio._riserve in lib/core/viaggio/il_responso_del_viaggio.dart,
+tre per posizione, che dicono tutte "qui sotto"; puo' essere la risposta
+intera del modello o la prima frase di una sua risposta scartata, che la
+voce ET.08 fa passare da sola dalle guardie). Il registro del telefono non scrive la fonte
+del responso: la fonte l'ho dedotta dal testo, confrontandolo con la
+riserva.
+
+UN DIFETTO VISTO STRADA FACENDO, corretto dentro l'ordine. La discesa si
+fa tenendo il dito premuto; l'ho tenuto nove secondi, oltre la fine, e ogni
+movimento del dito arrivava a una discesa gia' smontata: 570 righe di
+eccezione nel registro in tre secondi, "Null check operator used on a null
+value" da _LaDiscesaState._muovi. A schermo non si vedeva niente, la
+discesa e' andata avanti. L'alzata del dito era gia' protetta, il movimento
+no. Padre: ordine DI voce 09, commit 941d55f4, del 13 settembre. Guardia
+allargata, test/la_discesa_dura_quanto_il_filmato_test.dart, "il dito che
+scivola dopo la fine della discesa non rompe niente": rossa sul codice di
+prima con la stessa traccia vista sul telefono, verde con la correzione
+(lib/features/maestri/caligo/viaggio/la_discesa_in_video.dart, _muovi
+controlla mounted).
+
+Registrazione della discesa, dalla domanda al responso, senza audio:
+docs/collaudo/ET/realme/et08_discesa.mp4 (150 secondi).

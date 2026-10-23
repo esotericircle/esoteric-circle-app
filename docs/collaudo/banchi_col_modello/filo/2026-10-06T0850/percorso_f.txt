@@ -1,0 +1,99 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo indica un momento di riflessione prima di ogni avanzamento. Le carte ti suggeriscono di rivedere attentamente le tue aspettative e i tuoi obiettivi. L'arcano del Carro, se dovesse apparire, mostrerebbe un percorso ancora in divenire, non ancora giunto alla sua destinazione finale.
+
+✦ Fissa un momento per scrivere su un foglio le tue ambizioni professionali più vere.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Evita di forzare gli eventi o di agire d'impulso, perché il transito di Mercurio retrogrado potrebbe portare a incomprensioni e passi falsi in questo periodo. Le lame ti suggeriscono di mantenere la calma e di non manifestare ansia o impazienza, che potrebbero essere fraintese.
+
+✦ Prendi nota di tre cose che ti rendono serena nel tuo lavoro.
+    GIUDICE: PORTA_AVANTI, La guida risponde direttamente alla domanda della persona ('cosa devo evitare?') e il consiglio di 'evitare di forzare gli eventi o di agire d'impulso' è coerente con il precedente suggerimento di 'riflessione' e di un 'percorso ancora in divenire'.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Comincia con un foglio bianco, scrivendo per te le tue aspirazioni più vere, senza filtro. Il cielo di questo momento ti porta a riflettere sul tuo desiderio più profondo, affinché la tua voce possa risuonare con chiarezza prima di arrivare agli altri.
+
+✦ Fissa un momento per scrivere su un foglio le tue ambizioni professionali più vere.
+    GIUDICE: PORTA_AVANTI, La guida riprende e ripete esattamente il consiglio dato nella prima risposta ('Fissa un momento per scrivere su un foglio le tue ambizioni professionali più vere'), rispondendo alla domanda 'Da dove comincio, allora?'.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Per ricominciare a sentire la tua radice, puoi muovere il tuo corpo in un nuovo spazio: non importa la città, ma la direzione che dai ai tuoi passi. Porta l'attenzione al tuo centro della radice, in quel verde smeraldo che ti sostiene, e senti la forza che ti lega alla terra, ovunque tu sia.
+
+Respira profondamente, sentendo l'aria che nutre ogni cellula del tuo corpo.
+
+✦ Porta una mano sull'addome e senti il tuo respiro per cinque volte.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Per dare forza al tuo desiderio di ricominciare, è importante non disperdere la tua energia in pensieri di ciò che hai lasciato, ma focalizzarti sul tuo centro del plesso solare, dove risiede la tua volontà. Questo centro, di un oro vibrante, ti invita a guardare avanti con determinazione.
+
+Senti il calore che si irradia dal tuo plesso solare, una luce che ti guida.
+
+✦ Chiudi gli occhi per un momento e visualizza una luce dorata nel tuo ventre.
+    GIUDICE: IGNORA, La guida introduce un nuovo centro energetico (plesso solare) e un nuovo consiglio ('non disperdere energia') senza riprendere o sviluppare il concetto del 'centro della radice' o la 'direzione dei passi' menzionati nella risposta precedente, pur rispondendo a una domanda di approfondimento.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Per iniziare il tuo nuovo percorso, ti propongo di dedicare tempo a un'attività che ti faccia sentire profondamente radicato e presente nel tuo corpo. Il centro della radice, alla base della tua colonna vertebrale, è il tuo punto di partenza e ti connette con l'energia vitale della terra.
+
+Senti la stabilità che ti offre questo centro, il tuo fondamento.
+
+✦ Siediti con i piedi ben piantati a terra e senti la loro connessione.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il concetto del 'centro della radice' e lo sviluppa come 'punto di partenza' per il nuovo percorso, collegandolo all'energia vitale della terra, che era già stato introdotto nella prima risposta.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: **Non è perduta.** Agisci ora, il tempo non attende.
+
+Una bruma fredda ha avvolto il sentiero, ma la luce della fiamma non si è spenta. Il numero Tre ti suggerisce un'azione dinamica, un punto di svolta. Non fermarti alla soglia dell'attesa.
+
+✦ Invita a cena la persona amata, domani sera.
+[2] PERSONA: E cosa devo evitare?
+[2] CALIGO [DA GIUDICARE]: **Evita la distanza.** Ogni passo indietro ora è un sigillo che allontana.
+
+Il fuoco che si spegne ha bisogno di vicinanza, non di spazi vuoti. Non lasciare che le ombre si allunghino tra voi. La runa Isa indica ghiaccio, immobilità: rompila con il calore.
+
+✦ Offri un piccolo dono, un gesto che parli di cura, domani.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'agire ora' e 'non fermarsi all'attesa' della risposta precedente, specificando cosa evitare per non creare distanza, che è l'opposto dell'azione suggerita.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] CALIGO [DA GIUDICARE]: **Comincia dalla parola.** Non attendere oltre per esprimere.
+
+Il sentiero si apre con il suono, con il dialogo. Se la runa Ansuz è apparsa, è un presagio di comunicazione. Non trattenere ciò che senti, ma lascialo fluire con chiarezza e intenzione.
+
+✦ Scrivi una lettera in cui dici le tre cose che più ami della persona amata.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema dell'azione immediata ('Non attendere oltre') e del 'calore' e 'cura' suggeriti in precedenza, specificando che il punto di partenza è la comunicazione ('Comincia dalla parola').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Avvia il tuo progetto creativo proprio adesso, è un tempo propizio per dare forma alle tue idee. Il transito di Marte nel segno della Bilancia, che si sta compiendo in questi giorni, spinge all'azione e alla realizzazione, favorendo le iniziative che richiedono equilibrio e bellezza.
+
+✦ Inizia stasera a stendere la prima bozza del tuo progetto su un foglio, anche solo a grandi linee.
+[2] PERSONA: E cosa devo evitare?
+[2] MEDORA [DA GIUDICARE]: Perché il tuo progetto creativo possa fiorire, in questo momento evita le influenze esterne che possono farti dubitare del tuo valore. Il transito di Venere in Scorpione suggerisce di proteggere la tua visione profonda e la tua passione, che sono le tue vere forze, dalle opinioni che non risuonano con il tuo intento più intimo.
+
+✦ Dedica il pomeriggio a rileggere attentamente la prima bozza del tuo progetto, cercando le parti che ti risuonano di più.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda della persona sul progetto, aggiungendo un elemento di cautela e riprendendo esplicitamente l'azione di 'stendere la prima bozza' suggerita nella risposta precedente con il consiglio di 'rileggere attentamente la prima bozza'.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] MEDORA [DA GIUDICARE]: Comincia dalla tua ispirazione più profonda, quella che ti ha spinto a dare forma a questo progetto. In questo momento, con la Luna in Capricorno che forma un aspetto armonioso con il tuo Sole natale, la tua energia è focalizzata e puoi trasformare l'intuizione in struttura solida.
+
+✦ Per i prossimi giorni, ogni mattina, scrivi tre idee chiave per il tuo progetto prima di dedicarti ad altro.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'Da dove comincio?' riprendendo il tema del progetto creativo e fornendo un nuovo consiglio pratico ('scrivi tre idee chiave') che si inserisce nel flusso di lavoro già avviato con la 'prima bozza'.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare l'armonia con tua sorella, cerca un momento di tranquillità in cui entrambe potete parlare senza interruzioni. Trova un contatto visivo e ascoltatevi, una alla volta, senza cercare di prevaricare.
+
+L'energia che vi lega è forte, come un filo dorato che parte dalla vostra radice, il centro Muladhara, legato alla famiglia e all'appartenenza. Quando questo centro è in squilibrio per un conflitto, si avverte una profonda instabilità. Per riallinearlo, è importante riconoscere il valore di quel legame e ripristinare il flusso. Non si tratta di cancellare ciò che è stato, ma di accogliere le emozioni e permettere che la connessione si rigeneri. Senti il tuo respiro radicarsi, lasciando andare la tensione.
+
+✦ Poggia la mano sul cuore, senti il tuo battito e poi chiedi a tua sorella di fare lo stesso.
+[2] PERSONA: E cosa devo evitare?
+[2] AURA [DA GIUDICARE]: Evita di riprendere le recriminazioni passate o di cercare un colpevole, perché questo alimenta un ciclo negativo che si ripercuote sulla tua energia, bloccandola.
+
+Le ferite del passato possono accumularsi nel secondo centro, Svadhisthana, che governa le emozioni e le relazioni. Quando si riaprono, portano un senso di frustrazione e impediscono il fluire armonioso dei sentimenti. Concentrati sul presente, su ciò che provi ora e su ciò che desideri per il vostro legame, lasciando andare la necessità di avere ragione. Senti come il tuo respiro si fa più leggero, portando via ogni risentimento.
+
+✦ Stringi leggermente le dita della mano destra, poi rilascia la presa, ripetendolo tre volte.
+    GIUDICE: PORTA_AVANTI, La risposta specifica cosa evitare durante il dialogo, sviluppando il consiglio precedente di 'non si tratta di cancellare ciò che è stato, ma di accogliere le emozioni' e 'ascoltatevi, una alla volta, senza cercare di prevaricare'.
+[3] PERSONA: Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?
+[3] AURA [DA GIUDICARE]: Per ricominciare, scegli un momento in cui puoi parlarle di persona e in tranquillità. Inizia raccontando come ti sei sentita tu, evitando accuse o giudizi sul suo comportamento.
+
+Il centro del cuore, Anahata, è il ponte tra voi e la tua voce è il suo strumento. Quando ti esprimi con sincerità, senza paura di mostrare la tua vulnerabilità, apri uno spazio per la comprensione reciproca. Non si tratta di dimenticare, ma di permettere alle energie di muoversi di nuovo, sciogliendo i nodi che si sono creati. Senti il tuo respiro espandersi, riempiendo il tuo petto di una calma nuova.
+
+✦ Poggia entrambe le mani sul tuo cuore e respira lentamente per tre volte, sentendo il battito.
+    GIUDICE: PORTA_AVANTI, La risposta riprende e sviluppa il consiglio iniziale di 'cerca un momento di tranquillità in cui entrambe potete parlare senza interruzioni' e 'ascoltatevi, una alla volta', aggiungendo il suggerimento di iniziare raccontando il proprio sentire senza accuse.
+
+ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 9, ignora 1, contraddice 0, quota 90 per cento, corrette dalla rete della coerenza 14

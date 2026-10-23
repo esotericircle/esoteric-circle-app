@@ -1,0 +1,26 @@
+saluto finito 1790512934.785
+frase 1, inizio 1790512937.604: Aura, mio figlio non dorme la notte da una settimana. Che cosa posso fare stasera?
+detta in 6.9 secondi
+frase 1, fine 1790512946.162
+frase 1 trascritta 1790512947.859
+frase 1: risposta finita 1790512979.418
+frase 2, inizio 1790512984.201: Aura, al lavoro mi sento sempre senza energia dopo pranzo. Da dove comincio?
+detta in 6.7 secondi
+frase 2, fine 1790512991.565
+frase 2 trascritta 1790512994.678
+frase 2: risposta finita 1790513022.922
+frase 3, inizio 1790513027.947: Aura, ho provato a camminare scalza sull'erba come mi hai detto. E adesso?
+detta in 6.5 secondi
+frase 3, fine 1790513035.058
+frase 3 trascritta 1790513038.309
+frase 3: risposta finita 1790513073.306
+frase 4, inizio 1790513078.300: Aura, quale cristallo posso tenere sul comodino per calmarmi?
+detta in 4.8 secondi
+frase 4, fine 1790513083.677
+frase 4 trascritta 1790513085.514
+frase 4: risposta finita 1790513114.501
+frase 5, inizio 1790513119.566: Aura, domani vedo mia madre dopo due anni. Come arrivo tranquilla all'incontro?
+detta in 6.6 secondi
+frase 5, fine 1790513126.870
+frase 5 trascritta 1790513128.990
+frase 5: risposta finita 1790513169.042

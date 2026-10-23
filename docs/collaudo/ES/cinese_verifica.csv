@@ -1,0 +1,43 @@
+data,jdn,ciclo_1_60,pilastro_calcolato,pinyin,animale,ramo_mese_pechino,guardiano_calcolato_pechino,guardiano_calcolato_roma,lunar_python_pilastro,lunar_python_guardiano,cnlunar_pilastro,cnlunar_guardiano,lunar_python_xishen,coincide
+2026-10-01,2461315,45,戊申,Wu Shen,Scimmia,酉 You,闭 Bi,闭,戊申,闭,戊申,闭,巽 东南,si
+2026-10-02,2461316,46,己酉,Ji You,Gallo,酉 You,建 Jian,建,己酉,建,己酉,建,艮 东北,si
+2026-10-03,2461317,47,庚戌,Geng Xu,Cane,酉 You,除 Chu,除,庚戌,除,庚戌,除,乾 西北,si
+2026-10-04,2461318,48,辛亥,Xin Hai,Maiale,酉 You,满 Man,满,辛亥,满,辛亥,满,坤 西南,si
+2026-10-05,2461319,49,壬子,Ren Zi,Topo,酉 You,平 Ping,平,壬子,平,壬子,平,离 正南,si
+2026-10-06,2461320,50,癸丑,Gui Chou,Bue,酉 You,定 Ding,定,癸丑,定,癸丑,定,巽 东南,si
+2026-10-07,2461321,51,甲寅,Jia Yin,Tigre,酉 You,执 Zhi,执,甲寅,执,甲寅,执,艮 东北,si
+2026-10-08,2461322,52,乙卯,Yi Mao,Coniglio,戌 Xu,执 Zhi,执,乙卯,执,乙卯,执,乾 西北,si
+2026-10-09,2461323,53,丙辰,Bing Chen,Drago,戌 Xu,破 Po,破,丙辰,破,丙辰,破,坤 西南,si
+2026-10-10,2461324,54,丁巳,Ding Si,Serpente,戌 Xu,危 Wei,危,丁巳,危,丁巳,危,离 正南,si
+2026-10-11,2461325,55,戊午,Wu Wu,Cavallo,戌 Xu,成 Cheng,成,戊午,成,戊午,成,巽 东南,si
+2026-10-12,2461326,56,己未,Ji Wei,Capra,戌 Xu,收 Shou,收,己未,收,己未,收,艮 东北,si
+2026-10-13,2461327,57,庚申,Geng Shen,Scimmia,戌 Xu,开 Kai,开,庚申,开,庚申,开,乾 西北,si
+2026-10-14,2461328,58,辛酉,Xin You,Gallo,戌 Xu,闭 Bi,闭,辛酉,闭,辛酉,闭,坤 西南,si
+2026-10-15,2461329,59,壬戌,Ren Xu,Cane,戌 Xu,建 Jian,建,壬戌,建,壬戌,建,离 正南,si
+2026-10-16,2461330,60,癸亥,Gui Hai,Maiale,戌 Xu,除 Chu,除,癸亥,除,癸亥,除,巽 东南,si
+2026-10-17,2461331,1,甲子,Jia Zi,Topo,戌 Xu,满 Man,满,甲子,满,甲子,满,艮 东北,si
+2026-10-18,2461332,2,乙丑,Yi Chou,Bue,戌 Xu,平 Ping,平,乙丑,平,乙丑,平,乾 西北,si
+2026-10-19,2461333,3,丙寅,Bing Yin,Tigre,戌 Xu,定 Ding,定,丙寅,定,丙寅,定,坤 西南,si
+2026-10-20,2461334,4,丁卯,Ding Mao,Coniglio,戌 Xu,执 Zhi,执,丁卯,执,丁卯,执,离 正南,si
+2026-10-21,2461335,5,戊辰,Wu Chen,Drago,戌 Xu,破 Po,破,戊辰,破,戊辰,破,巽 东南,si
+2026-10-22,2461336,6,己巳,Ji Si,Serpente,戌 Xu,危 Wei,危,己巳,危,己巳,危,艮 东北,si
+2026-10-23,2461337,7,庚午,Geng Wu,Cavallo,戌 Xu,成 Cheng,成,庚午,成,庚午,成,乾 西北,si
+2026-10-24,2461338,8,辛未,Xin Wei,Capra,戌 Xu,收 Shou,收,辛未,收,辛未,收,坤 西南,si
+2026-10-25,2461339,9,壬申,Ren Shen,Scimmia,戌 Xu,开 Kai,开,壬申,开,壬申,开,离 正南,si
+2026-10-26,2461340,10,癸酉,Gui You,Gallo,戌 Xu,闭 Bi,闭,癸酉,闭,癸酉,闭,巽 东南,si
+2026-10-27,2461341,11,甲戌,Jia Xu,Cane,戌 Xu,建 Jian,建,甲戌,建,甲戌,建,艮 东北,si
+2026-10-28,2461342,12,乙亥,Yi Hai,Maiale,戌 Xu,除 Chu,除,乙亥,除,乙亥,除,乾 西北,si
+2026-10-29,2461343,13,丙子,Bing Zi,Topo,戌 Xu,满 Man,满,丙子,满,丙子,满,坤 西南,si
+2026-10-30,2461344,14,丁丑,Ding Chou,Bue,戌 Xu,平 Ping,平,丁丑,平,丁丑,平,离 正南,si
+
+data_di_nascita,jdn,ciclo_1_60,pilastro_calcolato,pinyin,tronco_signore_del_giorno,lunar_python_pilastro,cnlunar_pilastro,coincide
+1990-03-15,2447966,16,己卯,Ji Mao,己 Ji,己卯,己卯,si
+1985-07-04,2446251,41,甲辰,Jia Chen,甲 Jia,甲辰,甲辰,si
+2000-01-01,2451545,55,戊午,Wu Wu,戊 Wu,戊午,戊午,si
+1972-11-23,2441645,55,戊午,Wu Wu,戊 Wu,戊午,戊午,si
+1995-12-24,2450076,26,己丑,Ji Chou,己 Ji,己丑,己丑,si
+1968-06-21,2440029,59,壬戌,Ren Xu,壬 Ren,壬戌,壬戌,si
+2004-02-29,2453065,15,戊寅,Wu Yin,戊 Wu,戊寅,戊寅,si
+1979-09-09,2444126,16,己卯,Ji Mao,己 Ji,己卯,己卯,si
+1999-08-11,2451402,32,乙未,Yi Wei,乙 Yi,乙未,乙未,si
+1958-04-30,2436324,14,丁丑,Ding Chou,丁 Ding,丁丑,丁丑,si

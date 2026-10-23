@@ -1,0 +1,51 @@
+ORDINE EV, IL VIAGGIO AL PRIMO STRATO (prima la cura dello stile): tool/sonda_viaggio_primo_strato.dart, gemini-2.5-flash in europe-west1, profilo neutro, 1 ottobre 2026.
+
+[1] Mi trasferisco a Berlino per lavoro? SILENZIO
+    RISPOSTA: null
+    PEZZI: true
+    SCARTI: risposta decisioneGrave: I segni del viaggio dicono di sì, se prima di trasferirti a Berlino per lavoro fai una prova. La condizione riguarda l'esperienza che hai del luogo. Non è un sì incondizionato. ; risposta nonPrendePosizione: I segni del viaggio dicono di sì, a condizione che tu definisca prima che cosa cerchi davvero. Non è il lavoro l'unica tua motivazione. Fissa i tuoi desideri prima di partire. ; azione chiedeDiScrivere: Entro giovedì scrivi su un foglio tutte le cose che ti attraggono di Berlino, oltre al lavoro. ; risposta nonPrendePosizione: I segni del viaggio dicono di sì, se scopri che cosa ti spinge davvero. Non è il lavoro la tua sola motivazione. Cerca il tuo desiderio più profondo prima di partire.
+[2] Mi trasferisco a Berlino per lavoro? SILENZIO
+    RISPOSTA: null
+    PEZZI: true
+    SCARTI: risposta nonPrendePosizione: I segni del viaggio dicono di sì, se sai che cosa lasci. Non guardare solo quello che trovi a Berlino. Guarda quello che perdi qui. ; azione chiedeDiScrivere: Entro sabato scrivi su un foglio le tre cose a cui tieni di più della vita che lasci. ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, se sai che cosa ti lega ancora a qui. Non basta guardare cosa ti aspetta. Devi prima riconoscere cosa ti trattiene. ; azione virgolaEe: Entro sabato incontra la persona che ti fa sentire più a casa, e chiedile un parere su questa scelta. ; risposta nonPrendePosizione: I segni del viaggio dicono di sì, se sai che cosa ti lega ancora a stare qui. Non basta guardare cosa ti aspetta a Berlino. Devi prima riconoscere cosa ti trattiene in questo luogo.
+[3] Quando mi sposerò? SILENZIO
+    RISPOSTA: null
+    PEZZI: true
+    SCARTI: titolo previsioneCerta: Non è il tempo di aspettare ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, se ti prendi cura di quello che hai già. Il matrimonio che cerchi richiede le basi che costruisci adesso. Non attendere un futuro che non semina nel presente. ; azione chiedeDiScrivere: Stasera fai una lista delle tre cose più importanti che hai costruito nella tua relazione. ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, se prepari il terreno per il matrimonio. L'unione che desideri ha bisogno delle fondamenta che metti tu. Trova le condizioni perché il tuo matrimonio possa fiorire. ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, se prepari il terreno per il matrimonio. Il matrimonio che desideri ha bisogno delle fondamenta che metti tu. Trova le condizioni perché il tuo matrimonio possa fiorire.
+[4] Quando mi sposerò? SILENZIO
+    RISPOSTA: null
+    PEZZI: true
+    SCARTI: risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, se prima chiedi a te la verità su questo desiderio. Ciò che vuoi non è solo il matrimonio, ma una stabilità che va cercata dentro. È la tua verità, non quella imposta o attesa dagli altri. ; azione chiedeDiScrivere: Entro domani sera scrivi tre cose che desideri dal matrimonio, senza pensare a cosa "dovresti" volere. ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, se il matrimonio che desideri è quello che vuoi davvero. Non è la cosa in sé, ma il legame che porta con sé ciò che cerchi. Cerca un senso che sia solo tuo. ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, se il matrimonio che desideri è quello che vuoi davvero. Non è la cosa in sé, ma il legame che porta con sé ciò che cerchi. Cerca un senso che sia solo tuo. ; azione chiedeDiScrivere: Stasera scrivi su un foglio due cose che ti legano alla persona che immagini accanto a te.
+[5] Devo lasciare il mio lavoro? 
+    RISPOSTA: I segni del viaggio dicono di sì, se prima di decidere chiedi quali opportunità di crescita ci sono dove lavori adesso. Ci sono possibilità che non hai considerato. Valuta cosa puoi ottenere senza cambiare tutto.
+    PEZZI: true
+    SCARTI: 
+[6] Devo lasciare il mio lavoro? SILENZIO
+    RISPOSTA: null
+    PEZZI: true
+    SCARTI: risposta nonPrendePosizione: I segni del viaggio dicono di sì, se ti rendi conto di quale parte di te sta facendo questa domanda sul tuo lavoro. Hai già il sentiero, ma la visibilità non è chiara. ; azione chiedeDiScrivere: Stasera scrivi su un foglio tutti i motivi per cui vorresti lasciare il tuo lavoro. Separa le ragioni che parlano di te da quelle che parlano degli altri. ; risposta gergo: I segni del viaggio dicono di sì, se prima di venerdì parli con il tuo capo delle tue responsabilità attuali. Hai già la forza necessaria. Devi solo trovare il momento adatto per esprimere le tue esigenze. ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, se prima di venerdì parli con il tuo capo delle tue responsabilità attuali. Hai già la forza necessaria. Trova il momento adatto per esprimere le tue esigenze. ; azione chiedeDiScrivere: Stasera scrivi su un foglio tre cose che ti piacciono del tuo lavoro attuale e tre che non ti piacciono.
+[7] Mio fratello non mi parla da mesi, lo chiamo io? 
+    RISPOSTA: Chiama tuo fratello questa settimana. Puoi fare un passo verso di lui. Puoi stabilire tu il tono della conversazione.
+    PEZZI: true
+    SCARTI: titolo statoDiUnTerzo: La connessione si ripara ; risposta statoDiUnTerzo: Chiama tuo fratello questa settimana. Non è necessario un lungo discorso. Puoi lasciare un messaggio semplice e breve.
+[8] Mio fratello non mi parla da mesi, lo chiamo io? 
+    RISPOSTA: I segni del viaggio dicono di sì. Tu puoi chiamare tuo fratello. La divisione tra voi non dipende da te.
+    PEZZI: true
+    SCARTI: titolo statoDiUnTerzo: La divisione non è tua ; azione chiedeDiScrivere: Entro domani sera scrivi un breve messaggio a tuo fratello, senza chiedere risposte o spiegazioni.
+[9] Riuscirò a superare il concorso di ottobre? SILENZIO
+    RISPOSTA: null
+    PEZZI: true
+    SCARTI: risposta previsioneCerta: I segni del viaggio dicono di sì, se ti prepari a mostrare ciò che sai. Il concorso è un passaggio che richiede di essere visibile. Non è il momento di restare nell'ombra. ; azione genereContrario: Stasera scrivi su un foglio tutti gli argomenti in cui ti senti più preparato per il concorso. ; risposta previsioneCerta: I segni del viaggio dicono di sì, se ti prepari a mostrare ciò che sai. Il concorso è un passaggio che richiede di essere visibile. Non è il momento di restare nell'ombra. ; azione chiedeDiScrivere: Entro domani sera scrivi su un foglio tutti gli argomenti in cui senti maggiore preparazione per il concorso. ; risposta nonPrendePosizione: I segni del viaggio dicono di sì, se ti prepari a mostrare ciò che sai. Il concorso è un passaggio che richiede la tua presenza. Prendi sul serio la tua preparazione.
+[10] Riuscirò a superare il concorso di ottobre? SILENZIO
+    RISPOSTA: null
+    PEZZI: true
+    SCARTI: risposta previsioneCerta: I segni del viaggio dicono di sì, se ti prendi il tempo necessario. Il concorso arriverà quando sarai davvero pronta. La tua preparazione è la condizione per il successo. ; risposta nonPrendePosizione: I segni del viaggio dicono di sì, se ti prendi il tempo necessario. La tua preparazione è la condizione per il successo. Il concorso è una questione di tempo che dai a te. ; risposta nonPrendePosizione: I segni del viaggio dicono di sì, a condizione che tu definisca un piano di studio dettagliato per le prossime settimane. La tua preparazione è l'unica condizione necessaria per affrontare il concorso. Questo è il momento di agire con metodo e precisione. ; azione chiedeDiScrivere: Stasera, scrivi l'elenco di tutte le materie e argomenti del concorso, anche se non sai ancora i dettagli di tutti.
+[11] Come va la mia relazione con Laura? 
+    RISPOSTA: Chiedi a Laura quello che ti serve sapere. Puoi scegliere come chiederle le cose. Non puoi decidere le sue risposte.
+    PEZZI: true
+    SCARTI: titolo troppoLunga: Guarda oltre ciò che hai già visto ; risposta statoDiUnTerzo: Chiedi a Laura di parlare. Puoi sapere che cosa desidera davvero. Non puoi decidere per lei. ; risposta statoDiUnTerzo: Chiedi a Laura quello che ti serve sapere. Non puoi sapere i suoi desideri senza chiederle. Puoi decidere tu come muoverti. ; azione chiedeDiScrivere: Stasera scrivi su un foglio tre domande concrete che hai per Laura. ; titolo statoDiUnTerzo: La maschera dice già molto
+[12] Come va la mia relazione con Laura? SILENZIO
+    RISPOSTA: null
+    PEZZI: true
+    SCARTI: risposta nonPrendePosizione: I segni del viaggio dicono di sì, se ti prendi un momento per guardare come stai tu. Puoi portare chiarezza nella relazione solo se conosci la tua posizione. Hai bisogno di capire le tue vere necessità in questo momento. ; azione chiedeDiScrivere: Entro domenica scrivi tre cose che desideri davvero dalla relazione con Laura. ; titolo statoDiUnTerzo: Ti manca chiarezza e basta ; risposta nonPrendePosizione: I segni del viaggio dicono di sì, se chiedi a Laura di parlarti di un suo ricordo felice insieme. Puoi capire la sua prospettiva su di voi. Hai bisogno di sentire le sue parole per sapere che cosa fare dopo.
+SONDA: discese 12, silenzi 8

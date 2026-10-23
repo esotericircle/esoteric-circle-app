@@ -1,0 +1,33 @@
+Build 2223, ordine CQ: le regressioni, i testi, e il Cammino che murava.
+
+DA GUARDARE PER PRIMO, il Cammino. Con la 2222 la scala faceva accendere
+tredici traguardi su centododici guadagnati in quattrocento giorni: i tuoi
+Sigilli restavano spenti dietro un gradino che chiedeva un'arte che non
+facevi. Adesso si accendono tutti e i loro Eos arrivano tutti, e il tetto
+ferma solo la festa: nel giorno peggiore dell'anno ne vedi tre, come prima.
+
+I TAROCCHI. Il ventaglio è vivo appena apri: scegli le tre carte e poi il
+pulsante si accende. Scegliere non costa niente, premere sì.
+
+LE RUNE. Toccare il tipo di gettata adesso sceglie e basta: getta il pulsante.
+Le pillole sono salite sopra "Getta ancora".
+
+I SUONI. La carta si sente girare, e il click di sistema di Android non
+suona più: non l'avevi scelto tu, lo metteva Flutter su ogni tocco. Le monete
+volano anche quando il borsellino non è ancora a schermo, e il loro tintinnio
+è più basso di un terzo.
+
+I TESTI. Via "IL RITO DI OGGI" e le tre righe di istruzioni da tutti e cinque
+i Doni: un dono che chiede di lavorare prima di rispondere non è un dono.
+L'Alba e il Soffio non dicono più la stessa cosa. L'Arcano è tuo: prima due
+persone con la stessa carta natale vedevano la stessa carta per sempre.
+
+I CARATTERI. Le etichette in maiuscoletto erano a dodici punti in duecentotre
+punti dell'app: adesso quattordici. La barra in basso resta com'era, per non
+rifarla crescere.
+
+LE PUSH. Non erano mai partite: il telefono mandava al server un fuso orario
+che il server rifiutava, e la raccolta delle scelte non è mai esistita.
+
+Da fare dal tuo PC, e senza questo il pulsante "Attiva in Demo" continua a
+non arrivare al server: il PASSO 7 in docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md.

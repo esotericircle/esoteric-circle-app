@@ -1,0 +1,60 @@
+S01|SI|NA|NA|SI|NO|Dice chi e' e con quali arti aiuta; il seguito cambia argomento e parla del colloquio.
+S02|SI|SI|NA|NO|NO|Al limite: nomina la sorella ma offre un respiro generico e rimanda a Medora; seguito generico.
+S03|SI|NA|SI|SI|SI|Saturno in Toro retrogrado coincide; seguito al limite, aggiunge il senso del transito.
+S04|SI|NO|NA|SI|NO|Al limite: non usa la meditazione mattutina ne' la banca; il seguito ripete la risposta.
+S05|SI|NA|SI|SI|SI|Luna gibbosa calante in Gemelli giusta; merito al limite, lettura un po' generica.
+S06|SI|NA|NA|NO|NA|Agisci subito e' un invito generico che va bene per chiunque.
+S07|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione e aspetti del seguito coincidono.
+S08|SI|SI|NA|SI|NA|Al limite: nomina la sorella, indica il momento e il respiro prima di chiamarla.
+S09|SI|SI|NA|NO|SI|Al limite: memoria implicita; non affrettare e lista dei pro e contro valgono per chiunque.
+S10|SI|NA|SI|SI|SI|Luna in Acquario e quadrature giuste; il seguito aggiunge Mercurio quadrato Plutone, giusto.
+S11|NO|SI|NA|SI|SI|Al limite: troverai la tua nuova stabilita' detto come certezza; memoria implicita.
+S12|SI|NO|NA|NO|SI|Al limite: la risposta non riconosce la sorella e offre solo un respiro generico; il seguito la nomina.
+S13|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione giusta; il seguito aggiunge la lettura natale.
+S14|SI|NO|NA|SI|NO|Al limite: non mostra di sapere chi e' lui; seguito generico sul chakra del cuore.
+S15|SI|NA|NO|NO|SI|La risposta non dice nessun fatto del cielo di domani; il seguito al limite cita Venere retrograda, giusta.
+S16|SI|SI|NA|SI|SI|Usa il colloquio e indica la prova ad alta voce con un'amica; seguito al limite.
+S17|SI|NA|NA|NO|NO|Solo un respiro generico, non dice da dove cominciare coi conti; seguito generico.
+S18|SI|NA|SI|SI|NO|Fatto giusto; seguito al limite, ripete la revisione senza aggiungere.
+S19|NO|SI|NA|SI|NA|Al limite: Hagalaz e' grandine e crisi, non sigillo della forza; fatto esoterico falso.
+S20|SI|SI|NA|SI|NA|Nomina la sorella e indica un messaggio concreto da scriverle.
+S21|SI|NA|NA|SI|NA|Al limite: dice di non accettare ora, motivo vago ma risposta netta.
+S22|SI|NO|NA|SI|NO|Al limite: ignora meditazione mattutina e banca; il seguito ripete lo scrivere.
+S23|NO|NA|NA|SI|SI|Dice la Bilancia segno opposto al Cancro, falso; il seguito aggiunge la madre.
+S24|SI|NO|NA|SI|NA|Al limite: non lega il sonno alle scadenze; tecnica di respiro concreta.
+S25|SI|NA|NA|SI|SI|Sceglie il centro con un perche'; seguito al limite, aggiunge Wunjo.
+S26|SI|SI|NA|NO|NO|Al limite: gesto di respiro generico che non dice come gestire la madre; il seguito ripete il respiro.
+S27|SI|NA|NA|SI|NA|Si' ma non subito, parlare col capo, lista entro sera.
+S28|SI|NA|SI|SI|SI|Luna in Cancro quadrata al Sole e ultimo quarto coincidono.
+S29|SI|NA|NA|SI|SI|Al limite: no al prestito oggi, ma rimanda anche a un consulente.
+S30|SI|SI|NA|SI|NO|Il seguito dice Luna in Cancro mentre la sua Luna e' in Bilancia, ed e' generico.
+S31|SI|NA|SI|SI|SI|I quattro retrogradi coincidono; il seguito spiega ciascuno.
+S32|SI|NA|NA|SI|NO|Al limite: il seguito porta solo tratti astrologici generici senza passo nuovo.
+S33|SI|NA|SI|SI|NO|Al limite: retrogradi giusti; il seguito ripete la revisione interiore.
+S34|SI|NA|NA|NO|NO|Non dice da dove cominciare coi conti, solo respiro; seguito generico.
+S35|SI|NA|NA|SI|SI|Dice chi e' e le sue arti; il seguito da' una pratica concreta.
+S36|SI|NA|SI|SI|SI|Gemelli e gibbosa calante coincidono.
+S37|SI|NA|SI|SI|NA|Al limite: fatto giusto, lettura un po' generica.
+S38|SI|SI|NA|SI|SI|Al limite: lista dei traguardi per il colloquio; il seguito aggiunge un punto di vista.
+S39|SI|SI|NA|SI|NA|Al limite: indica che cosa portare e la runa Ansuz della parola.
+S40|SI|NA|NA|NO|NA|Scegli in fretta vale per chiunque, non sa di quale scelta si tratta.
+S41|SI|NA|SI|SI|NO|Al limite: fatto giusto; il seguito porta sul colloquio, fuori dalla domanda.
+S42|SI|NA|NA|SI|SI|Scrittura serale concreta; il seguito aggiunge il perche'.
+S43|SI|NA|SI|SI|SI|Sole in Bilancia opposto a Saturno retrogrado in Ariete coincide.
+S44|SI|NA|NA|SI|SI|Al limite: no non ancora, ma rimanda al consulente e cita la madre senza motivo.
+S45|SI|SI|NA|SI|SI|Al limite: si' e uno spazio per modellare la terra; seguito al limite.
+S46|SI|NA|NO|NO|NA|Non dice segno ne' fase della Luna; lettura generica, messaggio a Ombra.
+S47|SI|NA|SI|SI|NO|Fatto giusto; il seguito cambia argomento su Berlino e Marco.
+S48|SI|SI|NA|SI|NO|Il seguito cambia argomento sulla madre e sul Cancro.
+S49|SI|NA|NA|SI|SI|Al limite: scelta netta con motivo; il seguito aggiunge Wunjo.
+S50|SI|NA|NA|SI|SI|Al limite: Torre e piccolo gesto; il seguito aggiunge senso.
+S51|SI|NA|SI|SI|SI|Gemelli e gibbosa calante coincidono.
+S52|SI|NA|NO|SI|NO|Giove detto in Cancro, era in Vergine; merito al limite; il seguito contraddice.
+S53|SI|SI|NA|SI|NO|Al limite: il seguito ripete di affidarsi al veterinario.
+S54|SI|NA|SI|SI|SI|Quadrature giuste; seguito al limite.
+S55|SI|NA|SI|SI|SI|Giove in Vergine e trigoni del seguito coincidono.
+S56|SI|SI|NA|SI|NO|Al limite: nomina Marco; seguito generico sul respiro.
+S57|SI|SI|NA|NO|SI|Al limite: respiro generico, non dice come gestire la madre.
+S58|SI|NA|NA|SI|SI|Al limite: si' con confini e incontro col capo.
+S59|SI|NA|NA|SI|SI|Scrittura e mano sul cuore concrete; il seguito aggiunge la visualizzazione.
+S60|SI|NO|NA|SI|NA|Al limite: non lega il sonno alle scadenze.

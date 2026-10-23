@@ -1,0 +1,38 @@
+ORDINE GC, REGOLA A: ogni guardia nuova vista rossa col suo innesto, uno alla volta
+22 ottobre 2026. Per ogni riga: l'innesto entra nel file (verificato col grep: DENTRO),
+si fa girare la sola guardia, si legge il motivo del rosso, l'innesto si toglie (verificato: tolto si).
+Gli innesti, file per file col testo giusto e quello col difetto, stanno in tool/gli_innesti_dell_ordine_gc.py.
+Dopo l'ultimo innesto: git diff -- lib vuoto, lib identico al commit 19bf1f36.
+
+00 gc_la_stesa_di_tarocchi GC.01 | innesto col grep: DENTRO | iude l'app la carta si decodifica alla misura in cui si vede | Expected: true / Actual: <false> | tolto: si
+01 gc_la_stesa_di_tarocchi GC.01 ricostruzioni | innesto col grep: DENTRO | irano la schermata intera si ricostruisce al massimo 3 volte | Expected: a value less than or equal to <3> / Actual: <13> | tolto: si
+02 nessuna_fascia_sotto_la_barra_della_stesa GC.02 | innesto col grep: DENTRO | unti l'immagine e' piena dal bordo della barra, senza fascia | Expected: a value less than or equal to <0.5> / Actual: <76.86046511627907> | tolto: si
+03 la_scena_della_stesa_e_un_filmato GC.03 | innesto col grep: DENTRO |  se il filmato non si carica la scena e' ferma, con l'invito | Expected: exactly one matching candidate / Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'tavolo_fotogramma_di_arrivo'>]: []> | tolto: si
+04 gc_la_stesa_di_tarocchi GC.04 | innesto col grep: DENTRO | go poi scrivo: la scelta si annulla e la tendina torna vuota | Expected: false / Actual: <true> | tolto: si
+05 gc_la_stesa_di_tarocchi GC.05 | innesto col grep: DENTRO | carta e' titolo e un paragrafo, il principale ha il riquadro | Expected: empty / Actual: [ | tolto: si
+06 gc_la_stesa_di_tarocchi GC.06 | innesto col grep: DENTRO | vo del responso della Stesa le barre seguono le carte uscite | Expected: <2> / Actual: <1> | tolto: si
+07 ogni_responso_apre_col_colpo_d_occhio Tarocchi | innesto col grep: DENTRO | re_col_colpo_d_occhio_test.dart: Stesa di Tarocchi, unaCarta | Expected: exactly one matching candidate / Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'stesa_colpo_d_occhio'>]: []> | tolto: si
+08 l_oracolo_si_apre_senza_carte GC.07 | innesto col grep: DENTRO | il lettore vero dell'Oracolo suona il filmato fino alla fine | Expected: contains 'LettoreDiScena.vero(GeometriaDellAltare.filmato))' / Actual: 'import \'dart:async\'; import \'dart:math\'; import \'package:flutter/material.dart\'; import \'package:provider/provi | tolto: si
+09 gc_l_oracolo_degli_angeli GC.08 | innesto col grep: DENTRO | aggio nessuna carta e nessun messaggio, finche' non si legge | Expected: no matching candidates / Actual: _KeyWidgetFinder:<Found 1 widget with key [<'oracolo_angelo_dell_ora'>]: [ | tolto: si
+10 gc_l_oracolo_degli_angeli GC.09 | innesto col grep: DENTRO | gesti, pulsante: in quest'ordine, spenti finche' non servono | Expected: a value less than <1> / Actual: <1.0> | tolto: si
+11 gc_l_oracolo_degli_angeli GC.14 | innesto col grep: DENTRO | nza dopo l'invio, i suoni, le scritte e la carta che si apre | Expected: 'FARE' / Actual: 'AGIRE' | tolto: si
+12 gc_l_oracolo_degli_angeli GC.17 | innesto col grep: DENTRO | sultazione la stesa a una carta conta come una consultazione | Expected: '_forse<QuestionAllowance>()?.registraOracolo(tier);' / Actual: 'if (_quante == 3) _forse<QuestionAllowance>()?.registraOracolo(tier);' | tolto: si
+13 gc_l_oracolo_degli_angeli GC.10 | innesto col grep: DENTRO | del telefono a densita' 3.0 la scena sale di 10 pixel fisici | Expected: a numeric value within <0.01> of <-10.0> / Actual: <0.0> | tolto: si
+14 gc_l_oracolo_degli_angeli GC.11 | innesto col grep: DENTRO | ha la freccia di invio scelta la domanda la tendina sparisce | Expected: IconData:<IconData(U+0F832)> / Actual: IconData:<IconData(U+0F596)> | tolto: si
+15 gc_l_oracolo_degli_angeli GC.12 | innesto col grep: DENTRO | arte dal dorso toccato, arriva al suo posto, suona una volta | Expected: <1> / Actual: <0> | tolto: si
+16 gc_l_oracolo_degli_angeli GC.13 | innesto col grep: DENTRO | nza dopo l'invio, i suoni, le scritte e la carta che si apre | Expected: SuonoDelCerchio:<SuonoDelCerchio.rivelazione> / Actual: SuonoDelCerchio:<SuonoDelCerchio.carta> | tolto: si
+17 gc_l_oracolo_degli_angeli GC.15 | innesto col grep: DENTRO | arta singola e' il titolo e il suo messaggio, senza riquadro | Expected: empty / Actual: [ | tolto: si
+18 gc_l_oracolo_degli_angeli GC.16 | innesto col grep: DENTRO |  lo sfondo e' cosmico il cosmo sta dietro tutta la schermata | Expected: exactly one matching candidate / Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'oracolo_sfondo'>]: []> | tolto: si
+19 gc_l_oracolo_degli_angeli GC.18 | innesto col grep: DENTRO | ell'Oracolo l'assaggio del Viandante accende solo il Custode | Expected: exactly one matching candidate / Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'oracolo_gradino_0'>]: []> | tolto: si
+20 gc_l_oracolo_degli_angeli GC.19 | innesto col grep: DENTRO | racolo all'apertura e' Breve: nessun approfondimento chiesto | Expected: false / Actual: <true> | tolto: si
+
+Prima stesura della prova GC.10 cieca: con pixelDaAlzare = 0 restava verde, perche' leggeva la costante.
+Cambiata la grandezza (i dieci pixel del fondatore scritti come numero): rossa, 0 punti contro -10 a densita' 1 e -3,33 a densita' 3.
+
+Dalla simulazione da persona sul Realme, 22 ottobre 2026:
+22 gc_la_stesa_di_tarocchi "la riflessione di Medora nomina le carte vere" | innesto col grep: DENTRO (righePer torna sempre le righe delle tre carte) | Tarocchi, unaCarta: la riga "Medora osserva le tre carte insieme." parla di tre carte | tolto: si, verde dopo
+23 gc_l_oracolo_degli_angeli "il tavolo resta in vista mentre si scelgono le carte" (richiesta del fondatore delle 21:30) | innesto col grep: DENTRO (scorrimento sul riquadro intero del mazzo, scena fino alla riga 1920 col basamento) | a 360 per 690 il posto delle carte da 16 a 66 punti, sotto la barra che finisce a 56 | tolto: si, verde dopo (posto da 194 a 244)
+24 ogni_budget_dichiara_il_suo_residuo (contatore delle consultazioni, richiesta del fondatore) | innesto col grep: DENTRO (la riga sotto il pulsante col budget delle stese) | "oracoli in lib/features/angels/oracolo/oracolo_degli_angeli_screen.dart" | tolto: si, verde dopo
+25 gca02_il_maestro_data_la_luna_al_picco (GCA.02) | codice di prima rimesso (git show HEAD), verificato col grep (la regola del nome della fase presente) | 4 lune su 25 fuori dal picco, 4 mancanti | cura rimessa, verde
+26 i_ricordi_hanno_una_rotta_sola (GCA.05) | Diario di prima rimesso (git show HEAD), verificato col grep (3 date in cifre) | data "22/10/2026" non in lettere con l anno, anno assente sopra i mesi | cura rimessa, verde
+27 ogni_riscatto_dice_la_cosa_giusta (difetto trovato nella prova dal vivo di GCA.03) | nessun innesto: il difetto era vero ("un confronto di sinastria" sul budget dei confronti fra i Maestri) | rossa, 1 colpa su 6 riscatti | testo corretto, verde

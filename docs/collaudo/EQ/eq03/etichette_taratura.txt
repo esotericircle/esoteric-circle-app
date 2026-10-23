@@ -1,0 +1,50 @@
+# Ordine EQ voce 03: le risposte vere del collaudo "prima", LIVE con
+# Flash-Lite, primo giro, etichettate a mano il 27 settembre 2026 leggendo
+# ciascuna risposta con la domanda e lo scambio di prima. Su queste il giudice
+# della seconda stesura e' stato scritto, quindi le deve indovinare tutte.
+#
+# La regola della lettura a mano: SI quando, dopo aver letto, la persona sa
+# con precisione che cosa fare o che cosa le indica il Maestro riguardo
+# proprio a quello che ha appena detto o chiesto (che cosa dire e a chi,
+# quando, come, quale strada e perche'). NO per le massime e gli inviti che
+# andrebbero bene per chiunque, anche in forma di comando, per i rimandi a un
+# altro Maestro, per le risposte che ignorano cio' che la persona ha appena
+# raccontato. I casi dubbi non si scrivono: Medora n. 7 legge la paura col
+# Sole in Cancro ma non dice che cosa fare, ed e' fuori.
+#
+# trascrizione|numero|atteso|perche'
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|1|SI|dice chi e' e con quali arti aiuta
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|2|NO|affida a Caligo e ad Aura due desideri su tre, del viaggio dice solo di posare le basi
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|3|NO|la mossa e' fatta, attendi la risposta: vale per chiunque
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|4|NO|aspetta con serenita': vuota come le catture
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|5|SI|sceglie il lavoro e dice perche'
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|6|SI|un incontro diretto col capo, martedi' mattina, coi risultati
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|8|SI|che cosa dire alla madre e una proposta
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|9|NO|le emozioni sono accettate: ignora il pianto
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|10|NO|se ti serve tempo prenditelo: vale per chiunque
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|11|NO|organizza i dettagli, il cielo e' favorevole: generico
+prima/LIVE_con_Flash_Lite_giro_1_medora.md|12|SI|al risveglio visualizzare la partenza, tre respiri
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|1|SI|dice chi e' e come aiuta
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|2|NO|rimanda a Medora e a Caligo
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|3|NO|ascolta il corpo: ignora cio' che ha detto
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|4|NO|senti il respiro: vuota
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|5|NO|rimanda a Caligo
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|6|NO|rimanda a Medora
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|7|NO|rimanda a Medora
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|8|NO|rimanda a Medora, gentilmente
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|9|NO|ascolta il respiro: ignora il pianto
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|10|NO|rimanda a Medora
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|11|NO|senti il corpo: ignora la scelta di partire
+prima/LIVE_con_Flash_Lite_giro_1_aura.md|12|SI|al risveglio il primo respiro, alla domanda su domani mattina
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|1|SI|dice chi e' e le sue arti
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|2|NO|amore e lavoro rimandati a Medora, dell'Australia un sentiero numerico vago
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|3|NO|parti, non aspettare: ignora cio' che ha detto
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|4|NO|osservi il presagio, la parola ha aperto una soglia: vuota
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|5|NO|non sceglie fra lavoro e viaggio
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|6|NO|rimanda a Medora
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|7|NO|rimanda a Medora, poi una frase vaga sul numero Tre
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|8|NO|rispondi con fermezza: non dice che cosa
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|9|NO|non indugiare, le lacrime non fermano il sentiero: una sentenza
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|10|NO|la decisione e' gia' tua, ogni momento e' soglia: una massima
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|11|NO|prepari il tuo sigillo: quale e come non lo dice
+prima/LIVE_con_Flash_Lite_giro_1_caligo.md|12|SI|al mattino scrivere il proprio proposito

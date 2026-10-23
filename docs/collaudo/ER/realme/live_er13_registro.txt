@@ -1,0 +1,93 @@
+09-27 23:58:14.149 32245 32245 I flutter : LIVE: primo suono al volto dopo 275 ms, audio di 4232 ms, scritto in 603 ms
+09-27 23:58:21.056 32245 32245 I flutter : LIVE: il volto ha finito dopo 7509 ms, per tempo scaduto
+09-27 23:58:21.566 32245 32245 I flutter : LIVE VIDEO: ricevuto 256x256 a 23.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 579x724 px veri, ritaglio 788x985 millesimi del video
+09-27 23:58:27.597 32245 32245 I flutter : LIVE: controllo 1 della frase 1 in 2169 ms: «», scarta, sottofondo null
+09-27 23:58:27.597 32245 32245 I flutter : LIVE: la frase 1 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+09-27 23:58:28.185 32245 32245 I flutter : LIVE: trascrizione anticipata in 3243 ms, pausa 1: «»
+09-27 23:58:28.188 32245 32245 I flutter : LIVE: trascrizione anticipata in 1406 ms, pausa 2: «»
+09-27 23:58:29.661 32245 32245 I flutter : LIVE: frase di 6320 ms in 1 pezzi, trascritta in 1278 ms dalla chiusura, in pausa, poi di nuovo: «Vorrei cambiare casa entro la primavera. Che cosa mi dici?» (parte)
+09-27 23:58:33.202 32245 32245 I flutter : LIVE: la chat ha risposto in 3351 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-27 23:58:33.202 32245 32245 I flutter : LIVE: voce della prima frase chiesta adesso (anticipata per «Cerca la casa che sia un nido e un ponte.», detta «Prepara il terreno.»)
+09-27 23:58:36.041 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 2003 ms, trascritta 3282 ms, primo testo 4269 ms, prima frase chiusa 4443 ms, domanda scritta 4495 ms, prima lettera della risposta 4495 ms, flusso aperto in anticipo 5121 ms, risposta 6823 ms, voce pronta 7433 ms, primo audio al volto 7433 ms, si sente 9009 ms, il volto parla 9662 ms
+09-27 23:58:38.560 32245 32245 I flutter : LIVE VIDEO: ricevuto 512x512 a 26.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 579x724 px veri, ritaglio 788x985 millesimi del video
+09-27 23:58:39.032 32245 32245 I flutter : LIVE: primo suono al volto dopo 609 ms, audio di 12983 ms, scritto in 5829 ms
+09-27 23:58:47.717 32245 32245 I flutter : LIVE: il volto ha finito dopo 14514 ms, lo ha detto lui
+09-27 23:59:12.197 32245 32245 I flutter : LIVE: trascrizione anticipata in 1079 ms, pausa 1: «Mia sorella non mi risponde da una settimana.»
+09-27 23:59:12.588 32245 32245 I flutter : LIVE: controllo 1 della frase 4 in 1147 ms: «Mia sorella non mi risponde da una settimana.», aspetta, sottofondo null
+09-27 23:59:14.472 32245 32245 I flutter : LIVE: trascrizione anticipata in 1357 ms, pausa 2: «Mia sorella non mi risponde da una settimana. Come mi comporto?»
+09-27 23:59:14.481 32245 32245 I flutter : LIVE: domanda finita, chiusa dopo 1760 ms di silenzio
+09-27 23:59:14.481 32245 32245 I flutter : LIVE: frase di 7040 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Mia sorella non mi risponde da una settimana. Come mi comporto?» (parte)
+09-27 23:59:15.700 32245 32245 I flutter : LIVE: la chat ha risposto in 1026 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-27 23:59:15.700 32245 32245 I flutter : LIVE: voce della prima frase anticipata
+09-27 23:59:18.042 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1765 ms, trascritta 1766 ms, primo testo 2576 ms, prima frase chiusa 2718 ms, risposta 2985 ms, domanda scritta 3050 ms, prima lettera della risposta 3050 ms, voce pronta 3299 ms, flusso aperto in anticipo 3307 ms, primo audio al volto 3307 ms, si sente 4572 ms, il volto parla 5327 ms
+09-27 23:59:21.892 32245 32245 I flutter : LIVE: primo suono al volto dopo 321 ms, audio di 13223 ms, scritto in 6191 ms
+09-27 23:59:30.169 32245 32245 I flutter : LIVE: il volto ha finito dopo 14467 ms, lo ha detto lui
+09-27 23:59:59.036 32245 32245 I flutter : LIVE: trascrizione anticipata in 1132 ms, pausa 1: «Domani ho un colloquio importante.»
+09-27 23:59:59.797 32245 32245 I flutter : LIVE: controllo 1 della frase 7 in 1253 ms: «Domani ho un colloquio importante. Cosa», aspetta, sottofondo null
+09-28 00:00:01.403 32245 32245 I flutter : LIVE: trascrizione anticipata in 1101 ms, pausa 2: «Domani ho un colloquio importante. Cosa posso fare stasera?»
+09-28 00:00:01.403 32245 32245 I flutter : LIVE: domanda finita, chiusa dopo 1440 ms di silenzio
+09-28 00:00:01.404 32245 32245 I flutter : LIVE: frase di 6800 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Domani ho un colloquio importante. Cosa posso fare stasera?» (parte)
+09-28 00:00:02.704 32245 32245 I flutter : LIVE: la chat ha risposto in 1176 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-28 00:00:02.705 32245 32245 I flutter : LIVE: voce della prima frase anticipata
+09-28 00:00:05.252 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1502 ms, trascritta 1502 ms, primo testo 2288 ms, prima frase chiusa 2481 ms, domanda scritta 2651 ms, prima lettera della risposta 2651 ms, risposta 2803 ms, voce pronta 3093 ms, flusso aperto in anticipo 3095 ms, primo audio al volto 3095 ms, si sente 4680 ms, il volto parla 5350 ms
+09-28 00:00:06.976 32245 32245 I flutter : LIVE: primo suono al volto dopo 292 ms, audio di 10463 ms, scritto in 4270 ms
+09-28 00:00:14.413 32245 32245 I flutter : LIVE: il volto ha finito dopo 11708 ms, lo ha detto lui
+09-28 00:00:46.103 32245 32245 I flutter : LIVE: trascrizione anticipata in 1162 ms, pausa 1: «Ho paura di non essere all'altezza nel nuovo ruolo.»
+09-28 00:00:46.467 32245 32245 I flutter : LIVE: controllo 1 della frase 10 in 1378 ms: «», scarta, sottofondo null
+09-28 00:00:46.467 32245 32245 I flutter : LIVE: la frase 10 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+09-28 00:00:46.531 32245 32245 I flutter : LIVE: frase di 5440 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Ho paura di non essere all'altezza nel nuovo ruolo.» (parte)
+09-28 00:00:48.044 32245 32245 I flutter : LIVE: la chat ha risposto in 1291 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-28 00:00:48.045 32245 32245 I flutter : LIVE: voce della prima frase anticipata
+09-28 00:00:50.044 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1998 ms, trascritta 1999 ms, primo testo 2966 ms, prima frase chiusa 3034 ms, domanda scritta 3114 ms, prima lettera della risposta 3114 ms, risposta 3511 ms, voce pronta 3688 ms, flusso aperto in anticipo 3694 ms, primo audio al volto 3694 ms, si sente 5129 ms, il volto parla 5512 ms
+09-28 00:00:58.794 32245 32245 I flutter : LIVE: primo suono al volto dopo 181 ms, audio di 18263 ms, scritto in 10748 ms
+09-28 00:01:07.414 32245 32245 I flutter : LIVE: il volto ha finito dopo 19369 ms, lo ha detto lui
+09-28 00:01:30.354 32245 32245 I flutter : LIVE: trascrizione anticipata in 1317 ms, pausa 1: «»
+09-28 00:01:30.802 32245 32245 I flutter : LIVE: controllo 1 della frase 13 in 1367 ms: «Come faccio a dormire meglio in questi giorni?», aspetta, sottofondo null
+09-28 00:01:32.168 32245 32245 I flutter : LIVE: frase di 5200 ms in 1 pezzi, trascritta in 1537 ms dalla chiusura, in pausa, poi di nuovo: «Come faccio a dormire meglio in questi giorni?» (parte)
+09-28 00:01:33.362 32245 32245 I flutter : LIVE: la chat ha risposto in 1008 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-28 00:01:33.362 32245 32245 I flutter : LIVE: voce della prima frase anticipata
+09-28 00:01:36.046 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1999 ms, trascritta 3537 ms, primo testo 4445 ms, domanda scritta 4548 ms, prima frase chiusa 4628 ms, prima lettera della risposta 4680 ms, risposta 4730 ms, voce pronta 5306 ms, flusso aperto in anticipo 5314 ms, primo audio al volto 5314 ms, si sente 6745 ms, il volto parla 7414 ms
+09-28 00:01:37.114 32245 32245 I flutter : LIVE: primo suono al volto dopo 583 ms, audio di 7343 ms, scritto in 3752 ms
+09-28 00:01:42.237 32245 32245 I flutter : LIVE: il volto ha finito dopo 8874 ms, lo ha detto lui
+09-28 00:02:14.110 32245 32245 I flutter : LIVE: trascrizione anticipata in 1111 ms, pausa 1: «Quale runa mi protegge in questo periodo?»
+09-28 00:02:14.113 32245 32245 I flutter : LIVE: domanda finita, chiusa dopo 1520 ms di silenzio
+09-28 00:02:14.114 32245 32245 I flutter : LIVE: frase di 4480 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Quale runa mi protegge in questo periodo?» (parte)
+09-28 00:02:15.530 32245 32245 I flutter : LIVE: la chat ha risposto in 1207 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-28 00:02:15.531 32245 32245 I flutter : LIVE: voce della prima frase anticipata
+09-28 00:02:17.649 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1519 ms, trascritta 1520 ms, domanda scritta 2456 ms, primo testo 2521 ms, prima lettera della risposta 2554 ms, prima frase chiusa 2619 ms, risposta 2937 ms, voce pronta 3268 ms, flusso aperto in anticipo 3274 ms, primo audio al volto 3274 ms, si sente 4788 ms, il volto parla 5055 ms
+09-28 00:02:23.832 32245 32245 I flutter : LIVE: primo suono al volto dopo 336 ms, audio di 14303 ms, scritto in 8301 ms
+09-28 00:02:31.094 32245 32245 I flutter : LIVE: il volto ha finito dopo 15563 ms, lo ha detto lui
+09-28 00:02:58.057 32245 32245 I flutter : LIVE: trascrizione anticipata in 997 ms, pausa 1: «Ho litigato con un amico per una sciocchezza.»
+09-28 00:02:58.622 32245 32245 I flutter : LIVE: controllo 1 della frase 19 in 1237 ms: «Ho litigato con un amico per una sciocchezza.», aspetta, sottofondo null
+09-28 00:03:00.094 32245 32245 I flutter : LIVE: trascrizione anticipata in 1436 ms, pausa 2: «Ho litigato con un amico per una sciocchezza. Lo chiamo io.»
+09-28 00:03:00.261 32245 32245 I flutter : LIVE: frase di 6880 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Ho litigato con un amico per una sciocchezza. Lo chiamo io.» (parte)
+09-28 00:03:01.666 32245 32245 I flutter : LIVE: la chat ha risposto in 1205 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-28 00:03:01.667 32245 32245 I flutter : LIVE: voce della prima frase anticipata
+09-28 00:03:03.650 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 2000 ms, trascritta 2000 ms, primo testo 2941 ms, prima frase chiusa 3108 ms, domanda scritta 3224 ms, prima lettera della risposta 3258 ms, risposta 3406 ms, voce pronta 3754 ms, flusso aperto in anticipo 3776 ms, primo audio al volto 3776 ms, si sente 5249 ms, il volto parla 5389 ms
+09-28 00:03:09.270 32245 32245 I flutter : LIVE: primo suono al volto dopo 369 ms, audio di 13183 ms, scritto in 7603 ms
+09-28 00:03:16.149 32245 32245 I flutter : LIVE: il volto ha finito dopo 14481 ms, lo ha detto lui
+09-28 00:03:44.634 32245 32245 I flutter : LIVE: controllo 1 della frase 22 in 1319 ms: «Sto pensando di iscrivermi a un corso di ceramica.», aspetta, sottofondo null
+09-28 00:03:44.698 32245 32245 I flutter : LIVE: trascrizione anticipata in 1396 ms, pausa 1: «Sto pensando di iscrivermi a un corso di ceramica.»
+09-28 00:03:44.895 32245 32245 I flutter : LIVE: frase di 5600 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Sto pensando di iscrivermi a un corso di ceramica.» (parte)
+09-28 00:03:46.436 32245 32245 I flutter : LIVE: la chat ha risposto in 1344 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-28 00:03:46.437 32245 32245 I flutter : LIVE: voce della prima frase anticipata
+09-28 00:03:48.446 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1996 ms, trascritta 1996 ms, primo testo 2981 ms, prima lettera della risposta 3051 ms, domanda scritta 3084 ms, prima frase chiusa 3111 ms, risposta 3537 ms, voce pronta 3738 ms, flusso aperto in anticipo 3747 ms, primo audio al volto 3747 ms, si sente 5164 ms, il volto parla 5546 ms
+09-28 00:03:54.263 32245 32245 I flutter : LIVE: primo suono al volto dopo 209 ms, audio di 20615 ms, scritto in 7825 ms
+09-28 00:04:08.176 32245 32245 I flutter : LIVE: il volto ha finito dopo 21738 ms, lo ha detto lui
+09-28 00:04:29.024 32245 32245 I flutter : LIVE: controllo 1 della frase 25 in 1234 ms: «Oggi mi sento stanco e senza voglia di fare niente.», aspetta, sottofondo null
+09-28 00:04:29.244 32245 32245 I flutter : LIVE: trascrizione anticipata in 1135 ms, pausa 1: «»
+09-28 00:04:30.940 32245 32245 I flutter : LIVE: frase di 5920 ms in 1 pezzi, trascritta in 1234 ms dalla chiusura, in pausa, poi di nuovo: «Oggi mi sento stanco e senza voglia di fare niente.» (parte)
+09-28 00:04:33.798 32245 32245 I flutter : LIVE: la chat ha risposto in 2689 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-28 00:04:33.799 32245 32245 I flutter : LIVE: voce della prima frase chiesta adesso (anticipata per «Osserva la tua stanchezza, non respingerla.», detta «Lascia scorrere.»)
+09-28 00:04:36.061 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 2002 ms, trascritta 3236 ms, primo testo 4093 ms, prima frase chiusa 4191 ms, domanda scritta 4297 ms, prima lettera della risposta 4297 ms, flusso aperto in anticipo 4878 ms, risposta 6094 ms, voce pronta 6719 ms, primo audio al volto 6719 ms, si sente 8239 ms, il volto parla 8357 ms
+09-28 00:04:38.536 32245 32245 I flutter : LIVE: primo suono al volto dopo 624 ms, audio di 11903 ms, scritto in 4736 ms
+09-28 00:04:47.254 32245 32245 I flutter : LIVE: il volto ha finito dopo 13454 ms, lo ha detto lui
+09-28 00:05:14.035 32245 32245 I flutter : LIVE: controllo 1 della frase 28 in 1453 ms: «Grazie, Calìgo. Cosa mi porto via da questa consulenza?», aspetta, sottofondo null
+09-28 00:05:14.869 32245 32245 I flutter : LIVE: trascrizione anticipata in 1324 ms, pausa 1: «Grazie Calìgo, cosa mi porto via da questa conversazione?»
+09-28 00:05:14.873 32245 32245 I flutter : LIVE: domanda finita, chiusa dopo 1680 ms di silenzio
+09-28 00:05:14.873 32245 32245 I flutter : LIVE: frase di 6240 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Grazie Calìgo, cosa mi porto via da questa conversazione?» (parte)
+09-28 00:05:16.122 32245 32245 I flutter : LIVE: la chat ha risposto in 1095 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-28 00:05:16.123 32245 32245 I flutter : LIVE: voce della prima frase anticipata
+09-28 00:05:18.844 32245 32245 I flutter : LIVE ATTESA dalla fine del parlato: frase chiusa 1730 ms, trascritta 1732 ms, primo testo 2607 ms, prima frase chiusa 2868 ms, domanda scritta 2881 ms, prima lettera della risposta 2881 ms, risposta 2981 ms, voce pronta 3503 ms, flusso aperto in anticipo 3510 ms, primo audio al volto 3510 ms, si sente 5041 ms, il volto parla 5703 ms
+09-28 00:05:23.343 32245 32245 I flutter : LIVE: primo suono al volto dopo 528 ms, audio di 14903 ms, scritto in 7219 ms
+09-28 00:05:32.487 32245 32245 I flutter : LIVE: il volto ha finito dopo 16363 ms, lo ha detto lui

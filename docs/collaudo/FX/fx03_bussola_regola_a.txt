@@ -1,0 +1,90 @@
+ORDINE FX VOCE 3 (FX.06), 16 ottobre 2026. AZIMUT E ALTEZZA DELLA LUNA
+ADESSO, PER LA BUSSOLA. Regola A delle guardie: una guardia nasce rossa, e
+il rosso si vede col grep.
+
+COSA SI MISURA
+`posizioneOrizzontaleDellaLuna(istante, lat, lonEst)`, in
+`lib/core/lunario/la_posizione_orizzontale_della_luna.dart`: azimut (da nord
+verso est) e altezza TOPOCENTRICA (corretta per la parallasse diurna, Meeus
+cap. 40) della Luna sull'orizzonte di un luogo, componendo
+`Celestial.moonEquatorial` e `Celestial.equatorialToHorizontal` con la
+correzione di parallasse dalla distanza vera
+(`IlCieloDiMeeus.distanzaInKm`, ordine FX voce 1, stesso ordine).
+
+La prova e' `test/la_posizione_orizzontale_della_luna_test.dart`.
+
+LA SCOPERTA FATTA SCRIVENDO LA PROVA
+Il primo collaudo, senza correzione di parallasse, scartava di 0,78 gradi a
+Piacenza su un'altezza di -30,6 gradi: il numero che la parallasse diurna
+prevede esattamente (parallasse orizzontale 0,90 gradi a quella distanza,
+per il coseno dell'altezza). Non era un bersaglio sbagliato: era una
+correzione mancante, aggiunta prima di dichiarare la funzione pronta. La
+Regola A, piu' sotto, si applica alla funzione COSI' COM'E' CONSEGNATA, con
+la parallasse dentro.
+
+IL CICLO, ESEGUITO DAVVERO IN QUEST'ORDINE
+
+1. INNESTO DEL DIFETTO (a mano, in
+   lib/core/lunario/la_posizione_orizzontale_della_luna.dart, funzione
+   posizioneOrizzontaleDellaLuna): il segno della correzione di parallasse
+   invertito, da sottrarre a sommare.
+
+     - altezzaGradi: orizzontale.altDeg - parallasseInAltezza / _gradi,
+     + altezzaGradi: orizzontale.altDeg + parallasseInAltezza / _gradi, // DIFETTO INNESTATO ORDINE FX, REGOLA A
+
+2. VERIFICA COL GREP che il difetto sia davvero nel file:
+
+     $ grep -n "DIFETTO INNESTATO ORDINE FX" lib/core/lunario/la_posizione_orizzontale_della_luna.dart
+     82:    altezzaGradi: orizzontale.altDeg + parallasseInAltezza / _gradi, // DIFETTO INNESTATO ORDINE FX, REGOLA A
+
+   Trovato: il difetto e' entrato nel file.
+
+3. ESITO ROSSO, `flutter test test/la_posizione_orizzontale_della_luna_test.dart`:
+
+     ORDINE FX: Piacenza, azimut calcolato 259.85, pubblicato 259.86, scarto 0.01 gradi; altezza calcolata -29.83, pubblicata -31.38, scarto 1.55 gradi
+     00:00 +0 -1: tre citta' contro timeanddate.com, stesso istante vero [E]
+       Expected: a value less than <0.1>
+         Actual: <1.554048168290251>
+       Piacenza: altezza fuori tolleranza
+
+   La correzione invertita raddoppia lo scarto invece di azzerarlo (da 0,78 a
+   1,55 gradi, il doppio della parallasse): la guardia prende il difetto che
+   deve prendere.
+
+4. CORREZIONE: ripristinato il segno, `altezzaGradi: orizzontale.altDeg -
+   parallasseInAltezza / _gradi,`.
+
+5. VERIFICA COL GREP che il difetto non ci sia piu':
+
+     $ grep -n "DIFETTO INNESTATO ORDINE FX" lib/core/lunario/la_posizione_orizzontale_della_luna.dart
+     (nessuna riga, grep esce con codice 1)
+
+6. ESITO VERDE, `flutter test test/la_posizione_orizzontale_della_luna_test.dart`:
+
+     ORDINE FX: Piacenza, azimut calcolato 259.85, pubblicato 259.86, scarto 0.01 gradi; altezza calcolata -31.38, pubblicata -31.38, scarto 0.00 gradi
+     ORDINE FX: New York, azimut calcolato 201.24, pubblicato 201.24, scarto 0.00 gradi; altezza calcolata 17.33, pubblicata 17.38, scarto 0.05 gradi
+     ORDINE FX: Sydney, azimut calcolato 124.86, pubblicato 124.86, scarto 0.00 gradi; altezza calcolata -1.63, pubblicata -0.85, scarto 0.78 gradi
+     ORDINE FX: scarto massimo sulle tre citta', azimut 0.01 gradi, altezza 0.78 gradi
+     00:00 +1: All tests passed!
+
+LO SCARTO MASSIMO MISURATO, CON LA FONTE
+Fonte: timeanddate.com, il riquadro "Moon Direction / Moon Altitude" (adesso)
+di https://www.timeanddate.com/moon/@lat,lon, letto per tre citta' nello
+stesso minuto vero, il 15 ottobre 2026 verso le 22:17 UTC.
+
+- Piacenza (45,0526 N, 9,6930 E), altezza 17,38 gradi sopra l'orizzonte:
+  scarto azimut 0,01 gradi, scarto altezza 0,00 gradi.
+- New York (40,7128 N, 74,0060 O): scarto azimut 0,00 gradi, scarto altezza
+  0,05 gradi.
+- Sydney (33,8688 S, 151,2093 E), altezza -0,85 gradi, vicinissima
+  all'orizzonte: scarto azimut 0,00 gradi, scarto altezza 0,78 gradi.
+
+LO SCARTO DI SYDNEY NON E' UN DIFETTO, E' LA RIFRAZIONE CHE MANCA APPOSTA
+`posizioneOrizzontaleDellaLuna` non applica la rifrazione atmosferica (la
+stessa convenzione di `Celestial.equatorialToHorizontal` in tutto il resto
+dell'app): lontano dall'orizzonte non conta (Piacenza e New York, sotto un
+decimo di grado), vicino all'orizzonte (Sydney, -0,85 gradi pubblicati, -1,63
+gradi calcolati) la rifrazione standard alza l'altezza apparente fino a
+circa un grado, e non e' piu' lineare cosi' vicino al suolo. La tolleranza
+della prova su quella riga e' dichiarata larga (0,9 gradi) per questo motivo,
+scritto nel commento accanto al numero.

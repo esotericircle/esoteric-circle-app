@@ -1,0 +1,89 @@
+ORDINE FX VOCE 1, 16 ottobre 2026. LA DISTANZA TERRA-LUNA IN CHILOMETRI.
+Regola A delle guardie: una guardia nasce rossa, e il rosso si vede col grep.
+
+COSA SI MISURA
+`LaLunaIntera.distanzaInKm(jdUt)` (e `distanzaInKmTd(jde)`), esposta da
+`IlCieloDiMeeus.distanzaInKm(jdUt)`: Meeus, Astronomical Algorithms, 2a ed.
+1998, capitolo 47, equazione 47.10, Delta = 385000,56 + Sigma r / 1000, con
+la colonna della distanza (coefficiente del coseno) della tabella 47.A
+aggiunta a `lib/core/astro/meeus/la_luna_intera.dart`
+(`_tabellaDistanza`), parallela e nello stesso ordine di riga della colonna
+della longitudine gia' verificata (`_tabellaLongitudine`), mai toccata.
+
+La prova e' `test/la_distanza_della_luna_test.dart`.
+
+IL CICLO, ESEGUITO DAVVERO IN QUEST'ORDINE
+
+1. Scritta la funzione e la prova, la prova e' risultata verde al primo
+   colpo (il calcolo e' giusto). La Regola A pretende di vedere il rosso
+   PRIMA del verde, quindi si innesta un difetto vero, si verifica col grep
+   che sia entrato nel file, e solo dopo si corregge.
+
+2. INNESTO DEL DIFETTO (a mano, in
+   lib/core/astro/meeus/la_luna_intera.dart, funzione _distanzaDaJde):
+
+     - return 385000.56 + sigmaR / 1000.0;
+     + return 385100.56 + sigmaR / 1000.0; // DIFETTO INNESTATO ORDINE FX, REGOLA A
+
+   Cento chilometri spostati sulla costante di Meeus 47.10.
+
+3. VERIFICA COL GREP che il difetto sia davvero nel file:
+
+     $ grep -n "DIFETTO INNESTATO ORDINE FX" lib/core/astro/meeus/la_luna_intera.dart
+     484:    return 385100.56 + sigmaR / 1000.0; // DIFETTO INNESTATO ORDINE FX, REGOLA A
+
+   Trovato: il difetto e' entrato nel file.
+
+4. ESITO ROSSO, `flutter test test/la_distanza_della_luna_test.dart`:
+
+     ORDINE FX: esempio 47.a, distanza 368509.7 km
+     00:00 +0 -1: l'esempio 47.a di Meeus: 12 aprile 1992, 0h TD, 368409,7 km [E]
+       Expected: a numeric value within <1.0> of <368409.7>
+         Actual: <368509.6848161269>
+          Which:  differs by <99.98481612687465>
+
+     ORDINE FX: perigeo 1 gennaio, calcolato 360450.0 km, pubblicato 360350.0 km, scarto 100.0 km
+     ORDINE FX: apogeo 13 gennaio, calcolato 405536.3 km, pubblicato 405436.0 km, scarto 100.3 km
+     ORDINE FX: apogeo 1 giugno, calcolato 406465.4 km, pubblicato 406365.0 km, scarto 100.4 km
+     ORDINE FX: perigeo 14 giugno, calcolato 357299.0 km, pubblicato 357199.0 km, scarto 100.0 km
+     00:00 +0 -2: quattro perigei e apogei del 2026 contro moonblink.info [E]
+       Expected: a value less than <2.0>
+         Actual: <100.41911436524242>
+
+   Due prove su due, rosse, con lo scarto che mostra esattamente i cento
+   chilometri innestati: la guardia prende il difetto che deve prendere.
+
+5. CORREZIONE: tolta la riga innestata, ripristinata
+   `return 385000.56 + sigmaR / 1000.0;`.
+
+6. VERIFICA COL GREP che il difetto non ci sia piu':
+
+     $ grep -n "DIFETTO INNESTATO ORDINE FX" lib/core/astro/meeus/la_luna_intera.dart
+     (nessuna riga, grep esce con codice 1)
+
+7. ESITO VERDE, `flutter test test/la_distanza_della_luna_test.dart`:
+
+     ORDINE FX: esempio 47.a, distanza 368409.7 km
+     00:00 +1: l'esempio 47.a di Meeus: 12 aprile 1992, 0h TD, 368409,7 km
+     ORDINE FX: perigeo 1 gennaio, calcolato 360350.0 km, pubblicato 360350.0 km, scarto 0.0 km
+     ORDINE FX: apogeo 13 gennaio, calcolato 405436.3 km, pubblicato 405436.0 km, scarto 0.3 km
+     ORDINE FX: apogeo 1 giugno, calcolato 406365.4 km, pubblicato 406365.0 km, scarto 0.4 km
+     ORDINE FX: perigeo 14 giugno, calcolato 357199.0 km, pubblicato 357199.0 km, scarto 0.0 km
+     ORDINE FX: scarto massimo sui perigei e apogei 2026 0.4 km
+     00:00 +2: All tests passed!
+
+LO SCARTO MASSIMO MISURATO, CON LA FONTE
+
+- Esempio 47.a di Meeus (12 aprile 1992, 0h TD): scarto 0,0 km (entro la
+  tolleranza dichiarata di 1 km; il valore calcolato riproduce 368409,7 km).
+- Quattro perigei e apogei pubblicati del 2026, in tempo universale, da
+  moonblink.info (https://moonblink.info/Eclipse/astro/table/2026): scarto
+  massimo 0,4 km (apogeo del 1 giugno 2026, calcolato 406365,4 km contro i
+  406365 km pubblicati).
+
+FONTE DEI COEFFICIENTI DELLA TABELLA
+Codice sorgente della libreria Python "astronomia" 3.0.5
+(astronomia/lunar.py, tabella _tblLR, colonna r) e della libreria PyMeeus
+(pymeeus/Moon.py, PERIODIC_TERMS_LR_TABLE, sesta colonna): le due fonti
+coincidono cifra per cifra sui sessanta termini, e sono le stesse due fonti
+gia' citate nel file per la colonna della longitudine.

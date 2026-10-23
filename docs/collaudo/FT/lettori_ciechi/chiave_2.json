@@ -1,0 +1,582 @@
+{
+ "attrazione-01": {
+  "prova": "attrazione",
+  "giusta": "A",
+  "vera": "attrazione",
+  "cella": "amicizia teso",
+  "campo": "fare",
+  "variante": 3
+ },
+ "attrazione-02": {
+  "prova": "attrazione",
+  "giusta": "B",
+  "vera": "emozioni",
+  "cella": "lavoro fuso",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "attrazione-03": {
+  "prova": "attrazione",
+  "giusta": "B",
+  "vera": "emozioni",
+  "cella": "amicizia teso",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "attrazione-04": {
+  "prova": "attrazione",
+  "giusta": "B",
+  "vera": "emozioni",
+  "cella": "amore teso",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "attrazione-05": {
+  "prova": "attrazione",
+  "giusta": "B",
+  "vera": "emozioni",
+  "cella": "lavoro fuso",
+  "campo": "fare",
+  "variante": 2
+ },
+ "attrazione-06": {
+  "prova": "attrazione",
+  "giusta": "A",
+  "vera": "attrazione",
+  "cella": "famiglia teso",
+  "campo": "fare",
+  "variante": 2
+ },
+ "attrazione-07": {
+  "prova": "attrazione",
+  "giusta": "B",
+  "vera": "emozioni",
+  "cella": "amicizia armonico",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "attrazione-08": {
+  "prova": "attrazione",
+  "giusta": "A",
+  "vera": "attrazione",
+  "cella": "lavoro armonico",
+  "campo": "fare",
+  "variante": 2
+ },
+ "attrazione-09": {
+  "prova": "attrazione",
+  "giusta": "A",
+  "vera": "attrazione",
+  "cella": "amore fuso",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "attrazione-10": {
+  "prova": "attrazione",
+  "giusta": "A",
+  "vera": "attrazione",
+  "cella": "lavoro silenzio",
+  "campo": "fare",
+  "variante": 1
+ },
+ "emozioni-11": {
+  "prova": "emozioni",
+  "giusta": "B",
+  "vera": "mente",
+  "cella": "lavoro fuso",
+  "campo": "fare",
+  "variante": 2
+ },
+ "emozioni-12": {
+  "prova": "emozioni",
+  "giusta": "B",
+  "vera": "mente",
+  "cella": "famiglia teso",
+  "campo": "fare",
+  "variante": 3
+ },
+ "emozioni-13": {
+  "prova": "emozioni",
+  "giusta": "A",
+  "vera": "emozioni",
+  "cella": "amore fuso",
+  "campo": "fare",
+  "variante": 1
+ },
+ "emozioni-14": {
+  "prova": "emozioni",
+  "giusta": "A",
+  "vera": "emozioni",
+  "cella": "famiglia teso",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "emozioni-15": {
+  "prova": "emozioni",
+  "giusta": "B",
+  "vera": "mente",
+  "cella": "amicizia silenzio",
+  "campo": "fare",
+  "variante": 2
+ },
+ "emozioni-16": {
+  "prova": "emozioni",
+  "giusta": "A",
+  "vera": "emozioni",
+  "cella": "amore silenzio",
+  "campo": "fare",
+  "variante": 2
+ },
+ "emozioni-17": {
+  "prova": "emozioni",
+  "giusta": "A",
+  "vera": "emozioni",
+  "cella": "amore fuso",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "emozioni-18": {
+  "prova": "emozioni",
+  "giusta": "A",
+  "vera": "emozioni",
+  "cella": "amicizia silenzio",
+  "campo": "fare",
+  "variante": 1
+ },
+ "emozioni-19": {
+  "prova": "emozioni",
+  "giusta": "B",
+  "vera": "mente",
+  "cella": "famiglia fuso",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "emozioni-20": {
+  "prova": "emozioni",
+  "giusta": "B",
+  "vera": "mente",
+  "cella": "lavoro fuso",
+  "campo": "fare",
+  "variante": 3
+ },
+ "mente-21": {
+  "prova": "mente",
+  "giusta": "B",
+  "vera": "attrazione",
+  "cella": "amore fuso",
+  "campo": "fare",
+  "variante": 3
+ },
+ "mente-22": {
+  "prova": "mente",
+  "giusta": "B",
+  "vera": "attrazione",
+  "cella": "lavoro armonico",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "mente-23": {
+  "prova": "mente",
+  "giusta": "A",
+  "vera": "mente",
+  "cella": "lavoro fuso",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "mente-24": {
+  "prova": "mente",
+  "giusta": "A",
+  "vera": "mente",
+  "cella": "lavoro fuso",
+  "campo": "fare",
+  "variante": 2
+ },
+ "mente-25": {
+  "prova": "mente",
+  "giusta": "B",
+  "vera": "attrazione",
+  "cella": "famiglia fuso",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "mente-26": {
+  "prova": "mente",
+  "giusta": "B",
+  "vera": "attrazione",
+  "cella": "famiglia armonico",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "mente-27": {
+  "prova": "mente",
+  "giusta": "A",
+  "vera": "mente",
+  "cella": "amicizia teso",
+  "campo": "fare",
+  "variante": 3
+ },
+ "mente-28": {
+  "prova": "mente",
+  "giusta": "B",
+  "vera": "attrazione",
+  "cella": "amicizia silenzio",
+  "campo": "fare",
+  "variante": 1
+ },
+ "mente-29": {
+  "prova": "mente",
+  "giusta": "A",
+  "vera": "mente",
+  "cella": "amicizia armonico",
+  "campo": "fare",
+  "variante": 1
+ },
+ "mente-30": {
+  "prova": "mente",
+  "giusta": "A",
+  "vera": "mente",
+  "cella": "amore fuso",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "durata-31": {
+  "prova": "durata",
+  "giusta": "B",
+  "vera": "destino",
+  "cella": "amore silenzio",
+  "campo": "fare",
+  "variante": 3
+ },
+ "durata-32": {
+  "prova": "durata",
+  "giusta": "B",
+  "vera": "destino",
+  "cella": "amicizia teso",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "durata-33": {
+  "prova": "durata",
+  "giusta": "A",
+  "vera": "durata",
+  "cella": "famiglia silenzio",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "durata-34": {
+  "prova": "durata",
+  "giusta": "A",
+  "vera": "durata",
+  "cella": "amore silenzio",
+  "campo": "fare",
+  "variante": 2
+ },
+ "durata-35": {
+  "prova": "durata",
+  "giusta": "A",
+  "vera": "durata",
+  "cella": "amicizia fuso",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "durata-36": {
+  "prova": "durata",
+  "giusta": "A",
+  "vera": "durata",
+  "cella": "famiglia silenzio",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "durata-37": {
+  "prova": "durata",
+  "giusta": "B",
+  "vera": "destino",
+  "cella": "lavoro armonico",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "durata-38": {
+  "prova": "durata",
+  "giusta": "B",
+  "vera": "destino",
+  "cella": "lavoro teso",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "durata-39": {
+  "prova": "durata",
+  "giusta": "B",
+  "vera": "destino",
+  "cella": "amore silenzio",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "durata-40": {
+  "prova": "durata",
+  "giusta": "A",
+  "vera": "durata",
+  "cella": "amore armonico",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "destino-41": {
+  "prova": "destino",
+  "giusta": "A",
+  "vera": "destino",
+  "cella": "amicizia teso",
+  "campo": "fare",
+  "variante": 2
+ },
+ "destino-42": {
+  "prova": "destino",
+  "giusta": "B",
+  "vera": "durata",
+  "cella": "amore fuso",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "destino-43": {
+  "prova": "destino",
+  "giusta": "A",
+  "vera": "destino",
+  "cella": "amicizia silenzio",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "destino-44": {
+  "prova": "destino",
+  "giusta": "B",
+  "vera": "durata",
+  "cella": "lavoro armonico",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "destino-45": {
+  "prova": "destino",
+  "giusta": "B",
+  "vera": "durata",
+  "cella": "famiglia armonico",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "destino-46": {
+  "prova": "destino",
+  "giusta": "B",
+  "vera": "durata",
+  "cella": "amicizia teso",
+  "campo": "fare",
+  "variante": 3
+ },
+ "destino-47": {
+  "prova": "destino",
+  "giusta": "A",
+  "vera": "destino",
+  "cella": "amicizia armonico",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "destino-48": {
+  "prova": "destino",
+  "giusta": "A",
+  "vera": "destino",
+  "cella": "famiglia teso",
+  "campo": "fare",
+  "variante": 3
+ },
+ "destino-49": {
+  "prova": "destino",
+  "giusta": "A",
+  "vera": "destino",
+  "cella": "lavoro armonico",
+  "campo": "fare",
+  "variante": 1
+ },
+ "destino-50": {
+  "prova": "destino",
+  "giusta": "B",
+  "vera": "durata",
+  "cella": "famiglia silenzio",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "legami-51": {
+  "prova": "legami",
+  "giusta": "D",
+  "vera": "lavoro",
+  "capitolo": "destino",
+  "cella": "lavoro silenzio",
+  "campo": "fare",
+  "variante": 1
+ },
+ "legami-52": {
+  "prova": "legami",
+  "giusta": "B",
+  "vera": "amicizia",
+  "capitolo": "durata",
+  "cella": "amicizia fuso",
+  "campo": "fare",
+  "variante": 1
+ },
+ "legami-53": {
+  "prova": "legami",
+  "giusta": "C",
+  "vera": "famiglia",
+  "capitolo": "mente",
+  "cella": "famiglia teso",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "legami-54": {
+  "prova": "legami",
+  "giusta": "D",
+  "vera": "lavoro",
+  "capitolo": "destino",
+  "cella": "lavoro armonico",
+  "campo": "fare",
+  "variante": 1
+ },
+ "legami-55": {
+  "prova": "legami",
+  "giusta": "A",
+  "vera": "amore",
+  "capitolo": "mente",
+  "cella": "amore silenzio",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "legami-56": {
+  "prova": "legami",
+  "giusta": "C",
+  "vera": "famiglia",
+  "capitolo": "durata",
+  "cella": "famiglia teso",
+  "campo": "fare",
+  "variante": 1
+ },
+ "legami-57": {
+  "prova": "legami",
+  "giusta": "B",
+  "vera": "amicizia",
+  "capitolo": "mente",
+  "cella": "amicizia silenzio",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "legami-58": {
+  "prova": "legami",
+  "giusta": "C",
+  "vera": "famiglia",
+  "capitolo": "destino",
+  "cella": "famiglia armonico",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "legami-59": {
+  "prova": "legami",
+  "giusta": "A",
+  "vera": "amore",
+  "capitolo": "mente",
+  "cella": "amore armonico",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "legami-60": {
+  "prova": "legami",
+  "giusta": "B",
+  "vera": "amicizia",
+  "capitolo": "emozioni",
+  "cella": "amicizia silenzio",
+  "campo": "fare",
+  "variante": 3
+ },
+ "toni-61": {
+  "prova": "toni",
+  "giusta": "A",
+  "vera": "armonico",
+  "capitolo": "durata",
+  "cella": "amore armonico",
+  "campo": "fare",
+  "variante": 2
+ },
+ "toni-62": {
+  "prova": "toni",
+  "giusta": "B",
+  "vera": "teso",
+  "capitolo": "durata",
+  "cella": "lavoro teso",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "toni-63": {
+  "prova": "toni",
+  "giusta": "B",
+  "vera": "teso",
+  "capitolo": "durata",
+  "cella": "lavoro teso",
+  "campo": "fare",
+  "variante": 1
+ },
+ "toni-64": {
+  "prova": "toni",
+  "giusta": "B",
+  "vera": "teso",
+  "capitolo": "durata",
+  "cella": "famiglia teso",
+  "campo": "fare",
+  "variante": 1
+ },
+ "toni-65": {
+  "prova": "toni",
+  "giusta": "B",
+  "vera": "teso",
+  "capitolo": "destino",
+  "cella": "amicizia teso",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "toni-66": {
+  "prova": "toni",
+  "giusta": "A",
+  "vera": "armonico",
+  "capitolo": "durata",
+  "cella": "amicizia armonico",
+  "campo": "fare",
+  "variante": 3
+ },
+ "toni-67": {
+  "prova": "toni",
+  "giusta": "B",
+  "vera": "teso",
+  "capitolo": "emozioni",
+  "cella": "lavoro teso",
+  "campo": "apertura",
+  "variante": 3
+ },
+ "toni-68": {
+  "prova": "toni",
+  "giusta": "B",
+  "vera": "teso",
+  "capitolo": "attrazione",
+  "cella": "amore teso",
+  "campo": "apertura",
+  "variante": 1
+ },
+ "toni-69": {
+  "prova": "toni",
+  "giusta": "A",
+  "vera": "armonico",
+  "capitolo": "mente",
+  "cella": "famiglia armonico",
+  "campo": "apertura",
+  "variante": 2
+ },
+ "toni-70": {
+  "prova": "toni",
+  "giusta": "B",
+  "vera": "teso",
+  "capitolo": "attrazione",
+  "cella": "famiglia teso",
+  "campo": "apertura",
+  "variante": 2
+ }
+}

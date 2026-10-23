@@ -1,0 +1,19 @@
+Ordine FX aggiunta FXA.09, gli asset della Luna di quest'ora, scritti da tool/gli_asset_della_luna_di_quest_ora.py
+
+infografica/righello_delle_fasi_v1: 1784x161, alfa da 0 a 255, da 338996 a 219302 byte, riletto identico
+infografica/cursore_falce_v1: 95x268, alfa da 0 a 255, da 31131 a 23958 byte, riletto identico
+infografica/medaglione_sorge_v1: 439x440, alfa da 0 a 255, da 267401 a 149494 byte, riletto identico
+infografica/medaglione_culmina_v1: 440x440, alfa da 0 a 255, da 270680 a 150884 byte, riletto identico
+infografica/medaglione_tramonta_v1: 439x440, alfa da 0 a 255, da 267779 a 150192 byte, riletto identico
+infografica/sigillo_superluna_v1: 311x315, alfa da 0 a 255, da 156100 a 94060 byte, riletto identico
+infografica/sigillo_microluna_v1: 310x315, alfa da 0 a 255, da 131331 a 77102 byte, riletto identico
+icone/freccia_sinistra_v1: 478x135, alfa da 0 a 255, da 112254 a 74370 byte, riletto identico
+icone/freccia_destra_v1: 478x135, alfa da 0 a 255, da 112590 a 74590 byte, riletto identico
+icone/penna_modifica_v1: 233x367, alfa da 0 a 255, da 100509 a 58158 byte, riletto identico
+icone/segnaposto_luna_v1: 191x282, alfa da 0 a 255, da 100436 a 56920 byte, riletto identico
+icone/icona_luna_v1: 381x390, alfa da 0 a 255, da 214378 a 122036 byte, riletto identico
+icone/icona_calendario_v1: 307x367, alfa da 0 a 255, da 177294 a 101374 byte, riletto identico
+icone/icona_bussola_v1: 416x457, alfa da 0 a 255, da 290052 a 166092 byte, riletto identico
+icone/icona_respiro_v1: 397x362, alfa da 0 a 255, da 167307 a 106950 byte, riletto identico
+cattura del fondatore sulla build 2312: catture_fondatore/fx_fondatore_respiro_02.jpg
+cattura di riferimento di Dora (struttura e dati, mai l'aspetto): fxa09_cattura_dora_riferimento.jpg

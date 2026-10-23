@@ -1,0 +1,199 @@
+V001
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, se prima di venerdì ti accerti che Marco sia libero.
+GESTO (mostrato subito sotto la risposta): Entro domani sera, scrivi un messaggio a Marco per proporgli di vedervi in questi giorni.
+
+V002
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Chiedi alla tua collega come sta. Puoi ascoltare la sua risposta con attenzione, senza aggiungere altro. Tu puoi decidere di avvicinarti.
+GESTO (mostrato subito sotto la risposta): Domani mattina, appena la vedi, salutala per prima.
+
+V003
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì. Puoi dire a Marco che ti piace.
+GESTO (mostrato subito sotto la risposta): Domani mattina, invia a Marco un messaggio breve in cui gli chiedi come sta.
+
+V004
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: I segni del viaggio dicono di sì, se prima di accettare l'offerta di lavoro a Milano hai verificato tutti i costi della città. Non guardare solo il guadagno, ma il bilancio complessivo. Valuta la tua capacità di gestire le nuove spese e il nuovo equilibrio.
+GESTO (mostrato subito sotto la risposta): Entro dopodomani incontra una persona che vive a Milano e ha una situazione economica simile alla tua, per capire il suo costo della vita reale.
+
+V005
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Porta il tuo cane nel luogo che sente come casa. Lascia che riposi lì e che senta la tua vicinanza.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio, se il tuo cane lo consente, prendilo in braccio e portalo nel suo posto preferito della casa.
+
+V006
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, se prepari il luogo fisico della tua bottega entro la fine del mese. La tua bottega ha bisogno di cure e attenzioni fin da subito. Non è un passo da fare senza una base solida.
+GESTO (mostrato subito sotto la risposta): Entro giovedì, cerca tre potenziali fornitori per la materia prima della tua ceramica.
+
+V007
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: I segni del viaggio indicano un passo da fare: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio, se incontri tua madre, non parlare della tua compagna.
+
+V008
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Entro domenica contatta tre agenzie immobiliari a Berlino per capire le opzioni disponibili.
+
+V009
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Entro domani rileggi il bando e sottolinea ogni volta che viene nominato il requisito di un titolo di studio.
+
+V010
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, se chiedi un preventivo a tre fornitori diversi per i materiali della tua bottega. È importante che tu metta a fuoco le spese iniziali. Così potrai valutare con più chiarezza il tuo progetto.
+GESTO (mostrato subito sotto la risposta): Entro domani sera, contatta almeno tre fornitori di argilla e smalti per chiedere i loro listini prezzi.
+
+V011
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Domani mattina, scegli un capo di abbigliamento che ti piace ma non hai mai osato indossare e indossalo per tutto il giorno.
+
+V012
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: Nel frattempo puoi preparare quello che serve dopo.
+GESTO (mostrato subito sotto la risposta): Scrivi tre cose che sai già su questa domanda.
+
+V013
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: I segni del viaggio dicono di sì, se prima di chiamarlo metti in chiaro con te cosa vuoi dirgli. Puoi prepararti bene alle sue domande. Puoi anche decidere di non aspettarti niente da lui.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio fai la telefonata che stai rimandando a tuo fratello.
+
+V014
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Domani mattina ripassa una sezione del concorso che credi di conoscere bene. Trova una nuova prospettiva per studiarla.
+
+V015
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, puoi dire a Marco che ti piace. La tua decisione di esprimerlo è un passo concreto verso ciò che desideri. Non aspettare che sia lui a fare la prima mossa.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio, manda un messaggio a Marco per proporgli di fare qualcosa insieme nei prossimi giorni.
+
+V016
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: I segni del viaggio dicono di no. L'offerta non ti dà quello che cerchi adesso. Hai bisogno di qualcosa che ti permetta di crescere.
+GESTO (mostrato subito sotto la risposta): Entro sabato verifica con un'altra agenzia le possibilità che hai nel tuo settore.
+
+V017
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: I segni del viaggio indicano un passo da fare: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Stasera, quando ti senti sola, siediti in silenzio e osserva il tuo riflesso in uno specchio per qualche minuto senza giudizio.
+
+V018
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Chiedi a tua madre di incontrarvi da sole. Puoi spiegare con calma quello che senti e i tuoi desideri. Non puoi però costringerla a cambiare idea.
+GESTO (mostrato subito sotto la risposta): Parla con la tua compagna questa sera. Chiedi a lei come si sente e che cosa vorrebbe.
+
+V019
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Entro sabato cerca due offerte di lavoro che ti interessano, come se il concorso non esistesse.
+
+V020
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Chiedi a tua madre di incontrarvi in un luogo neutro. I segni del viaggio indicano che puoi mostrare le tue decisioni senza forzare la sua accettazione. Tu puoi scegliere di proteggere la tua relazione.
+GESTO (mostrato subito sotto la risposta): Domani mattina invita tua madre a prendere un caffè in un luogo neutro, per un breve incontro.
+
+V021
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: I segni del viaggio indicano un passo da fare: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Stasera, osserva la tua immagine in uno specchio. Fissa i tuoi occhi per almeno un minuto, senza distogliere lo sguardo.
+
+V022
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, se prima di parlare con Marco hai un'idea più chiara di ciò che desideri. Non lasciare che le aspettative altrui influenzino la tua decisione. La tua felicità viene prima di tutto.
+GESTO (mostrato subito sotto la risposta): Domani mattina, cerca Marco e digli la verità sui tuoi sentimenti.
+
+V023
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: I segni del viaggio dicono di no. L'offerta di lavoro non è la strada che fa per te adesso. Non devi accontentarti di meno.
+GESTO (mostrato subito sotto la risposta): Entro sabato verifica con precisione le tue spese fisse attuali e l'ammontare dello stipendio offerto.
+
+V024
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Scegli come presentare la situazione a tua madre senza chiedere la sua approvazione.
+GESTO (mostrato subito sotto la risposta): Entro domani, scrivi una lettera a tua madre esprimendo i tuoi sentimenti e le tue intenzioni, ma senza spedirla. Conservala per te.
+
+V025
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Entro la fine della settimana, cerca online o nel tuo quartiere tre possibili luoghi per la tua bottega.
+
+V026
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: I segni del viaggio ti indicano di fare un gesto concreto per il tuo cane. Hai la forza per scegliere, anche se la situazione è difficile. Il tuo amore è una guida.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio osserva il tuo cane per dieci minuti senza distrazioni. Presta attenzione a ogni suo movimento, a ogni suono che emette.
+
+V027
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Prendi carta e penna e fai l'elenco di chi può aiutarti.
+
+V028
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Prendi carta e penna e fai l'elenco di chi può aiutarti.
+
+V029
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: I segni del viaggio indicano un passo da fare: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Entro domani, se incontri tua madre, sposta la conversazione ogni volta che prova a parlare della tua compagna.
+
+V030
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Domani mattina contatta una persona che vive a Milano e chiedile il costo di un affitto medio.
+
+V031
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Chiedi alla tua collega di raccontarti una sua giornata di lavoro tipo.
+GESTO (mostrato subito sotto la risposta): Entro domani mattina chiedi alla tua collega di parlarti della sua giornata.
+
+V032
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: I segni del viaggio dicono di sì, se prima di accettare l'offerta hai verificato tutte le nuove spese a Milano. Hai considerato solo un aspetto del cambiamento economico. C'è altro da mettere in conto.
+GESTO (mostrato subito sotto la risposta): Entro sabato verifica con precisione il costo di un affitto e delle utenze per un mese a Milano.
+
+V033
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, puoi occupare lo spazio che si crea. La solitudine serale che senti non è un vuoto da riempire. È un'opportunità per un contatto diverso.
+GESTO (mostrato subito sotto la risposta): Stasera, prima di coricarti, entra in una stanza in cui di solito non passi molto tempo. Resta lì in silenzio per cinque minuti, senza fare nulla.
+
+V034
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Parla con la tua collega entro sabato. I segni del viaggio indicano che puoi chiarire ciò che ti preoccupa. Tu puoi fare il primo passo.
+GESTO (mostrato subito sotto la risposta): Oggi al caffè, invitala a pranzo con te questa settimana.
+
+V035
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: I segni del viaggio dicono di sì: il primo passo è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Domani mattina invia un messaggio semplice a tuo fratello, senza aspettarti una risposta immediata.
+
+V036
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Oggi pomeriggio chiama la tua amica più vicina e chiedile un parere su come vi comportate tu e Marco.
+
+V037
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se prima di fare il concorso hai controllato la tua preparazione con qualcuno.
+GESTO (mostrato subito sotto la risposta): Mercoledì prossimo chiedi a una persona che ha superato il concorso di farti due domande su un argomento a tua scelta.
+
+V038
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.
+GESTO (mostrato subito sotto la risposta): Entro sabato chiedi a una persona che ha superato il concorso di farti un colloquio simulato.
+
+V039
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: I segni del viaggio ti indicano di chiedere al tuo cane cosa desidera. Ascolta i suoi segnali con attenzione. È il momento di accogliere le sue necessità.
+GESTO (mostrato subito sotto la risposta): Domani mattina tocca il suo muso e le sue zampe. Osserva se mostra dolore o disagio in qualche punto specifico.
+
+V040
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: I segni del viaggio dicono di sì, puoi trasferirti a Berlino per lavoro, se entro una settimana trovi un alloggio per il primo mese.
+GESTO (mostrato subito sotto la risposta): Entro domani sera scrivi a tre agenzie immobiliari a Berlino.

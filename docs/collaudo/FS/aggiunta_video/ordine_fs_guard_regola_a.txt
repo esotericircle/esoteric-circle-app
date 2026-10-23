@@ -1,0 +1,16 @@
+== il marcatore delle chiuse alzato
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1
+   caduto: ogni voce ha uno stato solo, e i conti tornano
+   caduto: le voci aperte dicono che cosa aspettano
+   ripristinato al byte: True
+== una voce rinominata
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1
+   caduto: il manifesto esiste e porta tutte e tre le voci
+   ripristinato al byte: True
+== una voce aperta che non dice che cosa aspetta
+   innesto entrato (conteggio letterale): True
+   esito: uscita 1
+   caduto: le voci aperte dicono che cosa aspettano
+   ripristinato al byte: True

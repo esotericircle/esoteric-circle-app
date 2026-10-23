@@ -1,0 +1,20 @@
+S01|SI|SI|NA|SI|NA|Nomina la bozza del mutuo e da' un gesto preciso per domattina; spirito di lucidita' legato alla firma.
+S02|SI|NO|NA|SI|NA|Ignora la storia appena chiusa con Andrea, tratta lui come uno qualunque; merito al limite: si' con messaggio breve.
+S03|SI|SI|NA|SI|NA|Riconosce la perdita e nomina Pepe; spiega il sogno con Kenaz e da' la lettera come gesto.
+S04|SI|SI|NA|SI|NA|Coglie il passaggio alla maggiore eta' della figlia; indica cosa scrivere, un ricordo di lei bambina.
+S05|SI|SI|NA|SI|NA|Mostra di sapere che la pietra e' nera; risponde si' e indica il gesto al tramonto.
+S06|NO|NO|NA|NO|NA|Non dice nessun momento della giornata, ignora i turni di notte, nessuna indicazione concreta: invito vuoto.
+S07|SI|NO|NA|NO|NA|Non sa del gatto Pepe morto; lettura di Sowilo generica, adatta a chiunque.
+S08|SI|NO|NA|SI|NA|Rito concreto con candela, ma niente mostra che sappia dell'allergia all'incenso; al limite.
+S09|SI|SI|NA|NO|NA|Coglie il momento delicato e il cuore, al limite; ma sorriso e presenza sono un consiglio per chiunque.
+S10|SI|NO|NA|SI|NA|Non sa che insegna musica da dodici anni; nel merito indica visita e confronto con chi l'ha fatto.
+S11|SI|NO|NA|SI|NA|Rito concreto della radice, ma nessun segno di sapere dell'allergia all'incenso.
+S12|SI|SI|NA|SI|NA|Cibo leggero che non lo affatichi mostra di sapere del padre convalescente; al limite sul merito.
+S13|NO|NO|NA|NO|NA|Non dice nessun momento, ignora i turni di notte, nessuna indicazione concreta.
+S14|SI|SI|NA|SI|NA|Sa dell'esame; metodo concreto di un'ora serale e spazio di studio; voce di Medora al limite.
+S15|SI|NO|NA|SI|NA|Non mostra di sapere della storia con Andrea; nel merito al limite: rispondere con una sola domanda.
+S16|SI|SI|NA|SI|NA|Richiama gli anni di insegnamento della musica; indica come scegliere con la lettera a se stessa.
+S17|SI|SI|NA|SI|NA|Nomina il 14 novembre e l'esame; indica organizzazione del tempo e ritmo sereno.
+S18|SI|SI|NA|SI|NA|Sa che e' la figlia; indica cosa scrivere: un ricordo condiviso e un augurio.
+S19|SI|NO|NA|NO|NA|Non sa del mutuo della casa; accoglienza e lucidita' sono massime per chiunque, al limite.
+S20|SI|SI|NA|SI|NA|Sa della pietra nera levigata dal mare; risponde si' e indica il gesto sul palmo.

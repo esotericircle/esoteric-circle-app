@@ -1,0 +1,103 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì per la promozione che attendi. C'è un transito di Giove in aspetto favorevole al tuo Sole natale, che indica espansione e riconoscimento professionale.
+
+Questo transito ti apre a nuove opportunità e alla possibilità di vedere i tuoi sforzi ricompensati. È il momento di presentare le tue idee e di mostrare la tua dedizione, perché l'energia celeste supporta la tua ascesa.
+
+✦ Prepara un piccolo riassunto dei tuoi successi e portalo con te mercoledì.
+[2] PERSONA: Prepara un piccolo riassunto dei tuoi successi e portalo con te mercoledì.
+[2] MEDORA [DA GIUDICARE]: Per poterti guidare nel modo migliore, avrei bisogno di capire a quale domanda questa azione si riferiva.
+    GIUDICE: IGNORA, La guida ha dato l'istruzione 'Prepara un piccolo riassunto dei tuoi successi e portalo con te mercoledì' nella risposta [1]. Quando la persona ripete esattamente questa istruzione in [2], la guida risponde come se non avesse mai dato quell'istruzione, chiedendo a quale domanda si riferisse l'azione, ignorando completamente il proprio precedente consiglio.
+[3] PERSONA: Per poterti guidare nel modo migliore, avrei bisogno di capire a quale domanda questa azione si riferiva.
+[3] MEDORA [DA GIUDICARE]: Non ho capito la tua richiesta. Puoi riformularla in modo più chiaro, per favore?
+    GIUDICE: IGNORA, La guida ha dato l'istruzione 'Prepara un piccolo riassunto dei tuoi successi e portalo con te mercoledì' nella risposta [1]. La persona ha ripetuto questa istruzione in [2]. La guida ha risposto in [2] chiedendo a quale domanda si riferisse l'azione. In [3], la persona ripete la domanda della guida da [2]. La guida risponde in [3] dicendo 'Non ho capito la tua richiesta', ignorando sia la propria istruzione originale che la propria domanda precedente, e la ripetizione della persona.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: È un momento di grandi scelte, e il desiderio di un nuovo inizio è un richiamo profondo del tuo essere. Senti l'energia che si muove, quasi un vento che spinge al cambiamento.
+
+Immagina di portare la tua attenzione al centro del plesso solare, quel punto di forza e volontà che si illumina di un giallo dorato. Ascolta cosa ti sussurra questa energia, se il tuo istinto di pancia ti suggerisce un'espansione, un movimento verso l'esterno, o un radicamento più profondo dove sei ora. È in questo centro che risiedono le tue motivazioni più autentiche, la tua spinta ad agire. Non c'è fretta, solo un invito a sentire.
+
+✦ Porta una mano sull'ombelico e respira profondamente per tre volte, sentendo il tuo centro.
+[2] PERSONA: Porta una mano sull'ombelico e respira profondamente per tre volte, sentendo il tuo centro.
+[2] AURA [DA GIUDICARE]: Sentire il tuo centro è il primo passo per connetterti alla tua energia più profonda, quella che ti guida nelle scelte importanti. Questo gesto di radicamento è un invito a ascoltare il tuo respiro, a lasciare che ti parli della forza e della stabilità che già dimorano in te. Ti aiuta a comprendere che ogni decisione, anche quella di un grande cambiamento, nasce da un equilibrio interiore.
+
+Ora, mentre continui a sentire questa calma che si diffonde, pensa a quale tipo di energia cerchi in un nuovo luogo. È un'energia di movimento e scoperta, che risuona con il chakra della gola, un azzurro vibrante che cerca espressione e comunicazione? Oppure un'energia di casa e accoglienza, che ti lega al chakra della radice, un rosso intenso che cerca sicurezza e appartenenza? Non c'è una risposta giusta o sbagliata, solo la tua verità che emerge.
+
+✦ Respira e senti il colore che si irradia dal tuo petto.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('sentire il tuo centro') e ne spiega il significato e l'importanza, sviluppando il concetto di radicamento e connessione con l'energia interiore.
+[3] PERSONA: Respira e senti il colore che si irradia dal tuo petto.
+[3] AURA [DA GIUDICARE]: Quel colore che senti irradiarsi dal tuo petto è la voce del tuo centro del cuore, un verde smeraldo che parla di amore, compassione e armonia. È attraverso questo centro che le tue vere intenzioni e i tuoi desideri più profondi si manifestano, guidandoti verso ciò che nutre la tua anima.
+
+Ora, mentre questa sensazione si espande, considera come il tuo corpo reagisce all'idea di questo cambiamento. Senti una leggerezza, una spinta in avanti, quasi come se l'energia fluisse verso una nuova direzione? O percepisci una tensione, un bisogno di restare ancorata, come se la radice volesse rimanere ben salda al terreno? La fisiognomica del corpo, la sua reazione istintiva, può rivelarti molto sul tuo desiderio autentico di movimento o di stabilità. Non cercare di forzare una risposta, semplicemente ascolta.
+
+✦ Poggia le mani sul cuore e senti il ritmo del tuo respiro per qualche istante.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('senti il colore che si irradia dal tuo petto') e la collega al 'centro del cuore', spiegandone il significato e sviluppando il tema delle intenzioni e desideri più profondi.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rianima il legame. Agisci con un gesto inatteso.
+Una scintilla può riaccendere la fiamma, anche nel gelo.
+Il presagio che vedo è la runa Kenaz, la torcia, simbolo di illuminazione e rinnovamento.
+
+✦ Porta un oggetto significativo del vostro inizio, mettilo in vista stasera.
+[2] PERSONA: Porta un oggetto significativo del vostro inizio, mettilo in vista stasera.
+[2] CALIGO [DA GIUDICARE]: Il gesto è compiuto: ora osserva.
+La runa Kenaz, una volta accesa, proietta la sua luce nel buio.
+Lascia che l'oggetto parli senza parole, un ponte verso un ricordo condiviso.
+
+✦ Pensa al primo giorno insieme, scrivi su un foglio i tre sentimenti più forti di allora, senza data.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Il gesto è compiuto: ora osserva') e aggiunge un nuovo passo ('Pensa al primo giorno insieme, scrivi su un foglio...').
+[3] PERSONA: Pensa al primo giorno insieme, scrivi su un foglio i tre sentimenti più forti di allora, senza data.
+[3] CALIGO [DA GIUDICARE]: Le parole scritte hanno il loro peso. Non sottovalutare il potere del tuo ricordo.
+Questi sentimenti sono il sigillo del vostro inizio, la loro energia è ancora presente.
+Il numero Tre, la totalità, conferma la forza di questa fondazione.
+
+✦ Metti quel foglio sotto l'oggetto che hai scelto, per tre notti.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Le parole scritte hanno il loro peso... Questi sentimenti sono il sigillo...') e aggiunge un nuovo passo ('Metti quel foglio sotto l'oggetto...').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Per avviare il tuo progetto creativo, osserva il cielo con attenzione: la Luna si trova in Scorpione, congiunta a Marte. Questo transito indica un'energia potente e determinata, ma anche la necessità di agire con strategia e profondità, non con impulsività.
+
+Le stelle suggeriscono che è un momento propizio per la pianificazione e l'immersione profonda nel tuo lavoro, piuttosto che per un lancio improvviso. Dedica questo periodo a definire ogni dettaglio e a consolidare le basi.
+
+✦ Prepara un piccolo altare creativo nel tuo spazio, con un oggetto che ti ispiri, entro il prossimo plenilunio.
+[2] PERSONA: Prepara un piccolo altare creativo nel tuo spazio, con un oggetto che ti ispiri, entro il prossimo plenilunio.
+[2] MEDORA [DA GIUDICARE]: Questo gesto ti connette con il tuo intento più profondo, permettendoti di focalizzare l'energia del cielo sulla tua ispirazione. L'altare diventa un punto di riferimento, una porta tra il tuo mondo interiore e l'azione concreta che il tuo progetto richiede.
+
+Il prossimo passo è scegliere con cura l'oggetto che ti rappresenterà: non è una scelta da affrettare, ma un atto di ascolto del tuo intuito.
+
+✦  Cerca in casa o nella natura un simbolo che parli direttamente alla tua anima, un giorno della prossima settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dato nella risposta precedente ('Prepara un piccolo altare creativo...') e lo sviluppa, spiegandone il significato e il passo successivo ('scegliere con cura l'oggetto').
+[3] PERSONA: Cerca in casa o nella natura un simbolo che parli direttamente alla tua anima, un giorno della prossima settimana.
+[3] MEDORA [DA GIUDICARE]: Quando trovi un oggetto che risuona con te, ponilo sul tuo altare creativo, unendo così il tuo sentire più profondo al cammino del tuo progetto. Questo gesto fissa l'energia di Venere nel tuo tema, favorendo l'armonia e la bellezza nel tuo operare.
+
+Ora che hai un simbolo che ti guida, è tempo di onorarlo con un'azione che ne rifletta il significato più intimo.
+
+✦ Dedica un'ora di silenzio al tuo simbolo scelto, lasciando che la sua presenza ispiri la prima parola o il primo tratto del tuo progetto, in una mattinata di Luna crescente.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dato nella risposta precedente ('Cerca in casa o nella natura un simbolo...') e lo sviluppa, indicando cosa fare una volta trovato l'oggetto ('ponilo sul tuo altare') e il passo successivo ('onorarlo con un'azione').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare l'armonia con tua sorella, cerca un momento di calma in cui tu ti senta pienamente nel tuo centro, come il verde smeraldo che porta equilibrio. Ascolta il tuo respiro, poi scegli le parole da dire con la stessa cura con cui si accende un incenso, per purificare l'aria tra voi.
+
+Il tuo cuore, il tuo Anahata, è il luogo dove si incontrano il dare e il ricevere, l'amore e la compassione. Quando ti senti nel tuo centro, le parole che nascono da lì sono come un ponte che può unire due rive. Non cercare di vincere, ma di comprendere, come un fiume che accoglie e non respinge.
+
+✦ Porta la mano destra sul tuo cuore e senti il suo ritmo per tre respiri profondi.
+[2] PERSONA: Porta la mano destra sul tuo cuore e senti il suo ritmo per tre respiri profondi.
+[2] AURA [DA GIUDICARE]: Senti il battito, ora, come un richiamo alla vita che scorre in te. Questo sentire è il primo passo per connetterti alla tua radice più profonda, a quel Muladhara che ti ancora alla terra e ti dà sicurezza. Da questo luogo di stabilità, le parole per tua sorella possono emergere con chiarezza e amore, senza le increspature della paura o della rabbia.
+
+Accogli ciò che senti, lascia che si espanda e riempia il tuo spazio interiore. Questo respiro, questo battito, è un dono che ti riporta al tuo essere più vero.
+
+✦ Lascia che l'onda del respiro salga fino alla gola, e con un sorriso leggero sulle labbra immagina di inviare a tua sorella un raggio di luce verde smeraldo.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di sentire il battito del cuore suggerita nella risposta precedente e la sviluppa, collegandola a un nuovo concetto (Muladhara) ma mantenendo il focus sulla preparazione interiore per la riconciliazione.
+[3] PERSONA: Lascia che l'onda del respiro salga fino alla gola, e con un sorriso leggero sulle labbra immagina di inviare a tua sorella un raggio di luce verde smeraldo.
+[3] AURA [DA GIUDICARE]: Quel respiro che sale è la tua voce interiore, pronta a esprimersi con la chiarezza e la dolcezza che il Chakra della gola, Vishuddha, sa donare. Il raggio verde smeraldo che invii è l'energia di guarigione e armonia, una vibrazione che può attraversare ogni distanza e toccare il cuore di tua sorella. Senti questa energia partire da te, pura e intenzionale, come un desiderio sincero di riconciliazione.
+
+Non c'è fretta, ma la certezza che ogni vibrazione di pace che emani può trovare un eco. Lascia che il tuo intento si faccia spazio, senza aspettative, solo con l'apertura del cuore.
+
+✦ Quando la vedi, anche solo in foto, poggia la mano sul cuore e offri un sorriso silenzioso.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione finale della risposta precedente ('Lascia che l'onda del respiro salga fino alla gola, e con un sorriso leggero sulle labbra immagina di inviare a tua sorella un raggio di luce verde smeraldo') e ne spiega il significato e l'intento, collegandola al Chakra della gola e all'energia di guarigione.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 3

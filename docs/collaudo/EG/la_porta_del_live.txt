@@ -1,0 +1,22 @@
+LA PORTA DEL LIVE: COSA SCENDE SUL TELEFONO E COSA NO
+Ordine EG voci 01, 04 e 06.
+
+COSA NON SCENDE MAI, cercato in tutto lib:
+    PROTOFACE_API_KEY, LIVEKIT_API_SECRET, LIVEKIT_API_KEY,
+    e perfino l'indirizzo api.protoface.com.
+
+    Chi ha il segreto di LiveKit entra in QUALUNQUE stanza di
+    chiunque: per questo il telefono riceve solo un gettone
+    gia' fatto, buono per una stanza sola.
+
+COSA SCENDE, dal server e per una sessione sola:
+    url della stanza, gettone della persona, nome della
+    stanza, identificativo della sessione, avatar del
+    Maestro, minuti rimasti, durata massima.
+
+I TRE RIFIUTI, che non sono errori:
+    permission-denied  -> non e' per te, e si invita
+    resource-exhausted -> minuti finiti, e saluta il Maestro
+    tutto il resto     -> guasto, e si torna alla chat scritta
+
+    Un errore solo per tutte e tre sarebbe un vicolo cieco.

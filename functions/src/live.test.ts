@@ -1,0 +1,385 @@
+import {test} from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import {join} from "node:path";
+import {
+  I_MODELLI_DELLA_VOCE, LE_CANDIDATE, LE_VOCI_DI_PARTENZA, eUnaVoceChirp,
+  laStanzaE, ilContoDeiMinuti, secondiRimasti, MINUTI_DEL_MESE,
+  SECONDI_MINIMI_PER_APRIRE, StatoDeiMinuti, iMinutiPerLaConferma,
+  I_MAESTRI_DEL_LIVE, leMancanzeDelMaestro, SECONDI_SENZA_VOCE,
+  I_CAMPI_DEL_CONTO,
+} from "./live";
+
+/**
+ * LA CONFIGURAZIONE COMPLETA, ordine FE voce 03: ognuno dei tre Maestri ha
+ * ogni pezzo che il collegamento vocale legge, e l'apertura rifiuta con
+ * failed-precondition un Maestro a cui ne manca uno.
+ */
+test("FE.03 ogni Maestro del LIVE ha la configurazione completa", () => {
+  const mancanze = Object.fromEntries(
+    I_MAESTRI_DEL_LIVE.map((m) => [m, leMancanzeDelMaestro(m)]));
+  console.log(`FE.03 LE MANCANZE DEI MAESTRI: ${JSON.stringify(mancanze)}`);
+  assert.equal(I_MAESTRI_DEL_LIVE.length, 3);
+  for (const m of I_MAESTRI_DEL_LIVE) assert.deepEqual(mancanze[m], [], m);
+  assert.equal(leMancanzeDelMaestro("nessuno").length, 6);
+  const sorgente = readFileSync(join(__dirname, "..", "src", "live.ts"), "utf8");
+  assert.ok(sorgente.includes("const mancanze = leMancanzeDelMaestro(maestro);"));
+  assert.ok(sorgente.includes("throw new HttpsError(\"failed-precondition\","));
+});
+
+/**
+ * I MINUTI PER LA CONFERMA, ordine FD voce 01: quanto dura al massimo la
+ * sessione aperta adesso e quanti minuti restano, dai secondi del mese.
+ */
+test("i minuti per la conferma dicono durata, residuo e se si apre", () => {
+  assert.deepEqual(iMinutiPerLaConferma(37 * 60 + 20),
+    {rimasti: 37, durataMassimaSecondi: 1200, apribile: true});
+  assert.deepEqual(iMinutiPerLaConferma(300),
+    {rimasti: 5, durataMassimaSecondi: 300, apribile: true});
+  assert.deepEqual(iMinutiPerLaConferma(12),
+    {rimasti: 0, durataMassimaSecondi: 12, apribile: false});
+  assert.deepEqual(iMinutiPerLaConferma(-5),
+    {rimasti: 0, durataMassimaSecondi: 0, apribile: false});
+});
+
+/**
+ * LA SESSIONE DEL LIVE SI CHIUDE, E SOLO DA CHI L'HA APERTA. Ordine EK, guasto
+ * trovato fuori dal perimetro e curato col permesso del fondatore: uscendo,
+ * il telefono lasciava la stanza ma la sessione di Protoface restava accesa
+ * sessanta secondi, e 13 secondi a video sono stati fatturati 70.
+ */
+const sorgente = readFileSync(join(__dirname, "..", "src", "live.ts"), "utf8");
+
+/** Il corpo di una funzione esportata, fino alla successiva. */
+function corpoDi(nome: string): string {
+  const inizio = sorgente.indexOf(`export const ${nome} =`);
+  assert.ok(inizio >= 0, `${nome} non c'e' piu' in live.ts`);
+  const dopo = sorgente.indexOf("\nexport ", inizio + 10);
+  return sorgente.slice(inizio, dopo < 0 ? undefined : dopo);
+}
+
+test("la stanza si riconosce solo per chi l'ha aperta", () => {
+  assert.equal(laStanzaE("abc", "live_abc_1790238356244"), true);
+  assert.equal(laStanzaE("abc", "live_abcd_1790238356244"), false);
+  assert.equal(laStanzaE("abc", "live_xyz_1790238356244"), false);
+  assert.equal(laStanzaE("", "live__1790238356244"), false);
+  assert.equal(laStanzaE("abc", ""), false);
+});
+
+test("la chiusura chiede a Protoface di finire la sessione, dopo aver guardato di chi e'", () => {
+  const corpo = corpoDi("chiudiLaSessioneLive");
+  assert.match(corpo, /\/sessions\/\$\{id\}\/end/);
+  assert.match(corpo, /method: "POST"/);
+  const guarda = corpo.indexOf("laStanzaE(uid, stanza)");
+  const chiude = corpo.indexOf("/end`");
+  assert.ok(guarda > 0 && chiude > guarda,
+    "la sessione si chiude solo dopo aver verificato che e' della persona");
+});
+
+test("l'apertura legge l'avatar da Firestore, con la tabella come riserva", () => {
+  const corpo = corpoDi("apriUnaSessioneLive");
+  assert.match(corpo, /await lAvatarDi\(maestro\)/);
+  assert.match(sorgente, /doc\("configurazione\/live"\)[\s\S]{0,200}avatar/);
+});
+
+/**
+ * LE VOCI LE SCEGLIE IL FONDATORE, fra tutte. 24 settembre 2026, durante
+ * l'ordine EK: "vorrei un selettore con le voci in modo che posso sceglierle
+ * io. Quelle sentite finora fanno schifo".
+ */
+test("le candidate sono tutte le voci di Gemini del genere del Maestro, e le stesse in Chirp 3 HD", () => {
+  // **Ordine EM voce 02**: alle voci di Gemini si aggiungono le stesse in
+  // Chirp 3 HD, trenta voci italiane lette da /v1/voices sull'endpoint "eu"
+  // il 25 settembre 2026, con lo stesso nome e lo stesso genere.
+  const nomi = (m: string) => (LE_CANDIDATE[m] ?? [])
+    .filter((c) => c.famiglia === "Gemini").map((c) => c.voce);
+  const chirp = (m: string) => (LE_CANDIDATE[m] ?? [])
+    .filter((c) => c.famiglia === "Chirp 3 HD");
+  assert.equal(nomi("medora").length, 14);
+  assert.equal(nomi("aura").length, 14);
+  assert.equal(nomi("caligo").length, 16);
+  for (const m of ["medora", "aura", "caligo"]) {
+    assert.equal(chirp(m).length, nomi(m).length,
+      `${m}: le voci Chirp non sono le stesse di Gemini`);
+    for (const c of chirp(m)) {
+      assert.ok(eUnaVoceChirp(c.voce), `${c.voce} non porta il prefisso Chirp`);
+      assert.equal(c.voce, `Chirp3-HD-${c.nome}`);
+      assert.ok(nomi(m).includes(c.nome),
+        `${c.nome} in Chirp non ha la sua gemella in Gemini, cioe' il genere non torna`);
+    }
+    assert.equal((LE_CANDIDATE[m] ?? []).length, 2 * nomi(m).length);
+  }
+  assert.deepEqual(nomi("medora"), nomi("aura"));
+  for (const v of ["Gacrux", "Sulafat", "Kore", "Leda", "Autonoe"]) {
+    assert.ok(nomi("medora").includes(v), `${v} manca fra le voci di Medora`);
+  }
+  for (const v of ["Charon", "Algenib", "Rasalgethi", "Orus"]) {
+    assert.ok(nomi("caligo").includes(v), `${v} manca fra le voci di Caligo`);
+  }
+  assert.ok(!nomi("caligo").some((v) => nomi("medora").includes(v)),
+    "una voce femminile e' finita fra quelle di Caligo");
+});
+
+test("EO.15: la voce di partenza e' quella scelta dal fondatore, fra le candidate, ed e' Gemini", () => {
+  // Il fondatore, 26 settembre 2026: "allego le voci da lasciare di default,
+  // gia' scelte". Parla la partenza quando in configurazione/live.voci la
+  // scelta manca: un profilo nuovo sente queste.
+  const attese: Record<string, string> = {
+    medora: "Erinome", aura: "Sulafat", caligo: "Algenib",
+  };
+  for (const [maestro, voce] of Object.entries(attese)) {
+    assert.equal(LE_VOCI_DI_PARTENZA[maestro]?.voce, voce,
+      `${maestro}: la voce di partenza non e' ${voce}`);
+    const candidata = (LE_CANDIDATE[maestro] ?? []).find((c) => c.voce === voce);
+    assert.ok(candidata, `${voce} non e' fra le candidate di ${maestro}`);
+    assert.equal(candidata?.famiglia, "Gemini");
+    assert.ok(!eUnaVoceChirp(voce));
+  }
+  assert.deepEqual(Object.keys(LE_VOCI_DI_PARTENZA).sort(),
+    ["aura", "caligo", "medora"]);
+  // E la partenza e' davvero cio' che parla quando la scelta manca.
+  assert.match(sorgente, /const voce = valida \? scelta : partenza\.voce;/);
+});
+
+test("il modello della voce si sceglie solo fra quelli verificati, e lo usano il LIVE e l'ascolto", () => {
+  assert.deepEqual(I_MODELLI_DELLA_VOCE,
+    ["gemini-2.5-flash-tts", "gemini-2.5-pro-tts"]);
+  assert.match(sorgente,
+    /I_MODELLI_DELLA_VOCE\.includes\(modello\) \?\s*modello : MODELLO_DELLA_VOCE/);
+  assert.match(corpoDi("laVoceDelMaestro"),
+    /publishers\/google\/models\/\$\{come\.modello\}:/);
+  assert.match(corpoDi("ascoltaUnaVoce"),
+    /laVoceIntera\([\s\S]*?voce, modello\)/);
+});
+
+test("la porta degli avatar nuovi e' chiusa dall'IAM e aggancia solo un avatar pronto", () => {
+  const corpo = corpoDi("gliAvatarNuoviDiProtoface");
+  assert.match(corpo, /invoker: "private"/);
+  const pronto = corpo.indexOf('a.status !== "ready"');
+  const scrive = corpo.indexOf('doc("configurazione/live").set(');
+  assert.ok(pronto > 0 && scrive > pronto,
+    "l'aggancio scrive su Firestore solo dopo aver visto l'avatar pronto");
+});
+
+/**
+ * **LE VOCI CHIRP PARLANO SOLO DALL'ENDPOINT "eu"**, a flusso e senza il
+ * modo. Ordine EM voce 02: l'eccezione alla regione dei dati vale solo per
+ * la voce e solo per "eu", mai per "global"; la sintesi intera voleva
+ * 1.150-1.611 millesimi per il primo suono, quella a flusso 210-318.
+ */
+test("le voci Chirp parlano solo dall'endpoint eu, a flusso e senza modo", () => {
+  assert.match(sorgente,
+    /const PUNTO_DELLE_VOCI_CHIRP = "eu-texttospeech\.googleapis\.com";/);
+  assert.match(sorgente, /streamingSynthesize\(\)/);
+  // Nessun indirizzo della voce senza la sua regione: "global" e' vietato.
+  const globali = sorgente.match(/(?<![a-z0-9-])texttospeech\.googleapis\.com/g) ?? [];
+  assert.equal(globali.length, 0, "c'e' un indirizzo di Text-to-Speech senza regione");
+  const corpo = corpoDi("laVoceDelMaestro");
+  assert.match(corpo, /laVoceChirpAFlusso\(testo, come\.voce,/,
+    "la voce Chirp del LIVE riceve il testo senza il modo");
+  assert.match(corpoDi("ascoltaUnaVoce"),
+    /laVoceChirpAFlusso\(LA_FRASE_DI_PROVA\[maestro\], voce,/);
+});
+
+/**
+ * **LA VOCE SCELTA VALE SUBITO, E IL REGISTRO DICE QUALE VOCE HA PARLATO.**
+ * Ordine EM voce 06: la scelta restava in memoria un minuto per servizio, e
+ * nessun registro diceva la voce usata.
+ */
+test("la voce scelta si rilegge entro tre secondi e il registro dice quale voce ha parlato", () => {
+  const vale = /const LA_SCELTA_VALE_MS = (\d+);/.exec(sorgente);
+  assert.ok(vale, "manca il tempo per cui una lettura della scelta vale");
+  assert.ok(Number(vale[1]) <= 5000,
+    `la scelta resta in memoria ${vale[1]} millesimi: il LIVE parlerebbe con la voce vecchia`);
+  assert.match(sorgente, /ora - scelteInCache\.quando > LA_SCELTA_VALE_MS/);
+  const corpo = corpoDi("laVoceDelMaestro");
+  const registri = corpo.match(/logger\.info\("voce del Maestro", \{[^}]*\}/g) ?? [];
+  assert.equal(registri.length, 2, "servono due registri della voce, Gemini e Chirp");
+  for (const r of registri) {
+    assert.match(r, /voce: come\.voce/, "il registro della voce non dice quale voce");
+    assert.match(r, /punto:/, "il registro della voce non dice da quale endpoint");
+  }
+});
+
+/**
+ * **CALÌGO NON RALLENTA.** Ordine EM voce 12: col modo "voce grave e matura
+ * di uomo, con calma naturale" le sue sedici voci parlavano fra 9,1 e 11,1
+ * caratteri al secondo; qualunque parola sul timbro rallenta.
+ */
+test("il modo di Calìgo non porta le parole che lo rallentano", () => {
+  const modo = /caligo: "([^"]*)" \+\s*"([^"]*)"/.exec(
+    sorgente.slice(sorgente.indexOf("const I_MODI")));
+  assert.ok(modo, "il modo di Calìgo non si trova in I_MODI");
+  const testo = (modo[1] + modo[2]).toLowerCase();
+  for (const parola of ["grave", "matur", "calma", "lent", "profond", "anzian"]) {
+    assert.ok(!testo.includes(parola),
+      `il modo di Calìgo dice "${parola}", e le sue voci rallentano`);
+  }
+  assert.ok(testo.includes("madrelingua"),
+    "il modo di Calìgo ha perso la pronuncia di madrelingua");
+});
+
+/**
+ * I MINUTI DEL LIVE SCENDONO DAVVERO. Ordine EX voce 01: il server leggeva
+ * `minutiUsati` e nessuno lo scriveva (ordine EG voce 06), e dopo tre
+ * sessioni diceva ancora "rimasti 250" (ordine EW, voce EW.07).
+ */
+test("le sessioni finite sommano i loro secondi veri, le vive restano da contare", () => {
+  const dati = {
+    mese: "2026-10",
+    secondiUsati: 100,
+    daContare: {sess_a: "2026-10", sess_b: "2026-10", sess_c: "2026-09"},
+  };
+  const conto = ilContoDeiMinuti(dati, "2026-10", [
+    {id: "sess_a", stato: "ended", secondi: 423},
+    {id: "sess_b", stato: "running", secondi: 50},
+    {id: "sess_c", stato: "ended", secondi: 900},
+  ]);
+  assert.equal(conto.secondiUsati, 523);
+  assert.equal(conto.minutiUsati, 8.72);
+  assert.deepEqual(conto.daContare, {sess_b: "2026-10"});
+});
+
+/**
+ * UNA SESSIONE FINITA SENZA SECONDI FATTURATI NON E' UNA SESSIONE DA ZERO.
+ * Ordine EX voce 01, collaudo sul Realme del 2 ottobre 2026: la quarta
+ * sessione (sess_01M3YGGJPS3RV9CNSPNTP1A1AY, 28 secondi) alla chiusura era
+ * gia' "ended" ma Protoface non aveva ancora scritto i suoi secondi; il conto
+ * l'ha tolta dal registro con zero, e Protoface l'ha fatturata 29 secondi
+ * (l'uso del mese da 736 a 765). Adesso resta da contare finche' i secondi
+ * non arrivano; quelle fallite o annullate escono anche a zero.
+ */
+test("una sessione finita senza secondi fatturati resta da contare finche' arrivano", () => {
+  const dati = {
+    mese: "2026-10",
+    secondiUsati: 147,
+    daContare: {sess_4: "2026-10", sess_x: "2026-10", sess_v: "2026-09"},
+  };
+  const subito = ilContoDeiMinuti(dati, "2026-10", [
+    {id: "sess_4", stato: "ended", secondi: 0},
+    {id: "sess_x", stato: "failed", secondi: 0},
+    {id: "sess_v", stato: "ended", secondi: 0},
+  ]);
+  assert.equal(subito.secondiUsati, 147);
+  assert.deepEqual(subito.daContare, {sess_4: "2026-10"});
+  const dopo = ilContoDeiMinuti(subito, "2026-10", [
+    {id: "sess_4", stato: "ended", secondi: 29},
+  ]);
+  assert.equal(dopo.secondiUsati, 176);
+  assert.deepEqual(dopo.daContare, {});
+});
+
+test("tre sessioni contate fanno scendere i minuti rimasti della loro durata", () => {
+  let dati: Record<string, any> = {};
+  const durate = [423, 13, 300];
+  durate.forEach((secondi, i) => {
+    dati = {...dati, ...ilContoDeiMinuti(dati, "2026-10", [])};
+    dati.daContare = {...dati.daContare, [`sess_${i}`]: "2026-10"};
+    dati = ilContoDeiMinuti(dati, "2026-10", [
+      {id: `sess_${i}`, stato: "ended", secondi},
+    ]);
+  });
+  const conto = dati as StatoDeiMinuti;
+  assert.equal(conto.secondiUsati, 736);
+  assert.equal(secondiRimasti(MINUTI_DEL_MESE.tier2, conto), 4800 - 736);
+});
+
+test("un mese nuovo riparte da zero e i minuti finiti non si superano", () => {
+  const vecchio = ilContoDeiMinuti(
+    {mese: "2026-09", secondiUsati: 7200, daContare: {}}, "2026-10", []);
+  assert.equal(vecchio.secondiUsati, 0);
+  const finiti = ilContoDeiMinuti(
+    {mese: "2026-10", secondiUsati: 9100, daContare: {}}, "2026-10", []);
+  assert.equal(secondiRimasti(MINUTI_DEL_MESE.tier3, finiti), 0);
+  assert.ok(secondiRimasti(MINUTI_DEL_MESE.tier3, finiti) < SECONDI_MINIMI_PER_APRIRE);
+});
+
+test("il conto legge i minuti scritti prima dell'ordine EX", () => {
+  const conto = ilContoDeiMinuti(
+    {mese: "2026-10", minutiUsati: 2}, "2026-10", []);
+  assert.equal(conto.secondiUsati, 120);
+});
+
+test("l'apertura conta prima di decidere, e la sessione aperta entra nel registro", () => {
+  // Ordine FD voce 01: il conto vive in `iSecondiCheRestano`, che usano sia
+  // l'apertura sia la lettura dei minuti per la conferma.
+  const apri = corpoDi("apriUnaSessioneLive");
+  const conto = sorgente.slice(
+    sorgente.indexOf("async function iSecondiCheRestano("),
+    sorgente.indexOf("export function iMinutiPerLaConferma("));
+  assert.ok(conto.includes("contaLeSessioniFinite(uid)"));
+  assert.ok(apri.indexOf("iSecondiCheRestano(uid") > -1);
+  assert.ok(apri.indexOf("iSecondiCheRestano(uid") < apri.indexOf("SECONDI_MINIMI_PER_APRIRE"));
+  assert.ok(corpoDi("iMinutiDelLive").includes("iSecondiCheRestano(uid"));
+  assert.ok(apri.includes("daContare(uid, String(sessione.id))"));
+  assert.ok(apri.includes("Math.min(DURATA_MASSIMA, Math.floor(restano))"));
+  const chiudi = corpoDi("chiudiLaSessioneLive");
+  assert.ok(chiudi.includes("contaLeSessioniFinite(uid)"));
+  assert.deepEqual(MINUTI_DEL_MESE, {free: 0, tier1: 0, tier2: 80, tier3: 150});
+});
+
+/**
+ * IL TEMPO SENZA VOCE NON SI SCALA. Ordine FE voce 07. Una sessione segnata
+ * senza voce dal telefono non somma i suoi secondi se e' durata al piu'
+ * SECONDI_SENZA_VOCE; oltre si conta, perche' il segno non regali minuti.
+ */
+test("FE.07: la sessione senza voce non scala i minuti, oltre il tetto si", () => {
+  const dati = {
+    mese: "2026-10",
+    secondiUsati: 300,
+    daContare: {sess_muta: "2026-10", sess_lunga: "2026-10", sess_vera: "2026-10"},
+    senzaVoce: {sess_muta: true, sess_lunga: true},
+  };
+  const conto = ilContoDeiMinuti(dati, "2026-10", [
+    {id: "sess_muta", stato: "ended", secondi: 60},
+    {id: "sess_lunga", stato: "ended", secondi: SECONDI_SENZA_VOCE + 1},
+    {id: "sess_vera", stato: "ended", secondi: 120},
+  ]);
+  assert.equal(conto.secondiUsati, 300 + SECONDI_SENZA_VOCE + 1 + 120);
+  assert.equal(conto.secondiSenzaVoce, 60);
+  assert.deepEqual(conto.daContare, {});
+  assert.deepEqual(conto.senzaVoce, {});
+});
+
+test("FE.07: senza il segno, la stessa sessione breve si conta", () => {
+  const conto = ilContoDeiMinuti(
+    {mese: "2026-10", secondiUsati: 0, daContare: {sess_muta: "2026-10"}},
+    "2026-10",
+    [{id: "sess_muta", stato: "ended", secondi: 60}]);
+  assert.equal(conto.secondiUsati, 60);
+  assert.equal(conto.secondiSenzaVoce, 0);
+});
+
+/**
+ * UNA SESSIONE SI CONTA UNA VOLTA. Ordine FE, difetto trovato alla voce 07,
+ * padre l'ordine EX voce 01: il conto si scriveva con merge, che lascia nel
+ * documento le chiavi tolte da daContare, e la sessione si sommava di nuovo
+ * a ogni conto. Qui si scrive il conto come fa Firestore con mergeFields (i
+ * campi del conto sostituiti interi), poi si conta di nuovo.
+ */
+test("una sessione contata non si somma una seconda volta", () => {
+  const scrivi = (doc: Record<string, any>, conto: StatoDeiMinuti) => {
+    const nuovo = {...doc};
+    for (const campo of I_CAMPI_DEL_CONTO) {
+      nuovo[campo] = (conto as unknown as Record<string, unknown>)[campo];
+    }
+    return nuovo;
+  };
+  let doc: Record<string, any> = {
+    mese: "2026-10", secondiUsati: 0, daContare: {sess_a: "2026-10"},
+  };
+  const lette = [{id: "sess_a", stato: "ended", secondi: 100}];
+  doc = scrivi(doc, ilContoDeiMinuti(doc, "2026-10", lette));
+  doc = scrivi(doc, ilContoDeiMinuti(doc, "2026-10", lette));
+  assert.equal(doc.secondiUsati, 100);
+  for (const campo of ["mese", "secondiUsati", "minutiUsati", "daContare",
+    "senzaVoce", "secondiSenzaVoce"]) {
+    assert.ok(I_CAMPI_DEL_CONTO.includes(campo), campo);
+  }
+  const sorgente = readFileSync(join(__dirname, "..", "src", "live.ts"), "utf8");
+  const conti = sorgente.match(/t\.set\(rif, conto, \{[^}]*\}\)/g) ?? [];
+  assert.ok(conti.length >= 3, `scritture del conto trovate: ${conti.length}`);
+  for (const c of conti) {
+    assert.ok(c.includes("mergeFields: I_CAMPI_DEL_CONTO"), c);
+  }
+});

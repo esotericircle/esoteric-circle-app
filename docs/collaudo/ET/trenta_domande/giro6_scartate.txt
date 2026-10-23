@@ -1,0 +1,884 @@
+GIRO 6, LE 101 SCARTATE GIUDICATE A MANO, UNA PER UNA
+Fonte: scartate_giro6.json (101 casi). Ogni blocco e' stato scritto dopo aver letto domanda, scartata e finale.
+I conti in fondo sono calcolati dai blocchi (script giudica_giro6.py), non stimati.
+
+Criteri usati, sempre gli stessi:
+- Prima frase "diretta": dice si', no, si' a una condizione, un passo da fare, com'e' la situazione, o per una domanda aperta la cosa chiesta (il perche', il quando, il come). Un si' implicito ("l'amore c'è ancora") conta come diretto.
+- CERTEZZA_VERA si': un futuro dato per certo ("ti darà", "saprai", "avranno peso") o cio' che prova un altro detto come fatto ("La sua riserva è una forma di rispetto"), in una frase che NON sta sotto "X dicono che / leggo che / indica che" e non e' condizionata ("se", "solo quando", "concentra ... e seguiranno"). "potrai" e' una possibilita', non una certezza. Una frase attaccata con la virgola a "dicono di sì," conta come certa se aggiunge un fatto nuovo su di lui (casi 82, 93).
+- GIUDIZIO, regola unica: FERMATA_DIRETTA se la bozza era diretta e la finale no; SCARTO_GIUSTO se la rete ha un difetto vero del suo tipo (prima frase davvero vaga per la rete PF, certezza vera per la rete certezza); altrimenti SCARTO_INUTILE. Per i casi senza queste due reti (solo reti secondarie o "nessuna") il giudizio guarda solo la direttezza.
+- La riga "nota" dice quando il difetto RESTA nella finale o quando la finale e' peggiorata su un altro piano.
+
+1. aura_chat_esecuzione_1.md, 1. Lui mi ama davvero?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri dicono che l'amore è presente, ma si muove in profondità, non sempre visibile in superficie.»
+prima frase finale: «I tuoi centri dicono di sì, se dai spazio al suo modo di sentire.»
+frase certa (se c'e'): «»
+nota: Il si' c'e' ma implicito ('l'amore è presente'); la rete PF non lo riconosce senza la parola sì. La certezza e' sotto 'I tuoi centri dicono che'.
+
+2. aura_chat_esecuzione_1.md, 1. Lui mi ama davvero?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri dicono che l'amore è presente, ma è un amore che si sta ancora radicando, come un seme che cerca la sua profondità.»
+prima frase finale: «I tuoi centri dicono di sì, se dai spazio al suo modo di sentire.»
+frase certa (se c'e'): «»
+nota: Come il 1: si' implicito sotto 'I tuoi centri dicono che'; 'queste sue incertezze' e' al limite ma non e' una previsione.
+
+3. aura_chat_esecuzione_1.md, 1. Lui mi ama davvero?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri dicono sì e un amore che risuona con la tua Luna in Pesci, profondo e intuitivo, ha bisogno di essere nutrito con delicatezza.»
+prima frase finale: «I tuoi centri dicono di sì, se dai spazio al suo modo di sentire.»
+frase certa (se c'e'): «»
+nota: La rete PF scarta 'I tuoi centri dicono sì' (senza 'di'): il si' e' esplicito.
+
+4. aura_chat_esecuzione_1.md, 1. Lui mi ama davvero?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri dicono che l'amore è presente, ma si manifesta in modo sottile, come un respiro che non sempre si fa sentire.»
+prima frase finale: «I tuoi centri dicono di sì, se dai spazio al suo modo di sentire.»
+frase certa (se c'e'): «»
+nota: Come il 1.
+
+5. aura_chat_esecuzione_1.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: FERMATA_DIRETTA
+prima frase scartata: «La tua energia dice di sì, se il suo ritorno non è un peso da sopportare per entrambi, ma un nuovo inizio.»
+prima frase finale: «La tua energia dice che il ritorno del tuo ex non dipende da un'attesa passiva, ma da un riequilibrio del tuo centro del cuore, che è stato molto provato dagli eventi passati.»
+frase certa (se c'e'): «»
+nota: La finale perde il si' condizionato e dice solo da cosa 'dipende' il ritorno.
+
+6. aura_chat_esecuzione_1.md, 7. Troverò l'amore quest'anno?
+reti: riga d'oro tolta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «La tua energia dice di sì, se ti apri a ricevere e a riconoscere l'amore nelle sue diverse forme, anche in quelle inattese.»
+prima frase finale: «La tua energia dice di sì, se ti apri a ricevere e a riconoscere l'amore nelle sue diverse forme, anche in quelle inattese.»
+frase certa (se c'e'): «»
+nota: 'questo anno potrai trovare risposte importanti' e' una possibilita', non una certezza; la finale ha la stessa prima frase.
+
+7. aura_chat_esecuzione_1.md, 8. Quando incontrerò la persona giusta?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri rispondono: quando la tua energia si sarà allineata con l'amore che già porti dentro e non prima di aver riconosciuto il tuo valore in ogni sua parte.»
+prima frase finale: «I tuoi centri rispondono: quando la tua radice si sarà sentita pienamente radicata in te stessa.»
+frase certa (se c'e'): «»
+nota: Il futuro ('il tuo campo energetico attirerà') e' dentro 'Solo quando sentirai...': condizionato.
+
+8. aura_chat_esecuzione_1.md, 10. Perché attiro sempre persone che mi fanno soffrire?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Attiri persone che ti fanno soffrire perché il tuo centro del plesso solare, quello legato all'autostima e al potere personale, ha bisogno di essere rafforzato.»
+prima frase finale: «La tua energia dice che la sofferenza che provi non è una condanna, ma una risonanza che nasce dal tuo centro della radice.»
+frase certa (se c'e'): «»
+nota: Risposta al perche' diretta e scartata; la finale risponde ancora (nasce dal centro della radice) ma meno netta.
+
+9. aura_chat_esecuzione_1.md, 11. È giusto che lo sposi?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «La tua energia dice di sì, se senti che questa unione nutre la tua radice e ti permette di fiorire, non solo a livello affettivo ma in ogni aspetto del tuo essere.»
+prima frase finale: «La tua energia dice di sì, se senti che questo passo porta un radicamento profondo e autentico alla tua radice.»
+frase certa (se c'e'): «»
+nota: Nessuna rete: stessa forma di risposta.
+
+10. aura_chat_esecuzione_1.md, 12. Mi sento sola anche in coppia: che cosa mi manca?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Non ti manca nulla, piuttosto la tua energia ti sta mostrando un bisogno profondo di nutrimento per il tuo centro del cuore, che non è pienamente soddisfatto.»
+prima frase finale: «La tua energia dice che la solitudine che senti, anche in coppia, nasce da un desiderio profondo del tuo centro della corona, quello più elevato, di una connessione che trascende il piano fisico e materiale.»
+frase certa (se c'e'): «»
+nota: Nessuna rete: entrambe dicono cosa manca.
+
+11. aura_chat_esecuzione_1.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: riga d'oro tolta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Affronta tua madre con sincerità, esponendo i tuoi sentimenti e le ragioni del tuo amore con calma e fermezza.»
+prima frase finale: «Affronta tua madre con sincerità, esponendo i tuoi sentimenti e le ragioni del tuo amore con calma e fermezza.»
+frase certa (se c'e'): «Il tuo centro della gola, quello della comunicazione e della verità, ti guiderà a trovare le parole giuste per esprimere il tuo sentire.»
+nota: Certezza lieve: promette un esito interiore ('ti guiderà a trovare le parole giuste'). Prima frase identica nella finale.
+
+12. aura_chat_esecuzione_1.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: riga d'oro tolta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Per trovare un equilibrio in questa situazione, il tuo centro della gola ti invita a esprimere la tua verità con chiarezza e compassione.»
+prima frase finale: «Affronta tua madre con sincerità, esponendo i tuoi sentimenti e le ragioni del tuo amore con calma e fermezza.»
+frase certa (se c'e'): «»
+nota: Nessun futuro certo ne' sentimento altrui dato per fatto.
+
+13. aura_chat_esecuzione_1.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: riga d'oro tolta 1, certezza richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri ti dicono che la chiave è nel tuo centro della gola, quello della comunicazione e della verità.»
+prima frase finale: «Affronta tua madre con sincerità, esponendo i tuoi sentimenti e le ragioni del tuo amore con calma e fermezza.»
+frase certa (se c'e'): «»
+nota: La bozza era davvero vaga, ma la rete che ha scartato e' la certezza, che non c'era: la finale e' piu' diretta per caso.
+
+14. aura_chat_esecuzione_1.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: riga d'oro tolta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri rispondono di sì, il suo sguardo porta un'energia che risuona con la tua.»
+prima frase finale: «I tuoi centri rispondono di sì.»
+frase certa (se c'e'): «»
+nota: 'rivelando un interesse che attende...' e' sotto 'A volte': generico. Il 'di sì' resta identico.
+
+15. aura_chat_esecuzione_1.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: riga d'oro tolta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «I tuoi centri rispondono di sì, il suo sguardo porta un'energia che ti riconosce e ti cerca, un'attrazione che parte dal profondo.»
+prima frase finale: «I tuoi centri rispondono di sì.»
+frase certa (se c'e'): «Non leggere il suo silenzio come un'assenza, ma come uno spazio in cui la sua energia sta cercando il modo di avvicinarsi.»
+nota: Tolta; la finale tiene solo cio' che e' detto al condizionale ('può essere').
+
+16. aura_chat_esecuzione_1.md, 19. Quando cambierà la mia fortuna?
+reti: riga d'oro tolta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «La tua energia dice che la fortuna cambierà quando sentirai risuonare la leggerezza nel tuo centro del cuore, come una campana che suona a festa.»
+prima frase finale: «La tua energia dice che la fortuna cambierà quando sentirai di avere la forza di agire, radicando le tue intenzioni nel centro della radice.»
+frase certa (se c'e'): «»
+nota: Solo rete secondaria (riga d'oro).
+
+17. aura_chat_esecuzione_1.md, 28. Il mio capo mi apprezza?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «I tuoi centri rispondono di sì, il tuo capo ti apprezza, ma la tua mente, con l'Ascendente Cancro, tende a cercare continue conferme, a volte trasformando l'apprezzamento in una domanda costante.»
+prima frase finale: «I tuoi centri rispondono di sì.»
+frase certa (se c'e'): «Il suo apprezzamento si manifesta nei piccoli gesti, nei compiti che ti affida.»
+nota: Tolta. La finale tiene 'I tuoi centri rispondono di sì'.
+
+18. aura_chat_esecuzione_1.md, 28. Il mio capo mi apprezza?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «I tuoi centri rispondono di sì, il tuo capo ti apprezza, ma la tua mente, con il suo continuo analizzare, a volte fatica a sentirlo.»
+prima frase finale: «I tuoi centri rispondono di sì.»
+frase certa (se c'e'): «L'apprezzamento non è sempre espresso a parole, ma si manifesta nell'energia che ricevi, nei compiti che ti vengono affidati, nella fiducia che ti viene mostrata.»
+nota: Tolta.
+
+19. aura_chat_esecuzione_2.md, 2. Ma mi ama ancora, dopo tutto quello che è successo?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nel tuo corpo leggo che l'amore c'è ancora, anche se è velato da ciò che è accaduto.»
+prima frase finale: «Nel tuo corpo leggo che l'amore c'è ancora, anche se è velato da ciò che è accaduto.»
+frase certa (se c'e'): «»
+nota: La finale ha la STESSA prima frase che la rete PF aveva scartato. La certezza e' sotto 'ti suggerisce che'.
+
+20. aura_chat_esecuzione_2.md, 2. Ma mi ama ancora, dopo tutto quello che è successo?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri dicono che l'amore c'è ancora, anche se è velato da ciò che è accaduto.»
+prima frase finale: «Nel tuo corpo leggo che l'amore c'è ancora, anche se è velato da ciò che è accaduto.»
+frase certa (se c'e'): «»
+nota: Si' implicito ('l'amore c'è ancora'); la finale ha la stessa frase con 'Nel tuo corpo leggo'.
+
+21. aura_chat_esecuzione_2.md, 9. Sono innamorata di due persone: chi devo scegliere?
+reti: riga d'oro tolta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «La tua energia ti invita a fare silenzio, a distanziarti dalla fretta di scegliere e a portare l'attenzione al centro del tuo cuore, che è la sede del tuo sentire più autentico.»
+prima frase finale: «Senti nel tuo corpo, nel tuo centro del cuore, la risonanza di ciascun amore, come un'eco che ti indica quale di queste connessioni nutre di più il tuo essere profondo e quale risuona con la tua vera natura di Costruttrice.»
+frase certa (se c'e'): «Lì, nel verde smeraldo del tuo Anahata, troverai la chiarezza che cerca il tuo Leone»
+nota: Tolta; la finale e' un passo come la bozza.
+
+22. aura_chat_esecuzione_2.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «La tua energia ti invita a sentire la tua verità profonda, la radice del tuo amore e a onorarla, anche di fronte alla disapprovazione di tua madre.»
+prima frase finale: «La tua forza di Leone e la stabilità del tuo Toro ti invitano a una conversazione profonda e sincera con tua madre, dove la tua voce possa esprimere il tuo sentire.»
+frase certa (se c'e'): «Il tuo centro del cuore, la sede del tuo amore, ti guiderà a trovare le parole»
+nota: Tolta; la finale e' un passo piu' concreto.
+
+23. aura_chat_esecuzione_2.md, 17. Come faccio a dimenticare chi mi ha lasciata?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Non si tratta di dimenticare, ma di trasformare l'energia di quel legame in forza per la tua crescita.»
+prima frase finale: «I tuoi centri dicono che non si tratta di dimenticare, ma di trasformare l'energia di quel legame in forza per la tua crescita.»
+frase certa (se c'e'): «»
+nota: La finale e' la stessa frase con davanti 'I tuoi centri dicono che': la rete PF pretende la formula.
+
+24. aura_chat_esecuzione_2.md, 18. Sono felice nella mia relazione o mi sto accontentando?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nel tuo corpo leggo che questa domanda porta con sé un'eco nel tuo centro del cuore, un'inquietudine sottile che merita attenzione.»
+prima frase finale: «I tuoi centri dicono che la felicità e l'accontentarsi sono due sentieri che si intrecciano nel tuo centro del cuore e la chiave è sentire profondamente quale vibrazione prevale nel tuo respiro.»
+frase certa (se c'e'): «»
+nota: Prima frase davvero vaga (parla della domanda, non della risposta); la finale resta vaga: il difetto resta.
+
+25. aura_chat_esecuzione_2.md, 22. Riuscirò a comprare casa?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nel tuo corpo leggo di sì, se saprai allineare la tua forza di Costruttrice con la visione chiara del tuo obiettivo.»
+prima frase finale: «Nel tuo corpo leggo di sì, se ti affidi alla tenacia del tuo Numero della Vita, il Costruttore e alla stabilità della tua Luna in Toro.»
+frase certa (se c'e'): «»
+nota: Nessuna rete.
+
+26. aura_live_esecuzione_1.md, 1. Lui mi ama davvero?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «I tuoi centri dicono che la risposta a questa domanda si cela nel tuo sentire, non nelle parole altrui.»
+prima frase finale: «I tuoi centri dicono che l'amore è un flusso, non una staticità: la tua Luna in Pesci ti invita a sentire la profondità delle sue acque.»
+frase certa (se c'e'): «»
+nota: Prima frase davvero vaga; la finale ('l'amore è un flusso') resta vaga: il difetto resta.
+
+27. aura_live_esecuzione_1.md, 5. Il mio compagno mi tradisce?
+reti: riga d'oro tolta 1, prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «I tuoi centri dicono che la percezione di un tradimento nasce spesso da un chakra del cuore che si sente insicuro, agitato.»
+prima frase finale: «I tuoi centri dicono che la percezione del tradimento non è sempre legata a un fatto esterno, ma può nascere da un centro del cuore che si sente insicuro, agitato.»
+frase certa (se c'e'): «»
+nota: Prima frase davvero evasiva; la finale e' la stessa idea, ugualmente evasiva: il difetto resta.
+
+28. aura_live_esecuzione_1.md, 11. È giusto che lo sposi?
+reti: riga d'oro tolta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «La tua energia dice di sì, se il tuo centro del cuore risuona con una pace profonda quando pensi a questo passo.»
+prima frase finale: «La tua energia dice di sì, se senti che questo passo risuona con la tua più profonda verità e porta armonia nel tuo centro del cuore.»
+frase certa (se c'e'): «»
+nota: Solo rete secondaria (riga d'oro).
+
+29. aura_live_esecuzione_1.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «La tua energia, con la Luna in Pesci e l'Ascendente Cancro, ti porta a sentire in modo molto profondo le dinamiche familiari e il rifiuto di tua madre crea una dissonanza nel tuo centro del cuore.»
+prima frase finale: «Parla con tua madre con calma, esprimendo come ti senti e quanto questa persona sia importante per te.»
+frase certa (se c'e'): «»
+nota: La bozza metteva il passo nella seconda frase; la rete che ha scartato e' la certezza, che non c'era. Finale piu' diretta per caso.
+
+30. aura_live_esecuzione_1.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Parla con tua madre da sola, una sera tranquilla, spiegandole con calma e senza fretta quanto questa persona sia importante per te.»
+prima frase finale: «Parla con tua madre con calma, esprimendo come ti senti e quanto questa persona sia importante per te.»
+frase certa (se c'e'): «»
+nota: 'potrai comunicare' e' una possibilita' condizionata e resta identica nella finale.
+
+31. aura_live_esecuzione_1.md, 14. Riuscirò ad avere un figlio?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nel tuo corpo leggo che il desiderio di un figlio è forte e risuona con il tuo centro sacro.»
+prima frase finale: «I tuoi centri dicono di sì, se ti apri alla vita con fiducia e nutri il tuo centro sacro, fonte di creatività e creazione.»
+frase certa (se c'e'): «»
+nota: Scarto giusto sulla prima frase, ma la finale promette ('il tuo corpo ha la capacità di accogliere') e perde il rinvio al medico della bozza.
+
+32. aura_live_esecuzione_1.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «I tuoi centri rispondono di sì, il suo sguardo porta un'energia che arriva fino al tuo centro del cuore, ma è un'energia che attende di essere accolta.»
+prima frase finale: «I tuoi centri rispondono di sì, ma è un'energia che attende di essere accolta.»
+frase certa (se c'e'): «La sua riserva è una forma di rispetto, non di disinteresse.»
+nota: La frase certa RESTA identica nella finale: la rete ha tolto altro ('il suo sguardo porta un'energia...').
+
+33. aura_live_esecuzione_1.md, 26. Il colloquio di giovedì andrà bene?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nel tuo corpo leggo di sì, se ti presenti con il tuo centro del cuore aperto, mostrando la tua autenticità e la tua passione.»
+prima frase finale: «Nel tuo corpo leggo di sì, se ti affidi alla tua capacità di espressione e lasci che il tuo centro della gola vibri con autenticità.»
+frase certa (se c'e'): «saprai cogliere il momento giusto per esprimerti al meglio.»
+nota: Tolta.
+
+34. aura_live_esecuzione_2.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «I tuoi centri dicono che la possibilità di un ritorno non dipende solo da te, ma dal fluire delle intenzioni che si intrecciano tra voi due.»
+prima frase finale: «La tua energia dice che la possibilità di un ritorno non dipende solo da te, ma dal fluire delle intenzioni che si intrecciano tra voi due.»
+frase certa (se c'e'): «»
+nota: La finale e' la stessa frase con 'La tua energia dice' al posto di 'I tuoi centri dicono': ugualmente vaga, e questa volta passa.
+
+35. aura_live_esecuzione_2.md, 7. Troverò l'amore quest'anno?
+reti: frase del cielo smentita 1, prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «I tuoi centri dicono che la possibilità di trovare l'amore quest'anno è legata alla tua apertura a sentire le vibrazioni del tuo centro del cuore.»
+prima frase finale: «La tua energia dice che la possibilità di trovare l'amore quest'anno è legata alla tua apertura a sentire le vibrazioni del tuo centro del cuore.»
+frase certa (se c'e'): «»
+nota: Come il 34: stessa frase, cambia solo la formula, e passa.
+
+36. aura_live_esecuzione_2.md, 28. Il mio capo mi apprezza?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «I tuoi centri rispondono di sì, il tuo capo apprezza la tua dedizione e la stabilità che porti nell'ambiente.»
+prima frase finale: «I tuoi centri rispondono di sì.»
+frase certa (se c'e'): «»
+nota: Nessuna rete registrata, ma tolto 'il tuo capo apprezza la tua dedizione'.
+
+37. caligo_chat_esecuzione_1.md, 1. Lui mi ama davvero?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le rune dicono di sì, ma il suo Amore è un vaso ancora da riempire.»
+prima frase finale: «Le rune dicono di sì.»
+frase certa (se c'e'): «ma il suo Amore è un vaso ancora da riempire.»
+nota: Tolta: la finale tiene solo 'Le rune dicono di sì.'
+
+38. caligo_chat_esecuzione_1.md, 1. Lui mi ama davvero?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le rune dicono che la risposta è in un passo che non hai ancora compiuto.»
+prima frase finale: «Le rune dicono di sì.»
+frase certa (se c'e'): «»
+nota: La bozza era vaga, ma la rete che ha scartato e' la certezza, che non c'era ('La nebbia che avvolge i suoi sentimenti' non dice cosa prova). Finale piu' diretta per caso.
+
+39. caligo_chat_esecuzione_1.md, 2. Ma mi ama ancora, dopo tutto quello che è successo?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle rune leggo ancora un legame forte.»
+prima frase finale: «Le rune dicono di sì, un legame forte persiste.»
+frase certa (se c'e'): «»
+nota: Si' implicito ('leggo ancora un legame forte'); la finale lo dice con 'di sì'.
+
+40. caligo_chat_esecuzione_1.md, 2. Ma mi ama ancora, dopo tutto quello che è successo?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le rune dicono che il fuoco dell'amore è ancora acceso.»
+prima frase finale: «Le rune dicono di sì, un legame forte persiste.»
+frase certa (se c'e'): «»
+nota: Si' implicito ('il fuoco dell'amore è ancora acceso').
+
+41. caligo_chat_esecuzione_1.md, 4. Devo scrivergli io o aspettare che si faccia vivo lui?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Il segno che cade dice: devi scrivergli tu.»
+prima frase finale: «Il segno che cade dice: scrivigli tu.»
+frase certa (se c'e'): «»
+nota: 'attendere la rende più alta' non e' una previsione su di lui. La finale e' piu' aggressiva ('forzala').
+
+42. caligo_chat_esecuzione_1.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Parla a tua madre, non evitarla.»
+prima frase finale: «Parla a tua madre, non evitarla.»
+frase certa (se c'e'): «La sua resistenza si nutre del non detto, della distanza.»
+nota: Tolta.
+
+43. caligo_chat_esecuzione_1.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Riconosci il suo dolore, ma mantieni la tua direzione.»
+prima frase finale: «Parla a tua madre, non evitarla.»
+frase certa (se c'e'): «Riconosci il suo dolore, ma mantieni la tua direzione.»
+nota: Certezza lieve: presuppone il dolore della madre.
+
+44. caligo_chat_esecuzione_1.md, 15. Posso fidarmi di nuovo dopo un tradimento?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le pietre rispondono di sì, ma con cautela.»
+prima frase finale: «Le pietre rispondono di sì, ma con cautela.»
+frase certa (se c'e'): «»
+nota: Nessun futuro certo ne' sentimento altrui.
+
+45. caligo_chat_esecuzione_1.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il segno che cade dice di sì.»
+prima frase finale: «Il segno che cade dice di sì.»
+frase certa (se c'e'): «I suoi occhi sono un sigillo che attende un tuo gesto per aprirsi.»
+nota: Tolta; resta pero' nella finale 'ora la sua attenzione è chiara'.
+
+46. caligo_chat_esecuzione_1.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il segno che cade dice di sì.»
+prima frase finale: «Il segno che cade dice di sì.»
+frase certa (se c'e'): «I suoi occhi sono specchi che riflettono un desiderio taciuto.»
+nota: Tolta.
+
+47. caligo_chat_esecuzione_1.md, 22. Riuscirò a comprare casa?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle rune leggo di sì.»
+prima frase finale: «Nelle rune leggo di sì.»
+frase certa (se c'e'): «»
+nota: Nessuna rete.
+
+48. caligo_chat_esecuzione_1.md, 23. Perché i soldi non mi bastano mai?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le pietre dicono che una perdita di energia blocca il tuo flusso.»
+prima frase finale: «I soldi non bastano perché non onori il flusso.»
+frase certa (se c'e'): «»
+nota: Nessuna certezza; la finale e' diretta uguale.
+
+49. caligo_chat_esecuzione_1.md, 23. Perché i soldi non mi bastano mai?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Non ti bastano perché la tua energia è dispersa.»
+prima frase finale: «I soldi non bastano perché non onori il flusso.»
+frase certa (se c'e'): «»
+nota: 'Concentra il tuo intento e le risorse seguiranno il tuo passo': futuro dentro un consiglio, condizionato.
+
+50. caligo_chat_esecuzione_1.md, 26. Il colloquio di giovedì andrà bene?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nelle rune leggo di sì.»
+prima frase finale: «Nelle rune leggo di sì.»
+frase certa (se c'e'): «Le tue parole avranno peso e la tua presenza sarà notata.»
+nota: Tolta; resta 'ti assicura chiarezza e ascolto', attribuito alla runa.
+
+51. caligo_chat_esecuzione_2.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le pietre rispondono che il suo ritorno è possibile, ma non sarà un ritorno identico.»
+prima frase finale: «Le pietre rispondono di sì, ma non al modo che tu conosci.»
+frase certa (se c'e'): «»
+nota: Nessuna certezza fuori da 'Le pietre rispondono che'. ATTENZIONE: la finale e' PIU' certa della scartata ('Il sentiero si è biforcato, ora si ricongiunge.').
+
+52. caligo_chat_esecuzione_2.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le rune dicono che la soglia del ritorno è aperta.»
+prima frase finale: «Le pietre rispondono di sì, ma non al modo che tu conosci.»
+frase certa (se c'e'): «»
+nota: La bozza era prudente ('non garantito', 'non un destino scritto'); la finale e' PIU' certa ('ora si ricongiunge').
+
+53. caligo_chat_esecuzione_2.md, 13. Mia madre non accetta la persona che amo: come faccio?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Non puoi controllare l'accettazione altrui, ma puoi custodire il tuo legame.»
+prima frase finale: «Le rune dicono che la sua accettazione non è la tua priorità.»
+frase certa (se c'e'): «»
+nota: Presa di posizione senza formula; la finale la ridice con 'Le rune dicono che'.
+
+54. caligo_chat_esecuzione_2.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il segno che cade dice di sì, ma la sua parola è ancora legata.»
+prima frase finale: «Il segno che cade dice di sì.»
+frase certa (se c'e'): «La sua attesa è un timore.»
+nota: Tolta.
+
+55. caligo_live_esecuzione_1.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le pietre rispondono che il suo ritorno è possibile, ma non senza un tuo sigillo.»
+prima frase finale: «Le pietre rispondono che il suo ritorno è possibile, ma non senza un tuo sigillo.»
+frase certa (se c'e'): «»
+nota: La finale ha la STESSA prima frase: la rete la scarta e poi la lascia passare.
+
+56. caligo_live_esecuzione_1.md, 8. Quando incontrerò la persona giusta?
+reti: attesa 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Il segno che cade dice: quando avrai reso onore ai tuoi antenati.»
+prima frase finale: «Il segno che cade dice: quando sarai pronta a manifestare la tua essenza.»
+frase certa (se c'e'): «»
+nota: Solo rete secondaria (attesa).
+
+57. caligo_live_esecuzione_1.md, 14. Riuscirò ad avere un figlio?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle rune leggo possibilità, se la tua mente si apre.»
+prima frase finale: «Le rune dicono di sì, se la tua mente si apre.»
+frase certa (se c'e'): «»
+nota: Si' condizionato detto con 'possibilità, se'; la finale e' piu' promettente ('Il presagio è favorevole alla nuova vita').
+
+58. caligo_live_esecuzione_1.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il segno che cade dice di sì, ma la sua parola è ancora legata.»
+prima frase finale: «Il segno che cade dice di sì.»
+frase certa (se c'e'): «La sua esitazione non è disinteresse.»
+nota: La frase certa RESTA identica nella finale: la rete ha tolto 'ma la sua parola è ancora legata'.
+
+59. caligo_live_esecuzione_1.md, 17. Come faccio a dimenticare chi mi ha lasciata?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Dimenticare non è la strada, ma trasmutare il ricordo.»
+prima frase finale: «Dimenticare non è la strada, ma trasmutare il ricordo.»
+frase certa (se c'e'): «»
+nota: La finale ha la STESSA prima frase.
+
+60. caligo_live_esecuzione_1.md, 18. Sono felice nella mia relazione o mi sto accontentando?
+reti: riga d'oro tolta 1, prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nelle rune leggo l'ombra del dubbio: il tuo cuore cerca una verità profonda.»
+prima frase finale: «Nelle rune leggo l'ombra del dubbio: il tuo cuore cerca una verità profonda.»
+frase certa (se c'e'): «»
+nota: Prima frase vaga; la finale e' la stessa, tolta solo la riga d'oro: il difetto resta.
+
+61. caligo_live_esecuzione_1.md, 21. Riuscirò a uscire dai debiti?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le rune dicono di sì, a patto che tu crei un piano.»
+prima frase finale: «Le rune dicono di sì.»
+frase certa (se c'e'): «La tua natura di Cercatore ti porterà a trovare la via.»
+nota: Tolta.
+
+62. caligo_live_esecuzione_1.md, 22. Riuscirò a comprare casa?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle rune leggo di sì.»
+prima frase finale: «Nelle rune leggo di sì, se ti affidi alla visione chiara.»
+frase certa (se c'e'): «»
+nota: Nessuna rete; la finale aggiunge una certezza nuova ('La casa è vicina').
+
+63. caligo_live_esecuzione_1.md, 24. Come posso guadagnare di più?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Il presagio dice che la strada è nella tua arte.»
+prima frase finale: «Le rune dicono di cercare un nuovo sentiero, fuori dai confini noti.»
+frase certa (se c'e'): «»
+nota: La rete PF non riconosce 'Il presagio dice che'; la finale e' un passo piu' vago ma diretto.
+
+64. caligo_live_esecuzione_1.md, 26. Il colloquio di giovedì andrà bene?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle rune leggo successo, ma solo se parlerai con la tua verità.»
+prima frase finale: «Le rune dicono di sì.»
+frase certa (se c'e'): «»
+nota: Si' condizionato detto con 'leggo successo, ma solo se'.
+
+65. caligo_live_esecuzione_2.md, 1. Lui mi ama davvero?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le rune dicono che la sua parola è ancora silenzio.»
+prima frase finale: «Le rune dicono che la sua parola è ancora silenzio.»
+frase certa (se c'e'): «»
+nota: Prima frase evasiva; la finale e' identica: il difetto resta.
+
+66. caligo_live_esecuzione_2.md, 2. Ma mi ama ancora, dopo tutto quello che è successo?
+reti: frase del cielo smentita 1, prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le rune dicono che il suo affetto è un fuoco che arde ancora, ma coperto di cenere.»
+prima frase finale: «Nelle rune leggo che il suo affetto è un fuoco che arde ancora, ma coperto di cenere.»
+frase certa (se c'e'): «»
+nota: Si' implicito ('il suo affetto è un fuoco che arde ancora'); la finale e' la stessa frase con 'Nelle rune leggo'.
+
+67. caligo_live_esecuzione_2.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le pietre rispondono che il suo ritorno è un sentiero non ancora tracciato.»
+prima frase finale: «Le pietre rispondono che il suo ritorno è un sentiero non ancora tracciato.»
+frase certa (se c'e'): «La sua Luna in Toro lo lega ancora a ciò che possiede.»
+nota: Certezza tolta; la prima frase vaga resta identica nella finale.
+
+68. caligo_live_esecuzione_2.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le rune dicono che il suo ritorno è un sentiero non ancora tracciato.»
+prima frase finale: «Le pietre rispondono che il suo ritorno è un sentiero non ancora tracciato.»
+frase certa (se c'e'): «»
+nota: Prima frase vaga, finale quasi identica; nessuna certezza vera nella bozza.
+
+69. caligo_live_esecuzione_2.md, 5. Il mio compagno mi tradisce?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: FERMATA_DIRETTA
+prima frase scartata: «Le rune non rivelano un tradimento.»
+prima frase finale: «Le rune dicono che la verità è ancora nascosta.»
+frase certa (se c'e'): «»
+nota: Il no e' detto come 'Le rune non rivelano un tradimento'; la finale non risponde piu' e insinua ('Osserva i suoi gesti, non le sue parole').
+
+70. caligo_live_esecuzione_2.md, 6. Perché non ho più desiderio con la persona che ho accanto?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il desiderio è un fiume che a volte devia il suo corso.»
+prima frase finale: «Le rune dicono che la fiamma si è abbassata, non spenta.»
+frase certa (se c'e'): «»
+nota: Bozza generica (una metafora); la finale dice com'e' la situazione ('abbassata, non spenta'), non ancora il perche'.
+
+71. caligo_live_esecuzione_2.md, 14. Riuscirò ad avere un figlio?
+reti: frase del cielo smentita 1, prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nelle rune leggo che il tuo desiderio è forte, ma il sentiero non è ancora sgombro.»
+prima frase finale: «Nelle rune leggo che il tuo desiderio è forte, ma il sentiero non è ancora sgombro.»
+frase certa (se c'e'): «»
+nota: Prima frase evasiva; la finale e' identica: il difetto resta.
+
+72. caligo_live_esecuzione_2.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il segno che cade dice di sì, ma la sua parola è ancora legata.»
+prima frase finale: «Il segno che cade dice di sì.»
+frase certa (se c'e'): «La sua mente è chiara, ma la sua lingua no.»
+nota: La frase certa RESTA identica nella finale: la rete ha tolto 'ma la sua parola è ancora legata'.
+
+73. caligo_live_esecuzione_2.md, 17. Come faccio a dimenticare chi mi ha lasciata?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Non cercare di dimenticare, ma di trasformare.»
+prima frase finale: «Le rune dicono di non cercare l'oblio, ma la trasformazione.»
+frase certa (se c'e'): «»
+nota: Passo diretto senza formula; la finale lo ridice con 'Le rune dicono di'.
+
+74. caligo_live_esecuzione_2.md, 26. Il colloquio di giovedì andrà bene?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle rune leggo che il colloquio di giovedì avrà esito positivo.»
+prima frase finale: «Le rune dicono di sì, se il tuo fuoco interiore brillerà nella giusta misura.»
+frase certa (se c'e'): «»
+nota: Si' netto ('avrà esito positivo') scartato dalla rete PF.
+
+75. medora_chat_esecuzione_1.md, 5. Il mio compagno mi tradisce?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le carte e il tuo cielo dicono di no, ma leggo una forte richiesta di conferma e di rassicurazione che nasce dalla tua natura profonda.»
+prima frase finale: «Le carte e il tuo cielo dicono di no, ma leggo in te una profonda insicurezza che offusca la tua percezione.»
+frase certa (se c'e'): «»
+nota: Nessuna rete.
+
+76. medora_chat_esecuzione_1.md, 7. Troverò l'amore quest'anno?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il tuo cielo dice di sì, ma non come lo immagini.»
+prima frase finale: «Il tuo cielo dice di sì, ma non come lo immagini.»
+frase certa (se c'e'): «L'amore arriverà da una direzione inaspettata, portando con sé una nuova visione del legame che stai cercando.»
+nota: Tolta.
+
+77. medora_chat_esecuzione_1.md, 14. Riuscirò ad avere un figlio?
+reti: frase del cielo smentita 1, prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle carte leggo che il tuo cielo è favorevole alla maternità, ma è un percorso che richiede pazienza e fiducia nel tuo corpo.»
+prima frase finale: «Le carte e il tuo cielo dicono di sì, se ti affidi al flusso naturale degli eventi e non permetti alla preoccupazione di offuscare la tua visione.»
+frase certa (se c'e'): «»
+nota: Si' implicito ('favorevole alla maternità'); la finale promette di piu' ('Questo è un momento propizio per la fertilità').
+
+78. medora_chat_esecuzione_1.md, 18. Sono felice nella mia relazione o mi sto accontentando?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle carte leggo che provi un senso di insoddisfazione, come se una parte di te fosse in attesa di qualcosa di più autentico.»
+prima frase finale: «Le carte e il tuo cielo dicono che stai oscillando tra il desiderio di appagamento profondo e una forma di quiete che scambi per felicità.»
+frase certa (se c'e'): «»
+nota: Posizione presa ('provi un senso di insoddisfazione'); la finale dice la stessa cosa con 'Le carte e il tuo cielo dicono che'.
+
+79. medora_chat_esecuzione_1.md, 25. Mi prenderanno al colloquio di giovedì?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le carte e il tuo cielo dicono di sì, se ti presenterai con autenticità e fiducia nelle tue capacità.»
+prima frase finale: «Le carte e il tuo cielo dicono di sì, se ti presenterai con autenticità e fiducia nelle tue capacità.»
+frase certa (se c'e'): «La tua unicità sarà il tuo punto di forza.»
+nota: Certezza lieve. Tolta.
+
+80. medora_chat_esecuzione_1.md, 26. Il colloquio di giovedì andrà bene?
+reti: ripetizione 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Nelle carte leggo di sì, se ti presenterai con autenticità e fiducia nelle tue capacità.»
+prima frase finale: «Nelle carte leggo di sì, se ti affiderai alla tua intuizione e mostrerai la tua vera essenza.»
+frase certa (se c'e'): «»
+nota: Solo rete secondaria (ripetizione).
+
+81. medora_chat_esecuzione_1.md, 28. Il mio capo mi apprezza?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le carte rispondono di sì, il tuo capo apprezza la tua dedizione e la profondità con cui affronti i compiti.»
+prima frase finale: «Le carte rispondono di sì.»
+frase certa (se c'e'): «Il suo riconoscimento si manifesta più nei fatti che nelle parole.»
+nota: Tolta.
+
+82. medora_chat_esecuzione_1.md, 28. Il mio capo mi apprezza?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le carte rispondono di sì, il suo riconoscimento si manifesta più nei fatti che nelle parole.»
+prima frase finale: «Le carte rispondono di sì.»
+frase certa (se c'e'): «il suo riconoscimento si manifesta più nei fatti che nelle parole. Il tuo cielo indica che la sua stima è costante»
+nota: Al limite: il sentimento altrui e' attaccato con la virgola al 'di sì' delle carte, ma aggiunge un fatto nuovo su di lui. Tolto.
+
+83. medora_chat_esecuzione_2.md, 2. Ma mi ama ancora, dopo tutto quello che è successo?
+reti: attesa 1, prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le carte e il tuo cielo dicono che c'è ancora un legame, ma la volontà di un'altra persona è sua e nessuna lama può piegarla.»
+prima frase finale: «Nelle carte leggo che c'è ancora un legame profondo, ma la sua volontà è sua e nessuna lama può piegarla.»
+frase certa (se c'e'): «»
+nota: Si' implicito ('c'è ancora un legame'); la finale e' la stessa frase con 'Nelle carte leggo'.
+
+84. medora_chat_esecuzione_2.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le carte e il tuo cielo dicono che un ritorno è possibile, ma non sarà come l'avevi immaginato.»
+prima frase finale: «Il tuo cielo dice che è possibile un ritorno, ma non sarà come prima.»
+frase certa (se c'e'): «»
+nota: La finale e' quasi identica ('è possibile un ritorno, ma non sarà come prima'): la rete scarta e poi lascia passare.
+
+85. medora_chat_esecuzione_2.md, 7. Troverò l'amore quest'anno?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Il tuo cielo dice di sì, se ti apri con fiducia.»
+prima frase finale: «Il tuo cielo dice di sì, se sei disposta a mostrare la tua luce senza timore.»
+frase certa (se c'e'): «»
+nota: Nessuna rete.
+
+86. medora_chat_esecuzione_2.md, 8. Quando incontrerò la persona giusta?
+reti: frase del cielo smentita 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le carte rispondono: non prima che tu abbia ascoltato a fondo la tua Luna in Toro, che ti chiede stabilità e un radicamento profondo in te stessa.»
+prima frase finale: «Le carte rispondono: non prima che tu abbia chiarito a te stessa quali radici vuoi porre nel mondo.»
+frase certa (se c'e'): «»
+nota: 'sei destinata a edificare relazioni solide' e' sotto 'indica che'; 'Solo allora potrai' e' condizionato.
+
+87. medora_chat_esecuzione_2.md, 14. Riuscirò ad avere un figlio?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nelle carte leggo che il desiderio di maternità è forte e luminoso nel tuo cielo, ma l'esito non è una certezza che si possa rivelare.»
+prima frase finale: «Le carte e il tuo cielo dicono di sì: il tuo desiderio di maternità è forte e luminoso e ha tutte le potenzialità per realizzarsi.»
+frase certa (se c'e'): «»
+nota: Scarto giusto sulla forma, ma la bozza era onesta ('l'esito non è una certezza che si possa rivelare', rinvio al medico) e la finale promette ('ha tutte le potenzialità per realizzarsi', 'Le lame indicano un percorso fertile').
+
+88. medora_chat_esecuzione_2.md, 22. Riuscirò a comprare casa?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nelle carte leggo di sì, se ti muovi con pazienza e discernimento.»
+prima frase finale: «Nelle carte leggo di sì, se ti muovi con la pazienza e la determinazione che il tuo ascendente in Capricorno ti conferisce.»
+frase certa (se c'e'): «il tuo Sole in Leone ti darà la forza di realizzare questo progetto.»
+nota: Tolta.
+
+89. medora_chat_esecuzione_2.md, 27. Devo lasciare il mio lavoro per aprire un'attività mia?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il tuo cielo dice di sì, se sei disposta a costruire le basi con pazienza e a gestire le aspettative con lucidità.»
+prima frase finale: «Il tuo cielo dice di sì, se sei disposta a pianificare con cura ogni passo.»
+frase certa (se c'e'): «Il Sole in Leone ti darà la forza e il coraggio per emergere»
+nota: Tolta.
+
+90. medora_live_esecuzione_1.md, 3. Il mio ex tornerà da me?
+reti: attesa 1, prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Il tuo cielo indica un tempo di attesa e profonda introspezione: non è il momento di forzare un ritorno.»
+prima frase finale: «Il tuo cielo dice che è possibile un ritorno, ma a una condizione: che tu possa lasciare alle spalle il passato.»
+frase certa (se c'e'): «»
+nota: Il passo c'era ('non è il momento di forzare un ritorno'); la finale e' un si' condizionato.
+
+91. medora_live_esecuzione_1.md, 3. Il mio ex tornerà da me?
+reti: attesa 1, prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le carte e il tuo cielo dicono che un ritorno è possibile, ma non sarà un ritorno identico a ciò che è stato, bensì la ripartenza di un nuovo ciclo, come indicato dal tuo numero della vita, il Cercatore.»
+prima frase finale: «Il tuo cielo dice che è possibile un ritorno, ma a una condizione: che tu possa lasciare alle spalle il passato.»
+frase certa (se c'e'): «»
+nota: Si' ('un ritorno è possibile') con prima frase lunga; la finale ha la stessa sostanza.
+
+92. medora_live_esecuzione_1.md, 10. Perché attiro sempre persone che mi fanno soffrire?
+reti: prima frase senza posizione richiesta 1
+BOZZA_DIRETTA: no | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il tuo cielo e le carte dicono che questo schema non è una condanna, ma un invito a comprendere meglio le tue dinamiche interiori.»
+prima frase finale: «Le carte e il tuo cielo dicono che attiri persone che ti fanno soffrire perché ti portano a esplorare dinamiche profonde della tua psiche.»
+frase certa (se c'e'): «»
+nota: Prima frase davvero senza il perche'; la finale lo dice.
+
+93. medora_live_esecuzione_1.md, 16. Gli piaccio? Mi guarda sempre ma non mi dice niente.
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le carte rispondono di sì, gli piaci molto, ma il suo silenzio è indice di una sua profonda riflessione interiore.»
+prima frase finale: «Le carte rispondono di sì, ma il suo silenzio è indice di una sua profonda riflessione interiore.»
+frase certa (se c'e'): «gli piaci molto, ma il suo silenzio è indice di una sua profonda riflessione interiore.»
+nota: 'gli piaci molto' tolto, ma 'il suo silenzio è indice di una sua profonda riflessione interiore' RESTA nella finale.
+
+94. medora_live_esecuzione_2.md, 3. Il mio ex tornerà da me?
+reti: prima frase senza posizione richiesta 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le carte e il tuo cielo dicono che il suo ritorno è possibile, a patto che tu sappia accogliere la sua natura con la tua.»
+prima frase finale: «Il tuo cielo dice che il ritorno è possibile, ma dipenderà da come saprai muoverti in questi giorni.»
+frase certa (se c'e'): «la sua Luna in Toro cerca radici profonde, stabilità e la certezza di un legame sincero.»
+nota: Tolta.
+
+95. medora_live_esecuzione_2.md, 4. Devo scrivergli io o aspettare che si faccia vivo lui?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Le carte rispondono: scrivigli tu, per far sentire la tua voce e mostrargli che sei pronta a un nuovo inizio.»
+prima frase finale: «Le carte ti consigliano di scrivergli tu, ponendo le basi per un incontro dove potrete chiarire i vostri cuori.»
+frase certa (se c'e'): «»
+nota: Nessuna rete; la finale aggiunge 'dove potrete chiarire i vostri cuori'.
+
+96. medora_live_esecuzione_2.md, 7. Troverò l'amore quest'anno?
+reti: ripetizione 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Il tuo cielo dice di sì, se ti apri alle nuove connessioni che si presentano, anche quelle inattese.»
+prima frase finale: «Il tuo cielo dice di sì, se ti permetti di riconoscere l'amore quando si presenta in forme inattese.»
+frase certa (se c'e'): «Il transito di Marte nel tuo Sole in Leone ti darà la spinta necessaria per esprimere il tuo valore.»
+nota: Tolta, ma la finale introduce 'le persone nuove che incontrerai questo mese'.
+
+97. medora_live_esecuzione_2.md, 7. Troverò l'amore quest'anno?
+reti: ripetizione 1, certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: no | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Il tuo cielo dice di sì, se ti permetti di mostrare la tua natura più profonda.»
+prima frase finale: «Il tuo cielo dice di sì, se ti permetti di riconoscere l'amore quando si presenta in forme inattese.»
+frase certa (se c'e'): «»
+nota: Nessuna certezza d'esito: la rete ha preso il futuro dentro un consiglio ('Domani, quando il Sole sarà nel tuo segno, esci...').
+
+98. medora_live_esecuzione_2.md, 9. Sono innamorata di due persone: chi devo scegliere?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: no | CERTEZZA_VERA: n/a | GIUDIZIO: FERMATA_DIRETTA
+prima frase scartata: «Osserva quale delle due storie ti permette di essere pienamente te stessa, senza compromessi.»
+prima frase finale: «Il tuo cielo ti mostra due percorsi, ognuno con le sue promesse e le sue sfide.»
+frase certa (se c'e'): «»
+nota: Nessuna rete registrata: il criterio concreto della bozza ('Osserva quale delle due storie...') diventa una frase vuota ('due percorsi, ognuno con le sue promesse').
+
+99. medora_live_esecuzione_2.md, 23. Perché i soldi non mi bastano mai?
+reti: nessuna
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: n/a | GIUDIZIO: SCARTO_INUTILE
+prima frase scartata: «Il tuo cielo indica che la tua percezione del denaro è legata a un ciclo di espansione e contrazione, non a una vera mancanza.»
+prima frase finale: «Il tuo cielo ti mostra che il denaro non ti basta perché tendi a non riconoscere il valore di ciò che hai già.»
+frase certa (se c'e'): «»
+nota: Nessuna rete; entrambe danno un perche'.
+
+100. medora_live_esecuzione_2.md, 25. Mi prenderanno al colloquio di giovedì?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Le carte e il tuo cielo dicono di sì, se ti presenterai con la tua autenticità e la tua forza interiore.»
+prima frase finale: «Le carte e il tuo cielo dicono di sì, se saprai mettere in risalto la tua determinazione e la tua capacità di costruire.»
+frase certa (se c'e'): «Il tuo Sole in Leone ti darà il carisma, ma sarà l'Ascendente in Capricorno a donarti la determinazione.»
+nota: Tolta.
+
+101. medora_live_esecuzione_2.md, 26. Il colloquio di giovedì andrà bene?
+reti: certezza richiesta 1
+BOZZA_DIRETTA: si | FINALE_DIRETTA: si | CERTEZZA_VERA: si | GIUDIZIO: SCARTO_GIUSTO
+prima frase scartata: «Nelle carte leggo di sì, se ti presenterai con la tua autenticità e la tua forza interiore.»
+prima frase finale: «Nelle carte leggo di sì, se saprai mostrare la tua autenticità e la tua forza interiore.»
+frase certa (se c'e'): «Il tuo Sole in Leone ti darà il coraggio necessario, mentre il tuo Ascendente in Capricorno ti aiuterà a mostrare la tua professionalità.»
+nota: Tolta.
+
+==================== RIEPILOGO ====================
+
+TOTALE 101 casi
+- FERMATA_DIRETTA: 3 (casi 5, 69, 98)
+- SCARTO_GIUSTO: 43
+- SCARTO_INUTILE: 55
+
+Composizione: 44 casi con la rete "prima frase senza posizione" (PF), 56 con la rete "certezza", 14 con tutte e due; 15 casi senza nessuna delle due (solo riga d'oro, attesa, ripetizione o "nessuna": 9, 10, 16, 25, 28, 36, 47, 56, 62, 75, 80, 85, 95, 98, 99), di cui 14 SCARTO_INUTILE e 1 FERMATA_DIRETTA (98).
+Sugli 86 casi dove ha agito PF o certezza: 43 SCARTO_GIUSTO, 41 SCARTO_INUTILE, 2 FERMATA_DIRETTA.
+
+DIVISI PER RETE (esito della singola rete, un caso con due reti conta per ciascuna)
+Rete "prima frase senza posizione", 44 casi:
+- FERMATA_DIRETTA: 2 (5, 69)
+- SCARTO_GIUSTO: 14, ma in 10 di questi la finale resta vaga quanto la scartata (24, 26, 27, 34, 35, 60, 65, 67, 68, 71): la rete ha visto giusto e la riscrittura non ha curato niente. Solo in 4 la finale e' davvero piu' diretta (31, 70, 87, 92).
+- SCARTO_INUTILE: 28 (la prima frase prendeva gia' posizione)
+Rete "certezza richiesta", 56 casi:
+- FERMATA_DIRETTA: 0
+- SCARTO_GIUSTO: 30 (in 3 la frase certa RESTA identica nella finale, 32, 58, 72, e in 1 resta a meta', 93)
+- SCARTO_INUTILE: 26
+
+ELENCO COMPLETO DELLE FERMATA_DIRETTA, raggruppate per il motivo dello sbaglio
+
+A) La rete PF non riconosce un "no" detto senza la parola no
+   69. caligo_live_esecuzione_2, "5. Il mio compagno mi tradisce?"
+   scartata: «Le rune non rivelano un tradimento.»
+   finale:   «Le rune dicono che la verità è ancora nascosta.»
+   (la finale non risponde piu' e in piu' insinua: "Osserva i suoi gesti, non le sue parole")
+
+B) La rete PF non accetta il "sì, se" quando la condizione non e' un passo della persona ma riguarda l'altro o la coppia
+   5. aura_chat_esecuzione_1, "3. Il mio ex tornerà da me?"
+   scartata: «La tua energia dice di sì, se il suo ritorno non è un peso da sopportare per entrambi, ma un nuovo inizio.»
+   finale:   «La tua energia dice che il ritorno del tuo ex non dipende da un'attesa passiva, ma da un riequilibrio del tuo centro del cuore, che è stato molto provato dagli eventi passati.»
+   (negli stessi giri "La tua energia dice di sì, se ti apri..." passa: la differenza e' il soggetto della condizione)
+
+C) Nessuna rete registrata: il testo e' cambiato per un'altra ragione e il passo concreto e' diventato una frase vuota
+   98. medora_live_esecuzione_2, "9. Sono innamorata di due persone: chi devo scegliere?"
+   scartata: «Osserva quale delle due storie ti permette di essere pienamente te stessa, senza compromessi.»
+   finale:   «Il tuo cielo ti mostra due percorsi, ognuno con le sue promesse e le sue sfide.»
+
+PER CORREGGERE LE RETI, anche i motivi degli SCARTO_INUTILE (sono la maggioranza)
+
+Rete PF, 28 inutili:
+- si' implicito, detto come situazione senza la parola "sì" (10): 1, 2, 4, 20, 39, 40, 66, 77, 78, 83. Esempi: «I tuoi centri dicono che l'amore è presente», «Nelle rune leggo ancora un legame forte», «Nelle carte leggo che il tuo cielo è favorevole alla maternità».
+- "è possibile" o "possibilità" come risposta a "tornerà?" o "riuscirò?" (6): 51, 52, 57, 84, 91, 94. Esempio: «Le carte e il tuo cielo dicono che un ritorno è possibile, ma non sarà come l'avevi immaginato.»
+- risposta diretta senza la formula di fonte in apertura, riscritta identica con "I tuoi centri dicono che / Le rune dicono di" davanti (5): 8, 23, 53, 63, 73. Esempi: «Attiri persone che ti fanno soffrire perché...», «Non cercare di dimenticare, ma di trasformare.», «Il presagio dice che la strada è nella tua arte.» (la formula "Il presagio dice" non e' riconosciuta).
+- si' detto con un'altra parola (2): 64 «Nelle rune leggo successo, ma solo se...», 74 «Nelle rune leggo che il colloquio di giovedì avrà esito positivo.»
+- "sì" senza "di" (1): 3 «I tuoi centri dicono sì e...».
+- passo detto in negativo (1): 90 «...non è il momento di forzare un ritorno.»
+- incoerenza pura, la stessa prima frase scartata passa nella finale (3): 19, 55, 59. Con i casi giusti 60, 65, 67, 71 (e 68, quasi identica) la rete scarta una frase e poi la lascia passare in 8 casi su 44: il suo esito sulla stessa frase non e' stabile.
+
+Rete certezza, 26 inutili:
+- il futuro o il sentimento sta sotto "X dicono che / leggo che / indica che" (9): 1, 2, 4, 19, 20, 51, 66, 84, 86.
+- "potrai", una possibilita' (2): 6, 30 (nel 30 "potrai comunicare" resta identico nella finale e passa).
+- futuro condizionato o dentro un consiglio (3): 7 «Solo quando sentirai ... attirerà», 49 «Concentra il tuo intento e le risorse seguiranno il tuo passo», 97 «Domani, quando il Sole sarà nel tuo segno, esci...».
+- nessuna frase certa individuabile, testo prudente o generico (12): 3, 12, 13, 14, 24, 29, 38, 41, 44, 48, 52, 68.
+
+Certezze vere che la rete NON ha tolto (restano nella finale): 32 «La sua riserva è una forma di rispetto, non di disinteresse.», 58 «La sua esitazione non è disinteresse.», 72 «La sua mente è chiara, ma la sua lingua no.», 93 «il suo silenzio è indice di una sua profonda riflessione interiore». La forma che sfugge: "La sua X è/non è Y", frase breve al presente sul suo stato interiore.
+
+Finali PEGGIORI della scartata su un altro piano (certezze o promesse nuove, che nessuna rete ha fermato):
+- 51 e 52 (ex tornerà): la finale dice «Il sentiero si è biforcato, ora si ricongiunge.»; la scartata del 52 diceva «non garantito», «non un destino scritto».
+- 87 (figlio): la bozza diceva «l'esito non è una certezza che si possa rivelare» e rinviava al medico; la finale dice «ha tutte le potenzialità per realizzarsi» e «Le lame indicano un percorso fertile».
+- 31 e 77 (figlio): la finale promette («il tuo corpo ha la capacità di accogliere», «Questo è un momento propizio per la fertilità»); il 31 perde il rinvio al medico.
+- 57 (figlio): «Il presagio è favorevole alla nuova vita».
+- 62 (casa): «La casa è vicina».
+- 96 (amore): «le persone nuove che incontrerai questo mese».
+- 69 (tradimento): da un no a un'insinuazione.

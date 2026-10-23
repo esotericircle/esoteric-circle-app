@@ -1,0 +1,47 @@
+EQ.03, IL GIUDICE GEMINI DEL MERITO NON BASTA (27 settembre 2026)
+
+La domanda da misurare, dall'ordine: una risposta del Maestro "dice qualcosa
+di concreto sulla domanda e tiene conto di ciò che la persona ha appena detto".
+
+Il giudice: Gemini Flash in europe-west1, temperatura zero, una parola sola
+(SI o NO), a maggioranza su tre, con lo scambio di prima davanti. Tarato su tre
+gruppi:
+- 16 casi scritti a mano (sette sì, nove no, fra cui le catture del fondatore
+  alla lettera);
+- 35 risposte vere del collaudo "prima" etichettate a mano, su cui il giudice
+  è stato scritto (etichette_taratura.txt);
+- 43 risposte vere etichettate a mano PRIMA di far girare il giudice su di
+  loro, il controllo (etichette_controllo.txt).
+
+LE QUATTRO STESURE
+
+1. Prima stesura, una domanda sola "è nel merito?": 12 su 12 sui casi scritti
+   a mano allora. Poi, rileggendo a mano il primo giro del collaudo "prima",
+   9 disaccordi su 36, tutti dalla parte dell'indulgenza: dava nel merito le
+   massime di Calìgo ("La decisione è già tua. Ogni momento è soglia.") e i
+   rimandi gentili a un altro Maestro ("puoi rivolgerti a Medora").
+2. Seconda stesura, "dopo averla letta, la persona sa che cosa fare?":
+   16 su 16, 25 su 35, 33 su 43 (taratura_seconda_stesura.txt). Sbaglia da
+   tutte e due le parti: boccia le presentazioni e il gesto per "domani
+   mattina", promuove le massime quando sotto c'è una riga con ✦ qualunque.
+3. Terza stesura, una procedura in tre passi: 16 su 16, 28 su 35, 33 su 43
+   (taratura_terza_stesura.txt). Di nuovo indulgente: "Rispondi con
+   fermezza", "Prepari il tuo sigillo" passano come indicazioni.
+4. Quarta stesura, le frasi e la riga con ✦ separate, la prova dello scambio,
+   ragionamento a 1024: 15 su 16, 28 su 35, 29 su 43
+   (taratura_quarta_stesura.txt). Peggio: promuove i rimandi e gli inviti
+   generici.
+
+Nel controllo, cioè su ciò che il giudice non ha mai visto: 77, 77 e 67 per
+cento. Il merito sta proprio sul confine fra un invito generico e
+un'indicazione, e su quel confine Flash non tiene.
+
+CHE COSA LO SOSTITUISCE
+
+La lettura con la regola scritta (regola_della_lettura.md), fatta da agenti di
+lettura Claude sulle trascrizioni senza verdetti, controllata sulle stesse
+risposte etichettate a mano: 76 accordi su 78 (97 per cento); i due
+disaccordi sono casi al limite, uno per parte. Il giudice Gemini resta nel
+banco (tool/collaudo_eq03.dart, TARATURA) come prova di ciò che non basta;
+Gemini scrive ancora la riga "che cosa risponde, in una riga", che non è un
+giudizio.

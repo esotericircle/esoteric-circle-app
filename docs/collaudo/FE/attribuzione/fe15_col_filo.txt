@@ -1,0 +1,51 @@
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-v3-realignment-a88835/tool/attribuzione_cieca.dart
+00:00 +0: Attribuzione cieca dei tre Maestri
+Shell: Modo: col filo di un altro Maestro (ordine FE voce 15).
+Shell: Chiedo 60 risposte, 20 domande per tre Maestri...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: Faccio giudicare 60 risposte...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: 
+Shell: MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+Shell:            medora     aura   caligo     totale   giusti
+Shell: medora         20        0        0       20   100.0%
+Shell: aura            0       20        0       20   100.0%
+Shell: caligo          1        2       17       20    85.0%
+Shell: 
+Shell: Attribuzione corretta: 57 su 60, cioe' 95.0 per cento.
+Shell: Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Shell: Verdetti illeggibili: 0.
+Shell: 
+Shell: LE FRASI SU CUI IL GIUDICE SI E' PERSO
+Shell: --- caligo: 3 risposte attribuite ad altri
+Shell:   [creduto medora] domanda: mi sembra di essere in ritardo su tutto
+Shell:      prima frase: Non aspettare oltre.
+Shell:   [creduto aura] domanda: temo di deludere chi mi vuole bene
+Shell:      prima frase: Non temere la delusione.
+Shell:   [creduto aura] domanda: non so cosa voglio davvero
+Shell:      prima frase: Non cercare fuori la tua verità.
+Shell: 
+Shell: RITMO DELLE VOCI, sulle risposte di questo giro
+Shell: medora   frasi contate 100, frase mediana 18.0 parole, domande 0, parole che ammorbidiscono 4
+Shell: aura     frasi contate 136, frase mediana 19.0 parole, domande 1, parole che ammorbidiscono 7
+Shell: caligo   frasi contate 127, frase mediana 10.0 parole, domande 0, parole che ammorbidiscono 0
+00:31 +1: All tests passed!
+uscita 0

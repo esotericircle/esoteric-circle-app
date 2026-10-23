@@ -1,0 +1,40 @@
+ORDINE EK VOCE 03, LA TRASCRIZIONE DEL LIVE CON TUTTE LE CURE: UNA FRASE SOLA.
+Realme 767f596c, build 2280 installata per le prove (sha1 f8099324e7df, costruita alle 14:55 UTC
+dall'albero con la trascrizione su Flash, l'elenco ricopiato che vale come silenzio, Calìgo con
+l'accento e la musica che tace nel LIVE), LIVE di Medora, 24 settembre 2026.
+Gli orari del registro sono quelli del telefono, UTC+2: 16:59:30 sul telefono sono le 14:59:30 UTC.
+Stesse frasi e stessa voce delle prove prima (Microsoft Elsa dal portatile, scratchpad parla_nomi.ps1).
+Righe "LIVE" del registro del telefono, cosi' come le ha scritte l'app.
+
+IL REGISTRO:
+  09-24 16:58:45.661 LIVE: primo suono al volto dopo 1259 ms, audio di 6912 ms, scritto in 2436 ms
+  09-24 16:58:51.243 LIVE VIDEO: ricevuto 384x384 a 25.0 fps, codec video/VP8
+  09-24 16:58:52.254 LIVE: il volto ha finito dopo 9029 ms, lo ha detto lui
+  09-24 16:59:08.272 LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/VP8
+  09-24 16:59:19.826 LIVE: frase di 23520 ms in 1 pezzi, trascritta in 2305 ms: «» (si ascolta ancora)
+  09-24 16:59:30.694 LIVE: frase di 9760 ms in 1 pezzi, trascritta in 1417 ms: «Medora, ho pescato la Torre e poi l'Appeso. Cosa vogliono dire per me?» (parte)
+  09-24 16:59:30.807 LIVE: la chat ha risposto in 2 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+  09-24 17:00:01.738 LIVE: primo suono al volto dopo 763 ms, audio di 54966 ms, scritto in 30928 ms
+  09-24 17:00:27.387 LIVE: il volto ha finito dopo 56578 ms, lo ha detto lui
+  09-24 17:00:48.976 LIVE: frase di 18560 ms in 1 pezzi, trascritta in 1933 ms: «» (si ascolta ancora)
+
+I NOMI:
+  1. Medora si, Torre si, Appeso si
+  TOTALE: 3 nomi giusti su 3, sulla frase 1 sola (sulla 2279: 1 su 3; con Flash-Lite e i nomi: 3 su 3).
+
+PERCHE' UNA FRASE SOLA. Le due trascrizioni vuote, di 23,5 e 18,6 secondi, sono pezzi senza parole
+chiare, con voci nella stanza. Alle 14:58:45 UTC, mentre il LIVE si apriva, il fondatore ha scritto
+"mettiti in pausa, ho bisogno di cell e pc": la frase 1 era gia' partita ed e' passata, poi la prova
+si e' fermata. Prima della ripresa, fra le 15:43 e le 16:22 UTC (registri del server: l'ultima
+chiamata riuscita e la prima respinta), la fatturazione di Google Cloud si e' chiusa: alle 16:24
+UTC Vertex AI rispondeva 403, "This API method requires billing to be enabled", e
+il LIVE sul Realme mostrava «La voce non arriva, stasera». Le frasi da 2 a 6 si dicono appena la
+fatturazione torna aperta, con scratchpad sessione_nomi.sh, che adesso aspetta il silenzio della
+stanza prima di ogni frase.
+
+LA MUSICA. Il pezzo di 9,8 secondi si e' chiuso dopo il silenzio e la domanda e' arrivata a Medora, che
+ha risposto per 55 secondi: con la musica sotto il LIVE, alla prova di prima, nessuna frase si chiudeva.
+E' un indizio, non una misura: la misura diretta della musica spenta nel LIVE (scratchpad
+musica_attiva.sh, le tracce attive dell'audio_flinger) non si e' potuta fare, perche' dopo la chiusura
+della fatturazione il LIVE non si apre. Alle 16:33 e 16:34 UTC la stessa misura vede la musica attiva
+nella home e nella chat di Medora, traccia con uso media e contenuto musica: lo strumento funziona.

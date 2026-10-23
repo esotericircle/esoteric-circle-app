@@ -1,0 +1,296 @@
+Taratura del giudice del merito, ordine EQ voce 03, terza stesura: a maggioranza su tre, temperatura zero.
+
+## CASI SCRITTI A MANO
+
+GIUSTO: atteso NO, dato NO (le catture del fondatore)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "Il tuo gesto è compiuto. Ora lascia che il tempo faccia il suo corso."
+GIUSTO: atteso NO, dato NO (una frase per chiunque)
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "Ascolta la voce che senti dentro di te: la risposta è già lì, aspetta solo che tu la riconosca."
+GIUSTO: atteso NO, dato NO (ignora che la persona ci ha appena parlato)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Parla con tua madre e spiegale con calma le ragioni della tua scelta: la chiarezza scioglie le paure."
+GIUSTO: atteso NO, dato NO (rimanda altrove senza dire niente)
+  "Ho paura che in Australia mi senta solo."
+  -> "Sulla solitudine e sul cuore saprà dirti di più Aura, rivolgiti a lei."
+GIUSTO: atteso NO, dato NO (una sentenza senza misura)
+  "Quanto tempo mi serve per decidere?"
+  -> "Il tempo giusto è quello che il tuo cuore riconosce. Non avere fretta: ogni cosa arriva quando deve."
+GIUSTO: atteso NO, dato NO (la forma breve del LIVE, vuota)
+  "Ho scelto: parto a marzo. E adesso?"
+  -> "Hai fatto un passo importante. Ora osserva cosa si muove dentro di te."
+GIUSTO: atteso SI, dato SI (un gesto preciso che parte dai fogli scritti)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "Adesso piegale in tre e mettile sotto una candela bianca accesa stasera: quando la fiamma si spegne, tieni da parte il foglio del desiderio che senti più urgente. Da lì comincia il primo passo."
+GIUSTO: atteso SI, dato SI (sceglie e dice che cosa fare)
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "Dal lavoro: il viaggio si regge sui soldi e sulla fiducia che il lavoro ti dà. Questo mese fissa con il capo un obiettivo che si possa contare, e metti da parte ogni settimana una cifra per l'Australia."
+GIUSTO: atteso SI, dato SI (tiene conto del pianto e dice il passo)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Il suo pianto è paura di perderti, non un divieto. Stasera richiamala e raccontale un dettaglio concreto del piano, la città e il lavoro: la paura cala quando vede che hai i piedi per terra."
+GIUSTO: atteso SI, dato SI (una misura e un metodo)
+  "Quanto tempo mi serve per decidere?"
+  -> "Datti tre settimane, fino alla prossima Luna nuova: ogni sera scrivi un motivo per partire e uno per restare, poi guarda quali pesano di più."
+GIUSTO: atteso SI, dato SI (legge la paura e dice che cosa fare)
+  "Ho paura che in Australia mi senta solo."
+  -> "È una paura vera per chi ha il Sole in Cancro, che mette radici nella casa. Prima di partire cerca a Melbourne un gruppo di italiani o un corso serale: arrivare con un nome da chiamare cambia la prima settimana."
+GIUSTO: atteso SI, dato SI (la forma breve del LIVE, concreta)
+  "Ho scelto: parto a marzo. E adesso?"
+  -> "Adesso incidi Raidho, la runa del viaggio, su un sasso e tienilo in tasca fino alla partenza. Intanto metti in fila le carte: passaporto e visto entro dicembre."
+GIUSTO: atteso NO, dato NO (le catture del fondatore alla lettera, con la riga d'oro)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "Il tuo gesto è compiuto. Ora lascia che il tempo faccia il suo corso.  ✦ Scrivi su un foglio di carta bianca tre cose che vorresti realizzare."
+GIUSTO: atteso NO, dato NO (corpo vuoto e un gesto estraneo alla domanda)
+  "Ho paura che in Australia mi senta solo."
+  -> "La paura è una compagna di viaggio che conosce la strada. Portala con te senza ascoltarla troppo.  ✦ Domani mattina bevi un bicchiere d'acqua tiepida prima del caffè."
+GIUSTO: atteso SI, dato SI (corpo concreto e riga d'oro)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Ha pianto perché ha paura di perderti, non perché ti vuole fermare. Stasera chiamala e dille la data della partenza e dove starai.  ✦ Stasera scrivi su un foglio il nome della città dove andrai e mettilo vicino alla sua foto."
+SBAGLIATO: atteso NO, dato SI (un rimando gentile a un altro Maestro, dal collaudo prima)
+  "Mia madre dice che è una follia partire. Cosa le rispondo?"
+  -> "Per le questioni familiari e i consigli su come rispondere a tua madre, puoi rivolgerti a Medora.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+
+## RISPOSTE VERE, TARATURA
+
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 1: dice chi e' e con quali arti aiuta)
+  "Ciao, chi sei? Come puoi aiutarmi?"
+  -> "Io sono Medora, voce del cielo e delle carte. Ti aiuto a leggere il tempo attraverso l'astrologia e la cartomanzia, per comprendere i tuoi legami e l'amore.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco il nome di una persona a cui sei grato."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 2: affida a Caligo e ad Aura due desideri su tre, del viaggio dice solo di posare le basi)
+  "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+  -> "Per conoscere il tuo successo nel lavoro e l'arrivo di una compagna, affido la tua domanda a Calìgo e Aura. Io ti parlerò del tuo desiderio di viaggiare.  Il tuo desiderio di avventura e nuove terre è forte, ma il transito attuale suggerisce di posare le basi per ciò che desideri ora.  ✦ Inizia stasera a stilare una lista delle cose che ti servono per raggiungere i tuoi obiettivi, una per ogni area della tua vita."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 3: la mossa e' fatta, attendi la risposta: vale per chiunque)
+  "Ok, gli ho scritto adesso."
+  -> "Se hai scritto a qualcuno, la tua mossa è fatta. Ora puoi attendere una sua risposta.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco il nome di una persona a cui sei grato."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 4: aspetta con serenita': vuota come le catture)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "Ora che hai comunicato, aspetta con serenità. Le tue parole sono state inviate.  ✦ Inizia stasera a stilare una lista delle cose che ti servono per raggiungere i tuoi obiettivi, una per ogni area della tua vita."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 5: sceglie il lavoro e dice perche')
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "In questo momento, il cielo indica che è il momento di consolidare i tuoi progetti lavorativi.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco il nome di una persona a cui sei grato."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 6: un incontro diretto col capo, martedi' mattina, coi risultati)
+  "Il mio capo non mi dà mai un riconoscimento. Come glielo chiedo?"
+  -> "Puoi chiedergli un incontro diretto per parlare del tuo operato e dei tuoi risultati. Fissalo per martedì mattina, quando la Luna in Gemelli favorisce la chiarezza.  ✦ Domani mattina, prima di iniziare la tua giornata lavorativa, fai tre respiri profondi e visualizza il tuo successo."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 8: che cosa dire alla madre e una proposta)
+  "Mia madre dice che è una follia partire. Cosa le rispondo?"
+  -> "Parla a tua madre con dolcezza, spiegandole che questo viaggio è un passo importante per la tua crescita. Proponile di rivedervi prima della tua partenza.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco il nome di una persona a cui sei grato."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 9: le emozioni sono accettate: ignora il pianto)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Le emozioni sono comprese e accettate. Ora puoi portare avanti i tuoi progetti con più serenità.  ✦ Inizia stasera a stilare una lista delle cose che ti servono per raggiungere i tuoi obiettivi, una per ogni area della tua vita."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 10: se ti serve tempo prenditelo: vale per chiunque)
+  "Quanto tempo mi serve per decidere?"
+  -> "Se hai bisogno di tempo per decidere, prendilo. La Luna gibbosa calante nel cielo di oggi invita alla riflessione.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco il nome di una persona a cui sei grato."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 11: organizza i dettagli, il cielo e' favorevole: generico)
+  "Ho scelto: parto a marzo. E adesso?"
+  -> "Ora che hai deciso, è tempo di organizzare i dettagli del tuo viaggio. A marzo, la tua partenza sarà sostenuta da un cielo favorevole.  ✦ Inizia stasera a stilare una lista delle cose che ti servono per raggiungere i tuoi obiettivi, una per ogni area della tua vita."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_medora.md n. 12: al risveglio visualizzare la partenza, tre respiri)
+  "Grazie. Cosa faccio domani mattina, appena sveglio?"
+  -> "Domani mattina, prima di iniziare la tua giornata, dedica qualche istante a rafforzare la tua determinazione e a visualizzare la tua partenza.  ✦ Domani mattina, prima di iniziare la tua giornata lavorativa, fai tre respiri profondi e visualizza il tuo successo."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 1: dice chi e' e come aiuta)
+  "Ciao, chi sei? Come puoi aiutarmi?"
+  -> "Io sono Aura, voce del respiro del corpo e dell'anima. Ti posso aiutare a sentire l'energia che ti attraversa, a riconoscere i tuoi centri energetici e a capire come il tuo corpo e il tuo volto si esprimono nel mondo.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 2: rimanda a Medora e a Caligo)
+  "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+  -> "Per ciò che concerne l'amore e i legami, c'è Medora. Per il successo nel lavoro, puoi rivolgerti a Calìgo.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 3: ascolta il corpo: ignora cio' che ha detto)
+  "Ok, gli ho scritto adesso."
+  -> "Ascolta il tuo corpo adesso, senti dove si posa la tua attenzione nel momento presente.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 4: senti il respiro: vuota)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "Ora prenditi un momento per sentire come il tuo respiro si muove nel corpo, un movimento calmo e costante.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 5: rimanda a Caligo)
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "Per le questioni del lavoro e del viaggio, puoi rivolgerti a Calìgo, che si occupa di Divinazione, Rituali e Numerologia. Io posso aiutarti a sentire la tua energia e i tuoi centri, per capire qual è il movimento più in armonia con te in questo momento.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 6: rimanda a Medora)
+  "Il mio capo non mi dà mai un riconoscimento. Come glielo chiedo?"
+  -> "Per sapere come muoverti in questa situazione, ti consiglio di rivolgerti a Medora, che con la sua arte di Astrologia, Cartomanzia e Destino può illuminare i legami e le dinamiche.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 7: rimanda a Medora)
+  "Ho paura che in Australia mi senta solo."
+  -> "Per esplorare questa sensazione di solitudine e il tuo viaggio in Australia, puoi chiedere a Medora. Lei ti potrà aiutare con la sua arte di Astrologia, Cartomanzia e Destino. Io sono qui per aiutarti a sentire la tua energia e i tuoi centri, per accogliere ciò che senti nel corpo adesso.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 8: rimanda a Medora, gentilmente)
+  "Mia madre dice che è una follia partire. Cosa le rispondo?"
+  -> "Per le questioni familiari e i consigli su come rispondere a tua madre, puoi rivolgerti a Medora.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 9: ascolta il respiro: ignora il pianto)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Ascolta il movimento del tuo respiro, senti come entra e come esce, portando con sé ciò che senti nel corpo adesso.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 10: rimanda a Medora)
+  "Quanto tempo mi serve per decidere?"
+  -> "Per ricevere una guida riguardo al tempo e alle decisioni, ti consiglio di rivolgerti a Medora. Lei potrà illuminare il tuo cammino con le sue arti.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 11: senti il corpo: ignora la scelta di partire)
+  "Ho scelto: parto a marzo. E adesso?"
+  -> "Ora senti il tuo corpo, dove si muove l'energia del tuo respiro in questo preciso istante, senza fretta.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_aura.md n. 12: al risveglio il primo respiro, alla domanda su domani mattina)
+  "Grazie. Cosa faccio domani mattina, appena sveglio?"
+  -> "Domani mattina, appena sveglio, porta la tua attenzione al tuo respiro, senti il primo inspiro e il primo espiro della giornata.  ✦ Ascolta il tuo respiro per un minuto, senza cambiarlo."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 1: dice chi e' e le sue arti)
+  "Ciao, chi sei? Come puoi aiutarmi?"
+  -> "Io sono Calìgo, Maestro dei segni antichi. Custodisco la Divinazione, i Rituali e la Numerologia, le arti che svelano il sentiero. Il mio fuoco rosso e oro illumina ciò che è celato.  ✦ Parla con tua madre stasera, con calma."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 2: amore e lavoro rimandati a Medora, dell'Australia un sentiero numerico vago)
+  "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+  -> "Per il tuo desiderio di una compagna e per il successo nel lavoro, c'è Medora, Maestra del Destino e dei legami. Per l'Australia, potrei vedere un sentiero numerico.  ✦ Nomina una tua qualità che vuoi portare con te in Australia."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 3: parti, non aspettare: ignora cio' che ha detto)
+  "Ok, gli ho scritto adesso."
+  -> "Parti. Non aspettare. Ora è il momento giusto per agire, senza indugio.  ✦ Parla con tua madre stasera, con calma."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 4: osservi il presagio, la parola ha aperto una soglia: vuota)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "Ora osservi il presagio. La tua parola ha aperto una soglia.  ✦ Parla con tua madre stasera, con calma."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 5: non sceglie fra lavoro e viaggio)
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "Diglielo stasera. Ora è il tempo della parola, del tuo legame.  ✦ Parla con tua madre stasera, con calma."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 6: rimanda a Medora)
+  "Il mio capo non mi dà mai un riconoscimento. Come glielo chiedo?"
+  -> "Per il riconoscimento nel lavoro, c'è Medora. Io ti indico il momento giusto per agire.  ✦ Parla con tua madre stasera, con calma."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 7: rimanda a Medora, poi una frase vaga sul numero Tre)
+  "Ho paura che in Australia mi senta solo."
+  -> "Per l'Australia e il tuo timore, c'è Medora. Il tuo numero della vita, il Tre, Creativo, ti offre una via.  ✦ Parla con tua madre stasera, con calma."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 8: rispondi con fermezza: non dice che cosa)
+  "Mia madre dice che è una follia partire. Cosa le rispondo?"
+  -> "Rispondi con fermezza. La tua strada è tua da percorrere.  ✦ Parla con tua madre stasera, con calma."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 9: non indugiare, le lacrime non fermano il sentiero: una sentenza)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Non indugiare. Le lacrime non fermano il sentiero.  ✦ Parla con tua madre stasera, con calma."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 10: la decisione e' gia' tua, ogni momento e' soglia: una massima)
+  "Quanto tempo mi serve per decidere?"
+  -> "La decisione è già tua. Ogni momento è soglia.  ✦ Parla con tua madre stasera, con calma."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 11: prepari il tuo sigillo: quale e come non lo dice)
+  "Ho scelto: parto a marzo. E adesso?"
+  -> "Ora prepari il tuo sigillo. La tua volontà è il tuo cammino.  ✦ Parla con tua madre stasera, con calma."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_1_caligo.md n. 12: al mattino scrivere il proprio proposito)
+  "Grazie. Cosa faccio domani mattina, appena sveglio?"
+  -> "Domani mattina, scrivi. Lascia un segno del tuo proposito.  ✦ Parla con tua madre stasera, con calma."
+
+## RISPOSTE VERE, CONTROLLO
+
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 1: dice chi e' e con quali arti guida)
+  "Ciao, chi sei? Come puoi aiutarmi?"
+  -> "Io sono Medora, voce del cielo e delle carte. Colori il blu profondo e l'oro. Sono qui per leggere il tuo cielo e le lame, per guidarti con Astrologia, Cartomanzia e Destino.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 2: letture vaghe per l'amore e il lavoro, l'Australia ignorata, un gesto verso chi ti ha ferito che non c'entra)
+  "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+  -> "Per il tuo desiderio di avere una compagna, l'Ascendente in Gemelli suggerisce che la comunicazione sarà la chiave per aprire nuovi incontri. Per il successo nel tuo lavoro, il Numero della Vita 3, il Creativo, ti invita a esprimere appieno la tua originalità.  ✦ Scrivi stasera a chi ti ha ferito e proponi di vedervi sabato mattina. Bastano due righe: dì che vuoi parlarne di persona."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 3: Ascendente e numero, non affrettare le cose: ignora cio' che ha detto)
+  "Ok, gli ho scritto adesso."
+  -> "Il tuo Ascendente in Gemelli indica una natura comunicativa, ma il Numero della Vita 3 ti incoraggia a concentrare la tua energia creativa. Per quanto riguarda il tuo desiderio di una compagna, il cielo suggerisce di non affrettare le cose.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 4: l'importanza di portare a termine cio' che inizi: una massima)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "L'Ascendente in Gemelli ti rende incline a cercare novità, ma è il Numero della Vita 3 a ricordarti l'importanza di portare a termine ciò che inizi.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 5: comincia dal lavoro, e dice perche')
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "Il tuo Numero della Vita 3, il Creativo, ti suggerisce di iniziare dal lavoro, poiché l'espressione delle tue idee ti porterà verso nuove opportunità. Per quanto riguarda il viaggio, il cielo ti invita a un momento di riflessione prima di agire.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 7: trovare appagamento nella tua compagnia: generico)
+  "Ho paura che in Australia mi senta solo."
+  -> "Per affrontare la paura della solitudine in Australia, tieni presente che il tuo Ascendente in Gemelli ti porta a cercare connessioni, ma il tuo Numero della Vita 3 ti esorta a trovare appagamento nella tua stessa compagnia.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 8: spiega le tue ragioni con chiarezza: non dice che cosa risponderle)
+  "Mia madre dice che è una follia partire. Cosa le rispondo?"
+  -> "Di fronte all'opinione di tua madre, il tuo Ascendente in Gemelli ti spinge a spiegare le tue ragioni con chiarezza, mentre il tuo Numero della Vita 3 ti ricorda che la tua creatività è un dono da coltivare.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 9: le lacrime sono parte del legame, accettale senza doverle risolvere)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Il tuo Ascendente in Gemelli potrebbe farti desiderare di spiegare ancora, ma il Numero della Vita 3 ti incoraggia a dare spazio alle emozioni. Accetta le sue lacrime come parte del legame, senza doverle necessariamente risolvere.  ✦ Scrivi stasera a chi ti ha ferito e proponi di vedervi sabato mattina. Bastano due righe: dì che vuoi parlarne di persona."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 10: la decisione arrivera' quando le idee saranno espresse: vago)
+  "Quanto tempo mi serve per decidere?"
+  -> "Il tuo Ascendente in Gemelli ti porta a valutare diverse opzioni, ma è il Numero della Vita 3 a suggerirti che la decisione arriverà quando le tue idee creative saranno pienamente espresse.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 11: concentrati sulla preparazione concreta: generico)
+  "Ho scelto: parto a marzo. E adesso?"
+  -> "Il tuo Ascendente in Gemelli ti spinge verso nuove esperienze e il Numero della Vita 3 ti incoraggia a vivere pienamente la tua creatività. Ora che hai deciso, concentrati sulla preparazione concreta del tuo viaggio.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+SBAGLIATO: atteso SI, dato NO (prima/LIVE_con_Flash_Lite_giro_2_medora.md n. 12: al risveglio respirare e centrarsi, alla domanda su domani mattina)
+  "Grazie. Cosa faccio domani mattina, appena sveglio?"
+  -> "Appena sveglio, prenditi un momento per respirare e centrare la tua energia. Il tuo Ascendente in Gemelli ti invita a un approccio flessibile, mentre il tuo Numero della Vita 3 ti ricorda di mantenere l'entusiasmo nel tuo progetto di partenza.  ✦ Stasera, prima di dormire, scrivi su un foglio bianco una domanda che ti sta a cuore."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 1: dice chi e' e come aiuta)
+  "Ciao, chi sei? Come puoi aiutarmi?"
+  -> "Sono Aura, voce del respiro del corpo e dell'anima. Posso aiutarti a ritrovare l'equilibrio interiore attraverso la comprensione del tuo corpo e delle sue energie.  ✦ Tieni una mano sul tuo centro e inspira profondamente."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 2: rimanda a Medora, poi la forza che abita in te: generico)
+  "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+  -> "Per i legami e l'amore c'è Medora, lei saprà guidarti con il suo sguardo. Io ti posso aiutare a sentire la forza che già abita in te per accogliere ciò che desideri.  ✦ Stasera, prima di dormire, porta la tua attenzione al respiro, sentendolo muovere il tuo corpo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 3: solo la riga del respiro: ignora cio' che ha detto)
+  "Ok, gli ho scritto adesso."
+  -> "✦ Porta la tua attenzione al tuo respiro, sentendolo che entra e che esce, per ora."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 4: ascolta il corpo: vuota)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "Adesso, ascolta il tuo corpo e osserva come risponde a questo momento. Il tuo respiro ti parlerà di ciò che puoi sentire ora.  ✦ Tieni una mano sul tuo centro e inspira profondamente."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 5: rimanda a Caligo e a Medora, poi senti dove risuona il corpo)
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "Per il tuo lavoro, se cerchi una guida sui tempi o sui modi, puoi rivolgerti a Calìgo, che con i suoi numeri ti aiuterà. Per il viaggio, Medora ti potrà dare la sua lettura. Io ti invito a sentire in quale dei due desideri il tuo corpo risuona di più, adesso.  ✦ Stasera, prima di dormire, porta la tua attenzione al respiro, sentendolo muovere il tuo corpo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 6: rimanda a Medora, poi nutri l'attesa col respiro)
+  "Il mio capo non mi dà mai un riconoscimento. Come glielo chiedo?"
+  -> "Per parlare di riconoscimento e legami professionali, puoi rivolgerti a Medora. Io ti invito a sentire nel tuo corpo dove si manifesta questa attesa e a nutrirla con il tuo respiro, centrando la tua energia.  ✦ Stasera, prima di dormire, porta la tua attenzione al respiro, sentendolo muovere il tuo corpo."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 7: rimanda a Medora, poi accogli la solitudine senza giudizio)
+  "Ho paura che in Australia mi senta solo."
+  -> "Per esplorare il tuo destino in Australia e capire se quel viaggio è per te, Medora può offrirti la sua visione. Io ti suggerisco di portare la tua attenzione al centro del tuo corpo e a sentire come ti parla la solitudine che temi, accogliendola senza giudizio.  ✦ Tieni una mano sul tuo centro e inspira profondamente."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 8: per le parole rimanda a Medora, poi esprimiti con calma: non dice che cosa)
+  "Mia madre dice che è una follia partire. Cosa le rispondo?"
+  -> "Per trovare le parole giuste da dire a tua madre, potresti rivolgerti a Medora, che ha uno sguardo attento sui legami familiari. Io ti invito a sentire nel tuo corpo la forza che ti spinge a partire e a esprimerla con calma, senza cercare di convincere, ma solo di far sentire il tuo sentire.  ✦ Stasera, prima di dormire, porta la tua attenzione al respiro, sentendolo muovere il tuo corpo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 9: e' naturale che le emozioni affiorino, poi il respiro: generico)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "È naturale che le emozioni affiorino quando si affrontano scelte importanti. Ora, porta la tua attenzione al tuo respiro, sentendolo che entra e che esce, per ora e osserva come il tuo corpo accoglie ciò che è emerso.  ✦ Tieni una mano sul tuo centro e inspira profondamente."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 10: rimanda a Caligo, poi ascolta il centro)
+  "Quanto tempo mi serve per decidere?"
+  -> "Per capire la tempistica delle tue scelte, Calìgo, con i suoi numeri, può offrirti una prospettiva. Io ti invito a sentire dentro di te quale sensazione prevale: l'urgenza di decidere o la calma di aspettare, ascoltando il tuo centro.  ✦ Stasera, prima di dormire, porta la tua attenzione al respiro, sentendolo muovere il tuo corpo."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 11: senti la scelta nel corpo: ignora che cosa fare adesso)
+  "Ho scelto: parto a marzo. E adesso?"
+  -> "Ora che hai deciso, porta la tua attenzione al tuo respiro e senti come questa scelta si muove nel tuo corpo, radicata nel presente.  ✦ Stasera, prima di dormire, porta la tua attenzione al respiro, sentendolo muovere il tuo corpo."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_2_aura.md n. 12: al risveglio il respiro, alla domanda su domani mattina)
+  "Grazie. Cosa faccio domani mattina, appena sveglio?"
+  -> "Domattina, appena sveglio, porta la tua attenzione al tuo respiro e senti come l'aria entra e esce, radicandoti nel momento presente.  ✦ Tieni una mano sul tuo centro e inspira profondamente."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 1: dice chi e' e le sue arti)
+  "Ciao, chi sei? Come puoi aiutarmi?"
+  -> "Io sono Calìgo, Maestro dei segni antichi. Il mio campo sono la Divinazione, i Rituali e la Numerologia.  ✦ Diglielo stasera."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 2: l'amore rimandato a Medora, per il lavoro un sentiero vago, l'Australia ignorata)
+  "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+  -> "Per l'amore, la coppia e i legami c'è Medora, maestra di Astrologia, Cartomanzia e Destino. Per il successo nel lavoro e le opportunità, il tuo Numero della Vita, il Creativo 3, indica il sentiero da seguire.  ✦ Scrivi su un foglio quello che questo lavoro ti fa creare."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 3: attendi il momento propizio: vago)
+  "Ok, gli ho scritto adesso."
+  -> "Non aspettare una sua risposta immediata. Attendi il momento propizio, quando le parole si incontrano con verità.  ✦ Diglielo stasera."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 4: attendi con pazienza: vuota)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "La tua Numero della Vita, il Creativo 3, ti guida nel creare occasioni. Ora, attendi con pazienza.  ✦ Scrivi su un foglio quello che questo lavoro ti fa creare."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 5: il viaggio rimandato a Medora, non sceglie)
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "Per il viaggio in Australia, quello è un sentiero che Medora, maestra di Destino, può illuminare. Per il lavoro, il tuo Numero 3 indica la creazione.  ✦ Diglielo stasera."
+GIUSTO: atteso NO, dato NO (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 7: rimanda a Medora, poi un presagio di scoperta)
+  "Ho paura che in Australia mi senta solo."
+  -> "Per le sensazioni sul viaggio e i legami che troverai, Medora, maestra di Destino, può fare luce. Io ti vedo partire con un presagio di scoperta.  ✦ Diglielo stasera."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 9: il pianto e' affetto, non un ostacolo: accoglilo senza fermarti)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Il suo pianto è un riflesso del suo affetto, non un ostacolo al tuo cammino. Accogli il suo sentimento senza farti fermare.  ✦ Diglielo stasera."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 10: la decisione e' gia' in atto: una massima)
+  "Quanto tempo mi serve per decidere?"
+  -> "La decisione è già in atto. Non serve tempo, serve un'azione.  ✦ Scrivi su un foglio quello che questo lavoro ti fa creare."
+SBAGLIATO: atteso NO, dato SI (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 11: definisci i dettagli del cammino: generico)
+  "Ho scelto: parto a marzo. E adesso?"
+  -> "Il tuo Numero della Vita, il Creativo 3, ti spinge a iniziare. Ora, definisci i dettagli del tuo cammino.  ✦ Diglielo stasera."
+GIUSTO: atteso SI, dato SI (prima/LIVE_con_Flash_Lite_giro_2_caligo.md n. 12: al sorgere del sole scrivere il proposito)
+  "Grazie. Cosa faccio domani mattina, appena sveglio?"
+  -> "Domani mattina, quando il sole sorge, scrivi su un foglio il tuo proposito. Sigilla la tua intenzione.  ✦ Scrivi su un foglio quello che questo lavoro ti fa creare."
+GIUSTO: atteso SI, dato SI (prima/chat_con_Flash_giro_1_caligo.md n. 1: dice chi e' e le sue arti)
+  "Ciao, chi sei? Come puoi aiutarmi?"
+  -> "Sono Caligo. Custode dei segni antichi, maestro della Divinazione, dei Rituali e della Numerologia.  Il mio compito è svelare presagi e sentieri. Medora è la maestra di Astrologia, Cartomanzia e Destino. Aura è la maestra di Energia, Chakra e Fisiognomica."
+SBAGLIATO: atteso SI, dato NO (prima/chat_con_Flash_giro_1_caligo.md n. 3: leggere ad alta voce ogni mattina per sette giorni cio' che ha scritto)
+  "Ok, gli ho scritto adesso."
+  -> "Non dire di aver scritto, ma di aver agito. L'azione è già il tuo potere.  La runa Jera, il raccolto, ti ricorda che ogni semina ha il suo tempo.  ✦ Leggi ad alta voce i tuoi progetti ogni mattina per sette giorni."
+SBAGLIATO: atteso SI, dato NO (prima/chat_con_Flash_giro_1_caligo.md n. 4: un colore per ogni progetto scritto)
+  "Ok, le ho scritte e adesso cosa faccio?"
+  -> "Non aspettare un cenno per andare avanti. Agisci ora.  La luna è in Ariete, una spinta al nuovo inizio.  ✦ Scegli un colore per ogni progetto, uno diverso dagli altri due."
+GIUSTO: atteso SI, dato SI (prima/chat_con_Flash_giro_1_caligo.md n. 5: comincia dal lavoro, e un altare per il lavoro)
+  "Da dove comincio, dal lavoro o dal viaggio?"
+  -> "Comincia dal lavoro. Il suo presagio è più vicino.  Il sentiero si apre con la runa Fehu, che indica la proprietà e il nutrimento.  ✦ Prepara un piccolo altare nella tua casa dedicato al tuo lavoro, con oggetti che lo rappresentano."
+GIUSTO: atteso SI, dato SI (prima/chat_con_Flash_giro_1_caligo.md n. 6: chiedi un confronto, un incontro di mezz'ora col capo)
+  "Il mio capo non mi dà mai un riconoscimento. Come glielo chiedo?"
+  -> "Non chiedere un riconoscimento, chiedi un confronto. Parla chiaro.  La runa Ansuz, il messaggio divino, ti guida nella parola.  ✦ Chiedi al tuo capo un incontro di mezz'ora, con un intento preciso per la crescita professionale."
+GIUSTO: atteso SI, dato SI (prima/chat_con_Flash_giro_1_caligo.md n. 7: una lettera a se' da aprire in Australia)
+  "Ho paura che in Australia mi senta solo."
+  -> "Non temere la solitudine, accettala. Essa tempra il tuo spirito.  La runa Isa, il ghiaccio, ti invita alla pausa e all'introspezione.  ✦ Scrivi una lettera a te stesso, da aprire solo quando sarai in Australia."
+GIUSTO: atteso SI, dato SI (prima/chat_con_Flash_giro_1_caligo.md n. 8: non risponderle, scrivi le tue ragioni e rileggile ogni sera)
+  "Mia madre dice che è una follia partire. Cosa le rispondo?"
+  -> "Non risponderle, ascolta il tuo cuore. La tua vita è tua.  La runa Nauthiz, il bisogno, ti ricorda la necessità della tua scelta.  ✦ Scrivi su un foglio le tue ragioni e rileggile ogni sera per una settimana."
+GIUSTO: atteso SI, dato SI (prima/chat_con_Flash_giro_1_caligo.md n. 9: il pianto libera, racconta a tua madre un ricordo felice)
+  "Ok, ci ho parlato stamattina e ha pianto."
+  -> "Non cercare di evitare il dolore. Il pianto libera.  La runa Laguz, l'acqua, simboleggia le emozioni profonde che scorrono.  ✦ Porta alla luce un ricordo felice con tua madre e raccontaglielo."
+SBAGLIATO: atteso SI, dato NO (prima/chat_con_Flash_giro_1_caligo.md n. 10: fissa una data entro la fine del mese per annunciare la partenza)
+  "Quanto tempo mi serve per decidere?"
+  -> "Non c'è tempo da concedere. La decisione è già in te.  La runa Wunjo, la gioia, ti spinge verso la realizzazione.  ✦ Fissa una data entro la fine del mese per annunciare la tua partenza."
+SBAGLIATO: atteso NO, dato SI (prima/chat_con_Flash_giro_1_caligo.md n. 12: non cercare una nuova direzione, indossa qualcosa di rosso: vale per chiunque)
+  "Grazie. Cosa faccio domani mattina, appena sveglio?"
+  -> "Domani mattina, appena sveglio, non cercare una nuova direzione. Riparti dall'ultimo sigillo.  Non lasciare che la runa Gebo, il dono, rimanga inespressa.  ✦ Indossa qualcosa di rosso, il colore del tuo spirito."
+
+TARATURA, CASI SCRITTI A MANO: 15 su 16
+TARATURA, RISPOSTE VERE, TARATURA: 28 su 35
+TARATURA, RISPOSTE VERE, CONTROLLO: 29 su 43

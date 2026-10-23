@@ -1,0 +1,19 @@
+REGOLA A, ordine FW voce FW.04, 15 ottobre 2026
+guardia: test/la_scena_della_chat_e_un_filmato_test.dart
+
+innesto: lib/features/maestri/chat/maestro_chat_screen.dart riga 899,
+  onSalta: _regiaDellaChat.salta,  ->  onSalta: () {}, // INNESTO_FW04
+verifica dell'innesto: grep -n "INNESTO_FW04" lib/features/maestri/chat/maestro_chat_screen.dart
+  trovato alla riga 899, confermato il difetto nel file.
+
+esito con l'innesto (uscita 1):
+  FW.04: un tocco fa sfumare il video della chat [E]
+  Expected: <1>
+    Actual: <0>
+  il tocco non ha fatto sospendere il lettore della chat
+  00:03 +4 -1: Some tests failed.
+
+ripristino: ricopiato maestro_chat_screen.dart dal backup; grep "onSalta"
+  conferma "onSalta: _regiaDellaChat.salta," e grep -c "INNESTO_FW04" da' 0.
+
+esito sul codice vero (uscita 0): All tests passed! (5 su 5)

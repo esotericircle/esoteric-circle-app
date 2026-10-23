@@ -1,0 +1,60 @@
+IL PEZZO VOLTA DEL VIAGGIO DELLO SCIAMANO, 20 ottobre 2026: le prove viste rosse
+
+REGOLA B, prima di toccare la zona (tre guardie del registro, un giro solo,
+tre innesti in tre file diversi, ognuno verificato col grep prima del giro;
+uscita in %TEMP%\regola_b_rosso.txt)
+
+  B.1 i_video_gia_scaricati_si_ritrovano
+      innesto: lib/features/maestri/caligo/viaggio/il_segno_che_risponde.dart:99
+               "// INNESTO REGOLA B: await _video.leggiIInstallati();"
+      rossa:   "il segno non ha riletto dal disco il video gia' scaricato"
+  B.2 il_video_della_carta_si_scarica_mentre_si_scopre
+      innesto: lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart:884
+               "// INNESTO REGOLA B: if (video.installato(nome.toLowerCase())) return;"
+      rossa:   "CHI HA GIA' IL VIDEO non lo scarica di nuovo", Actual ['Cavallo']
+  B.3 il_segno_non_dice_no_sulla_salute
+      innesto: lib/core/viaggio/il_segno_dell_animale.dart:333
+               "static bool domandaDelicata(String domanda) => false && RegExp("
+      rossa:   tre prove su quattro (modello e riserva dicono no sulla salute)
+  Innesti tolti, grep "INNESTO REGOLA B" su lib: nessuna riga.
+
+REGOLA A, la guardia nuova si_volta_fa_girare_il_pezzo_volta e le prove
+cambiate (due giri, perche' B3 fa cadere anche le prove di B1 e B2; ogni
+innesto verificato col grep "INNESTO" prima del giro; uscite in
+%TEMP%\viaggio_volta_regola_a_giro1.txt e giro2.txt)
+
+  Giro 1, nove rossi:
+  A1 la_sequenza_del_cammino.dart: siVolta di nuovo [PezzoDelCammino.centro]
+     -> si_volta_fa_girare_il_pezzo_volta "SI VOLTA FA GIRARE IL SOLO PEZZO
+        VOLTA" e la_sequenza_del_cammino "si volta: il solo pezzo volta":
+        Expected [volta], Actual [centro]
+  A2 docs/collaudo/viaggio_volta/manifesto_viaggio_v2.json: il pezzo "volta"
+     del gufo rinominato "voltaX" (grep -c '"voltaX"' = 1)
+     -> "IL MANIFESTO V2 PORTA PER OGNI ANIMALE IL PEZZO VOLTA": "Gufo non ha
+        il pezzo volta"
+  A3 il_segno_dell_animale.dart: di nuovo 'si allontana di qualche passo'
+     -> "D5: LA RIGA DELL'USCITA DICE QUELLO CHE IL VIDEO MOSTRA"
+  A4 i_video_del_cammino_scaricati.dart: manifestoSulBucket di nuovo la v1
+     -> "L'APP CHIEDE LA V2": Actual ...manifesto_viaggio_v1.json
+  B3 i_video_del_cammino_scaricati.dart: il ripiego sulla v1 spento
+     -> "FINCHE' LA V2 NON E' SUL BUCKET SI RIPIEGA SULLA V1": nonRiuscito
+  C1 il_segno_che_risponde.dart: di nuovo installato() invece di aggiornato()
+     -> i_video_gia_scaricati "UN LUPO DELLA V1 SUL DISCO NON E' AGGIORNATO":
+        scaricati 0 invece di 1
+
+  Giro 2, due rossi:
+  B1 i_video_del_cammino_scaricati.dart: spento il riuso dei file dal telefono
+     -> "UN ANIMALE DELLA V1 PASSA ALLA V2": "i file che non cambiano si sono
+        riscaricati dalla rete"
+  B2 i_video_del_cammino_scaricati.dart: spento "niente da aggiornare"
+     -> "CON LA SOLA V1 SUL BUCKET UN ANIMALE DELLA V1 NON SI RISCARICA":
+        richieste 6 invece di 2, "la v1 gia' sul telefono si e' riscaricata"
+
+  Innesti tolti; il manifesto della copia rimesso e confrontato con cmp con
+  quello di _pronti_v2: identico. Grep "INNESTO" su lib e test: nessuna riga.
+
+VERDE a innesti tolti: 13 file di prova della zona, 66 prove, tutte verdi
+(%TEMP%\viaggio_volta_zona_verde.txt). accenti_veri_test e' rossa per
+lib/core/responsi/i_riti_propiziatori_dati.dart righe 417, 425, 427, 437,
+479 ("se'" dei salmi del Martini), gia' rossa al commit 297cd46f: padre
+ordine GA voci 04 e 07, non questo lavoro.

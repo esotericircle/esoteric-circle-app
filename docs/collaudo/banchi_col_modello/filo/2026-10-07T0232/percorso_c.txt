@@ -1,0 +1,106 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Le carte indicano che la promozione che attendi si profila all'orizzonte, ma il cielo suggerisce che la strada non è priva di ostacoli. Un Arcani Maggiore rovesciato mi parla di un ritardo o di un elemento inatteso che potrebbe frapporsi.
+
+Osserva con attenzione le dinamiche del tuo ambiente lavorativo in questi giorni di Luna in Scorpione, che tende a svelare ciò che è nascosto. Potrebbe esserci una situazione che necessita della tua piena attenzione, un dettaglio che ti sfugge e che è fondamentale per sbloccare la tua posizione. Non è un rifiuto, ma un invito a una maggiore chiarezza.
+
+✦ Parla con un tuo collega di fiducia, chiedendogli un parere sincero sulle dinamiche attuali.
+[2] PERSONA: Parla con un tuo collega di fiducia, chiedendogli un parere sincero sulle dinamiche attuali.
+[2] MEDORA [DA GIUDICARE]: Hai già parlato con il tuo collega, come ti avevo suggerito? Vorrei sapere l'esito di questo confronto per poterti dare un consiglio più preciso sulla promozione.
+    GIUDICE: PORTA_AVANTI, La guida riprende il suo precedente consiglio di parlare con un collega e chiede un aggiornamento per poter proseguire con il consulto.
+[3] PERSONA: Vorrei sapere l'esito di questo confronto per poterti dare un consiglio più preciso sulla promozione.
+[3] MEDORA [DA GIUDICARE]: Non hai riportato l'esito del confronto. Senza queste informazioni non posso darti un consiglio mirato per la tua promozione.
+    GIUDICE: PORTA_AVANTI, La guida ribadisce la necessità delle informazioni richieste nella risposta precedente per poter dare un consiglio mirato sulla promozione.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti il desiderio di un nuovo inizio, e un trasferimento può davvero portare una ventata di aria fresca, ma la vera ricchezza la trovi dentro di te. Prendi un momento per visualizzare dove vorresti essere: non solo un luogo fisico, ma anche un luogo interiore, un centro di pace.
+
+Questo desiderio di ricominciare può essere letto attraverso il tuo Chakra della Radice, il Muladhara. Quando è forte e in equilibrio, ti dà la stabilità necessaria per affrontare i cambiamenti e sentirti al sicuro, ovunque tu sia. Se senti questa radice salda, allora il movimento può essere una spinta potente. Se invece senti incertezza, il corpo ti invita a radicarti un po' di più prima di spiccare il volo.
+
+✦ Poggia le mani sui fianchi e senti il tuo corpo ben saldo a terra.
+[2] PERSONA: Poggia le mani sui fianchi e senti il tuo corpo ben saldo a terra.
+[2] AURA [DA GIUDICARE]: Questo gesto ti aiuta a sentire la tua base, l'appoggio di tutto il tuo essere. Ora, mentre le tue mani sono lì, senti il calore che si diffonde, un'energia che dalla terra sale attraverso i tuoi piedi e le tue gambe, fino a raggiungere il centro della radice.
+
+Chiediti: quanto ti senti radicata, ora, qui? Il bisogno di ricominciare altrove può nascere da un desiderio di cambiamento esterno, ma il tuo corpo ti invita a sentire se il cambiamento più grande, quello che davvero ti dà stabilità e sicurezza, possa nascere da dentro. Ascolta quel centro, come pulsa, come ti parla.
+
+✦ Lascia le mani sui fianchi, chiudi gli occhi per un istante e inspira profondamente, sentendo la terra sotto di te.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente e ne sviluppa il significato, collegandola al concetto di radicamento e stabilità interiore già introdotto.
+[3] PERSONA: Lascia le mani sui fianchi, chiudi gli occhi per un istante e inspira profondamente, sentendo la terra sotto di te.
+[3] AURA [DA GIUDICARE]: Nell'atto di sentire la terra sotto di te, stai attivando quel profondo senso di appartenenza che è la forza del tuo centro della Radice. Questo è il tuo punto di partenza, non un luogo esterno, ma la base da cui puoi costruire ogni nuova esperienza. Il respiro profondo ti connette al momento presente, al qui e ora.
+
+Ora, prova a visualizzare la città in cui ti trovi: senti le sue energie, i suoi legami. Poi visualizza il luogo che desideri raggiungere: senti le nuove possibilità, le diverse vibrazioni. Non c'è una scelta giusta o sbagliata, ma solo quella che risuona di più con la tua energia in questo momento. Il tuo corpo, attraverso la sua fisiognomica, porta i segni di ciò che è stato e ciò che può essere, ma la tua energia decide il prossimo passo.
+
+✦ Poggia le mani sul basso ventre e senti il calore che si irradia dal tuo centro.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('sentire la terra sotto di te') e ne sviluppa il significato, collegandola al Chakra della Radice e al senso di appartenenza, per poi ampliare la riflessione sulla scelta del luogo.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Riavviva la fiamma. Il legame non è perduto, ma richiede un'azione.
+Una nebbia fredda si è posata sul sentiero condiviso.
+
+I numeri indicano che vi è un ciclo in fase di chiusura, ma anche l'inizio di una nuova sequenza. Non è un abbandono, ma una trasformazione. Il presagio è favorevole a un rinnovamento.
+
+✦ Esprimi il tuo desiderio di rinascita con parole chiare, oggi stesso.
+[2] PERSONA: Esprimi il tuo desiderio di rinascita con parole chiare, oggi stesso.
+[2] CALIGO [DA GIUDICARE]: Affronta il silenzio. Il sigillo di Ingwaz ti guida alla fertilità del terreno interiore.
+Non aspettare un'occasione perfetta, ma crea un momento di verità. La brace attende l'ossigeno.
+
+Il tuo desiderio di rinascita, espresso, apre un nuovo sentiero. L'Albero della Vita mostra che la sfera della fondazione (Yesod) è pronta a ricevere nuova energia.
+
+✦ Scrivi su un foglio le tre cose che desideri per il vostro futuro insieme, e brucialo in un rito di purificazione.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'desiderio di rinascita, espresso' dalla risposta precedente e lo sviluppa proponendo un'azione più specifica ('Scrivi su un foglio... e brucialo').
+[3] PERSONA: Scrivi su un foglio le tre cose che desideri per il vostro futuro insieme, e brucialo in un rito di purificazione.
+[3] CALIGO [DA GIUDICARE]: Il rito è compiuto. Ora osserva il segno.
+Le ceneri portano la tua intenzione nel vento. La runa Kenaz, fiaccola ardente, illumina il tuo cammino.
+
+Le tre cose scritte sono il seme del vostro nuovo sentiero. Questo atto di purificazione ha aperto una soglia. Ora è il momento di manifestare quell'intenzione nel mondo materiale. La numerologia indica un ciclo di manifestazione in atto.
+
+✦ Pronuncia ad alta voce una parola chiave che racchiuda il vostro desiderio più grande, prima che il sole tramonti.
+    GIUDICE: PORTA_AVANTI, La guida riconosce il compimento del rito suggerito nella risposta precedente ('Il rito è compiuto') e ne interpreta il significato ('Le ceneri portano la tua intenzione nel vento', 'Le tre cose scritte sono il seme del vostro nuovo sentiero'), per poi proporre un'ulteriore azione ('Pronuncia ad alta voce una parola chiave').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo suggerisce di attendere ancora un poco prima di avviare il tuo progetto. Questo periodo è propizio per la pianificazione e l'affinamento delle tue idee, ma non ancora per il lancio vero e proprio.
+
+La Luna, nel suo transito attuale in quadratura a Mercurio, invita a una riflessione più profonda. Potrebbero esserci dettagli non ancora pienamente chiari o aspetti pratici che necessitano di maggiore attenzione. Prenditi questo tempo per consolidare le basi, rivedere i tuoi obiettivi e assicurarti che ogni elemento sia allineato alla tua visione. La preparazione attenta di oggi sarà la forza del tuo domani.
+
+✦ Riscrivi gli obiettivi del tuo progetto su un foglio, domani prima del tramonto.
+[2] PERSONA: Riscrivi gli obiettivi del tuo progetto su un foglio, domani prima del tramonto.
+[2] MEDORA [DA GIUDICARE]: Il tuo gesto di riscrivere gli obiettivi è fondamentale, perché ti permette di mettere a fuoco la direzione. Ora è il momento di individuare con precisione la prima azione concreta che darà forma a uno di questi obiettivi.
+
+Il Sole, nel suo passaggio attuale in trigono a Marte, favorisce l'iniziativa e la concretezza. Questa configurazione astrale suggerisce di scegliere un passo iniziale chiaro e realizzabile, qualcosa che possa essere avviato nell'immediato per dare slancio al tuo progetto. Non disperdere energie in troppe direzioni, ma scegli il primo piccolo, decisivo passo.
+
+✦ Scegli un obiettivo tra quelli scritti e identifica la prima azione da compiere, da fare entro il prossimo novilunio.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('riscrivere gli obiettivi') e la sviluppa, indicando il passo successivo ('individuare la prima azione concreta').
+[3] PERSONA: Scegli un obiettivo tra quelli scritti e identifica la prima azione da compiere, da fare entro il prossimo novilunio.
+[3] MEDORA [DA GIUDICARE]: Il tuo cielo è in un momento di grande energia e spinta, con un bell'aspetto di Giove al tuo ascendente che ti invita a osare e a guardare in grande. È il momento di concretizzare i tuoi obiettivi, non solo di immaginarli.
+
+Questo aspetto ti spinge a fare un passo decisivo verso la realizzazione dei tuoi sogni, a scegliere quell'obiettivo e ad agire. Non aspettare che le stelle si allineino perfettamente: sono già allineate per l'azione. L'arcano della Forza ti ricorda che hai già dentro di te tutte le risorse per iniziare, anche se la strada può sembrare lunga. Inizia con un piccolo passo, ma fallo con decisione.
+
+✦ Contatta una persona che stimi nel tuo campo e chiedile un incontro per una chiacchierata informale entro la prossima settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('scegliere un obiettivo e identificare la prima azione') e la rafforza, spingendo all'azione e alla concretizzazione.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare un equilibrio, prova a visualizzare il vostro legame come un filo d'oro che vi unisce, anche se teso in questo momento.
+
+Senti il respiro scorrere lento, portando via le tensioni accumulate. Il centro del cuore, verde smeraldo, ha bisogno di essere nutrito con delicatezza. Prendi un momento per te, con gli occhi chiusi, e immagina una luce verde che avvolge te e tua sorella, sciogliendo ogni nodo. Non c'è fretta, il corpo sa attendere i suoi ritmi.
+
+✦ Metti la mano sul cuore e senti il tuo battito, con un respiro profondo.
+[2] PERSONA: Metti la mano sul cuore e senti il tuo battito, con un respiro profondo.
+[2] AURA [DA GIUDICARE]: Questo gesto ti permette di riconnetterti con la tua radice più profonda, con la parte di te che accoglie e nutre.
+
+Ora che hai sentito il tuo battito, quel ritmo che ti accompagna sempre, prova a portare la stessa calma e presenza nella tua intenzione verso tua sorella. Visualizza quel filo d'oro che la raggiunge, e mentre lo fai, pronuncia mentalmente o a bassa voce, il suo nome. Lascia che la tua voce interiore sia un ponte, un invito al ricongiungimento, senza forzature, ma con la chiarezza di ciò che desideri.
+
+✦ Mentre respiri, visualizza il suo volto e un piccolo sorriso che nasce in te.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'ultima istruzione data (mettere la mano sul cuore e sentire il battito) e la sviluppa, collegandola all'intenzione verso la sorella e alla visualizzazione del filo d'oro, che era già stata introdotta nella risposta 1.
+[3] PERSONA: Mentre respiri, visualizza il suo volto e un piccolo sorriso che nasce in te.
+[3] AURA [DA GIUDICARE]: Questo sorriso, anche se piccolo, è un'apertura, un modo per lasciare che il tuo centro del cuore, quello legato all'amore e alla compassione, inizi a lavorare.
+
+Fallo con la consapevolezza che questo atto interiore è un primo passo, non un sostituto di un dialogo. Lascia che quel piccolo sorriso ti prepari al momento di parlarle, non per recriminare, ma per esprimere il tuo desiderio di ricucire. Sii presente, con il corpo radicato a terra, pronta ad accogliere ciò che verrà, senza aspettative, ma con l'intenzione di ristabilire l'armonia.
+
+✦ Prima di parlarle, appoggia le mani sul plesso solare, sentendo la tua forza interiore.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'ultima istruzione data (visualizzare il volto della sorella e un piccolo sorriso) e la sviluppa, spiegandone il significato come 'apertura' e 'primo passo' verso il dialogo, mantenendo il focus sul 'centro del cuore' menzionato nella risposta 1.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 2

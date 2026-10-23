@@ -1,0 +1,92 @@
+LA PROVA DEL ROSSO DELLA GUARDIA DELLE UNDICI REGOLE
+Ordine CP, Regola A. Un innesto per pretesa, verificato col grep prima di leggere l'esito.
+========================================================================
+ROSSA     la scala scende                                 attesa: REGOLA 4, il costo
+          caduta: REGOLA 2, due gradini di pari costo non nominano lo stesso gesto
+          caduta: REGOLA 4, il costo in giorni non diminuisce mai lungo un sentiero
+          caduta: REGOLA 4, ogni fascia sta dentro la sua banda di giorni
+ROSSA     la fascia sfonda la sua banda                   attesa: REGOLA 4, ogni fascia
+          caduta: REGOLA 4, il costo in giorni non diminuisce mai lungo un sentiero
+          caduta: REGOLA 4, ogni fascia sta dentro la sua banda di giorni
+ROSSA     due gradini da una sessione sul Loto            attesa: REGOLE 1 e 5
+          caduta: REGOLE 1 e 5, un solo gradino per sentiero si chiude in una sessione
+ROSSA     pari costo, stesso gesto                        attesa: REGOLA 2
+          caduta: REGOLA 2, due gradini di pari costo non nominano lo stesso gesto
+ROSSA     una fascia diventa un elenco di conteggi        attesa: REGOLA 3
+          caduta: REGOLA 3, dalla seconda fascia in poi la meta' non e' un conteggio
+ROSSA     il grande di una fascia non e del cielo         attesa: REGOLA 7, tre finestre
+          caduta: REGOLA 7, nessun evento del cielo inventato
+          caduta: REGOLA 7, tre finestre del cielo per fascia e il grande e' sempre una
+ROSSA     una fascia scende sotto le tre finestre del cielo  attesa: REGOLA 7, tre finestre
+          caduta: REGOLA 7, nessun evento del cielo inventato
+          caduta: REGOLA 7, tre finestre del cielo per fascia e il grande e' sempre una
+ROSSA     un'arte si incontra solo dopo il terzo mese     attesa: REGOLA 6, ogni arte
+          caduta: REGOLA 6, ogni arte del sentiero si incontra nelle prime tre fasce
+ROSSA     un gesto senza schermata                        attesa: REGOLA 10, nessun gradino
+          caduta: REGOLA 10, nessun gradino nomina un gesto che nessuna schermata manda
+ROSSA     una porta vuota                                 attesa: REGOLA 6, ogni gradino
+          caduta: REGOLA 6, ogni gradino dichiara la porta che apre
+ROSSA     una condizione ripetuta                         attesa: FORMA, nessuna condizione
+          caduta: FORMA, nessuna condizione si ripete identica in tutto il corpus
+          caduta: REGOLA 2, due gradini di pari costo non nominano lo stesso gesto
+ROSSA     il catalogo del cielo perde un evento che i 165 nominano  attesa: REGOLA 7, nessun evento
+          caduta: REGOLA 7, nessun evento del cielo inventato
+          caduta: REGOLA 9, ogni evento nominato ha una data prevedibile in anticipo
+ROSSA     un gesto che il registro delle arti non conosce  attesa: REGOLA 10, nessun gesto inventato
+          caduta: REGOLA 10, nessun gesto inventato: il registro delle arti li conosce
+          caduta: REGOLA 10, nessun gradino nomina un gesto che nessuna schermata manda
+          caduta: REGOLA 6, ogni arte del sentiero si incontra nelle prime tre fasce
+ROSSA     un gradino dichiarato dormiente                 attesa: REGOLA 10, nessun gradino
+          caduta: REGOLA 10, nessun gradino nomina un gesto che nessuna schermata manda
+ROSSA     gli id perdono il prefisso                      attesa: FORMA, gli id
+          caduta: FORMA, gli id sono unici e valgono prefisso e posizione
+ROSSA     gli Eos sbagliano curva                         attesa: REGOLA 11
+          caduta: REGOLA 11, il Cammino e' chiuso e finibile: 165, 55, 2.010, 6.030
+ROSSA     il grande cade fuori posizione                  attesa: FORMA, il grande
+          caduta: FORMA, il grande di ogni fascia sta in undici, ventidue e via
+          caduta: REGOLA 7, tre finestre del cielo per fascia e il grande e' sempre una
+ROSSA     l'orizzonte della previsione si accorcia        attesa: REGOLA 9
+          caduta: REGOLA 9, ogni evento nominato ha una data prevedibile in anticipo
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 18 su 18
+
+
+LA PROVA DEL ROSSO DELLE ALTRE DUE GUARDIE NUOVE
+Ordine CP, Regola A. Un innesto per pretesa, verificato col grep prima di leggere l'esito.
+========================================================================
+ROSSA     la soglia della costanza larga non trattiene    attesa: nessun gradino si accende con uno di meno
+          caduta: CP.07, la catena intera dal gesto al gradino GiorniDentroUnArco: sei Arcani in otto giorni accendono med_10
+          caduta: nessun gradino si accende con uno di meno
+ROSSA     il conto dei giorni diventa il conto delle volte  attesa: ogni gradino si accende con la quantita che dichiara
+          caduta: ogni gradino si accende con la quantita che dichiara
+ROSSA     la finestra del cielo si apre col solo evento   attesa: una finestra del cielo non si apre col solo evento
+          caduta: una finestra del cielo non si apre col solo evento, senza il gesto
+VERDE     il gesto ripetuto torna a contare               attesa: LA DOMANDA DEL MANIFESTO
+ROSSA     la scala salta, e maturano tutti i soddisfatti  attesa: IL GIORNO PEGGIORE DELL ANNO
+          caduta: IL GIORNO PEGGIORE DELL ANNO per chi apre l app la prima volta
+          caduta: LA DOMANDA DEL MANIFESTO: otto aperture della stessa funzionalita
+          caduta: due funzionalita aperte e chiuse quattro volte ciascuna
+          caduta: il freno non e un muro: due giorni di gettata accendono davvero
+          caduta: una giornata onesta di sette arti diverse non supera le tre feste
+ROSSA     il posto del congedo non si occupa piu          attesa: chi non congeda ne vede UNA sola
+          caduta: chi non congeda ne vede UNA sola, per quanti gesti faccia
+========================================================================
+INNESTI CHE HANNO FATTO ROSSA LA PRETESA ATTESA: 5 su 6
+
+IL VERDE CHE VALE PIU' DI UN ROSSO
+Innesto "il gesto ripetuto torna a contare": tolto il freno della voce CP.02,
+cioe' il conto una volta al giorno per gesto e dettagli, la guardia
+dell'abuso e' rimasta VERDE. Non e' una cecita': e' che quel freno, nella
+revisione F, non protegge nulla che non sia gia' protetto.
+
+Otto gettate di fila non producono feste per DUE ragioni indipendenti, e
+basta la prima: la scala, perche' il prossimo gradino dell'Albero e' un pezzo
+dell'identita' che una gettata non completa; e il corpus, perche' nessun
+gradino conta le aperture e tutti contano i giorni, e i giorni li conta gia'
+`_oggiHaFatto`.
+
+Il freno della voce CP.02 resta come seconda serratura, e va detto che oggi
+e' una seconda serratura e non la prima: il giorno che qualcuno scrivesse un
+gradino che conta le volte invece dei giorni, quel freno sarebbe l'unica cosa
+fra l'utente e la slot machine. La regola di forma che lo vieta sta in
+`le_regole_dei_traguardi_sono_rispettate_test`, ed e' nata rossa.

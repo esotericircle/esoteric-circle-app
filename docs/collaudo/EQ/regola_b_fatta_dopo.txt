@@ -1,0 +1,35 @@
+REGOLA B FATTA DOPO, ordine EQ, 27 settembre 2026. Una confessione: la dettatura, la schermata del LIVE, la lettura della stesa e l'istruzione del Maestro le ho toccate prima di vedere rosse le loro guardie. Qui le guardie sono viste rosse sulla versione di prima delle modifiche (commit 06f8a8ae), innestata e poi rimessa com'era.
+
+== Regola B tardiva sulla versione 06f8a8ae: la dettatura perde la lingua
+   file lib/services/voce/dettatura_vera.dart, sha1 prima 2816c926f921, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: ['it_IT']
+   Actual: [null]
+   ripristinato: sha1 2816c926f921, uguale, compagni tornati: True
+== Regola B tardiva sulla versione 06f8a8ae: la voce del LIVE parte dal testo che arriva
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima b05eea552f3d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'await _dillo(risposta.text, conAttesa: true)'
+   Actual: 'import \'dart:async\';\n'
+   ripristinato: sha1 b05eea552f3d, uguale, compagni tornati: True
+== Regola B tardiva sulla versione 06f8a8ae: la richiesta della stesa perde la domanda
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima d95cdab57e3b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   ripristinato: sha1 d95cdab57e3b, uguale, compagni tornati: True
+== Regola B tardiva sulla versione 06f8a8ae: l'istruzione del Maestro perde il controllo prima di scrivere
+   file lib/services/ai/maestro_persona.dart, sha1 prima 93f5e6939017, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +10: All tests passed!
+   ripristinato: sha1 93f5e6939017, uguale, compagni tornati: True
+
+La quarta e' rimasta verde perche' le_risposte_nel_merito_anche_nel_live non guarda il controllo prima di scrivere: lo guarda prima_la_sua_arte. Rifatta con quella:
+== Regola B tardiva sulla versione 06f8a8ae, con la guardia giusta: l'istruzione perde il controllo prima di scrivere
+   file lib/services/ai/maestro_persona.dart, sha1 prima 93f5e6939017, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +7 -1: Some tests failed.
+   Expected: a string ending with 'PRIMA DI SCRIVERE, CONTROLLA:\n'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 93f5e6939017, uguale, compagni tornati: True

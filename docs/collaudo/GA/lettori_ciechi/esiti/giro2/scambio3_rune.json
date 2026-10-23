@@ -1,0 +1,1584 @@
+{
+ "schede": [
+  {
+   "scheda": 1,
+   "domanda": "Come gestisco il conflitto con il mio capo?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Eihwaz",
+     "verso": "dritta",
+     "parolaChiave": "Resilienza",
+     "significato": "Il tasso, l'asse del mondo: radici salde reggono il vento."
+    }
+   ],
+   "testo": {
+    "risposta": "Tenendo duro senza irrigidirti: è questa la via per il lavoro, perché la gettata indica una tenuta che regge il vento. La pietra è una sola ed è dritta. Lascia cadere qualche foglia: sotto il lavoro lavorano radici profonde e perdere qualcosa in superficie non mette in pericolo l'albero intero.",
+    "cosaFare": "Per il lavoro scegli oggi un gesto preciso, una telefonata, un incontro o un messaggio: fallo entro due giorni, tenendo duro senza irrigidirti. Prepara prima la frase con cui cominci. Non mollare al primo vento contrario. Lo chiede la sola pietra della gettata."
+   }
+  },
+  {
+   "scheda": 2,
+   "domanda": "Andrà tutto bene?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Laguz",
+     "verso": "dritta",
+     "parolaChiave": "Intuizione",
+     "significato": "L'acqua, il flusso profondo: fidati di ciò che senti sotto."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non promettono che vada tutto bene: per il tuo momento indicano una svolta chiara, quindi puoi muoverti adesso. Apri gli occhi al giorno pieno: alla luce di adesso il tuo momento mostra tutte le sue possibilità, scegline una e comincia prima di sera.",
+    "cosaFare": "Per il tuo momento individua il passo che rimandi da più tempo e fallo entro tre giorni, cambiando passo adesso. Poi annota che cosa è cambiato. Non restare sulla soglia. Ricorda che conta il primo passo, non il risultato di domani.",
+    "approfondimento": "Le tre pietre in luce dicono che per il tuo momento il tempo è maturo. Non è un inizio improvviso: è il punto d'arrivo di un lavoro lungo. Riconosci la fatica fatta per arrivare qui e permettiti di raccoglierne i frutti senza sensi di colpa."
+   }
+  },
+  {
+   "scheda": 3,
+   "domanda": "Devo accettare l'offerta della nuova azienda?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Othala",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Berkano",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Kenaz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera."
+    }
+   ],
+   "testo": {
+    "risposta": "Non ancora: prima di accettare l'offerta della nuova azienda serve altro tempo, perché la gettata indica un compimento che matura dentro. Per il lavoro la gettata parla di un'opera interiore quasi compiuta: tieni il segreto ancora un poco e lascia che si consolidi.",
+    "cosaFare": "Prima di accettare l'offerta della nuova azienda prenditi una settimana: annota ogni sera che cosa sai di nuovo e che cosa senti, preparando in silenzio. Decidi quando le note smettono di cambiare. Non annunciare prima del tempo. Lo chiede la pietra che decide, nell’Esito."
+   }
+  },
+  {
+   "scheda": 4,
+   "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Wunjo",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Curando il legame che si è raffreddato: è questa la via per la tua famiglia, perché la gettata indica una gioia che manca. Dopo lo sforzo manca ancora la gioia per la tua famiglia: non è un rifiuto, è un legame che adesso chiede cura e attenzione.",
+    "cosaFare": "Per la tua famiglia individua il punto inceppato e parlane con chi è coinvolto, curando il legame che si è raffreddato. Scegli un momento tranquillo e una frase sola per aprire. Non chiuderti nel malumore. Lo chiede la pietra che decide, al centro.",
+    "approfondimento": "Le rondini tornano anche se qualche tetto non è ancora sistemato per loro: scelgono la gronda più riparata. Il centro del getto è quella gronda. Non aspettare che tutta la casa sia in ordine per tornare a ciò che ti sta a cuore. Fai il nido dove già si può."
+   }
+  },
+  {
+   "scheda": 5,
+   "domanda": "Passerò l'esame di stato a dicembre?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per lo studio: indicano una sosta che non va forzata, quindi adesso non è il momento di forzare. Per lo studio si apre un tempo di sosta: fermare il passo adesso lascia posare l'acqua torbida e mostra il fondo com'è davvero.",
+    "cosaFare": "Per lo studio cura con costanza ciò che dipende da te, un poco ogni giorno, fermandoti finché la situazione non si scioglie, senza chiedere un esito che nessuna gettata può promettere. Non forzare ciò che adesso è fermo. Lo chiede la sola pietra della gettata."
+   }
+  },
+  {
+   "scheda": 6,
+   "domanda": "Conviene investire i miei risparmi in borsa adesso?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non danno consigli su risparmi, acquisti o investimenti: per questa scelta serve un consulente che conosca i tuoi numeri. La pietra che decide parla solo di come vivi questo tempo: accetta di non sapere ancora tutto, un giorno alla volta, senza decidere niente sulla base di questa gettata.",
+    "cosaFare": "Prima di muovere denaro fissa un incontro con un consulente finanziario e chiedi per iscritto rischi e costi di ogni strada. Non decidere niente sulla base di questa gettata: nei giorni che mancano accetta di non sapere ancora tutto. Un giorno alla volta.",
+    "approfondimento": "Le tre pietre stanno tutte dritte: ciò che hai vissuto, ciò che vivi e ciò che si apre vanno nella stessa direzione. Non c'è un tempo che contraddice l'altro. Puoi fidarti dell'esperienza accumulata e usarla come base per il prossimo passo, senza ricominciare da capo."
+   }
+  },
+  {
+   "scheda": 7,
+   "domanda": "Cosa prova davvero Marco per me?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Fehu",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Wunjo",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Algiz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Protezione",
+     "significato": "L'alce, lo scudo alzato: la difesa c'è, resta in contatto al sacro."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Thurisaz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non leggono il cuore di un’altra persona: per questo legame indicano una fiamma che deve ancora prendere, cioè ciò che dipende da te. Non preoccuparti per lo slancio perso: verso questo legame la fiamma creativa fa una pausa, poi torna se le dai tempo.",
+    "cosaFare": "Non cercare di leggere nei pensieri dell’altra persona: per qualche giorno osserva i fatti, cioè che cosa fa: solo dopo chiedi, dando tempo alla fiamma di prendere. Non giudicare la fiamma dal primo fumo. Lo chiede la pietra che decide, nell’Esito."
+   }
+  },
+  {
+   "scheda": 8,
+   "domanda": "Devo lasciare Roma, e se lo faccio la mia famiglia capirà?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Mannaz",
+     "verso": "dritta",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Uruz",
+     "verso": "dritta",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene."
+    }
+   ],
+   "testo": {
+    "risposta": "Non senza un confronto: per il trasferimento la gettata indica la conoscenza di te e l’aiuto degli altri. La seconda domanda chiede un’altra gettata. Mostra il tuo limite: per il trasferimento la tua umanità vale più della bravura e ammettere ciò che non sai ti avvicina agli altri.",
+    "cosaFare": "Prima di lasciare Roma scrivi che cosa oggi non funziona e correggi la cosa più piccola entro la settimana, confrontandoti con una persona saggia. Solo dopo torna alla decisione. Per la seconda domanda fai un’altra gettata. Non decidere senza confrontarti.",
+    "approfondimento": "Non devi scegliere fra la cosa grande e quelle piccole: il telo le tiene insieme. Dedica la mattina all'essenziale e il pomeriggio ai dettagli, o viceversa, ma non sacrificare né l'una né gli altri. In questa gettata vanno di pari passo."
+   }
+  },
+  {
+   "scheda": 9,
+   "domanda": "Ha senso riprovarci con la mia ex?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Raidho",
+     "verso": "dritta",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì: la gettata dice di riprovarci con la tua ex, perché indica una gioia da condividere. La pietra è una sola e dritta: il suo consiglio vale per intero. Cerca l'armonia: per l’amore ogni parte può trovare il suo posto, come una pietra che si incastra nel muro a secco.",
+    "cosaFare": "Se scegli di riprovarci con la tua ex, fissa oggi il primo passo concreto, con il giorno e l’ora, poi muoviti cercando ciò che unisce invece di ciò che divide. Dillo a una persona di fiducia. Non rimandare la gioia a quando tutto sembrerà perfetto."
+   }
+  },
+  {
+   "scheda": 10,
+   "domanda": "Mio figlio sta attraversando un periodo difficile, come lo aiuto?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Tiwaz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo."
+    }
+   ],
+   "testo": {
+    "risposta": "Tenendo la rotta che hai scelto: è questa la via per la tua famiglia, perché la gettata indica una luce che mostra la rotta. Per la tua famiglia hai il vento in poppa e il timone in mano: è il momento di avanzare senza chiedere il permesso a nessuno.",
+    "cosaFare": "Per la tua famiglia scegli oggi un gesto preciso, una telefonata, un incontro o un messaggio: fallo entro due giorni, tenendo la rotta che hai scelto. Prepara prima la frase con cui cominci. Non disperdere l’energia in troppe direzioni. Lo chiede la pietra che decide, a Skuld.",
+    "approfondimento": "Un vecchio peso scende lungo il filo fino a oggi. Posarlo è possibile e alleggerisce anche ciò che si apre. Quel peso non ti appartiene più per forza: puoi scegliere di non portarlo oltre, a partire da un gesto concreto fatto oggi."
+   }
+  },
+  {
+   "scheda": 11,
+   "domanda": "Devo dirle che sono innamorato di lei?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Uruz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Nauthiz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Tiwaz",
+     "verso": "dritta",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Non ancora: prima di dirle che sei innamorato di lei serve altro tempo, perché la gettata indica un compimento che matura dentro. Due pietre su cinque sono in ombra. Un cerchio si completa dentro l’amore: quanto hai seminato in silenzio raccoglie le sue forze per il momento di uscire.",
+    "cosaFare": "Prima di dirle che sei innamorato di lei prenditi una settimana: annota ogni sera che cosa sai di nuovo e che cosa senti, preparando in silenzio. Decidi quando le note smettono di cambiare. Non annunciare prima del tempo. Lo chiede la pietra che decide, nell’Esito."
+   }
+  },
+  {
+   "scheda": 12,
+   "domanda": "Devo chiudere l'amicizia con Giulia?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Uruz",
+     "verso": "dritta",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Berkano",
+     "verso": "dritta",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "dritta",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre."
+    }
+   ],
+   "testo": {
+    "risposta": "Non prima di aver riequilibrato lo scambio: prima di chiudere l'amicizia con Giulia va corretto qualcosa, perché la gettata indica uno scambio alla pari. Quello che serve per l’amicizia è già nelle mani di qualcuno vicino: basta chiedere con la stessa franchezza con cui daresti.",
+    "cosaFare": "Prima di chiudere l'amicizia con Giulia scrivi che cosa oggi non funziona e correggi la cosa più piccola entro la settimana, con uno scambio alla pari, dando e ricevendo. Solo dopo torna alla decisione. Non dare tutto senza chiedere niente in cambio.",
+    "approfondimento": "Ciò che pesa di più e ciò che sfiora appena vanno nella stessa direzione. Vuol dire che la decisione importante e i dettagli pratici non si ostacolano. Prendi la decisione grande e subito dopo sistema due o tre cose piccole che la rendono concreta."
+   }
+  },
+  {
+   "scheda": 13,
+   "domanda": "Vincerò la causa contro il mio ex socio?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito di una causa e non sostituiscono un avvocato: ogni passo va deciso con chi ti assiste. La pietra che decide parla solo di come vivi questo tempo: procedi con la tua cadenza, senza fretta, un giorno alla volta.",
+    "cosaFare": "Raccogli in ordine carte, date e messaggi e portali a un avvocato prima di qualunque passo: è lì che si decide come muoversi. Non decidere niente sulla base di questa gettata: nei giorni che mancano procedi con la tua cadenza, senza fretta."
+   }
+  },
+  {
+   "scheda": 14,
+   "domanda": "La mia relazione può durare nonostante la distanza?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Uruz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per l’amore: indicano una rottura che libera spazio, quindi prima va corretto qualcosa. Una sola pietra su tre è in ombra, a Urdhr. Sgombera: con l’amore separa ciò che si è spezzato da ciò che ha retto all'urto, butta il primo e conserva il secondo.",
+    "cosaFare": "Per l’amore individua che cosa oggi va corretto e dedicagli i prossimi giorni, lasciando andare ciò che non regge più. Non puntellare ciò che si è già incrinato. Lo chiede la pietra che decide, a Skuld. Solo dopo torna alla domanda.",
+    "approfondimento": "Un tratto della strada è in piena luce, uno è coperto di nebbia. Cammina dove vedi e lascia che il resto si diradi. Per oggi fai solo ciò che è chiaro; le decisioni che dipendono dalla parte velata possono attendere qualche giorno."
+   }
+  },
+  {
+   "scheda": 15,
+   "domanda": "Che cosa mi aspetta?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Ansuz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Othala",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non mostrano un futuro già scritto: per il tuo momento indicano un’abitudine ereditata che trattiene, quindi prima va corretto qualcosa. Scegli un modo tuo: dentro il tuo momento segui un'abitudine ricevuta che non ti assomiglia più, ringraziala e lasciala andare senza sensi di colpa.",
+    "cosaFare": "Per il tuo momento scegli una cosa che non funziona e correggila questa settimana, lasciando le abitudini che ti trattengono. Comincia dalla più piccola. Non restare per sola abitudine. Correggere una cosa sola, ma bene, vale più che cambiare tutto."
+   }
+  },
+  {
+   "scheda": 16,
+   "domanda": "Devo trasferirmi a Milano o restare a Bari?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Uruz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Eihwaz",
+     "verso": "dritta",
+     "parolaChiave": "Resilienza",
+     "significato": "Il tasso, l'asse del mondo: radici salde reggono il vento."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Berkano",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Nauthiz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    }
+   ],
+   "testo": {
+    "risposta": "Fra trasferirti a Milano e restare a Bari scegli la strada che non ti costringe a forzare. Tre pietre su sette sono in ombra. Rallenta prima di muoverti: verso il trasferimento una carica a testa bassa può travolgere anche le persone vicine, guarda bene dove metti i piedi.",
+    "cosaFare": "Scrivi le due strade una accanto all’altra e accanto a ciascuna se non ti costringe a forzare, con un fatto e non con un’impressione. Poi scegli quella che lo fa di più, ritrovando il ritmo prima di caricare. Non caricare a testa bassa prima di aver ritrovato il ritmo.",
+    "approfondimento": "L'argilla sul tornio è morbida in un punto e secca in un altro. Il vasaio bagna le mani e insiste nel mezzo: lì il vaso prende forma, il bordo si rifinisce dopo. Per il trasferimento lavora dove la materia risponde, non dove si è indurita."
+   }
+  },
+  {
+   "scheda": 17,
+   "domanda": "Devo lasciare il lavoro per tornare a studiare?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Non ancora: prima di lasciare il lavoro per tornare a studiare serve altro tempo, perché la gettata indica un compimento che matura dentro. Quel silenzio che circonda il lavoro non è vuoto ma pienezza in attesa: dentro si prepara qualcosa di solido e tuo.",
+    "cosaFare": "Prima di lasciare il lavoro per tornare a studiare prenditi una settimana: annota ogni sera che cosa sai di nuovo e che cosa senti, preparando in silenzio. Decidi quando le note smettono di cambiare. Non annunciare prima del tempo. Lo chiede la sola pietra della gettata."
+   }
+  },
+  {
+   "scheda": 18,
+   "domanda": "Posso fidarmi del mio compagno?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Laguz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Intuizione",
+     "significato": "L'acqua, il flusso profondo: fidati di ciò che senti sotto."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non leggono il cuore di un’altra persona: per l’amore indicano una parola che chiarisce, cioè ciò che dipende da te. Le tre pietre sono tutte dritte. Cogli il segno nelle parole: per l’amore può arrivare da una canzone, da un biglietto o da una battuta sentita per strada.",
+    "cosaFare": "Invece di indovinare che cosa pensa l’altra persona, chiediglielo con una domanda semplice e diretta nei prossimi giorni, con una parola chiara, detta a voce. Poi ascolta la risposta fino in fondo. Non lasciare che il silenzio parli al posto tuo.",
+    "approfondimento": "La gettata non mostra fratture fra chi eri e chi stai diventando. Puoi cambiare senza rinnegare nulla. Se qualcosa di nuovo ti attira, seguilo con serenità: nasce dalla stessa radice di ciò che hai già costruito e non la tradisce."
+   }
+  },
+  {
+   "scheda": 19,
+   "domanda": "Lui tornerà da me dopo quello che è successo?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Eihwaz",
+     "verso": "dritta",
+     "parolaChiave": "Resilienza",
+     "significato": "Il tasso, l'asse del mondo: radici salde reggono il vento."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non leggono il cuore di un’altra persona: per l’amore indicano una parola che chiarisce, cioè ciò che dipende da te. Due pietre su cinque sono in ombra. Presta attenzione alle frasi casuali: verso l’amore una parola detta di passaggio può indicarti la strada più di un lungo discorso.",
+    "cosaFare": "Invece di indovinare che cosa pensa l’altra persona, chiediglielo con una domanda semplice e diretta nei prossimi giorni, con una parola chiara, detta a voce. Poi ascolta la risposta fino in fondo. Non lasciare che il silenzio parli al posto tuo."
+   }
+  },
+  {
+   "scheda": 20,
+   "domanda": "Compro casa adesso o aspetto un anno?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "dritta",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Nauthiz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Algiz",
+     "verso": "dritta",
+     "parolaChiave": "Protezione",
+     "significato": "L'alce, lo scudo alzato: la difesa c'è, resta in contatto al sacro."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non danno consigli su risparmi, acquisti o investimenti: per questa scelta serve un consulente che conosca i tuoi numeri. La pietra che decide parla solo di come vivi questo tempo: concediti una sosta e respira prima di ogni scelta, un giorno alla volta.",
+    "cosaFare": "Prima di muovere denaro fissa un incontro con un consulente finanziario e chiedi per iscritto rischi e costi di ogni strada. Non decidere niente sulla base di questa gettata: nei giorni che mancano concediti una sosta e respira prima di ogni scelta.",
+    "approfondimento": "Chi cuce una toppa sa che il tessuto nuovo e quello vecchio non hanno lo stesso colore: la toppa regge lo stesso. Per il tuo stato d’animo non cercare la riparazione invisibile. Cuci partendo dal centro, con punti fitti: accetta che la differenza si veda."
+   }
+  },
+  {
+   "scheda": 21,
+   "domanda": "Il colloquio di giovedì andrà bene?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Gebo",
+     "verso": "dritta",
+     "parolaChiave": "Dono",
+     "significato": "Il dono, lo scambio alla pari: dare apre a ricevere."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per il lavoro: indicano un compimento che matura dentro, quindi servono ancora tempo e preparazione. La pietra è una sola ed è dritta. Per il lavoro il passo più importante sta avvenendo sotto terra: ciò che oggi non si vede è già radice in crescita.",
+    "cosaFare": "Per il lavoro cura con costanza ciò che dipende da te, un poco ogni giorno, preparando in silenzio, senza chiedere un esito che nessuna gettata può promettere. Non annunciare prima del tempo. Lascia che sia il tempo a dirti quando è il momento di muoverti."
+   }
+  },
+  {
+   "scheda": 22,
+   "domanda": "Il cambiamento che sento arrivare sarà positivo?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Perthro",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Berkano",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per il cambiamento: indicano acque torbide che devono posarsi, quindi adesso non è il momento di forzare. Con il cambiamento l'intuito oggi parla attraverso una nebbia sottile: aspetta che si diradi prima di prendere per vero ogni timore.",
+    "cosaFare": "Per il cambiamento cura con costanza ciò che dipende da te, un poco ogni giorno, aspettando che le acque si posino, senza chiedere un esito che nessuna gettata può promettere. Non decidere nell’agitazione. Lo chiede la pietra che decide, a Skuld.",
+    "approfondimento": "Il filo è buono ma ha un nodo in un punto. Con pazienza lo puoi allentare senza spezzare ciò che regge il resto. Non buttare via tutto per un solo punto difficile: separa la parte che funziona da quella che chiede cura e lavora solo su quest'ultima."
+   }
+  },
+  {
+   "scheda": 23,
+   "domanda": "Incontrerò qualcuno di importante quest'anno?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Othala",
+     "verso": "dritta",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Wunjo",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Mannaz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per l’incontro che cerchi: indicano un cammino che ha perso la cadenza, quindi prima va corretto qualcosa. Per un poco l’incontro che cerchi non segue la tabella di marcia che avevi in mente: rivedi le tappe e lascia margine alle soste.",
+    "cosaFare": "Per l’incontro che cerchi individua che cosa oggi va corretto e dedicagli i prossimi giorni, rallentando finché ritrovi la cadenza, invece di rimuginare sull’esito. Non forzare la tabella di marcia. Un passo corretto vale più di tre fatti in fretta."
+   }
+  },
+  {
+   "scheda": 24,
+   "domanda": "Riuscirò a ottenere la promozione che aspetto?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Algiz",
+     "verso": "dritta",
+     "parolaChiave": "Protezione",
+     "significato": "L'alce, lo scudo alzato: la difesa c'è, resta in contatto al sacro."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Perthro",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Othala",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Laguz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Intuizione",
+     "significato": "L'acqua, il flusso profondo: fidati di ciò che senti sotto."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per il lavoro: indicano una luce che rischiara ciò che era buio, quindi la strada è aperta se fai la tua parte. Crea: dentro il lavoro c'è una scintilla che chiede di uscire in un progetto, in un disegno o in una pagina scritta.",
+    "cosaFare": "Concentra le forze su ciò che dipende da te per il lavoro: scrivi i tre passi che puoi fare adesso e comincia dal primo, portando luce su ciò che non è chiaro. Non spegnere un’idea per timore del giudizio. Lo chiede la pietra che decide, al centro.",
+    "approfondimento": "L'uva non matura tutta lo stesso giorno: in vendemmia si passa più volte fra i filari. Il grappolo centrale è da cogliere, quelli ai margini aspettano il loro turno. Prendi quello adesso e torna fra i filari tra qualche giorno, senza fretta."
+   }
+  },
+  {
+   "scheda": 25,
+   "domanda": "È il momento giusto per aprire la mia attività?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Wunjo",
+     "verso": "dritta",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto."
+    }
+   ],
+   "testo": {
+    "risposta": "Non ancora: prima di aprire la tua attività serve altro tempo, perché la gettata indica un compimento che matura dentro. La gettata vede il lavoro in piena gestazione: lascia che ciò che cresce dentro trovi la sua forma prima di esporlo agli sguardi altrui.",
+    "cosaFare": "Prima di aprire la tua attività prenditi una settimana: annota ogni sera che cosa sai di nuovo e che cosa senti, preparando in silenzio. Decidi quando le note smettono di cambiare. Non annunciare prima del tempo. Lo chiede la sola pietra della gettata."
+   }
+  },
+  {
+   "scheda": 26,
+   "domanda": "Come posso ritrovare l'intesa con mio marito?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva."
+    }
+   ],
+   "testo": {
+    "risposta": "Preparando in silenzio: è questa la via per l’amore, perché la gettata indica un compimento che matura dentro. Le tre pietre sono tutte dritte e sostengono questa lettura. Come le fondamenta di una casa, invisibili ma decisive, l'impegno silenzioso verso l’amore regge tutto ciò che si alza dopo.",
+    "cosaFare": "Per l’amore fai questa settimana un solo gesto piccolo, preparando in silenzio, poi osserva per qualche giorno che cosa cambia prima di aggiungerne un altro. Non annunciare prima del tempo. Lascia che sia il tempo a dirti quando è il momento di muoverti.",
+    "approfondimento": "Ciò che hai lasciato andare ha fatto spazio. In quello spazio sta crescendo qualcosa di tuo. Non riempirlo con impegni nuovi per paura del vuoto: proteggi ciò che nasce, dagli tempo e attenzione e lascia che prenda la sua forma."
+   }
+  },
+  {
+   "scheda": 27,
+   "domanda": "Quando finirà questo periodo di stallo?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Wunjo",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Raidho",
+     "verso": "dritta",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non danno date per questo periodo: indicano una tenuta che regge il vento, quindi il tempo dipende anche dalla tua cautela. Le cinque pietre sono tutte dritte. Per questo periodo conta la pazienza dell'albero antico: crescere piano, spingere le radici lontano e cambiare pelle senza perdere il centro.",
+    "cosaFare": "Non aspettare un segno per questo periodo: scegli tu una data vicina per il prossimo passo e preparala tenendo duro senza irrigidirti. Segnala sul calendario e tienila. Non mollare al primo vento contrario. Lo chiede la pietra che decide, nell’Esito."
+   }
+  },
+  {
+   "scheda": 28,
+   "domanda": "Il progetto che ho presentato verrà approvato?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Wunjo",
+     "verso": "dritta",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Kenaz",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "La torcia, conoscenza che rivela: una scintilla illumina l'opera."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Raidho",
+     "verso": "dritta",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per il progetto: indicano un compimento che matura dentro, quindi servono ancora tempo e preparazione. Conserva ancora un poco: dentro il progetto c'è una forza intera messa da parte, come il grano chiuso nel granaio in attesa della semina.",
+    "cosaFare": "Per il progetto cura con costanza ciò che dipende da te, un poco ogni giorno, preparando in silenzio, senza chiedere un esito che nessuna gettata può promettere. Non annunciare prima del tempo. Lo chiede la pietra che decide, al centro.",
+    "approfondimento": "Il vento attraversa il telo, piega alcune pietre e ne lascia altre immobili. Chi tiene ferma la vela al centro usa anche le raffiche che arrivano storte. Non ammainare per una raffica contraria. Tieni la direzione e regola la vela, poco alla volta."
+   }
+  },
+  {
+   "scheda": 29,
+   "domanda": "Lui mi ama ancora e troverò lavoro entro Natale?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Isa",
+     "verso": "dritta",
+     "parolaChiave": "Sosta",
+     "significato": "Il ghiaccio, la pausa immobile: fermati, ascolta il silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non leggono il cuore di un’altra persona: per l’amore indicano un compimento che matura dentro, cioè ciò che dipende da te. La seconda domanda chiede un’altra gettata. Ciò che custodisci in segreto per l’amore ha già la sua forma completa: manca solo il giorno giusto per lasciarlo uscire.",
+    "cosaFare": "Non cercare di leggere nei pensieri dell’altra persona: per qualche giorno osserva i fatti, cioè che cosa fa: solo dopo chiedi, preparando in silenzio. Per la seconda domanda fai un’altra gettata. Non annunciare prima del tempo. Lo chiede la sola pietra della gettata."
+   }
+  },
+  {
+   "scheda": 30,
+   "domanda": "Arriverà presto la risposta che aspetto?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Ansuz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per la risposta che aspetti: indicano parole che possono confondere, quindi servono ancora tempo e preparazione. Semplifica: verso la risposta che aspetti anche le tue parole possono confondere, quindi taglia ciò che è superfluo e resta sul punto che ti preme.",
+    "cosaFare": "Per la risposta che aspetti cura con costanza ciò che dipende da te, un poco ogni giorno, verificando ciò che senti prima di crederci, senza chiedere un esito che nessuna gettata può promettere. Non dare peso a voci e mezze frasi.",
+    "approfondimento": "Il bastone che ti accompagna ha un nodo proprio dove la mano lo stringe. È lì che la presa si fa più ferma. La difficoltà che senti adesso può diventare il tuo punto d'appoggio, se smetti di evitarla e la usi per fare leva."
+   }
+  },
+  {
+   "scheda": 31,
+   "domanda": "L'operazione al ginocchio del mese prossimo andrà bene?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Wunjo",
+     "verso": "dritta",
+     "parolaChiave": "Gioia",
+     "significato": "La gioia, l'armonia raggiunta: gusta ciò che si è composto."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito."
+    }
+   ],
+   "testo": {
+    "risposta": "Su come andrà decidono i medici che ti seguono, non le rune: porta a loro ogni domanda e ogni dubbio. La pietra che decide parla solo di come vivi questo tempo: lascia passare l’agitazione senza trattenerla, un giorno alla volta, senza decidere niente sulla base di questa gettata.",
+    "cosaFare": "Scrivi su un foglio le domande che hai e portale a chi ti segue alla prossima visita: lì stanno le risposte sull’esito. Non decidere niente sulla base di questa gettata: nei giorni che mancano lascia passare l’agitazione senza trattenerla. Un giorno alla volta."
+   }
+  },
+  {
+   "scheda": 32,
+   "domanda": "Quale strada scelgo tra i due corsi di laurea?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Mannaz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Othala",
+     "verso": "dritta",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo."
+    }
+   ],
+   "testo": {
+    "risposta": "Scegli la strada che lascia spazio a ciò che non conosci ancora: per lo studio la gettata indica qualcosa che si muove ma non si vede ancora. Per lo studio l'esito non è ancora deciso: non forzarlo, raccogli informazioni e muoviti solo quando qualcosa di nuovo diventa davvero visibile.",
+    "cosaFare": "Prendi un foglio e dividi la pagina in due, una colonna per ogni strada: sotto ciascuna scrivi se lascia spazio a ciò che non conosci ancora, con un esempio concreto. Scegli la colonna più piena. Non pretendere di sapere già come va a finire.",
+    "approfondimento": "Il centro del telo è la stanza dove si vive, i margini sono il corridoio. Che il corridoio sia in luce o in ombra pesa poco: conta come abiti la stanza. Metti ordine lì prima di tutto, nei prossimi giorni. Il corridoio si sistema quando la stanza è in ordine."
+   }
+  },
+  {
+   "scheda": 33,
+   "domanda": "Come posso fare pace con mia sorella?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Fehu",
+     "verso": "dritta",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    }
+   ],
+   "testo": {
+    "risposta": "Mettendo in circolo ciò che hai già: è questa la via per la tua famiglia, perché la gettata indica un bene che cresce quando circola. Dai e ricevi: per la tua famiglia la crescita nasce dallo scambio fatto con semplicità, senza tenere il conto di chi deve cosa.",
+    "cosaFare": "Per la tua famiglia decidi oggi un gesto concreto e fallo entro due giorni, mettendo in circolo ciò che hai già. Prepara prima, su un foglio, le parole con cui cominci. Non tenere fermo per paura ciò che può circolare."
+   }
+  },
+  {
+   "scheda": 34,
+   "domanda": "Dimmi qualcosa.",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Nauthiz",
+     "verso": "dritta",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Othala",
+     "verso": "dritta",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre."
+    }
+   ],
+   "testo": {
+    "risposta": "Per il tuo momento la gettata indica una mira che trema: prima correggi ciò che non funziona. Una sola pietra su tre è in ombra, a Skuld. Scegli un solo bersaglio: con il tuo momento la mano trema perché la meta non è chiara, fissala e torna a tendere.",
+    "cosaFare": "Per il tuo momento scrivi che cosa oggi non funziona e scegli una correzione piccola da fare entro la settimana, ritrovando prima che cosa è giusto per te. Non agire per ripicca. Lo chiede la pietra che decide, a Skuld.",
+    "approfondimento": "Delle tre pietre una sola è in ombra: il nodo sta in un tempo preciso, non in tutto il percorso. Il tempo è quello della pietra rovesciata, passato, presente o ciò che si apre: concentra lì il lavoro. Gli altri due reggono."
+   }
+  },
+  {
+   "scheda": 35,
+   "domanda": "È giusto andare a vivere lontano dai miei genitori?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Dagaz",
+     "verso": "dritta",
+     "parolaChiave": "Risveglio",
+     "significato": "Il giorno, l'alba che cambia: una svolta chiara si apre."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Perthro",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Berkano",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Nascita",
+     "significato": "La betulla, la crescita che cura: qualcosa di nuovo germoglia."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva."
+    }
+   ],
+   "testo": {
+    "risposta": "Non ancora: prima di andare a vivere lontano dai tuoi genitori serve altro tempo, perché la gettata indica un compimento che matura dentro. Ciò che stai costruendo con il trasferimento ha radici più profonde di quanto appaia: il compimento si avvicina passo dopo passo.",
+    "cosaFare": "Prima di andare a vivere lontano dai tuoi genitori prenditi una settimana: annota ogni sera che cosa sai di nuovo e che cosa senti, preparando in silenzio. Decidi quando le note smettono di cambiare. Non annunciare prima del tempo. Lo chiede la pietra che decide, nell’Esito."
+   }
+  },
+  {
+   "scheda": 36,
+   "domanda": "Come gestisco il conflitto con il mio capo?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Perthro",
+     "verso": "dritta",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Raidho",
+     "verso": "dritta",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "dritta",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Othala",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Radici",
+     "significato": "L'eredità, la casa: ciò che sei viene da lontano, onoralo."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Ansuz",
+     "verso": "dritta",
+     "parolaChiave": "Parola",
+     "significato": "Il soffio del dio, ispirazione: ascolta il messaggio che arriva."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Laguz",
+     "verso": "dritta",
+     "parolaChiave": "Intuizione",
+     "significato": "L'acqua, il flusso profondo: fidati di ciò che senti sotto."
+    }
+   ],
+   "testo": {
+    "risposta": "Osservando prima di muoverti: è questa la via per il lavoro, perché la gettata indica qualcosa che si muove ma non si vede ancora. Dentro il lavoro c'è ancora qualcosa che non conosci: fai domande con rispetto e lascia che le risposte arrivino nei loro tempi.",
+    "cosaFare": "Per il lavoro fai questa settimana un solo gesto piccolo, osservando prima di muoverti, poi osserva per qualche giorno che cosa cambia prima di aggiungerne un altro. Non pretendere di sapere già come va a finire. Lo chiede la pietra che decide, al centro.",
+    "approfondimento": "Il seme nella terra fa due cose insieme: spinge la radice al buio e il germoglio verso la luce. Così questo getto, con il centro che tiene e i bordi che cercano. Per il lavoro non spaventarti del buio sotto: lì la radice si fa forte."
+   }
+  },
+  {
+   "scheda": 37,
+   "domanda": "Andrà tutto bene?",
+   "gettata": "Runa di Odino",
+   "simboli": [
+    {
+     "posizione": "La runa di Odino",
+     "runa": "Ingwaz",
+     "verso": "dritta",
+     "parolaChiave": "Potenziale",
+     "significato": "Ing, il seme in gestazione: forza che matura in silenzio."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non promettono che vada tutto bene: per il tuo momento indicano uno scambio alla pari, quindi puoi muoverti adesso. Dentro il tuo momento si apre uno scambio alla pari: ciò che porgi torna indietro con lo stesso peso, come pane spezzato a metà.",
+    "cosaFare": "Per il tuo momento scegli una cosa sola da muovere in questa settimana e dalle un giorno preciso, con uno scambio alla pari, dando e ricevendo. Scrivila dove la vedi ogni mattina. Non dare tutto senza chiedere niente in cambio."
+   }
+  },
+  {
+   "scheda": 38,
+   "domanda": "Devo accettare l'offerta della nuova azienda?",
+   "gettata": "Le tre Norne",
+   "simboli": [
+    {
+     "posizione": "Urdhr",
+     "runa": "Fehu",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Abbondanza",
+     "significato": "Il bestiame, l'abbondanza che scorre: raccogli senza trattenere."
+    },
+    {
+     "posizione": "Verdhandi",
+     "runa": "Nauthiz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Bisogno",
+     "significato": "La necessità, l'attrito che tempra: la pazienza diventa forza."
+    },
+    {
+     "posizione": "Skuld",
+     "runa": "Algiz",
+     "verso": "dritta",
+     "parolaChiave": "Protezione",
+     "significato": "L'alce, lo scudo alzato: la difesa c'è, resta in contatto al sacro."
+    }
+   ],
+   "testo": {
+    "risposta": "Sì, con le giuste tutele: la gettata dice di accettare l'offerta della nuova azienda, perché indica un riparo che protegge. Due pietre su tre sono in ombra. Hai un riparo: sopra il lavoro c'è una protezione salda che regge anche quando il vento cambia e ti prende di fianco.",
+    "cosaFare": "Se scegli di accettare l'offerta della nuova azienda, fissa oggi il primo passo concreto, con il giorno e l’ora, poi muoviti proteggendo prima ciò che conta. Dillo a una persona di fiducia. Non abbassare la guardia per stanchezza. Lo chiede la pietra che decide, a Skuld.",
+    "approfondimento": "C'è un tempo per forzare e un tempo per sciogliere: questa gettata chiede il secondo. Rinuncia per ora alle soluzioni drastiche, agli ultimatum, alle rotture improvvise. Per il lavoro la via è fatta di gesti lenti, attenti, ripetuti, che allentano il nodo senza strappare."
+   }
+  },
+  {
+   "scheda": 39,
+   "domanda": "Come affronto il pranzo di Natale con la famiglia di lui?",
+   "gettata": "La Croce delle Cinque",
+   "simboli": [
+    {
+     "posizione": "Cuore",
+     "runa": "Mannaz",
+     "verso": "dritta",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità."
+    },
+    {
+     "posizione": "Radice",
+     "runa": "Uruz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco."
+    },
+    {
+     "posizione": "Ostacolo",
+     "runa": "Jera",
+     "verso": "dritta",
+     "parolaChiave": "Raccolto",
+     "significato": "L'anno, il ciclo compiuto: ciò che hai seminato matura."
+    },
+    {
+     "posizione": "Consiglio",
+     "runa": "Hagalaz",
+     "verso": "dritta",
+     "parolaChiave": "Prova",
+     "significato": "La grandine, la scossa che passa: dopo la tempesta, terreno pulito."
+    },
+    {
+     "posizione": "Esito",
+     "runa": "Raidho",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Cammino",
+     "significato": "Il viaggio, il ritmo giusto: muoviti con il tempo, non contro."
+    }
+   ],
+   "testo": {
+    "risposta": "Fermandoti un istante prima di reagire: è questa la via per la tua famiglia, perché la gettata indica una fretta che ferisce. Smetti di puntare i piedi: con la tua famiglia un vecchio orgoglio ti tiene sulla difensiva e la tensione ricade su di te.",
+    "cosaFare": "Per la tua famiglia non cercare la soluzione tutta insieme: questa settimana fai un solo gesto piccolo, fermandoti un istante prima di reagire, poi osserva che cosa cambia. Non rispondere a caldo: qui la fretta ferisce. Lo chiede la pietra che decide, nell’Esito."
+   }
+  },
+  {
+   "scheda": 40,
+   "domanda": "Passerò l'esame di stato a dicembre?",
+   "gettata": "Il getto sul telo",
+   "simboli": [
+    {
+     "posizione": "Al centro",
+     "runa": "Ehwaz",
+     "verso": "dritta",
+     "parolaChiave": "Fiducia",
+     "significato": "Il cavallo, il moto condiviso: procedi insieme a chi ti sostiene."
+    },
+    {
+     "posizione": "Presso il centro",
+     "runa": "Thurisaz",
+     "verso": "dritta",
+     "parolaChiave": "Difesa",
+     "significato": "La spina, forza che reagisce: proteggi il confine con misura."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Mannaz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Il sé",
+     "significato": "L'uomo, l'umanità: ritrova chi sei dentro la comunità."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Sowilo",
+     "verso": "dritta",
+     "parolaChiave": "Luce",
+     "significato": "Il sole, l'energia che guida: la volontà ritrova la sua luce."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Uruz",
+     "verso": "dritta",
+     "parolaChiave": "Forza",
+     "significato": "L'uro selvaggio, vigore grezzo: la forza che apre il varco."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Perthro",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Mistero",
+     "significato": "La sorte nascosta, il grembo: accogli ciò che ancora non sai."
+    },
+    {
+     "posizione": "Ai margini",
+     "runa": "Tiwaz",
+     "verso": "in ombra (merkstave, rovesciata)",
+     "parolaChiave": "Giustizia",
+     "significato": "Tyr, il coraggio giusto: agisci con onore, anche a un prezzo."
+    }
+   ],
+   "testo": {
+    "risposta": "Le rune non predicono l’esito per lo studio: indicano un’alleanza in cammino, quindi la strada è aperta se fai la tua parte. Dentro lo studio si muove un'alleanza buona: chi cammina al tuo fianco tiene il tuo stesso ritmo e la fatica si divide in due.",
+    "cosaFare": "Concentra le forze su ciò che dipende da te per lo studio: scrivi i tre passi che puoi fare adesso e comincia dal primo, insieme a qualcuno di cui ti fidi. Non fare tutto senza nessuno accanto. Lo chiede la pietra che decide, al centro.",
+    "approfondimento": "Un vecchio legame ritrovato porta ricordi chiari e qualche ruggine. La mano tesa al centro scioglie la ruggine più di molte parole ai margini. Se c'è una persona da riavvicinare, fai un gesto semplice prima di un discorso lungo: una chiamata, un invito."
+   }
+  }
+ ]
+}

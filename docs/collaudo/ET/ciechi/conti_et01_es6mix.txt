@@ -1,0 +1,239 @@
+ORDINE ET VOCI 01 E 03: I CONTI ALLA CIECA, fascicolo "es6mix"
+Ogni riga: fase, Maestro, canale, esecuzione; poi i conti su 30 risposte (sulle coppie, su 5 seconde).
+Correzione a macchina dichiarata: una prima frase che e' una presentazione ("Aura è qui.") non risponde.
+Voci giudicate 720, senza giudizio 0.
+
+es5 aura chat esecuzione 1: prima frase che risponde 23; nel merito 24; risposte con una certezza 1; frasi di certezza 1; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 4
+es5 aura chat esecuzione 2: prima frase che risponde 20; nel merito 23; risposte con una certezza 1; frasi di certezza 1; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 3
+es5 aura live esecuzione 1: prima frase che risponde 23; nel merito 25; risposte con una certezza 2; frasi di certezza 2; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+es5 aura live esecuzione 2: prima frase che risponde 24; nel merito 25; risposte con una certezza 3; frasi di certezza 3; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es5 caligo chat esecuzione 1: prima frase che risponde 23; nel merito 25; risposte con una certezza 2; frasi di certezza 2; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 5
+es5 caligo chat esecuzione 2: prima frase che risponde 25; nel merito 27; risposte con una certezza 4; frasi di certezza 4; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es5 caligo live esecuzione 1: prima frase che risponde 25; nel merito 25; risposte con una certezza 0; frasi di certezza 0; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 4
+es5 caligo live esecuzione 2: prima frase che risponde 26; nel merito 25; risposte con una certezza 3; frasi di certezza 3; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 4
+es5 medora chat esecuzione 1: prima frase che risponde 27; nel merito 27; risposte con una certezza 0; frasi di certezza 0; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 5
+es5 medora chat esecuzione 2: prima frase che risponde 28; nel merito 29; risposte con una certezza 1; frasi di certezza 1; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 5
+es5 medora live esecuzione 1: prima frase che risponde 28; nel merito 28; risposte con una certezza 0; frasi di certezza 0; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 2; seconde nel merito 5
+es5 medora live esecuzione 2: prima frase che risponde 29; nel merito 29; risposte con una certezza 1; frasi di certezza 1; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es6 aura chat esecuzione 1: prima frase che risponde 25; nel merito 26; risposte con una certezza 6; frasi di certezza 8; errori di italiano 8; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 4
+es6 aura chat esecuzione 2: prima frase che risponde 26; nel merito 27; risposte con una certezza 1; frasi di certezza 1; errori di italiano 23; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+es6 aura live esecuzione 1: prima frase che risponde 20; nel merito 22; risposte con una certezza 2; frasi di certezza 2; errori di italiano 8; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 3
+es6 aura live esecuzione 2: prima frase che risponde 26; nel merito 25; risposte con una certezza 0; frasi di certezza 0; errori di italiano 7; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 2; posizioni cambiate senza perché 0; seconde nel merito 3
+es6 caligo chat esecuzione 1: prima frase che risponde 23; nel merito 24; risposte con una certezza 2; frasi di certezza 2; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es6 caligo chat esecuzione 2: prima frase che risponde 20; nel merito 25; risposte con una certezza 3; frasi di certezza 3; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 4
+es6 caligo live esecuzione 1: prima frase che risponde 24; nel merito 22; risposte con una certezza 0; frasi di certezza 0; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 3
+es6 caligo live esecuzione 2: prima frase che risponde 29; nel merito 29; risposte con una certezza 3; frasi di certezza 3; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 5
+es6 medora chat esecuzione 1: prima frase che risponde 27; nel merito 26; risposte con una certezza 1; frasi di certezza 1; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 3
+es6 medora chat esecuzione 2: prima frase che risponde 27; nel merito 28; risposte con una certezza 1; frasi di certezza 1; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es6 medora live esecuzione 1: prima frase che risponde 26; nel merito 27; risposte con una certezza 0; frasi di certezza 0; errori di italiano 8; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 5
+es6 medora live esecuzione 2: prima frase che risponde 25; nel merito 26; risposte con una certezza 0; frasi di certezza 0; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 4
+
+TOTALE es5: prima frase che risponde 301; nel merito 312; risposte con una certezza 18; frasi di certezza 18; errori di italiano 40; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 5; posizioni cambiate senza perché 9; seconde nel merito 53 (su 360 risposte)
+TOTALE es6: prima frase che risponde 298; nel merito 307; risposte con una certezza 19; frasi di certezza 21; errori di italiano 85; presentazione in apertura 0; ripieghi 0; seconde delle coppie 60; seconde che rispondono alla prima 0; seconde che ripetono 6; posizioni cambiate senza perché 5; seconde nel merito 48 (su 360 risposte)
+
+LE CERTEZZE E GLI ERRORI CITATI DAI GIUDICI
+CERTEZZA es5 aura chat esecuzione 1:
+   28. la sua percezione del tuo valore è legata alla tua capacità di esprimere con chiarezza le tue idee e di mantenere un'armonia nel tuo ambiente di lavoro
+CERTEZZA es5 aura chat esecuzione 2:
+   28. la stima è presente nelle dinamiche lavorative, nel modo in cui ti vengono affidati compiti e responsabilità
+CERTEZZA es5 aura live esecuzione 1:
+   28. C'è un'energia di rispetto e fiducia che ti circonda, anche se non sempre si traduce in parole esplicite.
+   10. Quando la tua radice è salda, attirerai relazioni che riflettono quella stabilità.
+CERTEZZA es5 aura live esecuzione 2:
+   2. al suo desiderio più profondo, che si manifesta nel modo in cui cerca la connessione con te
+   26. La tua energia, specialmente con la Luna in Toro di oggi, ti offre un radicamento stabile che sarà percepito.
+   5. Può sembrare distante, ma questa è una fase di radicamento per lui, non di tradimento.
+CERTEZZA es5 caligo chat esecuzione 1:
+   16. C'è un movimento interiore che non si rivela ancora.
+   8. Non è un incontro fugace, ma qualcosa che costruisce.
+CERTEZZA es5 caligo chat esecuzione 2:
+   11. Questa unione è un passo verso un legame profondo.
+   25. Il tuo cammino è segnato.
+   22. Il tuo cammino è segnato.
+   3. Non si tratta di mancanza d'amore, ma di una forza esterna che ha congelato il momento.
+CERTEZZA es5 caligo live esecuzione 2:
+   14. La soglia si avvicina.
+   11. Questo matrimonio rafforza il tuo cammino.
+   29. La promozione è una soglia che si apre.
+CERTEZZA es5 medora chat esecuzione 2:
+   16. il suo silenzio è indice di una profonda riflessione
+CERTEZZA es5 medora live esecuzione 2:
+   14. ti dona una vitalità e una fertilità intrinseche
+CERTEZZA es6 aura chat esecuzione 1:
+   5. la preoccupazione che avverti non deriva da un suo gesto, ma da un bisogno di rassicurazione che il tuo Scorpione sente profondamente
+   2. Non è un amore che svanisce, ma che si è ritratto, ferito dagli eventi passati, come un centro del corpo che ha subito un forte colpo.
+   2. La sua volontà è sua, ma la connessione tra voi è ancora presente, anche se celata da timori e incertezze.
+   3. Sente ancora il peso di ciò che è accaduto e ha bisogno di trovare un nuovo equilibrio dentro di sé.
+   3. per ora il suo cammino è ancora in un punto di riflessione profonda
+   28. Il tuo Scorpione, intenso e focalizzato, emerge chiaramente nel tuo lavoro e questo non passa inosservato.
+   1. Questa esitazione, come un respiro che non si libera del tutto, non è un rifiuto, ma piuttosto una lentezza nell'aprirsi pienamente, un voler sentire bene prima di donarsi.
+   8. Quando il tuo centro del cuore sarà completamente in risonanza con il tuo essere, allora la persona giusta si manifesterà, perché l'amore attrae l'amore.
+CERTEZZA es6 aura chat esecuzione 2:
+   1. Non è un amore impetuoso che brucia, ma un affetto che cresce con il tempo, che si nutre di gesti e di presenze costanti.
+CERTEZZA es6 aura live esecuzione 1:
+   14. Il tuo Chakra sacrale, centro della creazione, è pronto a risvegliarsi, accogliendo il flusso della vita.
+   28. Non è un apprezzamento che si manifesta con parole, ma con un riconoscimento sottile della tua presenza.
+CERTEZZA es6 caligo chat esecuzione 1:
+   22. La soglia si avvicina, ma chiede attenzione.
+   5. La tua mente cerca un conflitto dove non c'è.
+CERTEZZA es6 caligo chat esecuzione 2:
+   29. La tua audacia è premiata.
+   16. Non è un caso se incrocia il tuo sguardo.
+   5. La tua percezione è offuscata, non la sua intenzione.
+CERTEZZA es6 caligo live esecuzione 2:
+   16. Egli attende un tuo gesto, un segnale.
+   1. la sua fiamma brucia di una luce diversa dalla tua
+   14. Il sentiero del tuo Leone e della tua Luna in Toro è fecondo.
+CERTEZZA es6 medora chat esecuzione 1:
+   3. il ritorno si manifesta in piccoli segni che richiedono la tua attenzione
+CERTEZZA es6 medora chat esecuzione 2:
+   16. Non è un rifiuto, ma un bisogno di maggiore elaborazione interiore prima di agire.
+ERRORE es5 aura chat esecuzione 1:
+   13. Parla con tua madre da sola, prima di dirlo agli altri ed esprimi con chiarezza
+   23. non radicata nel tuo valore intrinseco e questo si riflette
+   7. Stendi le braccia in avanti, con i palmi delle mani rivolti verso l'alto e poi portale lentamente al petto. (manca la virgola che chiude l'inciso)
+ERRORE es5 aura chat esecuzione 2:
+   18. potresti star ti accontentando
+   14. un eco del tuo numero della vita
+   1. I tuoi centri dicono: non ancora, questo è il tempo per ascoltare il tuo profondo.
+   13. il centro da cui attingi la tua forza vitale e da lì scegli le parole (manca la virgola che chiude l'apposizione)
+   13. a costruire ponti, non muri e a farlo (manca la virgola dopo "muri")
+   19. "Questo è un tempo di semina interiore, dove il tuo numero della vita": "dove" riferito a un tempo, va "in cui"
+ERRORE es5 aura live esecuzione 1:
+   20. I tuoi centri rispondono di no, non è il momento di disperdere la tua energia (virgola che unisce due frasi indipendenti)
+   7. a patto che tu ti apra a riceverle con autenticità ("riceverle" non ha un nome a cui riferirsi)
+   10. Quando la tua radice è salda, attirerai relazioni
+ERRORE es5 aura live esecuzione 2:
+   17. forzare via il ricordo
+   7. Fai un respiro lento, profondo e poi apri le braccia (manca la virgola dopo "profondo")
+   8. equilibrando la tua radice con la tua corona e la tua energia sarà pronta a fiorire
+ERRORE es5 caligo chat esecuzione 1:
+   16. Il segno che cade dice di sì, ma si muove con cautela. (soggetto di «si muove» ambiguo: grammaticalmente è il segno)
+   25. se ti presenterai con la tua interezza (espressione impropria: «nella tua interezza»)
+   22. aglierai
+   15. Il perdono apre una nuova soglia, non dimenticare. (frase spezzata e ambigua: non si capisce a che cosa si leghi "non dimenticare")
+   21. "Scrivi un piano dettagliato per le tue uscite, una riga per ogni spesa e seguilo per un mese": inciso aperto da virgola e non chiuso prima di "e"
+   28. Il segno che cade dice di sì, ma non lo esprime apertamente.
+ERRORE es5 caligo chat esecuzione 2:
+   15. Non cancellare il passato, ma imparare da esso.
+   18. questa sera e ricambialo con un tocco
+ERRORE es5 caligo live esecuzione 1:
+   27. Non indugiare oltre la soglia. (espressione impropria: si indugia sulla soglia, non oltre)
+   12. non hai ancora rivelato tutto te stessa
+   2. Metti un piccolo oggetto a cui tieni particolarmente vicino a lui
+ERRORE es5 caligo live esecuzione 2:
+   3. Invialo a un rituale di ringraziamento
+   1. Scrivi un messaggio breve, con un'unica domanda semplice e invialo domani. (manca la virgola che chiude l'inciso)
+ERRORE es5 medora chat esecuzione 1:
+   14. Il tuo Segno Lunare Pesci
+   10. anche quelle più nascoste e questo a volte ti rende vulnerabile
+   24. la capacità di andare a fondo e di trasformare e queste sono qualità preziose (manca la virgola prima della seconda "e")
+ERRORE es5 medora chat esecuzione 2:
+   15. ti spinge a cercare sicurezza e fedeltà e il tuo Sole in Leone desidera (manca la virgola prima della seconda "e")
+ERRORE es5 medora live esecuzione 1:
+   5. quando la Luna in Toro è in aspetto di quadratura con il tuo Sole e osserva i tuoi pensieri
+   21. se saprai gestire le tue risorse con oculatezza e chiedendo supporto esterno
+   21. L'arcano del Denaro
+   18. osserva con il tuo Ascendente Cancro un luogo che ti dia pace (frase senza senso: non si osserva "con" un Ascendente)
+ERRORE es5 medora live esecuzione 2:
+   30. come il tuo Sole in Leone richiede e al contempo ti offre stabilità
+   1. se sai lasciargli il suo spazio, Leone dal tuo Ascendente in Capricorno
+   3. ti dà la forza della montagna, usala per ricostruire
+   17. senza di lui e riconosci quella forza
+ERRORE es6 aura chat esecuzione 1:
+   5. la sua energia è presente e stabile, non ci sono segnali di un tradimento (virgola che unisce due frasi indipendenti)
+   2. Porta la mano all'altezza del tuo Cuore
+   16. un respiro trattenuto e i tuoi centri lo sentono pienamente
+   23. cosa ti fa sentire davvero abbondante
+   1. "I tuoi centri dicono: non ancora, la sua energia si muove verso di te": virgola al posto del punto fra due frasi
+   6. "un fiume che si è fatto più lento, il desiderio si è affievolito perché": virgola al posto del punto fra due frasi
+   6. "sente un bisogno di rinnovamento, una nuova linfa vitale": apposizione sconnessa, manca "di"
+   15. Il tradimento ha scosso il tuo centro del cuore e ora ha bisogno di un respiro lento e curato per ricostruire la propria forza.
+ERRORE es6 aura chat esecuzione 2:
+   7. nel tuo centro della corona, dove la consapevolezza si espande e nella tua radice (manca la virgola che chiude la relativa)
+   17. che ha bisogno di accogliere il dolore per poi rilasciarlo e nel tuo plesso solare (manca la virgola che chiude la relativa)
+   6. e a volte, questa ricerca può far sentire il desiderio in modo diverso (virgola fuori posto: inciso non aperto)
+   8. Oggi: la Luna in Toro ti invita (due punti fuori posto dopo «Oggi»)
+   26. dove risiede la tua fiducia e la tua capacità di proiettarti con determinazione
+   28. dove la tua forza di volontà si manifesta e nel tuo centro della gola
+   19. nel tuo centro della radice, che si sta preparando a espandersi e nel tuo plesso solare
+   30. dove risiede la tua identità e la tua volontà e nel tuo centro del cuore
+   2. le sottili vibrazioni che ancora uniscono
+   5. trasparenza e in questo momento, i tuoi centri non rilevano
+   29. dove la tua volontà si manifesta e nel tuo centro della gola
+   27. nel tuo centro della radice, che cerca stabilità e nel tuo plesso solare
+   16. I tuoi centri rispondono di sì, è probabile che tu gli piaccia
+   16. nel tuo centro della gola, che aspetta di sentire le parole e nel tuo plesso solare
+   12. nel tuo centro del cuore, che cerca connessione autentica e nel tuo plesso solare
+   22. nel tuo centro della radice, che cerca un luogo sicuro in cui fiorire e nel tuo plesso solare
+   21. soluzioni solide e durature e questo processo richiede metodo e disciplina (manca la virgola prima della seconda "e")
+   21. nel tuo centro della radice, che ti chiede stabilità e nel tuo plesso solare (manca la virgola che chiude la relativa)
+   24. il centro della tua volontà e della tua identità e nel tuo centro della gola (manca la virgola che chiude l'apposizione)
+   20. "nel tuo centro della radice, che cerca sicurezza e nel tuo plesso solare, che ti chiede": relativa aperta da virgola e non chiusa prima di "e"
+   14. "dove risiede la tua forza vitale e la tua capacità di generare": verbo al singolare con due soggetti
+   23. "che ti porta a non sentire mai abbastanza": frase zoppa, manca il complemento
+   9. ogni scelta è un mattone per la tua vita, scegli ciò che ti rende più solida
+ERRORE es6 aura live esecuzione 1:
+   16. anche se le parole ancora non la esprimono (pronome «la» senza referente)
+   24. il centro della tua volontà e del tuo potere personale e a sentirne l'attivazione (inciso non chiuso da virgola)
+   11. se il tuo Chakra del cuore è in risonanza con il suo, un'unione che si radica nel sentirsi allineati e in pace (apposizione sospesa, frase sconnessa)
+   14. Il tuo Chakra sacrale
+   12. il tuo Chakra del cuore
+   5. percepiamo una profonda agitazione nel tuo plesso solare
+   1. non ancora, il tuo sentirlo è come un’onda che sta prendendo la sua forma
+   23. il fondamento della tua sicurezza e abbondanza e questo crea un ciclo
+ERRORE es6 aura live esecuzione 2:
+   18. la voce più autentica del tuo essere e di sentire se il respiro scorre libero
+   26. se ti presenti con fiducia e lascerai
+   1. lasciare spazio all'altro di rispecchiarla
+   2. I tuoi centri dicono di sì, per ora l'amore rimane un filo che vi lega
+   20. I tuoi centri rispondono di no, per ora la tua energia non è allineata con l'azzardo. (due frasi unite da una virgola: servono i due punti o il punto)
+   3. "I tuoi centri dicono: non ancora, il flusso della vita suggerisce": virgola al posto del punto fra due frasi
+   23. "il tuo centro della radice, che governa la sicurezza materiale e il tuo plesso solare, che gestisce": relativa aperta da virgola e non chiusa prima di "e"
+ERRORE es6 caligo chat esecuzione 1:
+   21. Non affrontare il tutto, ma un passo alla volta. (costruzione spezzata: manca il verbo della seconda parte)
+   8. pensando a ciò che desideri veramente e poi lasciala consumare
+ERRORE es6 caligo chat esecuzione 2:
+   26. Il presagio indica che la soglia è aperta, non esitare. (virgola che unisce due frasi indipendenti)
+   17. Porta via il passato.
+   3. mettendo su carta ogni parola non detta e bruciala sotto la Luna
+   16. accende il fuoco della passione e dell'attrazione e si manifesta anche attraverso sguardi intensi (manca la virgola prima della seconda "e")
+ERRORE es6 caligo live esecuzione 1:
+   2. Un metallo caldo, forgiato. (frase nominale spezzata, senza legame col resto)
+   2. Guarda la mano che ti porge, se è aperta, tendi la tua. (virgola al posto del punto e virgola o dei due punti)
+   24. Non chiuderti alle opportunità, anche quelle che sembrano piccole.
+   27. se hai coltivato un sigillo
+   9. Scrivi il nome di ciascuno su un foglio diverso, bruciali.
+   4. "Scrivi un messaggio breve, con una sola domanda e invialo domani": inciso aperto da virgola e non chiuso prima di "e"
+ERRORE es6 caligo live esecuzione 2:
+   18. Scegli un giorno, tra oggi e la fine della settimana e dedica un'ora a te stessa
+   18. Il tuo Leone chiede di brillare, non di tiepidi bagliori.
+   2. che ricordi un loro ricordo condiviso
+ERRORE es6 medora chat esecuzione 1:
+   2. ti invita a pazienza e a osservare oltre la superficie (manca l'articolo: «alla pazienza»)
+   13. un ricordo felice della vostra infanzia
+   25. ti chiede di presentarti con equilibrio e armonia e il transito di Mercurio in Scorpione ti suggerisce (manca la virgola prima della seconda "e")
+   18. "È un momento di transizione, dove la tua Luna in Pesci ti invita": "dove" riferito a un tempo, va "in cui"
+   17. "dedicali del tempo": pronome sbagliato, va "dedica loro del tempo"
+ERRORE es6 medora chat esecuzione 2:
+   10. relazioni in cui metti troppo te stessa (manca «di»: «troppo di te stessa»)
+   18. Chiedi a te stessa quali sono i tuoi veri desideri e, se la tua relazione attuale li sta soddisfacendo appieno, domani pomeriggio. (virgole che spezzano l'interrogativa indiretta)
+   13. senza cercare di imporre la sua approvazione
+   16. Le carte dicono di sì, leggo un interesse autentico nei tuoi confronti, ma
+   16. Osserva i suoi gesti, non solo le parole e fai un piccolo passo
+   12. il tuo bisogno di sentirsi veramente vista e compresa
+ERRORE es6 medora live esecuzione 1:
+   10. Fai una passeggiata in un luogo che ti dia pace, domani sera e rifletti
+   17. "Metti da parte un oggetto che ti lega a lui, domani mattina e inizia a creare spazio": inciso aperto da virgola e non chiuso prima di "e"
+   13. "Invita tua madre a pranzo, da sola, nel fine settimana e con serenità esprimile": inciso non chiuso da virgola prima di "e"
+   9. quando la Luna in Toro sarà completamente calante e ascolta con attenzione
+   21. questa sera stessa e consultalo ogni giorno
+   6. domani sera e raccontagli una parte della tua giornata
+   4. Prepargli
+   4. che rifletta i tuoi sentimenti e invialo appena Venere sarà retrograda
+ERRORE es6 medora live esecuzione 2:
+   8. ✦ Prendi un quaderno, domani. (frase monca: il gesto non dice che cosa farne)
+   5. Prepara una cena speciale per voi due, domani sera e crea un'atmosfera di condivisione.
+   24. domani mattina e stila un piano d'azione dettagliato
+   26. un'attitudine proattiva
+   9. per ognuno elenca tre motivi per cui il tuo cuore li desidera ("ognuno" singolare ripreso con "li")

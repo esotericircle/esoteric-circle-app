@@ -1,0 +1,151 @@
+--------- beginning of main
+10-06 01:49:11.383 I/flutter (17850): LIVE: primo suono al volto dopo 774 ms, audio di 4912 ms, scritto in 1209 ms
+10-06 01:49:16.795 I/flutter (17850): LIVE: il volto ha finito dopo 6622 ms, lo ha detto lui
+10-06 01:49:17.798 I/flutter (17850): LIVE: la voce del volto tace dopo altri 1002 ms
+10-06 01:49:18.182 I/flutter (17850): LIVE VIDEO: ricevuto 256x256 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 579x724 px veri, ritaglio 788x985 millesimi del video
+10-06 01:49:18.373 I/flutter (17850): ORECCHIO db -59 fondo -70 sottofondo null voce 0.66 parla false parlato false silenzio 320 mano false frase 1 continuo false pezzi -100:0 -69:59 -58:55 -59:66
+10-06 01:49:18.687 I/flutter (17850): ORECCHIO db -68 fondo -69 sottofondo null voce 0.46 parla false parlato false silenzio 640 mano false frase 1 continuo false pezzi -62:64 -63:68 -62:64 -68:46
+10-06 01:49:19.008 I/flutter (17850): ORECCHIO db -79 fondo -70 sottofondo null voce 0.42 parla false parlato false silenzio 960 mano false frase 1 continuo false pezzi -72:46 -75:40 -77:45 -79:42
+10-06 01:49:19.328 I/flutter (17850): ORECCHIO db -79 fondo -70 sottofondo null voce 0.44 parla false parlato false silenzio 1280 mano false frase 1 continuo false pezzi -78:43 -79:34 -79:42 -79:44
+10-06 01:49:19.647 I/flutter (17850): ORECCHIO db -84 fondo -70 sottofondo null voce 0.28 parla false parlato false silenzio 1600 mano false frase 1 continuo false pezzi -84:33 -83:44 -82:27 -84:28
+10-06 01:49:19.968 I/flutter (17850): ORECCHIO db -85 fondo -70 sottofondo null voce 0.36 parla false parlato false silenzio 1920 mano false frase 1 continuo false pezzi -85:26 -86:21 -84:27 -85:36
+10-06 01:49:20.288 I/flutter (17850): ORECCHIO db -87 fondo -70 sottofondo null voce 0.33 parla false parlato false silenzio 2240 mano false frase 1 continuo false pezzi -87:26 -88:19 -86:25 -87:33
+10-06 01:49:20.607 I/flutter (17850): ORECCHIO db -87 fondo -70 sottofondo null voce 0.26 parla false parlato false silenzio 2560 mano false frase 1 continuo false pezzi -88:26 -88:32 -88:37 -87:26
+10-06 01:49:20.928 I/flutter (17850): ORECCHIO db -22 fondo -70 sottofondo null voce 0.96 parla true parlato false silenzio 0 mano false frase 1 continuo false pezzi -87:30 -89:33 -27:92 -22:96
+10-06 01:49:21.249 I/flutter (17850): ORECCHIO db -20 fondo -70 sottofondo null voce 0.96 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -15:98 -22:82 -32:45 -20:96
+10-06 01:49:21.568 I/flutter (17850): ORECCHIO db -72 fondo -70 sottofondo null voce 0.52 parla false parlato true silenzio 160 mano false frase 1 continuo false pezzi -34:75 -61:60 -67:66 -72:52
+10-06 01:49:21.889 I/flutter (17850): ORECCHIO db -15 fondo -70 sottofondo null voce 1.00 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -21:74 -19:92 -14:99 -15:100
+10-06 01:49:22.208 I/flutter (17850): ORECCHIO db -25 fondo -70 sottofondo null voce 0.76 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -16:96 -19:93 -24:92 -25:76
+10-06 01:49:22.528 I/flutter (17850): ORECCHIO db -26 fondo -70 sottofondo null voce 0.32 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -18:95 -31:29 -23:96 -26:32
+10-06 01:49:22.848 I/flutter (17850): ORECCHIO db -15 fondo -70 sottofondo null voce 0.96 parla true parlato true silenzio 0 mano false frase 1 continuo false pezzi -41:48 -22:77 -34:79 -15:96
+10-06 01:49:23.168 I/flutter (17850): ORECCHIO db -20 fondo -70 sottofondo null voce 0.93 parla true parlato true silenzio 0 mano false frase 1 continuo true pezzi -22:89 -26:91 -15:93 -20:93
+10-06 01:49:23.489 I/flutter (17850): ORECCHIO db -23 fondo -70 sottofondo null voce 0.91 parla true parlato true silenzio 0 mano false frase 1 continuo true pezzi -17:95 -20:94 -22:98 -23:91
+10-06 01:49:23.809 I/flutter (17850): ORECCHIO db -18 fondo -70 sottofondo null voce 0.91 parla true parlato true silenzio 0 mano false frase 1 continuo true pezzi -27:90 -18:99 -23:84 -18:91
+10-06 01:49:24.127 I/flutter (17850): ORECCHIO db -24 fondo -70 sottofondo null voce 0.96 parla true parlato true silenzio 0 mano false frase 1 continuo true pezzi -20:86 -39:32 -29:79 -24:96
+10-06 01:49:24.449 I/flutter (17850): ORECCHIO db -17 fondo -70 sottofondo null voce 0.95 parla true parlato true silenzio 0 mano false frase 1 continuo true pezzi -17:98 -22:94 -28:95 -17:95
+10-06 01:49:24.768 I/flutter (17850): ORECCHIO db -60 fondo -70 sottofondo null voce 0.49 parla true parlato true silenzio 0 mano false frase 1 continuo true pezzi -29:70 -28:85 -49:80 -60:49
+10-06 01:49:25.088 I/flutter (17850): ORECCHIO db -74 fondo -70 sottofondo null voce 0.57 parla false parlato true silenzio 320 mano false frase 1 continuo true pezzi -70:56 -72:50 -74:50 -74:57
+10-06 01:49:25.352 I/flutter (17850): LIVE: controllo 1 della frase 1 in 1303 ms: «Calìgo, è il momento giusto per avviare il mio progetto», aspetta, sottofondo null
+10-06 01:49:25.409 I/flutter (17850): ORECCHIO db -77 fondo -70 sottofondo null voce 0.55 parla false parlato true silenzio 640 mano false frase 1 continuo true pezzi -73:70 -75:46 -75:46 -77:55
+10-06 01:49:25.728 I/flutter (17850): ORECCHIO db -79 fondo -70 sottofondo null voce 0.51 parla false parlato true silenzio 960 mano false frase 1 continuo true pezzi -76:49 -77:46 -76:51 -79:51
+10-06 01:49:26.049 I/flutter (17850): ORECCHIO db -80 fondo -70 sottofondo null voce 0.45 parla false parlato true silenzio 1280 mano false frase 1 continuo false pezzi -78:48 -79:45 -79:47 -80:45
+10-06 01:49:26.368 I/flutter (17850): ORECCHIO db -80 fondo -70 sottofondo null voce 0.47 parla false parlato true silenzio 1600 mano false frase 1 continuo false pezzi -79:38 -80:38 -81:40 -80:47
+10-06 01:49:26.382 I/flutter (17850): LIVE: trascrizione anticipata in 1213 ms, pausa 1: «Calìgo, è il momento giusto per avviare il mio progetto creativo?»
+10-06 01:49:26.388 I/flutter (17850): LIVE: domanda finita, chiusa dopo 1600 ms di silenzio
+10-06 01:49:26.388 I/flutter (17850): LIVE: frase di 6320 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Calìgo, è il momento giusto per avviare il mio progetto creativo?» (parte)
+10-06 01:49:38.689 I/flutter (17850): CHAT TEMPI: in attesa salvata a 3644 ms, risposta del modello a 12138 ms, consegnata e salvata a 12139 ms, 251 caratteri
+10-06 01:49:38.690 I/flutter (17850): LIVE: la chat ha risposto in 12140 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+10-06 01:49:38.690 I/flutter (17850): LIVE: voce della prima frase chiesta adesso (anticipata per «Le rune dicono di no, per ora: fermati e osserva.», detta «Le rune dicono di sì, se sai accogliere il presagio.»)
+10-06 01:49:40.198 I/flutter (17850): LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 579x724 px veri, ritaglio 788x985 millesimi del video
+10-06 01:49:40.905 I/flutter (17850): LIVE ATTESA dalla fine del parlato: frase chiusa 1619 ms, trascritta 1620 ms, domanda scritta 5279 ms, primo testo 6371 ms, prima lettera della risposta 6411 ms, prima frase chiusa 6524 ms, flusso aperto in anticipo 7122 ms, risposta 13921 ms, voce pronta 14548 ms, primo audio al volto 14548 ms, si sente 15895 ms, il volto parla 16137 ms
+10-06 01:49:53.994 I/flutter (17850): LIVE: primo suono al volto dopo 626 ms, audio di 19703 ms, scritto in 15303 ms
+10-06 01:49:59.946 I/flutter (17850): LIVE: il volto ha finito dopo 21255 ms, lo ha detto lui
+10-06 01:50:00.924 I/flutter (17850): LIVE: la voce del volto tace dopo altri 977 ms
+10-06 01:50:01.487 I/flutter (17850): ORECCHIO db -61 fondo -70 sottofondo null voce 0.66 parla true parlato false silenzio 0 mano false frase 4 continuo false pezzi -100:0 -67:60 -58:57 -61:66
+10-06 01:50:01.808 I/flutter (17850): ORECCHIO db -67 fondo -70 sottofondo null voce 0.53 parla false parlato true silenzio 80 mano false frase 4 continuo false pezzi -62:65 -61:58 -62:62 -67:53
+10-06 01:50:02.127 I/flutter (17850): ORECCHIO db -68 fondo -70 sottofondo null voce 0.54 parla false parlato true silenzio 400 mano false frase 4 continuo false pezzi -67:47 -69:49 -68:61 -68:54
+10-06 01:50:02.447 I/flutter (17850): ORECCHIO db -79 fondo -70 sottofondo null voce 0.37 parla false parlato true silenzio 720 mano false frase 4 continuo false pezzi -75:39 -76:40 -78:41 -79:37
+10-06 01:50:02.768 I/flutter (17850): ORECCHIO db -81 fondo -70 sottofondo null voce 0.26 parla false parlato true silenzio 1040 mano false frase 4 continuo false pezzi -80:31 -79:59 -81:26 -81:26
+10-06 01:50:03.087 I/flutter (17850): ORECCHIO db -86 fondo -70 sottofondo null voce 0.34 parla false parlato true silenzio 1360 mano false frase 4 continuo false pezzi -84:34 -84:20 -82:52 -86:34
+10-06 01:50:03.408 I/flutter (17850): ORECCHIO db -87 fondo -70 sottofondo null voce 0.39 parla false parlato true silenzio 1680 mano false frase 4 continuo false pezzi -86:25 -86:35 -86:29 -87:39
+10-06 01:50:03.728 I/flutter (17850): ORECCHIO db -86 fondo -70 sottofondo null voce 0.25 parla false parlato true silenzio 2000 mano false frase 4 continuo false pezzi -88:32 -87:26 -87:23 -86:25
+10-06 01:50:03.791 I/flutter (17850): LIVE: trascrizione anticipata in 1663 ms, pausa 1: «»
+10-06 01:50:03.792 I/flutter (17850): LIVE: frase di 2560 ms in 1 pezzi, trascritta in 62 ms dalla chiusura, in pausa: «» (si ascolta ancora)
+10-06 01:50:04.047 I/flutter (17850): ORECCHIO db -21 fondo -70 sottofondo null voce 0.92 parla true parlato false silenzio 0 mano false frase 5 continuo false pezzi -88:33 -87:27 -20:96 -21:92
+10-06 01:50:04.368 I/flutter (17850): ORECCHIO db -23 fondo -70 sottofondo null voce 0.39 parla true parlato true silenzio 0 mano false frase 5 continuo false pezzi -19:98 -31:95 -22:68 -23:39
+10-06 01:50:04.688 I/flutter (17850): ORECCHIO db -30 fondo -70 sottofondo null voce 0.85 parla true parlato true silenzio 0 mano false frase 5 continuo false pezzi -36:35 -32:97 -35:89 -30:85
+10-06 01:50:05.008 I/flutter (17850): ORECCHIO db -74 fondo -70 sottofondo null voce 0.41 parla false parlato true silenzio 240 mano false frase 5 continuo false pezzi -55:69 -67:40 -72:58 -74:41
+10-06 01:50:05.328 I/flutter (17850): ORECCHIO db -19 fondo -70 sottofondo null voce 0.84 parla true parlato true silenzio 0 mano false frase 5 continuo false pezzi -29:90 -19:97 -25:68 -19:84
+10-06 01:50:05.648 I/flutter (17850): ORECCHIO db -25 fondo -70 sottofondo null voce 0.34 parla true parlato true silenzio 0 mano false frase 5 continuo false pezzi -29:83 -23:77 -27:55 -25:34
+10-06 01:50:05.967 I/flutter (17850): ORECCHIO db -30 fondo -70 sottofondo null voce 0.66 parla true parlato true silenzio 0 mano false frase 5 continuo false pezzi -26:85 -36:84 -22:91 -30:66
+10-06 01:50:06.287 I/flutter (17850): ORECCHIO db -23 fondo -70 sottofondo null voce 0.95 parla true parlato true silenzio 0 mano false frase 5 continuo false pezzi -23:98 -29:45 -16:98 -23:95
+10-06 01:50:06.608 I/flutter (17850): ORECCHIO db -42 fondo -70 sottofondo null voce 0.85 parla true parlato true silenzio 0 mano false frase 5 continuo false pezzi -16:99 -16:96 -27:63 -42:85
+10-06 01:50:06.928 I/flutter (17850): ORECCHIO db -70 fondo -70 sottofondo null voce 0.54 parla false parlato true silenzio 160 mano false frase 5 continuo true pezzi -43:84 -54:75 -67:54 -70:54
+10-06 01:50:07.247 I/flutter (17850): ORECCHIO db -72 fondo -70 sottofondo null voce 0.43 parla false parlato true silenzio 480 mano false frase 5 continuo true pezzi -73:45 -72:44 -72:36 -72:43
+10-06 01:50:07.567 I/flutter (17850): ORECCHIO db -77 fondo -70 sottofondo null voce 0.54 parla false parlato true silenzio 800 mano false frase 5 continuo true pezzi -75:43 -77:51 -77:36 -77:54
+10-06 01:50:07.889 I/flutter (17850): ORECCHIO db -78 fondo -70 sottofondo null voce 0.38 parla false parlato true silenzio 1120 mano false frase 5 continuo false pezzi -78:47 -79:52 -78:36 -78:38
+10-06 01:50:08.166 I/flutter (17850): LIVE: trascrizione anticipata in 998 ms, pausa 1: «»
+10-06 01:50:08.207 I/flutter (17850): ORECCHIO db -80 fondo -70 sottofondo null voce 0.37 parla false parlato true silenzio 1440 mano false frase 5 continuo false pezzi -81:47 -80:41 -80:39 -80:37
+10-06 01:50:08.430 I/flutter (17850): LIVE: controllo 1 della frase 5 in 1257 ms: «», scarta, sottofondo null
+10-06 01:50:08.430 I/flutter (17850): LIVE: la frase 5 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-06 01:50:08.527 I/flutter (17850): ORECCHIO db -80 fondo -70 sottofondo null voce 0.35 parla false parlato true silenzio 1760 mano false frase 5 continuo false pezzi -80:37 -80:39 -80:36 -80:35
+10-06 01:50:08.847 I/flutter (17850): ORECCHIO db -82 fondo -70 sottofondo null voce 0.43 parla false parlato false silenzio 80 mano false frase 6 continuo false pezzi -82:41 -80:31 -80:47 -82:43
+10-06 01:50:09.168 I/flutter (17850): ORECCHIO db -81 fondo -70 sottofondo null voce 0.41 parla false parlato false silenzio 400 mano false frase 6 continuo false pezzi -80:56 -81:34 -80:43 -81:41
+10-06 01:50:09.487 I/flutter (17850): ORECCHIO db -82 fondo -70 sottofondo null voce 0.38 parla false parlato false silenzio 720 mano false frase 6 continuo false pezzi -81:36 -82:46 -82:39 -82:38
+10-06 01:50:09.784 I/flutter (17850): LIVE: frase di 5040 ms in 1 pezzi, trascritta in 1015 ms dalla chiusura, in pausa, poi di nuovo senza il sottofondo: «E in pratica, cosa faccio questa settimana?» (parte)
+10-06 01:50:14.587 I/flutter (17850): CHAT TEMPI: in attesa salvata a 3620 ms, risposta del modello a 4673 ms, consegnata e salvata a 4674 ms, 199 caratteri
+10-06 01:50:14.588 I/flutter (17850): LIVE: la chat ha risposto in 4675 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+10-06 01:50:14.588 I/flutter (17850): LIVE: voce della prima frase anticipata
+10-06 01:50:16.498 I/flutter (17850): LIVE ATTESA dalla fine del parlato: frase chiusa 2000 ms, trascritta 3016 ms, domanda scritta 6624 ms, primo testo 7317 ms, prima lettera della risposta 7370 ms, prima frase chiusa 7509 ms, risposta 7820 ms, voce pronta 8143 ms, flusso aperto in anticipo 8159 ms, primo audio al volto 8159 ms, si sente 9570 ms, il volto parla 9730 ms
+10-06 01:50:21.430 I/flutter (17850): LIVE: primo suono al volto dopo 338 ms, audio di 15863 ms, scritto in 6842 ms
+10-06 01:50:31.734 I/flutter (17850): LIVE: il volto ha finito dopo 17145 ms, lo ha detto lui
+10-06 01:50:32.720 I/flutter (17850): LIVE: la voce del volto tace dopo altri 986 ms
+10-06 01:50:33.258 I/flutter (17850): ORECCHIO db -59 fondo -70 sottofondo null voce 0.71 parla true parlato false silenzio 0 mano false frase 8 continuo false pezzi -80:39 -81:41 -81:49 -100:0 -64:64 -56:60 -59:71
+10-06 01:50:33.580 I/flutter (17850): ORECCHIO db -66 fondo -70 sottofondo null voce 0.44 parla true parlato true silenzio 0 mano false frase 8 continuo false pezzi -61:68 -61:65 -61:66 -66:44
+10-06 01:50:33.899 I/flutter (17850): ORECCHIO db -74 fondo -70 sottofondo null voce 0.45 parla false parlato true silenzio 320 mano false frase 8 continuo false pezzi -67:58 -66:49 -68:48 -74:45
+10-06 01:50:34.218 I/flutter (17850): ORECCHIO db -80 fondo -70 sottofondo null voce 0.49 parla false parlato true silenzio 640 mano false frase 8 continuo false pezzi -77:38 -78:39 -78:52 -80:49
+10-06 01:50:34.538 I/flutter (17850): ORECCHIO db -84 fondo -70 sottofondo null voce 0.34 parla false parlato true silenzio 960 mano false frase 8 continuo false pezzi -80:43 -82:33 -82:36 -84:34
+10-06 01:50:34.860 I/flutter (17850): ORECCHIO db -85 fondo -70 sottofondo null voce 0.31 parla false parlato true silenzio 1280 mano false frase 8 continuo false pezzi -83:32 -84:29 -84:32 -85:31
+10-06 01:50:34.958 I/flutter (17850): LIVE: trascrizione anticipata in 979 ms, pausa 1: «»
+10-06 01:50:35.193 I/flutter (17850): ORECCHIO db -88 fondo -70 sottofondo null voce 0.31 parla false parlato true silenzio 1600 mano false frase 8 continuo false pezzi -85:25 -85:29 -86:42 -88:31
+10-06 01:50:35.498 I/flutter (17850): ORECCHIO db -88 fondo -70 sottofondo null voce 0.33 parla false parlato true silenzio 1920 mano false frase 8 continuo false pezzi -87:39 -87:31 -88:28 -88:33
+10-06 01:50:35.579 I/flutter (17850): LIVE: frase di 2640 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «» (si ascolta ancora)
+10-06 01:50:35.826 I/flutter (17850): ORECCHIO db -20 fondo -70 sottofondo null voce 0.89 parla true parlato false silenzio 0 mano false frase 9 continuo false pezzi -89:29 -26:91 -21:95 -20:89
+10-06 01:50:36.142 I/flutter (17850): ORECCHIO db -20 fondo -70 sottofondo null voce 0.96 parla true parlato true silenzio 0 mano false frase 9 continuo false pezzi -21:87 -11:98 -17:98 -20:96
+10-06 01:50:36.458 I/flutter (17850): ORECCHIO db -18 fondo -70 sottofondo null voce 0.97 parla true parlato true silenzio 0 mano false frase 9 continuo false pezzi -25:99 -18:96 -22:93 -18:97
+10-06 01:50:36.779 I/flutter (17850): ORECCHIO db -28 fondo -70 sottofondo null voce 0.90 parla true parlato true silenzio 0 mano false frase 9 continuo false pezzi -13:99 -22:96 -27:83 -28:90
+10-06 01:50:37.100 I/flutter (17850): ORECCHIO db -21 fondo -70 sottofondo null voce 0.82 parla true parlato true silenzio 0 mano false frase 9 continuo false pezzi -24:97 -17:100 -16:100 -21:82
+10-06 01:50:37.420 I/flutter (17850): ORECCHIO db -31 fondo -70 sottofondo null voce 0.97 parla true parlato true silenzio 0 mano false frase 9 continuo false pezzi -25:26 -24:56 -35:55 -31:97
+10-06 01:50:37.739 I/flutter (17850): ORECCHIO db -72 fondo -70 sottofondo null voce 0.47 parla false parlato true silenzio 240 mano false frase 9 continuo false pezzi -51:68 -67:42 -69:44 -72:47
+10-06 01:50:38.058 I/flutter (17850): ORECCHIO db -76 fondo -70 sottofondo null voce 0.40 parla false parlato true silenzio 560 mano false frase 9 continuo false pezzi -74:43 -73:50 -74:29 -76:40
+10-06 01:50:38.379 I/flutter (17850): ORECCHIO db -79 fondo -70 sottofondo null voce 0.42 parla false parlato true silenzio 880 mano false frase 9 continuo false pezzi -79:48 -79:43 -79:45 -79:42
+10-06 01:50:38.700 I/flutter (17850): ORECCHIO db -79 fondo -70 sottofondo null voce 0.44 parla false parlato true silenzio 1200 mano false frase 9 continuo false pezzi -78:42 -79:35 -80:42 -79:44
+10-06 01:50:39.019 I/flutter (17850): ORECCHIO db -80 fondo -70 sottofondo null voce 0.37 parla false parlato true silenzio 1520 mano false frase 9 continuo false pezzi -81:48 -81:39 -80:40 -80:37
+10-06 01:50:39.318 I/flutter (17850): LIVE: trascrizione anticipata in 1419 ms, pausa 1: «Quale rito mi aiuta a cominciare?»
+10-06 01:50:39.319 I/flutter (17850): LIVE: domanda finita, chiusa dopo 1760 ms di silenzio
+10-06 01:50:39.319 I/flutter (17850): LIVE: frase di 3680 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «Quale rito mi aiuta a cominciare?» (parte)
+10-06 01:50:44.731 I/flutter (17850): CHAT TEMPI: in attesa salvata a 3624 ms, risposta del modello a 5300 ms, consegnata e salvata a 5301 ms, 141 caratteri
+10-06 01:50:44.731 I/flutter (17850): LIVE: la chat ha risposto in 5302 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+10-06 01:50:44.732 I/flutter (17850): LIVE: voce della prima frase anticipata
+10-06 01:50:46.894 I/flutter (17850): LIVE ATTESA dalla fine del parlato: frase chiusa 1821 ms, trascritta 1822 ms, domanda scritta 5403 ms, primo testo 5958 ms, prima lettera della risposta 5992 ms, prima frase chiusa 6144 ms, flusso aperto in anticipo 6777 ms, risposta 7234 ms, voce pronta 7235 ms, primo audio al volto 7235 ms, si sente 8785 ms, il volto parla 9396 ms
+10-06 01:50:48.245 I/flutter (17850): LIVE: primo suono al volto dopo 0 ms, audio di 11223 ms, scritto in 3512 ms
+10-06 01:50:56.912 I/flutter (17850): LIVE: il volto ha finito dopo 12179 ms, lo ha detto lui
+10-06 01:50:57.931 I/flutter (17850): LIVE: la voce del volto tace dopo altri 1019 ms
+10-06 01:50:58.485 I/flutter (17850): ORECCHIO db -59 fondo -70 sottofondo null voce 0.65 parla true parlato false silenzio 0 mano false frase 12 continuo false pezzi -81:45 -81:44 -82:47 -100:0 -65:64 -57:58 -59:65
+10-06 01:50:58.806 I/flutter (17850): ORECCHIO db -65 fondo -70 sottofondo null voce 0.51 parla true parlato true silenzio 0 mano false frase 12 continuo false pezzi -60:64 -61:68 -60:67 -65:51
+10-06 01:50:59.135 I/flutter (17850): ORECCHIO db -69 fondo -70 sottofondo null voce 0.54 parla false parlato true silenzio 320 mano false frase 12 continuo false pezzi -66:50 -66:56 -68:52 -69:54
+10-06 01:50:59.448 I/flutter (17850): ORECCHIO db -79 fondo -70 sottofondo null voce 0.39 parla false parlato true silenzio 640 mano false frase 12 continuo false pezzi -72:42 -77:46 -79:40 -79:39
+10-06 01:50:59.765 I/flutter (17850): ORECCHIO db -81 fondo -70 sottofondo null voce 0.41 parla false parlato true silenzio 960 mano false frase 12 continuo false pezzi -78:38 -82:41 -81:32 -81:41
+10-06 01:51:00.080 I/flutter (17850): LIVE: trascrizione anticipata in 874 ms, pausa 1: «»
+10-06 01:51:00.084 I/flutter (17850): ORECCHIO db -84 fondo -70 sottofondo null voce 0.34 parla false parlato true silenzio 1280 mano false frase 12 continuo false pezzi -82:32 -83:28 -85:27 -84:34
+10-06 01:51:00.406 I/flutter (17850): ORECCHIO db -86 fondo -70 sottofondo null voce 0.30 parla false parlato true silenzio 1600 mano false frase 12 continuo false pezzi -85:47 -86:40 -85:31 -86:30
+10-06 01:51:00.725 I/flutter (17850): ORECCHIO db -88 fondo -70 sottofondo null voce 0.36 parla false parlato true silenzio 1920 mano false frase 12 continuo false pezzi -87:32 -86:39 -88:36 -88:36
+10-06 01:51:01.046 I/flutter (17850): ORECCHIO db -19 fondo -70 sottofondo null voce 0.90 parla true parlato true silenzio 0 mano false frase 12 continuo false pezzi -22:93 -27:53 -19:92 -19:90
+10-06 01:51:01.367 I/flutter (17850): ORECCHIO db -16 fondo -70 sottofondo null voce 0.83 parla true parlato true silenzio 0 mano false frase 12 continuo false pezzi -21:92 -29:94 -15:99 -16:83
+10-06 01:51:01.686 I/flutter (17850): ORECCHIO db -24 fondo -70 sottofondo null voce 0.94 parla true parlato true silenzio 0 mano false frase 12 continuo false pezzi -20:96 -21:89 -24:97 -24:94
+10-06 01:51:02.005 I/flutter (17850): ORECCHIO db -31 fondo -70 sottofondo null voce 0.88 parla true parlato true silenzio 0 mano false frase 12 continuo false pezzi -25:90 -21:99 -18:94 -31:88
+10-06 01:51:02.325 I/flutter (17850): ORECCHIO db -31 fondo -70 sottofondo null voce 0.34 parla true parlato true silenzio 0 mano false frase 12 continuo false pezzi -20:99 -19:98 -26:51 -31:34
+10-06 01:51:02.646 I/flutter (17850): ORECCHIO db -27 fondo -70 sottofondo null voce 0.96 parla true parlato true silenzio 0 mano false frase 12 continuo false pezzi -26:86 -22:76 -28:98 -27:96
+10-06 01:51:02.965 I/flutter (17850): ORECCHIO db -71 fondo -70 sottofondo null voce 0.51 parla false parlato true silenzio 160 mano false frase 12 continuo true pezzi -46:93 -61:61 -69:45 -71:51
+10-06 01:51:03.292 I/flutter (17850): ORECCHIO db -77 fondo -70 sottofondo null voce 0.41 parla false parlato true silenzio 480 mano false frase 12 continuo true pezzi -72:52 -73:46 -75:47 -77:41
+10-06 01:51:03.607 I/flutter (17850): ORECCHIO db -79 fondo -70 sottofondo null voce 0.47 parla false parlato true silenzio 800 mano false frase 12 continuo true pezzi -77:37 -78:45 -79:42 -79:47
+10-06 01:51:03.802 I/flutter (17850): LIVE: controllo 1 della frase 12 in 1076 ms: «», scarta, sottofondo null
+10-06 01:51:03.802 I/flutter (17850): LIVE: la frase 12 non si scarta: sta sopra il sottofondo, o è il primo controllo vuoto senza sottofondo
+10-06 01:51:03.925 I/flutter (17850): ORECCHIO db -80 fondo -70 sottofondo null voce 0.41 parla false parlato true silenzio 1120 mano false frase 12 continuo false pezzi -81:47 -79:47 -80:47 -80:41
+10-06 01:51:04.246 I/flutter (17850): ORECCHIO db -82 fondo -70 sottofondo null voce 0.49 parla false parlato true silenzio 1440 mano false frase 12 continuo false pezzi -81:37 -80:43 -82:39 -82:49
+10-06 01:51:04.437 I/flutter (17850): LIVE: trascrizione anticipata in 1231 ms, pausa 2: «E se le cose non vanno come speri?»
+10-06 01:51:04.438 I/flutter (17850): LIVE: domanda finita, chiusa dopo 1600 ms di silenzio
+10-06 01:51:04.438 I/flutter (17850): LIVE: frase di 6240 ms in 1 pezzi, trascritta in 0 ms dalla chiusura, in pausa: «E se le cose non vanno come speri?» (parte)
+10-06 01:51:09.758 I/flutter (17850): CHAT TEMPI: in attesa salvata a 3653 ms, risposta del modello a 5169 ms, consegnata e salvata a 5169 ms, 256 caratteri
+10-06 01:51:09.759 I/flutter (17850): LIVE: la chat ha risposto in 5171 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+10-06 01:51:09.760 I/flutter (17850): LIVE: voce della prima frase anticipata
+10-06 01:51:12.104 I/flutter (17850): LIVE ATTESA dalla fine del parlato: frase chiusa 1633 ms, trascritta 1633 ms, domanda scritta 5254 ms, primo testo 6411 ms, prima lettera della risposta 6438 ms, prima frase chiusa 6598 ms, risposta 6954 ms, voce pronta 7231 ms, flusso aperto in anticipo 7243 ms, primo audio al volto 7243 ms, si sente 8793 ms, il volto parla 9299 ms
+10-06 01:51:17.014 I/flutter (17850): LIVE: primo suono al volto dopo 287 ms, audio di 19743 ms, scritto in 7254 ms
+10-06 01:51:30.744 I/flutter (17850): LIVE: il volto ha finito dopo 20983 ms, lo ha detto lui
+10-06 01:51:31.747 I/flutter (17850): LIVE: la voce del volto tace dopo altri 1002 ms
+10-06 01:51:32.298 I/flutter (17850): ORECCHIO db -59 fondo -70 sottofondo null voce 0.70 parla true parlato false silenzio 0 mano false frase 15 continuo false pezzi -82:39 -81:44 -100:0 -69:58 -57:55 -59:70
+10-06 01:51:32.619 I/flutter (17850): ORECCHIO db -65 fondo -70 sottofondo null voce 0.62 parla true parlato true silenzio 0 mano false frase 15 continuo false pezzi -60:70 -61:68 -60:70 -65:62
+10-06 01:51:32.938 I/flutter (17850): ORECCHIO db -78 fondo -70 sottofondo null voce 0.47 parla false parlato true silenzio 320 mano false frase 15 continuo false pezzi -68:53 -69:52 -75:40 -78:47
+10-06 01:51:33.258 I/flutter (17850): ORECCHIO db -80 fondo -70 sottofondo null voce 0.32 parla false parlato true silenzio 640 mano false frase 15 continuo false pezzi -80:41 -78:38 -80:46 -80:32
+10-06 01:51:33.580 I/flutter (17850): ORECCHIO db -82 fondo -70 sottofondo null voce 0.21 parla false parlato true silenzio 960 mano false frase 15 continuo false pezzi -81:31 -83:29 -84:45 -82:21
+10-06 01:51:34.210 I/flutter (17850): LIVE: trascrizione anticipata in 1192 ms, pausa 1: «»

@@ -1,0 +1,180 @@
+{
+ "misura_immagine": [
+  1438,
+  2576
+ ],
+ "raggio_perla": 38,
+ "raggio_maschera": 48,
+ "giorni": [
+  {
+   "giorno": 1,
+   "x": 586,
+   "y": 866
+  },
+  {
+   "giorno": 2,
+   "x": 518,
+   "y": 902
+  },
+  {
+   "giorno": 3,
+   "x": 462,
+   "y": 950
+  },
+  {
+   "giorno": 4,
+   "x": 414,
+   "y": 1010
+  },
+  {
+   "giorno": 5,
+   "x": 376,
+   "y": 1074
+  },
+  {
+   "giorno": 6,
+   "x": 352,
+   "y": 1146
+  },
+  {
+   "giorno": 7,
+   "x": 336,
+   "y": 1220
+  },
+  {
+   "giorno": 8,
+   "x": 330,
+   "y": 1296
+  },
+  {
+   "giorno": 9,
+   "x": 336,
+   "y": 1374
+  },
+  {
+   "giorno": 10,
+   "x": 352,
+   "y": 1448
+  },
+  {
+   "giorno": 11,
+   "x": 378,
+   "y": 1522
+  },
+  {
+   "giorno": 12,
+   "x": 418,
+   "y": 1592
+  },
+  {
+   "giorno": 13,
+   "x": 468,
+   "y": 1648
+  },
+  {
+   "giorno": 14,
+   "x": 532,
+   "y": 1694
+  },
+  {
+   "giorno": 15,
+   "x": 600,
+   "y": 1730
+  },
+  {
+   "giorno": 16,
+   "x": 828,
+   "y": 1734
+  },
+  {
+   "giorno": 17,
+   "x": 896,
+   "y": 1700
+  },
+  {
+   "giorno": 18,
+   "x": 956,
+   "y": 1652
+  },
+  {
+   "giorno": 19,
+   "x": 1008,
+   "y": 1592
+  },
+  {
+   "giorno": 20,
+   "x": 1054,
+   "y": 1530
+  },
+  {
+   "giorno": 21,
+   "x": 1080,
+   "y": 1456
+  },
+  {
+   "giorno": 22,
+   "x": 1098,
+   "y": 1382
+  },
+  {
+   "giorno": 23,
+   "x": 1106,
+   "y": 1306
+  },
+  {
+   "giorno": 24,
+   "x": 1104,
+   "y": 1230
+  },
+  {
+   "giorno": 25,
+   "x": 1088,
+   "y": 1152
+  },
+  {
+   "giorno": 26,
+   "x": 1062,
+   "y": 1080
+  },
+  {
+   "giorno": 27,
+   "x": 1026,
+   "y": 1010
+  },
+  {
+   "giorno": 28,
+   "x": 978,
+   "y": 950
+  },
+  {
+   "giorno": 29,
+   "x": 920,
+   "y": 900
+  },
+  {
+   "giorno": 30,
+   "x": 850,
+   "y": 860
+  }
+ ],
+ "perle_del_compimento": [
+  {
+   "x": 674,
+   "y": 1750
+  },
+  {
+   "x": 752,
+   "y": 1754
+  }
+ ],
+ "medaglia": {
+  "x": 720,
+  "y": 1292,
+  "raggio_maschera": 165
+ },
+ "fermaglio": {
+  "x": 744,
+  "y": 836
+ },
+ "regola": "giorni dal fermaglio scendendo a sinistra (1-15), poi dal basso risalendo a destra (16-30); le due perle in fondo al centro e la luna al centro si accendono solo a collana completa"
+}

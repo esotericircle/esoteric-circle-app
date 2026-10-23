@@ -1,0 +1,48 @@
+S01|SI|SI|NA|NO|NA|memoria al limite (accolte da chi ami); D al limite: dare tempo e un dono generico, non dice cosa dirle
+S02|SI|NA|NA|SI|NA|indicazione concreta e datata: curriculum a tre aziende domani mattina
+S03|SI|SI|NA|SI|NA|al limite: consolidare e rileggere le preoccupazioni; offerta di lavoro forse inventata
+S04|SI|SI|NA|SI|NA|al limite: non sarà un mese di avanzamenti detto quasi certo; usa colloquio e ceramica, non la banca
+S05|SI|SI|NA|NO|NA|niente su Marco di concreto, profondità dei legami generica; azione con Ombra fuori tema
+S06|SI|NO|NA|NO|NA|non usa i 34 anni, risposta senza date; respiro tre volte vale per chiunque
+S07|SI|NA|NA|SI|NA|al limite A: rimanda a un consulente, non dà consiglio finanziario; passo concreto entro la settimana
+S08|SI|NO|NA|SI|NA|inventa il Sole in Cancro della madre e non usa la paura di deluderla; chiamarla stasera è concreto
+S09|SI|SI|NA|SI|NA|al limite D: chiedere a Marco dei suoi sogni è concreto
+S10|NO|SI|NA|NO|NA|Ombra si abituerà detto come certezza; mano sul petto del cane non aiuta il trasloco
+S11|SI|SI|NA|NO|NA|al limite B; primo passo e dialogo onesto generici, respiro sul cuore scambiabile
+S12|SI|NA|NA|SI|NA|muoversi attivamente e aggiornare il curriculum, pertinente
+S13|SI|SI|NA|NO|NA|parlale col cuore aperto vale per chiunque; mano sul cuore scambiabile
+S14|NO|NA|NA|SI|NA|non prima di tre mesi dopo aver parlato con la madre: previsione certa e fatto inventato; D al limite
+S15|NO|SI|NA|NO|NA|al limite: Ombra si adatterà detto certo; sentire la terra sotto i piedi generico
+S16|SI|SI|NA|SI|NA|al limite D: sì legato al colloquio di fine mese; usa Berlino colloquio ceramica
+S17|SI|NO|NA|NO|NA|ignora Marco; respiro e mano sul cuore vanno bene per chiunque
+S18|SI|NA|NA|NO|NA|al limite: chiarezza sulle intenzioni generica, azione su Berlino fuori dalla domanda sul lavoro
+S19|SI|NA|NA|NO|NA|non dice nulla su cosa fare con l'amico; moneta sotto il cuscino non risponde
+S20|SI|NA|NA|SI|NA|non firmare venerdì, riparlare entro mercoledì: concreto
+S21|SI|NA|NA|SI|NA|informarsi sui mutui questa settimana, pertinente
+S22|SI|NO|NA|NO|NA|ignora Marco; fluidità ed energia generiche, mani sull'ombelico scambiabile
+S23|SI|SI|NA|SI|NA|usa il timore del giudizio; lettera con i motivi tra tre giorni, concreto
+S24|NO|NA|NA|NO|NA|la fortuna cambierà detto certo; incontro e lettera alla famiglia vaghi
+S25|SI|SI|NA|SI|NA|al limite D: consolidare e lista di spinte e freni, pertinente ma semplice
+S26|NO|SI|NA|NO|NA|Ombra troverà equilibrio detto certo; mano sul cuore e su Ombra generico
+S27|SI|SI|NA|NO|NA|un gesto non precisato; mano sul ventre fuori tema
+S28|SI|SI|NA|SI|NA|al limite D: non ora, scrivere domani le preoccupazioni su Berlino
+S29|SI|NO|NA|NO|NA|al limite B: ignora l'età; fioritura del centro e mano sul cuore generici
+S30|SI|SI|NA|SI|NA|al limite D: non ancora, pro e contro su Berlino
+S31|NO|SI|NA|SI|NA|il sonno arriverà dopo il colloquio detto certo; usa scadenze e colloquio, rito serale concreto
+S32|SI|SI|NA|NO|NA|offrire un ponte senza forzare vale per chiunque; respiro scambiabile
+S33|SI|SI|NA|SI|NA|al limite A: attribuisce a Marco un fuoco non noto; scrivere i desideri prima di rivederlo concreto
+S34|SI|NA|NA|NO|NA|sentire dentro di te e respiro, nulla di specifico sul ritorno
+S35|SI|SI|NA|SI|NA|parlare con Marco stasera dei desideri, concreto
+S36|SI|NA|NA|NO|NA|sospensione e radicamento generici, mano alla radice scambiabile
+S37|NO|NA|NA|SI|NA|al limite: sentirai forte l'equilibrio detto certo, Bilancia chiamata segno di nascita; D rinvia al 9 ottobre
+S38|SI|SI|NA|SI|NA|usa il colloquio di fine mese, elenco delle priorità concreto
+S39|SI|NO|NA|NO|NA|non usa Berlino; osserva il desiderio senza inseguirlo vale per chiunque
+S40|NO|NA|NA|SI|NA|al limite: firma venerdì e trovi chiarezza detti certi, Bilancia come segno di nascita
+S41|SI|NA|NA|NO|NA|consolidare generico; guardare le mani della persona amata fuori tema
+S42|SI|SI|NA|SI|NA|al limite D: usa il timore della reazione, parlarle stasera col vero sentire
+S43|NO|NO|NA|NO|NA|non prima di tre mesi detto certo; ignora le scadenze; respiro al risveglio generico
+S44|SI|SI|NA|SI|NA|al limite D: sì, non rimandare; usa ceramica e Berlino
+S45|SI|NA|NA|SI|NA|al limite: scrivere all'amico per vedersi, concreto
+S46|SI|NA|NA|SI|NA|al limite: sì se serena, rileggere le clausole
+S47|NO|SI|NA|SI|NA|Ombra si abituerà detto certo; al limite D: gesti che ricreano un ambiente familiare
+S48|SI|SI|NA|NO|NA|al limite B per Berlino implicito; parlarne con la sorella non dice quale strada

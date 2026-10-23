@@ -1,0 +1,44 @@
+IL DART E LA FONTE, ordine FK voci 2 e 4, 11 ottobre 2026
+Metodo: per ogni posizione e ogni carta-verso si leggono le varianti piene dal markdown con leggi_file del tool e si confrontano, testo per testo, con la lista nel Dart rigenerato (lib/core/tarot/le_carte_nella_posizione_dati.dart), letta con un'espressione regolare indipendente dal tool.
+
+passato          testi nella fonte  156, gruppi diversi dal Dart 0
+presente         testi nella fonte  156, gruppi diversi dal Dart 0
+futuro           testi nella fonte  156, gruppi diversi dal Dart 0
+cartaSola        testi nella fonte  468, gruppi diversi dal Dart 0
+consultante      testi nella fonte  468, gruppi diversi dal Dart 0
+lato             testi nella fonte  468, gruppi diversi dal Dart 0
+esito            testi nella fonte  468, gruppi diversi dal Dart 0
+copre            testi nella fonte    0, gruppi diversi dal Dart 0
+attraversa       testi nella fonte    0, gruppi diversi dal Dart 0
+corona           testi nella fonte    0, gruppi diversi dal Dart 0
+sotto            testi nella fonte    0, gruppi diversi dal Dart 0
+dietro           testi nella fonte    0, gruppi diversi dal Dart 0
+seStesso         testi nella fonte    0, gruppi diversi dal Dart 0
+laCasa           testi nella fonte    0, gruppi diversi dal Dart 0
+speranzeOTimori  testi nella fonte    0, gruppi diversi dal Dart 0
+
+testi nella fonte 2340, testi uguali nel Dart 2340
+chiavi nel Dart prima 624, dopo 1092
+gruppi del lato che erano vecchi nel Dart prima del giro: 22
+   lato|Cavaliere di Denari|capovolta
+   lato|Cinque di Spade|capovolta
+   lato|Dieci di Coppe|capovolta
+   lato|Dieci di Denari|capovolta
+   lato|Dieci di Spade|capovolta
+   lato|Dieci di Spade|dritta
+   lato|Due di Denari|capovolta
+   lato|Fante di Bastoni|capovolta
+   lato|Fante di Coppe|capovolta
+   lato|Fante di Denari|capovolta
+   lato|Fante di Denari|dritta
+   lato|Fante di Spade|dritta
+   lato|Gli Amanti|capovolta
+   lato|La Giustizia|capovolta
+   lato|Nove di Bastoni|capovolta
+   lato|Nove di Denari|capovolta
+   lato|Quattro di Bastoni|capovolta
+   lato|Quattro di Coppe|dritta
+   lato|Quattro di Denari|dritta
+   lato|Re di Coppe|capovolta
+   lato|Regina di Denari|capovolta
+   lato|Tre di Bastoni|capovolta

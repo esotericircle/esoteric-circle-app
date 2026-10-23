@@ -1,0 +1,6 @@
+il pilastro spostato di un giorno | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+il mese solare letto un jie prima | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+i Dieci Dei con la polarita' ignorata | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+lo scontro senza precedenza | innesto nel file (grep): 210 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+il cancello che non legge le intestazioni | innesto nel file (grep): 1 | esito: 00:01 +0 -1: Some tests failed. | file rimesso identico: si
+FINITO

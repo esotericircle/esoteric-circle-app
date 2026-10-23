@@ -1,0 +1,563 @@
+ORDINE GA VOCE GA.06, LE CURE DELL'OROSCOPO: LE PROVE DELLA REGOLA A E DELLA REGOLA B
+Worktree sopra 1804c7d7, 21 ottobre 2026. Ogni innesto e' verificato col grep prima di leggere l'esito, e tolto subito dopo.
+
+REGOLA B, le guardie della zona viste rosse PRIMA di toccarla
+
+B1. test/l_oroscopo_ha_la_forma_nuova_test.dart (il rito del reggente e la sua chiave).
+    Innesto: in lib/core/horoscope/il_responso_dell_oroscopo.dart, chiaveDelRito, la terza parte
+    della chiave "periodo" scritta "giorno" per tutti i periodi.
+    Grep: riga 86 «periodo == PeriodoEu.giorno ? 'giorno' : 'giorno',».
+    Esito: ROSSA, "difetti 132", per esempio «occidentale settimana Lunga Carriera: il rito non e'
+    quello di [Marte, Carriera, periodo]». Innesto tolto.
+
+B2. test/la_lettura_cinese_test.dart (la riga del dio nel "Da dove viene" delle schede cinesi).
+    Innesto: in lib/core/horoscope/la_lettura_cinese.dart, delDio, tolta la riga del corpus
+    (baseDaDove) dall'elenco del cielo.
+    Grep: «        baseDaDove,» contato 0 volte nel file.
+    Esito: ROSSA, «riga del livello senza il dio: Per il lavoro: il tema è la rete dei pari.»
+    e simili. Innesto tolto.
+
+B3. test/il_da_dove_non_si_ripete_nel_periodo_test.dart (il "Da dove viene" della Settimana e
+    del Mese che ripete la riga dei giorni migliori).
+    Innesto: in lib/core/horoscope/la_settimana_del_cielo.dart, cieloDelPeriodo, la Lunga della
+    Vedica e della Cinese torna a ripetere il momento chiave («return _maiuscola(momentoChiave);
+    // INNESTO REGOLA B»).
+    Grep: riga 155 «return _maiuscola(momentoChiave); // INNESTO REGOLA B».
+    Esito: ROSSA, "righe che ne ripetono un'altra 48". Innesto tolto; con la riga nuova
+    ("Il livello del periodo è la media dei livelli dei suoi giorni ...; il più alto è <data>.")
+    VERDE, "righe che ne ripetono un'altra 0", 7 prove su 7.
+
+B4. test/la_lettura_vedica_test.dart, "le frasi del codice sono quelle del corpus".
+    Innesto: le undici righe del "Da dove viene" del Rahu Kalam riscritte in
+    docs/corpus/oroscopo_vedico.md SENZA rigenerare il file dart.
+    Grep: «Siamo dentro il Rahu Kalam di oggi, dalle {inizio} alle {fine}. È l'ora» trovato 1 volta.
+    Esito: ROSSA, "rigenerare con python tool/_gen_oroscopo_vedico.py". Poi rigenerato: verde.
+
+B5. test/la_lettura_cinese_test.dart, "le frasi del codice sono quelle del corpus, nello stesso
+    ordine". Stesso innesto sulle trentasei righe dei guardiani in docs/corpus/oroscopo_cinese.md.
+    Esito: ROSSA, "rigenerare con python tool/_gen_oroscopo_cinese.py". Poi rigenerato: verde
+    (la_lettura_cinese, la_lettura_vedica, i_testi_nuovi_dell_architetto_sono_nel_codice,
+    le_rifiniture_dei_da_dove_viene: 22 prove su 22).
+
+B6. tool/genera_i_riti.py (la misura e la lingua dei riti).
+    Innesto: in docs/corpus/riti/inni_orfici.md il rito "Sole, Generale, giorno" accorciato
+    («Poi lascia andare.»). Grep: trovato 1 volta.
+    Esito: ROSSO, «DIFETTI: 1, non scrivo niente», «inni_orfici|Sole|Generale|giorno: 36 parole».
+    Innesto tolto. (Nota di onesta': questa prova e' stata fatta dopo una prima generazione
+    delle raccolte nuove, non prima; il controllo era vivo, come mostra l'esito.)
+
+REGOLA A, le guardie nuove viste rosse
+
+A1. tool/genera_i_riti.py, i controlli GA.06 delle tre raccolte dell'Oroscopo
+    (difetti_dell_oroscopo: quattro periodi per reggente e dominio, il rito dell'anno senza
+    inizi ne' mesi, l'Amore anche per chi e' senza legame, nessuna frase in due riti).
+    Quattro innesti in docs/corpus/riti/mantra_navagraha.md, uno alla volta, ciascuno verificato
+    col grep e tolto (scratchpad/ga06o/regola_a_riti.py):
+    1. "Al primo mattino del periodo" davanti al rito "Surya, Fortuna, anno": ROSSO,
+       «il rito dell'anno dice «primo mattino»».
+    2. la sezione "Surya, Generale, settimana" rinominata "periodo": ROSSO, «manca» e «il periodo
+       dev'essere uno di [...]».
+    3. il rito "Mangala, Carriera, settimana" copiato nell'anno: ROSSO, tre «frase gia' in ...».
+    4. un "Shukra, Amore, mese" che parla solo a chi ama: ROSSO, «l'Amore parla solo a chi ha un
+       legame».
+    Raccolta rimessa com'era (confronto byte per byte), rigenerata: 684 riti, nessun difetto.
+
+A2. test/i_riti_dell_oroscopo_seguono_il_periodo_test.dart (cinque prove).
+    Verde sui dati nuovi: 416 riti, 0 mancanti, 0 chiavi fuori dai quattro periodi; 1396 frasi,
+    0 ripetute; 104 riti dell'Anno, 0 col tempo fuori dall'anno; 104 riti dell'Amore, 0 solo
+    per la coppia; 576 riti a video, 0 uguali fra due periodi dello stesso giorno.
+    Innesti nei dati generati (lib/core/responsi/i_riti_propiziatori_dati.dart,
+    scratchpad/ga06o/innesto_dati_riti.py), grep: 3 righe trovate per le tre stringhe innestate
+    («Surya|Generale|periodo'», «Al primo mattino del periodo», «Porta a chi ami un fiore»),
+    piu' la settimana di Mangala Carriera copiata nell'anno:
+    - prova 1 ROSSA: "mancanti 1, chiavi fuori dai quattro periodi 1";
+    - prova 2 ROSSA: "riti o frasi ripetute 4";
+    - prova 3 ROSSA: "con un inizio o un tempo fuori dall'anno 2";
+    - prova 4 ROSSA: "solo per chi ha un legame 1".
+    Dati rimessi con python tool/genera_i_riti.py.
+    Innesto nel codice per la prova 5: IlResponsoDellOroscopo.chiaveDelRito che da' al Mese la
+    chiave della Settimana (riga 93, «// INNESTO», grep trovato): ROSSA, "uguali fra due periodi
+    dello stesso giorno 144", per esempio «Settimana e Mese hanno lo stesso rito». Innesto tolto.
+
+A3. test/le_voci_dell_oroscopo_rispondono_nel_periodo_test.dart, prova "a video, il "Da dove
+    viene" non rimanda e non ripete" (1088 righe "Da dove viene" composte: sei persone, due
+    giorni, tre tradizioni, Breve e Lunga, quattro periodi, quattro domini).
+    Verde dopo le cure: 0 righe con un rimando, una riga criptica o un dio spiegato due volte.
+    Tre innesti, uno alla volta, ciascuno verificato col grep («// INNESTO A») e tolto:
+    1. la riga di prima "i tre migliori, qui sopra, dicono ciascuno da dove viene il suo" in
+       la_settimana_del_cielo.dart: ROSSA, 176 righe («qui sopra»);
+    2. "Per il lavoro: il BaZi guarda..." in la_lettura_cinese.dart, rigaDelTema: ROSSA, 48 righe;
+    3. di nuovo "Il dio di oggi nel BaZi e' ..." nella Lunga cinese, sotto la riga del corpus:
+       ROSSA, 37 righe («Sette Uccisioni spiegato due volte»). La prima misura di questa
+       grandezza contava "nel BaZi e'/sono" due volte, e non avrebbe preso il Rivale di
+       oroscopo-36 ("È la giornata del Rivale, che nel BaZi contende..."): la grandezza e'
+       stata cambiata, prima di leggere l'esito, nel nome del dio contato due volte.
+    Dopo i tre innesti la prova era ancora rossa su un caso vero (2 righe): la riga del corpus
+    cinese del Compagno sul lavoro ("nella scheda del lavoro il BaZi guarda all'Ufficiale ...
+    mentre il Compagno porta il confronto fra pari") nominava il dio due volte e ripeteva quello
+    che la riga del tema dice subito dopo. Riscritta in docs/corpus/oroscopo_cinese.md ("È la
+    giornata del Compagno, il dio che ha il tuo stesso elemento e la tua stessa polarità: sul
+    lavoro porta il confronto fra pari."), dati rigenerati: VERDE, 0 su 1088.
+
+B7. tool/le_parole_dei_responsi.py (la misura dei paragrafi dei dodici corpora).
+    Innesto: in docs/corpus/eu/oroscopo_eu_cinese_mese.md la prima Risposta ridotta a trentotto
+    parole piu' «INNESTO». Grep: « INNESTO» trovato 1 volta.
+    Esito: ROSSO, «Generale, favorevole, voce 1: Stanze da ridisegnare | Risposta: 39 parole»,
+    «DIFETTI: 1». (Il primo tentativo aveva lasciato quaranta parole e lo strumento, giustamente,
+    era verde: l'innesto era sbagliato, non la guardia; rifatto a trentanove.) File rimesso dalla
+    copia, NESSUN DIFETTO. (Anche qui la prova e' venuta dopo l'applicazione delle riscritture.)
+
+A4. test/le_voci_dell_oroscopo_rispondono_nel_periodo_test.dart, prova "nei dodici corpora:
+    la prima frase, il tempo, l'Amore" (1548 voci).
+    Prima della cura, sui corpora di 1804c7d7 (misura dello strumento gemello
+    scratchpad/ga06o/controlla_tutto.py, stesse grandezze): prima frase senza periodo o fascia
+    583+19 casi, tempo fuori dal periodo 1143 occorrenze (543 nel Giorno, 450 nella Settimana,
+    108 nell'Anno, 39 nel Mese), Amore fuori dominio 120 e solo per la coppia 151; 1284 voci su
+    1548 con almeno un difetto. Dopo la cura: 0, 0, 0.
+    Tre innesti (scratchpad/ga06o/innesto_voci.py), ciascuno verificato col grep (1 riga in
+    ciascuno dei tre file) e tolti dalle copie:
+    1. la prima frase bocciata di oroscopo-33 («Oggi la sera ha un passo morbido e invita a
+       stare all'aperto.») in occidentale giorno, Generale favorevole voce 1;
+    2. «Entro la primavera» nel Che cosa fare di cinese anno, Generale favorevole voce 1;
+    3. la prima frase bocciata di oroscopo-26 («In amicizia il mese chiede di rimettere in pari
+       una bilancia.») in vedica mese, Amore equilibrio voce 3.
+    Primo esito: tempo 1 e Amore 1 ROSSI, ma la prima frase di oroscopo-33 PASSAVA: il lessico
+    della fascia favorevole conteneva "apert-", e "all'aperto" lo soddisfaceva. Si e' cambiata
+    la grandezza, non la soglia: "apert-" vale come giudizio solo se non viene dopo "all'"
+    ("Giornata aperta agli incontri" si', "stare all'aperto" no). Secondo esito con gli innesti:
+    prima frase 2 (le due bocciate), tempo 1, Amore 1: ROSSA su tutti e tre. Innesti tolti:
+    VERDE, 0, 0, 0; seconda prova (Da dove viene) verde, 0 su 1088.
+    Aggiunta dalla rilettura del campione rigenerato: "stamattina" fra le parole fuori dal
+    Giorno (letto la sera e' gia' passato; ventidue righe dei tre corpora del Giorno riscritte
+    in "adesso" o "subito"). Innesto: «Chiedi che cosa è arrivato stamattina» rimesso in
+    occidentale giorno riga 1587, grep 1: ROSSA, "tempo fuori dal periodo 1". Tolto, grep 0:
+    VERDE.
+
+B8. test/il_genere_non_si_indovina_test.dart: non vista rossa con un innesto prima di toccare i
+    corpora; e' diventata rossa da sola sui testi nuovi (3 forme: «resti accanto», «essere
+    preziosa», «essere raccolta»; padre: questa stessa riscrittura GA.06), quindi e' viva su
+    questa zona. Le tre frasi riformulate: verde, "con il genere fuori da una marca 0".
+B9. test/le_lunghezze_dei_responsi_test.dart: rossa sui testi nuovi ("la tabella delle lunghezze
+    esiste e dice il vero"), come deve: tabella rigenerata con
+    --dart-define=AGGIORNA_LUNGHEZZE=1 (docs/responsi/lunghezze.md), poi verde.
+B10. test/i_testi_non_tornano_test.dart: rossa sui testi nuovi su una frase uguale fra Giorno e
+    Settimana («Accanto a ciascuna annota che cosa l'ha resa possibile.»), riscritta nella
+    Settimana: verde.
+B11. test/la_lettura_vedica_test.dart: rossa sui testi nuovi per i puntini («Mi farebbe
+    piacere...») in vedica giorno; tolti: verde.
+
+GIRO FINALE DELLA ZONA (32 file di prove: Oroscopo, forme delle quattro arti, genere, accenti,
+campioni GA.06, le due guardie nuove): 223 prove su 223 verdi.
+flutter analyze lib test: No issues found.
+
+I ROSSI DELL'UNIONE 9624d5b8 (21 ottobre 2026)
+
+Regola B: le quattro guardie della lingua erano gia' rosse sull'unione, prima di toccare
+(giro del 21 ottobre, 4 cadute su 4):
+- test/la_parola_voce_resta_allaudio_test.dart: «Per le altre voci della lista» (occidentale
+  settimana, dart riga 2790), «dopo le tre voci» e «tre voci restano tre» (vedica giorno, righe
+  280 e 281);
+- test/i_nomi_del_menu_e_del_diario_test.dart: «Custodisci adesso un contatto prezioso» nel rito
+  "Zhi, Fortuna, anno";
+- test/la_carta_natale_sopravvive_test.dart: i_testi_eu_vedica_data.dart "avvisa di dati di
+  nascita mancanti" ("ora e luogo" accanto a "senza" in tre righe di contenuto);
+- test/language_rule_test.dart: la virgola prima di "e" nel Rahu Kalam senza citta'.
+Cure alla fonte: 27 "voce/voci" nel senso di riga di elenco riscritte nei corpora (righe, cose,
+impegni, punti); "Proteggi" al posto di "Custodisci"; "orario e luogo" al posto di "ora e
+luogo"; i due punti al posto della virgola nel Rahu Kalam. Piu' il genere nelle righe del dio
+della serie dell'Amore cinese (48 righe, 13 frasi): la regola dei testi classici ("negli
+oroscopi maschili/femminili") detta come regola della tradizione, non applicata a chi legge.
+Dopo: verdi le quattro guardie, il_genere_non_si_indovina, accenti_veri, testo_a_video,
+nessuna_promessa_di_memoria_integrale, le due guardie nuove e le prove dell'Oroscopo (222 su
+222, dopo la tabella delle lunghezze rigenerata). Il campione delle rune, riscritto da
+GA06_SCRIVI per un lavoro altrui, e' stato rimesso com'era (git checkout).
+
+LA SECONDA CURA, DAL SECONDO LETTORE CIECO (21 ottobre 2026, sopra 0dfd834b)
+
+Regola B, prima di toccare:
+- test/le_voci_dell_oroscopo_rispondono_nel_periodo_test.dart e
+  test/i_riti_dell_oroscopo_seguono_il_periodo_test.dart: sono guardie di questa stessa voce,
+  viste rosse il 21 ottobre (A2, A3, A4 qui sopra); prima della seconda cura erano verdi, e il
+  secondo lettore ha trovato difetti che non misuravano: le guardie si sono estese (A5, A6, A7).
+- test/la_lettura_vedica_test.dart, la_lettura_cinese_test.dart, il_da_dove_non_si_ripete_nel_periodo:
+  viste rosse il 21 ottobre (B2, B3, B4, B5).
+
+A5. le_voci_dell_oroscopo_rispondono_nel_periodo, prova nuova "le frasi non aprono a stampo":
+    in ogni corpus al massimo il tre per cento delle voci (almeno due) con una frase che apre
+    con "Il segno", "Il pericolo è", "Il rischio è", "La trappola è", "L'errore tipico è" e
+    simili; soglia scritta prima della cura. Misura prima: 740 frasi nei dodici corpora (cinese
+    giorno 218, vedica giorno 136, occidentale giorno 123, ...). ROSSA sul difetto vero mentre
+    gli scrittori lavoravano: "occidentale giorno: 123 frasi a stampo su 276 voci (al massimo
+    8)".
+    Dopo la cura delle cinque riscritture (tre tradizioni): 0 frasi a stampo in tutti e
+    dodici i corpora.
+
+A6. le_voci_dell_oroscopo_rispondono_nel_periodo, prova "a video, il "Da dove viene" non rimanda
+    e non ripete", estesa: il gergo non spiegato ("angolare", "succedente", "cadente" senza "una
+    casa", "metodo del Giorno", "la scheda dell'amore", Saturno senza il quando, "del 8",
+    "la undicesima", la direzione del dio senza uso) e l'Ascendente per chi non ha dato l'ora.
+    Al primo giro la prova ha trovato due difetti veri non ancora curati: "la Luna guarda la
+    undicesima" in la_lettura_vedica.dart (curata) e un falso allarme sul "Saturno era in" che
+    segue la frase di Giove: la grandezza si e' ristretta a Saturno in testa alla riga o subito
+    dopo l'arco dell'anno, prima di leggere l'esito.
+    Innesti, verificati col grep («// INNESTO A6») e tolti:
+    1. in l_annuale.dart il tipo di casa tornato "angolare" senza spiegazione: ROSSA, 6 righe
+       («angolare» nell'anno occidentale);
+    2. in la_settimana_del_cielo.dart una riga "Il momento chiave tocca il tuo Ascendente." nella
+       Lunga: ROSSA, 48 righe per le persone senza l'ora («l'Ascendente senza l'ora di nascita»).
+    Innesti tolti: VERDE, 0 su 1040.
+
+A7. i_riti_dell_oroscopo_seguono_il_periodo, prova nuova "i sedici riti di un reggente non si
+    ripetono a pezzi" (nessuna sequenza di sei parole in comune fra i riti dello stesso
+    reggente, formula e formule dei due rami dell'Amore escluse), e lo stesso controllo in
+    tool/genera_i_riti.py. Sul difetto vero, prima della seconda passata sui riti: la prova
+    ROSSA, "in due riti dello stesso reggente 119" (dati della prima cura); lo strumento ROSSO,
+    "DIFETTI: 75, non scrivo niente" (la raccolta cinese ancora da curare, per esempio
+    «gesti_tong_shu|Wei: «dedica un momento di raccoglimento a»»).
+    Rileggendo il campione rigenerato sono comparsi due difetti nuovi dei compositori, nati da
+    questa stessa cura: "dal'8 marzo" (l'elisione scritta male in l_anno_delle_tradizioni.dart)
+    e "Conla Tigre" (uno spazio perso nella riga dell'anno cinese). Curati, e la prova li
+    misura: innesto della vecchia elisione («// INNESTO A6», grep 1) ROSSA, 32 righe; tolto,
+    VERDE.
+    Dopo la seconda passata sui riti (tre raccolte): lo strumento genera senza difetti, la prova
+    "a pezzi" VERDE, "in due riti dello stesso reggente 0" su 14029 sequenze.
+
+LA TERZA CURA, DAL LETTORE CIECO INDIPENDENTE (21 ottobre 2026, sopra 6a7bedb4)
+
+Il lettore cieco indipendente lanciato sul campione della seconda cura: D1 46, D2 45, D3 39,
+tre si' 35 su 48; no 3, 6, 15, 17, 19, 20, 27, 34, 37, 45, 46, 47, 48. Difetti non contati: dati
+senza luogo 5, vite inventate 10, futuri certi 7, sala giochi 1, criptici 29, incoerenze 6,
+sgrammaticature 7, genere 0, sequenze di sette parole ripetute 384 (366 nelle code fisse del
+"Da dove viene").
+
+Regola B, prima di toccare:
+- test/l_anno_dal_compleanno_test.dart, carriera: la prova pretendeva la frase della casa di
+  Saturno dal corpus annuale dentro la lettura di lavoro (oroscopo-15, "i legami si fanno
+  seri" con Saturno in settima). Tolta quella riga da l_annuale.dart, la prova vecchia e'
+  ROSSA, 100 schede fuori su 400; con l'attesa giusta (solo il Medio Cielo, LAPIDE nella prova)
+  VERDE, 0 su 400.
+- test/language_rule_test.dart, "Nessuna stringa del codice viola la regola della virgola":
+  ROSSA durante questa stessa cura, sul difetto entrato con lei ("la settima casa,
+  dell'unione, e la quinta" in la_lettura_vedica.dart; e le righe nuove del Rahu Kalam e del
+  Tai Sui). Curate: VERDE.
+- test/la_lettura_vedica_test.dart, "testi con un difetto di scrittura": ROSSA, 51 testi (", e "
+  nella ragione nuova del livello, "una delle case di questo campo, e la mette in primo
+  piano"). Riscritta: VERDE, 0.
+
+Cure: i dodici corpora docs/corpus/eu (72 frasi "Te ne accorgi / Capisci che" riscritte come
+criterio condizionale; 21 voci del campione); sette riti (Marte detto anche Ares, il fiore nel
+bicchiere, "richiama alla mente", Mangala e la scrivania, quattro riti di Cheng con
+l'alternativa per chi non ha niente a meta', Mangala in amore senza lo stato del desiderio);
+i "Da dove viene" criptici (Naidhana, la casa delle uscite, il Buon Demone, "per gli
+astrologi", il Nutrimento, «Tenere», Saturno nell'anno, la media del periodo con il suo
+simbolo, l'anno cinese in una frase intera, la serie neutra dell'Amore cinese senza la frase
+doppia, il colore e il numero del giorno con il loro uso, il Rahu Kalam senza rimandi).
+
+Dopo: verdi le quattro guardie della lingua (la_parola_voce_resta_allaudio,
+i_nomi_del_menu_e_del_diario, la_carta_natale_sopravvive, language_rule), il_genere_non_si_
+indovina, accenti_veri e le prove dell'Oroscopo (31 file, 150 prove), dopo la tabella delle
+lunghezze e i campioni rigenerati. flutter analyze lib test: No issues found. Il campione delle
+rune, riscritto da GA06_SCRIVI, e' stato rimesso com'era (git checkout).
+
+IL QUARTO GIRO, DALL'ULTIMA LETTURA CIECA DI 12 RESPONSI (21 ottobre 2026, sopra a599828c)
+
+Parole del fondatore: "Le risposte vanno curate, sono la parte piu' importante e criticata
+dell'app." Lettore indipendente su 12 responsi: D1 12 su 12, D2 12 su 12, D3 10 su 12, tre si'
+10 su 12. I due no e i loro padri (Regola C):
+- oroscopo-17 (vedica, giorno): il "Da dove viene" apriva con la Luna in terza casa, "successo
+  e vesti, affetti e beni in abbondanza", sotto una risposta che dice "giornata stancante"; la
+  tara Naidhana, che porta il livello, arrivava tre frasi dopo. Padre: ordine ES voce 09
+  (ordine fisso Luna poi stella in la_lettura_vedica.dart), rimasto dopo la prima e la seconda
+  cura GA.06.
+- oroscopo-45 (cinese, anno): il rito di Cheng ("cose finite") sotto la lettura "casa
+  rinnovata", e nel "Da dove viene" «il tuo animale: tripla armonia» telegrafico e i due punti
+  due volte. Padre dei due punti: GA.06 terza cura, che aveva tolto la virgola prima di "e"
+  mettendo un due punti; padre del telegrafico: ordine ES voce 28.
+Dal Realme (gruppo B): D7 "L'oroscopo della mese" (padre: PROVENIENZA IGNOTA), D8b l'apertura
+"il calendario sembra scritto con la tua calligrafia" (padre: ordine EU, aperture
+dell'Architetto), D10 "per taglio per farli crescere" (padre: ordine FV voce 06, calendario
+lunare).
+
+Cure: la forza che porta il livello viene prima nel "Da dove viene" della Generale vedica, con
+la riga del livello subito accanto e un ponte ("Da sola la Luna direbbe altro") sulla Luna
+favorevole; la coda del rito dice di essere "quello del giorno / del primo giorno del periodo,
+scelto dal suo reggente" invece di fingere un nesso col tema; il mantra dice che cosa vuol dire
+(«Om Suryaya namah» vuol dire «Om, mi inchino a Surya») al posto di "la forma breve del suo nome
+con l'omaggio"; l'anno cinese dice il rapporto fra i due animali in una frase intera e Tai Sui
+per intero, senza due punti doppi; il Mese si dice "del mese" (HoroscopePeriod.conArticolo);
+nel calendario lunare il nome dell'attivita' non si ripete nella riga dei giorni d'oro;
+l'apertura "gioca a tuo favore"; ritocchi: la chiusa vuota "tutto dipende da come lo
+distribuisci" (oroscopo-5), "chi finora si e' tirato indietro" (37), "in silenzio" (33), il
+rito d'anno del Sole (13), Cheng generale d'anno (45).
+
+Regola A, prova nuova test/ga06_il_responso_dice_da_dove_viene_test.dart (4 prove). Innesti a
+mano, verificati col grep («// INNESTO GA06G4», 1 per file) e tolti (0 dopo), letto l'esito:
+ B1 stellaPrima sempre falso (oroscopo-17): ROSSA, 3 verdi e 1 rossa;
+ B2 la coda del rito torna a "segue il giorno": ROSSA;
+ B3 Tai Sui coi due punti di prima (oroscopo-45): ROSSA;
+ B4 «della ${period.label» nello schermo (D7): ROSSA;
+ B5 il mantra torna a «la forma breve del suo nome»: ROSSA.
+Senza innesti: VERDE, 180 giorni vedici letti, 67 con la stella che porta il livello (19 di
+Naidhana), 0 fuori posto; 12 code del rito; 12 anni cinesi; 7 mantra.
+Regola B: le guardie della zona erano verdi e viste rosse nei giri precedenti
+(le_voci_dell_oroscopo_rispondono_nel_periodo, i_riti_dell_oroscopo_seguono_il_periodo,
+language_rule, la_lettura_vedica_test: sezioni di questo stesso file).
+
+Verificato e NON cambiato: la Fortuna. Le voci di tutti i periodi parlano di caso, occasioni e
+coincidenze piccole (una fila che parla, il cassetto in fondo, un invito all'ultimo); denaro,
+gioco e scommesse non ci sono per la regola delle schede (nessun consiglio su denaro). Alcune
+voci passano da una persona (presentare due persone): la fortuna resta "occasioni", ma e' un
+taglio dell'Architetto, da confermare.
+
+IL QUINTO GIRO, DAL GERGO NEL "DA DOVE VIENE" (21 ottobre 2026, sopra a599828c e 3781137e)
+
+Parole del fondatore: "Le risposte vanno curate, sono la parte piu' importante e criticata
+dell'app." La lettura cieca indipendente sul campione del quarto giro: D1 12 su 12, D2 12 su 12,
+D3 solo 6 su 12, tre si' 6 su 12. Tutti i sei no (oroscopo-1, 9, 13, 21, 29, 37) erano gergo non
+spiegato nel "Da dove viene": "in quadratura al tuo segno", "nella tua quarta casa solare",
+"la Luna forma un trigono al tuo Sole", "L'Ascendente della tua Rivoluzione Solare, casa cadente",
+"nella tua decima casa dalla Luna di nascita", "Giove era in Mithuna, Saturno era in Mina, Sade
+Sati", "dal dio che quel giorno porta al tuo elemento di nascita". Riserva su oroscopo-17: un
+muro di circa 270 parole, il Rahu Kalam in un vicolo cieco.
+
+Padri (Regola C): la riga del cielo scritta con le parole dei metodi, ordine ES voci 02 e 03
+(occidentale giorno e periodi, il_livello_del_cielo.dart e la_settimana_del_cielo.dart), voce 04
+(anno occidentale, l_annuale.dart e il suo corpus), voce 08 (cinese, la_lettura_cinese.dart e il
+corpus), voce 09 (vedica, la_lettura_vedica.dart e il corpus); ordine ES voce 28 (anno delle
+tradizioni, l_anno_delle_tradizioni.dart). Rimasta uguale dopo le tre cure GA.06 precedenti,
+che avevano curato altre cose. Il muro di oroscopo-17: GA.06 stessa, seconda e terza cura, che
+avevano aggiunto frasi senza toglierne.
+
+Regola: ogni termine tecnico compare solo con la sua spiegazione nella stessa riga, oppure non
+compare; la sostanza viene prima del termine; il "Da dove viene" non e' un muro (circa novanta
+parole la Breve, circa centotrenta la Lunga).
+
+Cure, per tradizione:
+- Occidentale giorno: "Oggi la Luna e' in Ariete, in tensione con il tuo segno (una quadratura):
+  porta l'attenzione sull'area delle radici e della casa" (il_lessico_del_cielo.dart, nuovo:
+  rapporti, aree della vita, Ascendente e Medio Cielo spiegati la prima volta). Con la carta:
+  "il Sole e' in tensione con il tuo Ascendente (il segno che sorgeva all'orizzonte alla tua
+  nascita)".
+- Occidentale settimana e mese: "la Luna e' in accordo con la tua Venere di nascita, il tuo modo
+  di amare"; la fase della Luna "porta l'attenzione sull'area di ..." al posto di "nella tua decima
+  casa solare".
+- Occidentale anno: l'arco dell'anno "si legge dal cielo del tuo compleanno", "Quel cielo e'
+  diviso in dodici case, cioe' dodici aree della vita", Ascendente e Medio Cielo spiegati nelle
+  217 frasi del corpus, "Rivoluzione Solare" e "casa cadente" detti in parole; la Lunga tiene
+  l'Ascendente, il livello e (per il lavoro) Saturno.
+- Vedica giorno: una frase che spiega le case ("La tradizione indiana conta i segni a partire da
+  quello della tua Luna di nascita e li chiama case"), la forza che porta il livello per prima,
+  il livello in una riga; il Rahu Kalam solo nella Lunga e solo con la citta' (senza, si omette:
+  niente vicolo cieco); le tare con il loro significato accanto al nome.
+- Vedica settimana, mese: "ogni giorno si legge dalla posizione della Luna di quel giorno
+  rispetto alla tua Luna di nascita"; "nel decimo segno a partire da quello della tua Luna di
+  nascita" al posto di "nella tua decima casa dalla Luna di nascita".
+- Vedica anno: "Giove, il pianeta della crescita, era nei Gemelli, il quinto segno dalla tua Luna
+  di nascita" al posto di "Mithuna"; la Sade Sati collegata al responso ("per te vuol dire andare
+  piu' piano e costruire con calma").
+- Cinese giorno: "Nel BaZi, la lettura cinese del tuo carattere di nascita, oggi pesa il Rivale:
+  una forza che contende cio' che hai" al posto di "ha il tuo stesso elemento con polarita'
+  opposta"; la forza dell'Ufficiale e della Ricchezza dette per quello che sono; "ramo" e
+  "terna" diventano "animale" e "gruppo di tre animali" nel corpus.
+- Cinese settimana e mese: "ogni giorno si legge dal rapporto fra il suo animale e il tuo e dalla
+  forza che porta al tuo carattere di nascita (il BaZi)".
+- Cinese anno: il rapporto fra i due animali in una frase intera.
+- Il rito dichiara il suo reggente e le fonti si accorciano (Inno orfico, mantra, Tong Shu).
+
+Regola A, guardia nuova test/i_termini_del_cielo_hanno_la_loro_spiegazione_test.dart (duemila
+duecentosettantadue "Da dove viene" veri letti: 12 persone, 3 tradizioni, 4 periodi, 4 domini,
+Breve e Lunga; 17 termini tecnici incontrati con la loro spiegazione, cardinale minimo 14 termini
+e 1200 righe). Innesti a mano, verificati col grep («INNESTO GA06G5») e tolti:
+ C1 la quadratura senza spiegazione: ROSSA;
+ C2 le case vediche senza la frase che le spiega: ROSSA;
+ C3 le dodici case dell'anno occidentale tolte: ROSSA;
+ C4 il dio del giorno col gergo del corpus: ROSSA;
+ C5 "Mithuna" al posto dei Gemelli: ROSSA;
+ C6 l'Ascendente senza il segno che sorgeva (27 occorrenze): ROSSA;
+ C7 una frase in piu' che fa il muro: ROSSA.
+Senza innesti VERDE. Regola B: le prove vecchie della zona sono cadute sul codice nuovo (8 rossi
+al primo giro: l_anno_dal_compleanno, la_lettura_cinese, due di la_lettura_vedica, due di
+la_settimana_viene_dal_cielo, language_rule, ga06_il_responso_dice_da_dove_viene), cioe' erano vive,
+e sono state riscritte con la LAPIDE accanto; non si e' abbassata nessuna soglia.
+
+Verificate e cambiate le prove vecchie (LAPIDI nei commenti): l_anno_dal_compleanno (Sole e Luna
+non stanno piu' nel "Da dove viene"), la_lettura_cinese (la frase del dio del corpus),
+la_lettura_vedica (il Rahu Kalam senza citta' non c'e' piu'), la_settimana_viene_dal_cielo (le
+righe cominciano "Quel giorno la Luna"), la parola "propiziatorio" della coda del rito.
+Anche le prove vicine hanno ricevuto la LAPIDE: il_livello_viene_dal_cielo ("Oggi la Luna"),
+i_livelli_dei_giorni ("la Luna e' in accordo con il tuo Sole di nascita"),
+la_profondita_sta_su_ogni_scheda ("nella casa N:"), e i_testi_nuovi_dell_architetto_sono_nel_codice:
+UN ADATTAMENTO DICHIARATO, C-G-069 ("Il ramo di oggi e' il tuo" diventa "L'animale di oggi e' il
+tuo"), da riportare all'Architetto; la prova pretende che sia l'unico.
+Numeri: 189 prove della zona verdi (37 file), 64 delle prove vicine (17 file), flutter analyze
+lib test pulito per i miei file; un avviso resta in test/la_risposta_viene_dalla_carta_test.dart
+riga 511 (variabile 's' non usata), della cura dei Tarocchi (ordine GA voce GA.06, commit
+9f5165f9), non mia.
+Lunghezze del "Da dove viene" sul campione di 48: Breve da 22 a 101 parole (la piu' lunga: vedica
+anno con la Sade Sati), Lunga da 56 a 134 (la piu' lunga: vedica giorno con tara e Rahu Kalam); la
+guardia tiene 105 e 140. Prima: fino a 209 parole.
+
+==============================================================================================
+IL SESTO GIRO, 21 ottobre 2026: IL "DA DOVE VIENE" RIPROGETTATO (D3 12 su 12 e' l'obiettivo)
+==============================================================================================
+Il fondatore: "Le risposte vanno curate, sono la parte piu' importante e criticata dell'app."
+Lettura cieca indipendente sul quinto giro (c4cac27a, unito come 62491f37): D1 12/12, D2 12/12,
+D3 3/12. Spiegare il termine accanto al termine non bastava: allungava il testo e il lettore
+trovava muri, frasi vuote e gergo. Stato: APERTA IN ATTESA DI LETTURA INDIPENDENTE.
+
+La forma nuova (come la direbbe un amico che sa leggere il cielo):
+- il CORPO, prima riga: al massimo due frasi nella Breve, tre nella Lunga: che cosa fa il cielo e
+  che cosa vuol dire per il campo ("Per l'amore il cielo di oggi e' favorevole"), senza nessun
+  termine tecnico (niente quadratura, trigono, casa, Ascendente, Medio Cielo, tara, Naidhana,
+  Chandra Bala, Sade Sati, Rahu Kalam, BaZi come nome, dieci forze, Sette Uccisioni, Rivale,
+  Ufficiale, Tai Sui, Tong Shu, nomi sanscriti dei segni, reggente, dei greci, Inno orfico);
+- nella Lunga, UNA riga breve del rito: "Il rito del giorno: la formula che saluta Marte, il
+  pianeta che regge il martedi'", senza nomi di dei o di scuole;
+- in coda, riga separata e unica: "Fonte: astrologia indiana, che conta i segni a partire dalla
+  tua Luna di nascita" (la tradizione e al piu' un termine, il BaZi, spiegato).
+Il lessico di tutti i giorni sta in lib/core/horoscope/il_lessico_del_cielo.dart (campi, giudizi,
+rapporti fra i corpi, punti della carta). Il livello e il giudizio dicono la stessa cosa della
+fascia: un cielo in equilibrio non "ti sostiene" e non "ti mette alla prova".
+
+Padri (Regola C):
+- gergo e muri nel "Da dove viene": ordine ES voci 02, 03, 04, 08 e 09 (la riga scritta con le
+  parole dei metodi) e le cure GA.06 dalla prima alla quinta (spiegavano il gergo senza toglierlo);
+- frasi vuote ("il segno che conta per questo campo", "scelto dal suo reggente"): GA.06 quinto
+  giro (c4cac27a);
+- "tempo di prove" sotto un "anno stabile": GA.06 quinto giro (Sade Sati collegata alla risposta
+  ma con la fascia sbagliata); adesso Giove e Saturno si bilanciano e il giudizio e' "in
+  equilibrio";
+- riga identica per sette giorni (Venere lenta) scoperta da questa cura: padre GA.06 sesto giro,
+  stesso lavoro (la prima stesura sceglieva sempre il corpo lento), curata nello stesso lavoro:
+  la Luna e il corpo del campo si nominano insieme;
+- "un po'di" senza spazio (Saturno nell'anno): GA.06 sesto giro, stesso lavoro, curato;
+- rapporti cinesi del corpus su due frasi: ordine ES voce 08 (corpus dell'Architetto): rifatti
+  in una frase sola SOLO i tre che erano su due frasi (1.3 var.2, 1.5 var.3, 1.9 var.1); gli
+  altri testi dell'Architetto (C-G-068, C-G-069) sono rimasti com'erano e la prova
+  i_testi_nuovi_dell_architetto_sono_nel_codice e' verde SENZA l'adattamento C-G-069 dichiarato
+  nel quinto giro (che non serve piu');
+- rito che non c'entra col tema della risposta (oroscopo-39, 45): ordine GA voci GA.03 e GA.04
+  (il rito si sceglie dal reggente del primo giorno, non dal tema): APERTO, vedi sotto.
+
+Cosa e' cambiato (file): il_lessico_del_cielo.dart (nuovo lessico), il_livello_del_cielo.dart
+(la riga del Giorno occidentale: la Luna e il corpo del campo insieme, "ma poco" a livello di
+mezzo), la_settimana_del_cielo.dart (momento chiave + giudizio; il giorno migliore e la media),
+l_annuale.dart (pianeta, area della vita, giudizio; la Lunga dice dove stava il pianeta al
+compleanno), la_lettura_vedica.dart (Luna, costellazione, giudizio; il Rahu detto "la tradizione
+indiana sconsiglia di cominciare cose nuove fino alle ..."; senza l'ora: "Senza l'ora di nascita
+leggo solo la Luna"), l_anno_delle_tradizioni.dart (Giove e Saturno, rapporto fra gli animali
+dell'anno), la_lettura_cinese.dart (il rapporto fra gli animali e "Per la tradizione cinese oggi
+il giorno porta una forza ..."), il_responso_dell_oroscopo.dart (laFonte, daDoveViene), i riti
+(inni_orfici, mantra_navagraha, gesti_tong_shu: i "Da dove viene" delle raccolte sono descrizioni
+in parole), docs/corpus/oroscopo_cinese.md (tre frasi), docs/corpus/eu/oroscopo_eu_vedica_anno.md
+(voce 29: "della tua vita").
+
+Regola A, guardia nuova test/il_da_dove_viene_non_ha_gergo_test.dart (sostituisce
+i_termini_del_cielo_hanno_la_loro_spiegazione_test.dart, tolta): legge i 2272 "Da dove viene"
+veri (12 persone, 3 tradizioni, 4 periodi, 4 domini, Breve e Lunga; di cui 1136 con la riga del
+rito); cardinale minimo 1200 righe e 300 righe di rito. Pretende: nessun termine vietato nel
+corpo e nel rito; al massimo 2 frasi (Breve) e 3 (Lunga); al massimo 56 parole (Breve) e 66
+(Lunga); nessuna frase vuota; il giudizio del livello nel corpo; nessun "oggi" fuori dal Giorno;
+la riga "Fonte:" presente, una, in coda, con al massimo un termine tecnico; la coerenza con la
+fascia (nessun "ti sostiene" in equilibrio o in salita, nessun "alla prova" in equilibrio o
+favorevole). Misura sul codice vero: corpo piu' lungo Breve 52 parole, Lunga 61; frasi al massimo
+3; difetti 0. Prima del limite a 56/66 il tetto era 62/85: si e' stretto il tetto, non allentato.
+Innesti a mano, verificati col grep («INNESTO GA06G6», 6 occorrenze e poi 7 al momento della prova) e tolti:
+ G1 "trigono" al posto di "va d'accordo con": ROSSA (30 + 40 + 8 + 24 + 14 + 6 + 8 + 12 + 10 + 4
+    righe);
+ G2 la frase vuota "il segno che conta per questo campo": ROSSA (332 righe);
+ G3 "reggente" / "scelto dal suo reggente": ROSSA (58 + 58 + 124 + 68 + 62 + 370 righe);
+ G4 una seconda riga "Fonte:" nella vedica anno: ROSSA (160 righe);
+ G5 "Oggi" in una settimana: ROSSA (64 righe);
+ G6 due frasi in piu' nella Lunga cinese: ROSSA (64 righe, 5 frasi);
+ G7 il giudizio sbagliato (livello 5 detto "in salita"): ROSSA (138 righe);
+ G8 la coerenza con la fascia ("ti sostiene" al posto di "ti mette un po' alla prova"): ROSSA
+    (78 righe);
+ G9 test/il_livello_viene_dal_cielo_test.dart, nuova asserzione "le quattro schede dello stesso
+    giorno dicono lo stesso fatto" (al massimo un giorno su venti): senza innesto 5 su 360;
+    con l'innesto (il fatto della Luna e del corpo non piu' insieme) 109 su 360: ROSSA.
+Senza innesti VERDE. Tutti gli innesti tolti, grep «INNESTO GA06G6» in lib e test: 0.
+
+Regola B: le guardie della zona toccata sono cadute sul codice nuovo (19 rossi al primo giro:
+ga06_il_responso_dice_da_dove_viene x4, language_rule, l_anno_dal_compleanno, la_lettura_cinese
+x3, l_oroscopo_ha_la_forma_nuova, la_lettura_vedica x2, la_settimana_viene_dal_cielo x2,
+il_livello_viene_dal_cielo, i_livelli_dei_giorni, la_profondita_sta_su_ogni_scheda x2,
+i_testi_nuovi_dell_architetto_sono_nel_codice), cioe' erano vive. Sono state riscritte con la
+LAPIDE accanto (che cosa pretendevano, perche' non vale piu', che cosa pretendono adesso); la
+cardinale di ognuna e' rimasta (480 schede vediche, 4320 cinesi, 48 senza carta, ecc.) e nessuna
+soglia e' stata abbassata. Dove la misura non era piu' quella (le "7 righe diverse in sette
+giorni" senza carta) si e' cambiato il prodotto, non la soglia: la riga nomina la Luna insieme al
+corpo del campo.
+
+Numeri finali (miei, non della lettura cieca): zona 189 prove verdi (37 file), prove vicine 64
+(17 file), flutter analyze lib test tool pulito (3 avvisi miei trovati e tolti). Campione di 48:
+"Da dove viene" interi da 39 a 82 parole (riga del rito e della fonte comprese); il corpo piu'
+lungo, sui 2272 veri, 52 parole nella Breve e 61 nella Lunga.
+
+APERTO (non chiuso, da dire alla lettura indipendente):
+1. Il rito non si lega al tema della risposta (oroscopo-39 e 45): si sceglie dal reggente del
+   primo giorno e dal campo, non dal tema della voce. I testi dei riti sono stati rifatti perche'
+   non contraddicano (niente "arrivi piu' che partenze" sotto una settimana di riposo) e la riga
+   del rito li presenta come "il gesto del calendario cinese per il giorno che compie". Una
+   scelta del rito per fascia richiede di scrivere i riti per fascia: fuori da questo giro.
+2. Il giudizio "in equilibrio" nasce a volte da un fatto favorevole e uno contrario ("i due si
+   bilanciano"): e' vero ma e' una struttura "se X, se Y" ripetuta.
+3. La Fonte dice la tradizione e quello che legge, non la scuola citata (Sanming Tonghui, Lilly,
+   Parashara): le scuole stanno nei metodi (`metodo`) della scheda, non in questa riga.
+4. Il riempitivo "Il giudizio della settimana viene da tutto il cielo del periodo, non da quel
+   momento solo" e' vero ma e' una frase di metodo, non un fatto del cielo: se il lettore la
+   trova vuota, si toglie e la Lunga occidentale settimana/mese resta a due frasi.
+
+----------------------------------------------------------------------------------------------
+MICRO-GIRO FINALE, 21 ottobre 2026 (sul commit 0776fb65, letto cieco: D1 12/12, D2 12/12, D3 9/12)
+----------------------------------------------------------------------------------------------
+I tre no di D3 erano oroscopo-12, 13 e 34, tutti per il "Da dove viene" (e il rito del 34).
+Punti e padri (Regola C):
+1. oroscopo-12, "la Luna e' calante a meta' in Leone": gergo e senza effetto. Padre: GA.06 sesto
+   giro (le fasi della Luna dette cosi'). Cura: la fase in parole ("in Leone la Luna cala verso la
+   nuova, il momento di chiudere e lasciare andare") e, nella Lunga, "Cade nell'area della tua
+   vita che riguarda la fortuna" quando la fase e' scelta perche' cade nell'area del campo. Il
+   riempitivo "Il giudizio viene da tutto il cielo del periodo" e' tolto.
+2. oroscopo-13, "il Sole sta nell'area del lavoro di ogni giorno: li' resta sullo sfondo": frase
+   vuota. Padre: GA.06 sesto giro. Cura: "il Sole tocca l'area ... da lontano: e' un tema che
+   nell'anno resta in secondo piano" (e le due varianti, in primo piano e con forza), stessa forma
+   per Saturno; "Se il tempo tuo salta" diventa "Se il tempo per te salta" nel corpus dell'Anno
+   occidentale (docs/corpus/eu/oroscopo_eu_occidentale_anno.md, voce dell'Architetto, rigenerato
+   con tool/_gen_oroscopo_eu.py: UN RITOCCO a una frase dell'Architetto da dichiarare).
+3. oroscopo-34: "porta" ripetuto, "neutro, perche' c'e' intensita'" senza nesso, rito che tira
+   in senso opposto. Padri: GA.06 sesto giro (le frasi), GA.04 (il rito del Kai scritto come
+   "pronuncia una frase sincera" senza guardare la risposta). Cura: "una forza intensa, fatta di
+   sfida e di energia"; "Per l'amore c'e' intensita', fra attrazione e tensione: il giorno e' in
+   equilibrio" (prima il fatto, poi il giudizio con le parole del livello); il rito Kai
+   dell'Amore diventa un gesto (un biglietto con due parole gentili, aprire una finestra) che non
+   prende posizione sulle parole e non e' piu' quasi uguale al rito di oroscopo-2.
+4. Lo stesso verso in oroscopo-7 e 12, e nomi greci accanto a Marte. Padre: GA.06 prima cura
+   (un verso per dominio: il verso otto serviva a Carriera e Fortuna). Cura: la Fortuna di Marte
+   cita solo la seconda meta' dello stesso verso, "nelle opere di Demetra" (εἰς ἔργα τὰ Δηοῦς),
+   dichiarato nelle formule; la fonte dice "un verso di un antico inno greco ad Ares, il Marte dei
+   Romani" e i riti della Fortuna dicono "ad Ares, il Marte dei Romani". Il verso 9 dell'inno 65
+   non e' stato verificato sulla fonte e non e' stato inventato: la Carriera e la Fortuna restano
+   due campi sullo stesso verso, ma non piu' parola per parola.
+5. Le gabbie "Il livello della settimana e' la media dei suoi sette giorni" (vedica e cinese) e
+   "il gesto del calendario cinese per il giorno che compie" detto di un anno o di un mese.
+   Padri: ordine EU voce 02 (la media dei giorni) e GA.06 sesto giro (la gabbia, il descrittore).
+   Cura: "Per il lavoro e lo studio il cielo della settimana e' in equilibrio, con il giorno
+   migliore lunedi' 26 ottobre" e, nella Lunga, il fatto di quel giorno ("Per la tradizione
+   cinese quel giorno porta la forza della protezione ..."); il descrittore e' "Un gesto del
+   calendario cinese, quello legato al giorno che compie", giusto per ogni periodo. In piu' "Per
+   le occasioni" nei riti cinesi della Fortuna (23) diventa "Per la fortuna" (vago, 44), e
+   "oggi il giorno" sotto la data di un altro giorno non diventa piu' "quel giorno il giorno".
+6. Tre Amore con la stessa struttura "Se vivi una relazione... se sei senza legame...": e' la
+   struttura delle voci dell'Architetto (cosa fare), non di questo giro: NON TOCCATA, da dire
+   all'Architetto. Il rito quasi identico fra oroscopo-2 e 34 e' curato al punto 3.
+
+Regola A, la guardia il_da_dove_viene_non_ha_gergo_test ha quattro controlli nuovi, tutti visti
+rossi con innesti a mano verificati col grep («INNESTO GA06G7», 4 occorrenze) e tolti (0):
+ H1 "calante a meta'" nella fase della Luna: ROSSA (2 righe);
+ H2 "e' la media dei suoi giorni": ROSSA (128 righe);
+ H3 ": li' resta sullo sfondo": ROSSA (36 righe; piu' 18 corpi a 3 frasi e 14 a 4 nella Lunga);
+ H4 "per il giorno che" nella fonte del rito: ROSSA (48 + 96 righe).
+Senza innesti: VERDE, difetti 0, corpo piu' lungo 52 parole (Breve) e 64 (Lunga), tetti 56 e 66.
+Regola B: le prove della zona toccata passano (189 + 64), nessuna e' stata cambiata in questo
+micro-giro; le formule del controllo dei riti (strumento di lavoro) tengono la nuova formula
+della Fortuna di Marte. flutter analyze lib test tool: nessun problema.
